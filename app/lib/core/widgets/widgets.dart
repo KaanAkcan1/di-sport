@@ -1,0 +1,15 @@
+/// Uygulama genelinde paylaşılan arayüz bileşenleri.
+///
+/// Tek içe aktarma noktası: `import 'package:disport/core/widgets/widgets.dart';`
+///
+/// Buraya yalnızca **birden fazla feature'da** kullanılan bileşenler
+/// girer. Tek bir ekrana ait olan widget, o feature'ın
+/// `presentation/` klasöründe kalır — burası genel amaçlı bir çöplük
+/// değil, paylaşılanların sözleşmesidir.
+library;
+
+export 'app_async_view.dart';
+export 'app_empty_state.dart';
+export 'app_metric_value.dart';
+export 'app_section.dart';
+export 'app_status_indicator.dart';

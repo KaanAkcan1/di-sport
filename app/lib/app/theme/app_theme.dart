@@ -1,25 +1,70 @@
+import 'package:disport/app/theme/app_color_schemes.dart';
+import 'package:disport/app/theme/app_component_themes.dart';
+import 'package:disport/core/design/app_semantic_colors.dart';
+import 'package:disport/core/design/app_typography.dart';
+import 'package:flutter/cupertino.dart' show CupertinoPageTransitionsBuilder;
 import 'package:flutter/material.dart';
 
-/// Uygulama teması.
+/// Uygulama teması — parçaları birleştiren ince katman.
 ///
-/// Tek tohum renkten iki mod türetilir (spec Bölüm 6). Renkleri tek tek
-/// elle atamak yerine `ColorScheme.fromSeed` kullanmak, açık ve koyu
-/// modun kontrast kurallarını Material'a bırakır — okunabilirlik
-/// bizim tahminimize değil, üretilen palete bağlı olur.
+/// Renk şemaları [AppColorSchemes], bileşen stilleri
+/// [AppComponentThemes], tipografi [AppTypography], anlam renkleri
+/// [AppSemanticColors] içinde. Bu dosyanın tek işi onları bir araya
+/// getirmek; büyüdüğünü fark edersen parça yanlış yerde demektir.
 abstract final class AppTheme {
-  /// Koyu yeşil — sağlık ve spor bağlamı.
-  static const _seed = Color(0xFF2E7D32);
+  static ThemeData get light =>
+      _build(AppColorSchemes.light, AppSemanticColors.light);
 
-  static final ThemeData light = ThemeData(
-    useMaterial3: true,
-    colorScheme: ColorScheme.fromSeed(seedColor: _seed),
-  );
+  static ThemeData get dark =>
+      _build(AppColorSchemes.dark, AppSemanticColors.dark);
 
-  static final ThemeData dark = ThemeData(
-    useMaterial3: true,
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: _seed,
-      brightness: Brightness.dark,
-    ),
-  );
+  static ThemeData _build(ColorScheme c, AppSemanticColors semantic) {
+    final t = AppTypography.textTheme.apply(
+      fontFamily: AppTypography.fontFamily,
+      bodyColor: c.onSurface,
+      displayColor: c.onSurface,
+    );
+
+    return ThemeData(
+      useMaterial3: true,
+      colorScheme: c,
+      fontFamily: AppTypography.fontFamily,
+      textTheme: t,
+      scaffoldBackgroundColor: c.surface,
+      splashFactory: InkSparkle.splashFactory,
+
+      // Anlam renkleri `context.semantic` ile erişilir.
+      extensions: [semantic],
+
+      // Küçük ikonlar bile 48dp dokunma alanı alır
+      // (ui-ux §2 `touch-target-size`).
+      materialTapTargetSize: MaterialTapTargetSize.padded,
+      visualDensity: VisualDensity.standard,
+
+      appBarTheme: AppComponentThemes.appBar(c, t),
+      cardTheme: AppComponentThemes.card(c),
+      dividerTheme: AppComponentThemes.divider(c),
+      navigationBarTheme: AppComponentThemes.navigation(c, t),
+      listTileTheme: AppComponentThemes.listTile(c, t),
+      checkboxTheme: AppComponentThemes.checkbox(c),
+      switchTheme: AppComponentThemes.switches(c),
+      inputDecorationTheme: AppComponentThemes.inputs(c, t),
+      filledButtonTheme: AppComponentThemes.filledButton(t),
+      outlinedButtonTheme: AppComponentThemes.outlinedButton(c, t),
+      textButtonTheme: AppComponentThemes.textButton(t),
+      segmentedButtonTheme: AppComponentThemes.segmentedButton(c, t),
+      chipTheme: AppComponentThemes.chip(c, t),
+      bottomSheetTheme: AppComponentThemes.bottomSheet(c),
+      dialogTheme: AppComponentThemes.dialog(c, t),
+      snackBarTheme: AppComponentThemes.snackBar(c, t),
+      progressIndicatorTheme: AppComponentThemes.progress(c),
+
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: FadeForwardsPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        },
+      ),
+    );
+  }
 }
