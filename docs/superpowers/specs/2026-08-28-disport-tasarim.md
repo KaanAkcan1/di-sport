@@ -30,7 +30,8 @@ Kişisel sağlık ve antrenman takip uygulaması. Bugün kâğıt üzerinde tutu
 - MCP connector (kullanıcının kendi AI aboneliğiyle doğrudan konuşması)
 
 Bu ayrımın mimarideki bedeli iki şey: her tabloda `userId`/`updatedAt`/`deletedAt`
-alanları, ve tüm veri erişiminin tek bir repository katmanından geçmesi.
+alanları, ve tüm veri erişiminin feature'ların `data/` katmanından geçmesi —
+`domain` ve `presentation` katmanları veritabanını hiç görmez.
 
 ## 3. Teknoloji
 
@@ -41,7 +42,8 @@ alanları, ve tüm veri erişiminin tek bir repository katmanından geçmesi.
 | Veritabanı | Drift (SQLite) | Tip güvenli, reaktif sorgular, göç desteği |
 | Grafik | fl_chart | Kilo trendi, tahlil serileri |
 | Bildirim | flutter_local_notifications + timezone | Yerel alarmlar |
-| Mimari | Katmanlı: presentation → domain → data | Repository katmanı faz-2 senkronunun tek değişecek yeri |
+| Mimari | Feature-first + feature içi katmanlama | Bölüm 4 |
+| Kod üretimi | Drift · riverpod_generator · freezed (yalnız `ai_bridge`) | `build_runner` ile |
 
 **Geliştirme:** Windows üzerinde Android hedefiyle yapılır. macOS yalnızca
 iOS derlemesi ve imzalama aşamasında gerekir.
@@ -50,22 +52,102 @@ iOS derlemesi ve imzalama aşamasında gerekir.
 (TypeScript, Dart'ta kullanılamaz). Flutter'ın kendi bileşenleri üzerine
 proje içi bir tema katmanı kurulacak.
 
-## 4. Modüller
+## 4. Mimari ve klasör yapısı
 
-Her modül tek bir sorumluluk taşır ve arayüzü üzerinden konuşur.
+Feature-first: her özellik kendi klasöründe, kendi katmanlarıyla. Referans olarak
+`connectHub` projesinin yapısı alınmış, Flutter'ın gerektirdiği yerlerde
+uyarlanmıştır.
 
-| Modül | Sorumluluk | Bağımlılık |
-|---|---|---|
-| `catalog` | Egzersiz kütüphanesi; salt-okunur çekirdek + kullanıcı tanımlı ekler | `repo` |
-| `plan` | 28 günlük program; katalog id'lerine referans verir | `repo`, `catalog` |
-| `log` | Günlük kayıt: işaretler, notlar, gerçekleşen setler | `repo` |
-| `health` | Vücut ölçümleri, tahliller, tahlil takvimi | `repo` |
-| `ai_bridge` | ÇIKIŞ: `context.md` üretimi · GİRİŞ: `plan.json` doğrulama ve içe alma | `repo`, `catalog`, `plan`, `log`, `health` |
-| `reminder` | Alarm zamanlama, 7 günlük kaydırmalı pencere | `plan`, `log`, `health` |
-| `repo` | Tüm veri erişimi; Drift'i sarar | — |
+### 4.1 Klasör düzeni
 
-`ai_bridge` ve `repo`'nun ayrı olması iki faz-2 talebini karşılar: MCP eklemek
-`ai_bridge`'e bir adaptör, Google girişi `repo`'nun arkasına bir katmandır.
+```
+lib/
+  main.dart
+  bootstrap.dart
+  app/
+    app.dart              MaterialApp, tema bağlama
+    router.dart
+    theme/
+  core/
+    db/                   AppDatabase (Drift), göçler
+    result/               Result<T> / Failure
+    notifications/        bildirim servisi soyutlaması
+    widgets/              paylaşılan UI bileşenleri
+    utils/  extensions/
+  features/
+    today/  workout/  plan/  catalog/  progress/
+    health/  ai_bridge/  reminders/  settings/
+      <feature>/
+        domain/           modeller ve saf mantık (UI ve veritabanından bağımsız)
+        data/             Drift tablo tanımları, DAO, repository
+        application/      Riverpod notifier / provider
+        presentation/     ekranlar ve widget'lar
+        <feature>.dart    barrel — feature'ın dışa açtığı yüzey
+test/
+  features/<feature>/...  kaynak ağacını aynalayan yapı
+```
+
+### 4.2 Modül sorumlulukları
+
+| Feature | Sorumluluk |
+|---|---|
+| `catalog` | Egzersiz kütüphanesi; salt-okunur çekirdek + kullanıcı tanımlı ekler |
+| `plan` | 28 günlük program; katalog id'lerine referans verir |
+| `today` | Günlük ekran: slot işaretleri, tartı ve uyku girişi, serbest not |
+| `workout` | Antrenman akışı: set sayacı, dinlenme, gerçekleşen kayıt |
+| `progress` | Kilo trendi, haftalık özet, ay sonu tablosu, geçiş kriteri |
+| `health` | Vücut ölçümleri, tahliller, tahlil takvimi |
+| `ai_bridge` | ÇIKIŞ: `context.md` üretimi · GİRİŞ: `plan.json` doğrulama ve içe alma |
+| `reminders` | Alarm zamanlama, 7 günlük kaydırmalı pencere |
+| `settings` | Profil, yaşam tarzı, bildirim tercihleri, yedekleme |
+
+### 4.3 Bağımlılık kuralları
+
+**`core` hiçbir feature'ı import edemez.** Ok tek yönlü: `features → core`.
+`custom_lint` kuralıyla derleme zamanında zorlanır.
+
+**`ai_bridge` hiçbir feature'ı import etmez.** Bu modül altı feature'dan veri
+toplar; doğrudan bağlanırsa hepsine kenetlenir ve izole test edilemez. Bunun
+yerine kendi **port arayüzlerini** tanımlar — `PlanSource`, `LogSource`,
+`HealthSource`, `CatalogSource` — ve her feature kendi implementasyonunu kaydeder.
+Bağımlılık oku tersine döner: feature'lar `ai_bridge`'i bilir, `ai_bridge`
+kimseyi bilmez. Testte sahte kaynaklarla `context.md` üretimi izole doğrulanır.
+
+Kuralın kesin hali: `ai_bridge`, feature'ların yalnızca `domain/` katmanını
+import edebilir (importer'ın ürettiği `FullPlan` ve `Exercise` tipleri oradadır;
+bunları porta kopyalamak DRY ihlali olurdu). `data/`, `application/`,
+`presentation/` katmanlarını asla import edemez.
+
+**Feature'lar arası doğrudan import yerine port.** İki feature veri paylaşmak
+zorundaysa, tüketen taraf bir arayüz tanımlar; üreten taraf onu uygular.
+
+### 4.4 Drift'in özel durumu
+
+Drift tüm tabloları tek bir `AppDatabase` şemasında ister. Buna karşın tablolar
+feature'lara ait olmalıdır. Çözüm: tablo tanımları feature içinde
+(`features/plan/data/plan_tables.dart`), `core/db/app_database.dart` bunları
+`@DriftDatabase(tables: [...])` ile toplar, DAO'lar feature içinde kalır.
+Feature kendi şemasına sahip olur, veritabanı tek kalır.
+
+Faz-2 senkronu her feature'ın `data/` katmanının arkasına eklenir; `domain` ve
+`presentation` katmanları değişmez.
+
+### 4.5 Test yerleşimi
+
+Testler kaynağın yanında değil, `test/` altında ayna yapıdadır. Bu bir tercih
+değil dilin gereğidir: `flutter test` varsayılan olarak `test/` klasörünü tarar
+ve `lib/` içine konan test dosyaları derlemeye dahil olur.
+
+### 4.6 Kod üretimi
+
+- **Drift** — veritabanı katmanı için zorunlu
+- **riverpod_generator** (`@riverpod`) — şablon kodu azaltır, her feature'ın
+  `application/` katmanında
+- **freezed + json_serializable** — **yalnızca `ai_bridge`'de.** `plan.json`
+  ayrıştırmasını elle yazmak hataya açıktır. Başka yerde kullanılmaz; gereksiz
+  dolaylılık katar.
+
+Üçü de `dart run build_runner watch` ile çalışır.
 
 ## 5. Veri modeli
 
@@ -356,11 +438,11 @@ sonunda uygulama telefonda açılır ve bir önceki adımdan fazlasını yapar.
 
 | # | Kapsam | Sonunda ne çalışır |
 |---|---|---|
-| M1 | Proje iskeleti, tema, `repo` + Drift şeması, gezinme | Boş ama gezilebilir uygulama; veritabanı ayakta |
+| M1 | Proje iskeleti, `app/` + `core/`, Drift şeması, gezinme, lint kuralları | Boş ama gezilebilir uygulama; veritabanı ayakta |
 | M2 | `catalog` modülü + tohum veri (`assets/catalog.json`) + Katalog ekranı | Hareketler aranabilir, detay sayfası tam okunur |
 | M3 | `plan` + `log` + Bugün ve Antrenman ekranları; plan elle girilebilir | Günlük takip baştan sona kullanılabilir |
 | M4 | `ai_bridge`: `context.md` üretimi, `plan.json` doğrulama ve içe alma | AI döngüsü kapanır; plan artık elle girilmiyor |
-| M5 | `health` + İlerleme ve Sağlık ekranları + `reminder` (alarmlar) | Grafikler, tahliller ve alarmlar devrede |
+| M5 | `health` + `progress` + `reminders` (alarmlar) | Grafikler, tahliller ve alarmlar devrede |
 
 M3 sonunda uygulama günlük kullanıma girebilir; M4 ve M5 üstüne biner.
 Egzersiz içeriğinin hazırlanması (bölüm 9) M2'ye girdi olur ve ondan önce
@@ -369,8 +451,9 @@ başlatılabilir.
 ## 13. Sonraki fazlar
 
 **Faz 2 — Hesap ve senkron.** Google ile giriş; `userId` gerçek değer alır.
-Repository katmanının arkasına uzak veri kaynağı ve `updatedAt` tabanlı
-çakışma çözümü eklenir. Veri modeli değişmez.
+Her feature'ın `data/` katmanının arkasına uzak veri kaynağı ve `updatedAt`
+tabanlı çakışma çözümü eklenir. Veri modeli, `domain` ve `presentation`
+katmanları değişmez.
 
 **Faz 3 — MCP connector.** Uygulama verisini uzak MCP sunucusu olarak yayınlar;
 kullanıcı bunu AI hesabına bir kez ekler ve telefonundan doğrudan verisiyle
