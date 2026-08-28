@@ -68,7 +68,7 @@ di@sport/
 | `plan` | yer tutucu | 28 günlük program |
 | `progress` | yer tutucu | Kilo trendi, haftalık özet, geçiş kriteri |
 | `health` | yer tutucu | Vücut ölçümleri, tahliller |
-| `catalog` | yer tutucu | Egzersiz kütüphanesi |
+| `catalog` | yer tutucu (veri hazır) | Egzersiz kütüphanesi. `assets/catalog.json` 17 hareketle dolu; ekran M2'de. |
 | `workout` | yok | Antrenman akışı (M3) |
 | `ai_bridge` | yok | context.md üretimi + plan.json içe alma (M4) |
 | `reminders` | yok | Alarmlar (M5) |
@@ -205,7 +205,28 @@ flutter run                   # emülatörde çalıştır
 - Kod yorumları *neden*i anlatır, *ne*yi değil. Bir karar tartışmalıysa
   gerekçesi yorumda durur.
 
+## Egzersiz kataloğu
+
+`app/assets/catalog.json` — 17 hareket, PDF programının tamamını kapsar
+(Program A, Program B, salon kardiyo, artı geçiş kriterinin ölçütü olan
+şınav zinciri). Her kayıtta: özet, başlangıç, 3+ adımlı anlatım, nefes,
+tempo, ipuçları, 2+ hata kaydı (hata / neden / düzeltme), güvenlik,
+kolaylaştırma-zorlaştırma zinciri.
+
+`app/test/assets/catalog_seed_test.dart` şemayı ve içerik çıtasını
+doğrular — çıta M4'te AI'ın önereceği hareketlere uygulanacakla aynı.
+
+**Görseller:** 7 hareketin görseli var (`assets/exercises/*.webp`).
+Kaynak free-exercise-db (kamu malı); ham kullanılmıyor — `tools/build_catalog_images.py`
+hepsini aynı işlemden geçiriyor: kırpma (üçüncü taraf salon tabelaları
+kadraj dışına), duotone (tek görsel dil), başlangıç + bitiş karesi yan yana,
+numaralı. Kaynak kareleri hareketi net göstermeyen ya da arka planında
+okunur marka kalan kayıtlar **bilerek görselsiz**: yanlış görsel görselsizden
+kötüdür. Görsel eklemek için o dosyadaki `SOURCES` tablosuna satır ekle.
+
 ## Durum
 
 M1 tamamlandı: iskelet, Drift şeması, tasarım sistemi, 5 sekmeli kabuk,
-64 test. Sıradaki: **M2 — egzersiz kataloğu.**
+egzersiz kataloğu verisi, 72 test. Sıradaki: **M2 — katalog ekranları**
+(tablo, repository, liste, dört sekmeli detay). Tohum veri hazır olduğu için
+M2'nin Task 4'ü tamamlanmış sayılır.
