@@ -46,6 +46,7 @@ class ContextMdBuilder {
     required this.health,
     required this.catalog,
     required this.plan,
+    required this.availability,
   });
 
   final ProfileSource profile;
@@ -53,6 +54,7 @@ class ContextMdBuilder {
   final HealthSource health;
   final CatalogSource catalog;
   final PlanSource plan;
+  final AvailabilitySource availability;
 
   /// Geçen dönem verisi için bakılacak gün sayısı.
   static const lookbackDays = 28;
@@ -66,6 +68,7 @@ class ContextMdBuilder {
     final labs = await health.recentLabs();
     final exercises = await catalog.selectable();
     final activePlan = await plan.activePlanSummary();
+    final windows = await availability.windows();
 
     final startDate = _iso(today.add(const Duration(days: 1)));
 
@@ -81,7 +84,7 @@ class ContextMdBuilder {
 
     _writeWho(buffer, profileData);
     _writeGoal(buffer, profileData, weeks, activePlan);
-    _writeConstraints(buffer, profileData);
+    _writeConstraints(buffer, profileData, windows);
     _writeLastPeriod(buffer, compliance, metrics, actuals);
     _writeNotes(buffer, notes);
     _writeLabs(buffer, labs);
@@ -140,7 +143,11 @@ class ContextMdBuilder {
     buffer.writeln();
   }
 
-  void _writeConstraints(StringBuffer buffer, Map<String, String> data) {
+  void _writeConstraints(
+    StringBuffer buffer,
+    Map<String, String> data,
+    List<WindowDump> windows,
+  ) {
     final constraints = data[ProfileKeys.healthConstraints];
 
     buffer
@@ -154,10 +161,57 @@ class ContextMdBuilder {
         '- Zıplamalı hareket ve uzun koşu yok. Geçiş kriteri: 105 kg '
         'altına inmek, 8 nizami şınav yapmak ve koşu ertesi diz/incik '
         'ağrısı olmaması — üçü birden sağlanana kadar.',
-      )
-      ..writeln()
-      ;
+      );
+
+    _writeWindows(buffer, windows);
+    buffer.writeln();
   }
+
+  /// Haftalık uygunluk.
+  ///
+  /// İki tür ayrı yazılıyor çünkü AI için anlamları farklı: mesaide
+  /// öğün olur ama antrenman olmaz, yasaklı saatte hiçbir şey olmaz.
+  /// Tek liste hâlinde verilseydi bu ayrım kaybolurdu.
+  void _writeWindows(StringBuffer buffer, List<WindowDump> windows) {
+    if (windows.isEmpty) {
+      buffer.writeln('- Haftalık uygunluk belirtilmedi.');
+      return;
+    }
+
+    String describe(Iterable<WindowDump> group) => group
+        .map(
+          (w) =>
+              '${_weekdayNames[w.weekday - 1]} ${w.startTime}-${w.endTime}'
+              '${w.label.isEmpty ? '' : ' (${w.label})'}',
+        )
+        .join(', ');
+
+    final work = windows.where((w) => w.kind == 'work');
+    final blocked = windows.where((w) => w.kind == 'blocked');
+
+    if (work.isNotEmpty) {
+      buffer.writeln(
+        '- Mesai (bu saatlerde işte; öğün olabilir, antrenman olamaz): '
+        '${describe(work)}',
+      );
+    }
+    if (blocked.isNotEmpty) {
+      buffer.writeln(
+        '- Uygun olunmayan saatler (hiçbir şey planlama): '
+        '${describe(blocked)}',
+      );
+    }
+  }
+
+  static const _weekdayNames = [
+    'Pazartesi',
+    'Salı',
+    'Çarşamba',
+    'Perşembe',
+    'Cuma',
+    'Cumartesi',
+    'Pazar',
+  ];
 
   void _writeLastPeriod(
     StringBuffer buffer,

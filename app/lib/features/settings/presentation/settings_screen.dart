@@ -3,6 +3,7 @@ import 'package:disport/features/catalog/presentation/equipment_screen.dart';
 import 'package:disport/features/settings/presentation/backup_settings.dart';
 import 'package:disport/features/settings/presentation/notification_settings.dart';
 import 'package:disport/features/settings/presentation/profile_form.dart';
+import 'package:disport/features/settings/presentation/weekly_schedule_screen.dart';
 import 'package:flutter/material.dart';
 
 /// Ayarlar: profil, bildirimler, yedekleme.
@@ -18,6 +19,7 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Ayarlar')),
       body: const ProfileForm(
         trailing: [
+          _WeeklyScheduleEntry(),
           _EquipmentEntry(),
           NotificationSettings(),
           BackupSettings(),
@@ -48,6 +50,33 @@ class _EquipmentEntry extends StatelessWidget {
           trailing: const Icon(Icons.chevron_right),
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute<void>(builder: (_) => const EquipmentScreen()),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Haftalık düzen ekranına giriş.
+class _WeeklyScheduleEntry extends StatelessWidget {
+  const _WeeklyScheduleEntry();
+
+  @override
+  Widget build(BuildContext context) {
+    return AppSection(
+      title: 'Haftalık düzen',
+      description: 'Mesain ve uygun olmadığın saatler. Yapay zekâ planı '
+          'bunlara göre kurar, alarmlar yasaklı saatlerde çalmaz.',
+      child: Card(
+        child: ListTile(
+          key: const Key('open-weekly-schedule'),
+          leading: const Icon(Icons.calendar_view_week_outlined),
+          title: const Text('Mesai ve uygun olmayan saatler'),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => const WeeklyScheduleScreen(),
+            ),
           ),
         ),
       ),

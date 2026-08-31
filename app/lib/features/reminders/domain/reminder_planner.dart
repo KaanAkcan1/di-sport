@@ -1,3 +1,6 @@
+import 'package:disport/features/settings/data/weekly_window_table.dart';
+import 'package:disport/features/settings/domain/weekly_window.dart';
+
 /// Bildirime dokunulunca açılacak sekme.
 ///
 /// Değerler kabuktaki sekme sırasıyla eşlenir (`app.dart`); string
@@ -64,6 +67,7 @@ List<PendingReminder> planWindow({
   required List<String> dueLabMarkers,
   required DateTime? planEndDate,
   required bool twoDayMissStreak,
+  List<WeeklyWindow> blockedWindows = const [],
   int windowDays = 7,
   int maxCount = 60,
 }) {
@@ -78,7 +82,19 @@ List<PendingReminder> planWindow({
 
   final inWindow =
       candidates
-          .where((r) => r.fireAt.isAfter(now) && r.fireAt.isBefore(until))
+          .where(
+            (r) =>
+                r.fireAt.isAfter(now) &&
+                r.fireAt.isBefore(until) &&
+                // Yasaklı pencereye düşen bildirim hiç kurulmuyor:
+                // kullanıcı "bu saatlerde uygun değilim" dediyse alarmın
+                // yine de çalması o ayarı anlamsız kılardı.
+                !isWithinWindow(
+                  moment: r.fireAt,
+                  windows: blockedWindows,
+                  kind: WindowKinds.blocked,
+                ),
+          )
           .toList()
         ..sort((a, b) => a.fireAt.compareTo(b.fireAt));
 

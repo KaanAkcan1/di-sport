@@ -5,6 +5,7 @@ import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/reminders/application/reminder_scheduler.dart';
 import 'package:disport/features/reminders/domain/reminder_planner.dart';
 import 'package:disport/features/settings/data/profile_repository.dart';
+import 'package:disport/features/settings/data/weekly_windows_repository.dart';
 import 'package:disport/features/today/data/today_repository.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -50,6 +51,7 @@ void main() {
       today: TodayRepository(db),
       labs: LabRepository(db),
       profile: ProfileRepository(db),
+      windows: WeeklyWindowsRepository(db),
     );
   });
   tearDown(() => db.close());
@@ -180,6 +182,49 @@ void main() {
       // Yine de çağrılır: önceki kurulumun temizlenmesi gerekiyor.
       expect(service.calls, hasLength(1));
       expect(service.lastCall, isEmpty);
+    });
+  });
+
+  group('yasaklı pencereler', () {
+    test('yasaklı saate düşen bildirim kurulmaz', () async {
+      await ProfileRepository(db).set('wakeTime', '06:30');
+      // Tartı 06:45'e denk geliyor; Salı sabahı uygun değil.
+      await WeeklyWindowsRepository(db).addForDays(
+        weekdays: const [1, 2, 3, 4, 5, 6, 7],
+        startTime: '06:00',
+        endTime: '08:00',
+        kind: WindowKinds.blocked,
+      );
+
+      final count = await scheduler.reschedule(now);
+      expect(count, 0);
+    });
+
+    test('pencere dışındaki bildirim etkilenmez', () async {
+      await ProfileRepository(db).set('wakeTime', '06:30');
+      await WeeklyWindowsRepository(db).addForDays(
+        weekdays: const [1, 2, 3, 4, 5, 6, 7],
+        startTime: '13:00',
+        endTime: '14:00',
+        kind: WindowKinds.blocked,
+      );
+
+      final count = await scheduler.reschedule(now);
+      expect(count, 7);
+    });
+
+    test('mesai penceresi bildirimleri elemiyor', () async {
+      // Mesai "işteyim" demek, "rahatsız etme" değil — insan işte de
+      // yemek yiyor. Yalnız `blocked` eliyor.
+      await ProfileRepository(db).set('wakeTime', '06:30');
+      await WeeklyWindowsRepository(db).addForDays(
+        weekdays: const [1, 2, 3, 4, 5, 6, 7],
+        startTime: '06:00',
+        endTime: '08:00',
+        kind: WindowKinds.work,
+      );
+
+      expect(await scheduler.reschedule(now), 7);
     });
   });
 }

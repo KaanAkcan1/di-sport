@@ -1,9 +1,11 @@
+import 'package:disport/app/app.dart';
 import 'package:disport/core/notifications/local_notification_service.dart';
 import 'package:disport/core/notifications/notification_service.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/health/application/health_providers.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/reminders/application/reminder_scheduler.dart';
+import 'package:disport/features/settings/data/weekly_windows_repository.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -44,4 +46,5 @@ ReminderScheduler reminderScheduler(Ref ref) => ReminderScheduler(
   today: ref.watch(todayRepositoryProvider),
   labs: ref.watch(labRepositoryProvider),
   profile: ref.watch(profileRepositoryProvider),
+  windows: WeeklyWindowsRepository(ref.watch(appDatabaseProvider)),
 );

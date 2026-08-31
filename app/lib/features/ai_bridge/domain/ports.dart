@@ -156,3 +156,32 @@ class ActivePlanSummary {
 abstract interface class PlanSource {
   Future<ActivePlanSummary?> activePlanSummary();
 }
+
+/// Haftalık uygunluk penceresi — mesai ya da yasaklı saat.
+class WindowDump {
+  const WindowDump({
+    required this.weekday,
+    required this.startTime,
+    required this.endTime,
+    required this.kind,
+    required this.label,
+  });
+
+  /// 1 = Pazartesi … 7 = Pazar.
+  final int weekday;
+  final String startTime;
+  final String endTime;
+
+  /// `work` ya da `blocked`.
+  final String kind;
+  final String label;
+}
+
+/// Kullanıcının haftalık uygunluğu.
+///
+/// v1'de AI'a "sabah 06:30 kahvaltı" diyebiliyorduk ama kullanıcının
+/// 08:00-18:00 arası fabrikada olduğunu söyleyemiyorduk; plan bu yüzden
+/// mesai saatine antrenman koyabiliyordu.
+abstract interface class AvailabilitySource {
+  Future<List<WindowDump>> windows();
+}

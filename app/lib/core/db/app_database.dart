@@ -5,6 +5,7 @@ import 'package:disport/features/health/data/lab_tables.dart';
 import 'package:disport/features/health/data/metric_definition_table.dart';
 import 'package:disport/features/plan/data/plan_tables.dart';
 import 'package:disport/features/settings/data/profile_table.dart';
+import 'package:disport/features/settings/data/weekly_window_table.dart';
 import 'package:disport/features/today/data/daily_log_table.dart';
 import 'package:disport/features/today/data/daily_rule_table.dart';
 import 'package:disport/features/workout/data/exercise_log_table.dart';
@@ -34,6 +35,7 @@ part 'app_database.g.dart';
     DailyRules,
     MetricDefinitions,
     EquipmentItems,
+    WeeklyWindows,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -43,7 +45,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 9;
+  int get schemaVersion => 10;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -80,6 +82,9 @@ class AppDatabase extends _$AppDatabase {
       }
       if (from < 9) {
         await m.createTable(equipmentItems);
+      }
+      if (from < 10) {
+        await m.createTable(weeklyWindows);
       }
     },
   );

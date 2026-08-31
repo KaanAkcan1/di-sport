@@ -8,8 +8,10 @@ import 'package:disport/features/health/application/health_providers.dart';
 import 'package:disport/features/health/application/health_source_adapter.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/plan/application/plan_source_adapter.dart';
+import 'package:disport/features/settings/application/availability_source_adapter.dart';
 import 'package:disport/features/settings/application/profile_source_adapter.dart';
 import 'package:disport/features/settings/data/profile_repository.dart';
+import 'package:disport/features/settings/data/weekly_windows_repository.dart';
 import 'package:disport/features/today/application/log_source_adapter.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/workout/application/workout_providers.dart';
@@ -50,6 +52,9 @@ ContextMdBuilder contextMdBuilder(Ref ref) => ContextMdBuilder(
   ),
   catalog: CatalogSourceAdapter(ref.watch(catalogRepositoryProvider)),
   plan: PlanSourceAdapter(ref.watch(planRepositoryProvider)),
+  availability: AvailabilitySourceAdapter(
+    WeeklyWindowsRepository(ref.watch(appDatabaseProvider)),
+  ),
 );
 
 /// Doğrulayıcı; katalogdaki güncel hareketlerle kurulur.

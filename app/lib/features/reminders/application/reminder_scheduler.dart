@@ -5,6 +5,7 @@ import 'package:disport/features/health/data/lab_repository.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/reminders/domain/reminder_planner.dart';
 import 'package:disport/features/settings/data/profile_repository.dart';
+import 'package:disport/features/settings/data/weekly_windows_repository.dart';
 import 'package:disport/features/today/data/today_repository.dart';
 
 /// Bir bildirim türünün profil anahtarı.
@@ -37,6 +38,7 @@ class ReminderScheduler {
     required this.today,
     required this.labs,
     required this.profile,
+    required this.windows,
   });
 
   final NotificationService service;
@@ -44,6 +46,10 @@ class ReminderScheduler {
   final TodayRepository today;
   final LabRepository labs;
   final ProfileRepository profile;
+
+  /// Mesai ve yasaklı saat pencereleri; yasaklı olanlar bildirimleri
+  /// eliyor.
+  final WeeklyWindowsRepository windows;
 
   /// Pencereyi baştan kurar; kurulan bildirim sayısını döner.
   Future<int> reschedule(DateTime now) async {
@@ -91,6 +97,7 @@ class ReminderScheduler {
       dueLabMarkers: [for (final schedule in due) schedule.marker],
       planEndDate: plan?.days.last.date,
       twoDayMissStreak: missedStreak >= 2,
+      blockedWindows: await windows.all(),
     );
 
     // Boş liste de kuruluyor: önceki kurulumun temizlenmesi gerekiyor.

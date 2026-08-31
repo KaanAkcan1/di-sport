@@ -64,6 +64,14 @@ class _FakePlan implements PlanSource {
   Future<ActivePlanSummary?> activePlanSummary() async => summary;
 }
 
+class _FakeAvailability implements AvailabilitySource {
+  const _FakeAvailability(this.items);
+  final List<WindowDump> items;
+
+  @override
+  Future<List<WindowDump>> windows() async => items;
+}
+
 void main() {
   final today = DateTime(2026, 9, 28);
 
@@ -76,12 +84,14 @@ void main() {
     List<LabValueDump> labs = const [],
     List<ExerciseRef> catalog = const [],
     ActivePlanSummary? plan,
+    List<WindowDump> windows = const [],
   }) => ContextMdBuilder(
     profile: _FakeProfile(profile),
     logs: _FakeLogs(days: days, notes: notes, sets: sets),
     health: _FakeHealth(metrics: metrics, labs: labs),
     catalog: _FakeCatalog(catalog),
     plan: _FakePlan(plan),
+    availability: _FakeAvailability(windows),
   );
 
   const fullProfile = {
@@ -318,6 +328,58 @@ void main() {
   test('hafta sayısı isteğe yansır', () async {
     final md = await builder().build(today: today, weeks: 2);
     expect(md, contains('2 haftalık'));
+  });
+
+  group('haftalık uygunluk', () {
+    test('pencere yoksa belirtilmedi der', () async {
+      final md = await builder().build(today: today);
+      expect(md, contains('Haftalık uygunluk belirtilmedi'));
+    });
+
+    test('mesai ve yasaklı ayrı satırlarda, anlamlarıyla', () async {
+      // İkisi tek listede verilseydi AI için ayrım kaybolurdu:
+      // mesaide öğün olur, yasaklı saatte hiçbir şey olmaz.
+      final md = await builder(
+        windows: const [
+          WindowDump(
+            weekday: 1,
+            startTime: '07:30',
+            endTime: '17:30',
+            kind: 'work',
+            label: 'Fabrika',
+          ),
+          WindowDump(
+            weekday: 3,
+            startTime: '19:00',
+            endTime: '21:00',
+            kind: 'blocked',
+            label: '',
+          ),
+        ],
+      ).build(today: today);
+
+      expect(md, contains('Pazartesi 07:30-17:30 (Fabrika)'));
+      expect(md, contains('öğün olabilir, antrenman olamaz'));
+      expect(md, contains('Çarşamba 19:00-21:00'));
+      expect(md, contains('hiçbir şey planlama'));
+    });
+
+    test('yalnız bir tür varsa diğer satır hiç çıkmaz', () async {
+      final md = await builder(
+        windows: const [
+          WindowDump(
+            weekday: 6,
+            startTime: '10:00',
+            endTime: '12:00',
+            kind: 'blocked',
+            label: '',
+          ),
+        ],
+      ).build(today: today);
+
+      expect(md, isNot(contains('Mesai (')));
+      expect(md, contains('Cumartesi 10:00-12:00'));
+    });
   });
 }
 
