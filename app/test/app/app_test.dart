@@ -1,5 +1,7 @@
 import 'package:disport/app/app.dart';
 import 'package:disport/core/db/app_database.dart';
+import 'package:disport/features/catalog/application/catalog_providers.dart';
+import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,7 +14,16 @@ void main() {
   tearDown(() => db.close());
 
   Widget wrap() => ProviderScope(
-    overrides: [appDatabaseProvider.overrideWithValue(db)],
+    overrides: [
+      appDatabaseProvider.overrideWithValue(db),
+      // Kabuk testi sekme geçişini sınar, katalog içeriğini değil.
+      // Bu override olmadan Katalog sekmesi gerçek Drift akışına bağlanır
+      // ve `pumpAndSettle` o akışı bekleyerek asılı kalır — akış gerçek
+      // async I/O ile gelir, testWidgets ise sahte-async bölgesinde çalışır.
+      filteredExercisesProvider.overrideWith(
+        (ref) => Stream.value(const <Exercise>[]),
+      ),
+    ],
     child: const DisportApp(),
   );
 
@@ -33,7 +44,10 @@ void main() {
     await tester.tap(find.text('Katalog'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Katalog ekranı — M2'), findsOneWidget);
+    // Katalog ekranı geldi: arama alanı ve filtre çipleri görünür.
+    expect(find.byType(TextField), findsOneWidget);
+    expect(find.widgetWithText(FilterChip, 'Salon'), findsOneWidget);
+
     // Başlangıçta 'Bugün' iki yerde: AppBar başlığı + sekme etiketi.
     // Katalog'a geçince başlık değişir, geriye yalnız sekme etiketi kalır.
     expect(find.text('Bugün'), findsOneWidget);

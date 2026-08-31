@@ -191,6 +191,21 @@ flutter run                   # emülatörde çalıştır
   karakter kabul etmediği için uygulama `app/` alt dizininde.
 - **`drift` ve `matcher` ikisi de `isNull` tanımlar.** Testte çakışırsa
   `import 'package:drift/drift.dart' hide isNull;`.
+- **Widget testinde Drift kullanma.** Drift'in `watch()` akışı gerçek async
+  I/O ile gelir, `testWidgets` ise sahte-async bölgesinde çalışır;
+  `pumpAndSettle` akışı bekleyerek asılı kalır. Ekran testinde ilgili
+  provider'ı `overrideWith` ile bellekteki veriyle değiştir. Sorgu davranışı
+  zaten repository testinde gerçek veritabanıyla doğrulanıyor.
+- **Riverpod aile argümanı olarak `List` geçme.** Riverpod argümanları `==`
+  ile karşılaştırır, Dart listeleri kimlikle; her `build` yeni örnek üretir
+  ve provider sonsuza dek yeniden çalışır. Argüman `String` gibi değer
+  eşitliği olan bir tip olmalı (`exerciseVariantsProvider(id)`).
+- **Test süreci takılırsa `sqlite3.dll` kilitli kalır.** Sonraki
+  `flutter test` "failed to delete file" der. Çözüm: `dart` ve
+  `flutter_tester` süreçlerini öldür, `build/native_assets` klasörünü sil.
+- **`custom_lint` şu an kurulamıyor.** `analyzer ^8` istiyor; `drift_dev` ve
+  `riverpod_lint` `analyzer ^13` kullanıyor. Ekosistem yetişince eklenecek;
+  o zamana kadar `core → feature` import yasağı yazılı kural olarak kalıyor.
 
 ---
 

@@ -267,8 +267,14 @@ kartı: üç koşuldan kaçı sağlandı.
 **Sağlık** — Tahliller panel başlığına göre gruplu kartlarda. Her değer referans
 aralığına göre renkli, trend oku ile. Yaklaşan tahlil uyarısı üstte.
 
-**Katalog** — Arama ve filtre (ev/salon, kas grubu, ekipman). Detay sayfası
-sekmeli: `Nasıl yapılır` · `Sık hatalar` · `Kolaylaştır / Zorlaştır` · `Güvenlik`.
+**Katalog** — Arama ve filtre (ev/salon, kategori). Arama Türkçe adda,
+İngilizce adda ve kas adında çalışır; aksan duyarsızdır ("sinav" → "Şınav").
+Detay sayfası dört sekmeli: `Adımlar` · `Hatalar` · `Varyantlar` · `Güvenlik`.
+
+Sekme etiketleri bilinçli olarak kısa. Uzun biçimleri ("Nasıl yapılır",
+"Kolaylaştır / Zorlaştır") telefon genişliğine sığmıyor ve kaydırmalı
+çubukta son iki sekme ekran dışında kalıyordu; kullanıcı güvenlik notunun
+varlığını göremiyordu. Keşfedilebilirlik kelime zenginliğinden önce gelir.
 
 **İlk açılış** — Plan yoksa: profil ve yaşam tarzı sorulur, ardından
 "İlk planını al" adımı `context.md` üretir. Boş ekran gösterilmez.
