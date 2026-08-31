@@ -248,12 +248,37 @@ alanı temkinli tutulur ("ağrı varsa dur ve yüksekliği artır" gibi), ve
 `catalog_seed_test.dart` **yapıyı** denetler — doğruluğu değil. Bu
 sınır bilinerek kabul edildi.
 
-### 4.4 MET
+### 4.4 MET ve enerji modeli
 
-Her harekete `met` alanı ([2024 Adult Compendium of Physical
-Activities](https://pacompendium.com/) referansıyla). M9'un egzersiz
-kalorisi buna dayanıyor. Örnek: dinamik ağırlık antrenmanı ~5.0,
-yürüyüş bandı %8 eğim ~6.0, plank ~3.0.
+Her harekete iki alan: `met` (temel değer) ve `metModel` (nasıl
+hesaplanacağı). Kaynak [2024 Adult Compendium of Physical
+Activities](https://pacompendium.com/).
+
+**Tek MET değeri kardiyoda yetmiyor.** Koşu bandında 5 km/h düz
+yürüyüş ~4 MET, 8 km/h %8 eğimde ~11 MET — aynı harekete tek sayı
+vermek üç kat hata demek. Bu yüzden `metModel` var:
+
+| `metModel` | Kim kullanıyor | Nasıl |
+|---|---|---|
+| `fixed` | Kuvvet ve gövde hareketleri | `met` sabit. Compendium: kuvvet antrenmanı hafif/orta 3.5, dinamik/yüksek 6.0 |
+| `treadmill` | Koşu bandı, yürüyüş | ACSM denklemi, **hız + eğim** girdisiyle |
+| `cycling` | Kondisyon bisikleti | Direnç kademesi → MET tablosu (aşağıda) |
+
+**ACSM metabolik denklemleri** (`VO₂` ml/kg/dk, hız m/dk, eğim ondalık):
+
+```
+yürüyüş  (< 7 km/h):  VO₂ = 0.1×hız + 1.8×hız×eğim + 3.5
+koşu     (≥ 7 km/h):  VO₂ = 0.2×hız + 0.9×hız×eğim + 3.5
+MET = VO₂ / 3.5
+```
+
+**Bisiklette denklem kullanılmıyor.** ACSM'in bisiklet denklemi watt
+istiyor; ev ve salon bisikletlerindeki "direnç kademesi" cihaza özel ve
+watt'a güvenilir şekilde çevrilemiyor. Bunun yerine kademe → MET
+tablosu, Compendium'un bisiklet satırlarına dayanarak: hafif ~5.0,
+orta ~7.0, yüksek ~10.5. Kademe sayısı cihaza göre değiştiği için
+kullanıcı üç kaba seviyeden seçer, kademe numarası girmez — sahte
+hassasiyet üretmemek için.
 
 ### 4.5 Dönüştürücü
 
@@ -364,7 +389,100 @@ Kesin sayı göstermek, olmayan bir hassasiyet iddia eder.
 Plan yoksa bütçe yok — yalnız toplam gösterilir. Uydurma bir hedef
 üretmek yanlış sinyal olur.
 
-### 5.5 Ekran
+### 5.5 Egzersiz enerjisi — nerede hesaplanır
+
+**Hesaplayıcı:** `workout/domain/energy_estimator.dart` — saf, girdisi
+`met`/`metModel` + kilo + süre + şiddet, çıktısı kcal. Veritabanı
+görmez, Riverpod görmez; testi doğrudan yazılır.
+
+`nutrition` feature'ı bu değeri **port üzerinden** okur
+(`EnergySource`), `workout` uygular. `ai_bridge`'de kurulan desenin
+aynısı: besin özelliği antrenmanın `data/` katmanını import etmez.
+
+**Şiddet nereden geliyor:** plan zaten `PlanExercise.intensity`
+taşıyor ("d6", "%8") ama serbest metin — hesaba giremez. M8'de tiplenir:
+
+```
+PlanExercise
+  ...
+  speedKmh?      koşu bandı
+  gradePct?      koşu bandı
+  effort?        light | moderate | vigorous   (bisiklet, kuvvet)
+```
+
+**Planlanan ve yapılan ayrı saklanır.** Plan ne dediyse
+`plan_exercises`'ta durur; kullanıcının fiilen yaptığı `exercise_logs`'a
+yazılır — aynı alanlar, ayrı satır:
+
+```
+plan_exercises     planlanan:  4 × 12 · %8 eğim · 6 km/h
+exercise_logs      yapılan:    4 × 10 · %10 eğim · 5.5 km/h
+```
+
+Kalori **yapılandan** hesaplanır. Bu ayrım şart: bandı %10'a çıkaran
+kullanıcının harcadığı enerji plandakinden farklı, ve "planı
+tutturdum mu" sorusunun cevabı ancak ikisi ayrı dururken verilebilir.
+Tek alanda saklamak, kaydı girer girmez planı yok eder.
+
+Antrenman ekranı planlanan değerlerle **önceden dolu** gelir; kullanıcı
+farklı yaptıysa üzerine yazar. Sapma varsa gün görünümünde
+gösterilir — "planlanan 4 × 12, yapılan 4 × 10".
+
+**Kuvvet setlerinde süre:** antrenman ekranı zaten set sayacı ve
+dinlenme sayacı tutuyor, yani seansın geçen süresi biliniyor. Kuvvet
+kalorisi **seans süresi** üzerinden hesaplanır, set başına değil —
+Compendium'un kuvvet antrenmanı MET'i zaten dinlenmeler dahil bir
+seansı tarif ediyor. Set başına hesaplamak sayıyı üçe böler.
+
+### 5.6 Serbest aktivite — futbol, boks, basketbol…
+
+Katalog hareketleri set ve tekrarla ölçülüyor. Bir futbol maçının seti
+yok; olan tek şey **süre**. Bunu katalog kaydı yapmak yanlış olurdu —
+dört sekmeli detay ekranı, kolaylaştırma zinciri, sık hatalar; hiçbiri
+karşılığı olmayan alanlar.
+
+Ayrı ve hafif bir tablo çifti (şema v12 ile birlikte):
+
+```
+activities                   MET tablosu
+  id · nameTr · nameEn · category · met · source
+  + SyncColumns
+
+activity_logs                ne kadar yapıldı
+  id · date · activityId · minutes · kcalSnapshot
+  + SyncColumns
+```
+
+Kayıt akışı tek adım: **aktivite seç → süre gir**. Kalori
+`met × kilo × saat` ile çıkar ve Bugün ekranındaki bütçeye girer.
+
+**Tohum:** [Compendium'un spor bölümünden](https://pacompendium.com/sports/)
+~70 yaygın aktivite. Doğrulanmış örnek değerler: basketbol maçı 8.0 ·
+basketbol genel 7.5 · boks ringde 12.3 · boks kum torbası 5.8 ·
+badminton yarışma 7.0. Futbol, yüzme, tenis, dans, yürüyüş ve ev işi
+satırları aynı kaynaktan alınır; **her kayıt Compendium kodunu
+`source` alanında taşır**, böylece bir değer sorgulanırsa nereden
+geldiği görülebilir.
+
+Kullanıcı kendi aktivitesini de ekleyebilir (M6'nın kullanıcı tanımlı
+veri kalıbı): ad + MET. MET bilmiyorsa üç kaba seviyeden seçer —
+hafif 3.0, orta 6.0, yoğun 9.0.
+
+**Nerede görünür:**
+
+1. **Antrenman ekranı**, seans bitince: "≈ 320 kcal"
+2. **Bugün ekranı kalori kartı**: hem antrenman hem serbest aktivite
+   bütçeye geri ekler
+3. Başka yerde değil. İlerleme ekranına haftalık yakılan kalori
+   eklemek düşünüldü ve **atıldı** — tahmin üstüne tahmin biriktirmek,
+   kilo grafiğinin verdiği gerçek sinyali gölgeler.
+
+**Hata payı açıkça taşınır.** Her yerde `≈` işaretiyle gösterilir.
+ACSM denklemleri yürüyüş ve koşu için doğrulanmış; kuvvet antrenmanı
+MET'i kaba bir ortalama ve kişiden kişiye belirgin değişiyor. Kesin
+sayı göstermek, olmayan bir hassasiyet iddia etmek olur.
+
+### 5.7 Ekran
 
 Besin arama ve öğün kaydı **Bugün** ekranından açılan bir sayfa.
 Ayrı sekme açılmıyor: beş sekme sınırı doldu ve öğün kaydı günün
