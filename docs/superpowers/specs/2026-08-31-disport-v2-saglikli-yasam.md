@@ -128,10 +128,62 @@ other · none
 Envanter (`equipment_items`, v9) bu enuma bağlanır. Göç: mevcut Türkçe
 dizgiler eşleme tablosuyla enuma çevrilir.
 
-Katalog listesinde ve detayda **gereklilik rozeti**: hareketin istediği
-ekipman envanterde yoksa açıkça söylenir — "Dambıl gerekiyor
-(envanterinde yok)". Filtre bunu gizlemek yerine işaretler; kullanıcı
-neyi kaçırdığını görmeli.
+### 4.2.1 Envanter yere bağlı
+
+Bugünkü envanter düz bir "sahip olduklarım" listesi. Ama bu ürünün
+ayrımı ev ile salon: evde dambıl var, salonda kablo makinesi var, ve
+"bu hareketi yapabilir miyim" sorusunun cevabı **nerede antrenman
+yaptığına göre değişiyor**. Tek liste bu soruyu cevaplayamıyor.
+
+`equipment_items` iki bayrak alır (şema v11):
+
+```
+equipment_items
+  id · kind(EquipmentKind) · labelTr? · labelEn?
+  atHome(bool) · atGym(bool)
+  + SyncColumns
+```
+
+İki ayrı satır değil iki bayrak: aynı ekipman ikisinde de olabilir ve
+onu iki kayıtla temsil etmek "dambılı sildim" dediğinde hangisinin
+silineceğini belirsizleştirirdi.
+
+Ayarlar'daki envanter ekranı iki sütunlu olur:
+
+```
+                        Ev   Salon
+  Vücut ağırlığı         ✓     ✓
+  Dambıl                 ✓     ✓
+  Direnç bandı           ✓     ─
+  Kablo makinesi         ─     ✓
+  Barbell                ─     ✓
+  Kettlebell             ─     ─
+```
+
+Yerleşik ekipmanlar tohumlanırken **hiçbiri işaretli gelmez** — vücut
+ağırlığı hariç. Kullanıcıya sahip olmadığı şeyi varsaymak, filtrenin
+ilk günden yanlış çalışması demek.
+
+`canPerform` yere bağlanır:
+
+```dart
+bool canPerform({
+  required List<EquipmentKind> required,
+  required EquipmentInventory inventory,
+  required ExerciseLocation where,   // home | gym
+})
+```
+
+Katalog filtresi de bu bağlamı taşır: ev/salon seçimi zaten var
+(`ExerciseLocation`), envanter artık ona uyar.
+
+### 4.2.2 Gereklilik rozeti
+
+Katalog listesinde ve detayda: hareketin istediği ekipman o yerdeki
+envanterde yoksa açıkça söylenir — "Dambıl gerekiyor (evinde yok)".
+Filtre bunu **gizlemek yerine işaretler**; kullanıcı neyi kaçırdığını
+görmeli, aksi hâlde katalog sessizce küçülür ve bunun neden olduğu
+anlaşılmaz.
 
 ### 4.3 İçerik — ~120 hareket, hepsi tam kayıt
 
@@ -241,7 +293,7 @@ Hedef: ~400 kayıt.
 Üç ayrı şey var: *besin nedir*, *nasıl ölçülür*, *ne yendi*.
 
 ```
-foods                        (şema v11)
+foods                        (şema v12)
   id · nameTr · nameEn · category
   kcal100 · protein100 · carb100 · fat100
   source(curated|usda|user) · sourceRef
@@ -389,7 +441,7 @@ Vitamin ve ilaç takibi. Plan slotu **değil** ayrı tablo: her gün tekrar
 eder, plandan bağımsız yaşar ve plan değişince kaybolmamalı.
 
 ```
-supplements                  (şema v12)
+supplements                  (şema v13)
   id · nameTr · nameEn · dose · unit
   times(HH:mm listesi) · weekdays · note
   + SyncColumns
@@ -433,4 +485,4 @@ Bilerek yapılmayanlar:
 | ~400 besinin kalori değerleri yanlış olabilir | Her kayıt kaynağını taşır; kullanıcı düzeltebilir; geçmiş kayıt dondurulduğu için düzeltme geriye yayılmaz |
 | Dil taşıması sırasında metin kaybı | Gömülü Türkçe metin taraması + eksik çeviri testi |
 | Plan editörü AI akışını bozar | `sourceRaw` korunur; içeri alma yolu değişmez, editör onun üstüne biner |
-| Şema v10 → v12 göçleri | Her sürüm kendi `if (from < N)` bloğunu alır; eskiler değiştirilmez (v1 kuralı) |
+| Şema v10 → v13 göçleri | Her sürüm kendi `if (from < N)` bloğunu alır; eskiler değiştirilmez (v1 kuralı). M8 → v11 (ekipman enum + yer bayrakları), M9 → v12 (besin), M11 → v13 (takviye) |
