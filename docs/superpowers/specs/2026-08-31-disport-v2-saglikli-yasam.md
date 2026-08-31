@@ -21,9 +21,12 @@ Buna paralel iki yapısal borç ödenmeli:
    ~120 hareket ve ~400 besin iki kez yazılır.
 2. **Veri yalnız AI'dan giriyor.** Plan `plan.json` ile geliyor ve
    uygulama içinden değiştirilemiyor. Kullanıcı bir saati kaydırmak için
-   AI'a gitmek zorunda. Aynı şekilde geçmiş bir günün kaydı da
-   düzeltilemiyor — dün tartılmayı unutan kullanıcının yapabileceği bir
-   şey yok.
+   AI'a gitmek zorunda.
+3. **Geçmişe erişim yok.** Bugün ekranı bugüne sabit; dün tartılmayı
+   unutan kullanıcının kaydı sonradan girmesinin yolu yok, geçmiş bir
+   günün kaydını düzeltmenin de. Takvim var ama yalnız gösteriyor.
+
+M10 bu ikisini birden çözüyor (bkz. §6).
 
 ---
 
@@ -331,16 +334,25 @@ kaydının parçası, ayrı bir alan değil.
 `todayProviders` bugüne sabit. `dayProviders(date)` hâline gelir; Bugün
 ekranı `date = bugün` ile çağrılan özel hâli olur.
 
-Gezinme iki yoldan:
-- Bugün ekranının başlığı tarih seçici; sol/sağ oklarla gün gün gezinir
-- Plan takviminde bir güne dokunmak aynı ekranı o tarihle açar
+Geçmiş bir gün **tam yetkiyle** açılır: kilo, uyku, kurallar, not, öğün
+ve antrenman kaydı hem düzenlenebilir hem sonradan **eklenebilir**.
+Salt-okunur bir geçmiş görünümü değil — dün tartılmayı unutan kullanıcı
+bugün girebilmeli.
 
-**Kural:** ölçüm kaydı (kilo, uyku, öğün) yalnız bugüne ve geçmişe
+Gezinme iki yoldan:
+
+- **Takvimden:** Plan takviminde bir güne dokunmak o günü açar. Takvim
+  bugün yalnız gösteriyor; asıl giriş kapısı bu olur. Kayıt girilmiş
+  günler takvimde işaretlenir, böylece boşluklar görülür.
+- **Bugün ekranından:** başlık tarih seçici olur; sol/sağ oklarla gün
+  gün gezinir.
+
+**Tek kural:** ölçüm kaydı (kilo, uyku, öğün) yalnız bugüne ve geçmişe
 girilebilir — gelecekte "ne yedim" sorusunun cevabı yok. Plan düzenleme
 her tarihte serbest.
 
-Başlık bugün olmayan bir tarihteyse görsel olarak ayrışır; kullanıcı
-yanlışlıkla geçmişe kayıt girdiğini fark etmeli.
+Bugün olmayan bir tarihte başlık görsel olarak ayrışır ve "bugüne dön"
+kısayolu çıkar; kullanıcı hangi günde yazdığını her an bilmeli.
 
 ### 6.3 Plan editörü
 
