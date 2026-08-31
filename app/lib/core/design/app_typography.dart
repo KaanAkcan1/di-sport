@@ -127,6 +127,22 @@ abstract final class AppTypography {
   // ve tablo hücreleri.
   // -------------------------------------------------------------------
 
+  /// Ekranın **kahraman** rakamı — M12'nin merkezi öğesi.
+  ///
+  /// Her ekranın tek bir büyük sayısı var: Bugün'de kalan kalori,
+  /// İlerleme'de toplam değişim, Antrenman'da seans süresi. Kol
+  /// mesafesinden okunmalı — Whoop'un 72pt skoruyla aynı fikir, ama
+  /// bizde sayı 5 haneye kadar çıkabildiği için sıkışık aileyle 56'da
+  /// dengeleniyor.
+  static const metricHero = TextStyle(
+    fontFamily: condensedFamily,
+    fontSize: 56,
+    height: 58 / 56,
+    fontWeight: FontWeight.w600,
+    letterSpacing: -0.5,
+    fontFeatures: tabularFigures,
+  );
+
   /// Ekranın ana rakamı — bugünkü kilo, haftalık ortalama.
   ///
   /// Sıkışık aile: 48 punto Inter ile yazılan "109,4 kg" satırı tek

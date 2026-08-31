@@ -1,6 +1,7 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/plan/presentation/slot_kind_icon.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/workout/presentation/workout_screen.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// Antrenman ekranını açıyor. Kutucuk oradaki setler tamamlandıkça
 /// kendiliğinden doluyor.
 class SlotList extends ConsumerWidget {
-  const SlotList({super.key, required this.day, required this.now});
+  const SlotList({
+    super.key,
+    required this.day,
+    required this.now,
+    this.hoistNext = false,
+  });
 
   final FullPlanDay day;
 
@@ -25,26 +31,44 @@ class SlotList extends ConsumerWidget {
   /// ve widget tiker'a bağımlı olmasın.
   final DateTime now;
 
+  /// Sıradaki slot listeden çıkarılsın mı.
+  ///
+  /// M12'de sıradaki iş listeden çıkıp [AppSpotCard]'a terfi etti; aynı
+  /// slotun hem kartta hem listede durması tekrar olurdu. Geçmiş
+  /// günlerde "sırada" diye bir şey olmadığı için `false` kalıyor.
+  final bool hoistNext;
+
+  /// Günün sıradaki slotu — saati henüz geçmemiş ilk slot.
+  ///
+  /// Kart ve liste aynı ölçütü kullansın diye `static`: iki ayrı yerde
+  /// hesaplanırsa ayrışma riski doğar.
+  static PlanSlot? nextSlotOf(FullPlanDay day, DateTime now) {
+    final nowMinutes = now.hour * 60 + now.minute;
+    final slots = [...day.slots]..sort((a, b) => a.time.compareTo(b.time));
+    for (final slot in slots) {
+      if (minutesOf(slot.time) > nowMinutes) return slot;
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final log = ref.watch(todayLogProvider).value;
     final iso = ref.watch(todayIsoProvider);
 
-    final slots = [...day.slots]
-      ..sort((a, b) => a.time.compareTo(b.time));
+    final all = [...day.slots]..sort((a, b) => a.time.compareTo(b.time));
     final nowMinutes = now.hour * 60 + now.minute;
+    final next = nextSlotOf(day, now);
 
-    // "Sıradaki" = saati henüz geçmemiş ilk slot. Bu slot rayda vurgulu
-    // renk alıyor; kullanıcının aradığı satır o.
-    final nextIndex = slots.indexWhere(
-      (slot) => _minutesOf(slot.time) > nowMinutes,
-    );
+    final slots = hoistNext
+        ? all.where((slot) => slot.id != next?.id).toList()
+        : all;
 
     final rows = <Widget>[];
     var markerDrawn = false;
 
     for (final (index, slot) in slots.indexed) {
-      final past = _minutesOf(slot.time) <= nowMinutes;
+      final past = minutesOf(slot.time) <= nowMinutes;
 
       // "Şimdi" işareti geçmiş slotlarla gelecek slotlar arasına bir kez
       // giriyor. Gün başındaysa (hiç slot geçmemişse) hiç çizilmiyor —
@@ -64,7 +88,7 @@ class SlotList extends ConsumerWidget {
           isLast: index == slots.length - 1,
           state: _stateFor(
             past: past,
-            isNext: index == nextIndex,
+            isNext: !hoistNext && slot.id == next?.id,
             done: slot.kind == SlotKind.workout ? workoutDone : checked,
           ),
           onTap: slot.kind == SlotKind.workout
@@ -82,7 +106,7 @@ class SlotList extends ConsumerWidget {
     }
 
     // Bütün slotlar geçmişse işaret en sona giriyor: gün bitti bilgisi.
-    if (!markerDrawn && slots.isNotEmpty && nextIndex == -1) {
+    if (!markerDrawn && slots.isNotEmpty && next == null) {
       rows.add(AppNowMarker(label: _formatNow()));
     }
 
@@ -105,7 +129,7 @@ class SlotList extends ConsumerWidget {
 
   /// `HH:mm` → gün içi dakika. Bozuk biçim günün sonuna atılıyor ki
   /// sıralamayı bozmasın.
-  static int _minutesOf(String time) {
+  static int minutesOf(String time) {
     final parts = time.split(':');
     if (parts.length != 2) return 24 * 60;
     final hour = int.tryParse(parts[0]);
@@ -144,9 +168,17 @@ class _SlotRow extends StatelessWidget {
           ),
         ),
         Icon(
-          slot.kind.icon,
+          slotKindIcon(slot.kind),
           size: 16,
           color: theme.colorScheme.onSurfaceVariant,
+        ),
+        const SizedBox(width: AppSpacing.sm),
+        // Satır dokunulabilir olduğunu göstermeli: mürekkep dilinde
+        // kart çerçevesi yok, dokunulabilirliğin tek işareti bu.
+        Icon(
+          Icons.chevron_right,
+          size: 16,
+          color: theme.colorScheme.outline,
         ),
       ],
     );
@@ -208,64 +240,40 @@ class _WorkoutRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: BoxDecoration(
-        color: done
-            ? theme.colorScheme.surfaceContainer
-            : theme.colorScheme.primaryContainer,
-        borderRadius: AppRadius.mdAll,
-      ),
-      child: Row(
-        children: [
-          Icon(
-            done ? Icons.check_circle : Icons.fitness_center,
-            size: 20,
-            color: done
-                ? theme.colorScheme.onSurfaceVariant
-                : theme.colorScheme.onPrimaryContainer,
-          ),
-          const SizedBox(width: AppSpacing.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  slot.label,
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    color: done ? null : theme.colorScheme.onPrimaryContainer,
-                  ),
+    // M12: kutu kalktı. Antrenman sırada olduğunda zaten `AppSpotCard`'a
+    // terfi ediyor; listede kaldığı durum "yapıldı" ya da "kaçırıldı"
+    // ve o hâllerde diğer satırlardan ağır durmasının gerekçesi yok.
+    return Row(
+      children: [
+        Icon(
+          done ? Icons.check_circle : Icons.fitness_center_outlined,
+          size: 20,
+          color: done
+              ? theme.colorScheme.primary
+              : theme.colorScheme.onSurfaceVariant,
+        ),
+        const SizedBox(width: AppSpacing.md),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(slot.label, style: theme.textTheme.bodyLarge),
+              Text(
+                '${day.exercises.length} hareket',
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
                 ),
-                Text(
-                  '${day.exercises.length} hareket',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: done
-                        ? theme.colorScheme.onSurfaceVariant
-                        : theme.colorScheme.onPrimaryContainer,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Icon(
-            Icons.chevron_right,
-            color: done
-                ? theme.colorScheme.onSurfaceVariant
-                : theme.colorScheme.onPrimaryContainer,
-          ),
-        ],
-      ),
+        ),
+        Icon(
+          Icons.chevron_right,
+          size: 16,
+          color: theme.colorScheme.outline,
+        ),
+      ],
     );
   }
 }
 
-extension on SlotKind {
-  IconData get icon => switch (this) {
-    SlotKind.meal => Icons.restaurant_outlined,
-    SlotKind.workout => Icons.fitness_center,
-    SlotKind.sleep => Icons.bedtime_outlined,
-    SlotKind.measurement => Icons.straighten,
-    SlotKind.lab => Icons.biotech_outlined,
-    SlotKind.other => Icons.schedule,
-  };
-}

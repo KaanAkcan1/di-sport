@@ -11,6 +11,7 @@ import 'package:disport/features/health/data/metric_definitions_repository.dart'
 import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/progress/application/progress_providers.dart';
 import 'package:disport/features/progress/domain/transition_criteria.dart';
+import 'package:disport/features/settings/application/settings_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/daily_rules_repository.dart';
 import 'package:disport/features/today/data/today_repository.dart';
@@ -69,6 +70,13 @@ void main() {
       // Kabuk artık onboarding kontrolünün arkasında; test doğrudan
       // sekmelere bakıyor.
       isOnboardedProvider.overrideWith((ref) async => true),
+      // M12: `DisportApp` tema modunu Drift akışından okuyor — kabuk
+      // testinde gerçek akışa bağlanırsa `pumpAndSettle` asılır.
+      themeModeProvider.overrideWith((ref) => Stream.value(ThemeMode.dark)),
+      // Hafta şeridi de günlük kayıtları akışla okuyor.
+      weekFillProvider.overrideWith(
+        (ref) => Stream.value(const <({DateTime day, bool filled})>[]),
+      ),
       // Plan ekranı da veritabanına bağlı.
       activePlanProvider.overrideWith((ref) async => null),
       // Sağlık sekmesi de öyle. `IndexedStack` beş ekranı birden

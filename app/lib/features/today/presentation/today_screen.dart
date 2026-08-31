@@ -1,22 +1,31 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/utils/turkish_date.dart';
+import 'package:disport/core/utils/turkish_number.dart';
+import 'package:disport/core/utils/turkish_text.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/plan/presentation/slot_kind_icon.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/presentation/daily_flags_card.dart';
 import 'package:disport/features/today/presentation/day_note_field.dart';
 import 'package:disport/features/today/presentation/measurement_inputs.dart';
 import 'package:disport/features/today/presentation/missed_streak_banner.dart';
 import 'package:disport/features/today/presentation/slot_list.dart';
+import 'package:disport/features/workout/presentation/workout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Günlük ekran: günün özeti, zaman omurgası, kayıtlar.
+/// Günlük ekran — mürekkep dilinin ana sahnesi.
 ///
-/// Kâğıt çizelgenin bir gün sütununun karşılığı. Sıralama sabah
-/// 05:45'e göre: önce bugünün özeti (bir bakışta durum), sonra omurga
-/// (sırada ne var), sonra kayıt alanları.
+/// Sıralama sabah 05:45'e göre: başlık ve hafta şeridi (nerede
+/// duruyorum), kahraman rakam (bugünün tek sayısı), metrik şeridi,
+/// sıradaki iş, omurga, kayıt alanları.
+///
+/// **M12'de değişen:** `AppStatBand` gitti. Şerit üç sayıyı eşit
+/// ağırlıkta gösteriyordu ve ekranın "en önemli sayısı" yoktu; göz
+/// üçünü tarayıp hangisine bakacağına karar vermek zorunda kalıyordu.
+/// Artık tek kahraman rakam var, geri kalanı altında ince bir satır.
 class TodayScreen extends ConsumerWidget {
   const TodayScreen({super.key});
 
@@ -29,7 +38,11 @@ class TodayScreen extends ConsumerWidget {
       onRetry: () => ref.invalidate(todayPlanDayProvider),
       data: (day) => AppScreenBody(
         children: [
-          const _TodayBand(),
+          const _Header(),
+          const SizedBox(height: AppSpacing.lg),
+          const _WeekStrip(),
+          const SizedBox(height: AppSpacing.xl2),
+          _Hero(day: day),
           const SizedBox(height: AppSpacing.xl2),
           const MissedStreakBanner(),
 
@@ -37,7 +50,7 @@ class TodayScreen extends ConsumerWidget {
             const _NoPlanNotice()
           else ...[
             if (day.headline.isNotEmpty) _Headline(text: day.headline),
-            _Rail(day: day),
+            _Spine(day: day),
             if (day.dinnerSuggestion.isNotEmpty)
               _DinnerHint(text: day.dinnerSuggestion),
           ],
@@ -54,59 +67,172 @@ class TodayScreen extends ConsumerWidget {
   }
 }
 
-/// Günün özeti — ekranın ağırlık merkezi.
-class _TodayBand extends ConsumerWidget {
-  const _TodayBand();
+/// Tarih başlığı — eyebrow + gün adı.
+class _Header extends ConsumerWidget {
+  const _Header();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
     final now = ref.watch(clockProvider).value ?? DateTime.now();
-    final log = ref.watch(todayLogProvider).value;
-    final weight = ref.watch(todayWeightProvider).value;
     final day = ref.watch(todayPlanDayProvider).value;
 
-    final checked = log?.checkedSlotIds.length ?? 0;
-    final total = day?.slots.length ?? 0;
+    final eyebrow = [
+      TurkishText.upper(TurkishDate.weekdayAndDay(now)),
+      if (day case final d?) TurkishText.upper('${d.weekIndex}. hafta'),
+    ].join(' · ');
 
-    return AppStatBand(
-      title: TurkishDate.weekdayAndDay(now),
-      // Diyeti boş gün açıkça söyleniyor: aksi hâlde öğünsüz bir gün
-      // "plan eksik gelmiş" gibi okunuyor.
-      subtitle: switch (day) {
-        null => 'Plan yok',
-        final d when d.isFullyFree => 'Serbest gün',
-        final d when d.isDietFree => '${d.type.label} · diyet serbest',
-        final d => d.type.label,
-      },
-      // İki sayı, üç değil. Üçüncüsü kuralların sayacıydı ama o sayaç
-      // hemen alttaki kartın başlığında da duruyor ve ikisi aynı
-      // ekranda görünüyordu — özet olmaktan çıkıp tekrara dönüşmüştü.
-      // İki sütun ayrıca rakamlara nefes veriyor.
-      stats: [
-        AppStat(
-          caption: 'Kilo',
-          value: weight,
-          unit: MetricKinds.unitOf(MetricKinds.weight),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          eyebrow,
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: theme.colorScheme.primary,
+            letterSpacing: 1.4,
+            fontWeight: FontWeight.w600,
+          ),
         ),
-        AppStat(
-          caption: 'Program',
-          text: total == 0 ? '—' : '$checked/$total',
+        const SizedBox(height: 2),
+        Semantics(
+          header: true,
+          child: Text(
+            'Bugün',
+            style: theme.textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
       ],
     );
   }
 }
 
-/// Rayı saate bağlar — dakikada bir yeniden çiziliyor.
-class _Rail extends ConsumerWidget {
-  const _Rail({required this.day});
+/// Son yedi günün doluluk şeridi.
+class _WeekStrip extends ConsumerWidget {
+  const _WeekStrip();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final week = ref.watch(weekFillProvider).value;
+    // Boş liste meşru: akış henüz gelmedi ya da test onu boş veriyor.
+    if (week == null || week.isEmpty) return const SizedBox.shrink();
+
+    final today = week.last.day;
+
+    return AppWeekDots(
+      states: [
+        for (final entry in week)
+          if (_sameDay(entry.day, today))
+            WeekDotState.today
+          else if (entry.filled)
+            WeekDotState.done
+          else
+            WeekDotState.missed,
+      ],
+      labels: [for (final entry in week) TurkishDate.weekdayInitial(entry.day)],
+    );
+  }
+
+  static bool _sameDay(DateTime a, DateTime b) =>
+      a.year == b.year && a.month == b.month && a.day == b.day;
+}
+
+/// Günün kahraman rakamı ve metrik şeridi.
+///
+/// M12'de kahraman **kilo**; M9'da kalan kalori onun yerine geçer ve
+/// kilo metrik şeridine iner (spec §2a, sıralama notu).
+class _Hero extends ConsumerWidget {
+  const _Hero({required this.day});
+
+  final FullPlanDay? day;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final weight = ref.watch(todayWeightProvider).value;
+    final log = ref.watch(todayLogProvider).value;
+    final rules = ref.watch(dailyRulesProvider).value ?? const [];
+
+    final checked = log?.checkedSlotIds.length ?? 0;
+    final total = day?.slots.length ?? 0;
+    final rulesMet = log?.metAmong(rules.map((r) => r.id)) ?? 0;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppHeroNumber(
+          caption: switch (day) {
+            null => 'Plan yok · tartını yine de kaydedebilirsin',
+            // Diyeti boş gün açıkça söyleniyor: aksi hâlde öğünsüz bir
+            // gün "plan eksik gelmiş" gibi okunuyor.
+            final d when d.isFullyFree => 'Serbest gün',
+            final d when d.isDietFree => '${d.type.label} · diyet serbest',
+            final d => d.type.label,
+          },
+          value: weight == null
+              ? null
+              : TurkishNumber.format(weight, fractionDigits: 1),
+          unit: MetricKinds.unitOf(MetricKinds.weight),
+        ),
+        const SizedBox(height: AppSpacing.xl),
+        AppMetricStrip([
+          AppMetric(
+            caption: 'Program',
+            value: total == 0 ? null : '$checked',
+            unit: total == 0 ? null : '/$total',
+          ),
+          AppMetric(
+            caption: 'Kurallar',
+            value: rules.isEmpty ? null : '$rulesMet',
+            unit: rules.isEmpty ? null : '/${rules.length}',
+          ),
+        ]),
+      ],
+    );
+  }
+}
+
+/// Sıradaki iş + omurga.
+class _Spine extends ConsumerWidget {
+  const _Spine({required this.day});
 
   final FullPlanDay day;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final now = ref.watch(clockProvider).value ?? DateTime.now();
-    return SlotList(day: day, now: now);
+    final next = SlotList.nextSlotOf(day, now);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (next case final slot?) ...[
+          AppSpotCard(
+            eyebrow: 'Sırada · ${slot.time}',
+            title: slot.label,
+            subtitle: _subtitleFor(slot),
+            leading: slotKindIcon(slot.kind),
+            onTap: slot.kind == SlotKind.workout
+                ? () => Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => WorkoutScreen(day: day),
+                    ),
+                  )
+                : null,
+          ),
+          const SizedBox(height: AppSpacing.xl2),
+        ],
+        const AppSectionLabel('Günün omurgası'),
+        SlotList(day: day, now: now, hoistNext: true),
+      ],
+    );
+  }
+
+  String? _subtitleFor(PlanSlot slot) {
+    if (slot.kind == SlotKind.workout) {
+      return '${day.exercises.length} hareket';
+    }
+    return slot.note;
   }
 }
 

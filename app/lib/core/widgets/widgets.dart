@@ -10,8 +10,13 @@ library;
 
 export 'app_async_view.dart';
 export 'app_empty_state.dart';
+export 'app_hero_number.dart';
+export 'app_metric_strip.dart';
 export 'app_metric_value.dart';
 export 'app_section.dart';
+export 'app_section_label.dart';
+export 'app_spot_card.dart';
 export 'app_stat_band.dart';
 export 'app_status_indicator.dart';
 export 'app_time_rail.dart';
+export 'app_week_dots.dart';

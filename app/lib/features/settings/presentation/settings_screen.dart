@@ -1,5 +1,6 @@
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/presentation/equipment_screen.dart';
+import 'package:disport/features/settings/presentation/appearance_settings.dart';
 import 'package:disport/features/settings/presentation/backup_settings.dart';
 import 'package:disport/features/settings/presentation/notification_settings.dart';
 import 'package:disport/features/settings/presentation/profile_form.dart';
@@ -21,6 +22,7 @@ class SettingsScreen extends StatelessWidget {
         trailing: [
           _WeeklyScheduleEntry(),
           _EquipmentEntry(),
+          AppearanceSettings(),
           NotificationSettings(),
           BackupSettings(),
         ],

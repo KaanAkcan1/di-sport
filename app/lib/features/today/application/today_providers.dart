@@ -72,6 +72,35 @@ Stream<double?> todaySleep(Ref ref) => ref
     .watch(bodyMetricsRepositoryProvider)
     .watchValue(ref.watch(todayIsoProvider), MetricKinds.sleepHours);
 
+/// Son yedi günün doluluk durumu — Bugün ekranının hafta şeridi.
+///
+/// **Neden var:** kullanıcı bir günü kaçırdığını ancak takvime gidince
+/// fark ediyordu. Yedi nokta boşlukları ekranın tepesinde gösteriyor.
+///
+/// Bugün dâhil geriye yedi gün; en eskiden en yeniye sıralı.
+@riverpod
+Stream<List<({DateTime day, bool filled})>> weekFill(Ref ref) {
+  final today = DateTime.parse(ref.watch(todayIsoProvider));
+  final days = [
+    for (var back = 6; back >= 0; back--)
+      DateTime(today.year, today.month, today.day - back),
+  ];
+
+  return ref
+      .watch(todayRepositoryProvider)
+      .watchBetween(PlanRepository.iso(days.first), PlanRepository.iso(today))
+      .map(
+        (logs) => [
+          for (final day in days)
+            (
+              day: day,
+              filled: !(logs[PlanRepository.iso(day)] ?? const DailyLogView())
+                  .isEmpty,
+            ),
+        ],
+      );
+}
+
 /// Antrenman kaçırılan ardışık gün sayısı.
 ///
 /// PDF'in "iki gün üst üste kaçırma — kural bu" satırının karşılığı;

@@ -57,6 +57,14 @@ abstract final class TurkishDate {
     'Paz',
   ];
 
+  /// Hafta şeridindeki tek harf — "P", "S", "Ç"…
+  ///
+  /// Pazartesi ve Pazar ikisi de "P": çakışma kabul edilmiş, çünkü
+  /// noktaların sırası zaten gün sırası ve ekran okuyucu tam adı
+  /// söylüyor. Tek harf yerine iki harf koymak noktayı büyütürdü.
+  static String weekdayInitial(DateTime date) =>
+      weekdays[date.weekday - 1].substring(0, 1);
+
   /// `3 Eylül`
   static String dayMonth(DateTime date) =>
       '${date.day} ${months[date.month - 1]}';

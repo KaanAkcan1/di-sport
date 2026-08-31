@@ -8,6 +8,7 @@ import 'package:disport/features/health/presentation/health_screen.dart';
 import 'package:disport/features/plan/presentation/plan_screen.dart';
 import 'package:disport/features/progress/presentation/progress_screen.dart';
 import 'package:disport/features/reminders/domain/reminder_planner.dart';
+import 'package:disport/features/settings/application/settings_providers.dart';
 import 'package:disport/features/settings/presentation/onboarding_screen.dart';
 import 'package:disport/features/settings/presentation/settings_screen.dart';
 import 'package:disport/features/today/presentation/today_screen.dart';
@@ -25,18 +26,20 @@ final appDatabaseProvider = Provider<AppDatabase>((ref) {
   return db;
 });
 
-class DisportApp extends StatelessWidget {
+class DisportApp extends ConsumerWidget {
   const DisportApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Ayar okunana kadar koyu: mürekkep dili koyu öncelikli, ve bir
+    // kare açık modda açılıp koyuya dönmek göz kırpması gibi durur.
+    final mode = ref.watch(themeModeProvider).value ?? ThemeMode.dark;
+
     return MaterialApp(
       title: 'di@sport',
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
-      // Mod seçimi cihaza bırakılır; sabah 05:45 antrenmanında koyu mod
-      // gözü yormamalı, gündüz açık mod okunur olmalı.
-      themeMode: ThemeMode.system,
+      themeMode: mode,
       debugShowCheckedModeBanner: false,
       // Sistem yazı boyutu büyütüldüğünde arayüz bozulmadan büyümeli,
       // ama sınırsız da olmamalı: 1.6x üstünde iki satırlık etiketler
