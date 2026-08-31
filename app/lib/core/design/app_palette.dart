@@ -75,6 +75,47 @@ abstract final class AppPalette {
   static const inkMuted = Color(0xFF7E93A8);
 
   // ---------------------------------------------------------------------
+  // Mürekkep rampası (M12) — koyu modun zemini.
+  //
+  // M6'da zemin beyaz kart + soluk arka plandı ve kullanıcı reddetti:
+  // yeşil beyaz üstünde görünmüyordu. Vue'nun iki rengi var; biri zemin
+  // biri vurgu oldu. Yeşil koyu mürekkep üstünde elektrik gibi okunur,
+  // ve uygulama karanlık bir salonda da kullanılıyor.
+  //
+  // Ayrım gölgeyle değil **ton katmanı + kıl çizgiyle** kuruluyor;
+  // `AppElevation` bu yüzden kullanım dışı.
+  // ---------------------------------------------------------------------
+  static const ink950 = Color(0xFF0E1621); // en derin zemin, onPrimary
+  static const ink900 = Color(0xFF121D28); // gezinme çubuğu
+  static const ink850 = Color(0xFF16232F); // ekran yüzeyi
+  static const ink800 = Color(0xFF1A2938); // panel, yükseltilmiş ton
+  static const ink750 = Color(0xFF1D2F41); // kıl çizgi (hairline)
+  static const ink700 = Color(0xFF24384D); // ayraç
+  static const ink600 = Color(0xFF2C4157); // belirgin kenarlık
+  static const ink500 = Color(0xFF3D5164); // sönük ikon
+
+  // Koyu zeminin metin rampası — "sis".
+  static const mist100 = Color(0xFFF2F6F9); // güçlü metin
+  static const mist200 = Color(0xFFDFE8EF); // gövde metni
+  static const mist400 = Color(0xFF8DA2B5); // ikincil metin (onSurfaceVariant)
+  static const mist500 = Color(0xFF68809A); // sönük etiket
+  static const mist600 = Color(0xFF5F7387); // en sönük
+
+  // ---------------------------------------------------------------------
+  // Fildişi — açık modun zemini.
+  //
+  // Saf beyaz değil: M6'da zemin ve kart 1.02:1'di ve kartlar
+  // kayboluyordu. Mürekkep dilinde ayrım tonla kurulduğu için açık
+  // modda da rampa gerekiyor — beyaz üstüne beyaz katman olmaz.
+  // ---------------------------------------------------------------------
+  static const ivory0 = Color(0xFFFDFCF9); // en açık yüzey
+  static const ivory50 = Color(0xFFF7F6F2); // ekran zemini
+  static const ivory100 = Color(0xFFEFEDE7); // panel
+  static const ivory200 = Color(0xFFE7E4DC); // yükseltilmiş ton
+  static const ivory300 = Color(0xFFDBD7CC); // kenarlık
+  static const ivoryHairline = Color(0xFFE3E0D8); // kıl çizgi
+
+  // ---------------------------------------------------------------------
   // Nötrler — slate. Yüzeyler, metin, kenarlıklar.
   // ---------------------------------------------------------------------
   static const neutral0 = Color(0xFFFFFFFF);
@@ -98,19 +139,40 @@ abstract final class AppPalette {
   // ---------------------------------------------------------------------
   // Başarı = marka. Bilinçli birleştirme; gerekçesi marka bloğunda.
   static const successLight = brand700;
-  static const successDark = brand300;
+
+  /// M12: koyu modda başarı da markanın işaret yeşili.
+  ///
+  /// Eskiden `brand300`'dü; mürekkep zeminde `primary` de `brand400`
+  /// olunca iki yakın yeşil doğuyordu. Birleştirme kararı (marka =
+  /// başarı) koyu modda da geçerli — `ink_scheme_test` bunu sabitliyor.
+  static const successDark = brand400;
+
   static const successSurfaceLight = brand50;
-  static const successSurfaceDark = brandContainerDark;
+
+  /// Mürekkep zeminde "bütçe altı / yapıldı" dolgusu. Yeşile çalan
+  /// lacivert: takvim hücresi bir bakışta okunmalı ama rakamı
+  /// bastırmamalı.
+  static const successSurfaceDark = Color(0xFF183626);
 
   static const warningLight = Color(0xFFB45309); // amber-700
-  static const warningDark = Color(0xFFFBBF24); // amber-400
+
+  /// Mürekkep zeminde uyarı. `amber-400` (#FBBF24) lacivert üstünde
+  /// fazla parlak kalıyordu; bir tık koyulaştırıldı.
+  static const warningDark = Color(0xFFE8A33D);
+
   static const warningSurfaceLight = Color(0xFFFEF3C7);
-  static const warningSurfaceDark = Color(0xFF78350F);
+  static const warningSurfaceDark = Color(0xFF3A2C14);
 
   static const dangerLight = Color(0xFFB91C1C); // red-700
-  static const dangerDark = Color(0xFFF87171); // red-400
+
+  /// Mürekkep zeminde aşım/hata. `red-400` mürekkeple çakışmıyordu ama
+  /// fazla pembeye kaçıyordu; toprak tonuna çekildi.
+  static const dangerDark = Color(0xFFE06C5F);
+
   static const dangerSurfaceLight = Color(0xFFFEE2E2);
-  static const dangerSurfaceDark = Color(0xFF7F1D1D);
+
+  /// "Bütçe üstü" dolgusu — kızıla çalan lacivert.
+  static const dangerSurfaceDark = Color(0xFF3A2622);
 
   static const infoLight = Color(0xFF0369A1); // sky-700
   static const infoDark = Color(0xFF7DD3FC); // sky-300
@@ -139,6 +201,17 @@ abstract final class AppPalette {
   /// Özgün #E69F00 beyaz zeminde 2.25:1 kalıyor — arayüz bileşeni için
   /// gereken 3:1 eşiğinin altında. Okabe-Ito paleti serileri birbirinden
   /// ayırmak için tasarlandı, zemine karşı kontrast için değil; ton
-  /// korunarak koyulaştırıldı (3.09:1).
-  static const chartOrangeOnLight = Color(0xFFC38700);
+  /// korunarak (41°) koyulaştırıldı.
+  ///
+  /// M12'de bir tık daha koyulaştı: zemin saf beyazdan fildişine
+  /// (`ivory50`) taşınınca eski değer 3:1'in hemen altına düştü.
+  /// Testin eşiği düşürülmedi, renk düzeltildi — 3.20:1.
+  static const chartOrangeOnLight = Color(0xFFB87F00);
+
+  /// Okabe-Ito pembesinin açık mod karşılığı — turuncuyla aynı gerekçe.
+  ///
+  /// Özgün #CC79A7 beyaz zeminde 3.06:1 ile eşiğin hemen üstündeydi;
+  /// fildişi zeminde 2.83'e düştü. Ton (326°) korunarak koyulaştırıldı,
+  /// 3.32:1. Koyu modda özgün pembe kullanılmaya devam ediyor.
+  static const chartPinkOnLight = Color(0xFFC06C9B);
 }

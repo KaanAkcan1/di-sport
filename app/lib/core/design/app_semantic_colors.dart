@@ -24,6 +24,7 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
     required this.onDanger,
     required this.dangerSurface,
     required this.info,
+    required this.hairline,
     required this.chartSeries,
     required this.chartGrid,
     required this.chartMuted,
@@ -46,6 +47,14 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
 
   /// Bilgilendirme — eylem gerektirmeyen bildirimler.
   final Color info;
+
+  /// Liste içi bölme çizgisi — mürekkep dilinin ayırma aracı (M12).
+  ///
+  /// `outlineVariant`'tan ayrı: o bir *kenarlık* rengi (kart çerçevesi,
+  /// input alanı), bu bir *ayraç*. Mürekkep dilinde kart ve gölge
+  /// olmadığı için satırları ayıran tek şey bu çizgi; kenarlıkla aynı
+  /// tonda olursa liste ızgaraya döner.
+  final Color hairline;
 
   /// Grafik serileri, sırayla kullanılır. Okabe-Ito paleti: renk
   /// körlüğünde ayırt edilebilir. Yine de renk tek başına yeterli
@@ -71,28 +80,30 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
     onDanger: AppPalette.neutral0,
     dangerSurface: AppPalette.dangerSurfaceLight,
     info: AppPalette.infoLight,
+    hairline: AppPalette.ivoryHairline,
     chartSeries: [
       AppPalette.chartBlue,
       AppPalette.chartOrangeOnLight,
       AppPalette.chartGreen,
-      AppPalette.chartPink,
+      AppPalette.chartPinkOnLight,
       AppPalette.chartVermillion,
     ],
-    chartGrid: AppPalette.neutral200,
+    chartGrid: AppPalette.ivory200,
     chartMuted: AppPalette.neutral400,
   );
 
   static const dark = AppSemanticColors(
     success: AppPalette.successDark,
-    onSuccess: AppPalette.neutral950,
+    onSuccess: AppPalette.ink950,
     successSurface: AppPalette.successSurfaceDark,
     warning: AppPalette.warningDark,
-    onWarning: AppPalette.neutral950,
+    onWarning: AppPalette.ink950,
     warningSurface: AppPalette.warningSurfaceDark,
     danger: AppPalette.dangerDark,
-    onDanger: AppPalette.neutral950,
+    onDanger: AppPalette.ink950,
     dangerSurface: AppPalette.dangerSurfaceDark,
     info: AppPalette.infoDark,
+    hairline: AppPalette.ink750,
     chartSeries: [
       AppPalette.chartSky,
       AppPalette.chartOrange,
@@ -100,8 +111,8 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
       AppPalette.chartPink,
       AppPalette.chartYellow,
     ],
-    chartGrid: AppPalette.neutral700,
-    chartMuted: AppPalette.neutral500,
+    chartGrid: AppPalette.ink750,
+    chartMuted: AppPalette.mist500,
   );
 
   @override
@@ -116,6 +127,7 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
     Color? onDanger,
     Color? dangerSurface,
     Color? info,
+    Color? hairline,
     List<Color>? chartSeries,
     Color? chartGrid,
     Color? chartMuted,
@@ -131,6 +143,7 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
       onDanger: onDanger ?? this.onDanger,
       dangerSurface: dangerSurface ?? this.dangerSurface,
       info: info ?? this.info,
+      hairline: hairline ?? this.hairline,
       chartSeries: chartSeries ?? this.chartSeries,
       chartGrid: chartGrid ?? this.chartGrid,
       chartMuted: chartMuted ?? this.chartMuted,
@@ -151,6 +164,7 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
       onDanger: Color.lerp(onDanger, other.onDanger, t)!,
       dangerSurface: Color.lerp(dangerSurface, other.dangerSurface, t)!,
       info: Color.lerp(info, other.info, t)!,
+      hairline: Color.lerp(hairline, other.hairline, t)!,
       chartSeries: t < 0.5 ? chartSeries : other.chartSeries,
       chartGrid: Color.lerp(chartGrid, other.chartGrid, t)!,
       chartMuted: Color.lerp(chartMuted, other.chartMuted, t)!,
