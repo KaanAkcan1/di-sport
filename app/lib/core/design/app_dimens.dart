@@ -108,11 +108,37 @@ abstract final class AppElevation {
   static const none = 0.0;
 
   /// Kartlar, liste öğeleri.
-  static const card = 0.0;
+  ///
+  /// v1'de 0'dı ve kartlar yalnız ince bir kenarlıkla ayrışıyordu.
+  /// Cihazda sonucu şuydu: zemin `neutral50` (#F8FAFC), kart beyaz —
+  /// aralarında 1.02:1 kontrast, yani göz kart sınırını seçemiyordu.
+  /// Ekranın tamamı tek düzlemde, karaktersiz duruyordu.
+  ///
+  /// Çözüm iki parçalı: zemin bir ton koyulaştı (`surfaceContainer`) ve
+  /// kart gerçek ama **yumuşak** bir gölge aldı. Gölge kısık tutuluyor
+  /// çünkü veri yoğun bir arayüzde ağır gölge hiyerarşi değil gürültü
+  /// üretir (ui-ux §4 `elevation-consistent`).
+  static const card = 1.0;
+
+  /// Öne çıkan kart — bugünün kartı, etkin plan.
+  static const cardRaised = 3.0;
 
   /// Yüzen eylem düğmesi, açılır menü.
   static const raised = 3.0;
 
   /// Alt sayfa (bottom sheet), diyalog.
   static const overlay = 6.0;
+}
+
+/// Kenarlık kalınlıkları.
+///
+/// Vurgulu kenarlık (seçili gün, etkin ray) 2dp; sıradan ayrım 1dp.
+/// Arada değer yok — "biraz daha kalın" istendiğinde ölçek bozulur.
+abstract final class AppBorder {
+  static const hairline = 1.0;
+  static const emphasis = 2.0;
+
+  /// Zaman rayının kalınlığı. Kalın değil ama görünür olmalı;
+  /// ray ekranın omurgası.
+  static const rail = 2.0;
 }

@@ -336,27 +336,28 @@ class _DayTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final semantic = context.semantic;
 
-    final (icon, label, color) = switch (day.type) {
-      PlanDayType.gym => (
-        Icons.fitness_center,
-        'Salon',
-        theme.colorScheme.primary,
-      ),
-      PlanDayType.home => (Icons.home_outlined, 'Ev', semantic.info),
-      PlanDayType.rest => (
-        Icons.self_improvement,
-        'Dinlenme',
-        theme.colorScheme.onSurfaceVariant,
-      ),
+    // Gün tipi bir **kategori**, durum değil — renk taşımıyor.
+    // Önceden salon primary, ev `semantic.info` (mavi), dinlenme gri
+    // idi; marka yeşile taşınınca bu tesadüfen yeşil/mavi bir ayrım
+    // üretti ve "iyi/bilgi" durumu gibi okunmaya başladı. Kategoriyi
+    // ikonun şekli ayırıyor, renk yalnız "bugün" için ayrıldı.
+    final (icon, label) = switch (day.type) {
+      PlanDayType.gym => (Icons.fitness_center, 'Salon'),
+      PlanDayType.home => (Icons.home_outlined, 'Ev'),
+      PlanDayType.rest => (Icons.self_improvement, 'Dinlenme'),
     };
 
     return Card(
       margin: const EdgeInsets.only(bottom: AppSpacing.sm),
       color: isToday ? theme.colorScheme.primaryContainer : null,
       child: ListTile(
-        leading: Icon(icon, color: isToday ? null : color),
+        leading: Icon(
+          icon,
+          color: isToday
+              ? theme.colorScheme.onPrimaryContainer
+              : theme.colorScheme.onSurfaceVariant,
+        ),
         title: Text(
           '${day.date.day}.${day.date.month.toString().padLeft(2, '0')} · '
           '${_weekdayNames[day.date.weekday - 1]}',

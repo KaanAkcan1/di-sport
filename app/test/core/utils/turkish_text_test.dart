@@ -35,4 +35,30 @@ void main() {
       expect(TurkishText.fold('3 × 10'), '3 × 10');
     });
   });
+
+  group('upper', () {
+    test('i büyürken noktasını korur', () {
+      // Dart'ın toUpperCase()'i "KILO" verir; Türkçede bu "kılo"
+      // okunur, başka bir sözcük. İstatistik etiketlerinde görüldü.
+      expect(TurkishText.upper('Kilo'), 'KİLO');
+      expect(TurkishText.upper('ilerleme'), 'İLERLEME');
+    });
+
+    test('ı büyürken noktasız kalır', () {
+      expect(TurkishText.upper('ışık'), 'IŞIK');
+      expect(TurkishText.upper('sağlık'), 'SAĞLIK');
+    });
+
+    test('diğer Türkçe harfler doğru büyür', () {
+      expect(TurkishText.upper('çğöşü'), 'ÇĞÖŞÜ');
+    });
+
+    test('zaten büyük olan metni bozmaz', () {
+      expect(TurkishText.upper('KİLO'), 'KİLO');
+    });
+
+    test('boş metin boş döner', () {
+      expect(TurkishText.upper(''), '');
+    });
+  });
 }

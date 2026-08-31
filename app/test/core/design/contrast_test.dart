@@ -154,31 +154,54 @@ void main() {
   checkScheme('Açık', AppTheme.light.colorScheme, AppSemanticColors.light);
   checkScheme('Koyu', AppTheme.dark.colorScheme, AppSemanticColors.dark);
 
-  test('marka rengi anlam renkleriyle ton olarak çakışmaz', () {
-    // Tasarımın temel kuralı: marka rengi "iyi" ya da "kötü" demek
-    // değildir. Marka yeşile ya da kırmızıya kayarsa durum sinyali
-    // bulanır.
-    //
-    // Ölçüt kontrast oranı DEĞİL ton mesafesi. Kontrast oranı parlaklık
-    // farkını ölçer; mavi ile kehribar neredeyse aynı parlaklıkta olup
-    // gözle apayrı görünebilir. Ayırt edilebilirliği belirleyen ton.
-    final brandHue = HSLColor.fromColor(AppTheme.light.colorScheme.primary).hue;
-
-    for (final (name, color) in [
-      ('success', AppSemanticColors.light.success),
-      ('warning', AppSemanticColors.light.warning),
-      ('danger', AppSemanticColors.light.danger),
-    ]) {
-      final hue = HSLColor.fromColor(color).hue;
-      final delta = (brandHue - hue).abs();
-      final circular = math.min(delta, 360 - delta);
-
-      expect(
-        circular,
-        greaterThan(60),
-        reason: 'marka tonu ($brandHue°) $name tonundan ($hue°) '
-            'en az 60° uzak olmalı; şu an $circular°',
-      );
+  group('marka ile durum renkleri', () {
+    double hueGap(Color a, Color b) {
+      final delta = (HSLColor.fromColor(a).hue - HSLColor.fromColor(b).hue)
+          .abs();
+      return math.min(delta, 360 - delta);
     }
+
+    test('marka, uyarı ve hata tonlarından uzak durur', () {
+      // Ölçüt kontrast oranı DEĞİL ton mesafesi. Kontrast oranı parlaklık
+      // farkını ölçer; iki renk neredeyse aynı parlaklıkta olup gözle
+      // apayrı görünebilir. Ayırt edilebilirliği belirleyen ton.
+      //
+      // Kapsam bilinçli olarak `success` hariç: M6'da marka Vue yeşiline
+      // taşındı ve başarı rengi markayla **birleştirildi**. Ayrışması şart
+      // olanlar bunlar — "yapılacak/marka" ile "dikkat" ve "sorun"
+      // birbirine karışırsa kullanıcı yanlış sinyal okur.
+      final brand = AppTheme.light.colorScheme.primary;
+
+      for (final (name, color) in [
+        ('warning', AppSemanticColors.light.warning),
+        ('danger', AppSemanticColors.light.danger),
+      ]) {
+        expect(
+          hueGap(brand, color),
+          greaterThan(60),
+          reason: 'marka tonu $name tonundan en az 60° uzak olmalı',
+        );
+      }
+    });
+
+    test('uyarı ve hata birbirinden ayrışır', () {
+      // Amber ile kırmızı en yakın iki durum rengi; ikisi de "bir şey
+      // ters" diyor ama şiddetleri farklı. Karışırlarsa kullanıcı
+      // gecikmiş bir tahlille referans dışı bir değeri ayırt edemez.
+      expect(
+        hueGap(
+          AppSemanticColors.light.warning,
+          AppSemanticColors.light.danger,
+        ),
+        greaterThan(20),
+      );
+    });
+
+    test('başarı rengi markayla bilerek aynı', () {
+      // Bu test kuralı korumuyor, **kararı belgeliyor**. Biri ileride
+      // başarıyı ayrı bir yeşile taşırsa bu test düşer ve karar yeniden
+      // tartışılır — sessizce iki yakın yeşil oluşmaz.
+      expect(AppSemanticColors.light.success, AppTheme.light.colorScheme.primary);
+    });
   });
 }

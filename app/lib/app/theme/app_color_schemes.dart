@@ -18,27 +18,33 @@ abstract final class AppColorSchemes {
     onSecondary: AppPalette.neutral0,
     secondaryContainer: AppPalette.neutral100,
     onSecondaryContainer: AppPalette.neutral800,
-    tertiary: AppPalette.brand600,
+    tertiary: AppPalette.brand400,
     onTertiary: AppPalette.neutral0,
     error: AppPalette.dangerLight,
     onError: AppPalette.neutral0,
     errorContainer: AppPalette.dangerSurfaceLight,
     onErrorContainer: Color(0xFF7F1D1D),
+    // Kart beyaz, zemin bir ton koyu. v1'de ikisi de neredeyse beyazdı
+    // (1.02:1) ve kartlar kaybolurdu; asıl "soluk görünüyor" şikâyeti
+    // buradan geliyordu.
     surface: AppPalette.neutral0,
-    onSurface: AppPalette.neutral900,
+    onSurface: AppPalette.inkStrong,
     onSurfaceVariant: AppPalette.neutral600,
     surfaceContainerLowest: AppPalette.neutral0,
-    surfaceContainerLow: AppPalette.neutral50,
+    surfaceContainerLow: AppPalette.neutral0,
     surfaceContainer: AppPalette.neutral100,
     surfaceContainerHigh: AppPalette.neutral200,
-    surfaceContainerHighest: AppPalette.neutral200,
+    surfaceContainerHighest: AppPalette.neutral300,
     outline: AppPalette.neutral300,
     outlineVariant: AppPalette.neutral200,
-    inverseSurface: AppPalette.neutral900,
-    onInverseSurface: AppPalette.neutral50,
+    // Mürekkep yüzeyi: başlık şeritleri ve istatistik blokları.
+    inverseSurface: AppPalette.ink,
+    onInverseSurface: AppPalette.neutral0,
     inversePrimary: AppPalette.brand300,
     scrim: Color(0x99000000), // %60 — ön planı yalıtacak güçte
-    shadow: Color(0x1A0F172A),
+    // Gölge lacivert tonlu: nötr siyah gölge yeşil/lacivert bir arayüzde
+    // kirli görünüyor.
+    shadow: Color(0x1F213547),
   );
 
   static const dark = ColorScheme(
@@ -54,7 +60,7 @@ abstract final class AppColorSchemes {
     onSecondary: AppPalette.neutral950,
     secondaryContainer: AppPalette.neutral800,
     onSecondaryContainer: AppPalette.neutral100,
-    tertiary: AppPalette.brand400,
+    tertiary: AppPalette.brand300,
     onTertiary: AppPalette.neutral950,
     error: AppPalette.dangerDark,
     onError: AppPalette.neutral950,

@@ -17,6 +17,22 @@ TodayRepository todayRepository(Ref ref) =>
 BodyMetricsRepository bodyMetricsRepository(Ref ref) =>
     BodyMetricsRepository(ref.watch(appDatabaseProvider));
 
+/// Dakikada bir ilerleyen saat.
+///
+/// Zaman rayındaki "şimdi" işareti buna bağlı. Saniyede bir yerine
+/// dakikada bir: işaretin çözünürlüğü zaten dakika, daha sık yeniden
+/// çizmek boşuna kare harcar (ui-ux §3 `main-thread-budget`).
+///
+/// Ayrı provider olması testin sabit bir ana kilitlenmesini sağlıyor.
+@riverpod
+Stream<DateTime> clock(Ref ref) async* {
+  yield DateTime.now();
+  yield* Stream.periodic(
+    const Duration(minutes: 1),
+    (_) => DateTime.now(),
+  );
+}
+
 /// Bugünün tarihi, `yyyy-MM-dd`.
 ///
 /// Ayrı provider olması testlerde sabit bir güne kilitlemeyi sağlıyor;

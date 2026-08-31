@@ -2,6 +2,7 @@ import 'package:disport/app/theme/app_theme.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/today_repository.dart';
+import 'package:disport/features/today/presentation/daily_flags_card.dart';
 import 'package:disport/features/today/presentation/today_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -137,7 +138,18 @@ void main() {
       expect(find.text('3 litre su'), findsOneWidget);
       expect(find.text('Alkol ve şeker yok'), findsOneWidget);
       expect(find.text('Antrenman yapıldı'), findsOneWidget);
-      expect(find.text('2/3'), findsOneWidget);
+
+      // Sayaç iki yerde: ekranın tepesindeki özet şeridi ve kartın
+      // kendi rozeti. İkisi de kasıtlı — şerit bir bakışta durum verir,
+      // kart kutucukları çevirirken anlık geri bildirim. Bu yüzden
+      // arama karta sınırlanıyor.
+      expect(
+        find.descendant(
+          of: find.byType(DailyFlagsCard),
+          matching: find.text('2/3'),
+        ),
+        findsOneWidget,
+      );
     });
 
     testWidgets('durumlar anahtarlara yansır', (tester) async {
@@ -170,6 +182,15 @@ void main() {
   testWidgets('not alanı kaydedilmiş metni gösterir', (tester) async {
     await tester.pumpWidget(
       wrap(log: const DailyLogView(note: 'Şınavda zorlandım.')),
+    );
+    await tester.pumpAndSettle();
+
+    // Not alanı ekranın en altında ve `ListView` görünmeyeni tembel
+    // kuruyor; okumadan önce görünür kılınması gerekiyor.
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('day-note-field')),
+      300,
+      scrollable: find.byType(Scrollable).first,
     );
     await tester.pumpAndSettle();
 

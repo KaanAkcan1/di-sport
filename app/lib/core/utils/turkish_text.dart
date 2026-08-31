@@ -1,4 +1,4 @@
-/// Türkçe metin için arama yardımcıları.
+/// Türkçe metin için arama ve biçim yardımcıları.
 abstract final class TurkishText {
   /// Türkçe harfleri ASCII karşılıklarına indirger ve küçültür.
   ///
@@ -19,6 +19,31 @@ abstract final class TurkishText {
   ///
   /// Kayıt yazılırken ve arama yapılırken **aynı** işlevden geçirilmesi
   /// şart; tek tarafta uygulanırsa eşleşme yine tutmaz.
+  /// Türkçe kurallarına göre büyük harfe çevirir.
+  ///
+  /// Dart'ın `toUpperCase()`'i ASCII kuralıyla çalışıyor: `i` → `I`.
+  /// Türkçede `i`nin büyüğü `İ`, `ı`nın büyüğü `I`. Aradaki fark
+  /// kozmetik değil — "Kilo".toUpperCase() "KILO" veriyor ki bu
+  /// Türkçede "kılo" okunur, başka bir sözcük.
+  ///
+  /// Büyük harf etiketlerde (istatistik başlıkları) bu kullanılmalı.
+  /// Kod birimi bazında geziliyor: Türkçe harflerin hepsi BMP'de tek
+  /// birim. Bu sınıf yalnız etiket ve arama metniyle çalışıyor, emoji
+  /// gibi vekil çiftler beklenmiyor — `characters` bağımlılığı eklemeye
+  /// değmez.
+  static String upper(String input) {
+    final buffer = StringBuffer();
+    for (var i = 0; i < input.length; i++) {
+      final ch = input[i];
+      buffer.write(switch (ch) {
+        'i' => 'İ',
+        'ı' => 'I',
+        _ => ch.toUpperCase(),
+      });
+    }
+    return buffer.toString();
+  }
+
   static String fold(String input) {
     final buffer = StringBuffer();
     for (final rune in input.runes) {

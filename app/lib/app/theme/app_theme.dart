@@ -30,7 +30,10 @@ abstract final class AppTheme {
       colorScheme: c,
       fontFamily: AppTypography.fontFamily,
       textTheme: t,
-      scaffoldBackgroundColor: c.surface,
+      // Zemin `surface` değil bir ton koyu: kartlar beyaz kalıp
+      // zeminden ayrışsın. v1'de ikisi de beyaza yakındı ve kart
+      // sınırları görünmüyordu.
+      scaffoldBackgroundColor: c.surfaceContainer,
       splashFactory: InkSparkle.splashFactory,
 
       // Anlam renkleri `context.semantic` ile erişilir.

@@ -36,9 +36,34 @@ abstract final class TurkishDate {
     'Ara',
   ];
 
+  /// Pazartesi'den Pazar'a. `DateTime.weekday` 1-tabanlı.
+  static const weekdays = [
+    'Pazartesi',
+    'Salı',
+    'Çarşamba',
+    'Perşembe',
+    'Cuma',
+    'Cumartesi',
+    'Pazar',
+  ];
+
+  static const weekdaysShort = [
+    'Pzt',
+    'Sal',
+    'Çar',
+    'Per',
+    'Cum',
+    'Cmt',
+    'Paz',
+  ];
+
   /// `3 Eylül`
   static String dayMonth(DateTime date) =>
       '${date.day} ${months[date.month - 1]}';
+
+  /// `Pazartesi, 3 Eylül` — Bugün ekranının başlığı.
+  static String weekdayAndDay(DateTime date) =>
+      '${weekdays[date.weekday - 1]}, ${dayMonth(date)}';
 
   /// `3 Eyl 2026` — yıl gerektiğinde; tahlil geçmişi yıllara yayılır.
   static String dayMonthYear(DateTime date) =>

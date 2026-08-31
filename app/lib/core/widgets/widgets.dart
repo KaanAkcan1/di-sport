@@ -12,4 +12,6 @@ export 'app_async_view.dart';
 export 'app_empty_state.dart';
 export 'app_metric_value.dart';
 export 'app_section.dart';
+export 'app_stat_band.dart';
 export 'app_status_indicator.dart';
+export 'app_time_rail.dart';

@@ -8,33 +8,71 @@ import 'package:flutter/material.dart';
 /// Buradaki tek iş, o anlamsal isimlerin beslendiği paleti tanımlamak.
 abstract final class AppPalette {
   // ---------------------------------------------------------------------
-  // Marka — derin mavi.
+  // Marka — Vue yeşili (#42B883) çevresinde kurulmuş rampa.
   //
-  // Bilinçli tercih: marka rengi anlam rengi OLAMAZ. Uygulamada üç ayrı
-  // durum ekseni var (gün yapıldı/kaçırıldı, tahlil düşük/normal/yüksek,
-  // kilo yönü). Marka yeşil ya da turuncu olsaydı "iyi/kötü" sinyaliyle
-  // çakışır, kullanıcı rengin ne anlattığını her seferinde çözmek
-  // zorunda kalırdı. Mavi bu üç eksenin hiçbirinde anlam taşımaz.
+  // ÖNEMLİ — bir kural burada bilerek değiştirildi:
+  //
+  // M1'de "marka rengi anlam rengi OLAMAZ" kuralı kondu, gerekçesi
+  // uygulamada üç durum ekseni bulunması (gün yapıldı/kaçırıldı, tahlil
+  // düşük/normal/yüksek, kilo yönü) ve yeşil bir markanın "iyi"
+  // sinyaliyle çakışacak olmasıydı.
+  //
+  // Marka yeşile taşınınca bu çakışma kaçınılmaz. İki yeşil tanımlayıp
+  // birini markaya birini başarıya vermek daha kötü olurdu: kullanıcı
+  // iki yakın yeşili ayırt etmeye çalışırdı. Bunun yerine **ikisi
+  // birleştirildi** — `successLight/Dark` bu rampadan besleniyor.
+  //
+  // Neden savunulabilir: alışkanlık takibinde "marka" ile "yapıldı"
+  // aynı yeşil olması tutarlı bir eşleme. Ayrıca kural zaten renk tek
+  // başına anlam taşımasın diyordu (ikon + metin her zaman eşlik eder);
+  // o kural yürürlükte.
+  //
+  // Ayrışması **şart** olanlar marka↔uyarı (amber) ve marka↔hata
+  // (kırmızı); ton mesafesi testi artık bunları koruyor.
   // ---------------------------------------------------------------------
-  static const brand50 = Color(0xFFEFF6FF);
-  static const brand100 = Color(0xFFDBEAFE);
-  static const brand200 = Color(0xFFBFDBFE);
-  static const brand300 = Color(0xFF93C5FD);
-  static const brand400 = Color(0xFF60A5FA);
-  static const brand500 = Color(0xFF3B82F6);
-  static const brand600 = Color(0xFF2563EB);
-  static const brand700 = Color(0xFF1D4ED8);
-  static const brand800 = Color(0xFF1E40AF);
-  static const brand900 = Color(0xFF1E3A8A);
+  static const brand50 = Color(0xFFECFAF3);
+  static const brand100 = Color(0xFFD1F3E2);
+  static const brand200 = Color(0xFFA5E6C6);
+  static const brand300 = Color(0xFF73D6A6);
 
-  /// Koyu modun marka kapsayıcısı — doygunluğu düşürülmüş lacivert.
+  /// Vue'nun işaret yeşili. Marka rengi budur; büyük dolgularda ve
+  /// koyu modda kullanılır.
+  static const brand400 = Color(0xFF42B883);
+
+  static const brand500 = Color(0xFF35A170);
+  static const brand600 = Color(0xFF2A855C);
+
+  /// Açık modun `primary`'si. `brand400` beyaz metinle 2.2:1'de kalıyor —
+  /// dolgulu düğmede okunmaz. Ton korunarak koyulaştırıldı.
+  static const brand700 = Color(0xFF1F6B4A);
+
+  static const brand800 = Color(0xFF17513A);
+  static const brand900 = Color(0xFF0F3527);
+
+  /// Koyu modun marka kapsayıcısı — doygunluğu düşürülmüş yeşil.
   ///
   /// Rampadan `brand800` alınsaydı seçili sekme göstergesi koyu modda
-  /// açık moddakinden çok daha ağır görünürdü: açık modda gösterge
-  /// soluk bir zemin, koyu modda parlak bir hap olurdu. İki mod aynı
-  /// karakterde olmalı (ui-ux §4 `dark-mode-pairing`), bu yüzden
-  /// aynı tonda ama kroması düşük ayrı bir değer.
-  static const brandContainerDark = Color(0xFF2A3E63);
+  /// açık moddakinden çok daha ağır görünürdü. İki mod aynı karakterde
+  /// olmalı (ui-ux §4 `dark-mode-pairing`).
+  static const brandContainerDark = Color(0xFF1D4536);
+
+  // ---------------------------------------------------------------------
+  // Mürekkep — Vue'nun laciverti.
+  //
+  // Nötr rampadan ayrı duruyor çünkü işi farklı: bu bir *yüzey* rengi.
+  // Başlık şeritleri ve istatistik blokları bununla dolduruluyor ki
+  // ekranın bir ağırlık merkezi olsun. v1'de böyle bir merkez yoktu,
+  // her şey aynı düzlemde duruyordu ve göz nereye bakacağını bilmiyordu.
+  // ---------------------------------------------------------------------
+
+  /// Vue'nun gövde metni rengi. En koyu mürekkep.
+  static const inkStrong = Color(0xFF213547);
+
+  /// Vue'nun ikincil laciverti. Dolu yüzeyler için.
+  static const ink = Color(0xFF35495E);
+
+  /// Mürekkebin açık varyantı — lacivert yüzey üstünde ikincil metin.
+  static const inkMuted = Color(0xFF7E93A8);
 
   // ---------------------------------------------------------------------
   // Nötrler — slate. Yüzeyler, metin, kenarlıklar.
@@ -58,10 +96,11 @@ abstract final class AppPalette {
   // aydınlatılmış/doygunluğu azaltılmış varyant (ui-ux §6
   // `color-dark-mode`).
   // ---------------------------------------------------------------------
-  static const successLight = Color(0xFF15803D); // green-700
-  static const successDark = Color(0xFF4ADE80); // green-400
-  static const successSurfaceLight = Color(0xFFDCFCE7);
-  static const successSurfaceDark = Color(0xFF14532D);
+  // Başarı = marka. Bilinçli birleştirme; gerekçesi marka bloğunda.
+  static const successLight = brand700;
+  static const successDark = brand300;
+  static const successSurfaceLight = brand50;
+  static const successSurfaceDark = brandContainerDark;
 
   static const warningLight = Color(0xFFB45309); // amber-700
   static const warningDark = Color(0xFFFBBF24); // amber-400

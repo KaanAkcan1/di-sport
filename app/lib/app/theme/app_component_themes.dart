@@ -18,7 +18,10 @@ abstract final class AppComponentThemes {
   // -------------------------------------------------------------------
 
   static AppBarTheme appBar(ColorScheme c, TextTheme t) => AppBarTheme(
-    backgroundColor: c.surface,
+    // Zeminle aynı: çubuk ayrı bir şerit gibi durmasın, ekran tek
+    // yüzey olarak başlasın. Kaydırınca `scrolledUnderElevation`
+    // ayrımı kendiliğinden getiriyor.
+    backgroundColor: c.surfaceContainer,
     foregroundColor: c.onSurface,
     elevation: AppElevation.none,
     // İçerik altına kaydığında ince bir ayrım belirir; sabit gölge
@@ -30,15 +33,17 @@ abstract final class AppComponentThemes {
   );
 
   static CardThemeData card(ColorScheme c) => CardThemeData(
-    color: c.surfaceContainerLow,
+    color: c.surface,
     surfaceTintColor: Colors.transparent,
-    // Gölge yerine kenarlık: veri yoğun bir arayüzde çok sayıda gölge
-    // görsel gürültü yaratır ve hiyerarşiyi değil kalabalığı artırır.
+    shadowColor: c.shadow,
+    // Kenarlık **ve** yumuşak gölge. v1'de yalnız kenarlık vardı ve
+    // beyaz üstünde beyaz kart görünmüyordu; gölge kartı zeminden
+    // koparıyor, kenarlık kenarı tanımlıyor.
     elevation: AppElevation.card,
     margin: EdgeInsets.zero,
     shape: RoundedRectangleBorder(
       borderRadius: AppRadius.lgAll,
-      side: BorderSide(color: c.outlineVariant),
+      side: BorderSide(color: c.outlineVariant, width: AppBorder.hairline),
     ),
   );
 
@@ -54,9 +59,12 @@ abstract final class AppComponentThemes {
 
   static NavigationBarThemeData navigation(ColorScheme c, TextTheme t) =>
       NavigationBarThemeData(
-        backgroundColor: c.surfaceContainerLow,
+        // Beyaz: alt çubuk zeminden ayrışıp ekranı aşağıdan
+        // çapalıyor.
+        backgroundColor: c.surface,
         surfaceTintColor: Colors.transparent,
-        elevation: AppElevation.none,
+        elevation: AppElevation.raised,
+        shadowColor: c.shadow,
         height: 68,
         indicatorColor: c.primaryContainer,
         indicatorShape: const RoundedRectangleBorder(
@@ -135,7 +143,9 @@ abstract final class AppComponentThemes {
 
     return InputDecorationTheme(
       filled: true,
-      fillColor: c.surfaceContainerLow,
+      // Zemin tonu: alanlar beyaz kart üstünde girilebilir olduklarını
+      // belli etmeli. Beyaz dolgu beyaz kartta kaybolurdu.
+      fillColor: c.surfaceContainer,
       // Dikey dolgu asgari 48dp yüksekliği garantiler
       // (ui-ux §8 `touch-friendly-input`).
       contentPadding: const EdgeInsets.symmetric(
