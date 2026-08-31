@@ -68,12 +68,26 @@ void main() {
     await tester.pumpWidget(wrap(exercise: pushup));
     await tester.pumpAndSettle();
 
+    expect(find.text('Başlangıç'), findsOneWidget);
+
+    // Görünen sekmenin listesini kaydır. `scrollUntilVisible` burada
+    // kullanılamıyor: dört sekmenin dördü de kaydırılabilir olduğu için
+    // hangisini kaydıracağını bilemiyor.
+    final list = find.byType(ListView).first;
+
+    await tester.drag(list, const Offset(0, -400));
+    await tester.pumpAndSettle();
+
+    // Adımlar numaralandırılmış olarak listeleniyor.
     expect(find.text('Birinci adım.'), findsOneWidget);
     expect(find.text('Üçüncü adım.'), findsOneWidget);
-    expect(find.text('1'), findsOneWidget);
     expect(find.text('3'), findsOneWidget);
-    expect(find.text('Başlangıç'), findsOneWidget);
+
+    await tester.drag(list, const Offset(0, -300));
+    await tester.pumpAndSettle();
+
     expect(find.text('Nefes ve tempo'), findsOneWidget);
+    expect(find.text('İnerken al, çıkarken ver.'), findsOneWidget);
   });
 
   testWidgets('hata sekmesi hata, neden ve düzeltmeyi birlikte verir', (

@@ -4,6 +4,7 @@ import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:disport/features/catalog/presentation/exercise_detail_screen.dart';
+import 'package:disport/features/catalog/presentation/exercise_visuals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -33,6 +34,25 @@ class HowToTab extends StatelessWidget {
     return ListView(
       padding: _tabPadding,
       children: [
+        if (exercise.hasImage) ...[
+          _HeaderImage(exercise: exercise),
+          const SizedBox(height: AppSpacing.lg),
+        ],
+
+        Row(
+          children: [
+            Chip(
+              avatar: Icon(exercise.category.icon, size: 16),
+              label: Text(exercise.category.labelTr),
+            ),
+            const SizedBox(width: AppSpacing.sm),
+            ExerciseLocationBadge(location: exercise.location),
+            const Spacer(),
+            ExerciseDifficultyBar(level: exercise.difficulty),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.lg),
+
         Text(exercise.summary, style: theme.textTheme.bodyLarge),
         const SizedBox(height: AppSpacing.xl2),
 
@@ -242,6 +262,36 @@ class SafetyTab extends StatelessWidget {
 // ---------------------------------------------------------------------
 // Ortak parçalar
 // ---------------------------------------------------------------------
+
+/// Başlangıç ve bitiş karesini yan yana gösteren görsel.
+class _HeaderImage extends StatelessWidget {
+  const _HeaderImage({required this.exercise});
+
+  final Exercise exercise;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      label:
+          '${exercise.nameTr} hareketinin başlangıç ve bitiş pozisyonu',
+      image: true,
+      child: ClipRRect(
+        borderRadius: AppRadius.lgAll,
+        child: AspectRatio(
+          // Görseller iki kare yan yana üretiliyor; oran kaynakta sabit.
+          aspectRatio: 900 / 368,
+          child: Image.asset(
+            exercise.imagePath!,
+            fit: BoxFit.cover,
+            errorBuilder: (context, _, _) => ColoredBox(
+              color: Theme.of(context).colorScheme.surfaceContainerHigh,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class _BulletList extends StatelessWidget {
   const _BulletList({required this.items});

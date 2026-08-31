@@ -3,15 +3,22 @@ import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:disport/features/catalog/presentation/exercise_detail_tabs.dart';
-import 'package:disport/features/catalog/presentation/exercise_visuals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Bir hareketin tam anlatımı.
 ///
-/// Detay dört sekmeye bölünmüş: antrenman sırasında kimse tek sayfada
-/// on paragraf okumaz, ama katalogda gezerken bilginin tamamı erişilebilir
+/// Detay dört sekmeye bölünmüş: antrenman sırasında kimse tek sayfada on
+/// paragraf okumaz, ama katalogda gezerken bilginin tamamı erişilebilir
 /// olmalı (spec Bölüm 6, katmanlı detay).
+///
+/// Görsel, katlanan bir başlık yerine "Adımlar" sekmesinin içinde duruyor.
+/// Katlanan başlık denendi ve iki sorun çıkardı: rozetler sekme çubuğuna
+/// biniyordu, sekme etiketleri koyu fotoğrafın üstünde okunmuyordu. Her
+/// ikisi de perde ve koşullu renkle örtülebilirdi, ama çubuk tamamen
+/// toplandığında beyaz etiketin beyaz zeminde kalması gibi yeni kenar
+/// durumları doğuruyordu. Görsel içeriğin içinde olunca bu sınıf hata
+/// tümden ortadan kalkıyor ve metne daha çok yer kalıyor.
 class ExerciseDetailScreen extends ConsumerWidget {
   const ExerciseDetailScreen({super.key, required this.exerciseId});
 
@@ -21,18 +28,32 @@ class ExerciseDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final exercise = ref.watch(exerciseByIdProvider(exerciseId));
 
-    return Scaffold(
-      body: AppAsyncView<Exercise?>(
-        value: exercise,
-        emptyWhen: (value) => value == null,
-        empty: const AppEmptyState(
+    return AppAsyncView<Exercise?>(
+      value: exercise,
+      loading: const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      ),
+      emptyWhen: (value) => value == null,
+      empty: Scaffold(
+        appBar: AppBar(),
+        body: const AppEmptyState(
           icon: Icons.help_outline,
           title: 'Hareket bulunamadı',
           description: 'Bu hareket katalogdan kaldırılmış olabilir.',
         ),
-        onRetry: () => ref.invalidate(exerciseByIdProvider(exerciseId)),
-        data: (value) => _Content(exercise: value!),
       ),
+      error: (error) => Scaffold(
+        appBar: AppBar(),
+        body: AppEmptyState(
+          icon: Icons.error_outline,
+          tone: AppEmptyStateTone.danger,
+          title: 'Hareket açılamadı',
+          description: '$error',
+          actionLabel: 'Tekrar dene',
+          onAction: () => ref.invalidate(exerciseByIdProvider(exerciseId)),
+        ),
+      ),
+      data: (value) => _Content(exercise: value!),
     );
   }
 }
@@ -46,35 +67,25 @@ class _Content extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 4,
-      child: NestedScrollView(
-        headerSliverBuilder: (context, _) => [
-          SliverAppBar(
-            pinned: true,
-            expandedHeight: exercise.hasImage ? 240 : null,
-            flexibleSpace: exercise.hasImage
-                ? FlexibleSpaceBar(
-                    background: _HeaderImage(exercise: exercise),
-                  )
-                : null,
-            title: Text(exercise.nameTr),
-            // Sabit genişlikte dört sekme, kaydırmasız.
-            //
-            // Spec'teki uzun etiketler ("Nasıl yapılır", "Kolaylaştır /
-            // Zorlaştır") telefon genişliğine sığmıyor ve kaydırmalı
-            // çubukta son iki sekme ekran dışında kalıyordu: kullanıcı
-            // güvenlik notunun varlığını göremiyor. Kısa etiketler dördünü
-            // birden görünür kılıyor — keşfedilebilirlik, kelime
-            // zenginliğinden önce gelir.
-            bottom: const TabBar(
-              tabs: [
-                Tab(text: 'Adımlar'),
-                Tab(text: 'Hatalar'),
-                Tab(text: 'Varyantlar'),
-                Tab(text: 'Güvenlik'),
-              ],
-            ),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(exercise.nameTr),
+          // Etiketlerin varsayılan yatay dolgusu dört Türkçe kelimeyi
+          // taşırıyor; "Varyantlar" son harfinden kırpılıyordu.
+          bottom: const TabBar(
+            labelPadding: EdgeInsets.symmetric(horizontal: AppSpacing.xs),
+            tabs: [
+              // Kısa etiketler: spec'teki uzun biçimler ("Nasıl yapılır",
+              // "Kolaylaştır / Zorlaştır") telefon genişliğine sığmıyor ve
+              // kaydırmalı çubukta son iki sekme ekran dışında kalıyordu.
+              // Keşfedilebilirlik kelime zenginliğinden önce gelir.
+              Tab(text: 'Adımlar'),
+              Tab(text: 'Hatalar'),
+              Tab(text: 'Varyantlar'),
+              Tab(text: 'Güvenlik'),
+            ],
           ),
-        ],
+        ),
         body: TabBarView(
           children: [
             HowToTab(exercise: exercise),
@@ -83,90 +94,6 @@ class _Content extends StatelessWidget {
             SafetyTab(exercise: exercise),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _HeaderImage extends StatelessWidget {
-  const _HeaderImage({required this.exercise});
-
-  final Exercise exercise;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        Image.asset(
-          exercise.imagePath!,
-          fit: BoxFit.cover,
-          errorBuilder: (context, _, _) =>
-              ColoredBox(color: Theme.of(context).colorScheme.surfaceContainer),
-        ),
-        // Başlık metninin görsel üstünde okunur kalması için alttan
-        // koyulaşan geçiş (ui-ux: metin kontrastı 4.5:1).
-        const DecoratedBox(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.center,
-              end: Alignment.bottomCenter,
-              colors: [Colors.transparent, Color(0x99000000)],
-            ),
-          ),
-        ),
-        Positioned(
-          left: AppSpacing.lg,
-          right: AppSpacing.lg,
-          bottom: AppSpacing.md,
-          child: Row(
-            children: [
-              _OnImageChip(
-                icon: exercise.category.icon,
-                label: exercise.category.labelTr,
-              ),
-              const SizedBox(width: AppSpacing.sm),
-              _OnImageChip(
-                icon: Icons.equalizer,
-                label: 'Zorluk ${exercise.difficulty}/5',
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _OnImageChip extends StatelessWidget {
-  const _OnImageChip({required this.icon, required this.label});
-
-  final IconData icon;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.sm,
-        vertical: AppSpacing.xs,
-      ),
-      decoration: const BoxDecoration(
-        color: Color(0xB3000000),
-        borderRadius: AppRadius.smAll,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 14, color: Colors.white),
-          const SizedBox(width: AppSpacing.xs),
-          Text(
-            label,
-            style: Theme.of(
-              context,
-            ).textTheme.labelSmall?.copyWith(color: Colors.white),
-          ),
-        ],
       ),
     );
   }

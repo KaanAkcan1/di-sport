@@ -68,7 +68,7 @@ di@sport/
 | `plan` | yer tutucu | 28 günlük program |
 | `progress` | yer tutucu | Kilo trendi, haftalık özet, geçiş kriteri |
 | `health` | yer tutucu | Vücut ölçümleri, tahliller |
-| `catalog` | yer tutucu (veri hazır) | Egzersiz kütüphanesi. `assets/catalog.json` 17 hareketle dolu; ekran M2'de. |
+| `catalog` | **tamam** | Egzersiz kütüphanesi: tablo, repository, arama/filtreli liste, dört sekmeli detay. |
 | `workout` | yok | Antrenman akışı (M3) |
 | `ai_bridge` | yok | context.md üretimi + plan.json içe alma (M4) |
 | `reminders` | yok | Alarmlar (M5) |
@@ -241,7 +241,20 @@ kötüdür. Görsel eklemek için o dosyadaki `SOURCES` tablosuna satır ekle.
 
 ## Durum
 
-M1 tamamlandı: iskelet, Drift şeması, tasarım sistemi, 5 sekmeli kabuk,
-egzersiz kataloğu verisi, 72 test. Sıradaki: **M2 — katalog ekranları**
-(tablo, repository, liste, dört sekmeli detay). Tohum veri hazır olduğu için
-M2'nin Task 4'ü tamamlanmış sayılır.
+**M1 ve M2 tamamlandı** — 115 test yeşil, analiz temiz.
+
+- M1: iskelet, Drift şeması, tasarım sistemi, 5 sekmeli kabuk
+- M2: egzersiz kataloğu (17 hareket verisi, tablo, repository, liste, detay)
+
+Sıradaki: **M3 — plan ve günlük kayıt**
+([plan](docs/superpowers/plans/2026-08-28-m3-plan-ve-gunluk.md)).
+M3'te dört tablo (`plans`, `plan_days`, `plan_slots`, `plan_exercises`) ile
+`daily_logs`, `body_metrics`, `exercise_logs` eklenecek; şema v2'den v5'e
+çıkacak. Bugün ve Antrenman ekranları orada gerçek hâlini alıyor.
+
+**M3'e girmeden önce plan senkronu:** M3 planı `Exercise` modelinin ve
+`CatalogRepository`'nin bu haliyle yazılmadı. Antrenman ekranı
+`catalogRepositoryProvider.getById` ve `ExerciseDetailScreen` kullanacak;
+ikisi de hazır. Liste satırı için `ExerciseListTile`'ın `trailing` alanı
+set × tekrar göstermek üzere ayrıldı — M3'te onu kullan, yeni satır widget'ı
+yazma.
