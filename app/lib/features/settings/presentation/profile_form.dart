@@ -14,12 +14,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// eksik doldurulmuş bir profil AI'a "belirtilmedi" olarak gidiyor ve
 /// plan jenerikleşiyor. O yüzden form neden sorulduğunu açıklıyor.
 class ProfileForm extends ConsumerStatefulWidget {
-  const ProfileForm({super.key, this.onSaved, this.saveLabel = 'Kaydet'});
+  const ProfileForm({
+    super.key,
+    this.onSaved,
+    this.saveLabel = 'Kaydet',
+    this.trailing = const [],
+  });
 
   /// Onboarding'de kabuğa geçmek için; Ayarlar'da null.
   final VoidCallback? onSaved;
 
   final String saveLabel;
+
+  /// Formdan sonra aynı kaydırma alanına eklenecek bölümler.
+  ///
+  /// Ayarlar ekranı bildirim ve yedekleme bölümlerini buradan geçiriyor.
+  /// Ayrı bir `ListView` içine sarmak iç içe kaydırma yaratır: dış
+  /// liste kaydırılırken iç liste takılır, kullanıcı ekranın "kilitli"
+  /// olduğunu sanır.
+  final List<Widget> trailing;
 
   @override
   ConsumerState<ProfileForm> createState() => _ProfileFormState();
@@ -131,6 +144,10 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
           onPressed: _saving ? null : _save,
           child: Text(widget.saveLabel),
         ),
+        if (widget.trailing.isNotEmpty) ...[
+          const SizedBox(height: AppSpacing.xl3),
+          ...widget.trailing,
+        ],
         const SizedBox(height: AppSpacing.xl4),
       ],
     );

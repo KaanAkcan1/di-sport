@@ -1,11 +1,13 @@
 import 'package:disport/app/theme/app_theme.dart';
 import 'package:disport/core/db/app_database.dart';
+import 'package:disport/core/notifications/local_notification_service.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/catalog/presentation/catalog_screen.dart';
 import 'package:disport/features/health/presentation/health_screen.dart';
 import 'package:disport/features/plan/presentation/plan_screen.dart';
 import 'package:disport/features/progress/presentation/progress_screen.dart';
+import 'package:disport/features/reminders/domain/reminder_planner.dart';
 import 'package:disport/features/settings/presentation/onboarding_screen.dart';
 import 'package:disport/features/settings/presentation/settings_screen.dart';
 import 'package:disport/features/today/presentation/today_screen.dart';
@@ -102,6 +104,34 @@ typedef _Tab = ({
 
 class _ShellState extends State<_Shell> {
   var _index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Uygulama bildirime dokunularak açılmışsa yük zaten dolu;
+    // sonradan gelenler için dinleyici kalıyor.
+    pendingNotificationPayload.addListener(_openPayloadTab);
+    _openPayloadTab();
+  }
+
+  @override
+  void dispose() {
+    pendingNotificationPayload.removeListener(_openPayloadTab);
+    super.dispose();
+  }
+
+  /// Bildirim yükünü ilgili sekmeye çevirir ve yükü tüketir.
+  ///
+  /// Tüketmek şart: aksi halde kullanıcı elle başka sekmeye geçtiğinde
+  /// bir sonraki yeniden çizimde alarmın sekmesine geri atılırdı.
+  void _openPayloadTab() {
+    final payload = pendingNotificationPayload.value;
+    if (payload == null) return;
+
+    pendingNotificationPayload.value = null;
+    final tab = ReminderPayloads.tabIndex[payload];
+    if (tab != null && mounted) setState(() => _index = tab);
+  }
 
   static const List<_Tab> _tabs = [
     (

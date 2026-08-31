@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:disport/app/app.dart';
 import 'package:disport/features/catalog/data/catalog_repository.dart';
+import 'package:disport/features/reminders/application/reminder_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,6 +21,11 @@ Future<void> bootstrap() async {
   final container = ProviderContainer();
 
   await _seedCatalog(container);
+
+  // Bildirim penceresi arka planda kaydırılıyor: kurulumu beklemek ilk
+  // kareyi geciktirir ve kullanıcı uygulamayı açtığında alarm kurmak
+  // için bir sebep yok, alarm ileride çalacak.
+  unawaited(_rescheduleReminders(container));
 
   runApp(
     UncontrolledProviderScope(
@@ -43,6 +51,24 @@ Future<void> _seedCatalog(ProviderContainer container) async {
     ).seedFromJson(json);
   } catch (error, stackTrace) {
     debugPrint('Katalog tohumlaması başarısız: $error');
+    debugPrintStack(stackTrace: stackTrace);
+  }
+}
+
+/// Bildirim penceresini kaydırır.
+///
+/// Her açılışta çağrılıyor: pencere yalnız yedi gün ileriyi kapsıyor,
+/// uygulama bir hafta açılmazsa alarmlar kendiliğinden tükenir. Bu
+/// kabul edilmiş bir sınır — bir hafta açılmamış bir takip
+/// uygulamasının alarm çalması zaten kullanıcıyı geri getirmiyor.
+///
+/// Hata yutuluyor: bildirim izni reddedilmiş ya da platform kanalı
+/// hazır değilse uygulama yine açılmalı.
+Future<void> _rescheduleReminders(ProviderContainer container) async {
+  try {
+    await container.read(reminderSchedulerProvider).reschedule(DateTime.now());
+  } catch (error, stackTrace) {
+    debugPrint('Bildirim kurulumu başarısız: $error');
     debugPrintStack(stackTrace: stackTrace);
   }
 }
