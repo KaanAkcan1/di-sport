@@ -1,19 +1,23 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
 import 'package:disport/core/widgets/widgets.dart';
+import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
+import 'package:disport/features/ai_bridge/presentation/import_plan_sheet.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/plan/data/sample_plan.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/workout/presentation/workout_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:share_plus/share_plus.dart';
 
-/// 28 günlük programın takvim görünümü.
+/// 28 günlük programın takvim görünümü ve AI eylemleri.
 ///
-/// M4'te üstteki eylemler "Yeni plan iste" ve "Planı içeri al" olacak.
-/// Şimdilik örnek planı yükleyerek akışı kapatıyor.
+/// Eylemler plan olsa da olmasa da üstte duruyor: kullanıcı her an yeni
+/// plan isteyebilmeli, eskisini beklemek zorunda kalmamalı.
 class PlanScreen extends ConsumerWidget {
   const PlanScreen({super.key});
 
@@ -21,14 +25,19 @@ class PlanScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final plan = ref.watch(activePlanProvider);
 
-    return AppAsyncView<FullPlan?>(
-      value: plan,
-      emptyWhen: (value) => value == null,
-      empty: _EmptyPlan(
-        onLoadSample: () => _loadSample(ref),
-      ),
-      onRetry: () => ref.invalidate(activePlanProvider),
-      data: (value) => _PlanOverview(plan: value!),
+    return Column(
+      children: [
+        const PlanActions(),
+        Expanded(
+          child: AppAsyncView<FullPlan?>(
+            value: plan,
+            emptyWhen: (value) => value == null,
+            empty: _EmptyPlan(onLoadSample: () => _loadSample(ref)),
+            onRetry: () => ref.invalidate(activePlanProvider),
+            data: (value) => _PlanOverview(plan: value!),
+          ),
+        ),
+      ],
     );
   }
 
@@ -51,15 +60,122 @@ class _EmptyPlan extends StatelessWidget {
   final VoidCallback onLoadSample;
 
   @override
-  Widget build(BuildContext context) => AppEmptyState(
-    icon: Icons.calendar_month_outlined,
-    title: 'Henüz plan yok',
-    description:
-        'Kâğıt çizelgenin dört haftalık dijital hâlini yükleyerek başla. '
-        'İleride planı yapay zekâdan alıp buraya aktarabileceksin.',
-    actionLabel: 'Örnek planı yükle',
-    onAction: onLoadSample,
-  );
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(AppSpacing.xl2),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.calendar_month_outlined,
+              size: 40,
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            Text('Henüz plan yok', style: theme.textTheme.titleMedium),
+            const SizedBox(height: AppSpacing.sm),
+            Text(
+              'Yukarıdaki "Yeni plan iste" düğmesiyle bağlam dosyanı üret, '
+              'bir yapay zekâya ver, dönen JSON belgesini "İçeri al" ile '
+              'buraya aktar.',
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            if (kDebugMode) ...[
+              const SizedBox(height: AppSpacing.xl),
+              TextButton(
+                onPressed: onLoadSample,
+                child: const Text('Örnek planı yükle (geliştirme)'),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Plan sekmesinin üstündeki iki eylem.
+///
+/// Uygulamanın AI ile tek temas noktası burası: bağlam üret, dönen planı
+/// içeri al. Uygulama hangi AI'ın kullanıldığını bilmez.
+class PlanActions extends ConsumerStatefulWidget {
+  const PlanActions({super.key});
+
+  @override
+  ConsumerState<PlanActions> createState() => _PlanActionsState();
+}
+
+class _PlanActionsState extends ConsumerState<PlanActions> {
+  var _busy = false;
+
+  Future<void> _requestPlan() async {
+    setState(() => _busy = true);
+    try {
+      final markdown = await ref
+          .read(contextMdBuilderProvider)
+          .build(today: DateTime.now());
+
+      if (!mounted) return;
+      await SharePlus.instance.share(
+        ShareParams(
+          text: markdown,
+          subject: 'di@sport — plan isteği',
+        ),
+      );
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  void _openImport() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (_) => const FractionallySizedBox(
+        heightFactor: 0.92,
+        child: ImportPlanSheet(),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.screenH,
+        AppSpacing.md,
+        AppSpacing.screenH,
+        AppSpacing.sm,
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: FilledButton.icon(
+              key: const Key('request-plan-button'),
+              onPressed: _busy ? null : _requestPlan,
+              icon: const Icon(Icons.auto_awesome),
+              label: const Text('Yeni plan iste'),
+            ),
+          ),
+          const SizedBox(width: AppSpacing.sm),
+          Expanded(
+            child: OutlinedButton.icon(
+              key: const Key('import-plan-button'),
+              onPressed: _busy ? null : _openImport,
+              icon: const Icon(Icons.file_download_outlined),
+              label: const Text('İçeri al'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _PlanOverview extends ConsumerWidget {

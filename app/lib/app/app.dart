@@ -1,9 +1,13 @@
 import 'package:disport/app/theme/app_theme.dart';
 import 'package:disport/core/db/app_database.dart';
+import 'package:disport/core/widgets/widgets.dart';
+import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/catalog/presentation/catalog_screen.dart';
 import 'package:disport/features/health/presentation/health_screen.dart';
 import 'package:disport/features/plan/presentation/plan_screen.dart';
 import 'package:disport/features/progress/presentation/progress_screen.dart';
+import 'package:disport/features/settings/presentation/onboarding_screen.dart';
+import 'package:disport/features/settings/presentation/settings_screen.dart';
 import 'package:disport/features/today/presentation/today_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -40,7 +44,35 @@ class DisportApp extends StatelessWidget {
         maxScaleFactor: 1.6,
         child: child!,
       ),
-      home: const _Shell(),
+      home: const _Root(),
+    );
+  }
+}
+
+/// İlk açılışta onboarding, sonrasında kabuk.
+///
+/// Ölçüt profilde boy alanının dolu olması: `context.md`'nin birinci
+/// bölümü onsuz eksik kalır ve AI'ın ürettiği plan jenerikleşir.
+class _Root extends ConsumerWidget {
+  const _Root();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final onboarded = ref.watch(isOnboardedProvider);
+
+    return AppAsyncView<bool>(
+      value: onboarded,
+      loading: const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      ),
+      onRetry: () => ref.invalidate(isOnboardedProvider),
+      data: (done) => done
+          ? const _Shell()
+          : OnboardingScreen(
+              // Form kaydedince provider yeniden okunuyor ve bu widget
+              // kendiliğinden kabuğa geçiyor; ayrı bir bayrak gerekmiyor.
+              onDone: () => ref.invalidate(isOnboardedProvider),
+            ),
     );
   }
 }
@@ -112,7 +144,19 @@ class _ShellState extends State<_Shell> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_tabs[_index].label)),
+      appBar: AppBar(
+        title: Text(_tabs[_index].label),
+        actions: [
+          IconButton(
+            key: const Key('settings-button'),
+            icon: const Icon(Icons.settings_outlined),
+            tooltip: 'Profil ve yaşam tarzı',
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const SettingsScreen()),
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         // Alt çubuk kendi güvenli alanını yönetiyor; gövdede yalnız
         // yanlar ve üst gerekiyor (ui-ux §5 `safe-area-awareness`).

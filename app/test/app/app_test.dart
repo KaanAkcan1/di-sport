@@ -1,7 +1,9 @@
 import 'package:disport/app/app.dart';
 import 'package:disport/core/db/app_database.dart';
+import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
+import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/today_repository.dart';
 import 'package:drift/native.dart';
@@ -32,6 +34,11 @@ void main() {
       todayWeightProvider.overrideWith((ref) => Stream.value(null)),
       todaySleepProvider.overrideWith((ref) => Stream.value(null)),
       missedStreakProvider.overrideWith((ref) async => 0),
+      // Kabuk artık onboarding kontrolünün arkasında; test doğrudan
+      // sekmelere bakıyor.
+      isOnboardedProvider.overrideWith((ref) async => true),
+      // Plan ekranı da veritabanına bağlı.
+      activePlanProvider.overrideWith((ref) async => null),
     ],
     child: const DisportApp(),
   );

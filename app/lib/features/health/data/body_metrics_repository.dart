@@ -2,8 +2,11 @@ import 'package:disport/core/db/app_database.dart';
 import 'package:drift/drift.dart';
 import 'package:uuid/uuid.dart';
 
-/// Zaman serisindeki tek nokta.
-typedef MetricPoint = ({String date, double value});
+/// Zaman serisindeki tek ölçüm.
+///
+/// `MetricSample`, `ai_bridge`'in `MetricPoint` portuyla karışmasın diye
+/// ayrı adlandırıldı; port adı AI sözleşmesinin parçası.
+typedef MetricSample = ({String date, double value});
 
 /// Vücut ölçümlerine erişim.
 class BodyMetricsRepository {
@@ -84,7 +87,7 @@ class BodyMetricsRepository {
   }
 
   /// Bir ölçümün tarih sırasına göre serisi (eski → yeni).
-  Future<List<MetricPoint>> series(String kind, {int limit = 400}) async {
+  Future<List<MetricSample>> series(String kind, {int limit = 400}) async {
     final rows =
         await (_db.select(_db.bodyMetrics)
               ..where((t) => t.kind.equals(kind) & t.deletedAt.isNull())
@@ -98,7 +101,7 @@ class BodyMetricsRepository {
   ///
   /// İlerleme ekranındaki özet kartları ve M4'teki `context.md` bunu
   /// kullanır; tür başına ayrı sorgu atmak yerine tek okuma.
-  Future<Map<String, MetricPoint>> latestPerKind() async {
+  Future<Map<String, MetricSample>> latestPerKind() async {
     final rows =
         await (_db.select(_db.bodyMetrics)
               ..where((t) => t.deletedAt.isNull())
