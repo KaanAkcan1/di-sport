@@ -29,6 +29,7 @@ mağaza yok. Mimari bunları sonradan almaya açık (bkz. `SyncColumns`).
 | [M3 planı](docs/superpowers/plans/2026-08-28-m3-plan-ve-gunluk.md) | Plan, günlük kayıt, Bugün + Antrenman — **tamamlandı** |
 | [M4 planı](docs/superpowers/plans/2026-08-28-m4-ai-koprusu.md) | AI köprüsü — **tamamlandı** |
 | [M5 planı](docs/superpowers/plans/2026-08-28-m5-saglik-ilerleme-alarm.md) | Tahlil, grafik, alarm, yedek, BYOK — **tamamlandı** (BYOK hariç) |
+| [M6 planı](docs/superpowers/plans/2026-08-31-m6-ozellestirme-ve-gorsel-refactor.md) | Görsel refactor + özelleştirme — **sürüyor** |
 
 Planlar sırayla yürütülür. Bir kilometre taşı bitince **sonraki planı
 gözden geçir ve senkronize et** — öğrenilenler planı eskitir.
@@ -43,7 +44,7 @@ di@sport/
 ├── docs/superpowers/         spec + planlar
 ├── kaan-eylul-2026-cizelge.pdf   kaynak çizelge
 └── app/                      Flutter projesi (tüm yollar buna göre)
-    ├── assets/fonts/         Inter değişken font
+    ├── assets/fonts/         Inter (değişken) + Barlow Condensed (4 ağırlık)
     ├── lib/
     │   ├── main.dart         tek satır → bootstrap()
     │   ├── bootstrap.dart    açılış işleri (katalog tohumu, alarm penceresi)
@@ -64,15 +65,15 @@ di@sport/
 
 | Feature | Durum | Sorumluluk |
 |---|---|---|
-| `today` | **tamam** | Günlük ekran: slot işaretleri, tartı/uyku girişi, kurallar, not |
+| `today` | **tamam** | Zaman omurgası, tartı/uyku girişi, **kullanıcı tanımlı kurallar**, not |
 | `plan` | **tamam** | 28 günlük program, takvim görünümü, örnek plan yükleme |
 | `progress` | tam | Kilo grafiği (7g hareketli ortalama), haftalık kartlar, geçiş kriteri |
-| `health` | tam | Vücut ölçümleri + tahlil panelleri, referans aralığı, vade şeridi |
-| `catalog` | **tamam** | Egzersiz kütüphanesi: tablo, repository, arama/filtreli liste, dört sekmeli detay. |
+| `health` | tam | Tahlil panelleri, **kullanıcı tanımlı ölçüm türleri**, vade şeridi |
+| `catalog` | **tamam** | 26 hareket, arama/filtre, dört sekmeli detay, **ekipman envanteri ve filtresi** |
 | `workout` | **tamam** | Antrenman akışı: set sayacı, dinlenme, geri alma |
 | `ai_bridge` | **tamam** | context.md üretimi, dört kapılı doğrulama, plan.json içe alma |
 | `reminders` | tam | Saf `planWindow` + platform katmanı, 7 günlük kaydırmalı pencere |
-| `settings` | tam | Profil formu (onboarding ile ortak), bildirim tercihleri, yedekleme |
+| `settings` | tam | Profil formu, bildirimler, yedekleme, **haftalık mesai/yasaklı saat pencereleri** |
 
 ---
 
@@ -102,10 +103,21 @@ di@sport/
 
 ## Tasarım sistemi
 
-**Temel kural: marka rengi anlam rengi değildir.** Uygulamada üç bağımsız
-durum ekseni var (gün yapıldı/kaçırıldı, tahlil düşük/normal/yüksek,
-kilo yönü). Marka yeşil ya da turuncu olsaydı "iyi/kötü" sinyaliyle
-çakışırdı. Marka **derin mavi**; yeşil/amber/kırmızı yalnız duruma ayrılmış.
+**Marka: Vue yeşili (#42B883), mürekkep: Vue laciverti (#35495E).**
+
+M1'de "marka rengi anlam rengi olamaz" kuralı vardı ve marka derin
+maviydi. M6'da marka yeşile taşındı; çakışma kaçınılmaz olduğu için
+**başarı rengi markayla birleştirildi**. İki yakın yeşil tanımlamak
+daha kötü olurdu — kullanıcıdan onları ayırt etmesi istenirdi.
+
+Hâlâ geçerli olan: marka **amber ve kırmızıdan** uzak durmalı, ve renk
+tek başına anlam taşımaz (ikon + metin her zaman eşlik eder). İkisini de
+`contrast_test.dart` koruyor; ayrı bir test birleştirmeyi sabitliyor ki
+sessizce geri kaymasın.
+
+**Derinlik:** zemin `surfaceContainer`, kart beyaz + yumuşak gölge.
+v1'de ikisi de beyaza yakındı (1.02:1) ve kartlar görünmüyordu — "soluk
+görünüyor" şikâyetinin somut nedeni buydu.
 
 | Katman | Dosya | İçerik |
 |---|---|---|
@@ -117,9 +129,18 @@ kilo yönü). Marka yeşil ya da turuncu olsaydı "iyi/kötü" sinyaliyle
 | Bileşen stilleri | `app/theme/app_component_themes.dart` | Gruplanmış statik metotlar |
 | Birleştirici | `app/theme/app_theme.dart` | Yalnız bir araya getirir. Büyüyorsa parça yanlış yerdedir. |
 
-**Font:** Inter değişken (`assets/fonts/Inter-Variable.ttf`), uygulamayla
-paketli — çalışma anında indirilmez, uygulama çevrimdışıdır. Türkçe
-glifleri eksiksiz, tablo rakamı destekli.
+**Font — iki aile, ikisi de paketli (çevrimdışı):**
+
+- **Inter** (değişken): gövde ve arayüz. Türkçe glifleri eksiksiz,
+  tablo rakamı destekli.
+- **Barlow Condensed** (4 ağırlık): saatler, büyük sayılar, istatistik
+  etiketleri. Uygulamanın içeriği sayı ve kaynağı bir çizelge; sıkışık
+  rakam hem daha çok veri sığdırır hem karakter verir.
+  **Gövde metni asla bununla yazılmaz** — Türkçe sözcükler sıkışık
+  harfle küçük puntoda okunurluk kaybeder.
+
+**`TurkishText.upper()` kullan, `toUpperCase()` değil.** Dart'ınki
+ASCII kuralıyla çalışır: "Kilo" → "KILO", ki Türkçede "kılo" okunur.
 
 **Grafik renkleri:** Okabe-Ito paleti (renk körlüğünde ayırt edilebilir).
 Açık modda turuncu koyulaştırılmış varyantı kullanılır — özgüsü beyaz
@@ -134,6 +155,8 @@ zeminde 3:1 eşiğini geçmiyor.
 | `AppStatusChip` / `AppStatusDot` | `AppStatus` (good/caution/bad/unknown) → ikon + renk + ekran okuyucu etiketi. |
 | `AppMetricValue` | Sayı + birim. Tablo rakamı, Türkçe ondalık virgülü, `null` ≠ `0`. |
 | `AppSection` / `AppSectionHeader` | Başlıklı bölüm, standart dikey ritim. |
+| `AppStatBand` | Ekranın tepesindeki koyu istatistik şeridi — ağırlık merkezi. Sayılar sıkışık aileyle, boş değer küçülüp solar. |
+| `AppTimeRail` / `AppNowMarker` | Gün omurgası ve canlı "şimdi" işareti. Geçmişle geleceği ayırır. |
 | `AppScreenBody` | Kaydırılabilir gövde; alt çubuk için boşluğu otomatik bırakır. |
 
 ### Erişilebilirlik — testle korunuyor
@@ -235,6 +258,10 @@ flutter run                   # emülatörde çalıştır
   başarısız oluyor** (`update_engine_version.ps1` dosya kilidi). Çıktının
   son satırında `√ Built ...` yoksa yapı olmamıştır — eski APK kurulur ve
   değişiklik yokmuş gibi görünür. Komutu tekrarla.
+- **`adb shell input text` Türkçe karakterde çöker** (`ı` NullPointer verir).
+  Cihazda elle sınarken ASCII yaz.
+- **`ReorderableListView.onReorder` kullanımdan kalktı**; `onReorderItem`
+  hedef dizini kendi düzeltiyor, elle `to > from ? to - 1 : to` yapma.
 - **`adb shell input tap` klavye açıkken güvenilmez** — sayfa kayar,
   dokunuş yanlış alana gider. Alanlar arası geçişte `KEYCODE_TAB` kullan.
 
@@ -272,8 +299,8 @@ kötüdür. Görsel eklemek için o dosyadaki `SOURCES` tablosuna satır ekle.
 
 ## Durum
 
-**v1 tamamlandı — M1-M5.** 384 test yeşil, analiz temiz, emülatörde uçtan
-uca doğrulandı.
+**v1 tamamlandı (M1-M5), M6 sürüyor.** 460 test yeşil, analiz temiz,
+emülatörde doğrulandı.
 
 | | |
 |---|---|
@@ -282,6 +309,7 @@ uca doğrulandı.
 | M3 | plan, günlük kayıt, Bugün ve Antrenman ekranları |
 | M4 | AI köprüsü, onboarding, profil formu |
 | M5 | tahlil takibi, İlerleme ve Sağlık ekranları, alarmlar, yedekleme |
+| M6 | görsel refactor (Vue yeşili) + özelleştirme: kurallar, ölçümler, ekipman, haftalık düzen |
 
 **Döngü kapandı:** onboarding → "Yeni plan iste" → `context.md` paylaş →
 herhangi bir AI → dönen JSON → "İçeri al" → doğrula → önizle → onayla →
@@ -297,6 +325,10 @@ plan Bugün ekranında.
 | v4 | `daily_logs`, `body_metrics` |
 | v5 | `exercise_logs` |
 | v6 | `lab_results`, `lab_schedules` |
+| v7 | `daily_rules` + `daily_logs.checkedRulesJson` |
+| v8 | `metric_definitions` |
+| v9 | `equipment_items` |
+| v10 | `weekly_windows` |
 
 Tablo eklerken `schemaVersion`'ı artır ve `onUpgrade`'e **yeni bir**
 `if (from < N)` bloğu ekle; eskileri değiştirme.
@@ -352,6 +384,21 @@ Yeni bir ekran yazarken: `Future` değil `Stream` kullan
 Nöbetçisi: `test/features/progress/progress_reactivity_test.dart`.
 **Widget testi bu kusuru yakalayamaz** — orada ekran her testte sıfırdan
 kurulur, yani koşul hiç doğmaz.
+
+### Kullanıcı tanımlı veri — ortak kalıp
+
+Kurallar, ölçüm türleri ve ekipman aynı desende:
+
+1. Tablo yalnız **tanımı** tutar; kayıtlar eski yerlerinde kalır
+   (`daily_logs` sütunları, `body_metrics.kind`).
+2. Yerleşikler `bootstrap`ta tohumlanır, **silinmiş olan geri
+   getirilmez** — ölçüt satırın varlığı, `deletedAt` değil. Aksi hâlde
+   kullanıcı aynı şeyi her açılışta siler.
+3. Silme **yumuşak**; geçmiş kayıt bozulmaz ve onay diyaloğu bunu
+   söyler. Söylemezsen kullanıcı geçmişini kaybetmekten korkup listeyi
+   hiç toparlamıyor.
+4. Yerleşikler de yeniden adlandırılabilir (su hedefi 3 litre olmak
+   zorunda değil) ama **id sabit kalır** — geçmiş ona bağlı.
 
 ### Bilinen boşluklar
 
