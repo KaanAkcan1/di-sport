@@ -30,10 +30,12 @@ abstract final class AppTheme {
       colorScheme: c,
       fontFamily: AppTypography.fontFamily,
       textTheme: t,
-      // Zemin `surface` değil bir ton koyu: kartlar beyaz kalıp
-      // zeminden ayrışsın. v1'de ikisi de beyaza yakındı ve kart
-      // sınırları görünmüyordu.
-      scaffoldBackgroundColor: c.surfaceContainer,
+      // M12: zemin artık `surface`'in kendisi. Mürekkep dilinde rampa
+      // aşağıdan yukarı kuruluyor — zemin (surface) → panel
+      // (surfaceContainerHigh) → ön plan (diyalog). M6'da tersiydi:
+      // zemin bir ton koyu, kart beyaz. Kart kavramı kalkınca o
+      // kurgunun dayanağı da kalktı.
+      scaffoldBackgroundColor: c.surface,
       splashFactory: InkSparkle.splashFactory,
 
       // Anlam renkleri `context.semantic` ile erişilir.
@@ -57,6 +59,7 @@ abstract final class AppTheme {
       textButtonTheme: AppComponentThemes.textButton(t),
       segmentedButtonTheme: AppComponentThemes.segmentedButton(c, t),
       chipTheme: AppComponentThemes.chip(c, t),
+      tabBarTheme: AppComponentThemes.tabBar(c, t),
       bottomSheetTheme: AppComponentThemes.bottomSheet(c),
       dialogTheme: AppComponentThemes.dialog(c, t),
       snackBarTheme: AppComponentThemes.snackBar(c, t),

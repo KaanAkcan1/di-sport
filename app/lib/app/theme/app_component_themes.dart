@@ -32,14 +32,17 @@ abstract final class AppComponentThemes {
     titleTextStyle: t.titleLarge,
   );
 
+  /// M12 — panel, kart değil.
+  ///
+  /// Gölge tamamen kalktı: mürekkep dilinde ayrım **ton katmanı + kıl
+  /// çizgi**. M6'da gölge vardı çünkü zemin ve kart ikisi de beyaza
+  /// yakındı ve kart kayboluyordu; artık `surfaceContainerHigh` zeminden
+  /// bir ton ayrı, gölgeye gerek yok.
   static CardThemeData card(ColorScheme c) => CardThemeData(
-    color: c.surface,
+    color: c.surfaceContainerHigh,
     surfaceTintColor: Colors.transparent,
-    shadowColor: c.shadow,
-    // Kenarlık **ve** yumuşak gölge. v1'de yalnız kenarlık vardı ve
-    // beyaz üstünde beyaz kart görünmüyordu; gölge kartı zeminden
-    // koparıyor, kenarlık kenarı tanımlıyor.
-    elevation: AppElevation.card,
+    shadowColor: Colors.transparent,
+    elevation: 0,
     margin: EdgeInsets.zero,
     shape: RoundedRectangleBorder(
       borderRadius: AppRadius.lgAll,
@@ -59,12 +62,12 @@ abstract final class AppComponentThemes {
 
   static NavigationBarThemeData navigation(ColorScheme c, TextTheme t) =>
       NavigationBarThemeData(
-        // Beyaz: alt çubuk zeminden ayrışıp ekranı aşağıdan
-        // çapalıyor.
-        backgroundColor: c.surface,
+        // Zeminden bir ton koyu: çubuk ekranı aşağıdan çapalıyor.
+        // Gölge yerine ton + üst kıl çizgi (`AppShell`'de).
+        backgroundColor: c.surfaceContainerLow,
         surfaceTintColor: Colors.transparent,
-        elevation: AppElevation.raised,
-        shadowColor: c.shadow,
+        elevation: 0,
+        shadowColor: Colors.transparent,
         height: 68,
         indicatorColor: c.primaryContainer,
         indicatorShape: const RoundedRectangleBorder(
@@ -230,26 +233,53 @@ abstract final class AppComponentThemes {
   // Katmanlar: alt sayfa, diyalog, bildirim şeridi
   // -------------------------------------------------------------------
 
+  // Ön plan katmanları — mürekkep dilinin tek istisnası.
+  //
+  // Kart ve liste gölgesiz; ama diyalog ve alt sayfa **içeriğin
+  // üstünde duruyor** ve o ayrımı yalnız tonla kurmak yetmiyor: perde
+  // (`scrim`) arkayı karartınca panel ile karartılmış zemin birbirine
+  // yaklaşıyor. Çözüm gölge değil, bir ton yukarı + belirgin kenarlık.
+
   static BottomSheetThemeData bottomSheet(ColorScheme c) =>
       BottomSheetThemeData(
-        backgroundColor: c.surface,
+        backgroundColor: c.surfaceContainerHigh,
         surfaceTintColor: Colors.transparent,
-        elevation: AppElevation.overlay,
+        elevation: 0,
         showDragHandle: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
+        shape: RoundedRectangleBorder(
+          borderRadius: const BorderRadius.vertical(
             top: Radius.circular(AppRadius.xl),
           ),
+          side: BorderSide(color: c.outline, width: AppBorder.hairline),
         ),
       );
 
   static DialogThemeData dialog(ColorScheme c, TextTheme t) => DialogThemeData(
-    backgroundColor: c.surface,
+    backgroundColor: c.surfaceContainerHigh,
     surfaceTintColor: Colors.transparent,
-    elevation: AppElevation.overlay,
-    shape: const RoundedRectangleBorder(borderRadius: AppRadius.lgAll),
+    elevation: 0,
+    shape: RoundedRectangleBorder(
+      borderRadius: AppRadius.lgAll,
+      side: BorderSide(color: c.outline, width: AppBorder.hairline),
+    ),
     titleTextStyle: t.titleLarge,
     contentTextStyle: t.bodyMedium,
+  );
+
+  /// Sekme şeridi — katalogda yer bağlamı (Evde · Salonda · Dışarıda).
+  ///
+  /// Yer bir filtre değil bağlam olduğu için sekmeye taşındı (spec §2a);
+  /// gösterge marka yeşili, seçili etiket nane.
+  static TabBarThemeData tabBar(ColorScheme c, TextTheme t) => TabBarThemeData(
+    labelColor: c.tertiary,
+    unselectedLabelColor: c.onSurfaceVariant,
+    labelStyle: t.labelLarge,
+    unselectedLabelStyle: t.labelLarge,
+    indicatorColor: c.primary,
+    indicatorSize: TabBarIndicatorSize.tab,
+    dividerColor: c.outlineVariant,
+    dividerHeight: AppBorder.hairline,
+    overlayColor: WidgetStatePropertyAll(c.primary.withValues(alpha: 0.06)),
   );
 
   static SnackBarThemeData snackBar(ColorScheme c, TextTheme t) =>
