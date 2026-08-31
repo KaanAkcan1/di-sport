@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:disport/app/app.dart';
 import 'package:disport/features/catalog/data/catalog_repository.dart';
+import 'package:disport/features/catalog/data/equipment_repository.dart';
+import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:disport/features/health/data/metric_definitions_repository.dart';
 import 'package:disport/features/reminders/application/reminder_providers.dart';
 import 'package:disport/features/today/data/daily_rules_repository.dart';
@@ -25,6 +27,7 @@ Future<void> bootstrap() async {
   await _seedCatalog(container);
   await _seedDailyRules(container);
   await _seedMetricDefinitions(container);
+  await _seedEquipment(container);
 
   // Bildirim penceresi arka planda kaydırılıyor: kurulumu beklemek ilk
   // kareyi geciktirir ve kullanıcı uygulamayı açtığında alarm kurmak
@@ -83,6 +86,24 @@ Future<void> _seedMetricDefinitions(ProviderContainer container) async {
     ).seedBuiltIns();
   } catch (error, stackTrace) {
     debugPrint('Ölçüm tohumlaması başarısız: $error');
+    debugPrintStack(stackTrace: stackTrace);
+  }
+}
+
+/// Ekipman envanterini katalogdaki adlardan tohumlar.
+///
+/// Katalog tohumlamasından **sonra** çağrılmalı: liste kataloğun
+/// içeriğinden türetiliyor. Kullanıcının eklediği hareketler yeni
+/// ekipman getirirse sonraki açılışta o da listeye girer.
+Future<void> _seedEquipment(ProviderContainer container) async {
+  try {
+    final db = container.read(appDatabaseProvider);
+    final exercises = await CatalogRepository(db).watchFiltered().first;
+    await EquipmentRepository(db).seedFrom(
+      exercises.expand((Exercise exercise) => exercise.equipment),
+    );
+  } catch (error, stackTrace) {
+    debugPrint('Ekipman tohumlaması başarısız: $error');
     debugPrintStack(stackTrace: stackTrace);
   }
 }

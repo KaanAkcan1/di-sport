@@ -116,6 +116,20 @@ class _FilterBar extends ConsumerWidget {
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenH),
         children: [
+          // Ekipman filtresi en başta: konum ve kategoriden daha
+          // belirleyici. "Salon" seçmek salonda ne yapabileceğini
+          // söylemiyor, envanter söylüyor.
+          Padding(
+            padding: const EdgeInsets.only(right: AppSpacing.sm),
+            child: FilterChip(
+              key: const Key('filter-my-equipment'),
+              avatar: const Icon(Icons.inventory_2_outlined, size: 18),
+              label: const Text('Ekipmanım'),
+              selected: filter.onlyMyEquipment,
+              onSelected: (_) => notifier.toggleOnlyMyEquipment(),
+            ),
+          ),
+          const _ChipDivider(),
           for (final (location, label) in const [
             (ExerciseLocation.home, 'Ev'),
             (ExerciseLocation.gym, 'Salon'),

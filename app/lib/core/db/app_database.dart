@@ -1,3 +1,4 @@
+import 'package:disport/features/catalog/data/equipment_table.dart';
 import 'package:disport/features/catalog/data/exercise_table.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/health/data/lab_tables.dart';
@@ -32,6 +33,7 @@ part 'app_database.g.dart';
     LabSchedules,
     DailyRules,
     MetricDefinitions,
+    EquipmentItems,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -41,7 +43,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 8;
+  int get schemaVersion => 9;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -75,6 +77,9 @@ class AppDatabase extends _$AppDatabase {
       }
       if (from < 8) {
         await m.createTable(metricDefinitions);
+      }
+      if (from < 9) {
+        await m.createTable(equipmentItems);
       }
     },
   );
