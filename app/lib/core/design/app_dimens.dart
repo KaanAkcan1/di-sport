@@ -99,34 +99,24 @@ abstract final class AppMotion {
       MediaQuery.disableAnimationsOf(context) ? Duration.zero : d;
 }
 
-/// Yükseklik (gölge) ölçeği.
+/// Yükseklik (gölge) ölçeği — **M12'den itibaren kullanım dışı.**
 ///
-/// Material 3 yüksekliği renk tonuyla ifade eder; biz buna hafif ve
-/// tutarlı bir gölge ekliyoruz. Rastgele `BoxShadow` yazmak yerine
-/// buradan seçilir (ui-ux §4 `elevation-consistent`).
+/// Mürekkep dilinde gölge yok: ayrım ton katmanı (`surface` →
+/// `surfaceContainerHigh`) ve kıl çizgiyle kuruluyor (spec §2a.2).
+/// M6'da gölge gerekiyordu çünkü zemin ve kart ikisi de beyaza yakındı;
+/// zemin mürekkebe taşınınca o dayanak kalktı.
+///
+/// Sınıf silinmedi ki "gölge neden yok" sorusunun cevabı burada dursun.
+/// **Yeni kullanım eklenmez** — `elevation_free_test.dart` bunu
+/// denetliyor. Bir yüzeyin öne çıkması gerekiyorsa bir ton yukarı
+/// çıkar ve kenarlık alır; ön plan katmanları (diyalog, alt sayfa)
+/// için kalıp `app_component_themes.dart` içinde.
+@Deprecated('M12: mürekkep dilinde gölge yok, ton katmanı kullan')
 abstract final class AppElevation {
   static const none = 0.0;
-
-  /// Kartlar, liste öğeleri.
-  ///
-  /// v1'de 0'dı ve kartlar yalnız ince bir kenarlıkla ayrışıyordu.
-  /// Cihazda sonucu şuydu: zemin `neutral50` (#F8FAFC), kart beyaz —
-  /// aralarında 1.02:1 kontrast, yani göz kart sınırını seçemiyordu.
-  /// Ekranın tamamı tek düzlemde, karaktersiz duruyordu.
-  ///
-  /// Çözüm iki parçalı: zemin bir ton koyulaştı (`surfaceContainer`) ve
-  /// kart gerçek ama **yumuşak** bir gölge aldı. Gölge kısık tutuluyor
-  /// çünkü veri yoğun bir arayüzde ağır gölge hiyerarşi değil gürültü
-  /// üretir (ui-ux §4 `elevation-consistent`).
   static const card = 1.0;
-
-  /// Öne çıkan kart — bugünün kartı, etkin plan.
   static const cardRaised = 3.0;
-
-  /// Yüzen eylem düğmesi, açılır menü.
   static const raised = 3.0;
-
-  /// Alt sayfa (bottom sheet), diyalog.
   static const overlay = 6.0;
 }
 

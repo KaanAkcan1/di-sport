@@ -21,9 +21,9 @@ abstract final class AppComponentThemes {
     // Zeminle aynı: çubuk ayrı bir şerit gibi durmasın, ekran tek
     // yüzey olarak başlasın. Kaydırınca `scrolledUnderElevation`
     // ayrımı kendiliğinden getiriyor.
-    backgroundColor: c.surfaceContainer,
+    backgroundColor: c.surface,
     foregroundColor: c.onSurface,
-    elevation: AppElevation.none,
+    elevation: 0,
     // İçerik altına kaydığında ince bir ayrım belirir; sabit gölge
     // yerine bu, "kaydırılıyor" bilgisini taşır.
     scrolledUnderElevation: 1,
