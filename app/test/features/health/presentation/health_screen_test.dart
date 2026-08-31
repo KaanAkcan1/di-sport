@@ -57,13 +57,23 @@ void main() {
       appDatabaseProvider.overrideWithValue(db),
       labsByPanelProvider.overrideWith((ref) => Stream.value(labs)),
       dueLabsProvider.overrideWith((ref) async => due),
-      latestMetricsProvider.overrideWith((ref) async => metrics),
+      latestMetricsProvider.overrideWith((ref) => Stream.value(metrics)),
     ],
     child: MaterialApp(
       theme: AppTheme.light,
       home: const HealthScreen(),
     ),
   );
+
+  /// Yardım metinleri sayfayı uzattığı için Kaydet düğmesi test
+  /// görüntü alanının (800x600) altında kalabiliyor; dokunmadan önce
+  /// görünür kılınıyor.
+  Future<void> save(WidgetTester tester) async {
+    await tester.ensureVisible(find.byKey(const Key('lab-save')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('lab-save')));
+    await tester.pumpAndSettle();
+  }
 
   group('panel kartları', () {
     testWidgets('panel başlığı ve son değer görünür', (tester) async {
@@ -262,8 +272,7 @@ void main() {
       await tester.enterText(find.byKey(const Key('lab-ref-high')), '100');
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key('lab-save')));
-      await tester.pumpAndSettle();
+      await save(tester);
 
       final saved = await LabRepository(db).latestPerMarker();
       expect(saved.single.marker, 'Vitamin D');
@@ -278,8 +287,7 @@ void main() {
       await tester.tap(find.byKey(const Key('add-lab-fab')));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key('lab-save')));
-      await tester.pumpAndSettle();
+      await save(tester);
 
       expect(find.text('Tahlil adı gerekli'), findsOneWidget);
       expect(await LabRepository(db).latestPerMarker(), isEmpty);
@@ -299,8 +307,7 @@ void main() {
       await tester.enterText(find.byKey(const Key('lab-unit')), 'mIU/L');
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key('lab-save')));
-      await tester.pumpAndSettle();
+      await save(tester);
 
       final saved = await LabRepository(db).latestPerMarker();
       expect(saved.single.value, closeTo(2.45, 0.001));

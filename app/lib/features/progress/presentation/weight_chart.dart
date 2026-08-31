@@ -40,6 +40,15 @@ class WeightChart extends StatelessWidget {
     final span = (maxValue - minValue).abs();
     final pad = span < 1 ? 1.0 : span * 0.15;
 
+    // Eksen aralığı elle hesaplanıyor. fl_chart kendi seçtiğinde dar
+    // aralıklarda etiketleri birbirine bindiriyor ve tam sayıya
+    // yuvarlanmış değerler "110, 110, 110, 109, 109" gibi tekrar
+    // ediyor — cihazda tek ölçümle görülen bir kusur.
+    final axisRange = (maxValue + pad) - (minValue - pad);
+    final axisInterval = axisRange / 4;
+    // Aralık 4 kilonun altındaysa tam sayı etiket ayırt edici değil.
+    final axisDigits = axisInterval < 1 ? 1 : 0;
+
     return Semantics(
       label:
           'Kilo grafiği. ${points.length} ölçüm. '
@@ -54,6 +63,7 @@ class WeightChart extends StatelessWidget {
             maxY: maxValue + pad,
             gridData: FlGridData(
               drawVerticalLine: false,
+              horizontalInterval: axisInterval,
               getDrawingHorizontalLine: (_) =>
                   FlLine(color: semantic.chartGrid, strokeWidth: 1),
             ),
@@ -64,13 +74,23 @@ class WeightChart extends StatelessWidget {
               leftTitles: AxisTitles(
                 sideTitles: SideTitles(
                   showTitles: true,
-                  reservedSize: 44,
-                  getTitlesWidget: (value, meta) => Text(
-                    TurkishNumber.format(value, fractionDigits: 0),
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
-                  ),
+                  reservedSize: 48,
+                  interval: axisInterval,
+                  getTitlesWidget: (value, meta) {
+                    // Uç etiketler ızgara çizgisiz kalıyor ve en yakın
+                    // komşusuyla üst üste biniyor; eksenin sınırları
+                    // zaten grafiğin kenarı, ayrıca yazmaya gerek yok.
+                    if (value <= meta.min + 0.001 ||
+                        value >= meta.max - 0.001) {
+                      return const SizedBox.shrink();
+                    }
+                    return Text(
+                      TurkishNumber.format(value, fractionDigits: axisDigits),
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    );
+                  },
                 ),
               ),
               bottomTitles: AxisTitles(

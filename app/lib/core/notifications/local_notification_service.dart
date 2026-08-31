@@ -95,22 +95,31 @@ class LocalNotificationService implements NotificationService {
     return await ios?.requestPermissions(alert: true, sound: true) ?? false;
   }
 
-  /// Android 13+ tam zamanlı alarm için ayrı izin ister.
-  ///
-  /// Reddedilirse bildirim yine kurulur, yalnız Doze kipinde birkaç
-  /// dakika gecikebilir. Sessizce hiç kurmamaktansa gecikmeli kurmak
-  /// daha iyi — 06:30 tartı hatırlatması 06:34'te de işini görür.
   @override
   Future<bool> canScheduleExact() async {
     await _ensureInitialized();
     if (!Platform.isAndroid) return true;
 
-    final android = _plugin
-        .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin
-        >();
-    return await android?.requestExactAlarmsPermission() ?? false;
+    // Sorgulayan çağrı: kullanıcıya hiçbir şey göstermez.
+    return await _android?.canScheduleExactNotifications() ?? false;
   }
+
+  @override
+  Future<bool> requestExactPermission() async {
+    await _ensureInitialized();
+    if (!Platform.isAndroid) return true;
+
+    // Bu çağrı sistem ayarları sayfasını açar ve kullanıcı geri
+    // dönene kadar sonuç kesinleşmez; döndüğünde durum yeniden
+    // sorgulanıyor.
+    await _android?.requestExactAlarmsPermission();
+    return canScheduleExact();
+  }
+
+  AndroidFlutterLocalNotificationsPlugin? get _android =>
+      _plugin.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin
+      >();
 
   @override
   Future<void> replaceAll(List<PendingReminder> reminders) async {

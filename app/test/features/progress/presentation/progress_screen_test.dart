@@ -114,6 +114,38 @@ void main() {
       expect(find.byType(LineChart), findsOneWidget);
       expect(tester.takeException(), isNull);
     });
+
+    testWidgets('dar aralıkta eksen etiketleri tekrar etmez', (tester) async {
+      // Cihazda yakalanan kusur: tek ölçümde eksen "110, 110, 110,
+      // 109, 109" gibi tekrar eden tam sayılar yazıyor ve alttaki iki
+      // etiket üst üste biniyordu. Ölçüt: aralık dar olduğunda
+      // etiketler ondalıklı olmalı ve aralık elle verilmeli.
+      await tester.pumpWidget(wrap(view(points: weights(days: 1))));
+      await tester.pumpAndSettle();
+
+      final chart = tester.widget<LineChart>(find.byType(LineChart));
+      final interval = chart.data.titlesData.leftTitles.sideTitles.interval;
+
+      expect(interval, isNotNull);
+      // 1 kilodan dar bir adımda tam sayı etiket ayırt edici olmaz.
+      expect(interval, lessThan(1));
+      expect(chart.data.gridData.horizontalInterval, interval);
+    });
+
+    testWidgets('geniş aralıkta eksen tam sayı kalır', (tester) async {
+      final spread = [
+        (date: '2026-09-01', value: 118.0),
+        (date: '2026-09-20', value: 102.0),
+      ];
+      await tester.pumpWidget(wrap(view(points: spread)));
+      await tester.pumpAndSettle();
+
+      final chart = tester.widget<LineChart>(find.byType(LineChart));
+      expect(
+        chart.data.titlesData.leftTitles.sideTitles.interval,
+        greaterThan(1),
+      );
+    });
   });
 
   group('haftalık kartlar', () {

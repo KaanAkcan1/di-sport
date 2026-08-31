@@ -148,6 +148,10 @@ class _AddLabSheetState extends ConsumerState<AddLabSheet> {
               ),
               const SizedBox(height: AppSpacing.lg),
 
+              // İki alan yan yana ama yardım metni **altta tek satır**:
+              // yalnız soldakine `helperText` verildiğinde o alan bir
+              // satır uzuyor ve sağdaki aşağı kayıyor — cihazda görülen
+              // bir hizasızlık.
               Row(
                 children: [
                   Expanded(
@@ -160,7 +164,6 @@ class _AddLabSheetState extends ConsumerState<AddLabSheet> {
                       inputFormatters: [_decimalFormatter],
                       decoration: const InputDecoration(
                         labelText: 'Referans alt',
-                        helperText: 'İsteğe bağlı',
                       ),
                     ),
                   ),
@@ -179,6 +182,19 @@ class _AddLabSheetState extends ConsumerState<AddLabSheet> {
                     ),
                   ),
                 ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: AppSpacing.xs,
+                  left: AppSpacing.md,
+                ),
+                child: Text(
+                  'İsteğe bağlı — girmezsen değer "aralık yok" olarak '
+                  'gösterilir.',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
               ),
               const SizedBox(height: AppSpacing.lg),
 

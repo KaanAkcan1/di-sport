@@ -52,7 +52,7 @@ void main() {
       ),
       dueLabsProvider.overrideWith((ref) async => const <DueSchedule>[]),
       latestMetricsProvider.overrideWith(
-        (ref) async => const <String, MetricSample>{},
+        (ref) => Stream.value(const <String, MetricSample>{}),
       ),
       // İlerleme sekmesi de aynı sebeple.
       progressViewProvider.overrideWith(

@@ -97,6 +97,38 @@ class BodyMetricsRepository {
     return [for (final row in rows) (date: row.date, value: row.value)];
   }
 
+  /// [series]'in akış hâli.
+  ///
+  /// Ayrı bir yöntem olarak duruyor çünkü İlerleme ekranı sekmeler
+  /// arasında `IndexedStack` içinde canlı kalıyor: tek seferlik okuma
+  /// yapsaydı, kullanıcı Bugün'de tartılıp İlerleme'ye geçtiğinde eski
+  /// veriyi görürdü — ekran yeniden kurulmadığı için sorgu bir daha
+  /// çalışmazdı.
+  Stream<List<MetricSample>> watchSeries(String kind, {int limit = 400}) {
+    final query = _db.select(_db.bodyMetrics)
+      ..where((t) => t.kind.equals(kind) & t.deletedAt.isNull())
+      ..orderBy([(t) => OrderingTerm.asc(t.date)])
+      ..limit(limit);
+
+    return query.watch().map(
+      (rows) => [for (final row in rows) (date: row.date, value: row.value)],
+    );
+  }
+
+  /// [latestPerKind]'ın akış hâli — aynı gerekçeyle.
+  Stream<Map<String, MetricSample>> watchLatestPerKind() {
+    final query = _db.select(_db.bodyMetrics)
+      ..where((t) => t.deletedAt.isNull())
+      ..orderBy([(t) => OrderingTerm.asc(t.date)]);
+
+    return query.watch().map(
+      (rows) => {
+        for (final row in rows)
+          row.kind: (date: row.date, value: row.value),
+      },
+    );
+  }
+
   /// Her ölçüm türünün en güncel değeri.
   ///
   /// İlerleme ekranındaki özet kartları ve M4'teki `context.md` bunu

@@ -82,6 +82,8 @@ class _Measurements extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final latest = ref.watch(latestMetricsProvider).value ?? const {};
 
+    // Akış olduğu için elle tazeleme gerekmiyor: yazılan değer
+    // kendiliğinden geri geliyor.
     return BodyMeasurementsCard(
       latest: latest,
       onEdit: (kind) => _editMetric(context, ref, kind, latest[kind]?.value),
@@ -108,7 +110,6 @@ class _Measurements extends ConsumerWidget {
           value: value,
           unit: MetricKinds.unitOf(kind),
         );
-    ref.invalidate(latestMetricsProvider);
   }
 }
 

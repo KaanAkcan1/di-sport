@@ -15,13 +15,22 @@ abstract interface class NotificationService {
   /// Bildirim izni ister. Kullanıcı reddederse `false`.
   Future<bool> requestPermissions();
 
-  /// Tam zamanlı alarm kurulabiliyor mu.
+  /// Tam zamanlı alarm kurulabiliyor mu — **sormadan** bakar.
   ///
-  /// Android 13+ `SCHEDULE_EXACT_ALARM` iznini çalışma anında ister ve
-  /// kullanıcı reddedebilir. Reddedilirse bildirimler yine kurulur ama
-  /// Doze kipinde birkaç dakika gecikebilir — 06:30 tartı için kabul
-  /// edilebilir, sessizce hiç kurmamaktan iyi.
+  /// Kullanıcıya hiçbir şey göstermez. Ayrım önemli: Android'de tam
+  /// alarm iznini *istemek* diyalog açmaz, kullanıcıyı doğrudan sistem
+  /// ayarları sayfasına atar. Bunu bildirim kurarken yapmak,
+  /// uygulamayı açan kullanıcıyı sebepsiz yere ayarlara fırlatmak
+  /// olurdu.
   Future<bool> canScheduleExact();
+
+  /// Tam zamanlı alarm iznini ister — sistem ayarları sayfasını açar.
+  ///
+  /// Yalnız kullanıcı bunu açıkça istediğinde çağrılmalı (Ayarlar
+  /// ekranındaki satır). Reddedilirse bildirimler yine kurulur, yalnız
+  /// Doze kipinde birkaç dakika gecikebilir — 06:30 tartı hatırlatması
+  /// 06:34'te de işini görür, sessizce hiç kurmamaktan iyidir.
+  Future<bool> requestExactPermission();
 
   /// Bekleyen tüm bildirimleri iptal edip verilen listeyi kurar.
   ///

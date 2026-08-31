@@ -1,4 +1,6 @@
 import 'package:disport/core/notifications/notification_service.dart';
+import 'package:disport/features/ai_bridge/domain/context_md_builder.dart'
+    show ProfileKeys;
 import 'package:disport/features/health/data/lab_repository.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/reminders/domain/reminder_planner.dart';
@@ -13,7 +15,11 @@ import 'package:disport/features/today/data/today_repository.dart';
 String notifKindKey(String kind) => 'notif.$kind';
 
 /// Kullanıcının uyanma saati anahtarı.
-const wakeTimeProfileKey = 'wakeTime';
+///
+/// Kendi sabitini tanımlamıyor, profil formunun kaynağına bağlanıyor:
+/// iki yerde yazılsaydı biri değiştiğinde sabah tartısı bildirimi
+/// sessizce kurulmaz olurdu — hata vermeden, yalnız çalmayarak.
+const wakeTimeProfileKey = ProfileKeys.wakeTime;
 
 /// Bildirim kurulabilen slot türleri — ayarlar ekranı bunu listeler.
 const notifiableKinds = ['meal', 'workout', 'walk', 'supplement'];

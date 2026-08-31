@@ -76,6 +76,25 @@ class TodayRepository {
     return {for (final row in rows) row.date: _toView(row)};
   }
 
+  /// [rowsBetween]'in akış hâli.
+  ///
+  /// İlerleme ekranının haftalık kartları bunu dinliyor: kullanıcı
+  /// Bugün'de "antrenman yapıldı" kutucuğunu işaretlediğinde sayaç
+  /// beklemeden güncellenmeli.
+  Stream<Map<String, DailyLogView>> watchBetween(String fromIso, String toIso) {
+    final query = _db.select(_db.dailyLogs)
+      ..where(
+        (t) =>
+            t.date.isBiggerOrEqualValue(fromIso) &
+            t.date.isSmallerOrEqualValue(toIso) &
+            t.deletedAt.isNull(),
+      );
+
+    return query.watch().map(
+      (rows) => {for (final row in rows) row.date: _toView(row)},
+    );
+  }
+
   /// Slot işaretini tersine çevirir.
   Future<void> toggleSlot(String isoDate, String slotId) async {
     final row = await _ensureRow(isoDate);

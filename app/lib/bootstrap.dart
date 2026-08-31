@@ -64,11 +64,5 @@ Future<void> _seedCatalog(ProviderContainer container) async {
 ///
 /// Hata yutuluyor: bildirim izni reddedilmiş ya da platform kanalı
 /// hazır değilse uygulama yine açılmalı.
-Future<void> _rescheduleReminders(ProviderContainer container) async {
-  try {
-    await container.read(reminderSchedulerProvider).reschedule(DateTime.now());
-  } catch (error, stackTrace) {
-    debugPrint('Bildirim kurulumu başarısız: $error');
-    debugPrintStack(stackTrace: stackTrace);
-  }
-}
+Future<void> _rescheduleReminders(ProviderContainer container) =>
+    rescheduleQuietly(container.read(reminderSchedulerProvider));

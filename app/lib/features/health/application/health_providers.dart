@@ -25,6 +25,10 @@ Future<List<DueSchedule>> dueLabs(Ref ref) async {
 }
 
 /// Ölçüm türü başına en güncel değer — Sağlık ekranının ölçüm bölümü.
+///
+/// Akış: Bugün sekmesinden girilen tartı buraya da yansımalı ve Sağlık
+/// sekmesi `IndexedStack` içinde canlı kaldığı için tek seferlik okuma
+/// bir daha çalışmazdı.
 @riverpod
-Future<Map<String, MetricSample>> latestMetrics(Ref ref) =>
-    ref.watch(bodyMetricsRepositoryProvider).latestPerKind();
+Stream<Map<String, MetricSample>> latestMetrics(Ref ref) =>
+    ref.watch(bodyMetricsRepositoryProvider).watchLatestPerKind();

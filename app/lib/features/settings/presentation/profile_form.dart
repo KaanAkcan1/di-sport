@@ -1,6 +1,7 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/ai_bridge/domain/context_md_builder.dart';
+import 'package:disport/features/reminders/application/reminder_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -73,6 +74,12 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
 
     await ref.read(profileRepositoryProvider).setAll(values);
     ref.invalidate(profileEntriesProvider);
+
+    // Uyanma saati sabah tartısı bildiriminin kaynağı. Kaydedince
+    // pencere yeniden kurulmazsa alarm bir sonraki açılışa kadar
+    // kurulmuyor — kullanıcı saati girdiği hâlde ertesi sabah
+    // uyandırılmıyor.
+    await rescheduleQuietly(ref.read(reminderSchedulerProvider));
 
     if (!mounted) return;
     setState(() => _saving = false);

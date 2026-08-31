@@ -131,9 +131,7 @@ class _LabRow extends StatelessWidget {
     if (entry.refLow case final low?) {
       final high = entry.refHigh;
       if (high != null) {
-        parts.add(
-          'ref ${TurkishNumber.format(low)}–${TurkishNumber.format(high)}',
-        );
+        parts.add('ref ${_trim(low)}–${_trim(high)}');
       }
     }
 
@@ -152,6 +150,14 @@ class _LabRow extends StatelessWidget {
 
     return parts.join(' · ');
   }
+
+  /// Tam sayı referansları ondalıksız yazar.
+  ///
+  /// Laboratuvar kâğıdında "30-100" yazıyorsa ekranda "30,0-100,0"
+  /// görmek kullanıcıya kendi kâğıdını tanımaz hâle getiriyor.
+  static String _trim(double value) => value == value.roundToDouble()
+      ? TurkishNumber.format(value, fractionDigits: 0)
+      : TurkishNumber.format(value);
 
   static AppStatus _appStatus(LabStatus status) => switch (status) {
     LabStatus.normal => AppStatus.good,

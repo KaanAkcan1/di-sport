@@ -23,6 +23,9 @@ class FakeNotificationService implements NotificationService {
   Future<bool> canScheduleExact() async => exactAllowed;
 
   @override
+  Future<bool> requestExactPermission() async => exactAllowed;
+
+  @override
   Future<bool> requestPermissions() async => permissionGranted;
 
   @override

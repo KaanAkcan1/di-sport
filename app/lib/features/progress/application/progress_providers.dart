@@ -45,13 +45,26 @@ class ProgressViewData {
   bool get isEmpty => weights.isEmpty && weeks.isEmpty;
 }
 
+/// Kilo serisi — akış.
+///
+/// Future değil akış olması şart: İlerleme sekmesi `IndexedStack`
+/// içinde canlı kalıyor, tek seferlik okuma kullanıcı Bugün'de
+/// tartıldıktan sonra bir daha çalışmazdı.
+@riverpod
+Stream<List<WeightPoint>> weightSeries(Ref ref) => ref
+    .watch(bodyMetricsRepositoryProvider)
+    .watchSeries(MetricKinds.weight);
+
+@riverpod
+Stream<Map<String, MetricSample>> latestMetricSamples(Ref ref) =>
+    ref.watch(bodyMetricsRepositoryProvider).watchLatestPerKind();
+
 @riverpod
 Future<ProgressViewData> progressView(Ref ref) async {
-  final metrics = ref.watch(bodyMetricsRepositoryProvider);
   final plan = await ref.watch(activePlanProvider.future);
 
-  final weights = await metrics.series(MetricKinds.weight);
-  final latest = await metrics.latestPerKind();
+  final weights = await ref.watch(weightSeriesProvider.future);
+  final latest = await ref.watch(latestMetricSamplesProvider.future);
 
   final profile = await ref.watch(profileEntriesProvider.future);
 
@@ -77,7 +90,8 @@ Future<ProgressViewData> progressView(Ref ref) async {
   final days = plan.days.map((day) => PlanRepository.iso(day.date)).toList();
   final logs = await ref
       .watch(todayRepositoryProvider)
-      .rowsBetween(days.first, days.last);
+      .watchBetween(days.first, days.last)
+      .first;
 
   final facts = <DayFact>[
     for (final day in plan.days)

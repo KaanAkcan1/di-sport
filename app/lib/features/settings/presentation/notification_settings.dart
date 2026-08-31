@@ -69,7 +69,7 @@ class NotificationSettings extends ConsumerWidget {
 
     // Anahtar değişince pencere hemen yeniden kuruluyor; bir sonraki
     // açılışı beklemek kullanıcıya "çalışmadı" hissi verirdi.
-    await ref.read(reminderSchedulerProvider).reschedule(DateTime.now());
+    await rescheduleQuietly(ref.read(reminderSchedulerProvider));
   }
 }
 
@@ -102,19 +102,36 @@ class _ExactAlarmTileState extends ConsumerState<_ExactAlarmTile> {
         switch (_exact) {
           true => 'Verildi — bildirimler tam saatinde çalar.',
           false => 'Verilmedi. Bildirimler yine çalar ama pil tasarrufu '
-              'kipinde birkaç dakika gecikebilir.',
-          null => 'Durumu görmek için dokun.',
+              'kipinde birkaç dakika gecikebilir. Vermek için dokun.',
+          null => 'Yükleniyor…',
         },
         style: theme.textTheme.bodySmall?.copyWith(
           color: theme.colorScheme.onSurfaceVariant,
         ),
       ),
-      onTap: () async {
-        final granted = await ref
-            .read(notificationServiceProvider)
-            .canScheduleExact();
-        if (mounted) setState(() => _exact = granted);
-      },
+      // Dokunmak sistem ayarları sayfasını açar; kullanıcı geri
+      // döndüğünde durum yeniden okunuyor.
+      onTap: _exact == true ? null : _request,
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
+  }
+
+  Future<void> _refresh() async {
+    final granted = await ref
+        .read(notificationServiceProvider)
+        .canScheduleExact();
+    if (mounted) setState(() => _exact = granted);
+  }
+
+  Future<void> _request() async {
+    final granted = await ref
+        .read(notificationServiceProvider)
+        .requestExactPermission();
+    if (mounted) setState(() => _exact = granted);
   }
 }
