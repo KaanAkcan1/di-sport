@@ -5,11 +5,14 @@ kullanılmıyor; hepsi aynı işlemden geçiyor:
 
 1. Kırpma — kadrajın kenarlarındaki salon tabelaları ve kalabalık dışarıda
    kalsın diye. Ürüne üçüncü taraf markası girmemeli.
-2. Duotone — gri tonlamadan marka lacivertine eşleme. Farklı ışıkta,
+2. Duotone — gri tonlamadan marka yeşiline eşleme. Farklı ışıkta,
    farklı salonda çekilmiş kareler tek görsel dile oturur.
 3. İki kare yan yana — veri setinin 0.jpg'si başlangıç, 1.jpg'si bitiş
    pozisyonu. Tek kare hareketi anlatmıyor; ikisi birlikte anlatıyor.
-4. Numaralandırma — sıra belirsiz kalmasın.
+4. Numaralandırma ve **etiket** — "1" ve "2" sıranın ne olduğunu
+   söylüyor ama ne anlama geldiğini söylemiyordu. Artık karelerin
+   altında "BAŞLANGIÇ" ve "BİTİŞ" yazıyor; görselin anlatıcılığı
+   asıl buradan geliyor.
 
 Çıktı: app/assets/exercises/<id>.webp
 """
@@ -49,9 +52,14 @@ SOURCES = {
     "glute_bridge": ("Butt_Lift_Bridge", 0.10, 0.06),
 }
 
-DARK = (23, 42, 84)  # brand900 civarı
-LIGHT = (241, 245, 249)  # neutral100
-BADGE = (29, 78, 216)  # brand700
+# Marka yeşili rampasıyla hizalı (bkz. app_palette.dart). Mavi duotone
+# M6'da yeşile taşındı; kart görselleri arayüzle aynı dili konuşmalı.
+DARK = (15, 53, 39)  # brand900
+LIGHT = (236, 250, 243)  # brand50
+BADGE = (31, 107, 74)  # brand700
+CAPTION_BG = (33, 53, 71)  # inkStrong
+CAPTION_FG = (255, 255, 255)
+CAPTION_H = 34
 
 CARD_W = 900
 GAP = 6
@@ -87,6 +95,28 @@ def badge(draw: ImageDraw.ImageDraw, x: int, y: int, text: str) -> None:
     )
 
 
+def caption(
+    draw: ImageDraw.ImageDraw, x: int, y: int, width: int, text: str
+) -> None:
+    """Karenin altına ne olduğunu yazan şerit."""
+    draw.rectangle([x, y, x + width, y + CAPTION_H], fill=CAPTION_BG)
+    try:
+        font = ImageFont.truetype("arialbd.ttf", 17)
+    except OSError:
+        font = ImageFont.load_default()
+
+    bbox = draw.textbbox((0, 0), text, font=font)
+    draw.text(
+        (
+            x + (width - (bbox[2] - bbox[0])) / 2,
+            y + (CAPTION_H - (bbox[3] - bbox[1])) / 2 - bbox[1],
+        ),
+        text,
+        fill=CAPTION_FG,
+        font=font,
+    )
+
+
 def build(catalog_id: str, spec: tuple, out_dir: str) -> str:
     source_id, left, right = spec
     half = (CARD_W - GAP) // 2
@@ -97,13 +127,17 @@ def build(catalog_id: str, spec: tuple, out_dir: str) -> str:
         frames.append(img.resize((half, h), Image.LANCZOS))
 
     height = min(f.height for f in frames)
-    card = Image.new("RGB", (CARD_W, height), (255, 255, 255))
+    card = Image.new("RGB", (CARD_W, height + CAPTION_H), (255, 255, 255))
     card.paste(frames[0].crop((0, 0, half, height)), (0, 0))
     card.paste(frames[1].crop((0, 0, half, height)), (half + GAP, 0))
 
     draw = ImageDraw.Draw(card)
     badge(draw, 12, 12, "1")
     badge(draw, half + GAP + 12, 12, "2")
+
+    # Etiket şeridi: numaralar sırayı veriyordu ama anlamı vermiyordu.
+    caption(draw, 0, height, half, "BAŞLANGIÇ")
+    caption(draw, half + GAP, height, half, "BİTİŞ")
 
     path = os.path.join(out_dir, f"{catalog_id}.webp")
     card.save(path, "WEBP", quality=82, method=6)
