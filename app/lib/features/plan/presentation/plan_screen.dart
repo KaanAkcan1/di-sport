@@ -1,11 +1,374 @@
+import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/design/app_semantic_colors.dart';
+import 'package:disport/core/widgets/widgets.dart';
+import 'package:disport/features/plan/application/plan_providers.dart';
+import 'package:disport/features/plan/data/plan_repository.dart';
+import 'package:disport/features/plan/data/sample_plan.dart';
+import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/today/application/today_providers.dart';
+import 'package:disport/features/workout/presentation/workout_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Yer tutucu — gerçek içerik M3'te gelecek.
-class PlanScreen extends StatelessWidget {
+/// 28 günlük programın takvim görünümü.
+///
+/// M4'te üstteki eylemler "Yeni plan iste" ve "Planı içeri al" olacak.
+/// Şimdilik örnek planı yükleyerek akışı kapatıyor.
+class PlanScreen extends ConsumerWidget {
   const PlanScreen({super.key});
 
   @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final plan = ref.watch(activePlanProvider);
+
+    return AppAsyncView<FullPlan?>(
+      value: plan,
+      emptyWhen: (value) => value == null,
+      empty: _EmptyPlan(
+        onLoadSample: () => _loadSample(ref),
+      ),
+      onRetry: () => ref.invalidate(activePlanProvider),
+      data: (value) => _PlanOverview(plan: value!),
+    );
+  }
+
+  Future<void> _loadSample(WidgetRef ref) async {
+    // Plan bugünden başlasın: kullanıcı "yükle" deyip Bugün sekmesine
+    // geçtiğinde boş ekranla karşılaşmamalı.
+    final today = DateTime.parse(ref.read(todayIsoProvider));
+    await ref.read(planRepositoryProvider).insertFullPlan(
+      buildSamplePlan(today),
+    );
+    ref
+      ..invalidate(activePlanProvider)
+      ..invalidate(missedStreakProvider);
+  }
+}
+
+class _EmptyPlan extends StatelessWidget {
+  const _EmptyPlan({required this.onLoadSample});
+
+  final VoidCallback onLoadSample;
+
+  @override
+  Widget build(BuildContext context) => AppEmptyState(
+    icon: Icons.calendar_month_outlined,
+    title: 'Henüz plan yok',
+    description:
+        'Kâğıt çizelgenin dört haftalık dijital hâlini yükleyerek başla. '
+        'İleride planı yapay zekâdan alıp buraya aktarabileceksin.',
+    actionLabel: 'Örnek planı yükle',
+    onAction: onLoadSample,
+  );
+}
+
+class _PlanOverview extends ConsumerWidget {
+  const _PlanOverview({required this.plan});
+
+  final FullPlan plan;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final todayIso = ref.watch(todayIsoProvider);
+
+    return AppScreenBody(
+      children: [
+        Text(plan.title, style: theme.textTheme.titleLarge),
+        const SizedBox(height: AppSpacing.xs),
+        Text(
+          '${_formatDate(plan.startDate)} – ${_formatDate(plan.endDate)} · '
+          '${plan.days.length} gün',
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
+        const SizedBox(height: AppSpacing.lg),
+
+        _GoalsCard(goals: plan.goals),
+        const SizedBox(height: AppSpacing.xl2),
+
+        for (var week = 1; week <= plan.weeks; week++)
+          _WeekSection(
+            plan: plan,
+            weekIndex: week,
+            todayIso: todayIso,
+          ),
+
+        const SizedBox(height: AppSpacing.lg),
+        _RulesCard(rules: plan.rules),
+      ],
+    );
+  }
+
+  static String _formatDate(DateTime date) =>
+      '${date.day} ${_months[date.month - 1]}';
+
+  static const _months = [
+    'Ocak',
+    'Şubat',
+    'Mart',
+    'Nisan',
+    'Mayıs',
+    'Haziran',
+    'Temmuz',
+    'Ağustos',
+    'Eylül',
+    'Ekim',
+    'Kasım',
+    'Aralık',
+  ];
+}
+
+class _GoalsCard extends StatelessWidget {
+  const _GoalsCard({required this.goals});
+
+  final PlanGoals goals;
+
+  @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Plan ekranı — M3'));
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.lg),
+        child: Wrap(
+          spacing: AppSpacing.xl2,
+          runSpacing: AppSpacing.lg,
+          children: [
+            _Goal(
+              label: 'Günlük',
+              value: goals.dailyKcal,
+              unit: 'kcal',
+              digits: 0,
+            ),
+            _Goal(
+              label: 'Protein',
+              value: goals.proteinG,
+              unit: 'g',
+              digits: 0,
+            ),
+            _Goal(label: 'Su', value: goals.waterL, unit: 'L', digits: 0),
+            _Goal(
+              label: 'Hedef',
+              value: -goals.targetLossKg,
+              unit: 'kg',
+              digits: 1,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _Goal extends StatelessWidget {
+  const _Goal({
+    required this.label,
+    required this.value,
+    required this.unit,
+    required this.digits,
+  });
+
+  final String label;
+  final num value;
+  final String unit;
+  final int digits;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          label,
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
+        AppMetricValue(
+          value: value,
+          unit: unit,
+          fractionDigits: digits,
+          size: AppMetricSize.medium,
+        ),
+      ],
+    );
+  }
+}
+
+class _WeekSection extends StatelessWidget {
+  const _WeekSection({
+    required this.plan,
+    required this.weekIndex,
+    required this.todayIso,
+  });
+
+  final FullPlan plan;
+  final int weekIndex;
+  final String todayIso;
+
+  @override
+  Widget build(BuildContext context) {
+    final days = plan.days.where((d) => d.weekIndex == weekIndex).toList();
+    if (days.isEmpty) return const SizedBox.shrink();
+
+    return AppSection(
+      title: 'Hafta $weekIndex',
+      description: days.first.headline.isEmpty ? null : days.first.headline,
+      child: Column(
+        children: [
+          for (final day in days)
+            _DayTile(day: day, isToday: PlanRepository.iso(day.date) == todayIso),
+        ],
+      ),
+    );
+  }
+}
+
+class _DayTile extends StatelessWidget {
+  const _DayTile({required this.day, required this.isToday});
+
+  final FullPlanDay day;
+  final bool isToday;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final semantic = context.semantic;
+
+    final (icon, label, color) = switch (day.type) {
+      PlanDayType.gym => (
+        Icons.fitness_center,
+        'Salon',
+        theme.colorScheme.primary,
+      ),
+      PlanDayType.home => (Icons.home_outlined, 'Ev', semantic.info),
+      PlanDayType.rest => (
+        Icons.self_improvement,
+        'Dinlenme',
+        theme.colorScheme.onSurfaceVariant,
+      ),
+    };
+
+    return Card(
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
+      color: isToday ? theme.colorScheme.primaryContainer : null,
+      child: ListTile(
+        leading: Icon(icon, color: isToday ? null : color),
+        title: Text(
+          '${day.date.day}.${day.date.month.toString().padLeft(2, '0')} · '
+          '${_weekdayNames[day.date.weekday - 1]}',
+          style: theme.textTheme.titleSmall,
+        ),
+        subtitle: Text(
+          day.exercises.isEmpty
+              ? label
+              : '$label · ${day.exercises.length} hareket',
+        ),
+        trailing: isToday
+            ? Chip(
+                label: const Text('Bugün'),
+                visualDensity: VisualDensity.compact,
+              )
+            : const Icon(Icons.chevron_right),
+        onTap: day.exercises.isEmpty
+            ? null
+            : () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => WorkoutScreen(day: day),
+                ),
+              ),
+      ),
+    );
+  }
+
+  static const _weekdayNames = [
+    'Pazartesi',
+    'Salı',
+    'Çarşamba',
+    'Perşembe',
+    'Cuma',
+    'Cumartesi',
+    'Pazar',
+  ];
+}
+
+class _RulesCard extends StatelessWidget {
+  const _RulesCard({required this.rules});
+
+  final PlanRules rules;
+
+  @override
+  Widget build(BuildContext context) {
+    final semantic = context.semantic;
+
+    return AppSection(
+      title: 'Beslenme kuralları',
+      padding: EdgeInsets.zero,
+      child: Column(
+        children: [
+          _RuleList(
+            title: 'Kesinlikle yok',
+            items: rules.forbidden,
+            color: semantic.danger,
+            icon: Icons.close,
+          ),
+          const SizedBox(height: AppSpacing.md),
+          _RuleList(
+            title: 'Serbest',
+            items: rules.free,
+            color: semantic.success,
+            icon: Icons.check,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RuleList extends StatelessWidget {
+  const _RuleList({
+    required this.title,
+    required this.items,
+    required this.color,
+    required this.icon,
+  });
+
+  final String title;
+  final List<String> items;
+  final Color color;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.lg),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: theme.textTheme.titleSmall),
+            const SizedBox(height: AppSpacing.sm),
+            for (final item in items)
+              Padding(
+                padding: const EdgeInsets.only(bottom: AppSpacing.xs),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(icon, size: 15, color: color),
+                    const SizedBox(width: AppSpacing.sm),
+                    Expanded(
+                      child: Text(item, style: theme.textTheme.bodySmall),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
   }
 }

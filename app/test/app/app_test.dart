@@ -2,6 +2,8 @@ import 'package:disport/app/app.dart';
 import 'package:disport/core/db/app_database.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
+import 'package:disport/features/today/application/today_providers.dart';
+import 'package:disport/features/today/data/today_repository.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,30 +25,43 @@ void main() {
       filteredExercisesProvider.overrideWith(
         (ref) => Stream.value(const <Exercise>[]),
       ),
+      // Bugün ekranı da veritabanına bağlı; kabuk testi içeriği değil
+      // sekme geçişini sınıyor.
+      todayPlanDayProvider.overrideWith((ref) => Stream.value(null)),
+      todayLogProvider.overrideWith((ref) => Stream.value(const DailyLogView())),
+      todayWeightProvider.overrideWith((ref) => Stream.value(null)),
+      todaySleepProvider.overrideWith((ref) => Stream.value(null)),
+      missedStreakProvider.overrideWith((ref) async => 0),
     ],
     child: const DisportApp(),
   );
 
   testWidgets('shows five tabs and starts on Today', (tester) async {
     await tester.pumpWidget(wrap());
+    await tester.pumpAndSettle();
 
     // 'Bugün' hem sekme etiketi hem AppBar başlığı olarak görünür.
     expect(find.text('Bugün'), findsWidgets);
     for (final label in ['Plan', 'İlerleme', 'Sağlık', 'Katalog']) {
       expect(find.text(label), findsOneWidget);
     }
-    expect(find.text('Bugün ekranı — M3'), findsOneWidget);
+    expect(find.byKey(const Key('weight-field')), findsOneWidget);
   });
 
   testWidgets('tapping a tab switches screen and title', (tester) async {
     await tester.pumpWidget(wrap());
+    await tester.pumpAndSettle();
 
     await tester.tap(find.text('Katalog'));
     await tester.pumpAndSettle();
 
-    // Katalog ekranı geldi: arama alanı ve filtre çipleri görünür.
-    expect(find.byType(TextField), findsOneWidget);
+    // Katalog ekranı geldi: filtre çipleri görünür.
+    //
+    // `TextField` sayısına bakılmıyor: sekmeler `IndexedStack` içinde
+    // canlı kaldığı için Bugün ekranının tartı, uyku ve not alanları da
+    // ağaçta duruyor — bu kasıtlı, durum korunsun diye.
     expect(find.widgetWithText(FilterChip, 'Salon'), findsOneWidget);
+    expect(find.widgetWithText(FilterChip, 'Kuvvet'), findsOneWidget);
 
     // Başlangıçta 'Bugün' iki yerde: AppBar başlığı + sekme etiketi.
     // Katalog'a geçince başlık değişir, geriye yalnız sekme etiketi kalır.
@@ -56,6 +71,7 @@ void main() {
 
   testWidgets('IndexedStack keeps all five screens alive', (tester) async {
     await tester.pumpWidget(wrap());
+    await tester.pumpAndSettle();
 
     final stack = tester.widget<IndexedStack>(find.byType(IndexedStack));
     expect(stack.children, hasLength(5));
