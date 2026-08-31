@@ -6,6 +6,7 @@ import 'package:disport/features/health/application/health_providers.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/health/data/body_metrics_repository.dart';
 import 'package:disport/features/health/data/lab_repository.dart';
+import 'package:disport/features/health/data/metric_definitions_repository.dart';
 import 'package:disport/features/health/presentation/health_screen.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +59,27 @@ void main() {
       labsByPanelProvider.overrideWith((ref) => Stream.value(labs)),
       dueLabsProvider.overrideWith((ref) async => due),
       latestMetricsProvider.overrideWith((ref) => Stream.value(metrics)),
+      // Ölçüm tanımları da Drift akışı; ekran testi bağlanmamalı.
+      periodicMetricsProvider.overrideWith(
+        (ref) => Stream.value(const [
+          MetricDefinition(
+            kind: MetricKinds.waist,
+            label: 'Bel çevresi',
+            unit: 'cm',
+            decimals: 1,
+            isBuiltIn: true,
+            isDaily: false,
+          ),
+          MetricDefinition(
+            kind: MetricKinds.pushupMax,
+            label: 'Şınav',
+            unit: 'tekrar',
+            decimals: 0,
+            isBuiltIn: true,
+            isDaily: false,
+          ),
+        ]),
+      ),
     ],
     child: MaterialApp(
       theme: AppTheme.light,

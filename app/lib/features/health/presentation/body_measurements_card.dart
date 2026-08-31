@@ -1,39 +1,30 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/core/widgets/widgets.dart';
-import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/health/data/body_metrics_repository.dart';
+import 'package:disport/features/health/data/metric_definitions_repository.dart';
 import 'package:flutter/material.dart';
 
-/// Ay sonu ölçümlerinin son değerleri.
+/// Dönemsel ölçümlerin son değerleri.
 ///
-/// Kilo ve uyku burada yok: onlar her gün Bugün ekranından giriliyor.
-/// Buradakiler seyrek ölçülenler — bel, göbek, şınav maksimumu, plank.
-/// İkisini aynı yere koymak, günlük girişi seyrek ekranın arkasına
+/// Kilo ve uyku burada yok: onlar her gün Bugün ekranından giriliyor
+/// (`MetricDefinition.isDaily`). Buradakiler seyrek ölçülenler — bel,
+/// göbek, şınav maksimumu, plank ve kullanıcının kendi eklediği türler.
+/// İkisini aynı yere koymak günlük girişi seyrek ekranın arkasına
 /// gömerdi.
 class BodyMeasurementsCard extends StatelessWidget {
   const BodyMeasurementsCard({
     super.key,
+    required this.definitions,
     required this.latest,
     required this.onEdit,
+    required this.onManage,
   });
 
+  final List<MetricDefinition> definitions;
   final Map<String, MetricSample> latest;
-  final void Function(String kind) onEdit;
-
-  /// Bu kartta gösterilen türler ve sırası.
-  static const kinds = [
-    MetricKinds.waist,
-    MetricKinds.belly,
-    MetricKinds.pushupMax,
-    MetricKinds.plankSec,
-  ];
-
-  /// Tam sayı gösterilecek türler — "6,0 tekrar" diye bir şey yok.
-  static const _wholeNumberKinds = {
-    MetricKinds.pushupMax,
-    MetricKinds.plankSec,
-  };
+  final void Function(MetricDefinition definition) onEdit;
+  final VoidCallback onManage;
 
   @override
   Widget build(BuildContext context) {
@@ -42,33 +33,57 @@ class BodyMeasurementsCard extends StatelessWidget {
     return AppSection(
       title: 'Ölçümler',
       description: 'Ayda bir ölç; geçiş kriteri şınav sayısına bakıyor.',
-      child: Card(
-        child: Column(
-          children: [
-            for (final (index, kind) in kinds.indexed) ...[
-              if (index > 0) const Divider(height: 1, indent: AppSpacing.lg),
-              ListTile(
-                key: Key('metric-$kind'),
-                title: Text(MetricKinds.labelOf(kind)),
-                subtitle: Text(
-                  latest[kind] == null
-                      ? 'henüz ölçülmedi'
-                      : TurkishDate.isoToDayMonthYear(latest[kind]!.date),
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                ),
-                trailing: AppMetricValue(
-                  value: latest[kind]?.value,
-                  unit: MetricKinds.unitOf(kind),
-                  fractionDigits: _wholeNumberKinds.contains(kind) ? 0 : 1,
-                ),
-                onTap: () => onEdit(kind),
-              ),
-            ],
-          ],
-        ),
+      action: IconButton(
+        key: const Key('manage-metrics-button'),
+        icon: const Icon(Icons.tune),
+        tooltip: 'Ölçümleri düzenle',
+        onPressed: onManage,
       ),
+      child: definitions.isEmpty
+          ? const Card(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSpacing.lg,
+                  vertical: AppSpacing.xl,
+                ),
+                child: AppEmptyState(
+                  icon: Icons.straighten,
+                  title: 'Ölçüm türü yok',
+                  description: 'Takip etmek istediğin ölçüleri ekle — bel, '
+                      'kol çevresi, istirahat nabzı.',
+                ),
+              ),
+            )
+          : Card(
+              child: Column(
+                children: [
+                  for (final (index, definition) in definitions.indexed) ...[
+                    if (index > 0)
+                      const Divider(height: 1, indent: AppSpacing.lg),
+                    ListTile(
+                      key: Key('metric-${definition.kind}'),
+                      title: Text(definition.label),
+                      subtitle: Text(
+                        latest[definition.kind] == null
+                            ? 'henüz ölçülmedi'
+                            : TurkishDate.isoToDayMonthYear(
+                                latest[definition.kind]!.date,
+                              ),
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                      trailing: AppMetricValue(
+                        value: latest[definition.kind]?.value,
+                        unit: definition.unit,
+                        fractionDigits: definition.decimals,
+                      ),
+                      onTap: () => onEdit(definition),
+                    ),
+                  ],
+                ],
+              ),
+            ),
     );
   }
 }

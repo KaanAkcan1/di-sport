@@ -1,6 +1,7 @@
 import 'package:disport/features/catalog/data/exercise_table.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/health/data/lab_tables.dart';
+import 'package:disport/features/health/data/metric_definition_table.dart';
 import 'package:disport/features/plan/data/plan_tables.dart';
 import 'package:disport/features/settings/data/profile_table.dart';
 import 'package:disport/features/today/data/daily_log_table.dart';
@@ -30,6 +31,7 @@ part 'app_database.g.dart';
     LabResults,
     LabSchedules,
     DailyRules,
+    MetricDefinitions,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -39,7 +41,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 7;
+  int get schemaVersion => 8;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -70,6 +72,9 @@ class AppDatabase extends _$AppDatabase {
       if (from < 7) {
         await m.createTable(dailyRules);
         await m.addColumn(dailyLogs, dailyLogs.checkedRulesJson);
+      }
+      if (from < 8) {
+        await m.createTable(metricDefinitions);
       }
     },
   );

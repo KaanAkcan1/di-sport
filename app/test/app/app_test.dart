@@ -4,8 +4,10 @@ import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart'
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:disport/features/health/application/health_providers.dart';
+import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/health/data/body_metrics_repository.dart';
 import 'package:disport/features/health/data/lab_repository.dart';
+import 'package:disport/features/health/data/metric_definitions_repository.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/progress/application/progress_providers.dart';
 import 'package:disport/features/progress/domain/transition_criteria.dart';
@@ -78,6 +80,27 @@ void main() {
       dueLabsProvider.overrideWith((ref) async => const <DueSchedule>[]),
       latestMetricsProvider.overrideWith(
         (ref) => Stream.value(const <String, MetricSample>{}),
+      ),
+      // Ölçüm tanımları da Drift akışı; ekran testi bağlanmamalı.
+      periodicMetricsProvider.overrideWith(
+        (ref) => Stream.value(const [
+          MetricDefinition(
+            kind: MetricKinds.waist,
+            label: 'Bel çevresi',
+            unit: 'cm',
+            decimals: 1,
+            isBuiltIn: true,
+            isDaily: false,
+          ),
+          MetricDefinition(
+            kind: MetricKinds.pushupMax,
+            label: 'Şınav',
+            unit: 'tekrar',
+            decimals: 0,
+            isBuiltIn: true,
+            isDaily: false,
+          ),
+        ]),
       ),
       // İlerleme sekmesi de aynı sebeple.
       progressViewProvider.overrideWith(

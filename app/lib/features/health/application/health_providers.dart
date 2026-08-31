@@ -1,6 +1,7 @@
 import 'package:disport/app/app.dart';
 import 'package:disport/features/health/data/body_metrics_repository.dart';
 import 'package:disport/features/health/data/lab_repository.dart';
+import 'package:disport/features/health/data/metric_definitions_repository.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -32,3 +33,17 @@ Future<List<DueSchedule>> dueLabs(Ref ref) async {
 @riverpod
 Stream<Map<String, MetricSample>> latestMetrics(Ref ref) =>
     ref.watch(bodyMetricsRepositoryProvider).watchLatestPerKind();
+
+@riverpod
+MetricDefinitionsRepository metricDefinitionsRepository(Ref ref) =>
+    MetricDefinitionsRepository(ref.watch(appDatabaseProvider));
+
+/// Tüm ölçüm tanımları — düzenleme ekranı bunu kullanır.
+@riverpod
+Stream<List<MetricDefinition>> metricDefinitions(Ref ref) =>
+    ref.watch(metricDefinitionsRepositoryProvider).watchAll();
+
+/// Sağlık ekranının ölçüm kartındakiler; kilo ve uyku hariç.
+@riverpod
+Stream<List<MetricDefinition>> periodicMetrics(Ref ref) =>
+    ref.watch(metricDefinitionsRepositoryProvider).watchPeriodic();

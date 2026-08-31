@@ -1,12 +1,13 @@
 import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/health/application/health_providers.dart';
-import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/health/data/lab_repository.dart';
+import 'package:disport/features/health/data/metric_definitions_repository.dart';
 import 'package:disport/features/health/presentation/add_lab_sheet.dart';
 import 'package:disport/features/health/presentation/body_measurements_card.dart';
 import 'package:disport/features/health/presentation/due_labs_banner.dart';
 import 'package:disport/features/health/presentation/lab_panel_card.dart';
+import 'package:disport/features/health/presentation/metrics_editor_screen.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -81,24 +82,34 @@ class _Measurements extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final latest = ref.watch(latestMetricsProvider).value ?? const {};
+    final definitions = ref.watch(periodicMetricsProvider).value ?? const [];
 
     // Akış olduğu için elle tazeleme gerekmiyor: yazılan değer
     // kendiliğinden geri geliyor.
     return BodyMeasurementsCard(
+      definitions: definitions,
       latest: latest,
-      onEdit: (kind) => _editMetric(context, ref, kind, latest[kind]?.value),
+      onEdit: (definition) => _editMetric(
+        context,
+        ref,
+        definition,
+        latest[definition.kind]?.value,
+      ),
+      onManage: () => Navigator.of(context).push(
+        MaterialPageRoute<void>(builder: (_) => const MetricsEditorScreen()),
+      ),
     );
   }
 
   Future<void> _editMetric(
     BuildContext context,
     WidgetRef ref,
-    String kind,
+    MetricDefinition definition,
     double? current,
   ) async {
     final value = await showDialog<double>(
       context: context,
-      builder: (_) => _MetricDialog(kind: kind, current: current),
+      builder: (_) => _MetricDialog(definition: definition, current: current),
     );
     if (value == null) return;
 
@@ -106,9 +117,9 @@ class _Measurements extends ConsumerWidget {
         .read(bodyMetricsRepositoryProvider)
         .upsert(
           isoDate: ref.read(todayIsoProvider),
-          kind: kind,
+          kind: definition.kind,
           value: value,
-          unit: MetricKinds.unitOf(kind),
+          unit: definition.unit,
         );
   }
 }
@@ -118,9 +129,9 @@ class _Measurements extends ConsumerWidget {
 /// Ayrı bir sayfa yerine diyalog: girilen tek bir sayı, sayfa açmak
 /// bağlamı gereksiz yere koparırdı.
 class _MetricDialog extends StatefulWidget {
-  const _MetricDialog({required this.kind, required this.current});
+  const _MetricDialog({required this.definition, required this.current});
 
-  final String kind;
+  final MetricDefinition definition;
   final double? current;
 
   @override
@@ -148,15 +159,15 @@ class _MetricDialogState extends State<_MetricDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(MetricKinds.labelOf(widget.kind)),
+      title: Text(widget.definition.label),
       content: TextField(
-        key: Key('metric-input-${widget.kind}'),
+        key: Key('metric-input-${widget.definition.kind}'),
         controller: _controller,
         autofocus: true,
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
         inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]'))],
         decoration: InputDecoration(
-          suffixText: MetricKinds.unitOf(widget.kind),
+          suffixText: widget.definition.unit,
         ),
         onSubmitted: (_) => _submit(),
       ),

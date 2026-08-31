@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:disport/app/app.dart';
 import 'package:disport/features/catalog/data/catalog_repository.dart';
+import 'package:disport/features/health/data/metric_definitions_repository.dart';
 import 'package:disport/features/reminders/application/reminder_providers.dart';
 import 'package:disport/features/today/data/daily_rules_repository.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ Future<void> bootstrap() async {
 
   await _seedCatalog(container);
   await _seedDailyRules(container);
+  await _seedMetricDefinitions(container);
 
   // Bildirim penceresi arka planda kaydırılıyor: kurulumu beklemek ilk
   // kareyi geciktirir ve kullanıcı uygulamayı açtığında alarm kurmak
@@ -69,6 +71,18 @@ Future<void> _seedDailyRules(ProviderContainer container) async {
     ).seedBuiltIns();
   } catch (error, stackTrace) {
     debugPrint('Kural tohumlaması başarısız: $error');
+    debugPrintStack(stackTrace: stackTrace);
+  }
+}
+
+/// Ölçüm türlerinin tanımlarını ilk açılışta ekler.
+Future<void> _seedMetricDefinitions(ProviderContainer container) async {
+  try {
+    await MetricDefinitionsRepository(
+      container.read(appDatabaseProvider),
+    ).seedBuiltIns();
+  } catch (error, stackTrace) {
+    debugPrint('Ölçüm tohumlaması başarısız: $error');
     debugPrintStack(stackTrace: stackTrace);
   }
 }
