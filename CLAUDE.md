@@ -269,8 +269,11 @@ flutter run                   # emülatörde çalıştır
 
 ## Çalışma biçimi
 
-- **TDD.** Önce başarısız test, sonra asgari kod, sonra commit. Planlar
-  bu döngüye göre yazıldı.
+- **TDD DEĞİL — kullanıcı kararı (M12'den itibaren).** Döngü:
+  **önce kod → sonra testler → testleri çalıştır → review.**
+  "Önce başarısız test" adımı istenmiyor. Test yazmak hâlâ zorunlu,
+  sırası değişti; görev testsiz bitmez. (M1-M6 planları TDD ile
+  yazılmıştı; v2 planları bu yeni döngüye göre yazılır.)
 - **Her görev sonunda** `flutter analyze` temiz + `flutter test` yeşil.
 - **Conventional commits**, İngilizce: `feat:`, `fix:`, `chore:`, `test:`.
 - **Kullanıcı dili Türkçe.** Arayüz metinleri, kod yorumları ve commit
