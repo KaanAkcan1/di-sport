@@ -25,9 +25,9 @@ mağaza yok. Mimari bunları sonradan almaya açık (bkz. `SyncColumns`).
 |---|---|
 | [Tasarım (spec)](docs/superpowers/specs/2026-08-28-disport-tasarim.md) | **Tek doğruluk kaynağı.** Veri modeli, ekranlar, AI sözleşmesi, alarmlar. Kod bununla çelişiyorsa kod yanlıştır. |
 | [M1 planı](docs/superpowers/plans/2026-08-28-m1-iskelet.md) | İskelet — **tamamlandı** |
-| [M2 planı](docs/superpowers/plans/2026-08-28-m2-katalog.md) | Egzersiz kataloğu — sıradaki |
-| [M3 planı](docs/superpowers/plans/2026-08-28-m3-plan-ve-gunluk.md) | Plan, günlük kayıt, Bugün + Antrenman ekranları |
-| [M4 planı](docs/superpowers/plans/2026-08-28-m4-ai-koprusu.md) | AI köprüsü — context.md, doğrulama, importer |
+| [M2 planı](docs/superpowers/plans/2026-08-28-m2-katalog.md) | Egzersiz kataloğu — **tamamlandı** |
+| [M3 planı](docs/superpowers/plans/2026-08-28-m3-plan-ve-gunluk.md) | Plan, günlük kayıt, Bugün + Antrenman — **tamamlandı** |
+| [M4 planı](docs/superpowers/plans/2026-08-28-m4-ai-koprusu.md) | AI köprüsü — **sıradaki** |
 | [M5 planı](docs/superpowers/plans/2026-08-28-m5-saglik-ilerleme-alarm.md) | Tahlil, grafik, alarm, yedek, BYOK |
 
 Planlar sırayla yürütülür. Bir kilometre taşı bitince **sonraki planı
@@ -46,7 +46,7 @@ di@sport/
     ├── assets/fonts/         Inter değişken font
     ├── lib/
     │   ├── main.dart         tek satır → bootstrap()
-    │   ├── bootstrap.dart    açılış işleri (katalog tohumu M2, alarm M5 buraya)
+    │   ├── bootstrap.dart    açılış işleri (katalog tohumu; alarm M5'te buraya)
     │   ├── app/
     │   │   ├── app.dart      DisportApp + _Shell (5 sekme) + appDatabaseProvider
     │   │   └── theme/        app_theme (birleştirici) · app_color_schemes · app_component_themes
@@ -154,9 +154,13 @@ yazı ölçeği 0.85–1.6 arasında sınırlanır.
 Flutter **3.47.2** / Dart 3.13 · flutter_riverpod **3.4.2** ·
 drift **2.34** + drift_flutter · uuid
 
-M2+'da eklenecek: riverpod_generator + custom_lint (M2) ·
-freezed + json_serializable **yalnız `ai_bridge`'de** (M4) ·
-fl_chart, flutter_local_notifications, timezone (M5)
+riverpod_annotation + riverpod_generator (codegen) · uuid
+
+M4'te eklenecek: freezed + json_serializable **yalnız `ai_bridge`'de** ·
+share_plus. M5'te: fl_chart, flutter_local_notifications, timezone.
+
+`custom_lint` kurulamıyor — `analyzer ^8` istiyor, `drift_dev` ve
+`riverpod_lint` `analyzer ^13` kullanıyor.
 
 ---
 
