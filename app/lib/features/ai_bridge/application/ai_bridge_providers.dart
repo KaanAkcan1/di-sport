@@ -4,6 +4,7 @@ import 'package:disport/features/ai_bridge/domain/plan_importer.dart';
 import 'package:disport/features/ai_bridge/domain/plan_validator.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/application/catalog_source_adapter.dart';
+import 'package:disport/features/health/application/health_providers.dart';
 import 'package:disport/features/health/application/health_source_adapter.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/plan/application/plan_source_adapter.dart';
@@ -43,7 +44,10 @@ ContextMdBuilder contextMdBuilder(Ref ref) => ContextMdBuilder(
     workout: ref.watch(workoutRepositoryProvider),
     now: DateTime.now,
   ),
-  health: HealthSourceAdapter(ref.watch(bodyMetricsRepositoryProvider)),
+  health: HealthSourceAdapter(
+    metrics: ref.watch(bodyMetricsRepositoryProvider),
+    labs: ref.watch(labRepositoryProvider),
+  ),
   catalog: CatalogSourceAdapter(ref.watch(catalogRepositoryProvider)),
   plan: PlanSourceAdapter(ref.watch(planRepositoryProvider)),
 );

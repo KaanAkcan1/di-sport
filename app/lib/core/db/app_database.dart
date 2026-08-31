@@ -1,5 +1,6 @@
 import 'package:disport/features/catalog/data/exercise_table.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
+import 'package:disport/features/health/data/lab_tables.dart';
 import 'package:disport/features/plan/data/plan_tables.dart';
 import 'package:disport/features/settings/data/profile_table.dart';
 import 'package:disport/features/today/data/daily_log_table.dart';
@@ -25,6 +26,8 @@ part 'app_database.g.dart';
     DailyLogs,
     BodyMetrics,
     ExerciseLogs,
+    LabResults,
+    LabSchedules,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -34,7 +37,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -57,6 +60,10 @@ class AppDatabase extends _$AppDatabase {
       }
       if (from < 5) {
         await m.createTable(exerciseLogs);
+      }
+      if (from < 6) {
+        await m.createTable(labResults);
+        await m.createTable(labSchedules);
       }
     },
   );

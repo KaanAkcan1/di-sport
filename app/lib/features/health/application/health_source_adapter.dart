@@ -1,19 +1,21 @@
 import 'package:disport/features/ai_bridge/domain/ports.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/health/data/body_metrics_repository.dart';
+import 'package:disport/features/health/data/lab_repository.dart';
 
-/// `health` feature'ının `ai_bridge`'e verdiği ölçüm kaynağı.
+/// `health` feature'ının `ai_bridge`'e verdiği ölçüm ve tahlil kaynağı.
 class HealthSourceAdapter implements HealthSource {
-  const HealthSourceAdapter(this._metrics);
+  const HealthSourceAdapter({required this.metrics, required this.labs});
 
-  final BodyMetricsRepository _metrics;
+  final BodyMetricsRepository metrics;
+  final LabRepository labs;
 
   @override
   Future<List<MetricPoint>> bodyMetrics({required int lastDays}) async {
     final points = <MetricPoint>[];
 
     for (final kind in MetricKinds.labels.keys) {
-      final series = await _metrics.series(kind, limit: lastDays);
+      final series = await metrics.series(kind, limit: lastDays);
       for (final point in series) {
         points.add(
           MetricPoint(
@@ -30,10 +32,26 @@ class HealthSourceAdapter implements HealthSource {
     return points;
   }
 
-  /// M5'te `lab_results` tablosu gelene kadar boş.
+  /// Marker başına yalnız **son** sonuç.
   ///
-  /// `context.md` bunu "tahlil kaydı yok" diye yazıyor; eksik bölüm
-  /// bırakmaktansa durumu açıkça söylemek daha iyi.
+  /// Tüm tahlil geçmişi `context.md`'yi şişirir ve AI'ı eski değerlere
+  /// bakıp güncel durumu kaçırmaya yöneltir. Eğilim gerekiyorsa
+  /// kullanıcı özellikle sorar.
   @override
-  Future<List<LabValueDump>> recentLabs() async => const [];
+  Future<List<LabValueDump>> recentLabs() async {
+    final latest = await labs.latestPerMarker();
+    latest.sort((a, b) => a.marker.compareTo(b.marker));
+
+    return [
+      for (final entry in latest)
+        LabValueDump(
+          date: entry.date,
+          marker: entry.marker,
+          value: entry.value,
+          unit: entry.unit,
+          refLow: entry.refLow,
+          refHigh: entry.refHigh,
+        ),
+    ];
+  }
 }

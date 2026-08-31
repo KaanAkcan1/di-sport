@@ -9,6 +9,7 @@ import 'package:disport/features/ai_bridge/domain/plan_validator.dart';
 import 'package:disport/features/catalog/data/catalog_repository.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/health/data/body_metrics_repository.dart';
+import 'package:disport/features/health/data/lab_repository.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/today/data/today_repository.dart';
 import 'package:disport/features/workout/data/workout_repository.dart';
@@ -274,6 +275,57 @@ void main() {
       expect(markdown, contains('AI Planı'));
       // Katalog gerçek hareketlerle listeleniyor
       expect(markdown, contains('Eğimli Şınav'));
+    });
+
+    test('tahliller altıncı bölüme referans aralığıyla düşer', () async {
+      // M5 senkron maddesinin kapanışı: `recentLabs()` M4'te boş liste
+      // dönüyordu, `context.md` "tahlil kaydı yok" yazıyordu. Artık
+      // gerçek tabloyu okuyor.
+      final labs = LabRepository(db);
+      await labs.add(
+        const LabEntry(
+          id: 'lab-1',
+          date: '2026-08-01',
+          marker: 'Vitamin D',
+          value: 18.4,
+          unit: 'ng/mL',
+          refLow: 30,
+          refHigh: 100,
+          panel: LabPanels.vitamin,
+        ),
+      );
+
+      final markdown = await container
+          .read(contextMdBuilderProvider)
+          .build(today: DateTime(2026, 8, 31));
+
+      expect(markdown, contains('Vitamin D: 18.4 ng/mL'));
+      expect(markdown, contains('referans 30.0-100.0'));
+      expect(markdown, isNot(contains('(tahlil kaydı yok)')));
+    });
+
+    test('marker başına yalnız son sonuç gönderilir', () async {
+      final labs = LabRepository(db);
+      for (final (date, value) in [('2026-01-10', 8.0), ('2026-08-01', 42.0)]) {
+        await labs.add(
+          LabEntry(
+            id: 'lab-$date',
+            date: date,
+            marker: 'Vitamin D',
+            value: value,
+            unit: 'ng/mL',
+            panel: LabPanels.vitamin,
+          ),
+        );
+      }
+
+      final markdown = await container
+          .read(contextMdBuilderProvider)
+          .build(today: DateTime(2026, 8, 31));
+
+      expect(markdown, contains('42.0'));
+      // Eski değer belgeye girmiyor: AI'ı güncel durumdan uzaklaştırır.
+      expect(markdown, isNot(contains('8.0 ng/mL')));
     });
 
     test('veri yokken de geçerli belge üretir', () async {
