@@ -32,15 +32,16 @@ M10 bu ikisini birden çözüyor (bkz. §6).
 
 ## 2. Kapsam ve sıra
 
-Beş kilometre taşı. Sıra tercih değil, bağımlılık:
+Altı kilometre taşı. Yürütme sırası:
 
-| | İş | Neden burada |
-|---|---|---|
-| **M7** | Dil altyapısı | Sonraki dördü de yeni metin üretiyor |
-| **M8** | Katalog 2.0 | M9 hareket başına MET'e dayanıyor |
-| **M9** | Besin ve kalori | |
-| **M10** | Düzenlenebilirlik | Öncekilerin ürettiği veriyi de düzenler |
-| **M11** | Takviye ve ilaç | Bağımsız; en sona alındı |
+| Sıra | İş | Şema | Neden burada |
+|---|---|---|---|
+| 1 | **M12** Tasarım yenilemesi | — | Kullanıcının bugün gördüğü sorun; sonraki her ekran yeni dille kurulsun |
+| 2 | **M7** Dil altyapısı | — | Sonraki dördü de yeni metin üretiyor |
+| 3 | **M11** Takviye ve ilaç | v11 | Kullanıcı isteğiyle öne alındı; bağımsız olduğu için sıkışabildi |
+| 4 | **M8** Katalog 2.0 + ekipman | v12 | M9 hareket başına MET'e dayanıyor |
+| 5 | **M9** Besin ve kalori | v13 | |
+| 6 | **M10** Düzenlenebilirlik | — | Öncekilerin ürettiği veriyi de düzenler |
 
 Her taş kendi planını alır (`docs/superpowers/plans/`), kendi TDD
 döngüsünü yürütür, kendi commit dizisiyle biter.
@@ -135,7 +136,7 @@ ayrımı ev ile salon: evde dambıl var, salonda kablo makinesi var, ve
 "bu hareketi yapabilir miyim" sorusunun cevabı **nerede antrenman
 yaptığına göre değişiyor**. Tek liste bu soruyu cevaplayamıyor.
 
-`equipment_items` iki bayrak alır (şema v11):
+`equipment_items` iki bayrak alır (şema v12):
 
 ```
 equipment_items
@@ -318,7 +319,7 @@ Hedef: ~400 kayıt.
 Üç ayrı şey var: *besin nedir*, *nasıl ölçülür*, *ne yendi*.
 
 ```
-foods                        (şema v12)
+foods                        (şema v13)
   id · nameTr · nameEn · category
   kcal100 · protein100 · carb100 · fat100
   source(curated|usda|user) · sourceRef
@@ -441,7 +442,7 @@ yok; olan tek şey **süre**. Bunu katalog kaydı yapmak yanlış olurdu —
 dört sekmeli detay ekranı, kolaylaştırma zinciri, sık hatalar; hiçbiri
 karşılığı olmayan alanlar.
 
-Ayrı ve hafif bir tablo çifti (şema v12 ile birlikte):
+Ayrı ve hafif bir tablo çifti (şema v13 ile birlikte):
 
 ```
 activities                   MET tablosu
@@ -559,7 +560,7 @@ Vitamin ve ilaç takibi. Plan slotu **değil** ayrı tablo: her gün tekrar
 eder, plandan bağımsız yaşar ve plan değişince kaybolmamalı.
 
 ```
-supplements                  (şema v13)
+supplements                  (şema v11)
   id · nameTr · nameEn · dose · unit
   times(HH:mm listesi) · weekdays · note
   + SyncColumns
@@ -603,4 +604,4 @@ Bilerek yapılmayanlar:
 | ~400 besinin kalori değerleri yanlış olabilir | Her kayıt kaynağını taşır; kullanıcı düzeltebilir; geçmiş kayıt dondurulduğu için düzeltme geriye yayılmaz |
 | Dil taşıması sırasında metin kaybı | Gömülü Türkçe metin taraması + eksik çeviri testi |
 | Plan editörü AI akışını bozar | `sourceRaw` korunur; içeri alma yolu değişmez, editör onun üstüne biner |
-| Şema v10 → v13 göçleri | Her sürüm kendi `if (from < N)` bloğunu alır; eskiler değiştirilmez (v1 kuralı). M8 → v11 (ekipman enum + yer bayrakları), M9 → v12 (besin), M11 → v13 (takviye) |
+| Şema v10 → v13 göçleri | Her sürüm kendi `if (from < N)` bloğunu alır; eskiler değiştirilmez (v1 kuralı). M11 → v11 (takviye), M8 → v12 (ekipman enum + yer bayrakları), M9 → v13 (besin + aktivite) |
