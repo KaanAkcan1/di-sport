@@ -577,3 +577,24 @@ git commit -m "feat: complete ink language migration, remove AppStatBand"
 - "SIRADA" tek dokunuş başlatma mevcut workout gezinmesini kullanır, yeni akış icat etmez (YAGNI).
 - Takvim kalori tonu ve kalori kahramanı bilinçli olarak M9'a bırakıldı; plan bunu her iki görevde yorumla işaretletiyor.
 - Tip tutarlılığı: `AppHeroNumber.gaugeFraction`, `AppMetric.delta`, `CatalogFilters`, `RecentExercise`, `PreviousSets`, `DayCellState` — üretici/tüketici görevlerde aynı adlarla geçiyor.
+
+
+---
+
+## Review düzeltmeleri (2026-08-31) — BAĞLAYICI
+
+Bağımsız denetim bulguları. Gövdeyle çeliştiği yerde **bu bölüm geçerlidir**.
+
+1. **[T1] Semantic yüzey alanları zaten var.** `successSurface`/`dangerSurface`/`warningSurface` + `on*` alanları `AppSemanticColors`'ta mevcut ve `AppStatusChip`, `import_plan_sheet`, `missed_streak_banner`, `due_labs_banner` kullanıyor. Adım "yeni alan ekle" değil "mevcut değerleri mürekkep tonlarına güncelle"dir; yalnız `hairline` yenidir. Bu dört kullanıcı ekranın görsel etkisi Step 5 koşusunda gözle doğrulanır.
+2. **[T1] `dark.success` güncellenmeli.** `ink_scheme_test`'in `dark.success == dark.primary` beklentisi için Step 3'te `AppSemanticColors.dark.success = AppPalette.brand400` yapılır (bugün brand300).
+3. **[T4] Ham renk yazılmaz.** `AppMetricStrip` caption rengi `mist500` DEĞİL `theme.colorScheme.onSurfaceVariant` (mist400, ~6.1:1). `mist400/ink850` çifti contrast_test'e eklenir.
+4. **[T2] Overlay istisnası.** Diyalog/menü/bottom-sheet yüzeyleri gölgesiz kalamaz — ayrım `surfaceContainerHigh` + `hairline` kenarlıkla sağlanır; `AppElevation` nöbetçi testi tema overlay tanımlarını (`dialogTheme`, `bottomSheetTheme`) muaf tutar.
+5. **[T6] Hızlı eylemler.** Spec'teki üçlü "+Öğün, +Tartı, +Aktivite"dir. M12'de yalnız **+Tartı** aktif; +Öğün ve +Aktivite M9'da veriyle birlikte gelir (görevdeki "+Not" iptal). Yerleri yorumla işaretlenir.
+6. **[T9] Antrenman kahramanı eksikti.** Task 9'a eklenir: tepede canlı **seans süresi** kahraman rakamı (ekran açılışında sessionStartedAt provider'da tutulur, dakikada bir çizilir); ≈kcal M9'da yanına gelir. Seans başlangıç/bitişi M9'un `workout_sessions` tablosuna yazılacak şekilde provider'dan dışa açık tasarlanır.
+7. **[T9] İkiz yazma yasak.** `previous_session_provider`/`PreviousSets` YAZILMAZ — mevcut `lastActualsProvider` + `SetActual` sütun formatına evrilir; `exercise_set_card`'daki "Geçen sefer" satırı GEÇEN sütununa dönüşür.
+8. **[T8] İkiz yazma yasak.** `CatalogFilters` YAZILMAZ — mevcut `CatalogFilterState` evrilir: `location` sekmeye taşınır, `query` kalır, `difficulty` eklenir, `onlyMyEquipment` kalır.
+9. **[T8] Mimari.** `recent_exercises_provider` catalog'dan workout `data`sını import edemez. ai_bridge deseni: catalog `domain`'ine `RecentExerciseSource` portu yazılır, adaptörü `workout/application`'a konur, `app` katmanında bağlanır.
+10. **[T6+T8] Kırılacak mevcut testler.** `test/core/widgets/app_time_rail_test.dart` (T6) ve `test/features/catalog/presentation/*` (T8) güncellenecekler listesine eklenir.
+11. **[T1] Açık rampa bütünü.** `surfaceContainerLowest/Low` da fildişi ailesine çekilir — açık temada "beyaz kart" kısmen sürmesin.
+12. **[T3] Anahtar yeri.** `ProfileKeys.themeMode` ai_bridge dosyasına eklenmez; `settings/domain/settings_keys.dart` açılır (M7'nin `locale` anahtarı da oraya).
+13. **[T5] Yerleşim gerekçesi.** `slotKindIcon` plan/presentation'da kalır (SlotKind plan domain'inde; core→feature import yasak). today→plan presentation import'u bilinçli ve kabul.

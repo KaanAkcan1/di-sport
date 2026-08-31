@@ -183,3 +183,18 @@ class SupplementsRepository {
 - Spec §7 kapsaması: tablolar → Task 1 (spec'teki `nameTr/nameEn` yerine tek `name` — gerekçe Global Constraints'te), alarm → Task 5, Bugün kartı → Task 4 (kart değil omurga satırı: M12 taslağında takviye omurgada, spec §7 bu taslakla güncel; "günün kuralları yanında kart" ifadesi taslakla eskidi).
 - Yasaklı pencerenin takviyeye uygulanmaması spec'te açık değildi — burada karar verildi ve test ediliyor; review'de işaretlenecek bilinçli sapma.
 - v11 numarası spec §2 tablosuyla uyumlu (M11 ikinci sırada yürüyor).
+
+
+---
+
+## Review düzeltmeleri (2026-08-31) — BAĞLAYICI
+
+1. **[T4] İkon çakışması çözümü.** `SlotKind`'a ve `slotKindIcon`'a dokunulmaz; takviye satırının ikonu `today` feature'ında ayrı sabittir (`supplementIcon = Icons.medication_outlined`). M12'nin "6 tür" testi değişmez.
+2. **[T4] SIRADA kuralı.** Takviye satırı spot karta terfi etmez, `nextIndex` hesabına girmez — yalnız satır. Testle sabitlenir.
+3. **[T5] Gerçek tipler.** `ReminderKind`/`PlannedNotification` diye tipler yok; gerçek tip `PendingReminder{id, fireAt, title, body, payload}`. Takviye için `ReminderPayloads`'a `supplement` girişi + sekme eşlemesi (Bugün) eklenir. (M7 düzeltmesi 4'ten sonra tür+parametre modeli geçerli.)
+4. **[T5] Determinist id.** Yeni şema icat edilmez; mevcut FNV-1a `_idFor(fireAt, 'supplement:id:time')` kullanılır.
+5. **[T5] Yasaklı pencere mekanizması somut.** `planWindow` süzgeci birleşik listeye uygulanıyor; muafiyet için takviye adayları **süzgeç sonrası** eklenir ve sıralama/limitlere yeniden sokulur. "İlaç saati mesaiye kurban edilmez" testi bu mekanizmayı sınar.
+6. **[T5] Bildirim tercihi.** `notifiableKinds` zaten `'supplement'` içeriyor — takviye hatırlatmaları bu tercihe bağlanır; tercih kapalıysa kurulmaz (bugüne dek işlevsiz anahtar canlanır; yeni anahtar açılmaz).
+7. **[T1] Göç testi altyapısı yoktu.** Task 1 genişler: önce göç test altyapısı kurulur (v10 şemasını elle SQL ile oluşturup açan yardımcı), sonra v11 testi yazılır.
+8. **[T2] İmza uyumu.** `watchDay(String isoDate)` — mevcut `TodayRepository` deseni; `DateTime` alınmaz.
+9. **[öz-değerlendirme] Sıra.** M11 üçüncü sırada yürür (M12→M7→M11); v11 doğru çünkü önündeki iki taş şemaya dokunmuyor.

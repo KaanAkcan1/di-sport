@@ -255,3 +255,19 @@ M12 taslağı birebir: arama (boş açılmaz — SIK YEDİKLERİN + dünü kopya
 - `context.md`'ye besin/kalori bölümü **eklenmiyor** — AI köprüsü kapsamı spec'te değişmedi; plan isteyen AI'a kalori hedefi zaten `goals` ile gidiyor.
 - Kritik test çifti: snapshot donması (T4) + kalori reaktivitesi (T8) — biri geçmişi, biri bugünü korur.
 - MealKind ile M10 slot editörü arası bağ: `slotId?` şimdiden nullable — plansız kayıt serbest (spec §5.2).
+
+
+---
+
+## Review düzeltmeleri (2026-08-31) — BAĞLAYICI
+
+1. **[T1] Seans süresi verisi yoktu — tablo açılır.** `exercise_logs` yalnız set satırları tutuyor, ekranda seans kronometresi yok (M12 düzeltmesi 6 canlıyı ekliyor). v13'e eklenir: `workout_sessions{id, date, startedAt, endedAt?}` + SyncColumns; antrenman ekranı açılışta yazar, bitişte kapatır. Kuvvet kcal = seans süresi × MET; seans kaydı yoksa kcal üretilmez (tahmin uydurulmaz).
+2. **[T1] `plan_exercises` şiddet sütunları buraya.** v13 göçü `plan_exercises`'a `speedKmh REAL?`, `gradePct REAL?`, `effort TEXT?` ekler; `PlanExercise` domain alanları ve örnek plan/AI importer geçişleri güncellenir (spec §5.5 düzeltildi). `Effort` M8'de catalog/domain'de tanımlı — burada tanımlanmaz.
+3. **[T7] Port yönü düzeltmesi.** `workout/application/energy_source_adapter` yalnız `exercise_logs`+`workout_sessions`'tan antrenman kalorisi verir; **aktivite toplamı nutrition'ın kendi içinde**. İki kaynak `nutrition_providers`'ta toplanır. Workout, nutrition data'sını import etmez.
+4. **[T1] `MealKind` plan domain'ine.** `plan/domain/meal_kind.dart` (M10 `plan_slots.mealKind` de kullanacak); nutrition plan domain'ini import eder. `FoodCategory.kahvaltilik` genişlemesi Task 9'da spec §5.2'ye işlenir.
+5. **[T3] Atwater tutarlılık testi.** `kcal100 ≈ 4×protein + 4×karb + 9×yağ` (±%15) — kJ/kcal karışması ve kayan virgülü yakalar. Taban ≥350 kalır: taban hedef değil kopukluk teli; hedef ~400.
+6. **[T2] ACSM düzeltmeleri.** İlk test adı "≈ 3.4 MET" (3.7 yanlıştı; denklem 3.38 verir). Formül notuna `g = gradePct / 100` açıkça yazılır — birim karışıklığı 25 kat hata üretir.
+7. **[T4] İmzalar ISO string.** `watchDay/dayKcal/dayProtein(String isoDate)`.
+8. **[T8] Takvim sorgusu gruplu.** 28×2 ayrı akış yerine `Stream<Map<String,double>> kcalByDayBetween(fromIso, toIso)` + `EnergySource.burnedBetween(fromIso, toIso)`.
+9. **[T8] Gauge tanımı.** `gaugeFraction = (eaten − burned) / goal` — kahramanla aynı aritmetik; testle sabitlenir.
+10. **[T4] `copyMeal` iyileştirmesi.** Kopya "dün"den değil **aynı `mealKind`de kayıt olan son günden**. Şablon özelliğinin bu sadeleştirmesi kullanıcıya sunulacak açık karar olarak işaretli (M12 taslağında şablon vardı).

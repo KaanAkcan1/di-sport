@@ -13,7 +13,7 @@
 ## Global Constraints
 
 - **Döngü TDD DEĞİL:** her görevde **kod → testler → çalıştır → review → commit**.
-- Şema değişikliği YOK (v13 kalır) — tüm tablolar zaten yazılabilir; iş provider + ekran katmanında. (`plans.updatedAt` SyncColumns'ta zaten var.)
+- Şema değişikliği yalnız Task 3'te: **v14 — `plan_slots.mealKind`**. Başka tablo değişmez; kalan iş provider + ekran katmanında. (`plans.updatedAt` SyncColumns'ta zaten var.)
 - Ölçüm kaydı (kilo, uyku, öğün, aktivite, takviye işareti) yalnız **bugün ve geçmişe**; plan düzenleme her tarihte (spec §6.2).
 - Plan değişince alarmlar `rescheduleQuietly` ile hemen yeniden kurulur (M6 kuralı).
 - Metinler ARB'ye; görsel dil M12.
@@ -182,3 +182,19 @@ Ekran içerikleri (spec §6.3 tablosu):
 - v14 bu planda doğdu (mealKind) — spec şema tablosu güncellenecek; M9 `meal_entries.mealKind`'i zaten taşıyor, v14 yalnız **plan slotuna** tür ekliyor; ikisi ayrı şey (kayıt ≠ plan).
 - Geriye uyum iki kilitle korunuyor: `todayXProvider` delegasyonları (T1) ve ai_bridge içe alma regresyon koşusu (T5).
 - "Kayıt girilmiş günler takvimde işaretlenir" M12 ton sisteminden bedavaya geliyor; ayrıca iş yok.
+
+
+---
+
+## Review düzeltmeleri (2026-08-31) — BAĞLAYICI
+
+1. **[T2] Geçmiş güne antrenman kaydı eksikti.** Spec §6.2 açıkça ister. Task 2'ye eklenir: geçmiş günün antrenman bölümü kayıtlı setleri düzenlenebilir gösterir (tekrar/kilo düzelt, set ekle/sil — basit sheet; canlı sayaç akışı yalnız bugünde). `exercise_logs` upsert'i tarihli, yeni şema gerekmez.
+2. **[T3] `MealKind` plan domain'inden.** M9 düzeltmesi 4: `plan/domain/meal_kind.dart`. Çift yönlü feature bağımlılığı doğmaz.
+3. **[T1] İkiz metot yazılmaz.** `setWeightOn/setSleepOn` iptal — mevcut `BodyMetricsRepository.upsert(isoDate:, kind:, ...)` dateKey ile çağrılır. Taslak imzalar gerçek tiplerle: `Stream<DailyLogView> dayLog(String dateKey)` (null olmayan view), `Stream<FullPlanDay?> dayPlanDay(String dateKey)`.
+4. **[T6] Doğru dosyalar.** Kaldırılacak alanlar `settings_screen.dart`'ta değil: form `ProfileKeys.form` listesinden üretiliyor ve `profile_form.dart` hem Ayarlar hem **onboarding**. Görev bu iki dosya + form listesi üzerinden yürür.
+5. **[T6] Onboarding istisnası.** Uyanma/uyku saati onboarding'de SORULMAYA DEVAM EDER (girilmezse sabah tartı alarmı sessizce kurulmuyor — scheduler `wakeTime` boşsa atlıyor); yalnız Ayarlar'daki profil formundan kalkar, kalıcı düzenleme yeri Günlük Düzen.
+6. **[T2] "Bugüne dön" davranışı.** Push bağlamında = pop; sekme bağlamında = state'i bugüne sıfırlama. `dateKey=bugün` push edilmez — Bugün sekmesinin ikizi üretilmez. Teste yazılır.
+7. **[T2] Gelecek gün etiketi.** Eyebrow gelecekte "PLANLANAN GÜN"; amber "GEÇMİŞ GÜN" yalnız geçmişte.
+8. **[T2] Şimdi işareti + tarihli yazım testleri.** Bugün olmayan günde `AppNowMarker`/spot kart/`clockProvider` bağı çizilmez; "+Öğün dünün ekranında düne yazar" testi eklenir.
+9. **[T3] Test koşusu.** Öğün-slotu-silme testi nutrition tablolarına dokunuyor; koşuya `test/features/nutrition/` eklenir.
+10. **[T5] `createEmptyPlan` sözleşmesi.** Aktif plan varsa yenisi aktif olur, eskisi pasifleşir (içe alma davranışıyla aynı).

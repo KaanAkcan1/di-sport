@@ -448,7 +448,9 @@ görmez, Riverpod görmez; testi doğrudan yazılır.
 aynısı: besin özelliği antrenmanın `data/` katmanını import etmez.
 
 **Şiddet nereden geliyor:** plan zaten `PlanExercise.intensity`
-taşıyor ("d6", "%8") ama serbest metin — hesaba giremez. M8'de tiplenir:
+taşıyor ("d6", "%8") ama serbest metin — hesaba giremez. M9'da tiplenir
+(v13 göçüyle; plan review'i alanın M8-M9 arasında sahipsiz kaldığını
+gösterdi, sahibi M9):
 
 ```
 PlanExercise
@@ -651,4 +653,4 @@ Bilerek yapılmayanlar:
 | ~400 besinin kalori değerleri yanlış olabilir | Her kayıt kaynağını taşır; kullanıcı düzeltebilir; geçmiş kayıt dondurulduğu için düzeltme geriye yayılmaz |
 | Dil taşıması sırasında metin kaybı | Gömülü Türkçe metin taraması + eksik çeviri testi |
 | Plan editörü AI akışını bozar | `sourceRaw` korunur; içeri alma yolu değişmez, editör onun üstüne biner |
-| Şema v10 → v13 göçleri | Her sürüm kendi `if (from < N)` bloğunu alır; eskiler değiştirilmez (v1 kuralı). M11 → v11 (takviye), M8 → v12 (ekipman enum + yer bayrakları), M9 → v13 (besin + aktivite) |
+| Şema v10 → v14 göçleri | Her sürüm kendi `if (from < N)` bloğunu alır; eskiler değiştirilmez (v1 kuralı). M11 → v11 (takviye), M8 → v12 (ekipman enum + yer bayrakları), M9 → v13 (besin + aktivite + plan/log şiddet alanları), M10 → v14 (`plan_slots.mealKind`) |

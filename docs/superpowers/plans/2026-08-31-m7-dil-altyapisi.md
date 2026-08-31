@@ -243,3 +243,19 @@ En büyük görev; **feature başına bir alt-adım ve bir commit**. Sıra: `tod
 - Spec §3 kapsaması: 3.1 kapsam sınırı → Global Constraints; 3.2 → Task 1; 3.3 üç yardımcı → Task 2 + Task 4.3; 3.4 → Task 3; 3.5 testler → Task 1 (parite) + Task 5 (gömülü metin).
 - Bildirimlerin `BuildContext`siz locale sorunu Task 4.8'de `lookupAppLocalizations` ile çözülüyor — planner saf kalıyor (CLAUDE.md mimari kuralı).
 - ARB şablonunun TR olması gen_l10n'de sorun değil; `@@locale` doğru yazıldığı sürece.
+
+
+---
+
+## Review düzeltmeleri (2026-08-31) — BAĞLAYICI
+
+1. **[T5] Nöbetçi regex düzeltmesi.** Muafiyet yalnız `line.trimLeft().startsWith('//')` ve açık `// l10n-exempt` işaretiyle; `_test\.dart` alternatifi ölü koddu, kalkar. Satır sonu yorumu taşıyan gömülü metin artık kaçamaz.
+2. **[T5] Tarama kökü genişler.** `lib/features/*/presentation` + `lib/core/widgets` + `lib/app` taranır.
+3. **[T4] `import_plan_sheet` taşınır.** Kullanıcıya görünen arayüzdür; Task 4'e alt-adım eklenir. Sınır netleşir: **doğrulayıcı hata metinleri ve context.md Türkçe kalır** (AI'a gider), sheet'in kendi başlık/düğme/açıklama metinleri ARB'ye taşınır.
+4. **[T4.8] Planner API değişikliği açık yazılır.** `PendingReminder` başlık/gövdeyi hazır metin olarak değil **tür + parametre** olarak taşıyacak şekilde evrilir; metni scheduler, seçili locale'in `AppLocalizations`'ından üretir. Mevcut planner testleri metin yerine tür+parametre doğrulamaya güncellenir. `slot.label` VERİdir — olduğu gibi geçer, çevrilmez.
+5. **[T4.8] Locale çözümü.** `appLocaleProvider` null (Sistem) ise scheduler `PlatformDispatcher.instance.locale`'i `supportedLocales`'e indirger; widget dışı `DateFormat` için `initializeDateFormatting` bootstrap'a eklenir.
+6. **[T4.4] Arama gerçeği.** Katalog araması DB'deki katlanmış `searchBlob` üstünde LIKE ile çalışıyor. `matchesAnyLocale` sorgu tarafında uygulanamaz; çözüm **yazım tarafında**: `searchText` üretimi her iki adın hem TR hem EN katlamasını blob'a ekler (M8 tohum damgası yeniden tohumlamayı tetikleyecek). `matchesAnyLocale` yalnız bellek-içi listelerde (besin araması M9) kullanılır.
+7. **[T3] Anahtar yeri.** Global kısıta ek: `ProfileKeys`'e anahtar eklemek serbest, metin/mantık değişikliği yasak — ama tercih edilen yol M12 düzeltmesi 12: yeni anahtarlar `settings/domain/settings_keys.dart`'a.
+8. **[T4.8] Paylaşılan bileşen eşlemeleri.** `AppStatus → l10n` etiket eşlemesi tek yerde: `core/widgets` içinde `AppLocalizations` alan yardımcı (`statusLabel(l10n, status)`). Diyalog, snackbar ve `Semantics(label:)` metinleri her Task 4 alt-adımının kontrol listesine dahildir.
+9. **[T4] M12 senkronu.** M12 ekranları yeniden yazdığı için Task 4 başlarken alt-adım envanteri fiilî dosyalarla senkronize edilir (CLAUDE.md "sonraki planı gözden geçir" kuralı).
+10. **[T5] EN duman testi genişler.** Beş sekme başlığına ek, her sekmeden 2-3 bilinen metin EN locale'de doğrulanır (ASCII-Türkçe metinler regex'e yakalanmadığı için tek güvence bu).
