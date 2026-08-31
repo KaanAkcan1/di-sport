@@ -70,7 +70,14 @@ class _TodayBand extends ConsumerWidget {
 
     return AppStatBand(
       title: TurkishDate.weekdayAndDay(now),
-      subtitle: day?.type.label ?? 'Plan yok',
+      // Diyeti boş gün açıkça söyleniyor: aksi hâlde öğünsüz bir gün
+      // "plan eksik gelmiş" gibi okunuyor.
+      subtitle: switch (day) {
+        null => 'Plan yok',
+        final d when d.isFullyFree => 'Serbest gün',
+        final d when d.isDietFree => '${d.type.label} · diyet serbest',
+        final d => d.type.label,
+      },
       // İki sayı, üç değil. Üçüncüsü kuralların sayacıydı ama o sayaç
       // hemen alttaki kartın başlığında da duruyor ve ikisi aynı
       // ekranda görünüyordu — özet olmaktan çıkıp tekrara dönüşmüştü.

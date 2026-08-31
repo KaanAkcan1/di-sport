@@ -363,10 +363,24 @@ class _DayTile extends StatelessWidget {
           '${_weekdayNames[day.date.weekday - 1]}',
           style: theme.textTheme.titleSmall,
         ),
-        subtitle: Text(
-          day.exercises.isEmpty
-              ? label
-              : '$label · ${day.exercises.length} hareket',
+        subtitle: Row(
+          children: [
+            Flexible(
+              child: Text(
+                day.exercises.isEmpty
+                    ? label
+                    : '$label · ${day.exercises.length} hareket',
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            // Diyeti boş gün ayrı işaretleniyor: v1'de bu gün
+            // diğerlerinden ayırt edilemiyordu ve kullanıcı "plan eksik
+            // mi geldi" diye düşünüyordu.
+            if (day.isDietFree) ...[
+              const SizedBox(width: AppSpacing.sm),
+              const _FreeDayBadge(),
+            ],
+          ],
         ),
         trailing: isToday
             ? Chip(
@@ -469,6 +483,33 @@ class _RuleList extends StatelessWidget {
                 ),
               ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Diyeti boş gün rozeti.
+class _FreeDayBadge extends StatelessWidget {
+  const _FreeDayBadge();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.sm,
+        vertical: 2,
+      ),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainerHigh,
+        borderRadius: AppRadius.fullAll,
+      ),
+      child: Text(
+        'Serbest',
+        style: theme.textTheme.labelSmall?.copyWith(
+          color: theme.colorScheme.onSurfaceVariant,
         ),
       ),
     );

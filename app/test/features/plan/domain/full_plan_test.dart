@@ -74,4 +74,45 @@ void main() {
       expect(day.hasWorkout, isFalse);
     });
   });
+  group('serbest gün', () {
+    FullPlanDay day({
+      List<PlanSlot> slots = const [],
+      List<PlanExercise> exercises = const [],
+      PlanDayType type = PlanDayType.home,
+    }) => FullPlanDay(
+      id: 'd',
+      date: DateTime(2026, 9, 1),
+      type: type,
+      weekIndex: 1,
+      slots: slots,
+      exercises: exercises,
+    );
+
+    PlanSlot slot(SlotKind kind) =>
+        PlanSlot(id: 's-${kind.name}', time: '08:00', kind: kind, label: 'x');
+
+    test('öğünü olmayan gün diyet serbesttir', () {
+      // AI bazı günlere bilerek öğün yazmıyor: sosyal yemek, seyahat.
+      expect(day().isDietFree, isTrue);
+      expect(day(slots: [slot(SlotKind.meal)]).isDietFree, isFalse);
+    });
+
+    test('antrenman slotu diyeti doldurmaz', () {
+      final d = day(slots: [slot(SlotKind.workout)]);
+      expect(d.hasMeals, isFalse);
+      expect(d.isDietFree, isTrue);
+    });
+
+    test('hem öğünsüz hem antrenmansız gün tamamen serbest', () {
+      expect(day(type: PlanDayType.rest).isFullyFree, isTrue);
+    });
+
+    test('antrenmanı olan öğünsüz gün tamamen serbest değil', () {
+      final d = day(
+        exercises: [const PlanExercise(id: 'e', exerciseId: 'plank', sets: 3)],
+      );
+      expect(d.isDietFree, isTrue);
+      expect(d.isFullyFree, isFalse);
+    });
+  });
 }

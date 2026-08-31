@@ -168,6 +168,22 @@ class FullPlanDay {
 
   bool get hasWorkout => type != PlanDayType.rest && exercises.isNotEmpty;
 
+  /// Günde planlanmış öğün var mı.
+  bool get hasMeals => slots.any((slot) => slot.kind == SlotKind.meal);
+
+  /// Diyeti boş gün — "serbest gün".
+  ///
+  /// AI dört haftalık planda bazı günlere bilerek öğün yazmıyor:
+  /// sosyal yemek, bayram, seyahat. v1'de bu gün diğerlerinden ayırt
+  /// edilemiyordu; kullanıcı "plan eksik mi geldi" diye düşünüyordu.
+  ///
+  /// Türetilmiş bir özellik, saklanmıyor: kaynak zaten slot listesi ve
+  /// ayrı bir bayrak tutmak ikisinin ayrışma riskini getirirdi.
+  bool get isDietFree => !hasMeals;
+
+  /// Ne antrenman ne öğün — tamamen serbest.
+  bool get isFullyFree => isDietFree && !hasWorkout;
+
   /// Antrenman slotu — Bugün ekranında karta dönüşen slot.
   PlanSlot? get workoutSlot {
     for (final slot in slots) {
