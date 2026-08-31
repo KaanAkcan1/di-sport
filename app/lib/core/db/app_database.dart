@@ -4,6 +4,7 @@ import 'package:disport/features/health/data/lab_tables.dart';
 import 'package:disport/features/plan/data/plan_tables.dart';
 import 'package:disport/features/settings/data/profile_table.dart';
 import 'package:disport/features/today/data/daily_log_table.dart';
+import 'package:disport/features/today/data/daily_rule_table.dart';
 import 'package:disport/features/workout/data/exercise_log_table.dart';
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
@@ -28,6 +29,7 @@ part 'app_database.g.dart';
     ExerciseLogs,
     LabResults,
     LabSchedules,
+    DailyRules,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -37,7 +39,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 6;
+  int get schemaVersion => 7;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -64,6 +66,10 @@ class AppDatabase extends _$AppDatabase {
       if (from < 6) {
         await m.createTable(labResults);
         await m.createTable(labSchedules);
+      }
+      if (from < 7) {
+        await m.createTable(dailyRules);
+        await m.addColumn(dailyLogs, dailyLogs.checkedRulesJson);
       }
     },
   );

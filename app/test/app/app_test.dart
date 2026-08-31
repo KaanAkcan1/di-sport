@@ -10,6 +10,7 @@ import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/progress/application/progress_providers.dart';
 import 'package:disport/features/progress/domain/transition_criteria.dart';
 import 'package:disport/features/today/application/today_providers.dart';
+import 'package:disport/features/today/data/daily_rules_repository.dart';
 import 'package:disport/features/today/data/today_repository.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,30 @@ void main() {
       todayWeightProvider.overrideWith((ref) => Stream.value(null)),
       todaySleepProvider.overrideWith((ref) => Stream.value(null)),
       missedStreakProvider.overrideWith((ref) async => 0),
+      // Kurallar artık veritabanından geliyor; ekran testi Drift
+      // akışına bağlanmamalı (asılır). Yerleşik üçü sabitle veriliyor.
+      dailyRulesProvider.overrideWith(
+        (ref) => Stream.value(const [
+          DailyRule(
+            id: BuiltInRules.water,
+            label: '3 litre su',
+            iconKey: 'water',
+            isBuiltIn: true,
+          ),
+          DailyRule(
+            id: BuiltInRules.noAlcoholSugar,
+            label: 'Alkol ve şeker yok',
+            iconKey: 'noDrinks',
+            isBuiltIn: true,
+          ),
+          DailyRule(
+            id: BuiltInRules.workout,
+            label: 'Antrenman yapıldı',
+            iconKey: 'fitness',
+            isBuiltIn: true,
+          ),
+        ]),
+      ),
       // Kabuk artık onboarding kontrolünün arkasında; test doğrudan
       // sekmelere bakıyor.
       isOnboardedProvider.overrideWith((ref) async => true),

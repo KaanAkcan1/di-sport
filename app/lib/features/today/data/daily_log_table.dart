@@ -19,6 +19,14 @@ class DailyLogs extends Table with SyncColumns {
   /// tablo kurmak, kazandırdığından çok karmaşıklık getirirdi.
   TextColumn get checkedSlotsJson => text().withDefault(const Constant('[]'))();
 
+  /// Kullanıcının kendi eklediği kurallardan işaretli olanların
+  /// id'leri, JSON dizisi.
+  ///
+  /// Yerleşik üç kural burada değil aşağıdaki sütunlarda: haftalık
+  /// özet, kaçak serisi ve alarmlar onları okuyor ve M6'da JSON'a
+  /// taşımak o üç yeri de kırardı. Ayrım [BuiltInRules] ile yapılıyor.
+  TextColumn get checkedRulesJson => text().withDefault(const Constant('[]'))();
+
   BoolColumn get workoutDone => boolean().withDefault(const Constant(false))();
   BoolColumn get waterTargetMet =>
       boolean().withDefault(const Constant(false))();

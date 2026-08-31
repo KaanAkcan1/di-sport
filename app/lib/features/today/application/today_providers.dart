@@ -4,6 +4,7 @@ import 'package:disport/features/health/data/body_metrics_repository.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/today/data/daily_rules_repository.dart';
 import 'package:disport/features/today/data/today_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,6 +17,15 @@ TodayRepository todayRepository(Ref ref) =>
 @riverpod
 BodyMetricsRepository bodyMetricsRepository(Ref ref) =>
     BodyMetricsRepository(ref.watch(appDatabaseProvider));
+
+@riverpod
+DailyRulesRepository dailyRulesRepository(Ref ref) =>
+    DailyRulesRepository(ref.watch(appDatabaseProvider));
+
+/// Kullanıcının günlük kuralları, kendi sırasında.
+@riverpod
+Stream<List<DailyRule>> dailyRules(Ref ref) =>
+    ref.watch(dailyRulesRepositoryProvider).watchActive();
 
 /// Dakikada bir ilerleyen saat.
 ///

@@ -1,6 +1,7 @@
 import 'package:disport/app/theme/app_theme.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/today/application/today_providers.dart';
+import 'package:disport/features/today/data/daily_rules_repository.dart';
 import 'package:disport/features/today/data/today_repository.dart';
 import 'package:disport/features/today/presentation/daily_flags_card.dart';
 import 'package:disport/features/today/presentation/today_screen.dart';
@@ -30,6 +31,30 @@ void main() {
       todayWeightProvider.overrideWith((ref) => Stream.value(weight)),
       todaySleepProvider.overrideWith((ref) => Stream.value(sleep)),
       missedStreakProvider.overrideWith((ref) async => missedStreak),
+      // Kurallar artık veritabanından geliyor; ekran testi Drift
+      // akışına bağlanmamalı (asılır). Yerleşik üçü sabitle veriliyor.
+      dailyRulesProvider.overrideWith(
+        (ref) => Stream.value(const [
+          DailyRule(
+            id: BuiltInRules.water,
+            label: '3 litre su',
+            iconKey: 'water',
+            isBuiltIn: true,
+          ),
+          DailyRule(
+            id: BuiltInRules.noAlcoholSugar,
+            label: 'Alkol ve şeker yok',
+            iconKey: 'noDrinks',
+            isBuiltIn: true,
+          ),
+          DailyRule(
+            id: BuiltInRules.workout,
+            label: 'Antrenman yapıldı',
+            iconKey: 'fitness',
+            isBuiltIn: true,
+          ),
+        ]),
+      ),
     ],
     child: MaterialApp(
       theme: AppTheme.light,

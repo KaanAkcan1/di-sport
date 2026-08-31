@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:disport/app/app.dart';
 import 'package:disport/features/catalog/data/catalog_repository.dart';
 import 'package:disport/features/reminders/application/reminder_providers.dart';
+import 'package:disport/features/today/data/daily_rules_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,6 +22,7 @@ Future<void> bootstrap() async {
   final container = ProviderContainer();
 
   await _seedCatalog(container);
+  await _seedDailyRules(container);
 
   // Bildirim penceresi arka planda kaydırılıyor: kurulumu beklemek ilk
   // kareyi geciktirir ve kullanıcı uygulamayı açtığında alarm kurmak
@@ -51,6 +53,22 @@ Future<void> _seedCatalog(ProviderContainer container) async {
     ).seedFromJson(json);
   } catch (error, stackTrace) {
     debugPrint('Katalog tohumlaması başarısız: $error');
+    debugPrintStack(stackTrace: stackTrace);
+  }
+}
+
+/// Kâğıt çizelgenin üç kuralını ilk açılışta ekler.
+///
+/// Katalog tohumlamasıyla aynı mantık: her açılışta çağrılır, zaten
+/// varsa hiçbir şey yapmaz. Kullanıcının sildiği kuralı da geri
+/// getirmez — bkz. `DailyRulesRepository.seedBuiltIns`.
+Future<void> _seedDailyRules(ProviderContainer container) async {
+  try {
+    await DailyRulesRepository(
+      container.read(appDatabaseProvider),
+    ).seedBuiltIns();
+  } catch (error, stackTrace) {
+    debugPrint('Kural tohumlaması başarısız: $error');
     debugPrintStack(stackTrace: stackTrace);
   }
 }

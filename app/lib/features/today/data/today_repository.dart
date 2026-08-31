@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:disport/core/db/app_database.dart';
+import 'package:disport/features/today/data/daily_rule_table.dart';
 import 'package:drift/drift.dart';
 import 'package:uuid/uuid.dart';
 
@@ -12,6 +13,7 @@ import 'package:uuid/uuid.dart';
 class DailyLogView {
   const DailyLogView({
     this.checkedSlotIds = const {},
+    this.checkedRuleIds = const {},
     this.workoutDone = false,
     this.waterTargetMet = false,
     this.noAlcoholSugar = false,
@@ -19,6 +21,11 @@ class DailyLogView {
   });
 
   final Set<String> checkedSlotIds;
+
+  /// Kullanıcının kendi eklediği kurallardan işaretli olanlar.
+  /// Yerleşik üçü burada değil, aşağıdaki bayraklarda.
+  final Set<String> checkedRuleIds;
+
   final bool workoutDone;
   final bool waterTargetMet;
   final bool noAlcoholSugar;
@@ -26,14 +33,33 @@ class DailyLogView {
 
   bool isSlotChecked(String slotId) => checkedSlotIds.contains(slotId);
 
-  /// Günün üç kutucuğundan kaçı işaretli.
+  /// Kural işaretli mi — yerleşik ve özel kurallar için tek soru.
+  ///
+  /// Yerleşiklerin işaretleri kendi sütunlarında duruyor (haftalık
+  /// özet ve alarmlar onları okuyor); özel kurallar JSON dizisinde.
+  /// Çağıran tarafın bu ayrımı bilmesi gerekmiyor.
+  bool isRuleChecked(String ruleId) => switch (ruleId) {
+    BuiltInRules.water => waterTargetMet,
+    BuiltInRules.noAlcoholSugar => noAlcoholSugar,
+    BuiltInRules.workout => workoutDone,
+    _ => checkedRuleIds.contains(ruleId),
+  };
+
+  /// Günün üç yerleşik kutucuğundan kaçı işaretli.
   int get flagsMet =>
       (workoutDone ? 1 : 0) +
       (waterTargetMet ? 1 : 0) +
       (noAlcoholSugar ? 1 : 0);
 
+  /// Verilen kural listesinden kaçı işaretli — kart başlığındaki sayaç.
+  int metAmong(Iterable<String> ruleIds) =>
+      ruleIds.where(isRuleChecked).length;
+
   bool get isEmpty =>
-      checkedSlotIds.isEmpty && flagsMet == 0 && note.isEmpty;
+      checkedSlotIds.isEmpty &&
+      checkedRuleIds.isEmpty &&
+      flagsMet == 0 &&
+      note.isEmpty;
 }
 
 /// Günlük kayıtlara erişim.
@@ -110,6 +136,33 @@ class TodayRepository {
     );
   }
 
+  /// Kural işaretini tersine çevirir — yerleşik ya da özel.
+  ///
+  /// Çağıran taraf ayrımı bilmiyor: yerleşik kurallar kendi sütununa,
+  /// özel kurallar JSON dizisine yazılıyor.
+  Future<void> toggleRule(String isoDate, String ruleId) async {
+    final row = await _ensureRow(isoDate);
+
+    switch (ruleId) {
+      case BuiltInRules.water:
+        await setFlags(isoDate, waterTargetMet: !row.waterTargetMet);
+      case BuiltInRules.noAlcoholSugar:
+        await setFlags(isoDate, noAlcoholSugar: !row.noAlcoholSugar);
+      case BuiltInRules.workout:
+        await setFlags(isoDate, workoutDone: !row.workoutDone);
+      default:
+        final ids = (jsonDecode(row.checkedRulesJson) as List)
+            .cast<String>()
+            .toSet();
+        if (!ids.add(ruleId)) ids.remove(ruleId);
+
+        await _write(
+          isoDate,
+          DailyLogsCompanion(checkedRulesJson: Value(jsonEncode(ids.toList()))),
+        );
+    }
+  }
+
   /// Yalnız verilen bayrakları günceller; verilmeyenlere dokunmaz.
   Future<void> setFlags(
     String isoDate, {
@@ -179,6 +232,9 @@ class TodayRepository {
     if (row == null) return const DailyLogView();
     return DailyLogView(
       checkedSlotIds: (jsonDecode(row.checkedSlotsJson) as List)
+          .cast<String>()
+          .toSet(),
+      checkedRuleIds: (jsonDecode(row.checkedRulesJson) as List)
           .cast<String>()
           .toSet(),
       workoutDone: row.workoutDone,

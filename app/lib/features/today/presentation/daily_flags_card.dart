@@ -1,15 +1,21 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/today/application/today_providers.dart';
+import 'package:disport/features/today/data/daily_rules_repository.dart';
+import 'package:disport/features/today/presentation/rule_icons.dart';
+import 'package:disport/features/today/presentation/rules_editor_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Günün üç kutucuğu: 3 L su, alkol/şeker yok, antrenman.
+/// Günün kuralları.
 ///
-/// Kâğıt çizelgedeki üç kutunun karşılığı. Antrenman kutusu Antrenman
-/// ekranındaki setler tamamlanınca da işaretlenir; buradan elle de
-/// değiştirilebilir çünkü kullanıcı uygulamayı açmadan antrenman
-/// yapabilir.
+/// v1'de üç sabit kutucuktu; M6'da kullanıcının kendi listesi oldu.
+/// Kâğıt çizelgenin üçü hâlâ varsayılan ama silinebilir, yeniden
+/// adlandırılabilir ve aralarına yenileri girebilir.
+///
+/// Antrenman kuralı Antrenman ekranındaki setler tamamlanınca da
+/// işaretlenir; buradan elle de değiştirilebilir çünkü kullanıcı
+/// uygulamayı açmadan antrenman yapabilir.
 class DailyFlagsCard extends ConsumerWidget {
   const DailyFlagsCard({super.key});
 
@@ -18,72 +24,104 @@ class DailyFlagsCard extends ConsumerWidget {
     final log = ref.watch(todayLogProvider).value;
     final iso = ref.watch(todayIsoProvider);
     final repository = ref.watch(todayRepositoryProvider);
+    final rules = ref.watch(dailyRulesProvider);
 
-    return AppSection(
-      title: 'Günün kuralları',
-      padding: EdgeInsets.zero,
-      action: log == null
-          ? null
-          : AppStatusChip(
-              status: switch (log.flagsMet) {
-                3 => AppStatus.good,
-                0 => AppStatus.unknown,
-                _ => AppStatus.caution,
-              },
-              label: '${log.flagsMet}/3',
-              compact: true,
-            ),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
-          child: Column(
+    return AppAsyncView<List<DailyRule>>(
+      value: rules,
+      onRetry: () => ref.invalidate(dailyRulesProvider),
+      loading: const SizedBox.shrink(),
+      data: (list) {
+        final met = log?.metAmong(list.map((r) => r.id)) ?? 0;
+
+        return AppSection(
+          title: 'Günün kuralları',
+          padding: EdgeInsets.zero,
+          action: Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              _FlagTile(
-                tileKey: const Key('flag-water'),
-                icon: Icons.water_drop_outlined,
-                label: '3 litre su',
-                value: log?.waterTargetMet ?? false,
-                onChanged: (value) =>
-                    repository.setFlags(iso, waterTargetMet: value),
-              ),
-              _FlagTile(
-                tileKey: const Key('flag-no-sugar'),
-                icon: Icons.no_drinks_outlined,
-                label: 'Alkol ve şeker yok',
-                value: log?.noAlcoholSugar ?? false,
-                onChanged: (value) =>
-                    repository.setFlags(iso, noAlcoholSugar: value),
-              ),
-              _FlagTile(
-                tileKey: const Key('flag-workout'),
-                icon: Icons.fitness_center,
-                label: 'Antrenman yapıldı',
-                value: log?.workoutDone ?? false,
-                onChanged: (value) =>
-                    repository.setFlags(iso, workoutDone: value),
+              if (list.isNotEmpty)
+                AppStatusChip(
+                  status: switch (met) {
+                    _ when met == list.length => AppStatus.good,
+                    0 => AppStatus.unknown,
+                    _ => AppStatus.caution,
+                  },
+                  label: '$met/${list.length}',
+                  compact: true,
+                ),
+              IconButton(
+                key: const Key('edit-rules-button'),
+                icon: const Icon(Icons.tune),
+                tooltip: 'Kuralları düzenle',
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const RulesEditorScreen(),
+                  ),
+                ),
               ),
             ],
           ),
+          child: list.isEmpty
+              ? const _NoRules()
+              : Card(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: AppSpacing.sm,
+                    ),
+                    child: Column(
+                      children: [
+                        for (final rule in list)
+                          _RuleTile(
+                            // Anahtar sarmalayıcıya değil
+                            // `SwitchListTile`'a veriliyor.
+                            tileKey: Key('flag-${rule.id}'),
+                            rule: rule,
+                            value: log?.isRuleChecked(rule.id) ?? false,
+                            onChanged: (_) =>
+                                repository.toggleRule(iso, rule.id),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+        );
+      },
+    );
+  }
+}
+
+class _NoRules extends StatelessWidget {
+  const _NoRules();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Card(
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSpacing.lg,
+          vertical: AppSpacing.xl,
+        ),
+        child: AppEmptyState(
+          icon: Icons.rule,
+          title: 'Kural yok',
+          description: 'Her gün takip etmek istediğin şeyleri ekle — su, '
+              'takviye, erken yatma. Sağ üstteki ayar düğmesinden.',
         ),
       ),
     );
   }
 }
 
-class _FlagTile extends StatelessWidget {
-  const _FlagTile({
+class _RuleTile extends StatelessWidget {
+  const _RuleTile({
     required this.tileKey,
-    required this.icon,
-    required this.label,
+    required this.rule,
     required this.value,
     required this.onChanged,
   });
 
-  /// Anahtar sarmalayıcıya değil `SwitchListTile`'a veriliyor.
   final Key tileKey;
-
-  final IconData icon;
-  final String label;
+  final DailyRule rule;
   final bool value;
   final ValueChanged<bool> onChanged;
 
@@ -93,8 +131,8 @@ class _FlagTile extends StatelessWidget {
       key: tileKey,
       value: value,
       onChanged: onChanged,
-      secondary: Icon(icon),
-      title: Text(label),
+      secondary: Icon(RuleIcons.resolve(rule.iconKey)),
+      title: Text(rule.label),
       dense: true,
     );
   }
