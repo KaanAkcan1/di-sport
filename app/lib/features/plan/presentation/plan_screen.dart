@@ -1,5 +1,6 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
+import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/ai_bridge/presentation/import_plan_sheet.dart';
@@ -217,23 +218,7 @@ class _PlanOverview extends ConsumerWidget {
     );
   }
 
-  static String _formatDate(DateTime date) =>
-      '${date.day} ${_months[date.month - 1]}';
-
-  static const _months = [
-    'Ocak',
-    'Şubat',
-    'Mart',
-    'Nisan',
-    'Mayıs',
-    'Haziran',
-    'Temmuz',
-    'Ağustos',
-    'Eylül',
-    'Ekim',
-    'Kasım',
-    'Aralık',
-  ];
+  static String _formatDate(DateTime date) => TurkishDate.dayMonth(date);
 }
 
 class _GoalsCard extends StatelessWidget {

@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:flutter/material.dart';
@@ -104,8 +105,7 @@ class _MetricFieldState extends State<_MetricField> {
   }
 
   void _submit(String raw) {
-    // Türkçe klavyede ondalık ayracı virgül; ikisini de kabul ediyoruz.
-    final parsed = double.tryParse(raw.trim().replaceAll(',', '.'));
+    final parsed = TurkishNumber.tryParse(raw);
     if (parsed != null && parsed > 0) widget.onSubmitted(parsed);
   }
 
@@ -117,7 +117,7 @@ class _MetricFieldState extends State<_MetricField> {
     if (!_focusNode.hasFocus) {
       final text = stored == null
           ? ''
-          : stored.toStringAsFixed(1).replaceAll('.', ',');
+          : TurkishNumber.format(stored);
       if (_controller.text != text) _controller.text = text;
     }
 

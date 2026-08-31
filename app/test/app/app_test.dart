@@ -3,6 +3,9 @@ import 'package:disport/core/db/app_database.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
+import 'package:disport/features/health/application/health_providers.dart';
+import 'package:disport/features/health/data/body_metrics_repository.dart';
+import 'package:disport/features/health/data/lab_repository.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/today_repository.dart';
@@ -39,6 +42,16 @@ void main() {
       isOnboardedProvider.overrideWith((ref) async => true),
       // Plan ekranı da veritabanına bağlı.
       activePlanProvider.overrideWith((ref) async => null),
+      // Sağlık sekmesi de öyle. `IndexedStack` beş ekranı birden
+      // kurduğu için görünmeyen sekmenin akışı da açılıyor; biri
+      // gerçek Drift akışına bağlı kalırsa `pumpAndSettle` asılır.
+      labsByPanelProvider.overrideWith(
+        (ref) => Stream.value(const <String, List<LabEntry>>{}),
+      ),
+      dueLabsProvider.overrideWith((ref) async => const <DueSchedule>[]),
+      latestMetricsProvider.overrideWith(
+        (ref) async => const <String, MetricSample>{},
+      ),
     ],
     child: const DisportApp(),
   );
