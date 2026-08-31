@@ -1,0 +1,578 @@
+<title>di@sport v2 — Ekran Taslakları (mürekkep dili)</title>
+<style>
+  :root{
+    --pg:#0e1621; --pg-ink:#e8eef4; --pg-mut:#8da2b5; --panel:#152230; --line:#24384d;
+    --green:#42B883; --green-dim:#2d8f66; --mint:#9fd8bd;
+    --amber:#e8a33d; --red:#e06c5f;
+  }
+  :root[data-theme="light"]{--pg:#eef1f0;--pg-ink:#213547;--pg-mut:#5b6b7c;--panel:#ffffff;--line:#dbe3de}
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){--pg:#eef1f0;--pg-ink:#213547;--pg-mut:#5b6b7c;--panel:#ffffff;--line:#dbe3de}
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--pg);color:var(--pg-ink);
+    font:15px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+  .cond{font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif}
+  main{max-width:1180px;margin:0 auto;padding:40px 24px 80px}
+  header.page h1{font-size:26px;margin:0 0 4px;letter-spacing:-.01em}
+  header.page p{margin:0;color:var(--pg-mut);max-width:64ch}
+  header.page b{color:var(--green)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:40px;margin-top:36px}
+  .cell h2{font-size:15px;margin:0 0 2px}
+  .cell .why{font-size:13px;color:var(--pg-mut);margin:0 0 14px;max-width:44ch}
+  .why b{color:var(--pg-ink);font-weight:600}
+
+  /* ============ PHONE — ink language ============ */
+  .phone{width:320px;margin:0 auto;background:#16232f;border-radius:30px;overflow:hidden;
+    border:1px solid #2a3d52;box-shadow:0 24px 60px rgba(0,0,0,.5);color:#dfe8ef}
+  .screen{min-height:600px;display:flex;flex-direction:column;background:
+    linear-gradient(180deg,#1b2a3a 0%,#16232f 30%)}
+  .body{padding:14px 16px 8px;display:flex;flex-direction:column;gap:14px;flex:1}
+
+  .navbar{display:flex;border-top:1px solid #24384d;background:#121d28}
+  .navbar div{flex:1;text-align:center;font-size:9.5px;padding:9px 0 13px;color:#5f7387;
+    letter-spacing:.04em}
+  .navbar div.on{color:#9fd8bd}
+  .navbar span{display:block;font-size:15px;line-height:1.2}
+  .navbar .on span{color:#42B883}
+
+  .eyebrow{font-size:10px;letter-spacing:.14em;color:#42B883;font-weight:600}
+  .h-date{font-weight:700;font-size:19px;letter-spacing:-.01em;color:#f2f6f9}
+  .h-row{display:flex;align-items:flex-end;justify-content:space-between}
+  .chev{width:26px;height:26px;border-radius:8px;border:1px solid #2c4157;color:#8da2b5;
+    display:flex;align-items:center;justify-content:center;font-size:13px}
+
+  /* hero numerals */
+  .hero{display:flex;align-items:baseline;gap:14px}
+  .hero .big{font-size:56px;line-height:.95;font-weight:600;color:#f2f6f9;
+    font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+  .hero .big em{font-style:normal;color:#42B883}
+  .hero .of{font-size:15px;color:#68809a}
+  .heromet{display:flex;gap:20px;font-size:10px;color:#68809a;letter-spacing:.08em}
+  .heromet b{display:block;font-size:16px;color:#dfe8ef;font-variant-numeric:tabular-nums;letter-spacing:0}
+  .heromet .g{color:#9fd8bd}
+  .gauge{height:5px;border-radius:3px;background:#24384d;overflow:hidden;margin-top:2px}
+  .gauge i{display:block;height:100%;width:76%;border-radius:3px;
+    background:linear-gradient(90deg,#2d8f66,#42B883)}
+  .gauge .over{background:linear-gradient(90deg,#b3564a,#e06c5f)}
+
+  .hr{border:0;border-top:1px solid #24384d;margin:0}
+  .seclab{font-size:9.5px;letter-spacing:.16em;color:#68809a;font-weight:600}
+  .seclab b{color:#9fd8bd;font-weight:600}
+
+  /* rail — hairline spine, no cards */
+  .rail{display:flex;flex-direction:column}
+  .slot{display:flex;gap:12px;padding:8px 0;align-items:center;font-size:13px;
+    border-bottom:1px solid #1d2f41}
+  .slot:last-child{border-bottom:0}
+  .slot .t{width:40px;color:#68809a;font-variant-numeric:tabular-nums;font-size:14px}
+  .slot .ic{width:26px;height:26px;border-radius:8px;flex:none;display:flex;align-items:center;
+    justify-content:center;background:#1a2938;border:1px solid #24384d;font-size:13px}
+  .now .ic{background:rgba(66,184,131,.14);border-color:rgba(66,184,131,.4)}
+  .slot .go{color:#3d5164;font-size:12px;margin-left:4px}
+  .slot .bar{width:3px;height:22px;border-radius:2px;flex:none;background:#2c4157}
+  .editrow{display:flex;gap:8px;align-items:center;background:#1a2938;border:1px solid #2c4157;
+    border-radius:10px;padding:8px 10px;margin:2px 0 6px 52px;font-size:11px;color:#8da2b5}
+  .editrow input{width:52px;background:#16232f;border:1px solid #2c4157;border-radius:7px;
+    padding:4px;text-align:center;font-size:12px;color:#f2f6f9}
+  .editrow .save{margin-left:auto;background:#42B883;color:#0e1621;border:0;border-radius:7px;
+    padding:5px 12px;font-size:10.5px;font-weight:700}
+  .done .bar{background:#2d8f66}.done{color:#68809a}
+  .done .lb{text-decoration:line-through;text-decoration-color:#2d8f66}
+  .now .bar{background:#42B883;box-shadow:0 0 10px rgba(66,184,131,.55)}
+  .now{color:#f2f6f9;font-weight:600}
+  .now .t{color:#9fd8bd}
+  .fut{color:#a9bacb}
+  .slot .kcal{margin-left:auto;font-size:10.5px;color:#68809a;font-variant-numeric:tabular-nums}
+  .slot .kcal.g{color:#9fd8bd}
+  .slot .add{margin-left:auto;color:#42B883;font-weight:700;font-size:15px}
+
+  .quick{display:flex;gap:8px;margin-top:auto;padding-top:4px}
+  .quick button{flex:1;border:1px solid #2c4157;border-radius:10px;padding:10px 0;
+    font-size:11.5px;font-weight:600;background:transparent;color:#9fd8bd}
+  .quick .primary{background:#42B883;border-color:#42B883;color:#0e1621}
+
+  /* calendar — tonal ink cells */
+  .wd{display:grid;grid-template-columns:repeat(7,1fr);font-size:8.5px;color:#5f7387;
+    text-align:center;letter-spacing:.08em;margin-bottom:6px}
+  .days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+  .d{position:relative;aspect-ratio:.92;border-radius:8px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;font-size:11.5px;color:#c6d3de;background:#1a2938;
+    font-variant-numeric:tabular-nums}
+  .d i{font-style:normal;font-size:7.5px;line-height:1.4;font-weight:600;color:#5f7387}
+  .d.under{background:#183626;color:#d9efe4}.d.under i{color:#42B883}
+  .d.over{background:#3a2622;color:#f3ddd9}.d.over i{color:#e06c5f}
+  .d.free{background:transparent;border:1px dashed #2c4157;color:#5f7387}
+  .d.today{outline:2px solid #42B883;outline-offset:1px;font-weight:700}
+  .d.futur{background:#16232f;color:#5f7387}
+  .d .w{position:absolute;top:3px;right:4px;font-size:6px;color:#42B883}
+  .legend{display:flex;gap:12px;margin-top:10px;font-size:9px;color:#68809a;flex-wrap:wrap}
+  .legend i{width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:4px;vertical-align:-1px}
+
+  /* catalog rows — hairline list, letter tiles */
+  .search{border:1px solid #2c4157;border-radius:10px;padding:9px 12px;font-size:12px;color:#5f7387}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  .chip{font-size:10.5px;padding:5px 11px;border-radius:8px;color:#8da2b5;border:1px solid #2c4157}
+  .chip.on{background:#42B883;color:#0e1621;border-color:#42B883;font-weight:700}
+  .tabs{display:flex;border-bottom:1px solid #24384d;margin:0 -16px;padding:0 16px}
+  .tabs span{flex:1;text-align:center;padding:9px 0;font-size:11.5px;color:#8da2b5;
+    border-bottom:2px solid transparent;letter-spacing:.02em}
+  .tabs .on{color:#9fd8bd;border-bottom-color:#42B883;font-weight:700}
+  .srow{display:flex;gap:8px}
+  .srow .search{flex:1}
+  .fbtn{width:40px;border:1px solid #2c4157;border-radius:10px;position:relative;
+    display:flex;align-items:center;justify-content:center;color:#9fd8bd;font-size:15px;flex:none}
+  .fbtn i{position:absolute;top:-4px;right:-4px;min-width:15px;height:15px;background:#42B883;
+    border-radius:8px;font-style:normal;font-size:9px;color:#0e1621;font-weight:700;
+    display:flex;align-items:center;justify-content:center;padding:0 3px}
+  .actf{display:flex;gap:6px;flex-wrap:wrap}
+  .af{font-size:10px;color:#9fd8bd;border:1px solid rgba(66,184,131,.4);border-radius:99px;
+    padding:3px 10px;background:rgba(66,184,131,.07)}
+  .af b{font-weight:400;color:#68809a;margin-left:3px}
+  .exo{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #1d2f41}
+  .exo .img{width:46px;height:46px;border-radius:10px;flex:none;background:#1a2938;
+    border:1px solid #24384d;display:flex;align-items:center;justify-content:center}
+  .exo .img svg{width:30px;height:30px}
+  .exo .nm{font-weight:600;font-size:13.5px;color:#eef4f8;line-height:1.2}
+  .exo .nm small{display:block;font-weight:400;font-size:10.5px;color:#68809a;margin-top:1px}
+  .exo .meta{margin-left:auto;text-align:right;font-size:9px;color:#68809a;line-height:1.7}
+  .tag{display:inline-block;font-size:8.5px;font-weight:700;padding:2px 7px;border-radius:6px;
+    letter-spacing:.04em}
+  .tag.ok{background:rgba(66,184,131,.15);color:#9fd8bd}
+  .tag.miss{background:rgba(232,163,61,.15);color:#e8a33d}
+
+  /* food sheet */
+  .cats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  .cat{border:1px solid #24384d;border-radius:10px;padding:9px 2px;text-align:center;
+    font-size:9px;color:#8da2b5}
+  .cat span{display:block;font-size:14px;margin-bottom:3px;color:#9fd8bd}
+  .sheet{background:#1d2e3f;border-radius:18px 18px 0 0;margin:auto -16px 0;
+    padding:16px 20px 18px;border-top:1px solid #2c4157}
+  .grip{width:36px;height:4px;border-radius:2px;background:#2c4157;margin:0 auto 12px}
+  .fname{font-size:17px;font-weight:700;color:#f2f6f9}
+  .fname small{display:block;font-size:10.5px;color:#68809a;font-weight:400;margin-top:2px}
+  .prow{display:flex;align-items:center;gap:10px;margin:14px 0}
+  .psel{flex:1;border:1px solid #2c4157;border-radius:10px;padding:9px 12px;font-size:12.5px;
+    color:#dfe8ef;display:flex;justify-content:space-between}
+  .psel span{color:#42B883}
+  .stepper{display:flex;align-items:center;gap:14px;border:1px solid #2c4157;border-radius:10px;
+    padding:7px 13px}
+  .stepper b{font-size:17px;min-width:14px;text-align:center;color:#f2f6f9}
+  .stepper span{color:#42B883;font-weight:700;font-size:16px}
+  .fsum{display:flex;gap:18px;font-size:10px;color:#68809a;margin-bottom:14px;
+    font-variant-numeric:tabular-nums}
+  .fsum b{color:#f2f6f9;font-size:17px;display:block;font-weight:600}
+  .fsum .g b{color:#42B883}
+  .cta{width:100%;border:0;background:#42B883;color:#0e1621;font-weight:700;font-size:13.5px;
+    border-radius:10px;padding:13px 0}
+
+  /* workout */
+  .setrow{display:flex;align-items:center;gap:12px;padding:10px 0;font-size:13px;
+    border-bottom:1px solid #1d2f41;color:#dfe8ef}
+  .setrow .n{width:24px;height:24px;border-radius:7px;border:1px solid #2c4157;color:#8da2b5;
+    font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;flex:none}
+  .setrow.done2 .n{background:#42B883;border-color:#42B883;color:#0e1621}
+  .setrow.done2{color:#68809a}
+  .setrow .plan{color:#4d637a;font-size:9px;margin-left:auto;text-align:right;letter-spacing:.06em}
+  .setrow .plan b{display:block;color:#8da2b5;font-size:13px;font-variant-numeric:tabular-nums;letter-spacing:0}
+  .setrow input{width:46px;background:#1a2938;border:1px solid #2c4157;border-radius:8px;
+    padding:5px;text-align:center;font-size:13px;color:#f2f6f9}
+  .resty{border:1px solid rgba(66,184,131,.35);background:rgba(66,184,131,.08);color:#9fd8bd;
+    border-radius:10px;padding:10px 14px;font-size:12px;font-weight:600;
+    display:flex;justify-content:space-between}
+
+  /* progress chart */
+  .cap2{font-size:9.5px;letter-spacing:.14em;color:#68809a;font-weight:600;margin-bottom:8px}
+  .wk{display:flex;gap:8px;overflow:hidden}
+  .wkc{flex:none;width:120px;border:1px solid #24384d;border-radius:12px;padding:10px 12px;
+    font-size:10px;color:#68809a;line-height:1.6}
+  .wkc b{display:block;font-size:13px;color:#eef4f8;margin:2px 0}
+  .wkc .tag{margin-bottom:2px}
+
+  /* eski→yeni karşılaştırma */
+  .cmpsec{margin-top:56px}
+  .cmpsec>h2{font-size:18px;margin:0 0 4px}
+  .cmpsec>p{font-size:13px;color:var(--pg-mut);margin:0 0 20px;max-width:70ch}
+  .cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:26px}
+  .pane{background:#152230;border:1px solid #24384d;border-radius:14px;padding:14px 16px;color:#dfe8ef}
+  .pane .lab{font-size:9px;letter-spacing:.14em;font-weight:700;margin-bottom:10px}
+  .pane.old .lab{color:#68809a}
+  .pane.new .lab{color:#42B883}
+  .pane.new{border-color:rgba(66,184,131,.4)}
+  .pane h4{margin:0 0 2px;font-size:13px}
+  .pane .src{font-size:10px;color:#68809a;margin-bottom:10px}
+  .mini{border-top:1px solid #1d2f41;font-size:11.5px}
+  .mini .slot{font-size:11.5px;padding:6px 0}
+  .mini .slot .t{font-size:12px;width:34px}
+  .spot{border:1px solid rgba(66,184,131,.45);background:rgba(66,184,131,.07);border-radius:12px;
+    padding:10px 12px;margin:8px 0}
+  .spot .sl{font-size:8.5px;letter-spacing:.14em;color:#9fd8bd;font-weight:700}
+  .spot .st{font-size:14px;font-weight:700;color:#f2f6f9;margin:2px 0}
+  .spot .sm{font-size:10px;color:#8da2b5}
+  .dots{display:flex;gap:5px;align-items:center;margin:8px 0 2px}
+  .dots i{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:8px;font-style:normal;color:#0e1621;background:#2d8f66;font-weight:700}
+  .dots i.off{background:#24384d;color:#68809a}
+  .dots i.tod{outline:2px solid #42B883;outline-offset:1px;background:#42B883}
+  .wksum{display:flex;justify-content:space-between;align-items:center;font-size:10.5px;
+    color:#8da2b5;border:1px dashed #2c4157;border-radius:9px;padding:7px 11px;margin-top:8px}
+  .wksum b{color:#9fd8bd;font-variant-numeric:tabular-nums}
+  .qadd{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .qa{border:1px solid #2c4157;border-radius:8px;padding:6px 10px;font-size:10.5px;color:#dfe8ef}
+  .qa b{color:#9fd8bd;font-weight:600}
+  .qa.tpl{border-color:rgba(66,184,131,.45);color:#9fd8bd}
+
+  .note{margin-top:48px;background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:20px 24px;font-size:13.5px;color:var(--pg-mut)}
+  .note h3{margin:0 0 8px;font-size:14px;color:var(--pg-ink)}
+  .note ul{margin:0;padding-left:18px}
+  .note li{margin:5px 0}
+  .note b{color:var(--pg-ink)}
+  .note .g{color:var(--green)}
+</style>
+
+<main>
+  <header class="page">
+    <h1>di@sport v2 — mürekkep dili</h1>
+    <p>Beyaz kart dili tamamen bırakıldı. Zemin Vue laciverti mürekkep; ayrım gölgeyle değil
+      <b>ton ve ince çizgiyle</b>. Sayılar ekranın kahramanı — kondanse, büyük, tablo hizalı.
+      Yeşil tek vurgu: <b>ilerleyen, seçilen ve eyleme çağıran</b> her şey yeşil, başka hiçbir şey değil.
+      Bir antrenman panosu gibi: karanlık salonda okunur, bir bakışta durum söyler.</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- ==================== BUGÜN ==================== -->
+    <section class="cell">
+      <h2>1 · Bugün</h2>
+      <p class="why">Her slotun türü ikonuyla belli: kalkış, öğün, spor, takviye, uyku.
+        Satıra dokun → <b>gerçekleşeni gir ya da düzenle</b> (salon satırının altında açık).
+        Yanan yeşil çubuk "şimdi".</p>
+      <div class="phone"><div class="screen"><div class="body">
+        <div class="h-row">
+          <div><div class="eyebrow">SALI · 1 EYLÜL · 4. HAFTA</div>
+            <div class="h-date">Bugün</div></div>
+          <div style="display:flex;gap:6px"><div class="chev">‹</div><div class="chev">›</div></div>
+        </div>
+        <div class="dots"><i>P</i><i>S</i><i class="off">Ç</i><i>P</i><i>C</i><i class="off">C</i><i class="tod">P</i></div>
+        <div>
+          <div class="hero cond"><span class="big"><em>510</em></span><span class="of">kcal kaldı · 2 100 bütçe</span></div>
+          <div class="gauge"><i></i></div>
+        </div>
+        <div class="heromet cond">
+          <span>KİLO<b>108,9 <span class="g" style="font-size:11px">▾0,4</span></b></span>
+          <span>PROTEİN<b>96<span style="color:#68809a;font-size:11px">/140 g</span></b></span>
+          <span>PROGRAM<b>5<span style="color:#68809a;font-size:11px">/8</span></b></span>
+          <span>SPOR<b class="g">≈240</b></span>
+        </div>
+        <hr class="hr">
+        <div class="seclab">GÜNÜN OMURGASI</div>
+        <div class="rail">
+          <div class="slot done"><span class="t cond">06:30</span><span class="bar"></span><span class="ic">☀️</span><span class="lb">Kalkış + tartı</span><span class="kcal g">108,9 ✓</span><span class="go">›</span></div>
+          <div class="slot done"><span class="t cond">07:00</span><span class="bar"></span><span class="ic">🍳</span><span class="lb">Kahvaltı</span><span class="kcal">420</span><span class="go">›</span></div>
+          <div class="slot done"><span class="t cond">12:30</span><span class="bar"></span><span class="ic">🍽️</span><span class="lb">Öğle · tavuk + bulgur</span><span class="kcal">610</span><span class="go">›</span></div>
+          <div class="editrow">gerçekleşen: <input value="590"> kcal · <input value="12:45"> yendi
+            <button class="save">Kaydet</button></div>
+        </div>
+        <div class="spot">
+          <div class="sl">SIRADA · 18:00</div>
+          <div class="st">🏋️ Salon · Program A</div>
+          <div class="sm">6 hareket · ≈50 dk · Goblet Squat ile başlıyor</div>
+        </div>
+        <div class="rail">
+          <div class="slot fut"><span class="t cond">20:00</span><span class="bar"></span><span class="ic">🥗</span>Akşam yemeği<span class="add">＋</span></div>
+          <div class="slot fut"><span class="t cond">21:30</span><span class="bar"></span><span class="ic">💊</span>D vitamini + Omega 3<span class="kcal">2 kalem</span><span class="go">›</span></div>
+          <div class="slot fut"><span class="t cond">23:00</span><span class="bar"></span><span class="ic">🌙</span>Uyku<span class="go">›</span></div>
+        </div>
+        <div class="quick">
+          <button class="primary">＋ Öğün</button><button>＋ Tartı</button><button>＋ Aktivite</button>
+        </div>
+      </div>
+      <div class="navbar">
+        <div class="on"><span>●</span>Bugün</div><div><span>▦</span>Plan</div>
+        <div><span>◔</span>İlerleme</div><div><span>♥</span>Sağlık</div><div><span>≡</span>Katalog</div>
+      </div>
+      </div></div>
+    </section>
+
+    <!-- ==================== PLAN ==================== -->
+    <section class="cell">
+      <h2>2 · Plan takvimi</h2>
+      <p class="why">Gün hücreleri mürekkep tonuyla konuşur: <b>yeşile çalan = bütçe altı</b>,
+        kızıla çalan = üstü, kesikli = serbest gün. Serbest güne değer girilirse yine hesaplanır
+        (19'a bak) — çerçeve kesikli kalır, sayı gelir.</p>
+      <div class="phone"><div class="screen"><div class="body">
+        <div class="h-row">
+          <div><div class="eyebrow">EYLÜL 2026</div><div class="h-date">4 Haftalık Program</div></div>
+          <div class="chev">✎</div>
+        </div>
+        <div>
+          <div class="wd"><span>PZT</span><span>SAL</span><span>ÇAR</span><span>PER</span><span>CUM</span><span>CMT</span><span>PAZ</span></div>
+          <div class="days">
+            <div class="d under"><span class="w">▲</span>7<i>−180</i></div>
+            <div class="d under">8<i>−240</i></div>
+            <div class="d over"><span class="w">▲</span>9<i>+310</i></div>
+            <div class="d under">10<i>−90</i></div>
+            <div class="d under"><span class="w">▲</span>11<i>−200</i></div>
+            <div class="d free">12<i>serbest</i></div>
+            <div class="d under">13<i>−150</i></div>
+            <div class="d under"><span class="w">▲</span>14<i>−210</i></div>
+            <div class="d over">15<i>+120</i></div>
+            <div class="d under">16<i>−60</i></div>
+            <div class="d under"><span class="w">▲</span>17<i>−190</i></div>
+            <div class="d under">18<i>−230</i></div>
+            <div class="d free">19<i style="color:#9fd8bd">−40</i></div>
+            <div class="d under">20<i>−170</i></div>
+            <div class="d today under"><span class="w">▲</span>1<i>−510</i></div>
+            <div class="d futur">2</div><div class="d futur">3</div>
+            <div class="d futur">4</div><div class="d futur">5</div>
+            <div class="d free futur">6<i>serbest</i></div><div class="d futur">7</div>
+          </div>
+          <div class="legend">
+            <span><i style="background:#183626"></i>bütçe altı</span>
+            <span><i style="background:#3a2622"></i>bütçe üstü</span>
+            <span><i style="border:1px dashed #2c4157;background:transparent"></i>serbest</span>
+            <span style="color:#42B883">▲ antrenman</span>
+          </div>
+        </div>
+        <hr class="hr">
+        <div class="seclab">SEÇİLİ GÜN — <b>1 EYLÜL</b></div>
+        <div class="rail">
+          <div class="slot now"><span class="t cond">SALI</span><span class="bar"></span>Salon günü · Program A<span class="kcal g">düzenle ›</span></div>
+          <div class="slot fut"><span class="t cond cond">HEDEF</span><span class="bar"></span>2 100 kcal · 140 g protein</div>
+        </div>
+      </div>
+      <div class="navbar">
+        <div><span>●</span>Bugün</div><div class="on"><span>▦</span>Plan</div>
+        <div><span>◔</span>İlerleme</div><div><span>♥</span>Sağlık</div><div><span>≡</span>Katalog</div>
+      </div>
+      </div></div>
+    </section>
+
+    <!-- ==================== KATALOG ==================== -->
+    <section class="cell">
+      <h2>3 · Katalog</h2>
+      <p class="why">Filtre hiyerarşisi düzeldi: <b>yer bir filtre değil, bağlam</b> — üstte sekme
+        (Evde · Salonda · Dışarıda). Kalan her şey tek ⚙ düğmesinde (rozet = aktif sayısı, alt
+        sayfada: ekipman anahtarı, tür, kas grubu, zorluk). Aktif filtreler ×'li küçük etiket olarak
+        görünür. Dışarıda sekmesi serbest aktiviteleri listeler.</p>
+      <div class="phone"><div class="screen"><div class="body">
+        <div class="h-row">
+          <div><div class="eyebrow">120 HAREKET</div><div class="h-date">Katalog</div></div>
+        </div>
+        <div class="tabs"><span class="on">Evde</span><span>Salonda</span><span>Dışarıda</span></div>
+        <div class="srow">
+          <div class="search">🔍&nbsp; pushup, çömelme, bench…</div>
+          <div class="fbtn">⚙<i>2</i></div>
+        </div>
+        <div class="actf">
+          <span class="af">Ekipmanıma uygun <b>×</b></span>
+          <span class="af">Kuvvet <b>×</b></span>
+        </div>
+        <div class="seclab">SON YAPTIKLARIN</div>
+        <div>
+          <div class="exo">
+            <div class="img"><svg viewBox="0 0 32 32"><path d="M8 24c2-8 5-12 8-12s6 4 8 12" fill="none" stroke="#42B883" stroke-width="2"/><circle cx="16" cy="8" r="3" fill="#9fd8bd"/></svg></div>
+            <div><div class="nm">Goblet Squat<small>Cuma · 3×12 · 12,5 kg</small></div></div>
+            <div class="meta"><span class="tag ok">↗ +2,5 KG</span><br>orta · bacak</div>
+          </div>
+          <div class="exo" style="border-bottom:0">
+            <div class="img"><svg viewBox="0 0 32 32"><path d="M6 20h20M8 20l4-8h8l4 8" fill="none" stroke="#42B883" stroke-width="2"/><circle cx="16" cy="8" r="3" fill="#9fd8bd"/></svg></div>
+            <div><div class="nm">Push-Up<small>Cuma · 3×15 · rekor 18</small></div></div>
+            <div class="meta"><span class="tag ok">VÜCUT AĞIRLIĞI</span><br>orta · göğüs</div>
+          </div>
+        </div>
+        <div class="seclab">TÜM HAREKETLER</div>
+        <div>
+          <div class="exo">
+            <div class="img"><svg viewBox="0 0 32 32"><path d="M8 26V12m16 14V12M8 14h16" fill="none" stroke="#e8a33d" stroke-width="2"/><circle cx="16" cy="7" r="3" fill="#9fd8bd"/></svg></div>
+            <div><div class="nm">Romanian Deadlift<small>Romen Ölü Kaldırış</small></div></div>
+            <div class="meta"><span class="tag miss">BARBELL · EVDE YOK</span><br>zor · arka bacak</div>
+          </div>
+          <div class="exo">
+            <div class="img"><svg viewBox="0 0 32 32"><path d="M6 16h8m4 0h8M14 16a2 2 0 104 0 2 2 0 10-4 0" fill="none" stroke="#42B883" stroke-width="2"/><circle cx="16" cy="7" r="3" fill="#9fd8bd"/></svg></div>
+            <div><div class="nm">Band Row<small>Bantlı Kürek</small></div></div>
+            <div class="meta"><span class="tag ok">BANT · EVDE VAR</span><br>kolay · sırt</div>
+          </div>
+          <div class="exo">
+            <div class="img"><svg viewBox="0 0 32 32"><path d="M8 8v16M24 8v16M8 16c4-4 12-4 16 0" fill="none" stroke="#e8a33d" stroke-width="2"/></svg></div>
+            <div><div class="nm">Cable Fly<small>Kablo Açış</small></div></div>
+            <div class="meta"><span class="tag miss">KABLO · SALONDA</span><br>orta · göğüs</div>
+          </div>
+        </div>
+        <div class="seclab" style="margin-top:2px">DIŞARIDA — SERBEST AKTİVİTE <b>· SÜREYLE KAYDEDİLİR</b></div>
+        <div>
+          <div class="exo">
+            <div class="img">🏀</div>
+            <div><div class="nm">Basketbol · maç<small>Basketball, game</small></div></div>
+            <div class="meta"><span class="tag ok">8.0 MET</span><br>≈ 610 kcal/saat</div>
+          </div>
+          <div class="exo" style="border-bottom:0">
+            <div class="img">🏃</div>
+            <div><div class="nm">Koşu · dış mekân<small>Running, outdoor</small></div></div>
+            <div class="meta"><span class="tag ok">9.8 MET</span><br>≈ 750 kcal/saat</div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar">
+        <div><span>●</span>Bugün</div><div><span>▦</span>Plan</div>
+        <div><span>◔</span>İlerleme</div><div><span>♥</span>Sağlık</div><div class="on"><span>≡</span>Katalog</div>
+      </div>
+      </div></div>
+    </section>
+
+    <!-- ==================== BESİN ==================== -->
+    <section class="cell">
+      <h2>4 · Öğün kaydı</h2>
+      <p class="why">Aynı seçici iki yerde çalışır: <b>öğün kaydında</b> (ne yedin) ve
+        <b>plan editöründe</b> (ne yiyeceksin). Türlerde görsel; gerçek uygulamada besinlerin
+        küçük fotoğrafları. Porsiyon çarpanı alt sayfada.</p>
+      <div class="phone"><div class="screen"><div class="body">
+        <div class="h-row">
+          <div><div class="eyebrow">AKŞAM YEMEĞİ · 20:00</div><div class="h-date">Ne yedin?</div></div>
+          <div class="chev">✕</div>
+        </div>
+        <div class="search">🔍&nbsp; fasulye, ayran, elma…</div>
+        <div class="seclab">SIK YEDİKLERİN</div>
+        <div class="qadd">
+          <span class="qa">Ayran <b>1 bardak</b></span>
+          <span class="qa">Elma <b>1 orta</b></span>
+          <span class="qa tpl">🌙 Akşam klasiği · 3 kalem</span>
+        </div>
+        <div class="seclab">TÜRLER</div>
+        <div class="cats">
+          <div class="cat"><span>🍲</span>Yemek</div><div class="cat"><span>🥣</span>Çorba</div>
+          <div class="cat"><span>🧀</span>Kahvaltılık</div><div class="cat"><span>🍎</span>Meyve</div>
+          <div class="cat"><span>🥦</span>Sebze</div><div class="cat"><span>🥜</span>Kuruyemiş</div>
+          <div class="cat"><span>🥤</span>İçecek</div><div class="cat"><span>🌾</span>Tahıl ürünleri</div>
+        </div>
+        <div class="sheet">
+          <div class="grip"></div>
+          <div class="fname">Etli Kuru Fasulye<small>Beef &amp; Bean Stew · küratörlü kayıt</small></div>
+          <div class="prow">
+            <div class="psel">1 kase (250 g) <span>▾</span></div>
+            <div class="stepper"><span>−</span><b class="cond">3</b><span>＋</span></div>
+          </div>
+          <div class="fsum cond">
+            <span><b>750 g</b>MİKTAR</span>
+            <span class="g"><b>810</b>KCAL</span>
+            <span><b>42 g</b>PROTEİN</span>
+          </div>
+          <button class="cta">Öğüne ekle</button>
+        </div>
+      </div>
+      </div></div>
+    </section>
+
+    <!-- ==================== ANTRENMAN ==================== -->
+    <section class="cell">
+      <h2>5 · Antrenman — planlanan / yapılan</h2>
+      <p class="why">Hevy deseni: satırda <b>GEÇEN + PLAN</b> iki soluk sütun — geçen antrenmanı
+        geçmek oyunun kendisi. Set ✓'lanınca <b>dinlenme sayacı kendiliğinden başlar</b>.</p>
+      <div class="phone"><div class="screen"><div class="body">
+        <div>
+          <div class="eyebrow">SALON · PROGRAM A · 3/6 HAREKET</div>
+          <div class="h-date">Goblet Squat</div>
+          <div style="font-size:11px;color:#68809a">Goblet Çömelme · 12,5 kg dambıl</div>
+        </div>
+        <div class="heromet cond" style="gap:24px">
+          <span>SÜRE<b>24:10</b></span>
+          <span>TAHMİNİ<b class="g">≈ 210 kcal</b></span>
+          <span>SET<b>2<span style="color:#68809a">/4</span></b></span>
+        </div>
+        <hr class="hr">
+        <div class="rail">
+          <div class="setrow done2"><span class="n">✓</span>1. set — 12 tekrar<span class="plan">GEÇEN<b>10</b></span><span class="plan">PLAN<b>12</b></span></div>
+          <div class="setrow done2"><span class="n">✓</span>2. set — 12 tekrar<span class="plan">GEÇEN<b>10</b></span><span class="plan">PLAN<b>12</b></span></div>
+          <div class="setrow"><span class="n">3</span><input value="10" aria-label="tekrar"> tekrar<span class="plan">GEÇEN<b>9</b></span><span class="plan">PLAN<b>12</b></span></div>
+          <div class="setrow" style="opacity:.45"><span class="n">4</span>—<span class="plan">GEÇEN<b>8</b></span><span class="plan">PLAN<b>12</b></span></div>
+        </div>
+        <div class="resty"><span>DİNLENME · ✓ ile otomatik başladı</span><span class="cond" style="font-size:15px">01:12</span></div>
+        <div class="seclab" style="margin-top:2px">SIRADAKİ — <b>TREADMILL INCLINE WALK</b> · %8 · 6 km/h · 25 dk</div>
+        <div class="quick"><button class="primary">Seti kaydet</button><button>Atla</button></div>
+      </div>
+      <div class="navbar">
+        <div class="on"><span>●</span>Bugün</div><div><span>▦</span>Plan</div>
+        <div><span>◔</span>İlerleme</div><div><span>♥</span>Sağlık</div><div><span>≡</span>Katalog</div>
+      </div>
+      </div></div>
+    </section>
+
+    <!-- ==================== İLERLEME ==================== -->
+    <section class="cell">
+      <h2>6 · İlerleme</h2>
+      <p class="why">Whoop'un üç katmanı: kahraman rakam → trendler → derine in.
+        MyFitnessPal deseni eklendi: <b>haftanın günleri hedefe karşı çubuk çubuk</b>;
+        çubuğa dokun → o günün öğün dökümü.</p>
+      <div class="phone"><div class="screen"><div class="body">
+        <div class="h-row">
+          <div><div class="eyebrow">4 HAFTA · HEDEF −3,0</div><div class="h-date">İlerleme</div></div>
+        </div>
+        <div class="hero cond"><span class="big"><em>−2,8</em></span><span class="of">kg · ort. denge −185 kcal/g</span></div>
+        <div>
+          <div class="cap2">KİLO · 7 GÜNLÜK ORTALAMA</div>
+          <svg viewBox="0 0 268 88" width="100%" height="88" aria-hidden="true">
+            <line x1="0" y1="22" x2="268" y2="22" stroke="#1d2f41"/>
+            <line x1="0" y1="44" x2="268" y2="44" stroke="#1d2f41"/>
+            <line x1="0" y1="66" x2="268" y2="66" stroke="#1d2f41"/>
+            <path d="M0,16 40,20 80,19 120,30 160,35 200,46 240,54 268,58 268,88 0,88Z" fill="rgba(66,184,131,.10)"/>
+            <polyline points="0,16 40,20 80,19 120,30 160,35 200,46 240,54 268,58" fill="none" stroke="#42B883" stroke-width="2.5"/>
+            <circle cx="268" cy="58" r="4" fill="#42B883"/>
+            <text x="222" y="50" font-size="10" fill="#9fd8bd" font-weight="700" font-family="Barlow Condensed,Arial Narrow">108,9</text>
+          </svg>
+        </div>
+        <div>
+          <div class="cap2">BU HAFTA · KALORİ — HEDEFE KARŞI <span style="color:#4d637a">(güne dokun → döküm)</span></div>
+          <svg viewBox="0 0 268 66" width="100%" height="66" aria-hidden="true">
+            <line x1="0" y1="18" x2="268" y2="18" stroke="#2c4157" stroke-dasharray="3 3"/>
+            <text x="0" y="12" font-size="8" fill="#4d637a">2 100</text>
+            <rect x="14"  y="26" width="22" height="34" rx="3" fill="#2d8f66"/>
+            <rect x="50"  y="22" width="22" height="38" rx="3" fill="#2d8f66"/>
+            <rect x="86"  y="8"  width="22" height="52" rx="3" fill="#b3564a"/>
+            <rect x="122" y="30" width="22" height="30" rx="3" fill="#2d8f66"/>
+            <rect x="158" y="24" width="22" height="36" rx="3" fill="#2d8f66"/>
+            <rect x="194" y="34" width="22" height="26" rx="3" fill="#42B883" stroke="#9fd8bd"/>
+            <rect x="230" y="52" width="22" height="8"  rx="3" fill="#24384d"/>
+            <text x="18" y="65" font-size="7" fill="#4d637a">ÇAR</text><text x="54" y="65" font-size="7" fill="#4d637a">PER</text>
+            <text x="90" y="65" font-size="7" fill="#e06c5f">CUM</text><text x="126" y="65" font-size="7" fill="#4d637a">CMT</text>
+            <text x="162" y="65" font-size="7" fill="#4d637a">PAZ</text><text x="197" y="65" font-size="7" fill="#9fd8bd">PZT</text>
+            <text x="234" y="65" font-size="7" fill="#4d637a">SAL</text>
+          </svg>
+        </div>
+        <hr class="hr">
+        <div class="wk">
+          <div class="wkc"><span class="tag ok">HEDEFTE</span><b>4. hafta</b>−0,4 kg · 4/4 antr.<br>denge −205</div>
+          <div class="wkc"><span class="tag miss">KISMEN</span><b>3. hafta</b>−0,3 kg · 3/4 antr.<br>denge −90</div>
+          <div class="wkc"><span class="tag ok">HEDEFTE</span><b>2. hafta</b>−0,9 kg · 4/4 antr.</div>
+        </div>
+        <div class="seclab">GEÇİŞ KRİTERİ — <b>ŞINAV ZİNCİRİ 12/15</b></div>
+        <div class="gauge" style="margin-top:-6px"><i style="width:80%"></i></div>
+      </div>
+      <div class="navbar">
+        <div><span>●</span>Bugün</div><div><span>▦</span>Plan</div>
+        <div class="on"><span>◔</span>İlerleme</div><div><span>♥</span>Sağlık</div><div><span>≡</span>Katalog</div>
+      </div>
+      </div></div>
+    </section>
+  </div>
+
+  
+
+  <div class="note">
+    <h3>Bu dilin kuralları — beğenilirse spec'e geçecekler</h3>
+    <ul>
+      <li><b>Zemin Vue laciverti mürekkep.</b> Vue'nun iki rengi var; biri zemin biri vurgu oldu.
+        <span class="g">Yeşil koyuda elektrik gibi</span> — beyazda hiç görünmüyordu. Karanlık salonda da okunur.</li>
+      <li><b>Kart ve gölge yok.</b> Ayrım ton katmanları ve ince çizgiyle. "Beyaz kart + yumuşak gölge"
+        şablonu tamamen terk edildi.</li>
+      <li><b>Her ekranın bir kahraman rakamı var:</b> Bugün'de kalan kalori, İlerleme'de toplam kayıp,
+        Antrenman'da süre/kalori. Gerisi tek satır metrik şeridi.</li>
+      <li><b>Yeşilin tek anlamı:</b> ilerleme + eylem. Tamamlanan, aktif olan, basılacak olan.
+        Uyarı amber, aşım kızıl — üçü asla karışmaz, yanlarında hep sayı/metin var.</li>
+      <li><b>Takvim tonla konuşuyor,</b> hücre içi fark rakamıyla kanıtlıyor. Serbest gün kesikli çerçeve.</li>
+      <li><b>Planlanan/yapılan:</b> set satırının sağında soluk "PLAN 12" sütunu; kayıt planı ezmiyor.</li>
+      <li><b>Açık tema ölmedi:</b> aynı hiyerarşi fildişi zemin + mürekkep metinle kurulacak;
+        Ayarlar'dan seçilebilir kalacak. Taslaklar koyu önceliğli çünkü öneri o.</li>
+    </ul>
+  </div>
+</main>

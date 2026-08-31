@@ -48,6 +48,53 @@ döngüsünü yürütür, kendi commit dizisiyle biter.
 
 ---
 
+## 2a. M12 — Tasarım yenilemesi: mürekkep dili
+
+Taslaklarla karara bağlandı (artifact: `disport-v2-mockups.html`,
+statik HTML; kaynak scratchpad'de, karar verilmiş son hâl yayında).
+M6'nın "beyaz kart + yumuşak gölge + soluk zemin" dili terk edildi —
+kullanıcı bunu açıkça reddetti ("yapay zekâi"). Yeni dilin çıkışı
+ürünün kendisi: bu uygulama bir çizelgenin dijitali, içeriği sayı.
+
+### Kurallar
+
+1. **Zemin Vue laciverti mürekkep** (`#16232f` ailesi), koyu öncelikli.
+   Vue'nun iki rengi var: lacivert zemin, yeşil vurgu. Yeşil koyuda
+   elektrik gibi okunur — açık zeminde kaybolması M6'nın ana
+   şikâyetiydi. Açık tema ölmez: aynı hiyerarşi fildişi + mürekkep
+   metinle kurulur, Ayarlar'dan seçilir.
+2. **Kart ve gölge yok.** Ayrım ton katmanları ve ince çizgiyle
+   (`hairline`). `AppElevation` kullanım dışı kalır.
+3. **Her ekranın bir kahraman rakamı var:** Bugün'de kalan kalori,
+   İlerleme'de toplam kayıp, Antrenman'da süre/seans kalorisi.
+   Kahraman ~56pt Barlow Condensed; geri kalanı tek satır metrik
+   şeridi. (Whoop deseni: tek skor, uzaktan okunur.)
+4. **Yeşilin tek anlamı ilerleme + eylem.** Tamamlanan, aktif olan,
+   basılacak olan. Aşım kızıl, eksik amber; üçü asla karışmaz ve
+   renk hep sayı/metinle birlikte (v1 erişilebilirlik kuralı sürer).
+5. **Tahmin `≈` ile işaretlenir** — kalori hesabının her göründüğü yerde.
+
+### Ekran kararları
+
+| Ekran | Karar |
+|---|---|
+| Bugün | Kahraman: kalan kcal + ince gauge. Tek satır metrik (kilo, protein, program, spor). Hafta şeridi: 7 nokta, kaçak gün sönük. Omurga ince çizgili liste, slot türü ikonlu (kalkış/öğün/spor/takviye/uyku). **Sıradaki iş "SIRADA" kartına büyür** — tek dokunuşla başlar. Her satır dokununca gerçekleşeni girme/düzenleme açar. Altta üç hızlı eylem: +Öğün, +Tartı, +Aktivite |
+| Plan takvimi | Gün hücreleri kalori dengesiyle tonlanır: yeşilimsi = bütçe altı, kızılımsı = üstü, kesikli çerçeve = serbest gün. Hücrede fark rakamı; antrenman günü ▲. **Serbest güne değer girilirse yine hesaplanır** — çerçeve kesikli kalır, sayı gelir. Güne dokun → o gün tam yetkiyle açılır (M10). Hafta özeti satırı **istenmedi**, eklenmeyecek |
+| Katalog | Yer = bağlam, filtre değil: tepede üç sekme **Evde · Salonda · Dışarıda**. Dışarıda sekmesi serbest aktiviteleri (M9 `activities`) MET ve ≈kcal/saat ile listeler. Kalan filtreler tek ⚙ düğmesinde (rozet = aktif sayısı; alt sayfa: ekipmanıma uygun anahtarı, tür, kas grubu, zorluk). Aktif filtreler ×'li etiket olarak görünür. Liste "SON YAPTIKLARIN" ile açılır — son seans özeti ve ilerleme etiketi (↗ +2,5 kg) satırda |
+| Öğün kaydı | Bugün'den açılır, sekme değil. Arama **asla boş açılmaz**: "SIK YEDİKLERİN" tek dokunuş + öğün şablonları ("Kahvaltım" → n kalem birden). Tür kartları görselli (Yemek, Çorba, Kahvaltılık, Meyve, Sebze, Kuruyemiş, İçecek, Tahıl ürünleri). Aynı seçici plan editöründe de kullanılır |
+| Antrenman | Set satırında iki soluk sütun: **GEÇEN + PLAN** (Hevy deseni). Set ✓'lanınca dinlenme sayacı otomatik başlar. Tepede canlı süre + ≈kcal |
+| İlerleme | Üç katman (Whoop): kahraman rakam → trend grafikleri → derine iniş. Kilo grafiğine ek **haftalık kalori çubukları**: 7 gün hedef çizgisine karşı, aşan gün kızıl; çubuğa dokun → o günün öğün dökümü |
+
+### Sıralama notu
+
+M12 görsel dili kurar ve **mevcut** ekranları taşır. Sonraki taşların
+getirdiği yeni öğeler (kalori kahramanı, takvim tonlaması, GEÇEN
+sütunu…) veri gelmeden boş kalacağından, M12'de yerleri hazırlanır ama
+veriye bağlanmaları kendi taşlarında yapılır — ör. kalori şeridi M9'da
+dolar, o zamana dek kahraman rakam kilo/program ikilisidir.
+
+---
+
 ## 3. M7 — Dil altyapısı
 
 ### 3.1 Karar
