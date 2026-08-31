@@ -27,8 +27,8 @@ mağaza yok. Mimari bunları sonradan almaya açık (bkz. `SyncColumns`).
 | [M1 planı](docs/superpowers/plans/2026-08-28-m1-iskelet.md) | İskelet — **tamamlandı** |
 | [M2 planı](docs/superpowers/plans/2026-08-28-m2-katalog.md) | Egzersiz kataloğu — **tamamlandı** |
 | [M3 planı](docs/superpowers/plans/2026-08-28-m3-plan-ve-gunluk.md) | Plan, günlük kayıt, Bugün + Antrenman — **tamamlandı** |
-| [M4 planı](docs/superpowers/plans/2026-08-28-m4-ai-koprusu.md) | AI köprüsü — **sıradaki** |
-| [M5 planı](docs/superpowers/plans/2026-08-28-m5-saglik-ilerleme-alarm.md) | Tahlil, grafik, alarm, yedek, BYOK |
+| [M4 planı](docs/superpowers/plans/2026-08-28-m4-ai-koprusu.md) | AI köprüsü — **tamamlandı** |
+| [M5 planı](docs/superpowers/plans/2026-08-28-m5-saglik-ilerleme-alarm.md) | Tahlil, grafik, alarm, yedek, BYOK — **sıradaki** |
 
 Planlar sırayla yürütülür. Bir kilometre taşı bitince **sonraki planı
 gözden geçir ve senkronize et** — öğrenilenler planı eskitir.
@@ -70,9 +70,9 @@ di@sport/
 | `health` | kısmi | `body_metrics` tablosu ve deposu hazır; tahlil ve ekran M5'te |
 | `catalog` | **tamam** | Egzersiz kütüphanesi: tablo, repository, arama/filtreli liste, dört sekmeli detay. |
 | `workout` | **tamam** | Antrenman akışı: set sayacı, dinlenme, geri alma |
-| `ai_bridge` | yok | context.md üretimi + plan.json içe alma (M4) |
+| `ai_bridge` | **tamam** | context.md üretimi, dört kapılı doğrulama, plan.json içe alma |
 | `reminders` | yok | Alarmlar (M5) |
-| `settings` | kısmi | `data/profile_table.dart` var; ekranlar M4 |
+| `settings` | **tamam** | Profil ve yaşam tarzı formu; onboarding ve Ayarlar aynı formu paylaşır |
 
 ---
 
@@ -156,8 +156,13 @@ drift **2.34** + drift_flutter · uuid
 
 riverpod_annotation + riverpod_generator (codegen) · uuid
 
-M4'te eklenecek: freezed + json_serializable **yalnız `ai_bridge`'de** ·
-share_plus. M5'te: fl_chart, flutter_local_notifications, timezone.
+share_plus (context.md paylaşımı). M5'te: fl_chart,
+flutter_local_notifications, timezone.
+
+**freezed kullanılmıyor** — `ai_bridge` için öngörülmüştü, vazgeçildi.
+Ayrıştırma hataları AI'a geri yapıştırıldığı için alan yolunu bildiren
+kendi `JsonReader`'ımız yazıldı; hazır üreteç yalnız "type 'Null' is not
+a subtype" diyor ve AI neyi düzelteceğini bilemiyor.
 
 `custom_lint` kurulamıyor — `analyzer ^8` istiyor, `drift_dev` ve
 `riverpod_lint` `analyzer ^13` kullanıyor.
@@ -245,16 +250,19 @@ kötüdür. Görsel eklemek için o dosyadaki `SOURCES` tablosuna satır ekle.
 
 ## Durum
 
-**M1, M2 ve M3 tamamlandı** — 212 test yeşil, analiz temiz, emülatörde
-uçtan uca doğrulandı.
+**M1-M4 tamamlandı** — 289 test yeşil, analiz temiz, emülatörde uçtan uca
+doğrulandı.
 
-- M1: iskelet, Drift şeması, tasarım sistemi, 5 sekmeli kabuk
-- M2: egzersiz kataloğu (17 hareket, arama/filtre, dört sekmeli detay)
-- M3: plan, günlük kayıt, Bugün ve Antrenman ekranları
+| | |
+|---|---|
+| M1 | iskelet, Drift şeması, tasarım sistemi, 5 sekmeli kabuk |
+| M2 | egzersiz kataloğu (17 hareket, arama/filtre, dört sekmeli detay) |
+| M3 | plan, günlük kayıt, Bugün ve Antrenman ekranları |
+| M4 | AI köprüsü, onboarding, profil formu |
 
-**Uygulama artık günlük kullanıma girebilir.** Plan sekmesinden örnek plan
-yüklenir, Bugün ekranından tartı/işaret/not girilir, Antrenman ekranından
-setler kaydedilir.
+**Döngü kapandı:** onboarding → "Yeni plan iste" → `context.md` paylaş →
+herhangi bir AI → dönen JSON → "İçeri al" → doğrula → önizle → onayla →
+plan Bugün ekranında.
 
 ### Veritabanı şeması
 
@@ -269,25 +277,34 @@ setler kaydedilir.
 Tablo eklerken `schemaVersion`'ı artır ve `onUpgrade`'e **yeni bir**
 `if (from < N)` bloğu ekle; eskileri değiştirme.
 
-### Sıradaki: M4 — AI köprüsü
+### AI köprüsü — nerede ne var
 
-[Plan](docs/superpowers/plans/2026-08-28-m4-ai-koprusu.md). `ai_bridge`
-feature'ı: `context.md` üretimi, `plan.json` doğrulama (dört kapı),
-importer, onboarding formu.
+| Dosya | Sorumluluk |
+|---|---|
+| `ai_bridge/domain/ports.dart` | Feature'ların uygulayacağı arayüzler. `ai_bridge` hiçbir feature'ın `data/` katmanını import etmez. |
+| `domain/json_reader.dart` | Alan yolunu izleyen okuyucu. Hata mesajı AI'a geri yapıştırılabilir olmalı. |
+| `domain/plan_validator.dart` | Kapı 1-3. **İlk hatada durmaz**, hepsini tek mesajda toplar. |
+| `domain/plan_importer.dart` | Depo tiplerini değil fonksiyon imzalarını alır. |
+| `domain/context_md_builder.dart` | Yedi bölümlü belge. `ProfileKeys.form` onboarding formunun da kaynağı. |
+| `presentation/import_plan_sheet.dart` | Kapı 4: önizleme ve onay. Onaysız hiçbir şey yazılmaz. |
 
-**M4'e girmeden önce plan senkronu.** M4 planı bu kodu görmeden yazıldı;
-hazır olan ve yeniden yazılmaması gerekenler:
+Yeni bir adaptör eklerken: portu `ports.dart`'a yaz, uygulamasını ilgili
+feature'ın `application/` klasörüne koy, `ai_bridge_providers.dart`'ta bağla.
 
-- `PlanRepository.insertFullPlan` — importer'ın kullanacağı transaction'lı
-  kapı. `FullPlan` ailesi de hazır; importer JSON'dan bu tipe map'ler.
-- `TodayRepository.rowsBetween` ve `WorkoutRepository.logsBetween` —
-  `context.md`'nin "geçen dönem" bloğunun kaynağı. Planda "eklenecek"
-  diye yazılmışlardı, **zaten var**.
-- `BodyMetricsRepository.series` ve `latestPerKind` — kilo serisi ve
-  son ölçümler.
-- `CatalogRepository.upsertUserDefined` — `newExercises` bloğunun kaydı.
-- `Exercise.fromJson` bilinmeyen kategori/konum için **alan adını içeren**
-  `ArgumentError` atar; doğrulama mesajı bunu AI'a geri yapıştırılabilir
-  biçimde sarmalayabilir.
-- Plan ekranındaki "Örnek planı yükle" düğmesi M4'te "Yeni plan iste" ve
-  "Planı içeri al" ile değişecek; örnek yükleme `kDebugMode`'a alınabilir.
+### Sıradaki: M5 — sağlık, ilerleme, alarmlar
+
+[Plan](docs/superpowers/plans/2026-08-28-m5-saglik-ilerleme-alarm.md).
+Tahlil tabloları, İlerleme ve Sağlık ekranları, 7 günlük kaydırmalı alarm
+penceresi, yedekleme, isteğe bağlı BYOK.
+
+**M5'e girmeden önce plan senkronu:**
+
+- `HealthSourceAdapter.recentLabs()` şu an boş liste dönüyor. `lab_results`
+  tablosu gelince gerçek veriyle doldur — `context.md`'nin altıncı bölümü
+  o anda kendiliğinden dolar.
+- `MetricKinds` (`health/data/body_metric_table.dart`) tüm ölçüm türlerini
+  ve Türkçe etiketlerini tutuyor; Sağlık ve İlerleme ekranları bunu kullansın.
+- `BodyMetricsRepository.series` / `latestPerKind` grafikler için hazır.
+- `TodayRepository.missedStreak` alarm için hazır; M5'in kaçak uyarısı
+  bunu okuyacak.
+- Ayarlar ekranı var; bildirim tercihleri ve yedekleme oraya eklenecek.
