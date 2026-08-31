@@ -89,7 +89,7 @@ void main() {
     );
   });
 
-  test('gerçek tohum dosyasındaki 17 kaydın hepsi çözülür', () {
+  test('gerçek tohum dosyasındaki kayıtların hepsi çözülür', () {
     // Model ile elle yazılmış veri arasındaki uyum, ancak gerçek dosya
     // okunarak doğrulanabilir; uydurma örnek bunu yakalamaz.
     final raw = File('assets/catalog.json').readAsStringSync();
@@ -99,8 +99,16 @@ void main() {
       for (final e in list) Exercise.fromJson(e as Map<String, dynamic>),
     ];
 
-    expect(parsed, hasLength(17));
-    expect(parsed.where((e) => e.hasImage), hasLength(7));
+    // Ölçüt sabit sayı değil "hepsi çözüldü": katalog büyüdükçe bu
+    // test her seferinde güncellenmek zorunda kalmamalı. Asıl aranan
+    // şey ayrıştırılamayan kayıt olmaması.
+    expect(parsed, hasLength(list.length));
+
+    // Yine de bir taban var: katalog kazara boşalırsa ya da tek kayda
+    // düşerse bu test düşmeli.
+    expect(parsed.length, greaterThanOrEqualTo(17));
+
+    expect(parsed.where((e) => e.hasImage), isNotEmpty);
     expect(
       parsed.map((e) => e.id),
       contains('treadmill_incline_walk'),

@@ -8,9 +8,17 @@
       "nameEn": "Wall Push-Up",
       "category": "strength",
       "location": "home",
-      "equipment": ["vücut ağırlığı"],
-      "primaryMuscles": ["göğüs"],
-      "secondaryMuscles": ["triceps", "ön omuz", "karın"],
+      "equipment": [
+        "vücut ağırlığı"
+      ],
+      "primaryMuscles": [
+        "göğüs"
+      ],
+      "secondaryMuscles": [
+        "triceps",
+        "ön omuz",
+        "karın"
+      ],
       "difficulty": 1,
       "summary": "Şınav zincirinin ilk basamağı. Gövde ne kadar dikse yük o kadar az; omuz ve bilek buradan alışır.",
       "setup": [
@@ -25,7 +33,11 @@
       ],
       "breathing": "İnerken nefes al, iterken ver.",
       "tempo": "2 sn iniş · 1 sn duraklama · 1 sn çıkış",
-      "cues": ["Karın sıkı", "Kalça geride kalmasın", "Dirsekler 45°"],
+      "cues": [
+        "Karın sıkı",
+        "Kalça geride kalmasın",
+        "Dirsekler 45°"
+      ],
       "commonMistakes": [
         {
           "mistake": "Kalça geride kalıyor, gövde bükülüyor",
@@ -45,7 +57,9 @@
       ],
       "safety": "Bilek ağrısı olursa elleri biraz aşağı al ya da yumruk üstünde çalış. Omuzda keskin ağrı varsa dur.",
       "regressions": [],
-      "progressions": ["incline_pushup"],
+      "progressions": [
+        "incline_pushup"
+      ],
       "isUserDefined": false
     },
     {
@@ -54,9 +68,18 @@
       "nameEn": "Incline Push-Up",
       "category": "strength",
       "location": "home",
-      "equipment": ["vücut ağırlığı", "sağlam yükselti"],
-      "primaryMuscles": ["göğüs"],
-      "secondaryMuscles": ["triceps", "ön omuz", "karın"],
+      "equipment": [
+        "vücut ağırlığı",
+        "sağlam yükselti"
+      ],
+      "primaryMuscles": [
+        "göğüs"
+      ],
+      "secondaryMuscles": [
+        "triceps",
+        "ön omuz",
+        "karın"
+      ],
       "difficulty": 2,
       "summary": "Programın üst vücut temeli. Eller yükseltide olduğu için yükün bir kısmı ayaklarda kalır; nizami şınava giden yolun orta basamağı.",
       "setup": [
@@ -71,7 +94,11 @@
       ],
       "breathing": "İnerken nefes al, iterken ver.",
       "tempo": "2 sn iniş · 1 sn duraklama · 1 sn çıkış",
-      "cues": ["Karın sıkı", "Bel çukurlaşmasın", "Göğüs değsin"],
+      "cues": [
+        "Karın sıkı",
+        "Bel çukurlaşmasın",
+        "Göğüs değsin"
+      ],
       "commonMistakes": [
         {
           "mistake": "Kalça düşüyor, bel çukurlaşıyor",
@@ -90,8 +117,13 @@
         }
       ],
       "safety": "Yükselti sabit olmalı; tekerlekli sandalye ya da kaygan yüzey kullanma. Omuzda batma hissinde yüksekliği artır.",
-      "regressions": ["wall_pushup"],
-      "progressions": ["knee_pushup", "pushup"],
+      "regressions": [
+        "wall_pushup"
+      ],
+      "progressions": [
+        "knee_pushup",
+        "pushup"
+      ],
       "imagePath": "assets/exercises/incline_pushup.webp",
       "videoQuery": "incline push up proper form",
       "isUserDefined": false
@@ -102,9 +134,17 @@
       "nameEn": "Knee Push-Up",
       "category": "strength",
       "location": "home",
-      "equipment": ["vücut ağırlığı"],
-      "primaryMuscles": ["göğüs"],
-      "secondaryMuscles": ["triceps", "ön omuz", "karın"],
+      "equipment": [
+        "vücut ağırlığı"
+      ],
+      "primaryMuscles": [
+        "göğüs"
+      ],
+      "secondaryMuscles": [
+        "triceps",
+        "ön omuz",
+        "karın"
+      ],
       "difficulty": 3,
       "summary": "Eğimli şınav ile nizami şınav arasındaki köprü. Yer seviyesinde çalışırsın ama kaldıracın kısaldığı için yük azalır.",
       "setup": [
@@ -119,7 +159,11 @@
       ],
       "breathing": "İnerken nefes al, iterken ver.",
       "tempo": "2 sn iniş · 1 sn duraklama · 1 sn çıkış",
-      "cues": ["Diz–kalça–omuz tek çizgi", "Karın sıkı", "Dirsekler 45°"],
+      "cues": [
+        "Diz–kalça–omuz tek çizgi",
+        "Karın sıkı",
+        "Dirsekler 45°"
+      ],
       "commonMistakes": [
         {
           "mistake": "Kalça yukarıda, vücut ters V şeklinde",
@@ -133,8 +177,12 @@
         }
       ],
       "safety": "Diz hassasiyeti nedeniyle yumuşak zemin şart. Diz kapağında ağrı olursa eğimli şınava geri dön.",
-      "regressions": ["incline_pushup"],
-      "progressions": ["pushup"],
+      "regressions": [
+        "incline_pushup"
+      ],
+      "progressions": [
+        "pushup"
+      ],
       "isUserDefined": false
     },
     {
@@ -143,9 +191,17 @@
       "nameEn": "Push-Up",
       "category": "strength",
       "location": "both",
-      "equipment": ["vücut ağırlığı"],
-      "primaryMuscles": ["göğüs"],
-      "secondaryMuscles": ["triceps", "ön omuz", "karın"],
+      "equipment": [
+        "vücut ağırlığı"
+      ],
+      "primaryMuscles": [
+        "göğüs"
+      ],
+      "secondaryMuscles": [
+        "triceps",
+        "ön omuz",
+        "karın"
+      ],
       "difficulty": 4,
       "summary": "Zincirin son basamağı ve geçiş kriterinin ölçütü: kesintisiz 8 nizami tekrar, geçiş için gereken üç şarttan biri.",
       "setup": [
@@ -160,7 +216,11 @@
       ],
       "breathing": "İnerken nefes al, iterken ver.",
       "tempo": "2 sn iniş · 1 sn duraklama · 1 sn çıkış",
-      "cues": ["Tek parça in, tek parça çık", "Kalça sıkı", "Dirsekler 45°"],
+      "cues": [
+        "Tek parça in, tek parça çık",
+        "Kalça sıkı",
+        "Dirsekler 45°"
+      ],
       "commonMistakes": [
         {
           "mistake": "Önce kalça, sonra göğüs kalkıyor",
@@ -179,7 +239,10 @@
         }
       ],
       "safety": "Bilekte ağrı olursa şınav sapları kullan ya da yumruk üstünde çalış.",
-      "regressions": ["knee_pushup", "incline_pushup"],
+      "regressions": [
+        "knee_pushup",
+        "incline_pushup"
+      ],
       "progressions": [],
       "imagePath": "assets/exercises/pushup.webp",
       "videoQuery": "push up proper form",
@@ -191,9 +254,16 @@
       "nameEn": "Band Row",
       "category": "strength",
       "location": "home",
-      "equipment": ["direnç bandı"],
-      "primaryMuscles": ["sırt"],
-      "secondaryMuscles": ["biceps", "arka omuz"],
+      "equipment": [
+        "direnç bandı"
+      ],
+      "primaryMuscles": [
+        "sırt"
+      ],
+      "secondaryMuscles": [
+        "biceps",
+        "arka omuz"
+      ],
       "difficulty": 2,
       "summary": "Şınavın karşı hareketi. Gün boyu öne dönük omuz duruşunu dengeler; sırtın çalışmadığı bir program omuz ağrısı üretir.",
       "setup": [
@@ -208,7 +278,11 @@
       ],
       "breathing": "Çekerken nefes ver, bırakırken al.",
       "tempo": "1 sn çekiş · 1 sn sıkıştırma · 2 sn bırakış",
-      "cues": ["Önce kürek, sonra kol", "Dirsek gövdeye yakın", "Omuzlar kulağa kalkmasın"],
+      "cues": [
+        "Önce kürek, sonra kol",
+        "Dirsek gövdeye yakın",
+        "Omuzlar kulağa kalkmasın"
+      ],
       "commonMistakes": [
         {
           "mistake": "Hareket kolla başlıyor, sırt hiç devreye girmiyor",
@@ -238,9 +312,15 @@
       "nameEn": "Band Pull Apart",
       "category": "strength",
       "location": "home",
-      "equipment": ["direnç bandı"],
-      "primaryMuscles": ["arka omuz"],
-      "secondaryMuscles": ["orta sırt"],
+      "equipment": [
+        "direnç bandı"
+      ],
+      "primaryMuscles": [
+        "arka omuz"
+      ],
+      "secondaryMuscles": [
+        "orta sırt"
+      ],
       "difficulty": 1,
       "summary": "Küçük ama önemli bir hareket: arka omuzu ve kürek kemikleri arasını çalıştırır. Masa ve direksiyon başında geçen günü dengeler.",
       "setup": [
@@ -255,7 +335,11 @@
       ],
       "breathing": "Açarken nefes ver, kapatırken al.",
       "tempo": "1 sn açış · 1 sn duraklama · 2 sn kapanış",
-      "cues": ["Kollar omuz hizasında", "Kürekleri sıkıştır", "Yavaş geri gel"],
+      "cues": [
+        "Kollar omuz hizasında",
+        "Kürekleri sıkıştır",
+        "Yavaş geri gel"
+      ],
       "commonMistakes": [
         {
           "mistake": "Kollar yukarı kayıyor, hareket baş hizasında yapılıyor",
@@ -280,9 +364,16 @@
       "nameEn": "Superman",
       "category": "core",
       "location": "home",
-      "equipment": ["vücut ağırlığı"],
-      "primaryMuscles": ["bel", "sırt"],
-      "secondaryMuscles": ["kalça"],
+      "equipment": [
+        "vücut ağırlığı"
+      ],
+      "primaryMuscles": [
+        "bel",
+        "sırt"
+      ],
+      "secondaryMuscles": [
+        "kalça"
+      ],
       "difficulty": 2,
       "summary": "Gövdenin arka zincirini çalıştırır. Karın hareketlerinin karşılığı; ikisi dengede olmazsa bel korunmasız kalır.",
       "setup": [
@@ -297,7 +388,11 @@
       ],
       "breathing": "Kaldırırken nefes ver, indirirken al.",
       "tempo": "1 sn kalkış · 2 sn tutuş · 2 sn iniş",
-      "cues": ["Boyun nötr", "Yükseklik değil sıkma", "Kalçayı sık"],
+      "cues": [
+        "Boyun nötr",
+        "Yükseklik değil sıkma",
+        "Kalçayı sık"
+      ],
       "commonMistakes": [
         {
           "mistake": "Mümkün olduğunca yükseğe kalkmaya çalışılıyor",
@@ -312,7 +407,9 @@
       ],
       "safety": "Bel fıtığı ya da akut bel ağrısı varsa bu hareketi atla ve hekimine sor.",
       "regressions": [],
-      "progressions": ["bird_dog"],
+      "progressions": [
+        "bird_dog"
+      ],
       "imagePath": "assets/exercises/superman.webp",
       "videoQuery": "superman exercise form",
       "isUserDefined": false
@@ -323,9 +420,17 @@
       "nameEn": "Plank",
       "category": "core",
       "location": "both",
-      "equipment": ["vücut ağırlığı"],
-      "primaryMuscles": ["karın"],
-      "secondaryMuscles": ["omuz", "kalça", "bel"],
+      "equipment": [
+        "vücut ağırlığı"
+      ],
+      "primaryMuscles": [
+        "karın"
+      ],
+      "secondaryMuscles": [
+        "omuz",
+        "kalça",
+        "bel"
+      ],
       "difficulty": 2,
       "summary": "Gövdeyi hareketsiz tutma çalışması. Ay sonu ölçümlerinde süresi kaydedilir; ilerlemenin en kolay okunan göstergelerinden biri.",
       "setup": [
@@ -340,7 +445,11 @@
       ],
       "breathing": "Sakin ve kesintisiz; nefesi tutma.",
       "tempo": "Sabit tutuş — hedef süre kadar",
-      "cues": ["Kalça topuk hizasında", "Karın sıkı", "Nefes al"],
+      "cues": [
+        "Kalça topuk hizasında",
+        "Karın sıkı",
+        "Nefes al"
+      ],
       "commonMistakes": [
         {
           "mistake": "Kalça yukarıda, vücut ters V şeklinde",
@@ -371,9 +480,15 @@
       "nameEn": "Dead Bug",
       "category": "core",
       "location": "home",
-      "equipment": ["vücut ağırlığı"],
-      "primaryMuscles": ["karın"],
-      "secondaryMuscles": ["kalça"],
+      "equipment": [
+        "vücut ağırlığı"
+      ],
+      "primaryMuscles": [
+        "karın"
+      ],
+      "secondaryMuscles": [
+        "kalça"
+      ],
       "difficulty": 2,
       "summary": "Kol ve bacak hareket ederken belin yerden kalkmamasını öğretir. Bele en nazik karın hareketlerinden biri.",
       "setup": [
@@ -388,7 +503,11 @@
       ],
       "breathing": "Uzatırken nefes ver, dönerken al.",
       "tempo": "2 sn uzatış · 2 sn dönüş",
-      "cues": ["Bel yere yapışık", "Yavaş", "Karşı kol–karşı bacak"],
+      "cues": [
+        "Bel yere yapışık",
+        "Yavaş",
+        "Karşı kol–karşı bacak"
+      ],
       "commonMistakes": [
         {
           "mistake": "Bel yerden kalkıyor, kaburgalar açılıyor",
@@ -414,9 +533,16 @@
       "nameEn": "Chair Squat",
       "category": "strength",
       "location": "home",
-      "equipment": ["sandalye"],
-      "primaryMuscles": ["bacak", "kalça"],
-      "secondaryMuscles": ["karın"],
+      "equipment": [
+        "sandalye"
+      ],
+      "primaryMuscles": [
+        "bacak",
+        "kalça"
+      ],
+      "secondaryMuscles": [
+        "karın"
+      ],
       "difficulty": 2,
       "summary": "Alt vücudun temeli. Sandalye hem derinliği ölçer hem güven verir; günlük hayatta oturup kalkmanın çalışılmış hâli.",
       "setup": [
@@ -431,7 +557,11 @@
       ],
       "breathing": "İnerken nefes al, kalkarken ver.",
       "tempo": "2 sn iniş · 1 sn duraklama · 1 sn çıkış",
-      "cues": ["Kalça geriye", "Diz ayak ucu hizasında", "Topuktan it"],
+      "cues": [
+        "Kalça geriye",
+        "Diz ayak ucu hizasında",
+        "Topuktan it"
+      ],
       "commonMistakes": [
         {
           "mistake": "Dizler içeri düşüyor",
@@ -451,7 +581,9 @@
       ],
       "safety": "Sandalye kaymayacak, tekerleksiz olmalı. Dizde keskin ağrıda derinliği azalt.",
       "regressions": [],
-      "progressions": [],
+      "progressions": [
+        "goblet_squat"
+      ],
       "imagePath": "assets/exercises/chair_squat.webp",
       "videoQuery": "box squat bodyweight form",
       "isUserDefined": false
@@ -462,9 +594,16 @@
       "nameEn": "Step-Up",
       "category": "strength",
       "location": "home",
-      "equipment": ["basamak"],
-      "primaryMuscles": ["bacak", "kalça"],
-      "secondaryMuscles": ["karın"],
+      "equipment": [
+        "basamak"
+      ],
+      "primaryMuscles": [
+        "bacak",
+        "kalça"
+      ],
+      "secondaryMuscles": [
+        "karın"
+      ],
       "difficulty": 2,
       "summary": "Tek bacak çalışması. İki bacak arasındaki güç farkını ortaya çıkarır ve dengeyi geliştirir — zıplamasız, dize nazik.",
       "setup": [
@@ -479,7 +618,11 @@
       ],
       "breathing": "Çıkarken nefes ver, inerken al.",
       "tempo": "1 sn çıkış · 2 sn iniş",
-      "cues": ["Topuk tam bassın", "Arka ayakla itme", "Diz ayak ucu hizasında"],
+      "cues": [
+        "Topuk tam bassın",
+        "Arka ayakla itme",
+        "Diz ayak ucu hizasında"
+      ],
       "commonMistakes": [
         {
           "mistake": "Arkadaki ayakla yerden itiliyor",
@@ -509,9 +652,16 @@
       "nameEn": "Glute Bridge",
       "category": "strength",
       "location": "home",
-      "equipment": ["vücut ağırlığı"],
-      "primaryMuscles": ["kalça"],
-      "secondaryMuscles": ["arka bacak", "bel"],
+      "equipment": [
+        "vücut ağırlığı"
+      ],
+      "primaryMuscles": [
+        "kalça"
+      ],
+      "secondaryMuscles": [
+        "arka bacak",
+        "bel"
+      ],
       "difficulty": 1,
       "summary": "Kalçayı doğrudan çalıştıran, bele yük bindirmeyen hareket. Gün boyu oturmaktan uyuşan kalça kaslarını uyandırır.",
       "setup": [
@@ -526,7 +676,11 @@
       ],
       "breathing": "Kaldırırken nefes ver, indirirken al.",
       "tempo": "1 sn kalkış · 2 sn sıkıştırma · 2 sn iniş",
-      "cues": ["Topuktan it", "Kalçayı sık", "Beli değil kalçayı kaldır"],
+      "cues": [
+        "Topuktan it",
+        "Kalçayı sık",
+        "Beli değil kalçayı kaldır"
+      ],
       "commonMistakes": [
         {
           "mistake": "Kalça yerine bel kaldırılıyor, sırt aşırı geriye bükülüyor",
@@ -557,9 +711,17 @@
       "nameEn": "Wall Sit",
       "category": "strength",
       "location": "home",
-      "equipment": ["vücut ağırlığı", "duvar"],
-      "primaryMuscles": ["bacak"],
-      "secondaryMuscles": ["kalça", "karın"],
+      "equipment": [
+        "vücut ağırlığı",
+        "duvar"
+      ],
+      "primaryMuscles": [
+        "bacak"
+      ],
+      "secondaryMuscles": [
+        "kalça",
+        "karın"
+      ],
       "difficulty": 2,
       "summary": "Hareketsiz bacak çalışması. Eklem hareketi olmadığı için dize nazik; dayanıklılığı süreyle ölçersin.",
       "setup": [
@@ -574,7 +736,11 @@
       ],
       "breathing": "Sakin ve kesintisiz; nefesi tutma.",
       "tempo": "Sabit tutuş — hedef süre kadar",
-      "cues": ["Sırt duvara yapışık", "Diz ayak bileği üstünde", "Nefes al"],
+      "cues": [
+        "Sırt duvara yapışık",
+        "Diz ayak bileği üstünde",
+        "Nefes al"
+      ],
       "commonMistakes": [
         {
           "mistake": "Dizler ayak parmaklarını geçiyor",
@@ -604,8 +770,12 @@
       "nameEn": "Calf Raise",
       "category": "strength",
       "location": "both",
-      "equipment": ["vücut ağırlığı"],
-      "primaryMuscles": ["baldır"],
+      "equipment": [
+        "vücut ağırlığı"
+      ],
+      "primaryMuscles": [
+        "baldır"
+      ],
       "secondaryMuscles": [],
       "difficulty": 1,
       "summary": "Baldırı ve aşil bölgesini güçlendirir. Koşuya geçiş hedefin olduğu için önemli: incik ağrısının önlemi buradan başlar.",
@@ -621,7 +791,11 @@
       ],
       "breathing": "Kalkarken nefes ver, inerken al.",
       "tempo": "1 sn kalkış · 1 sn duraklama · 2 sn iniş",
-      "cues": ["Yavaş in", "Baldırı sık", "Dengeye asılma"],
+      "cues": [
+        "Yavaş in",
+        "Baldırı sık",
+        "Dengeye asılma"
+      ],
       "commonMistakes": [
         {
           "mistake": "Hızlı zıplayarak yapılıyor",
@@ -646,9 +820,17 @@
       "nameEn": "Bird Dog",
       "category": "core",
       "location": "home",
-      "equipment": ["vücut ağırlığı"],
-      "primaryMuscles": ["bel", "karın"],
-      "secondaryMuscles": ["kalça", "omuz"],
+      "equipment": [
+        "vücut ağırlığı"
+      ],
+      "primaryMuscles": [
+        "bel",
+        "karın"
+      ],
+      "secondaryMuscles": [
+        "kalça",
+        "omuz"
+      ],
       "difficulty": 2,
       "summary": "Ölü böceğin yüzükoyun karşılığı. Kol ve bacak hareket ederken gövdenin dönmeden kalmasını öğretir; bel için en güvenli çalışmalardan biri.",
       "setup": [
@@ -663,7 +845,11 @@
       ],
       "breathing": "Uzatırken nefes ver, dönerken al.",
       "tempo": "2 sn uzatış · 2 sn tutuş · 2 sn dönüş",
-      "cues": ["Kalça dönmesin", "Bacak omuz hizasından yükselmesin", "Yavaş"],
+      "cues": [
+        "Kalça dönmesin",
+        "Bacak omuz hizasından yükselmesin",
+        "Yavaş"
+      ],
       "commonMistakes": [
         {
           "mistake": "Kalça yana deviriliyor",
@@ -693,9 +879,16 @@
       "nameEn": "Stationary Bike",
       "category": "cardio",
       "location": "gym",
-      "equipment": ["kondisyon bisikleti"],
-      "primaryMuscles": ["bacak"],
-      "secondaryMuscles": ["kalça", "kalp–damar"],
+      "equipment": [
+        "kondisyon bisikleti"
+      ],
+      "primaryMuscles": [
+        "bacak"
+      ],
+      "secondaryMuscles": [
+        "kalça",
+        "kalp–damar"
+      ],
       "difficulty": 1,
       "summary": "Programın kardiyo omurgası. Eklemlere darbe binmediği için mevcut kiloda ve diz hassasiyetinde koşuya tercih edilir.",
       "setup": [
@@ -710,7 +903,11 @@
       ],
       "breathing": "Konuşabilecek ama şarkı söyleyemeyecek tempo.",
       "tempo": "Sabit — dakikada 60–80 devir",
-      "cues": ["Diz tam düzelmesin", "Omuzlar gevşek", "Sabit tempo"],
+      "cues": [
+        "Diz tam düzelmesin",
+        "Omuzlar gevşek",
+        "Sabit tempo"
+      ],
       "commonMistakes": [
         {
           "mistake": "Sele çok alçak",
@@ -740,9 +937,16 @@
       "nameEn": "Incline Treadmill Walk",
       "category": "cardio",
       "location": "gym",
-      "equipment": ["koşu bandı"],
-      "primaryMuscles": ["bacak", "kalça"],
-      "secondaryMuscles": ["kalp–damar"],
+      "equipment": [
+        "koşu bandı"
+      ],
+      "primaryMuscles": [
+        "bacak",
+        "kalça"
+      ],
+      "secondaryMuscles": [
+        "kalp–damar"
+      ],
       "difficulty": 2,
       "summary": "Koşunun darbesi olmadan koşuya yakın yüklenme. Eğim arttıkça kalça ve arka bacak devreye girer; geçiş kriterlerine giden yolun asıl aracı.",
       "setup": [
@@ -757,7 +961,11 @@
       ],
       "breathing": "Konuşabilecek ama şarkı söyleyemeyecek tempo.",
       "tempo": "Sabit yürüyüş hızı",
-      "cues": ["Tutunma", "Dik dur", "Topuktan bas"],
+      "cues": [
+        "Tutunma",
+        "Dik dur",
+        "Topuktan bas"
+      ],
       "commonMistakes": [
         {
           "mistake": "Tutamaklara asılınıyor",
@@ -779,6 +987,514 @@
       "regressions": [],
       "progressions": [],
       "videoQuery": "incline treadmill walking form",
+      "isUserDefined": false
+    },
+    {
+      "id": "dumbbell_row",
+      "nameTr": "Tek Kol Dambıl Kürek",
+      "nameEn": "One-Arm Dumbbell Row",
+      "category": "strength",
+      "location": "both",
+      "equipment": [
+        "dambıl",
+        "sandalye"
+      ],
+      "primaryMuscles": [
+        "sırt"
+      ],
+      "secondaryMuscles": [
+        "biceps",
+        "arka omuz"
+      ],
+      "difficulty": 2,
+      "summary": "Bandın veremediği ağırlığı verir. Tek kol çalışmak iki taraf arasındaki güç farkını kapatır; şınav programının karşı hareketi budur.",
+      "setup": [
+        "Sağ dizini ve sağ elini sandalyeye koy, sırtın yere paralel olsun.",
+        "Sol ayak yerde, dizi hafif bükülü.",
+        "Dambılı sol elinle al, kol serbest sarksın."
+      ],
+      "execution": [
+        "Önce sol kürek kemiğini omurgaya doğru çek.",
+        "Dirseği gövdenin yanından geriye, kalçaya doğru sürükle.",
+        "Dambıl alt kaburga hizasına gelince bir an sıkıştır.",
+        "Kontrollü indir, kolun tam uzamasına izin ver."
+      ],
+      "breathing": "Çekerken nefes ver, indirirken al.",
+      "tempo": "1 sn çekiş · 1 sn sıkıştırma · 2 sn iniş",
+      "cues": [
+        "Sırt düz, kalça sabit",
+        "Dirsek cebe doğru",
+        "Gövde dönmesin"
+      ],
+      "commonMistakes": [
+        {
+          "mistake": "Gövde her tekrarda dönüyor",
+          "why": "Ağırlığı sırt değil bel dönüşü kaldırıyor; bel yüklenir ve hedef kas çalışmaz.",
+          "fix": "Omuzları yere paralel tut. Dönmeden kaldıramıyorsan ağırlığı düşür."
+        },
+        {
+          "mistake": "Dambıl gövdeden uzakta, öne doğru çekiliyor",
+          "why": "Yük arka omuza kayar, orta sırt boş kalır.",
+          "fix": "Dirseği gövdene sürterek geriye çek."
+        },
+        {
+          "mistake": "Sırt yuvarlanıyor",
+          "why": "Bel omurları yüklü hâlde bükülür; sakatlanma yolu.",
+          "fix": "Göğsü aç, kalçayı geriye ver. Sırtın düz kalmıyorsa daha yüksek bir desteğe tutun."
+        }
+      ],
+      "safety": "Bel fıtığı ya da bel ağrısı varsa bu hareketi göğüs destekli yap. Sırtın yuvarlandığı ilk tekrarda seti bitir.",
+      "videoQuery": "one arm dumbbell row form",
+      "regressions": [],
+      "progressions": [],
+      "isUserDefined": false
+    },
+    {
+      "id": "dumbbell_shoulder_press",
+      "nameTr": "Oturarak Dambıl Omuz Presi",
+      "nameEn": "Seated Dumbbell Shoulder Press",
+      "category": "strength",
+      "location": "both",
+      "equipment": [
+        "dambıl",
+        "sandalye"
+      ],
+      "primaryMuscles": [
+        "omuz"
+      ],
+      "secondaryMuscles": [
+        "triceps",
+        "üst sırt"
+      ],
+      "difficulty": 3,
+      "summary": "Baş üstü itiş kalıbı. Programda dikey itiş yoktu; omuz sağlığı için yatay itişle (şınav) dengelenmesi gerekiyor.",
+      "setup": [
+        "Sırtı destekli bir sandalyeye otur, ayaklar yerde.",
+        "Dambılları omuz hizasına al, avuç içleri öne baksın.",
+        "Kaburgaları aşağı çek, bel boşluğunu abartma."
+      ],
+      "execution": [
+        "Dambılları başının üstüne doğru it, dirsekleri tam kilitleme.",
+        "Tepede dambıllar omuz genişliğinde ve kulak hizasının biraz önünde olsun.",
+        "Kontrollü indir; dirsek 90 dereceyi biraz geçsin."
+      ],
+      "breathing": "İterken nefes ver, indirirken al.",
+      "tempo": "1 sn itiş · 2 sn iniş",
+      "cues": [
+        "Kaburgalar aşağı",
+        "Bel yayını abartma",
+        "Dirsek kilitleme"
+      ],
+      "commonMistakes": [
+        {
+          "mistake": "Bel geriye yaylanıyor",
+          "why": "İtiş omuzdan değil belden yapılır; bel eklemleri sıkışır.",
+          "fix": "Karnı sık, kaburgaları aşağı çek. Yaylanmadan itemiyorsan ağırlığı düşür."
+        },
+        {
+          "mistake": "Dambıllar başın çok arkasına gidiyor",
+          "why": "Omuz ekleminin ön kısmı zorlanır.",
+          "fix": "Tepede dambıllar kulağın biraz önünde kalsın."
+        },
+        {
+          "mistake": "Dirsekler tam yana açık",
+          "why": "Omuz sıkışma riski artar.",
+          "fix": "Dirsekleri 30-45 derece öne al."
+        }
+      ],
+      "safety": "Omuzda sıkışma ya da ağrı varsa baş üstü itişi atla; önce yan kaldırış ve kürek kontrolü çalış.",
+      "videoQuery": "seated dumbbell shoulder press form",
+      "regressions": [],
+      "progressions": [],
+      "isUserDefined": false
+    },
+    {
+      "id": "goblet_squat",
+      "nameTr": "Goblet Squat",
+      "nameEn": "Goblet Squat",
+      "category": "strength",
+      "location": "both",
+      "equipment": [
+        "dambıl"
+      ],
+      "primaryMuscles": [
+        "bacak"
+      ],
+      "secondaryMuscles": [
+        "kalça",
+        "karın"
+      ],
+      "difficulty": 2,
+      "summary": "Sandalye squatın bir üst basamağı. Ağırlık göğüste olduğu için gövde dik kalır; squat öğrenmenin en güvenli yolu.",
+      "setup": [
+        "Dambılı dikey tutup göğsünün önünde, iki avucunla üst ucundan kavra.",
+        "Ayaklar omuz genişliğinde, parmak uçları hafif dışa dönük.",
+        "Dirsekler gövdeye yakın."
+      ],
+      "execution": [
+        "Kalçayı geriye ve aşağıya götürerek çök.",
+        "Dizler ayak parmaklarıyla aynı yöne baksın, içeri kapanmasın.",
+        "Uyluklar yere paralel olana kadar in — ağrısız gidebildiğin kadar.",
+        "Topuktan iterek kalk."
+      ],
+      "breathing": "İnerken al, kalkarken ver.",
+      "tempo": "2 sn iniş · 1 sn kalkış",
+      "cues": [
+        "Göğüs yukarı",
+        "Diz dışarı",
+        "Topuktan it"
+      ],
+      "commonMistakes": [
+        {
+          "mistake": "Dizler içeri kapanıyor",
+          "why": "Diz iç bağı yüklenir; kilo fazlaysa risk daha yüksek.",
+          "fix": "Dizleri ayak parmaklarına doğru aç. Kapanıyorsa derinliği azalt."
+        },
+        {
+          "mistake": "Topuklar yerden kalkıyor",
+          "why": "Ağırlık öne biner, dizin önü zorlanır.",
+          "fix": "Ayak bileği esnekliği yetmiyorsa topukların altına ince bir kalınlık koy."
+        },
+        {
+          "mistake": "Ağırlığa asılıp gövde öne yatıyor",
+          "why": "Bel yüklenir, squat kalça-bacak hareketi olmaktan çıkar.",
+          "fix": "Dambılı göğse yapıştır, dirsekleri içeride tut."
+        }
+      ],
+      "safety": "Diz ağrısı varsa derinliği ağrısız aralıkla sınırla. Ağrı hissettiğin noktaya kadar inme.",
+      "regressions": [
+        "chair_squat"
+      ],
+      "videoQuery": "goblet squat form",
+      "progressions": [],
+      "isUserDefined": false
+    },
+    {
+      "id": "dumbbell_rdl",
+      "nameTr": "Dambıl Romen Deadlift",
+      "nameEn": "Dumbbell Romanian Deadlift",
+      "category": "strength",
+      "location": "both",
+      "equipment": [
+        "dambıl"
+      ],
+      "primaryMuscles": [
+        "arka bacak",
+        "kalça"
+      ],
+      "secondaryMuscles": [
+        "bel",
+        "sırt"
+      ],
+      "difficulty": 3,
+      "summary": "Kalça menteşesi kalıbı — programda hiç yoktu. Gün boyu oturmanın zayıflattığı arka zinciri çalıştırır ve bel sağlığının temelidir.",
+      "setup": [
+        "Dambılları uyluklarının önünde tut, ayaklar kalça genişliğinde.",
+        "Dizleri hafif bük ve hareket boyunca o açıda tut.",
+        "Kürekleri hafif geriye al, sırt düz."
+      ],
+      "execution": [
+        "Kalçayı geriye it — hareket dizden değil kalçadan başlar.",
+        "Dambıllar bacağa değecek kadar yakın aşağı iner.",
+        "Arka bacakta gerilme hissettiğin noktada dur; sırt düzlüğünü kaybetme.",
+        "Kalçayı öne getirerek doğrul, tepede kalçayı sık."
+      ],
+      "breathing": "İnerken al, doğrulurken ver.",
+      "tempo": "3 sn iniş · 1 sn kalkış",
+      "cues": [
+        "Kalçayı geriye it",
+        "Dambıl bacağa sürtsün",
+        "Sırt düz"
+      ],
+      "commonMistakes": [
+        {
+          "mistake": "Sırt yuvarlanıyor",
+          "why": "Yük omurga bükülüyken bele biner; bu hareketin en ciddi hatası.",
+          "fix": "Aynada yandan bak. Sırt düzlüğü bozulduğu noktada dur, daha aşağı inme."
+        },
+        {
+          "mistake": "Diz bükülüp squata dönüşüyor",
+          "why": "Arka bacak devre dışı kalır, hareket amacını kaybeder.",
+          "fix": "Diz açısını sabitle; sadece kalça geriye gitsin."
+        },
+        {
+          "mistake": "Dambıl bacaktan uzaklaşıyor",
+          "why": "Kaldıraç kolu uzar, bel yükü katlanır.",
+          "fix": "Dambılları bacağa sürterek indir."
+        }
+      ],
+      "safety": "Bel ağrın varsa bu hareketi çok hafif ağırlıkla ve kısa mesafede öğren; ağrı varsa hiç yapma.",
+      "videoQuery": "dumbbell romanian deadlift form",
+      "regressions": [],
+      "progressions": [],
+      "isUserDefined": false
+    },
+    {
+      "id": "farmer_carry",
+      "nameTr": "Çiftçi Yürüyüşü",
+      "nameEn": "Farmer Carry",
+      "category": "strength",
+      "location": "both",
+      "equipment": [
+        "dambıl"
+      ],
+      "primaryMuscles": [
+        "karın",
+        "kavrama"
+      ],
+      "secondaryMuscles": [
+        "omuz",
+        "bacak"
+      ],
+      "difficulty": 1,
+      "summary": "Taşıma kalıbı. Öğrenmesi en kolay, günlük hayata en çok benzeyen hareket: ağırlık taşırken gövdeyi dik tutmak.",
+      "setup": [
+        "İki dambılı yanlarında tut.",
+        "Omuzları geriye al, göğsü aç.",
+        "Karnı hafif sık."
+      ],
+      "execution": [
+        "Normal adımlarla düz yürü.",
+        "Gövdeyi dik ve sabit tut, yana yalpalama.",
+        "Belirlenen mesafeyi ya da süreyi tamamla, dambılları kontrollü bırak."
+      ],
+      "breathing": "Normal nefes al; tutma.",
+      "tempo": "30-45 sn taşıma",
+      "cues": [
+        "Omuz geriye",
+        "Yalpalama",
+        "Nefesi tutma"
+      ],
+      "commonMistakes": [
+        {
+          "mistake": "Gövde ağırlığın olduğu tarafa yatıyor",
+          "why": "Yan karın kasları çalışmaz, bel tek taraflı yüklenir.",
+          "fix": "İki tarafta eşit ağırlık kullan, dik yürü."
+        },
+        {
+          "mistake": "Omuzlar öne düşüyor",
+          "why": "Üst sırt yüklenir ve duruş bozukluğu pekişir.",
+          "fix": "Göğsü aç, kürekleri geriye al."
+        }
+      ],
+      "safety": "Kalp-damar rahatsızlığı olanlar nefes tutmamalı. Dambılları yere bırakırken sırtı düz tut.",
+      "videoQuery": "farmer carry form",
+      "regressions": [],
+      "progressions": [],
+      "isUserDefined": false
+    },
+    {
+      "id": "side_plank",
+      "nameTr": "Yan Plank",
+      "nameEn": "Side Plank",
+      "category": "core",
+      "location": "both",
+      "equipment": [
+        "vücut ağırlığı"
+      ],
+      "difficulty": 3,
+      "primaryMuscles": [
+        "yan karın"
+      ],
+      "secondaryMuscles": [
+        "kalça",
+        "omuz"
+      ],
+      "summary": "Plankın eksik bıraktığı yön. Yan gövde zayıfsa bel her adımda ufak bir eğilme yaşar; bu hareket onu kapatır.",
+      "setup": [
+        "Yan yat, dirsek omzun tam altında.",
+        "Bacaklar üst üste, dizler bükülü ya da düz.",
+        "Üstteki eli kalçana koy."
+      ],
+      "execution": [
+        "Kalçayı yerden kaldır; omuz, kalça ve diz tek çizgi olsun.",
+        "Pozisyonu koru, kalça düşmesin.",
+        "Süre dolunca kontrollü indir, diğer tarafa geç."
+      ],
+      "breathing": "Sakin ve düzenli; nefesi tutma.",
+      "tempo": "20-40 sn tutuş, iki taraf",
+      "cues": [
+        "Kalça yukarı",
+        "Omuz dirseğin üstünde",
+        "Boyun uzun"
+      ],
+      "commonMistakes": [
+        {
+          "mistake": "Kalça yavaş yavaş düşüyor",
+          "why": "Hedef kas gevşer, hareket dinlenmeye dönüşür.",
+          "fix": "Düştüğünü hissettiğin an seti bitir. Süreyi kısalt, formu koru."
+        },
+        {
+          "mistake": "Omuz dirsekten ileride",
+          "why": "Omuz eklemi açıyla yüklenir.",
+          "fix": "Dirseği tam omzun altına al."
+        },
+        {
+          "mistake": "Gövde öne ya da arkaya dönüyor",
+          "why": "Yük yan karından ön karına kayar.",
+          "fix": "Üstteki kalçayı tavana çevir, gövdeyi tek düzlemde tut."
+        }
+      ],
+      "safety": "Omuz ağrısı varsa dizden yapılan hâliyle başla ya da hiç yapma.",
+      "videoQuery": "side plank form",
+      "regressions": [],
+      "progressions": [],
+      "isUserDefined": false
+    },
+    {
+      "id": "cat_cow",
+      "nameTr": "Kedi–Deve",
+      "nameEn": "Cat-Cow",
+      "category": "mobility",
+      "location": "home",
+      "equipment": [
+        "vücut ağırlığı"
+      ],
+      "difficulty": 1,
+      "primaryMuscles": [
+        "omurga"
+      ],
+      "secondaryMuscles": [
+        "karın",
+        "sırt"
+      ],
+      "summary": "Omurgayı ısıtan temel hareket. Antrenman öncesi bel ve sırtı hazırlar; gün boyu oturmuş bir omurgayı hareket ettirir.",
+      "setup": [
+        "Emekleme pozisyonuna geç: eller omuz altında, dizler kalça altında.",
+        "Boyun gövdenin uzantısı, bakış yere."
+      ],
+      "execution": [
+        "Nefes verirken sırtı yukarı yuvarla, çeneyi göğse yaklaştır.",
+        "Nefes alırken göğsü öne aç, kuyruk sokumunu yukarı çevir.",
+        "Zorlamadan, akıcı şekilde gidip gel."
+      ],
+      "breathing": "Yuvarlarken ver, açarken al — hareket nefese bağlı.",
+      "tempo": "Yavaş, her yöne 3-4 sn",
+      "cues": [
+        "Zorlama, akıt",
+        "Nefesle birlikte",
+        "Boyun rahat"
+      ],
+      "commonMistakes": [
+        {
+          "mistake": "Hareket sadece belden yapılıyor",
+          "why": "Sırt ortası hareketsiz kalır ve asıl sertlik orada.",
+          "fix": "Kürekler arasını da yuvarlamaya çalış; hareketi omurga boyunca yay."
+        },
+        {
+          "mistake": "Hızlı ve sarsıntılı yapılıyor",
+          "why": "Isınma etkisi kaybolur, boyun zorlanır.",
+          "fix": "Her yöne 3-4 saniye ver."
+        }
+      ],
+      "safety": "Bilek ağrısı varsa yumruk üstünde ya da ön kol üstünde yap.",
+      "videoQuery": "cat cow exercise form",
+      "regressions": [],
+      "progressions": [],
+      "isUserDefined": false
+    },
+    {
+      "id": "hip_flexor_stretch",
+      "nameTr": "Kalça Ön Esnetme",
+      "nameEn": "Half-Kneeling Hip Flexor Stretch",
+      "category": "mobility",
+      "location": "home",
+      "equipment": [
+        "vücut ağırlığı"
+      ],
+      "difficulty": 1,
+      "primaryMuscles": [
+        "kalça ön"
+      ],
+      "secondaryMuscles": [
+        "bel"
+      ],
+      "summary": "Uzun süre oturmak kalça önünü kısaltır; kısalan kalça bel yayını artırır ve bel ağrısı üretir. Bu esnetme onu geri açar.",
+      "setup": [
+        "Yarım diz çök: sağ diz yerde, sol ayak önde 90 derece.",
+        "Diz altına yastık koy.",
+        "Gövde dik."
+      ],
+      "execution": [
+        "Kalçayı hafifçe öne kaydır; sağ kalçanın önünde gerilme hisset.",
+        "Kuyruk sokumunu içeri al — gerilme burada artar.",
+        "20-30 saniye tut, sonra taraf değiştir."
+      ],
+      "breathing": "Sakin nefes al; germe sırasında nefesi tutma.",
+      "tempo": "20-30 sn tutuş, iki taraf",
+      "cues": [
+        "Bel yayını abartma",
+        "Kuyruk sokumu içeri",
+        "Gövde dik"
+      ],
+      "commonMistakes": [
+        {
+          "mistake": "Bel geriye yaylanıyor",
+          "why": "Gerilme kalçadan bele kayar; ağrıyı azaltmak yerine artırır.",
+          "fix": "Kuyruk sokumunu içeri al, kaburgaları aşağı çek."
+        },
+        {
+          "mistake": "Öndeki diz ayak parmağını çok geçiyor",
+          "why": "Diz önü zorlanır.",
+          "fix": "Öndeki ayağı biraz daha ileri al."
+        }
+      ],
+      "safety": "Diz üstünde durmak acı veriyorsa mutlaka yastık kullan; ağrı hissediyorsan esnetmeyi ayakta yap.",
+      "videoQuery": "half kneeling hip flexor stretch",
+      "regressions": [],
+      "progressions": [],
+      "isUserDefined": false
+    },
+    {
+      "id": "thoracic_rotation",
+      "nameTr": "Sırt Rotasyonu",
+      "nameEn": "Open Book Thoracic Rotation",
+      "category": "mobility",
+      "location": "home",
+      "equipment": [
+        "vücut ağırlığı"
+      ],
+      "difficulty": 1,
+      "primaryMuscles": [
+        "üst sırt"
+      ],
+      "secondaryMuscles": [
+        "göğüs",
+        "omuz"
+      ],
+      "summary": "Sırt ortasının dönme kabiliyetini açar. Sert bir üst sırt, omuz ve belin fazladan çalışmasına neden olur.",
+      "setup": [
+        "Yan yat, dizler 90 derece bükülü ve üst üste.",
+        "Kollar önde, avuçlar birleşik, omuz hizasında."
+      ],
+      "execution": [
+        "Üstteki kolu yay çizerek karşı tarafa aç, gövde takip etsin.",
+        "Dizleri yerde sabit tut — dönüş belden değil sırttan gelmeli.",
+        "Açık pozisyonda birkaç saniye nefes al, sonra geri kapat."
+      ],
+      "breathing": "Açarken derin nefes al, kapatırken ver.",
+      "tempo": "Yavaş, her yöne 5 tekrar",
+      "cues": [
+        "Dizler yerde kalsın",
+        "Bakış eli takip etsin",
+        "Zorlama"
+      ],
+      "commonMistakes": [
+        {
+          "mistake": "Dizler yerden kalkıyor",
+          "why": "Dönüş belden yapılır; hedeflenen üst sırt açılmaz.",
+          "fix": "Dizleri elinle ya da yastıkla sabitle."
+        },
+        {
+          "mistake": "Hareket hızlı ve zorlamalı",
+          "why": "Kas gerilim refleksiyle kasılır, esneklik artmaz.",
+          "fix": "Nefesle birlikte yavaşça aç."
+        }
+      ],
+      "safety": "Omuzda ani ağrı olursa dur. Omuz problemi varsa kolu yerine kadar açmaya çalışma.",
+      "videoQuery": "open book thoracic rotation",
+      "regressions": [],
+      "progressions": [],
       "isUserDefined": false
     }
   ]
