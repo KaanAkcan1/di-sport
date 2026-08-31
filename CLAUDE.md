@@ -64,12 +64,12 @@ di@sport/
 
 | Feature | Durum | Sorumluluk |
 |---|---|---|
-| `today` | yer tutucu | Günlük ekran: slot işaretleri, tartı/uyku girişi, not |
-| `plan` | yer tutucu | 28 günlük program |
+| `today` | **tamam** | Günlük ekran: slot işaretleri, tartı/uyku girişi, kurallar, not |
+| `plan` | **tamam** | 28 günlük program, takvim görünümü, örnek plan yükleme |
 | `progress` | yer tutucu | Kilo trendi, haftalık özet, geçiş kriteri |
-| `health` | yer tutucu | Vücut ölçümleri, tahliller |
+| `health` | kısmi | `body_metrics` tablosu ve deposu hazır; tahlil ve ekran M5'te |
 | `catalog` | **tamam** | Egzersiz kütüphanesi: tablo, repository, arama/filtreli liste, dört sekmeli detay. |
-| `workout` | yok | Antrenman akışı (M3) |
+| `workout` | **tamam** | Antrenman akışı: set sayacı, dinlenme, geri alma |
 | `ai_bridge` | yok | context.md üretimi + plan.json içe alma (M4) |
 | `reminders` | yok | Alarmlar (M5) |
 | `settings` | kısmi | `data/profile_table.dart` var; ekranlar M4 |
@@ -241,20 +241,49 @@ kötüdür. Görsel eklemek için o dosyadaki `SOURCES` tablosuna satır ekle.
 
 ## Durum
 
-**M1 ve M2 tamamlandı** — 115 test yeşil, analiz temiz.
+**M1, M2 ve M3 tamamlandı** — 212 test yeşil, analiz temiz, emülatörde
+uçtan uca doğrulandı.
 
 - M1: iskelet, Drift şeması, tasarım sistemi, 5 sekmeli kabuk
-- M2: egzersiz kataloğu (17 hareket verisi, tablo, repository, liste, detay)
+- M2: egzersiz kataloğu (17 hareket, arama/filtre, dört sekmeli detay)
+- M3: plan, günlük kayıt, Bugün ve Antrenman ekranları
 
-Sıradaki: **M3 — plan ve günlük kayıt**
-([plan](docs/superpowers/plans/2026-08-28-m3-plan-ve-gunluk.md)).
-M3'te dört tablo (`plans`, `plan_days`, `plan_slots`, `plan_exercises`) ile
-`daily_logs`, `body_metrics`, `exercise_logs` eklenecek; şema v2'den v5'e
-çıkacak. Bugün ve Antrenman ekranları orada gerçek hâlini alıyor.
+**Uygulama artık günlük kullanıma girebilir.** Plan sekmesinden örnek plan
+yüklenir, Bugün ekranından tartı/işaret/not girilir, Antrenman ekranından
+setler kaydedilir.
 
-**M3'e girmeden önce plan senkronu:** M3 planı `Exercise` modelinin ve
-`CatalogRepository`'nin bu haliyle yazılmadı. Antrenman ekranı
-`catalogRepositoryProvider.getById` ve `ExerciseDetailScreen` kullanacak;
-ikisi de hazır. Liste satırı için `ExerciseListTile`'ın `trailing` alanı
-set × tekrar göstermek üzere ayrıldı — M3'te onu kullan, yeni satır widget'ı
-yazma.
+### Veritabanı şeması
+
+| Sürüm | Eklenen |
+|---|---|
+| v1 | `profile_entries` |
+| v2 | `exercises` |
+| v3 | `plans`, `plan_days`, `plan_slots`, `plan_exercises` |
+| v4 | `daily_logs`, `body_metrics` |
+| v5 | `exercise_logs` |
+
+Tablo eklerken `schemaVersion`'ı artır ve `onUpgrade`'e **yeni bir**
+`if (from < N)` bloğu ekle; eskileri değiştirme.
+
+### Sıradaki: M4 — AI köprüsü
+
+[Plan](docs/superpowers/plans/2026-08-28-m4-ai-koprusu.md). `ai_bridge`
+feature'ı: `context.md` üretimi, `plan.json` doğrulama (dört kapı),
+importer, onboarding formu.
+
+**M4'e girmeden önce plan senkronu.** M4 planı bu kodu görmeden yazıldı;
+hazır olan ve yeniden yazılmaması gerekenler:
+
+- `PlanRepository.insertFullPlan` — importer'ın kullanacağı transaction'lı
+  kapı. `FullPlan` ailesi de hazır; importer JSON'dan bu tipe map'ler.
+- `TodayRepository.rowsBetween` ve `WorkoutRepository.logsBetween` —
+  `context.md`'nin "geçen dönem" bloğunun kaynağı. Planda "eklenecek"
+  diye yazılmışlardı, **zaten var**.
+- `BodyMetricsRepository.series` ve `latestPerKind` — kilo serisi ve
+  son ölçümler.
+- `CatalogRepository.upsertUserDefined` — `newExercises` bloğunun kaydı.
+- `Exercise.fromJson` bilinmeyen kategori/konum için **alan adını içeren**
+  `ArgumentError` atar; doğrulama mesajı bunu AI'a geri yapıştırılabilir
+  biçimde sarmalayabilir.
+- Plan ekranındaki "Örnek planı yükle" düğmesi M4'te "Yeni plan iste" ve
+  "Planı içeri al" ile değişecek; örnek yükleme `kDebugMode`'a alınabilir.
