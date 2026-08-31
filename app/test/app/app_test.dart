@@ -7,6 +7,8 @@ import 'package:disport/features/health/application/health_providers.dart';
 import 'package:disport/features/health/data/body_metrics_repository.dart';
 import 'package:disport/features/health/data/lab_repository.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
+import 'package:disport/features/progress/application/progress_providers.dart';
+import 'package:disport/features/progress/domain/transition_criteria.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/today_repository.dart';
 import 'package:drift/native.dart';
@@ -51,6 +53,21 @@ void main() {
       dueLabsProvider.overrideWith((ref) async => const <DueSchedule>[]),
       latestMetricsProvider.overrideWith(
         (ref) async => const <String, MetricSample>{},
+      ),
+      // İlerleme sekmesi de aynı sebeple.
+      progressViewProvider.overrideWith(
+        (ref) async => ProgressViewData(
+          weights: const [],
+          trend: const [],
+          weeks: const [],
+          latestMetrics: const {},
+          criteria: evaluateTransition(
+            latestWeight: null,
+            latestPushupMax: null,
+            painFreeConfirmed: false,
+          ),
+          hasPlan: false,
+        ),
       ),
     ],
     child: const DisportApp(),
