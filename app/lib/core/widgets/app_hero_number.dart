@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 
 /// Ekranın kahraman rakamı — M12'nin merkezi öğesi.
 ///
-/// [AppStatBand]'in halefi. Şerit üç sayıyı eşit ağırlıkta gösteriyordu
+/// M6'nın `AppStatBand`'inin halefi (o sınıf M12'de silindi). Şerit üç
+/// sayıyı eşit ağırlıkta gösteriyordu
 /// ve ekranın "en önemli sayısı" diye bir şey yoktu; göz üçü tarayıp
 /// hangisine bakacağına karar vermek zorunda kalıyordu. Burada tek bir
 /// sayı var, geri kalanı [AppMetricStrip]'e iniyor.

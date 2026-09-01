@@ -53,13 +53,13 @@ void main() {
     );
   }
 
-  testWidgets('AppStatBand kullanılmıyor — kahraman rakama taşındı', (
-    tester,
-  ) async {
+  testWidgets('tek kahraman rakam, tek metrik şeridi', (tester) async {
+    // M6'nın `AppStatBand`'i üç sayıyı eşit ağırlıkta gösteriyordu ve
+    // ekranın "en önemli sayısı" diye bir şey yoktu. Sınıf M12'de
+    // silindi; bu test yerine geçen düzeni sabitliyor.
     await tester.pumpWidget(wrap(planDay: day));
     await tester.pumpAndSettle();
 
-    expect(find.byType(AppStatBand), findsNothing);
     expect(find.byType(AppHeroNumber), findsOneWidget);
     expect(find.byType(AppMetricStrip), findsOneWidget);
   });

@@ -38,7 +38,7 @@ class AppMetric {
 
 /// Kahraman rakamın altındaki tek satır metrik şeridi.
 ///
-/// [AppStatBand]'in ikinci yarısı. Şerit koyu bir kutuydu ve üç sayıyı
+/// M6'nın `AppStatBand`'inin ikinci yarısı. Şerit koyu bir kutuydu ve üç sayıyı
 /// eşit ağırlıkta gösteriyordu; mürekkep dilinde ekranın kendisi koyu
 /// olduğu için kutuya gerek kalmadı — sayılar doğrudan yüzeyde duruyor.
 class AppMetricStrip extends StatelessWidget {

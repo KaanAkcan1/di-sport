@@ -115,16 +115,33 @@ tek başına anlam taşımaz (ikon + metin her zaman eşlik eder). İkisini de
 `contrast_test.dart` koruyor; ayrı bir test birleştirmeyi sabitliyor ki
 sessizce geri kaymasın.
 
-**Derinlik:** zemin `surfaceContainer`, kart beyaz + yumuşak gölge.
-v1'de ikisi de beyaza yakındı (1.02:1) ve kartlar görünmüyordu — "soluk
-görünüyor" şikâyetinin somut nedeni buydu.
+### Mürekkep dili (M12) — güncel görsel dil
+
+M6'nın beyaz-kart dili **kullanıcı tarafından reddedildi**. Yerine gelen:
+
+1. **Zemin Vue laciverti, koyu öncelikli.** Vue'nun iki rengi var: biri
+   zemin (`ink850`), biri vurgu (`brand400`). Yeşil koyu mürekkep
+   üstünde 6.4:1 ile okunuyor; açık zeminde kaybolması ana şikâyetti.
+   Varsayılan tema **koyu** — Ayarlar'dan Sistem/Koyu/Açık seçilir.
+2. **Kart ve gölge yok.** `shadow` iki şemada da şeffaf; ayrım **ton
+   katmanı + kıl çizgi** ile. `AppElevation` kullanım dışı ve
+   `ink_component_themes_test.dart` yeni kullanımı engelliyor.
+   Tek istisna diyalog/alt sayfa: perde arkayı karartınca ton yetmiyor,
+   onlar bir ton yukarı + belirgin kenarlık alıyor.
+3. **Her ekranın bir kahraman rakamı var.** Bugün: kilo (M9'da kalan
+   kalori) · İlerleme: toplam değişim · Antrenman: seans süresi.
+   56pt Barlow Condensed, altında tek satır `AppMetricStrip`.
+4. **Yeşilin tek anlamı ilerleme + eylem.** Aşım kızıl, eksik amber;
+   renk hep sayı ya da ikonla birlikte.
+5. **Açık modda saf beyaz yok** — fildişi rampa (`ivory*`). Tek beyaz
+   katman "beyaz kart" görünümünü geri getirirdi; test bunu koruyor.
 
 | Katman | Dosya | İçerik |
 |---|---|---|
-| Ham palet | `core/design/app_palette.dart` | Renk rampaları. **Widget'ta doğrudan kullanılmaz.** |
-| Ölçüler | `core/design/app_dimens.dart` | `AppSpacing` (4dp ritmi) · `AppRadius` · `AppTouch` (48dp) · `AppMotion` · `AppElevation` |
+| Ham palet | `core/design/app_palette.dart` | Renk rampaları: marka · **mürekkep (`ink*`)** · **fildişi (`ivory*`)** · sis (`mist*`). **Widget'ta doğrudan kullanılmaz.** |
+| Ölçüler | `core/design/app_dimens.dart` | `AppSpacing` (4dp ritmi) · `AppRadius` · `AppTouch` (48dp) · `AppMotion` · ~~`AppElevation`~~ (M12'de emekli) |
 | Tipografi | `core/design/app_typography.dart` | Inter, M3 tip rolleri + sayısal stiller (tablo rakamı) |
-| Anlam renkleri | `core/design/app_semantic_colors.dart` | `ThemeExtension` → `context.semantic.success/warning/danger/chartSeries` |
+| Anlam renkleri | `core/design/app_semantic_colors.dart` | `ThemeExtension` → `context.semantic.success/warning/danger/hairline/chartSeries` |
 | Şemalar | `app/theme/app_color_schemes.dart` | Açık/koyu `ColorScheme` (fromSeed değil, açık tanım) |
 | Bileşen stilleri | `app/theme/app_component_themes.dart` | Gruplanmış statik metotlar |
 | Birleştirici | `app/theme/app_theme.dart` | Yalnız bir araya getirir. Büyüyorsa parça yanlış yerdedir. |
@@ -143,8 +160,10 @@ görünüyor" şikâyetinin somut nedeni buydu.
 ASCII kuralıyla çalışır: "Kilo" → "KILO", ki Türkçede "kılo" okunur.
 
 **Grafik renkleri:** Okabe-Ito paleti (renk körlüğünde ayırt edilebilir).
-Açık modda turuncu koyulaştırılmış varyantı kullanılır — özgüsü beyaz
-zeminde 3:1 eşiğini geçmiyor.
+Açık modda **turuncu ve pembe** koyulaştırılmış varyantlarıyla kullanılır
+(`chartOrangeOnLight`, `chartPinkOnLight`) — özgüleri fildişi zeminde
+3:1 eşiğini geçmiyor. Zemin değişince eşik düşürülmedi, renkler
+koyulaştırıldı; kural bu.
 
 ### Paylaşılan bileşenler (`core/widgets/widgets.dart`)
 
@@ -155,9 +174,17 @@ zeminde 3:1 eşiğini geçmiyor.
 | `AppStatusChip` / `AppStatusDot` | `AppStatus` (good/caution/bad/unknown) → ikon + renk + ekran okuyucu etiketi. |
 | `AppMetricValue` | Sayı + birim. Tablo rakamı, Türkçe ondalık virgülü, `null` ≠ `0`. |
 | `AppSection` / `AppSectionHeader` | Başlıklı bölüm, standart dikey ritim. |
-| `AppStatBand` | Ekranın tepesindeki koyu istatistik şeridi — ağırlık merkezi. Sayılar sıkışık aileyle, boş değer küçülüp solar. |
+| `AppSectionLabel` | Çizelge etiketi: harf aralıklı büyük harf başlık + sağda sayı. Mürekkep dilinin bölüm ayracı. |
+| `AppHeroNumber` | Ekranın kahraman rakamı (56pt) + isteğe bağlı gauge. Aşımda dolar **ve** danger tonuna döner. |
+| `AppMetricStrip` / `AppMetric` | Kahramanın altındaki tek satır metrik. Delta ok işareti taşır — renk tek başına değil. |
+| `AppSpotCard` | "SIRADA" kartı: sıradaki iş listeden çıkıp öne alınır, tek dokunuşla başlar. |
+| `AppWeekDots` | Son yedi günün doluluğu. Her noktada gün harfi yazılı. |
 | `AppTimeRail` / `AppNowMarker` | Gün omurgası ve canlı "şimdi" işareti. Geçmişle geleceği ayırır. |
 | `AppScreenBody` | Kaydırılabilir gövde; alt çubuk için boşluğu otomatik bırakır. |
+
+**`AppStatBand` M12'de silindi.** Üç sayıyı eşit ağırlıkta gösteriyordu
+ve ekranın "en önemli sayısı" diye bir şey yoktu. Yerine
+`AppHeroNumber` + `AppMetricStrip` ikilisi geçti.
 
 ### Erişilebilirlik — testle korunuyor
 
