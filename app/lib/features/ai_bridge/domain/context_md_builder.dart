@@ -360,11 +360,11 @@ class ContextMdBuilder {
       ..writeln('### Kullanılabilir katalog')
       ..writeln()
       ..writeln('```')
-      ..writeln('id · ad · yer · ekipman · hedef kas');
+      ..writeln('id · name · yer · ekipman · hedef kas');
     for (final exercise in exercises) {
       buffer.writeln(
-        '${exercise.id} · ${exercise.nameTr} · ${exercise.location} · '
-        '${exercise.equipment.isEmpty ? "ekipmansız" : exercise.equipment.join("+")} · '
+        '${exercise.id} · ${exercise.name} · ${exercise.location} · '
+        '${exercise.equipment.isEmpty ? "none" : exercise.equipment.join("+")} · '
         '${exercise.primaryMuscles.join(", ")}',
       );
     }

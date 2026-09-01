@@ -16,7 +16,7 @@ class CatalogSourceAdapter implements CatalogSource {
       for (final exercise in exercises)
         ExerciseRef(
           id: exercise.id,
-          nameTr: exercise.displayNameTr,
+          name: exercise.nameEn,
           location: exercise.location.name,
           equipment: [for (final kind in exercise.equipment) kind.name],
           primaryMuscles: exercise.primaryMuscles,

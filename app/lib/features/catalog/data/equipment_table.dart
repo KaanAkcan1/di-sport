@@ -43,19 +43,3 @@ class EquipmentItems extends Table with SyncColumns {
 
   IntColumn get sortOrder => integer()();
 }
-
-/// Ekipman gerektirmeyen hareketlerin `equipment` listesinde geçen
-/// değerler — **katlanmış** hâlleriyle.
-///
-/// Bunlar envantere girmiyor ve filtreyi hiç etkilemiyor: vücut
-/// ağırlığı herkeste var, "yok" diyebileceğin bir şey değil.
-///
-/// Katlanmış yazılmalarının nedeni karşılaştırmanın katlanmış kimlik
-/// üzerinden yapılması. Ham hâlleriyle yazılırsa (`vücut ağırlığı`)
-/// hiçbir zaman eşleşmezler ve vücut ağırlığı bir ekipman sanılır —
-/// testte yakalandı.
-const bodyweightEquipment = {
-  'vucut agirligi',
-  'yok',
-  'ekipman yok',
-};

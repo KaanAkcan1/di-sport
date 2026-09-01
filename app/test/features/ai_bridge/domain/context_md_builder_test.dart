@@ -298,7 +298,7 @@ void main() {
         catalog: const [
           ExerciseRef(
             id: 'incline_pushup',
-            nameTr: 'Eğimli Şınav',
+            name: 'Incline Push-Up',
             location: 'home',
             equipment: [],
             primaryMuscles: ['göğüs'],
@@ -308,7 +308,7 @@ void main() {
 
       expect(
         md,
-        contains('incline_pushup · Eğimli Şınav · home · ekipmansız · göğüs'),
+        contains('incline_pushup · Incline Push-Up · home · none · göğüs'),
       );
     });
 

@@ -273,8 +273,9 @@ void main() {
       expect(markdown, contains('incline_pushup'));
       // Etkin planın devamı isteniyor
       expect(markdown, contains('AI Planı'));
-      // Katalog gerçek hareketlerle listeleniyor
-      expect(markdown, contains('Eğimli Şınav'));
+      // Katalog gerçek hareketlerle listeleniyor — **İngilizce** adla:
+      // AI bu adı arayacak, Türkçe ad yalnız kullanıcının ekranına ait.
+      expect(markdown, contains('Incline Push-Up'));
     });
 
     test('tahliller altıncı bölüme referans aralığıyla düşer', () async {

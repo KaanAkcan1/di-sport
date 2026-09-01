@@ -115,14 +115,19 @@ abstract interface class HealthSource {
 class ExerciseRef {
   const ExerciseRef({
     required this.id,
-    required this.nameTr,
+    required this.name,
     required this.location,
     required this.equipment,
     required this.primaryMuscles,
   });
 
   final String id;
-  final String nameTr;
+
+  /// **İngilizce** ad. AI bu adı web'de arayabilmeli ve dönen planda
+  /// aynı adı kullanabilmeli; Türkçe ad yalnız kullanıcının ekranına
+  /// ait (spec §4.1).
+  final String name;
+
   final String location;
   final List<String> equipment;
   final List<String> primaryMuscles;

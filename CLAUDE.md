@@ -311,36 +311,84 @@ flutter run                   # emülatörde çalıştır
 
 ## Egzersiz kataloğu
 
-`app/assets/catalog.json` — 17 hareket, PDF programının tamamını kapsar
-(Program A, Program B, salon kardiyo, artı geçiş kriterinin ölçütü olan
-şınav zinciri). Her kayıtta: özet, başlangıç, 3+ adımlı anlatım, nefes,
-tempo, ipuçları, 2+ hata kaydı (hata / neden / düzeltme), güvenlik,
-kolaylaştırma-zorlaştırma zinciri.
+`app/assets/catalog.json` — **161 hareket**, elle yazılmıyor: bir boru
+hattı üretiyor (`tools/import_free_exercise_db.py`). Kaynak
+[free-exercise-db](https://github.com/yuhonas/free-exercise-db) (876
+kayıt, Unlicense).
 
-`app/test/assets/catalog_seed_test.dart` şemayı ve içerik çıtasını
-doğrular — çıta M4'te AI'ın önereceği hareketlere uygulanacakla aynı.
+| Dosya | Ne |
+|---|---|
+| `tools/catalog_selection.txt` | Hangi id'ler girecek. Ölçüt **kapsama**: her hareket kalıbı × her ekipman × ev/salon temsil edilsin, varyant yığılmasın (kaynakta 24 ayrı deadlift var). |
+| `tools/catalog_overrides.json` | Elle yazılan içerik ve kaynak düzeltmeleri, id bazında **kısmi** — yalnız yazdığın alan biner. |
+| `tools/catalog_names_tr.json` | Türkçe adlar. Ayrı dosyada çünkü sözlük; içerikle karışmasın. |
+
+```bash
+python tools/import_free_exercise_db.py           # üret
+python tools/import_free_exercise_db.py --check   # diskteki güncel mi
+```
+
+Çıktı **determinist**: aynı girdi aynı dosyayı verir. `--check` boru
+hattının bozulmasının nöbetçisi — `catalog.json`'ı elle düzenlersen
+uyarır. Kaynakta olmayan ve override'da da bulunmayan alan **boş
+kalır**; uydurma bir "sık yapılan hata" gerçeğiyle aynı görünür ve
+kullanıcı ikisini ayırt edemez.
+
+**İki kademeli içerik çıtası** (`test/assets/catalog_seed_test.dart`):
+
+- **her kayıtta:** `id`, `nameEn`, `category`, `location`, `equipment`,
+  `primaryMuscles`, `difficulty`, `execution` (≥2 adım)
+- **çekirdek listede** (testte açık `coreIds` — programda fiilen geçen
+  hareketler): ayrıca `nameTr`, `summary`, `setup`, `breathing`,
+  `cues` (≥2), `commonMistakes` (≥2), `safety`
+
+**Adlar İngilizce-öncelikli** (spec §4.1). EN arayüzde `nameEn`, TR
+arayüzde `nameEn (nameTr)`, `nameTr` boşsa yalnız `nameEn`. Gerekçe:
+kullanıcı hareketi internette arayacak ve "Goblet Çömelme" hiçbir şey
+bulmuyor. `ai_bridge`'e giden `ExerciseRef.name` de İngilizce.
+
+**Ekipman tipli** (`EquipmentKind`, 17 değer). 13'ü kaynağın sözlüğü,
+4'ü elle eklendi: `pullUpBar`, `dipBars`, `bench`, `jumpRope` —
+kaynak barfiksi "body only" sayıyor, kendi amacı için doğru ama
+envanter için yanlış. `needsInventory` false olanlar (`bodyOnly`,
+`none`, `other`) envanterde sorulmuyor: herkeste sandalye var.
+
+**MET değerleri** 2024 Adult Compendium'dan. Kuvvet/gövde/hareketlilik
+**kategori varsayılanı** alıyor (5.0 / 3.8 / 2.3) çünkü compendium 100
+squat varyantı için değil efor düzeyi için değer veriyor — kayıt başına
+uydurulmuş MET olmayan bir kesinlik vaat ederdi. Kardiyoda tersi:
+ip atlama 12.3, eliptik 5.0; her kayıt kendi değerini taşımak zorunda
+ve eksikse boru hattı uyarıyor. `treadmill_incline_walk` ve
+`stationary_bike` sabit MET kullanmıyor — `metModel` ile ACSM
+denklemlerine bağlanıyorlar (hesabın kodu M9'da).
 
 **Görseller:** 7 hareketin görseli var (`assets/exercises/*.webp`).
-Kaynak free-exercise-db (kamu malı); ham kullanılmıyor — `tools/build_catalog_images.py`
-hepsini aynı işlemden geçiriyor: kırpma (üçüncü taraf salon tabelaları
-kadraj dışına), duotone (tek görsel dil), başlangıç + bitiş karesi yan yana,
+Ham kullanılmıyor — `tools/build_catalog_images.py` hepsini aynı
+işlemden geçiriyor: kırpma (üçüncü taraf salon tabelaları kadraj
+dışına), duotone (tek görsel dil), başlangıç + bitiş karesi yan yana,
 numaralı. Kaynak kareleri hareketi net göstermeyen ya da arka planında
-okunur marka kalan kayıtlar **bilerek görselsiz**: yanlış görsel görselsizden
-kötüdür. Görsel eklemek için o dosyadaki `SOURCES` tablosuna satır ekle.
+okunur marka kalan kayıtlar **bilerek görselsiz**: yanlış görsel
+görselsizden kötüdür. Görsel eklemek için o dosyadaki `SOURCES`
+tablosuna satır ekle.
 
 ## Durum
 
-**v1 tamamlandı (M1-M5), M6 sürüyor.** 460 test yeşil, analiz temiz,
-emülatörde doğrulandı.
+**v1 tamamlandı (M1-M6). v2'de M7, M8, M11, M12 bitti; M9 ve M10
+sırada.** 622 test yeşil, analiz temiz.
 
 | | |
 |---|---|
 | M1 | iskelet, Drift şeması, tasarım sistemi, 5 sekmeli kabuk |
-| M2 | egzersiz kataloğu (17 hareket, arama/filtre, dört sekmeli detay) |
+| M2 | egzersiz kataloğu (arama/filtre, dört sekmeli detay) |
 | M3 | plan, günlük kayıt, Bugün ve Antrenman ekranları |
 | M4 | AI köprüsü, onboarding, profil formu |
 | M5 | tahlil takibi, İlerleme ve Sağlık ekranları, alarmlar, yedekleme |
 | M6 | görsel refactor (Vue yeşili) + özelleştirme: kurallar, ölçümler, ekipman, haftalık düzen |
+| M7 | dil altyapısı — TR/EN, ARB, `hardcoded_text_test` nöbetçisi |
+| M8 | katalog 2.0 — 161 hareket, boru hattı, tipli ekipman, İngilizce-öncelikli adlar |
+| M11 | takviye ve ilaç takibi |
+| M12 | mürekkep tasarım dili — koyu yüzey, kartsız, ekran başına bir kahraman sayı |
+| M9 | *(sırada)* besin ve kalori |
+| M10 | *(sırada)* düzenlenebilirlik — geçmiş günler, takvimden giriş |
 
 **Döngü kapandı:** onboarding → "Yeni plan iste" → `context.md` paylaş →
 herhangi bir AI → dönen JSON → "İçeri al" → doğrula → önizle → onayla →
@@ -361,6 +409,7 @@ plan Bugün ekranında.
 | v9 | `equipment_items` |
 | v10 | `weekly_windows` |
 | v11 | `supplements`, `supplement_logs` |
+| v12 | `equipment_items.atHome/atGym`, tipli `equipment` |
 
 Tablo eklerken `schemaVersion`'ı artır ve `onUpgrade`'e **yeni bir**
 `if (from < N)` bloğu ekle; eskileri değiştirme.

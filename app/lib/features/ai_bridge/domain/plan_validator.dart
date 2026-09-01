@@ -158,7 +158,7 @@ class PlanValidator {
         if ((data[field] as List? ?? const []).isEmpty) {
           issues.add(
             '$field boş olamaz — ekipmansız hareket için '
-            '["vücut ağırlığı"] yaz',
+            '["bodyOnly"] yaz',
           );
         }
       }

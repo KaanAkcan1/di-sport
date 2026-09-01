@@ -4,9 +4,6 @@ import 'package:disport/features/catalog/domain/equipment_kind.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:drift/drift.dart';
 
-export 'package:disport/features/catalog/data/equipment_table.dart'
-    show bodyweightEquipment;
-
 /// Envanterdeki bir ekipman.
 class EquipmentItem {
   const EquipmentItem({
