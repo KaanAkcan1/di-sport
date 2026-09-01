@@ -1,9 +1,18 @@
+import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/core/widgets/widgets.dart';
+import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart'
+    show profileEntriesProvider;
+import 'package:disport/features/ai_bridge/domain/context_md_builder.dart'
+    show ProfileKeys;
 import 'package:disport/features/health/application/health_providers.dart';
+import 'package:disport/features/health/data/body_metric_table.dart'
+    show MetricKinds;
 import 'package:disport/features/health/data/lab_repository.dart';
 import 'package:disport/features/health/data/metric_definitions_repository.dart';
+import 'package:disport/features/health/domain/bmi.dart';
+import 'package:disport/features/health/domain/lab_share.dart';
 import 'package:disport/features/health/presentation/add_lab_sheet.dart';
 import 'package:disport/features/health/presentation/body_measurements_card.dart';
 import 'package:disport/features/health/presentation/due_labs_banner.dart';
@@ -13,6 +22,7 @@ import 'package:disport/features/today/application/today_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:share_plus/share_plus.dart';
 
 /// Sağlık sekmesi: vadesi gelen tahliller, ölçümler, panel kartları.
 ///
@@ -36,8 +46,11 @@ class HealthScreen extends ConsumerWidget {
         onRetry: () => ref.invalidate(labsByPanelProvider),
         data: (byPanel) => AppScreenBody(
           children: [
+            _BmiRow(),
+            const SizedBox(height: AppSpacing.md),
             _DueBanner(),
             _Measurements(),
+            if (byPanel.isNotEmpty) _ShareRow(byPanel: byPanel),
             if (byPanel.isEmpty)
               AppEmptyState(
                 icon: Icons.science_outlined,
@@ -62,6 +75,77 @@ class HealthScreen extends ConsumerWidget {
         ),
         icon: const Icon(Icons.add),
         label: Text(context.l10n.healthAddLabFab),
+      ),
+    );
+  }
+}
+
+/// VKİ satırı (v3 §7.1) — kilo ve boydan canlı türetilir.
+///
+/// Onboarding'den taşınan değerlendirme: yeni kullanıcıya ilk ekranda
+/// "obez" damgası kötü karşılamaydı, burada bağlamında.
+class _BmiRow extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final l10n = context.l10n;
+    final weight =
+        ref.watch(latestMetricsProvider).value?[MetricKinds.weight]?.value;
+    final heightRaw =
+        ref.watch(profileEntriesProvider).value?[ProfileKeys.heightCm];
+    final height = double.tryParse(
+      (heightRaw ?? '').replaceAll(',', '.'),
+    );
+    final bmi = bodyMassIndex(weightKg: weight, heightCm: height);
+    if (bmi == null) return const SizedBox.shrink();
+
+    final bmiClass = BmiClass.of(bmi);
+    final (status, label) = switch (bmiClass) {
+      BmiClass.underweight => (AppStatus.caution, l10n.bmiUnderweight),
+      BmiClass.normal => (AppStatus.good, l10n.bmiNormal),
+      BmiClass.overweight => (AppStatus.caution, l10n.bmiOverweight),
+      BmiClass.obese => (AppStatus.bad, l10n.bmiObese),
+    };
+
+    return Row(
+      children: [
+        Expanded(
+          child: Text(l10n.bmiRowTitle, style: theme.textTheme.titleSmall),
+        ),
+        Text(
+          TurkishNumber.format(bmi, fractionDigits: 1),
+          style: theme.textTheme.titleSmall,
+        ),
+        const SizedBox(width: AppSpacing.sm),
+        AppStatusChip(status: status, label: label, compact: true),
+      ],
+    );
+  }
+}
+
+/// Tahlil özetini düz metin olarak dışa verir — doktora götürmek için.
+class _ShareRow extends StatelessWidget {
+  const _ShareRow({required this.byPanel});
+
+  final Map<String, List<LabEntry>> byPanel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: TextButton.icon(
+        key: const Key('share-labs'),
+        icon: const Icon(Icons.ios_share, size: 18),
+        label: Text(context.l10n.healthShareLabs),
+        onPressed: () => SharePlus.instance.share(
+          ShareParams(
+            text: buildLabShareText(
+              byPanel,
+              title: context.l10n.healthShareTitle,
+            ),
+            subject: context.l10n.healthShareTitle,
+          ),
+        ),
       ),
     );
   }

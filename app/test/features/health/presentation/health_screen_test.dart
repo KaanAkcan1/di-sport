@@ -2,6 +2,8 @@ import 'package:disport/app/app.dart';
 import 'package:disport/app/theme/app_theme.dart';
 import 'package:disport/core/db/app_database.dart';
 import 'package:disport/core/widgets/widgets.dart';
+import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart'
+    show profileEntriesProvider;
 import 'package:disport/features/health/application/health_providers.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/health/data/body_metrics_repository.dart';
@@ -57,6 +59,10 @@ void main() {
   }) => ProviderScope(
     overrides: [
       appDatabaseProvider.overrideWithValue(db),
+      // v3: VKİ satırı boyu profilden okuyor — Drift akışına bağlanmasın.
+      profileEntriesProvider.overrideWith(
+        (ref) => Stream.value(const <String, String>{}),
+      ),
       labsByPanelProvider.overrideWith((ref) => Stream.value(labs)),
       dueLabsProvider.overrideWith((ref) async => due),
       latestMetricsProvider.overrideWith((ref) => Stream.value(metrics)),

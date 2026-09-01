@@ -2462,6 +2462,48 @@ abstract class AppLocalizations {
   /// **'Güvenlik — kısıtınla eşleşiyor'**
   String get catalogSafetyRestricted;
 
+  /// No description provided for @bmiRowTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Vücut kitle indeksi'**
+  String get bmiRowTitle;
+
+  /// No description provided for @bmiUnderweight.
+  ///
+  /// In tr, this message translates to:
+  /// **'Zayıf'**
+  String get bmiUnderweight;
+
+  /// No description provided for @bmiNormal.
+  ///
+  /// In tr, this message translates to:
+  /// **'Normal'**
+  String get bmiNormal;
+
+  /// No description provided for @bmiOverweight.
+  ///
+  /// In tr, this message translates to:
+  /// **'Fazla kilolu'**
+  String get bmiOverweight;
+
+  /// No description provided for @bmiObese.
+  ///
+  /// In tr, this message translates to:
+  /// **'Obez'**
+  String get bmiObese;
+
+  /// No description provided for @healthShareLabs.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tahlil özetini paylaş'**
+  String get healthShareLabs;
+
+  /// No description provided for @healthShareTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tahlil özeti — di@sport'**
+  String get healthShareTitle;
+
   /// No description provided for @rhythmMealsSection.
   ///
   /// In tr, this message translates to:

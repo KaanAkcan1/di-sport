@@ -4,6 +4,7 @@ import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/health/data/lab_repository.dart';
+import 'package:disport/features/health/presentation/lab_range_bar.dart';
 import 'package:flutter/material.dart';
 
 /// Bir panelin marker satırları.
@@ -24,8 +25,35 @@ class LabPanelCard extends StatelessWidget {
     final rows = _latestWithPrevious(entries);
     if (rows.isEmpty) return const SizedBox.shrink();
 
+    // Panel özeti (v3 §7.1): kaç satır normal, kaçı dışarıda. Sayı
+    // sıfırsa çip hiç çizilmez — "0 yüksek" gürültü.
+    final statuses = [for (final row in rows) statusOf(row.latest)];
+    final normal = statuses.where((s) => s == LabStatus.normal).length;
+    final out = statuses
+        .where((s) => s == LabStatus.low || s == LabStatus.high)
+        .length;
+
     return AppSection(
       title: LabPanels.labelOf(panel),
+      action: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (normal > 0)
+            AppStatusChip(
+              status: AppStatus.good,
+              label: '$normal',
+              compact: true,
+            ),
+          if (out > 0) ...[
+            const SizedBox(width: AppSpacing.xs),
+            AppStatusChip(
+              status: AppStatus.bad,
+              label: '$out',
+              compact: true,
+            ),
+          ],
+        ],
+      ),
       child: Card(
         child: Column(
           children: [
@@ -91,6 +119,17 @@ class _LabRow extends StatelessWidget {
               ),
             ],
           ),
+          // Aralık çubuğu (v3 §7.1): değer bandın neresinde. Renk +
+          // konum + metin birlikte — üçü de aynı şeyi söylüyor.
+          if (entry.refLow != null && entry.refHigh != null) ...[
+            const SizedBox(height: AppSpacing.sm),
+            LabRangeBar(
+              value: entry.value,
+              low: entry.refLow!,
+              high: entry.refHigh!,
+              inRange: status == LabStatus.normal,
+            ),
+          ],
           const SizedBox(height: AppSpacing.xs),
           Row(
             children: [

@@ -1342,6 +1342,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get catalogSafetyRestricted => 'Safety — matches your restriction';
 
   @override
+  String get bmiRowTitle => 'Body mass index';
+
+  @override
+  String get bmiUnderweight => 'Underweight';
+
+  @override
+  String get bmiNormal => 'Normal';
+
+  @override
+  String get bmiOverweight => 'Overweight';
+
+  @override
+  String get bmiObese => 'Obese';
+
+  @override
+  String get healthShareLabs => 'Share lab summary';
+
+  @override
+  String get healthShareTitle => 'Lab summary — di@sport';
+
+  @override
   String get rhythmMealsSection => 'Meals';
 
   @override

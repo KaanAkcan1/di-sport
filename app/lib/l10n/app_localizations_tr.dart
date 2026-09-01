@@ -1339,6 +1339,27 @@ class AppLocalizationsTr extends AppLocalizations {
   String get catalogSafetyRestricted => 'Güvenlik — kısıtınla eşleşiyor';
 
   @override
+  String get bmiRowTitle => 'Vücut kitle indeksi';
+
+  @override
+  String get bmiUnderweight => 'Zayıf';
+
+  @override
+  String get bmiNormal => 'Normal';
+
+  @override
+  String get bmiOverweight => 'Fazla kilolu';
+
+  @override
+  String get bmiObese => 'Obez';
+
+  @override
+  String get healthShareLabs => 'Tahlil özetini paylaş';
+
+  @override
+  String get healthShareTitle => 'Tahlil özeti — di@sport';
+
+  @override
   String get rhythmMealsSection => 'Öğünler';
 
   @override
