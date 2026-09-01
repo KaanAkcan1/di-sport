@@ -13,6 +13,7 @@ class ExerciseListTile extends StatelessWidget {
     required this.exercise,
     required this.onTap,
     this.trailing,
+    this.overline,
   });
 
   final Exercise exercise;
@@ -20,6 +21,12 @@ class ExerciseListTile extends StatelessWidget {
 
   /// Sağ tarafa eklenecek isteğe bağlı içerik (M3'te set × tekrar).
   final Widget? trailing;
+
+  /// Kas listesinin yerine geçen bağlam satırı — "Cuma · 3×12 · 12,5 kg".
+  ///
+  /// "Son yaptıkların" bölümünde kas adları bilgi taşımıyor: kullanıcı
+  /// o hareketi zaten biliyor, merak ettiği en son ne yaptığı.
+  final String? overline;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +54,11 @@ class ExerciseListTile extends StatelessWidget {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      exercise.primaryMuscles.join(', '),
+                      overline ?? exercise.primaryMuscles.join(', '),
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
+                        color: overline == null
+                            ? theme.colorScheme.onSurfaceVariant
+                            : theme.colorScheme.tertiary,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

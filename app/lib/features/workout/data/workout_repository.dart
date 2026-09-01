@@ -132,6 +132,56 @@ class WorkoutRepository {
     ];
   }
 
+  /// Son çalışılan hareketler — katalogun "son yaptıkların" bölümü.
+  ///
+  /// Hareket başına **en son gün** alınıyor; aynı hareket iki kez
+  /// listelenmiyor. Katalog bu veriyi bir port üzerinden okuyor
+  /// (`RecentExerciseSource`), doğrudan buraya bakmıyor.
+  ///
+  /// Akış: kullanıcı antrenmanı bitirip Katalog sekmesine geçtiğinde
+  /// liste güncel olmalı (`IndexedStack` kuralı).
+  Stream<List<({String exerciseId, String date, List<SetActual> sets})>>
+  watchRecentSessions({int limit = 5}) {
+    final query = _db.select(_db.exerciseLogs)
+      ..where((t) => t.deletedAt.isNull())
+      ..orderBy([
+        (t) => OrderingTerm.desc(t.date),
+        (t) => OrderingTerm.asc(t.setIndex),
+      ]);
+
+    return query.watch().map((rows) {
+      // Hareket başına yalnız en son günü topluyoruz. Satırlar tarihe
+      // göre azalan geldiği için ilk görülen gün en sonuncusu.
+      final latestDate = <String, String>{};
+      final sets = <String, List<SetActual>>{};
+      final order = <String>[];
+
+      for (final row in rows) {
+        final seen = latestDate[row.exerciseId];
+        if (seen == null) {
+          latestDate[row.exerciseId] = row.date;
+          order.add(row.exerciseId);
+        } else if (seen != row.date) {
+          continue; // daha eski bir seans — atlanıyor
+        }
+
+        (sets[row.exerciseId] ??= []).add(
+          SetActual(
+            setIndex: row.setIndex,
+            reps: row.reps,
+            weightKg: row.weightKg,
+            durationSec: row.durationSec,
+          ),
+        );
+      }
+
+      return [
+        for (final id in order.take(limit))
+          (exerciseId: id, date: latestDate[id]!, sets: sets[id]!),
+      ];
+    });
+  }
+
   /// Aralıktaki tüm kayıtlar — M4'ün `context.md` bloğu için.
   Future<List<({String date, String exerciseId, SetActual actual})>>
   logsBetween(String fromIso, String toIso) async {

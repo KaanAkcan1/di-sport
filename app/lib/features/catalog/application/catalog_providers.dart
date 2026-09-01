@@ -2,6 +2,9 @@ import 'package:disport/app/app.dart';
 import 'package:disport/features/catalog/data/catalog_repository.dart';
 import 'package:disport/features/catalog/data/equipment_repository.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
+import 'package:disport/features/catalog/domain/recent_exercise_source.dart';
+import 'package:disport/features/workout/application/recent_exercise_adapter.dart';
+import 'package:disport/features/workout/application/workout_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'catalog_providers.g.dart';
@@ -11,17 +14,29 @@ CatalogRepository catalogRepository(Ref ref) =>
     CatalogRepository(ref.watch(appDatabaseProvider));
 
 /// Katalog listesinin arama ve filtre durumu.
+///
+/// **M12'de değişen:** `location` artık bir filtre değil **bağlam** —
+/// ekranın tepesindeki sekme onu taşıyor. Alan burada kalıyor çünkü
+/// sorgu yine ona göre süzülüyor; değişen tek şey nasıl seçildiği.
+/// Ayrıca `difficulty` eklendi: filtre alt sayfası açılınca zorluk da
+/// oradan geliyor.
 class CatalogFilterState {
   const CatalogFilterState({
     this.query = '',
     this.location,
     this.category,
+    this.difficulty,
     this.onlyMyEquipment = false,
   });
 
   final String query;
   final ExerciseLocation? location;
   final ExerciseCategory? category;
+
+  /// 1-5. Seçiliyse "bu zorluk ve altı" değil **tam eşleşme**:
+  /// kullanıcı "orta seviye hareketler" arıyorsa kolayları da görmek
+  /// istemez, arama kutusu zaten geniş tarama için var.
+  final int? difficulty;
 
   /// Yalnız envanterdeki ekipmanla yapılabilen hareketler.
   ///
@@ -34,19 +49,33 @@ class CatalogFilterState {
       query.isNotEmpty ||
       location != null ||
       category != null ||
+      difficulty != null ||
       onlyMyEquipment;
+
+  /// ⚙ düğmesinin üstündeki rozet sayısı.
+  ///
+  /// Arama ve yer sayılmıyor: ikisi de ekranda zaten görünür (kutu ve
+  /// sekme). Rozet yalnız **gizli** filtreleri sayar, yoksa kullanıcı
+  /// "2" görüp alt sayfayı açtığında bir şey bulamaz.
+  int get hiddenFilterCount =>
+      (category != null ? 1 : 0) +
+      (difficulty != null ? 1 : 0) +
+      (onlyMyEquipment ? 1 : 0);
 
   CatalogFilterState copyWith({
     String? query,
     ExerciseLocation? location,
     ExerciseCategory? category,
+    int? difficulty,
     bool? onlyMyEquipment,
     bool clearLocation = false,
     bool clearCategory = false,
+    bool clearDifficulty = false,
   }) => CatalogFilterState(
     query: query ?? this.query,
     location: clearLocation ? null : (location ?? this.location),
     category: clearCategory ? null : (category ?? this.category),
+    difficulty: clearDifficulty ? null : (difficulty ?? this.difficulty),
     onlyMyEquipment: onlyMyEquipment ?? this.onlyMyEquipment,
   );
 }
@@ -69,8 +98,26 @@ class CatalogFilter extends _$CatalogFilter {
       ? state.copyWith(clearCategory: true)
       : state.copyWith(category: value);
 
+  void toggleDifficulty(int value) => state = state.difficulty == value
+      ? state.copyWith(clearDifficulty: true)
+      : state.copyWith(difficulty: value);
+
+  /// Sekmeden gelen yer seçimi — `toggle` değil, doğrudan atama.
+  ///
+  /// Sekme her zaman bir yer gösteriyor; aynı sekmeye tekrar dokunmak
+  /// seçimi kaldırmamalı (çip davranışı sekmede yanlış olurdu).
+  void setLocation(ExerciseLocation value) =>
+      state = state.copyWith(location: value);
+
   void toggleOnlyMyEquipment() =>
       state = state.copyWith(onlyMyEquipment: !state.onlyMyEquipment);
+
+  /// Alt sayfadaki filtreleri temizler; arama ve sekme yerinde kalır.
+  void clearHidden() => state = state.copyWith(
+    clearCategory: true,
+    clearDifficulty: true,
+    onlyMyEquipment: false,
+  );
 
   void clear() => state = const CatalogFilterState();
 }
@@ -115,6 +162,22 @@ Stream<List<Exercise>> filteredExercises(Ref ref) {
     ],
   );
 }
+
+/// Portun bağlandığı tek nokta.
+///
+/// `ai_bridge`'in `ai_bridge_providers.dart`'ta yaptığının aynısı:
+/// tüketen feature arayüzü tanımlar, üreten feature uygular, bağlama
+/// tüketenin `application` katmanında bir satırla yapılır. Katalogun
+/// geri kalanı `RecentExerciseSource`'tan başka bir şey görmüyor —
+/// antrenman tabloları ona kapalı.
+@riverpod
+RecentExerciseSource recentExerciseSource(Ref ref) =>
+    RecentExerciseAdapter(ref.watch(workoutRepositoryProvider));
+
+/// Katalogun "son yaptıkların" bölümü.
+@riverpod
+Stream<List<RecentExercise>> recentExercises(Ref ref) =>
+    ref.watch(recentExerciseSourceProvider).watchRecent();
 
 /// Tek bir hareket — detay sayfası için.
 @riverpod

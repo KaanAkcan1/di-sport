@@ -1,7 +1,9 @@
 import 'package:disport/app/theme/app_theme.dart';
 import 'package:disport/core/utils/turkish_text.dart';
+import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
+import 'package:disport/features/catalog/domain/recent_exercise_source.dart';
 import 'package:disport/features/catalog/presentation/catalog_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -79,6 +81,11 @@ void main() {
       filteredExercisesProvider.overrideWith(
         (ref) => Stream.value(applyFilter(ref.watch(catalogFilterProvider))),
       ),
+      // "Son yaptıkların" antrenman kayıtlarını okuyor; ekran testi
+      // Drift akışına bağlanmamalı (asılır).
+      recentExercisesProvider.overrideWith(
+        (ref) => Stream.value(const <RecentExercise>[]),
+      ),
     ],
     child: MaterialApp(
       theme: AppTheme.light,
@@ -90,10 +97,13 @@ void main() {
     await tester.pumpWidget(wrap());
     await tester.pumpAndSettle();
 
+    // Yer artık bir bağlam: ekran "Evde" sekmesiyle açılıyor, salona
+    // özel hareket burada görünmüyor (M12).
     expect(find.text('Eğimli Şınav'), findsOneWidget);
     expect(find.text('Sandalyeye Squat'), findsOneWidget);
-    expect(find.text('Plank'), findsOneWidget);
-    expect(find.text('4 hareket'), findsOneWidget);
+    expect(find.text('Plank'), findsOneWidget, reason: '"both" her sekmede');
+    expect(find.text('Kondisyon Bisikleti'), findsNothing);
+    expect(_countLabel(tester), '3');
   });
 
   testWidgets('arama listeyi daraltır', (tester) async {
@@ -105,7 +115,7 @@ void main() {
 
     expect(find.text('Sandalyeye Squat'), findsOneWidget);
     expect(find.text('Eğimli Şınav'), findsNothing);
-    expect(find.text('1 hareket'), findsOneWidget);
+    expect(_countLabel(tester), '1');
   });
 
   testWidgets('aksansız arama Türkçe kaydı bulur', (tester) async {
@@ -126,36 +136,78 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Plank'), findsOneWidget);
-    expect(find.text('1 hareket'), findsOneWidget);
+    expect(_countLabel(tester), '1');
   });
 
-  testWidgets('konum filtresi uygulanır, tekrar dokununca kalkar', (
+  testWidgets('yer sekmesi listeyi değiştirir', (tester) async {
+    await tester.pumpWidget(wrap());
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Salonda'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Kondisyon Bisikleti'), findsOneWidget);
+    expect(find.text('Sandalyeye Squat'), findsNothing);
+    // 'both' olan hareket her iki sekmede de görünür.
+    expect(find.text('Plank'), findsOneWidget);
+
+    await tester.tap(find.text('Evde'));
+    await tester.pumpAndSettle();
+    expect(find.text('Sandalyeye Squat'), findsOneWidget);
+  });
+
+  testWidgets('sekme seçili yeri korur — tekrar dokunmak sıfırlamaz', (
     tester,
   ) async {
     await tester.pumpWidget(wrap());
     await tester.pumpAndSettle();
 
-    await tester.tap(find.widgetWithText(FilterChip, 'Salon'));
+    await tester.tap(find.text('Salonda'));
     await tester.pumpAndSettle();
-    expect(find.text('Kondisyon Bisikleti'), findsOneWidget);
-    expect(find.text('Sandalyeye Squat'), findsNothing);
-    // 'both' olan Plank salon filtresinde de görünmeli
-    expect(find.text('Plank'), findsOneWidget);
+    await tester.tap(find.text('Salonda'));
+    await tester.pumpAndSettle();
 
-    await tester.tap(find.widgetWithText(FilterChip, 'Salon'));
-    await tester.pumpAndSettle();
-    expect(find.text('Sandalyeye Squat'), findsOneWidget);
+    expect(find.text('Kondisyon Bisikleti'), findsOneWidget);
   });
 
-  testWidgets('kategori filtresi uygulanır', (tester) async {
+  testWidgets('kategori filtresi alt sayfadan uygulanır', (tester) async {
     await tester.pumpWidget(wrap());
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Salonda'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const Key('open-filters')));
     await tester.pumpAndSettle();
 
     await tester.tap(find.widgetWithText(FilterChip, 'Kardiyo'));
     await tester.pumpAndSettle();
 
+    // Alt sayfa kapanmadan sonuç değişiyor; kapatınca liste süzülü.
+    await tester.tapAt(const Offset(10, 10));
+    await tester.pumpAndSettle();
+
     expect(find.text('Kondisyon Bisikleti'), findsOneWidget);
     expect(find.text('Plank'), findsNothing);
+  });
+
+  testWidgets('etkin filtre silinebilir etiket olarak görünür', (tester) async {
+    // Neyin süzüldüğü hep görünür olmalı; katalog sessizce küçülmemeli.
+    await tester.pumpWidget(wrap());
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const Key('open-filters')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.widgetWithText(FilterChip, 'Gövde'));
+    await tester.pumpAndSettle();
+    await tester.tapAt(const Offset(10, 10));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(InputChip), findsOneWidget);
+
+    await tester.tap(find.byIcon(Icons.close));
+    await tester.pumpAndSettle();
+    expect(find.byType(InputChip), findsNothing);
   });
 
   testWidgets('sonuç yoksa yol gösteren boş durum ve temizleme', (
@@ -190,6 +242,18 @@ void main() {
 
     await tester.tap(find.byIcon(Icons.clear));
     await tester.pumpAndSettle();
-    expect(find.text('4 hareket'), findsOneWidget);
+    expect(_countLabel(tester), '3');
   });
+}
+
+/// Bölüm etiketinin sağındaki sayı — M12'de "4 hareket" yerine
+/// başlık satırının sonunda salt rakam duruyor.
+String _countLabel(WidgetTester tester) {
+  final label = find.ancestor(
+    of: find.text('HAREKETLER'),
+    matching: find.byType(AppSectionLabel),
+  );
+  return tester
+      .widget<Text>(find.descendant(of: label, matching: find.byType(Text)).last)
+      .data!;
 }

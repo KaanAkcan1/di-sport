@@ -148,13 +148,14 @@ void main() {
     await tester.tap(find.text('Katalog'));
     await tester.pumpAndSettle();
 
-    // Katalog ekranı geldi: filtre çipleri görünür.
+    // Katalog ekranı geldi: yer sekmeleri ve filtre düğmesi görünür.
+    // M12'de yer bir filtre çipi değil bağlam sekmesi oldu.
     //
     // `TextField` sayısına bakılmıyor: sekmeler `IndexedStack` içinde
     // canlı kaldığı için Bugün ekranının tartı, uyku ve not alanları da
     // ağaçta duruyor — bu kasıtlı, durum korunsun diye.
-    expect(find.widgetWithText(FilterChip, 'Salon'), findsOneWidget);
-    expect(find.widgetWithText(FilterChip, 'Kuvvet'), findsOneWidget);
+    expect(find.widgetWithText(Tab, 'Salonda'), findsOneWidget);
+    expect(find.byKey(const Key('open-filters')), findsOneWidget);
 
     // Başlangıçta 'Bugün' iki yerde: AppBar başlığı + sekme etiketi.
     // Katalog'a geçince başlık değişir, geriye yalnız sekme etiketi kalır.
