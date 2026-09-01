@@ -74,7 +74,7 @@ di@sport/
 | `ai_bridge` | **tamam** | context.md üretimi, dört kapılı doğrulama, plan.json içe alma |
 | `reminders` | tam | Saf `planWindow` + platform katmanı, 7 günlük kaydırmalı pencere |
 | `nutrition` | **tamam** | Besin veritabanı, porsiyonlu öğün kaydı, kalori bütçesi, serbest aktiviteler |
-| `settings` | tam | Profil formu, bildirimler, yedekleme, **haftalık mesai/yasaklı saat pencereleri**, görünüm ve dil |
+| `settings` | tam | Profil formu (kimlik + ölçü), **Günlük Düzen** (kalkış/uyku/mesai/yasaklı saat), bildirimler, yedekleme, **haftalık mesai/yasaklı saat pencereleri**, görünüm ve dil |
 | `supplements` | **tamam** | Vitamin/ilaç tanımı, günlük alım işareti, saatli hatırlatma |
 
 ---
@@ -414,10 +414,56 @@ arayüzü tanımlıyor, `workout` uyguluyor. Serbest aktiviteler porta
 günden** kopyalıyor — dün kahvaltı girilmemiş olabilir ve boş bir kopya
 işe yaramaz. Gerçek şablon özelliği istenirse sonra eklenir.
 
+## Düzenlenebilirlik
+
+**Bugün, gün ekranının `dateKey = bugün` hâli.** Takvimden bir güne
+dokunmak `DayScreen(dateKey:)` açıyor; başlıktaki oklar ve tarih
+seçici komşu günlere geçiriyor.
+
+Tarih bir provider'da (`viewedDateProvider`) duruyor ve `DayScreen`
+onu bir `ProviderScope` ile geçersiz kılıyor. Alternatif, `dateKey`i
+onlarca widget yapıcısından geçirmekti — biri unutulduğunda sessizce
+bugüne bakan bir bölüm kalırdı.
+
+**Aile argümanı `String`, `DateTime` değil.** Riverpod argümanları `==`
+ile karşılaştırıyor; `DateTime` saat bileşeni taşıdığı için aynı günün
+iki örneği asla eşit çıkmaz ve provider sonsuza dek yeniden kurulur.
+
+| Kural | Neden |
+|---|---|
+| Bugün değilse "şimdi" yok | Kart, canlı işaret ve geçmiş/gelecek ayrımı çizilmiyor. Dünün listesine bugünün saatini uygulamak olmayan bir zaman gösterir. |
+| Gelecek günde kayıt alanı yok | Plan görünür kalıyor ("yarın ne var" meşru); alan bırakmak yanlış güne kayıt yapmaya davet ederdi. |
+| "Bugüne dön" = pop, push değil | `dateKey = bugün` push edilseydi Bugün sekmesinin ikizi doğardı. |
+| Günler arası geçiş `pushReplacement` | Bir hafta gezinen kullanıcı geri tuşuna yedi kez basmasın. |
+
+### Plan editörü
+
+`PlanEditorRepository` **yazma yolu**; `PlanRepository` okuma yolu.
+Ayrılar çünkü okuma her ekranda, yazma yalnız editörde — birleştirmek
+plan gösteren her ekrana silme yeteneği vermek olurdu.
+
+Dört editör: plan ayarları (başlık, hedefler, kurallar), gün (tip,
+başlık, akşam önerisi), slot (saat, tür, öğün, etiket, not), hareket
+(katalogdan seçim, hedefler, kardiyo şiddeti). Hepsi `planChanged()`
+üzerinden kaydediyor: plan tazeleniyor **ve alarmlar hemen yeniden
+kuruluyor**. Bir sonraki açılışı beklemek, sabah eski saatte alarm
+duymak demek.
+
+Düzenleme girişleri **gün ekranında**: kullanıcı saati değiştirirken
+zaten o güne bakıyor. Slot satırında uzun basış düzenliyor — dokunma
+işaretlemeye ait ve onu düzenlemeye vermek her işaretlemede form
+açardı.
+
+`sourceRaw` planın **kökeni** olmaya devam ediyor, tanımı olmaktan
+çıkıyor: AI planı düzenlendiğinde orijinal belge yerinde kalıyor ve
+plan başlığının altında "AI planı · düzenlendi" yazıyor.
+
+**Boş plan** (`createEmptyPlan`) hafta sayısı kadar `rest` günü açıyor,
+slotsuz. Varsayılan slot koymak silinecek satırlar üretmek olurdu.
+
 ## Durum
 
-**v1 tamamlandı (M1-M6). v2'de M7, M8, M9, M11, M12 bitti; M10
-sırada.** 622 test yeşil, analiz temiz.
+**v1 tamamlandı (M1-M6). v2 tamamlandı (M7-M12).** 622 test yeşil, analiz temiz.
 
 | | |
 |---|---|
@@ -432,7 +478,7 @@ sırada.** 622 test yeşil, analiz temiz.
 | M11 | takviye ve ilaç takibi |
 | M12 | mürekkep tasarım dili — koyu yüzey, kartsız, ekran başına bir kahraman sayı |
 | M9 | besin ve kalori — 368 besin, 72 aktivite, kalori bütçesi |
-| M10 | *(sırada)* düzenlenebilirlik — geçmiş günler, takvimden giriş |
+| M10 | düzenlenebilirlik — tarihli gün ekranı, plan editörü, Günlük Düzen |
 
 **Döngü kapandı:** onboarding → "Yeni plan iste" → `context.md` paylaş →
 herhangi bir AI → dönen JSON → "İçeri al" → doğrula → önizle → onayla →
@@ -455,6 +501,7 @@ plan Bugün ekranında.
 | v11 | `supplements`, `supplement_logs` |
 | v12 | `equipment_items.atHome/atGym`, tipli `equipment` |
 | v13 | `foods`, `food_portions`, `meal_entries`, `activities`, `activity_logs`, `workout_sessions` + `plan_exercises`/`exercise_logs` şiddet sütunları |
+| v14 | `plan_slots.mealKind` |
 
 Tablo eklerken `schemaVersion`'ı artır ve `onUpgrade`'e **yeni bir**
 `if (from < N)` bloğu ekle; eskileri değiştirme.
@@ -547,3 +594,11 @@ Kurallar, ölçüm türleri ve ekipman aynı desende:
 - **Geri yükleme sonrası uygulama yeniden başlatılmalı** — açık Drift
   bağlantısı eski veriyi göstermeye devam ediyor. Kullanıcıya snackbar ile
   söyleniyor; otomatik yeniden başlatma yok.
+- **Geçmiş günde antrenman seti düzenlenemiyor.** Gün ekranı tartıyı,
+  öğünü, kuralları ve notu geçmişe yazıyor ama `exercise_logs` satırları
+  yalnız antrenman ekranından ve yalnız o gün giriliyor. M10 gözden
+  geçirmesinde istenmişti; kapsam dışı bırakıldı ve açık kalıyor.
+- **`profile_entries.familyDinnerTime` yazılamıyor.** Alan formdan
+  kalktı ama veri duruyor; `context.md` onu hâlâ basıyor. Eski
+  kurulumlarda değer varsa AI görmeye devam eder, yeni kurulumda hiç
+  dolmaz.

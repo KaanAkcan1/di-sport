@@ -159,36 +159,6 @@ Future<int?> dailyKcalGoal(Ref ref) async =>
 Future<int?> dailyProteinGoal(Ref ref) async =>
     (await ref.watch(activePlanProvider.future))?.goals.proteinG;
 
-/// Bugünün kalan bütçesi — kahraman sayı.
-///
-/// **Senkron provider, akış değil:** iki asenkron kaynağı (hedef ve
-/// günün enerjisi) birleştiriyor ve Riverpod ikisini de kendisi
-/// izliyor. Elle akış birleştirmek aynı işi daha kırılgan yapardı.
-///
-/// Veri henüz gelmediyse `null` dönüyor; ekran bunu "—" olarak
-/// gösteriyor. Bütçesi olmayan kullanıcı da `null` alıyor ve ikisi
-/// aynı şeyi gösteriyor: gösterilecek bir sayı yok.
-@riverpod
-double? todayRemainingKcal(Ref ref) {
-  final goal = ref.watch(dailyKcalGoalProvider).value;
-  final isoDate = ref.watch(todayIsoProvider);
-  final energy = ref.watch(dayEnergyProvider(isoDate)).value;
-
-  if (energy == null) return null;
-  return remainingBudget(goalKcal: goal, day: energy);
-}
-
-/// Kahramanın altındaki göstergenin doluluğu.
-@riverpod
-double? todayGaugeFraction(Ref ref) {
-  final goal = ref.watch(dailyKcalGoalProvider).value;
-  final isoDate = ref.watch(todayIsoProvider);
-  final energy = ref.watch(dayEnergyProvider(isoDate)).value;
-
-  if (energy == null) return null;
-  return gaugeFraction(goalKcal: goal, day: energy);
-}
-
 /// Takvim tonlaması: gün → (yenen − yakılan).
 @riverpod
 Stream<Map<String, double>> netKcalByDay(

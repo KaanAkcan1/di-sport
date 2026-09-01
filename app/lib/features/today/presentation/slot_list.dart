@@ -83,7 +83,9 @@ class SlotList extends ConsumerWidget {
       // "Şimdi" işareti geçmiş slotlarla gelecek slotlar arasına bir kez
       // giriyor. Gün başındaysa (hiç slot geçmemişse) hiç çizilmiyor —
       // listenin tepesinde asılı bir çizgi bilgi taşımaz.
-      if (!past && !markerDrawn && index > 0) {
+      // `now == null` (bugün değil) ise işaret hiç çizilmiyor: geçmiş
+      // bir günün listesinde "şimdi" diye bir yer yok.
+      if (now != null && !past && !markerDrawn && index > 0) {
         rows.add(AppNowMarker(label: _formatNow(now!)));
         markerDrawn = true;
       }

@@ -7,6 +7,7 @@ import 'package:disport/core/utils/turkish_text.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/nutrition/application/nutrition_providers.dart';
+import 'package:disport/features/nutrition/domain/calorie_budget.dart';
 import 'package:disport/features/nutrition/presentation/day_meals_card.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/plan/presentation/day_editor_sheet.dart';
@@ -322,8 +323,15 @@ class _Hero extends ConsumerWidget {
     final isoDate = date;
     final energy = ref.watch(dayEnergyProvider(isoDate)).value;
     final goal = ref.watch(dailyKcalGoalProvider).value;
-    final remaining = ref.watch(todayRemainingKcalProvider);
-    final gauge = ref.watch(todayGaugeFractionProvider);
+    // **Bakılan günden** hesaplanıyor, bugünden değil: geçmiş bir
+    // günün ekranında bugünün bütçesini göstermek, kullanıcıya o gün
+    // hiç olmamış bir sayı sunmak olurdu.
+    final remaining = energy == null
+        ? null
+        : remainingBudget(goalKcal: goal, day: energy);
+    final gauge = energy == null
+        ? null
+        : gaugeFraction(goalKcal: goal, day: energy);
     final proteinGoal = ref.watch(dailyProteinGoalProvider).value;
     final protein =
         ref.watch(dayMealsProvider(isoDate)).value?.fold<double>(
