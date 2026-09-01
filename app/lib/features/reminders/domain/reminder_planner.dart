@@ -7,15 +7,22 @@ import 'package:disport/features/settings/domain/weekly_window.dart';
 /// olmalarının nedeni platformun payload'ı metin taşıması.
 abstract final class ReminderPayloads {
   static const today = 'today';
+  static const meal = 'meal';
   static const workout = 'workout';
   static const plan = 'plan';
   static const health = 'health';
 
-  /// Sekme dizini karşılığı — kabuk bunu okur.
+  /// Sekme dizini karşılığı — kabuk bunu okur (v3 sırası:
+  /// Ana Sayfa · Diyet · Spor · Sağlık · Daha).
+  ///
+  /// `meal` v3'te ayrıldı: öğün bildirimi Diyet'e, antrenman Spor'a
+  /// gitmeli. v2'de ikisi de Bugün'e düşüyordu ve doğruydu; sekmeler
+  /// ayrılınca payload da ayrıldı.
   static const tabIndex = <String, int>{
     today: 0,
-    workout: 0, // Antrenman akışı Bugün ekranından başlıyor.
-    plan: 1,
+    meal: 1,
+    workout: 2,
+    plan: 2,
     health: 3,
   };
 }
@@ -225,9 +232,11 @@ Iterable<PlannedReminder> _slotReminders(
         isWorkout ? ReminderTextKind.slotWorkout : ReminderTextKind.slotOther,
         label: slot.label,
       ),
-      payload: isWorkout
-          ? ReminderPayloads.workout
-          : ReminderPayloads.today,
+      payload: switch (slot.kind) {
+        'workout' => ReminderPayloads.workout,
+        'meal' => ReminderPayloads.meal,
+        _ => ReminderPayloads.today,
+      },
     );
   }
 }

@@ -12,7 +12,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// M6'nın kullanıcı-tanımlı-veri kalıbı: yerleşik tohum yok, silme
 /// yumuşak, silme onayı geçmişin korunacağını **açıkça** söylüyor.
 class SupplementsScreen extends ConsumerWidget {
-  const SupplementsScreen({super.key});
+  const SupplementsScreen({super.key, this.embedded = false});
+
+  /// Sağlık kabuğunun içinde mi (v3) yoksa kendi sayfasında mı.
+  ///
+  /// Kabukta ikinci bir başlık çubuğu segment etiketini tekrarlardı;
+  /// gömülüyken AppBar çizilmez, FAB kalır.
+  final bool embedded;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,7 +26,8 @@ class SupplementsScreen extends ConsumerWidget {
     final items = ref.watch(supplementsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.supplementsTitle)),
+      backgroundColor: embedded ? Colors.transparent : null,
+      appBar: embedded ? null : AppBar(title: Text(l10n.supplementsTitle)),
       floatingActionButton: FloatingActionButton.extended(
         key: const Key('add-supplement-fab'),
         onPressed: () => showSupplementForm(context, ref),

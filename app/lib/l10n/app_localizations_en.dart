@@ -1851,4 +1851,97 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get slotKindOther => 'Other';
+
+  @override
+  String get tabHome => 'Home';
+
+  @override
+  String get tabDiet => 'Diet';
+
+  @override
+  String get tabSport => 'Sport';
+
+  @override
+  String get tabMore => 'More';
+
+  @override
+  String get tabHomeHint => 'Today\'s summary and flow';
+
+  @override
+  String get tabDietHint => 'Meals, foods, calorie history';
+
+  @override
+  String get tabSportHint => 'Plan, workouts, exercise catalogue';
+
+  @override
+  String get tabMoreHint => 'Your data and app settings';
+
+  @override
+  String get dietTabDaily => 'Daily';
+
+  @override
+  String get dietTabFoods => 'Foods';
+
+  @override
+  String get dietTabHistory => 'History';
+
+  @override
+  String get sportTabPlan => 'Plan';
+
+  @override
+  String get sportTabWorkout => 'Workout';
+
+  @override
+  String get sportTabCatalog => 'Catalogue';
+
+  @override
+  String get healthTabLabs => 'Labs';
+
+  @override
+  String get healthTabMeasure => 'Measures';
+
+  @override
+  String get healthTabMeds => 'Meds';
+
+  @override
+  String get sportWorkoutEmptyTitle => 'No sessions yet';
+
+  @override
+  String get sportWorkoutEmptyMessage =>
+      'Start a workout from the plan; finished sessions appear here.';
+
+  @override
+  String get moreYourData => 'Shapes your plan';
+
+  @override
+  String get moreYourDataHint => 'Goes to the AI';
+
+  @override
+  String get moreApp => 'App';
+
+  @override
+  String get moreProfile => 'Profile';
+
+  @override
+  String get moreEquipment => 'Your equipment';
+
+  @override
+  String get moreRhythm => 'Daily rhythm';
+
+  @override
+  String get moreRules => 'Daily rules';
+
+  @override
+  String get moreNotifications => 'Notifications';
+
+  @override
+  String get moreAppearance => 'Appearance and language';
+
+  @override
+  String get moreBackup => 'Backup';
+
+  @override
+  String moreBackupStale(int days) {
+    return 'No backup for $days days';
+  }
 }

@@ -1,20 +1,20 @@
+import 'package:disport/app/shells/diet_shell.dart';
+import 'package:disport/app/shells/health_shell.dart';
+import 'package:disport/app/shells/more_screen.dart';
+import 'package:disport/app/shells/sport_shell.dart';
 import 'package:disport/app/theme/app_theme.dart';
 import 'package:disport/core/db/app_database.dart';
 import 'package:disport/core/notifications/local_notification_service.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
-import 'package:disport/features/catalog/presentation/catalog_screen.dart';
-import 'package:disport/features/health/presentation/health_screen.dart';
-import 'package:disport/features/plan/presentation/plan_screen.dart';
-import 'package:disport/features/progress/presentation/progress_screen.dart';
 import 'package:disport/features/reminders/domain/reminder_planner.dart';
 import 'package:disport/features/settings/application/settings_providers.dart';
 import 'package:disport/features/settings/presentation/onboarding_screen.dart';
-import 'package:disport/features/settings/presentation/settings_screen.dart';
 import 'package:disport/features/today/presentation/today_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 /// Veritabanının tek örneği.
 ///
@@ -101,9 +101,12 @@ class _Shell extends StatefulWidget {
   State<_Shell> createState() => _ShellState();
 }
 
-/// Seçili ve seçili olmayan ikon ayrı: dolu ikon aktif konumu renkten
-/// bağımsız olarak da belli eder (ui-ux §1 `color-not-only`,
-/// §9 `nav-state-active`).
+/// Lucide tek ağırlıklı; aktif konum rengin yanında `NavigationBar`ın
+/// hap göstergesiyle de belli — renk tek başına sinyal değil
+/// (ui-ux §1 `color-not-only`, §9 `nav-state-active`).
+///
+/// phosphor_flutter denendi ve elendi: 2.1.0 `IconData`yı extend ediyor,
+/// Flutter 3.47'de `IconData` final — paket derlenmiyor.
 typedef _Tab = ({
   IconData icon,
   IconData selectedIcon,
@@ -145,48 +148,51 @@ class _ShellState extends State<_Shell> {
   ///
   /// `ReminderPayloads.tabIndex` bu sıraya bağlı — bildirime dokunmak
   /// doğru sekmeyi açıyor. Sıra değişirse orası da değişmeli.
+  ///
+  /// v3 sırası: Ana Sayfa · Diyet · Spor · Sağlık · Daha. Dört alan
+  /// birinci sınıf, ilaç Sağlık'ın altında, eski Ayarlar "Daha" dizini.
   static const List<_Tab> _tabs = [
     (
-      icon: Icons.today_outlined,
-      selectedIcon: Icons.today,
+      icon: LucideIcons.house,
+      selectedIcon: LucideIcons.house,
       screen: TodayScreen(),
     ),
     (
-      icon: Icons.calendar_month_outlined,
-      selectedIcon: Icons.calendar_month,
-      screen: PlanScreen(),
+      icon: LucideIcons.utensils,
+      selectedIcon: LucideIcons.utensils,
+      screen: DietShell(),
     ),
     (
-      icon: Icons.show_chart_outlined,
-      selectedIcon: Icons.show_chart,
-      screen: ProgressScreen(),
+      icon: LucideIcons.dumbbell,
+      selectedIcon: LucideIcons.dumbbell,
+      screen: SportShell(),
     ),
     (
-      icon: Icons.favorite_outline,
-      selectedIcon: Icons.favorite,
-      screen: HealthScreen(),
+      icon: LucideIcons.heartPulse,
+      selectedIcon: LucideIcons.heartPulse,
+      screen: HealthShell(),
     ),
     (
-      icon: Icons.fitness_center_outlined,
-      selectedIcon: Icons.fitness_center,
-      screen: CatalogScreen(),
+      icon: LucideIcons.layoutGrid,
+      selectedIcon: LucideIcons.layoutGrid,
+      screen: MoreScreen(),
     ),
   ];
 
   List<String> _labels(BuildContext context) => [
-    context.l10n.tabToday,
-    context.l10n.tabPlan,
-    context.l10n.tabProgress,
+    context.l10n.tabHome,
+    context.l10n.tabDiet,
+    context.l10n.tabSport,
     context.l10n.tabHealth,
-    context.l10n.tabCatalog,
+    context.l10n.tabMore,
   ];
 
   List<String> _hints(BuildContext context) => [
-    context.l10n.tabTodayHint,
-    context.l10n.tabPlanHint,
-    context.l10n.tabProgressHint,
+    context.l10n.tabHomeHint,
+    context.l10n.tabDietHint,
+    context.l10n.tabSportHint,
     context.l10n.tabHealthHint,
-    context.l10n.tabCatalogHint,
+    context.l10n.tabMoreHint,
   ];
 
   @override
@@ -194,20 +200,10 @@ class _ShellState extends State<_Shell> {
     final labels = _labels(context);
     final hints = _hints(context);
 
+    // Kabuğun tek `AppBar`'ı v3'te kalktı: Ana Sayfa'nın başlığı günün
+    // adı, Diyet'inki sekme adı — ortak bir çubuk ikisini de yanlış
+    // yapardı. Ayarlar dişlisi de gitti; "Daha" sekmesi onun yerine.
     return Scaffold(
-      appBar: AppBar(
-        title: Text(labels[_index]),
-        actions: [
-          IconButton(
-            key: const Key('settings-button'),
-            icon: const Icon(Icons.settings_outlined),
-            tooltip: context.l10n.settingsTooltip,
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute<void>(builder: (_) => const SettingsScreen()),
-            ),
-          ),
-        ],
-      ),
       body: SafeArea(
         // Alt çubuk kendi güvenli alanını yönetiyor; gövdede yalnız
         // yanlar ve üst gerekiyor (ui-ux §5 `safe-area-awareness`).

@@ -3372,6 +3372,186 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'Diğer'**
   String get slotKindOther;
+
+  /// No description provided for @tabHome.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ana Sayfa'**
+  String get tabHome;
+
+  /// No description provided for @tabDiet.
+  ///
+  /// In tr, this message translates to:
+  /// **'Diyet'**
+  String get tabDiet;
+
+  /// No description provided for @tabSport.
+  ///
+  /// In tr, this message translates to:
+  /// **'Spor'**
+  String get tabSport;
+
+  /// No description provided for @tabMore.
+  ///
+  /// In tr, this message translates to:
+  /// **'Daha'**
+  String get tabMore;
+
+  /// No description provided for @tabHomeHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Günün özeti ve akışı'**
+  String get tabHomeHint;
+
+  /// No description provided for @tabDietHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öğünler, besinler, kalori geçmişi'**
+  String get tabDietHint;
+
+  /// No description provided for @tabSportHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Plan, antrenman, hareket kataloğu'**
+  String get tabSportHint;
+
+  /// No description provided for @tabMoreHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Verilerin ve uygulama ayarları'**
+  String get tabMoreHint;
+
+  /// No description provided for @dietTabDaily.
+  ///
+  /// In tr, this message translates to:
+  /// **'Günlük'**
+  String get dietTabDaily;
+
+  /// No description provided for @dietTabFoods.
+  ///
+  /// In tr, this message translates to:
+  /// **'Besinler'**
+  String get dietTabFoods;
+
+  /// No description provided for @dietTabHistory.
+  ///
+  /// In tr, this message translates to:
+  /// **'Geçmiş'**
+  String get dietTabHistory;
+
+  /// No description provided for @sportTabPlan.
+  ///
+  /// In tr, this message translates to:
+  /// **'Plan'**
+  String get sportTabPlan;
+
+  /// No description provided for @sportTabWorkout.
+  ///
+  /// In tr, this message translates to:
+  /// **'Antrenman'**
+  String get sportTabWorkout;
+
+  /// No description provided for @sportTabCatalog.
+  ///
+  /// In tr, this message translates to:
+  /// **'Katalog'**
+  String get sportTabCatalog;
+
+  /// No description provided for @healthTabLabs.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tahlil'**
+  String get healthTabLabs;
+
+  /// No description provided for @healthTabMeasure.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ölçüm'**
+  String get healthTabMeasure;
+
+  /// No description provided for @healthTabMeds.
+  ///
+  /// In tr, this message translates to:
+  /// **'İlaç'**
+  String get healthTabMeds;
+
+  /// No description provided for @sportWorkoutEmptyTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Henüz seans yok'**
+  String get sportWorkoutEmptyTitle;
+
+  /// No description provided for @sportWorkoutEmptyMessage.
+  ///
+  /// In tr, this message translates to:
+  /// **'Antrenmanı plandan başlat; biten seanslar burada görünür.'**
+  String get sportWorkoutEmptyMessage;
+
+  /// No description provided for @moreYourData.
+  ///
+  /// In tr, this message translates to:
+  /// **'Planını etkileyenler'**
+  String get moreYourData;
+
+  /// No description provided for @moreYourDataHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'AI\'a gider'**
+  String get moreYourDataHint;
+
+  /// No description provided for @moreApp.
+  ///
+  /// In tr, this message translates to:
+  /// **'Uygulama'**
+  String get moreApp;
+
+  /// No description provided for @moreProfile.
+  ///
+  /// In tr, this message translates to:
+  /// **'Profil'**
+  String get moreProfile;
+
+  /// No description provided for @moreEquipment.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ekipmanların'**
+  String get moreEquipment;
+
+  /// No description provided for @moreRhythm.
+  ///
+  /// In tr, this message translates to:
+  /// **'Günlük düzen'**
+  String get moreRhythm;
+
+  /// No description provided for @moreRules.
+  ///
+  /// In tr, this message translates to:
+  /// **'Günlük kurallar'**
+  String get moreRules;
+
+  /// No description provided for @moreNotifications.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bildirimler'**
+  String get moreNotifications;
+
+  /// No description provided for @moreAppearance.
+  ///
+  /// In tr, this message translates to:
+  /// **'Görünüm ve dil'**
+  String get moreAppearance;
+
+  /// No description provided for @moreBackup.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yedekleme'**
+  String get moreBackup;
+
+  /// No description provided for @moreBackupStale.
+  ///
+  /// In tr, this message translates to:
+  /// **'{days} gündür yedek alınmadı'**
+  String moreBackupStale(int days);
 }
 
 class _AppLocalizationsDelegate

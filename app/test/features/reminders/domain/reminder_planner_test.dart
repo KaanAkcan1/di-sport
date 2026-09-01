@@ -135,9 +135,12 @@ void main() {
       expect(r.first.payload, ReminderPayloads.workout);
     });
 
-    test('öğün slotu bugün sekmesine yönlendirir', () {
+    test('öğün slotu Diyet sekmesine yönlendirir', () {
+      // v3: öğün bildirimi Diyet'e, antrenman Spor'a. v2'de ikisi de
+      // Bugün'e düşüyordu ve sekmeler ayrılınca payload da ayrıldı.
       final r = plan(slots: weekSlots(), kindEnabled: {'meal': true});
-      expect(r.first.payload, ReminderPayloads.today);
+      expect(r.first.payload, ReminderPayloads.meal);
+      expect(ReminderPayloads.tabIndex[ReminderPayloads.meal], 1);
     });
   });
 

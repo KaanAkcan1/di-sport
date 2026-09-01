@@ -1848,4 +1848,97 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get slotKindOther => 'Diğer';
+
+  @override
+  String get tabHome => 'Ana Sayfa';
+
+  @override
+  String get tabDiet => 'Diyet';
+
+  @override
+  String get tabSport => 'Spor';
+
+  @override
+  String get tabMore => 'Daha';
+
+  @override
+  String get tabHomeHint => 'Günün özeti ve akışı';
+
+  @override
+  String get tabDietHint => 'Öğünler, besinler, kalori geçmişi';
+
+  @override
+  String get tabSportHint => 'Plan, antrenman, hareket kataloğu';
+
+  @override
+  String get tabMoreHint => 'Verilerin ve uygulama ayarları';
+
+  @override
+  String get dietTabDaily => 'Günlük';
+
+  @override
+  String get dietTabFoods => 'Besinler';
+
+  @override
+  String get dietTabHistory => 'Geçmiş';
+
+  @override
+  String get sportTabPlan => 'Plan';
+
+  @override
+  String get sportTabWorkout => 'Antrenman';
+
+  @override
+  String get sportTabCatalog => 'Katalog';
+
+  @override
+  String get healthTabLabs => 'Tahlil';
+
+  @override
+  String get healthTabMeasure => 'Ölçüm';
+
+  @override
+  String get healthTabMeds => 'İlaç';
+
+  @override
+  String get sportWorkoutEmptyTitle => 'Henüz seans yok';
+
+  @override
+  String get sportWorkoutEmptyMessage =>
+      'Antrenmanı plandan başlat; biten seanslar burada görünür.';
+
+  @override
+  String get moreYourData => 'Planını etkileyenler';
+
+  @override
+  String get moreYourDataHint => 'AI\'a gider';
+
+  @override
+  String get moreApp => 'Uygulama';
+
+  @override
+  String get moreProfile => 'Profil';
+
+  @override
+  String get moreEquipment => 'Ekipmanların';
+
+  @override
+  String get moreRhythm => 'Günlük düzen';
+
+  @override
+  String get moreRules => 'Günlük kurallar';
+
+  @override
+  String get moreNotifications => 'Bildirimler';
+
+  @override
+  String get moreAppearance => 'Görünüm ve dil';
+
+  @override
+  String get moreBackup => 'Yedekleme';
+
+  @override
+  String moreBackupStale(int days) {
+    return '$days gündür yedek alınmadı';
+  }
 }

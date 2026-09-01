@@ -702,5 +702,42 @@
   "slotKindSleep": "Sleep",
   "slotKindMeasurement": "Measurement",
   "slotKindLab": "Lab test",
-  "slotKindOther": "Other"
+  "slotKindOther": "Other",
+  "tabHome": "Home",
+  "tabDiet": "Diet",
+  "tabSport": "Sport",
+  "tabMore": "More",
+  "tabHomeHint": "Today's summary and flow",
+  "tabDietHint": "Meals, foods, calorie history",
+  "tabSportHint": "Plan, workouts, exercise catalogue",
+  "tabMoreHint": "Your data and app settings",
+  "dietTabDaily": "Daily",
+  "dietTabFoods": "Foods",
+  "dietTabHistory": "History",
+  "sportTabPlan": "Plan",
+  "sportTabWorkout": "Workout",
+  "sportTabCatalog": "Catalogue",
+  "healthTabLabs": "Labs",
+  "healthTabMeasure": "Measures",
+  "healthTabMeds": "Meds",
+  "sportWorkoutEmptyTitle": "No sessions yet",
+  "sportWorkoutEmptyMessage": "Start a workout from the plan; finished sessions appear here.",
+  "moreYourData": "Shapes your plan",
+  "moreYourDataHint": "Goes to the AI",
+  "moreApp": "App",
+  "moreProfile": "Profile",
+  "moreEquipment": "Your equipment",
+  "moreRhythm": "Daily rhythm",
+  "moreRules": "Daily rules",
+  "moreNotifications": "Notifications",
+  "moreAppearance": "Appearance and language",
+  "moreBackup": "Backup",
+  "moreBackupStale": "No backup for {days} days",
+  "@moreBackupStale": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  }
 }

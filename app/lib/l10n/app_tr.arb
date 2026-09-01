@@ -702,5 +702,42 @@
   "slotKindSleep": "Uyku",
   "slotKindMeasurement": "Ölçüm",
   "slotKindLab": "Tahlil",
-  "slotKindOther": "Diğer"
+  "slotKindOther": "Diğer",
+  "tabHome": "Ana Sayfa",
+  "tabDiet": "Diyet",
+  "tabSport": "Spor",
+  "tabMore": "Daha",
+  "tabHomeHint": "Günün özeti ve akışı",
+  "tabDietHint": "Öğünler, besinler, kalori geçmişi",
+  "tabSportHint": "Plan, antrenman, hareket kataloğu",
+  "tabMoreHint": "Verilerin ve uygulama ayarları",
+  "dietTabDaily": "Günlük",
+  "dietTabFoods": "Besinler",
+  "dietTabHistory": "Geçmiş",
+  "sportTabPlan": "Plan",
+  "sportTabWorkout": "Antrenman",
+  "sportTabCatalog": "Katalog",
+  "healthTabLabs": "Tahlil",
+  "healthTabMeasure": "Ölçüm",
+  "healthTabMeds": "İlaç",
+  "sportWorkoutEmptyTitle": "Henüz seans yok",
+  "sportWorkoutEmptyMessage": "Antrenmanı plandan başlat; biten seanslar burada görünür.",
+  "moreYourData": "Planını etkileyenler",
+  "moreYourDataHint": "AI'a gider",
+  "moreApp": "Uygulama",
+  "moreProfile": "Profil",
+  "moreEquipment": "Ekipmanların",
+  "moreRhythm": "Günlük düzen",
+  "moreRules": "Günlük kurallar",
+  "moreNotifications": "Bildirimler",
+  "moreAppearance": "Görünüm ve dil",
+  "moreBackup": "Yedekleme",
+  "moreBackupStale": "{days} gündür yedek alınmadı",
+  "@moreBackupStale": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  }
 }

@@ -36,6 +36,12 @@ void main() {
   Widget wrap() => ProviderScope(
     overrides: [
       appDatabaseProvider.overrideWithValue(db),
+      // v3 kabuğu beş sekmeyi de canlı tutuyor; yeni görünür ekranların
+      // Drift akışları da override edilmeli (asılır).
+      supplementsProvider.overrideWith(
+        (ref) => Stream.value(const <Supplement>[]),
+      ),
+      foodResultsProvider.overrideWith((ref) => Stream.value(const <Food>[])),
       // Kabuk testi sekme geçişini sınar, katalog içeriğini değil.
       // Bu override olmadan Katalog sekmesi gerçek Drift akışına bağlanır
       // ve `pumpAndSettle` o akışı bekleyerek asılı kalır — akış gerçek
@@ -166,10 +172,10 @@ void main() {
     await tester.pumpWidget(wrap());
     await tester.pumpAndSettle();
 
-    // 'Bugün' hem sekme etiketi hem AppBar başlığı olarak görünür.
-    expect(find.text('Bugün'), findsWidgets);
-    for (final label in ['Plan', 'İlerleme', 'Sağlık', 'Katalog']) {
-      expect(find.text(label), findsOneWidget);
+    // v3 sırası: Ana Sayfa · Diyet · Spor · Sağlık · Daha. Kabuğun tek
+    // AppBar'ı kalktı; her sekme kendi başlığını kuruyor.
+    for (final label in ['Ana Sayfa', 'Diyet', 'Spor', 'Sağlık', 'Daha']) {
+      expect(find.text(label), findsWidgets);
     }
     // Tartı alanı ekranın alt yarısında; gövde tembel bir liste ve
     // M9'da öğün bölümü eklenince artık ilk pencerede kurulmuyor.
@@ -182,33 +188,30 @@ void main() {
     expect(find.byKey(const Key('weight-field')), findsOneWidget);
   });
 
-  testWidgets('tapping a tab switches screen and title', (tester) async {
+  testWidgets('tapping a tab switches screen', (tester) async {
     await tester.pumpWidget(wrap());
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('Katalog'));
+    await tester.tap(find.text('Spor'));
     await tester.pumpAndSettle();
 
-    // Katalog ekranı geldi: yer sekmeleri ve filtre düğmesi görünür.
-    // M12'de yer bir filtre çipi değil bağlam sekmesi oldu.
-    //
-    // `TextField` sayısına bakılmıyor: sekmeler `IndexedStack` içinde
-    // canlı kaldığı için Bugün ekranının tartı, uyku ve not alanları da
-    // ağaçta duruyor — bu kasıtlı, durum korunsun diye.
-    expect(find.widgetWithText(Tab, 'Salonda'), findsOneWidget);
-    expect(find.byKey(const Key('open-filters')), findsOneWidget);
-
-    // Başlangıçta 'Bugün' iki yerde: AppBar başlığı + sekme etiketi.
-    // Katalog'a geçince başlık değişir, geriye yalnız sekme etiketi kalır.
-    expect(find.text('Bugün'), findsOneWidget);
-    expect(find.text('Katalog'), findsNWidgets(2)); // başlık + sekme
+    // Spor kabuğu geldi: alt segment PLAN · ANTRENMAN · KATALOG.
+    // `IndexedStack` diğer sekmeleri canlı tuttuğu için widget sayısına
+    // değil segmentin varlığına bakılıyor.
+    expect(find.text('PLAN'), findsOneWidget);
+    expect(find.text('ANTRENMAN'), findsOneWidget);
+    expect(find.text('KATALOG'), findsOneWidget);
   });
 
   testWidgets('IndexedStack keeps all five screens alive', (tester) async {
     await tester.pumpWidget(wrap());
     await tester.pumpAndSettle();
 
-    final stack = tester.widget<IndexedStack>(find.byType(IndexedStack));
+    // Kabuğun kök yığını: shell'lerin kendi iç yığınları da var, ilkini
+    // alıyoruz (ağaçta en üstte).
+    final stack = tester.widget<IndexedStack>(
+      find.byType(IndexedStack).first,
+    );
     expect(stack.children, hasLength(5));
     expect(stack.index, 0);
   });
