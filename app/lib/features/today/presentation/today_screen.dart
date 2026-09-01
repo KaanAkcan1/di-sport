@@ -9,6 +9,9 @@ import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/nutrition/application/nutrition_providers.dart';
 import 'package:disport/features/nutrition/presentation/day_meals_card.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/plan/presentation/day_editor_sheet.dart';
+import 'package:disport/features/plan/presentation/exercise_editor_sheet.dart';
+import 'package:disport/features/plan/presentation/slot_editor_sheet.dart';
 import 'package:disport/features/plan/presentation/slot_kind_icon.dart';
 import 'package:disport/features/today/application/day_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
@@ -93,6 +96,7 @@ class DayBody extends ConsumerWidget {
             _Spine(day: day),
             if (day.dinnerSuggestion.isNotEmpty)
               _DinnerHint(text: day.dinnerSuggestion),
+            _DayEditActions(day: day),
           ],
 
           const SizedBox(height: AppSpacing.xl2),
@@ -426,8 +430,16 @@ class _Spine extends ConsumerWidget {
           ),
           const SizedBox(height: AppSpacing.xl2),
         ],
-        AppSectionLabel(context.l10n.todaySpineLabel),
+        AppSectionLabel(
+          context.l10n.todaySpineLabel,
+          trailing: IconButton(
+            icon: const Icon(Icons.add),
+            tooltip: context.l10n.planSlotNew,
+            onPressed: () => showSlotEditorSheet(context, dayId: day.id),
+          ),
+        ),
         SlotList(day: day, now: isToday ? now : null, hoistNext: isToday),
+
       ],
     );
   }
@@ -505,6 +517,38 @@ class _DinnerHint extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Planı düzenleme girişleri.
+///
+/// **Gün ekranında, plan sekmesinde değil:** kullanıcı "bugün 08:00
+/// yerine 09:00'da kahvaltı edeceğim" derken zaten o güne bakıyor;
+/// plan sekmesine gidip günü yeniden bulması gereksiz bir yolculuk
+/// olurdu.
+class _DayEditActions extends StatelessWidget {
+  const _DayEditActions({required this.day});
+
+  final FullPlanDay day;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.only(top: AppSpacing.md),
+    child: Wrap(
+      spacing: AppSpacing.sm,
+      children: [
+        TextButton.icon(
+          icon: const Icon(Icons.edit_outlined),
+          label: Text(context.l10n.planEditDay),
+          onPressed: () => showDayEditorSheet(context, day: day),
+        ),
+        TextButton.icon(
+          icon: const Icon(Icons.fitness_center),
+          label: Text(context.l10n.planExerciseNew),
+          onPressed: () => showExerciseEditorSheet(context, dayId: day.id),
+        ),
+      ],
+    ),
+  );
 }
 
 /// Gelecek günde kayıt alanlarının yerine geçen tek satır.

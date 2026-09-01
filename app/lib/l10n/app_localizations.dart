@@ -3030,6 +3030,348 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'Planı görebilirsin ama kayıt günü gelince girilir.'**
   String get dayFutureNoEntry;
+
+  /// No description provided for @planSettingsTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Plan ayarları'**
+  String get planSettingsTitle;
+
+  /// No description provided for @planSettingsName.
+  ///
+  /// In tr, this message translates to:
+  /// **'Plan adı'**
+  String get planSettingsName;
+
+  /// No description provided for @planSettingsNameRequired.
+  ///
+  /// In tr, this message translates to:
+  /// **'Plana bir ad ver'**
+  String get planSettingsNameRequired;
+
+  /// No description provided for @planSettingsGoals.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hedefler'**
+  String get planSettingsGoals;
+
+  /// No description provided for @planGoalKcal.
+  ///
+  /// In tr, this message translates to:
+  /// **'Günlük kalori'**
+  String get planGoalKcal;
+
+  /// No description provided for @planGoalWeeklyGym.
+  ///
+  /// In tr, this message translates to:
+  /// **'Haftada salon günü'**
+  String get planGoalWeeklyGym;
+
+  /// No description provided for @planGoalWeeklyHome.
+  ///
+  /// In tr, this message translates to:
+  /// **'Haftada ev günü'**
+  String get planGoalWeeklyHome;
+
+  /// No description provided for @planGoalTargetLoss.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hedef kayıp (kg)'**
+  String get planGoalTargetLoss;
+
+  /// No description provided for @planGoalRange.
+  ///
+  /// In tr, this message translates to:
+  /// **'{min} ile {max} arasında bir değer gir'**
+  String planGoalRange(String min, String max);
+
+  /// No description provided for @planRuleAdd.
+  ///
+  /// In tr, this message translates to:
+  /// **'Satır ekle'**
+  String get planRuleAdd;
+
+  /// No description provided for @commonRemove.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kaldır'**
+  String get commonRemove;
+
+  /// No description provided for @commonAdd.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ekle'**
+  String get commonAdd;
+
+  /// No description provided for @planEditDay.
+  ///
+  /// In tr, this message translates to:
+  /// **'Günü düzenle'**
+  String get planEditDay;
+
+  /// No description provided for @planDayType.
+  ///
+  /// In tr, this message translates to:
+  /// **'Gün tipi'**
+  String get planDayType;
+
+  /// No description provided for @planDayTypeGym.
+  ///
+  /// In tr, this message translates to:
+  /// **'Salon'**
+  String get planDayTypeGym;
+
+  /// No description provided for @planDayTypeHome.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ev'**
+  String get planDayTypeHome;
+
+  /// No description provided for @planDayTypeRest.
+  ///
+  /// In tr, this message translates to:
+  /// **'Dinlenme'**
+  String get planDayTypeRest;
+
+  /// No description provided for @planDayHeadline.
+  ///
+  /// In tr, this message translates to:
+  /// **'Başlık'**
+  String get planDayHeadline;
+
+  /// No description provided for @planDayDinner.
+  ///
+  /// In tr, this message translates to:
+  /// **'Akşam önerisi'**
+  String get planDayDinner;
+
+  /// No description provided for @planSlotNew.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yeni slot'**
+  String get planSlotNew;
+
+  /// No description provided for @planSlotEdit.
+  ///
+  /// In tr, this message translates to:
+  /// **'Slotu düzenle'**
+  String get planSlotEdit;
+
+  /// No description provided for @planSlotTime.
+  ///
+  /// In tr, this message translates to:
+  /// **'Saat'**
+  String get planSlotTime;
+
+  /// No description provided for @planSlotKind.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tür'**
+  String get planSlotKind;
+
+  /// No description provided for @planSlotLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Etiket'**
+  String get planSlotLabel;
+
+  /// No description provided for @planSlotNote.
+  ///
+  /// In tr, this message translates to:
+  /// **'Not'**
+  String get planSlotNote;
+
+  /// No description provided for @planSlotMealKind.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hangi öğün'**
+  String get planSlotMealKind;
+
+  /// No description provided for @planSlotMealKindRequired.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hangi öğün olduğunu seç'**
+  String get planSlotMealKindRequired;
+
+  /// No description provided for @planSlotLabelRequired.
+  ///
+  /// In tr, this message translates to:
+  /// **'Slota bir etiket ver'**
+  String get planSlotLabelRequired;
+
+  /// No description provided for @planExerciseNew.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hareket ekle'**
+  String get planExerciseNew;
+
+  /// No description provided for @planExerciseEdit.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hareketi düzenle'**
+  String get planExerciseEdit;
+
+  /// No description provided for @planExercisePick.
+  ///
+  /// In tr, this message translates to:
+  /// **'Katalogdan seç'**
+  String get planExercisePick;
+
+  /// No description provided for @planExerciseSets.
+  ///
+  /// In tr, this message translates to:
+  /// **'Set'**
+  String get planExerciseSets;
+
+  /// No description provided for @planExerciseReps.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tekrar'**
+  String get planExerciseReps;
+
+  /// No description provided for @planExerciseDuration.
+  ///
+  /// In tr, this message translates to:
+  /// **'Süre (dk)'**
+  String get planExerciseDuration;
+
+  /// No description provided for @planExerciseRest.
+  ///
+  /// In tr, this message translates to:
+  /// **'Dinlenme (sn)'**
+  String get planExerciseRest;
+
+  /// No description provided for @planExerciseSpeed.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hız (km/sa)'**
+  String get planExerciseSpeed;
+
+  /// No description provided for @planExerciseGrade.
+  ///
+  /// In tr, this message translates to:
+  /// **'Eğim (%)'**
+  String get planExerciseGrade;
+
+  /// No description provided for @planExerciseEffort.
+  ///
+  /// In tr, this message translates to:
+  /// **'Efor'**
+  String get planExerciseEffort;
+
+  /// No description provided for @planExerciseRequired.
+  ///
+  /// In tr, this message translates to:
+  /// **'Önce bir hareket seç'**
+  String get planExerciseRequired;
+
+  /// No description provided for @planOriginAi.
+  ///
+  /// In tr, this message translates to:
+  /// **'AI planı'**
+  String get planOriginAi;
+
+  /// No description provided for @planOriginAiEdited.
+  ///
+  /// In tr, this message translates to:
+  /// **'AI planı · düzenlendi'**
+  String get planOriginAiEdited;
+
+  /// No description provided for @planOriginManual.
+  ///
+  /// In tr, this message translates to:
+  /// **'Elle kuruldu'**
+  String get planOriginManual;
+
+  /// No description provided for @planCreateEmpty.
+  ///
+  /// In tr, this message translates to:
+  /// **'Boş plan kur'**
+  String get planCreateEmpty;
+
+  /// No description provided for @planCreateTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yeni plan'**
+  String get planCreateTitle;
+
+  /// No description provided for @planCreateWeeks.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hafta'**
+  String get planCreateWeeks;
+
+  /// No description provided for @planCreateStart.
+  ///
+  /// In tr, this message translates to:
+  /// **'Başlangıç tarihi'**
+  String get planCreateStart;
+
+  /// No description provided for @planCreateDone.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kur'**
+  String get planCreateDone;
+
+  /// No description provided for @dailyRhythmTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Günlük Düzen'**
+  String get dailyRhythmTitle;
+
+  /// No description provided for @dailyRhythmDescription.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ne zaman kalkıyorsun, ne zaman yatıyorsun, ne zaman ulaşılamıyorsun.'**
+  String get dailyRhythmDescription;
+
+  /// No description provided for @dailyRhythmWake.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kalkış'**
+  String get dailyRhythmWake;
+
+  /// No description provided for @dailyRhythmSleep.
+  ///
+  /// In tr, this message translates to:
+  /// **'Uyku'**
+  String get dailyRhythmSleep;
+
+  /// No description provided for @slotKindMeal.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öğün'**
+  String get slotKindMeal;
+
+  /// No description provided for @slotKindWorkout.
+  ///
+  /// In tr, this message translates to:
+  /// **'Antrenman'**
+  String get slotKindWorkout;
+
+  /// No description provided for @slotKindSleep.
+  ///
+  /// In tr, this message translates to:
+  /// **'Uyku'**
+  String get slotKindSleep;
+
+  /// No description provided for @slotKindMeasurement.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ölçüm'**
+  String get slotKindMeasurement;
+
+  /// No description provided for @slotKindLab.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tahlil'**
+  String get slotKindLab;
+
+  /// No description provided for @slotKindOther.
+  ///
+  /// In tr, this message translates to:
+  /// **'Diğer'**
+  String get slotKindOther;
 }
 
 class _AppLocalizationsDelegate

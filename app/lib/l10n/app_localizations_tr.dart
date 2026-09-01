@@ -1674,4 +1674,178 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get dayFutureNoEntry =>
       'Planı görebilirsin ama kayıt günü gelince girilir.';
+
+  @override
+  String get planSettingsTitle => 'Plan ayarları';
+
+  @override
+  String get planSettingsName => 'Plan adı';
+
+  @override
+  String get planSettingsNameRequired => 'Plana bir ad ver';
+
+  @override
+  String get planSettingsGoals => 'Hedefler';
+
+  @override
+  String get planGoalKcal => 'Günlük kalori';
+
+  @override
+  String get planGoalWeeklyGym => 'Haftada salon günü';
+
+  @override
+  String get planGoalWeeklyHome => 'Haftada ev günü';
+
+  @override
+  String get planGoalTargetLoss => 'Hedef kayıp (kg)';
+
+  @override
+  String planGoalRange(String min, String max) {
+    return '$min ile $max arasında bir değer gir';
+  }
+
+  @override
+  String get planRuleAdd => 'Satır ekle';
+
+  @override
+  String get commonRemove => 'Kaldır';
+
+  @override
+  String get commonAdd => 'Ekle';
+
+  @override
+  String get planEditDay => 'Günü düzenle';
+
+  @override
+  String get planDayType => 'Gün tipi';
+
+  @override
+  String get planDayTypeGym => 'Salon';
+
+  @override
+  String get planDayTypeHome => 'Ev';
+
+  @override
+  String get planDayTypeRest => 'Dinlenme';
+
+  @override
+  String get planDayHeadline => 'Başlık';
+
+  @override
+  String get planDayDinner => 'Akşam önerisi';
+
+  @override
+  String get planSlotNew => 'Yeni slot';
+
+  @override
+  String get planSlotEdit => 'Slotu düzenle';
+
+  @override
+  String get planSlotTime => 'Saat';
+
+  @override
+  String get planSlotKind => 'Tür';
+
+  @override
+  String get planSlotLabel => 'Etiket';
+
+  @override
+  String get planSlotNote => 'Not';
+
+  @override
+  String get planSlotMealKind => 'Hangi öğün';
+
+  @override
+  String get planSlotMealKindRequired => 'Hangi öğün olduğunu seç';
+
+  @override
+  String get planSlotLabelRequired => 'Slota bir etiket ver';
+
+  @override
+  String get planExerciseNew => 'Hareket ekle';
+
+  @override
+  String get planExerciseEdit => 'Hareketi düzenle';
+
+  @override
+  String get planExercisePick => 'Katalogdan seç';
+
+  @override
+  String get planExerciseSets => 'Set';
+
+  @override
+  String get planExerciseReps => 'Tekrar';
+
+  @override
+  String get planExerciseDuration => 'Süre (dk)';
+
+  @override
+  String get planExerciseRest => 'Dinlenme (sn)';
+
+  @override
+  String get planExerciseSpeed => 'Hız (km/sa)';
+
+  @override
+  String get planExerciseGrade => 'Eğim (%)';
+
+  @override
+  String get planExerciseEffort => 'Efor';
+
+  @override
+  String get planExerciseRequired => 'Önce bir hareket seç';
+
+  @override
+  String get planOriginAi => 'AI planı';
+
+  @override
+  String get planOriginAiEdited => 'AI planı · düzenlendi';
+
+  @override
+  String get planOriginManual => 'Elle kuruldu';
+
+  @override
+  String get planCreateEmpty => 'Boş plan kur';
+
+  @override
+  String get planCreateTitle => 'Yeni plan';
+
+  @override
+  String get planCreateWeeks => 'Hafta';
+
+  @override
+  String get planCreateStart => 'Başlangıç tarihi';
+
+  @override
+  String get planCreateDone => 'Kur';
+
+  @override
+  String get dailyRhythmTitle => 'Günlük Düzen';
+
+  @override
+  String get dailyRhythmDescription =>
+      'Ne zaman kalkıyorsun, ne zaman yatıyorsun, ne zaman ulaşılamıyorsun.';
+
+  @override
+  String get dailyRhythmWake => 'Kalkış';
+
+  @override
+  String get dailyRhythmSleep => 'Uyku';
+
+  @override
+  String get slotKindMeal => 'Öğün';
+
+  @override
+  String get slotKindWorkout => 'Antrenman';
+
+  @override
+  String get slotKindSleep => 'Uyku';
+
+  @override
+  String get slotKindMeasurement => 'Ölçüm';
+
+  @override
+  String get slotKindLab => 'Tahlil';
+
+  @override
+  String get slotKindOther => 'Diğer';
 }

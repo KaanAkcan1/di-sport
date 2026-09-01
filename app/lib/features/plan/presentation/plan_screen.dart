@@ -10,7 +10,9 @@ import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/plan/data/sample_plan.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/plan/presentation/create_plan_sheet.dart';
 import 'package:disport/features/plan/presentation/plan_calendar.dart';
+import 'package:disport/features/plan/presentation/plan_settings_screen.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/today_repository.dart';
 import 'package:disport/features/today/presentation/today_screen.dart';
@@ -59,13 +61,13 @@ class PlanScreen extends ConsumerWidget {
   }
 }
 
-class _EmptyPlan extends StatelessWidget {
+class _EmptyPlan extends ConsumerWidget {
   const _EmptyPlan({required this.onLoadSample});
 
   final VoidCallback onLoadSample;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
 
     return Center(
@@ -92,8 +94,18 @@ class _EmptyPlan extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
+            const SizedBox(height: AppSpacing.xl),
+            // Plan almanın üçüncü yolu: AI'dan istemek ve örnek planı
+            // yüklemek dışında kullanıcı kendi iskeletini kurabilmeli.
+            // Boş plan 28 dinlenme günü açıyor ve gerisini editör
+            // dolduruyor.
+            FilledButton.tonalIcon(
+              icon: const Icon(Icons.add),
+              label: Text(context.l10n.planCreateEmpty),
+              onPressed: () => showCreatePlanSheet(context),
+            ),
             if (kDebugMode) ...[
-              const SizedBox(height: AppSpacing.xl),
+              const SizedBox(height: AppSpacing.sm),
               TextButton(
                 onPressed: onLoadSample,
                 child: Text(context.l10n.planLoadSample),
@@ -198,7 +210,34 @@ class _PlanOverview extends ConsumerWidget {
 
     return AppScreenBody(
       children: [
-        Text(plan.title, style: theme.textTheme.titleLarge),
+        Row(
+          children: [
+            Expanded(
+              child: Text(plan.title, style: theme.textTheme.titleLarge),
+            ),
+            IconButton(
+              icon: const Icon(Icons.edit_outlined),
+              tooltip: context.l10n.planSettingsTitle,
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => PlanSettingsScreen(plan: plan),
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        // Planın kökeni: `sourceRaw` planın tanımı değil, nereden
+        // geldiği. Kullanıcı AI planını düzenlediğinde bu satır hâlâ
+        // "AI planı · düzenlendi" diyor ve orijinal belge yerinde.
+        Text(
+          plan.sourceRaw.isEmpty
+              ? context.l10n.planOriginManual
+              : context.l10n.planOriginAiEdited,
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
         const SizedBox(height: AppSpacing.xs),
         Text(
           '${_formatDate(plan.startDate)} – ${_formatDate(plan.endDate)} · '

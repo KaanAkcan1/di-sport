@@ -28,6 +28,7 @@ class AppTimeRailItem extends StatelessWidget {
     this.isFirst = false,
     this.isLast = false,
     this.onTap,
+    this.onLongPress,
   });
 
   /// `06:30` — sıkışık, tablo rakamıyla yazılır.
@@ -37,6 +38,12 @@ class AppTimeRailItem extends StatelessWidget {
   final bool isFirst;
   final bool isLast;
   final VoidCallback? onTap;
+
+  /// Uzun basış — düzenleme girişi.
+  ///
+  /// Dokunma işaretlemeye ayrıldı; düzenlemeyi de oraya bindirmek her
+  /// işaretlemede bir form açardı.
+  final VoidCallback? onLongPress;
 
   /// Saat sütununun genişliği. Sabit: raya asılan çizgi tüm satırlarda
   /// aynı x'te olmalı, yoksa omurga eğrilir.
@@ -81,6 +88,7 @@ class AppTimeRailItem extends StatelessWidget {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: onTap,
+                  onLongPress: onLongPress,
                   borderRadius: AppRadius.mdAll,
                   child: Padding(
                     padding: const EdgeInsets.all(AppSpacing.sm),

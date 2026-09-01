@@ -215,3 +215,13 @@ Future<Map<String, Exercise>> exerciseVariants(Ref ref, String exerciseId) async
     ...exercise.progressions,
   ]);
 }
+
+/// Ada göre arama — plan editörünün hareket seçicisi için.
+///
+/// `filteredExercises`'tan ayrı çünkü o ekranın filtre **durumunu**
+/// okuyor; editör seçicisi katalog ekranının sekmesinden ve
+/// envanterinden bağımsız olmalı, kullanıcı plana istediği hareketi
+/// koyabilmeli.
+@riverpod
+Stream<List<Exercise>> catalogSearch(Ref ref, String query) =>
+    ref.watch(catalogRepositoryProvider).watchFiltered(query: query);

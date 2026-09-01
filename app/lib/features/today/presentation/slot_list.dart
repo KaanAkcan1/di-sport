@@ -2,6 +2,7 @@ import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/plan/presentation/slot_editor_sheet.dart';
 import 'package:disport/features/plan/presentation/slot_kind_icon.dart';
 import 'package:disport/features/today/application/day_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
@@ -100,6 +101,11 @@ class SlotList extends ConsumerWidget {
             isNext: !hoistNext && slot.id == next?.id,
             done: slot.kind == SlotKind.workout ? workoutDone : checked,
           ),
+          // Uzun basış slotu düzenler. Dokunma zaten işaretlemeye
+          // ayrılmış ve onu düzenlemeye vermek, her işaretlemede bir
+          // form açardı.
+          onLongPress: () =>
+              showSlotEditorSheet(context, dayId: day.id, slot: slot),
           onTap: slot.kind == SlotKind.workout
               ? () => Navigator.of(context).push(
                   MaterialPageRoute<void>(

@@ -1677,4 +1677,178 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get dayFutureNoEntry =>
       'You can look at the plan, but entries start on the day itself.';
+
+  @override
+  String get planSettingsTitle => 'Plan settings';
+
+  @override
+  String get planSettingsName => 'Plan name';
+
+  @override
+  String get planSettingsNameRequired => 'Give the plan a name';
+
+  @override
+  String get planSettingsGoals => 'Goals';
+
+  @override
+  String get planGoalKcal => 'Daily calories';
+
+  @override
+  String get planGoalWeeklyGym => 'Gym days per week';
+
+  @override
+  String get planGoalWeeklyHome => 'Home days per week';
+
+  @override
+  String get planGoalTargetLoss => 'Target loss (kg)';
+
+  @override
+  String planGoalRange(String min, String max) {
+    return 'Enter a value between $min and $max';
+  }
+
+  @override
+  String get planRuleAdd => 'Add item';
+
+  @override
+  String get commonRemove => 'Remove';
+
+  @override
+  String get commonAdd => 'Add';
+
+  @override
+  String get planEditDay => 'Edit day';
+
+  @override
+  String get planDayType => 'Day type';
+
+  @override
+  String get planDayTypeGym => 'Gym';
+
+  @override
+  String get planDayTypeHome => 'Home';
+
+  @override
+  String get planDayTypeRest => 'Rest';
+
+  @override
+  String get planDayHeadline => 'Headline';
+
+  @override
+  String get planDayDinner => 'Dinner suggestion';
+
+  @override
+  String get planSlotNew => 'New slot';
+
+  @override
+  String get planSlotEdit => 'Edit slot';
+
+  @override
+  String get planSlotTime => 'Time';
+
+  @override
+  String get planSlotKind => 'Kind';
+
+  @override
+  String get planSlotLabel => 'Label';
+
+  @override
+  String get planSlotNote => 'Note';
+
+  @override
+  String get planSlotMealKind => 'Which meal';
+
+  @override
+  String get planSlotMealKindRequired => 'Pick which meal this is';
+
+  @override
+  String get planSlotLabelRequired => 'Give the slot a label';
+
+  @override
+  String get planExerciseNew => 'Add exercise';
+
+  @override
+  String get planExerciseEdit => 'Edit exercise';
+
+  @override
+  String get planExercisePick => 'Pick from catalogue';
+
+  @override
+  String get planExerciseSets => 'Sets';
+
+  @override
+  String get planExerciseReps => 'Reps';
+
+  @override
+  String get planExerciseDuration => 'Duration (min)';
+
+  @override
+  String get planExerciseRest => 'Rest (sec)';
+
+  @override
+  String get planExerciseSpeed => 'Speed (km/h)';
+
+  @override
+  String get planExerciseGrade => 'Incline (%)';
+
+  @override
+  String get planExerciseEffort => 'Effort';
+
+  @override
+  String get planExerciseRequired => 'Pick an exercise first';
+
+  @override
+  String get planOriginAi => 'From an AI plan';
+
+  @override
+  String get planOriginAiEdited => 'From an AI plan, edited';
+
+  @override
+  String get planOriginManual => 'Built by hand';
+
+  @override
+  String get planCreateEmpty => 'Build an empty plan';
+
+  @override
+  String get planCreateTitle => 'New plan';
+
+  @override
+  String get planCreateWeeks => 'Weeks';
+
+  @override
+  String get planCreateStart => 'Start date';
+
+  @override
+  String get planCreateDone => 'Create';
+
+  @override
+  String get dailyRhythmTitle => 'Daily rhythm';
+
+  @override
+  String get dailyRhythmDescription =>
+      'When you get up, when you sleep, and when you cannot be reached.';
+
+  @override
+  String get dailyRhythmWake => 'Wake up';
+
+  @override
+  String get dailyRhythmSleep => 'Sleep';
+
+  @override
+  String get slotKindMeal => 'Meal';
+
+  @override
+  String get slotKindWorkout => 'Workout';
+
+  @override
+  String get slotKindSleep => 'Sleep';
+
+  @override
+  String get slotKindMeasurement => 'Measurement';
+
+  @override
+  String get slotKindLab => 'Lab test';
+
+  @override
+  String get slotKindOther => 'Other';
 }

@@ -133,6 +133,13 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Hafta 1 notu'), findsOneWidget);
+      // Ekran M10'da düzenleme eylemleriyle uzadı; öneri artık ilk
+      // pencerede kurulmuyor.
+      await tester.scrollUntilVisible(
+        find.textContaining('Akşam önerisi'),
+        300,
+        scrollable: find.byType(Scrollable).first,
+      );
       expect(
         find.textContaining('Akşam önerisi: Izgara tavuk'),
         findsOneWidget,
