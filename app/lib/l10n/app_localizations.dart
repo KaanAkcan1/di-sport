@@ -2678,6 +2678,132 @@ abstract class AppLocalizations {
   /// **'Yapay zekâ ile PDF\'ten aktar'**
   String get healthImportWithAi;
 
+  /// No description provided for @ctxSectionsTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'AI\'a gönderilecekler'**
+  String get ctxSectionsTitle;
+
+  /// No description provided for @ctxSectionsIntro.
+  ///
+  /// In tr, this message translates to:
+  /// **'Plan isteği belgesine hangi bölümlerin gireceğini sen seçersin. Kapalı bölüm belgeye hiç yazılmaz. Kim/hedef/görev her zaman girer — onlarsız plan istenemez.'**
+  String get ctxSectionsIntro;
+
+  /// No description provided for @ctxPreviewButton.
+  ///
+  /// In tr, this message translates to:
+  /// **'Önce belgeyi gör'**
+  String get ctxPreviewButton;
+
+  /// No description provided for @ctxPreviewTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Belge önizleme'**
+  String get ctxPreviewTitle;
+
+  /// No description provided for @ctxCopy.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kopyala'**
+  String get ctxCopy;
+
+  /// No description provided for @ctxShare.
+  ///
+  /// In tr, this message translates to:
+  /// **'Paylaş'**
+  String get ctxShare;
+
+  /// No description provided for @ctxSectionMedical.
+  ///
+  /// In tr, this message translates to:
+  /// **'Medikal'**
+  String get ctxSectionMedical;
+
+  /// No description provided for @ctxSectionMedicalHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Durumlar, kısıtlar, tahliller ve ilaçlar'**
+  String get ctxSectionMedicalHint;
+
+  /// No description provided for @ctxSectionEnvironment.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ortam'**
+  String get ctxSectionEnvironment;
+
+  /// No description provided for @ctxSectionEnvironmentHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ekipman envanteri ve sevdiğin sporlar'**
+  String get ctxSectionEnvironmentHint;
+
+  /// No description provided for @ctxSectionRoutine.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öğün davranışları'**
+  String get ctxSectionRoutine;
+
+  /// No description provided for @ctxSectionRoutineHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öğün saatleri ve yemekhane/sabit öğün bilgisi'**
+  String get ctxSectionRoutineHint;
+
+  /// No description provided for @ctxSectionForbidden.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yasaklı yiyecekler'**
+  String get ctxSectionForbidden;
+
+  /// No description provided for @ctxSectionForbiddenHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'AI bu listeyi asla önermez'**
+  String get ctxSectionForbiddenHint;
+
+  /// No description provided for @ctxSectionRecent.
+  ///
+  /// In tr, this message translates to:
+  /// **'Son 14 gün'**
+  String get ctxSectionRecent;
+
+  /// No description provided for @ctxSectionRecentHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öğünler, su (ml), ilaç uyumu, antrenman, kilo'**
+  String get ctxSectionRecentHint;
+
+  /// No description provided for @ctxSectionNotes.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kendi sözlerin'**
+  String get ctxSectionNotes;
+
+  /// No description provided for @ctxSectionNotesHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Gün notların olduğu gibi'**
+  String get ctxSectionNotesHint;
+
+  /// No description provided for @ctxSectionFoods.
+  ///
+  /// In tr, this message translates to:
+  /// **'Besin listesi'**
+  String get ctxSectionFoods;
+
+  /// No description provided for @ctxSectionFoodsHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'368 besin — AI öğünleri besin id\'siyle yazabilsin'**
+  String get ctxSectionFoodsHint;
+
+  /// No description provided for @moreAiSections.
+  ///
+  /// In tr, this message translates to:
+  /// **'AI\'a gönderilecekler'**
+  String get moreAiSections;
+
   /// No description provided for @rhythmMealsSection.
   ///
   /// In tr, this message translates to:

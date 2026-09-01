@@ -137,9 +137,13 @@ class ExerciseRef {
 abstract interface class CatalogSource {
   /// Kullanıcının ortamına uyan alt küme.
   ///
-  /// Katalogun tamamını `context.md`'ye basmak hem gereksiz uzun olur
-  /// hem de AI'ı elindeki ekipmanla yapamayacağı hareketlere yöneltir.
+  /// v2'nin varsayılanıydı; v3 belgesi tam listeyi basıyor ama bu
+  /// süzgeç "ekipmana uyanlar" işareti için duruyor.
   Future<List<ExerciseRef>> selectable();
+
+  /// Tam katalog (v3 §9.3 — 161 hareket). Kullanıcı kararı: AI her
+  /// hareketi görsün, yapılamayanlar içe almada uyarıyla yakalanır.
+  Future<List<ExerciseRef>> all();
 }
 
 /// Etkin planın özeti — yeni plan isterken AI'ın neyin devamını
@@ -189,4 +193,112 @@ class WindowDump {
 /// mesai saatine antrenman koyabiliyordu.
 abstract interface class AvailabilitySource {
   Future<List<WindowDump>> windows();
+}
+
+// --- v3 (§9.3) — context.md v2 kaynakları ---
+
+/// Medikal gerçek dökümü.
+class MedicalFactDump {
+  const MedicalFactDump({required this.kind, required this.label, this.note});
+
+  /// `condition` | `restriction` | `allergy` | `bloodType`.
+  final String kind;
+  final String label;
+  final String? note;
+}
+
+abstract interface class MedicalSource {
+  Future<List<MedicalFactDump>> facts();
+}
+
+/// İlaç/takviye dökümü — sınır satırıyla birlikte basılır: AI ilaç
+/// önerisi vermez, yalnız zamanlama ve beslenme bağlamı olarak kullanır.
+class MedicationDump {
+  const MedicationDump({
+    required this.name,
+    required this.isPrescription,
+    required this.doseLabel,
+    required this.times,
+  });
+
+  final String name;
+  final bool isPrescription;
+  final String doseLabel;
+  final List<String> times;
+}
+
+abstract interface class MedicationSource {
+  Future<List<MedicationDump>> medications();
+}
+
+/// Ortam: ekipman envanteri (enum adlarıyla) + sevilen sporlar.
+abstract interface class EnvironmentSource {
+  Future<({List<String> home, List<String> gym})> equipment();
+  Future<List<({String name, String? note})>> favoriteSports();
+}
+
+/// Öğün davranışı dökümü (v3 §3.4).
+class MealBehaviorDump {
+  const MealBehaviorDump({
+    required this.meal,
+    required this.behavior,
+    this.time,
+    this.fixedNote,
+  });
+
+  final String meal;
+
+  /// `planned` | `fixed` | `external`.
+  final String behavior;
+  final String? time;
+  final String? fixedNote;
+}
+
+abstract interface class RoutineSource {
+  Future<List<MealBehaviorDump>> mealBehaviors();
+}
+
+/// Besin dökümü — AI plana besin id'siyle kalem yazabilsin (§5.0).
+class FoodDump {
+  const FoodDump({
+    required this.id,
+    required this.name,
+    required this.kcal100,
+    this.defaultPortion,
+  });
+
+  final String id;
+  final String name;
+  final double kcal100;
+
+  /// "1 kase = 250 g" gibi; yoksa 100 g tabanı.
+  final String? defaultPortion;
+}
+
+/// Bir günün alım özeti — son 14 gün bölümü.
+class DayIntakeDump {
+  const DayIntakeDump({
+    required this.date,
+    required this.kcalEaten,
+    this.waterMl,
+    this.dosesTaken,
+    this.dosesPlanned,
+  });
+
+  final String date;
+  final double kcalEaten;
+  final int? waterMl;
+  final int? dosesTaken;
+  final int? dosesPlanned;
+}
+
+abstract interface class NutritionSource {
+  Future<List<FoodDump>> foods();
+  Future<List<DayIntakeDump>> dailyIntake({required int lastDays});
+}
+
+/// Yasaklı listesi — plandan (§5.4). AI'a "bunları asla önerme" diye
+/// basılır; sözleşmede string listesi kalır.
+abstract interface class RulesSource {
+  Future<List<String>> forbidden();
 }

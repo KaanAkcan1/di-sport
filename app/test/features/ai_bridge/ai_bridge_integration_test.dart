@@ -334,7 +334,7 @@ void main() {
           .read(contextMdBuilderProvider)
           .build(today: DateTime(2026, 8, 31));
 
-      expect(markdown, contains('## 7. Görev ve format'));
+      expect(markdown, contains('## 9. Görev ve format'));
       expect(markdown, contains('(not yazılmamış)'));
       expect(markdown, contains('(tahlil kaydı yok)'));
     });

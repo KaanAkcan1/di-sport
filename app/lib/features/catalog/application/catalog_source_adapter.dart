@@ -24,6 +24,9 @@ class CatalogSourceAdapter implements CatalogSource {
     ];
   }
 
+  @override
+  Future<List<ExerciseRef>> all() => selectable();
+
   /// Doğrulayıcının ihtiyaç duyduğu id → (yer, ad) eşlemesi.
   Future<Map<String, ({ExerciseLocation location, String nameTr})>>
   catalogEntries() async {

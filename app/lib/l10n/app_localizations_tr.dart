@@ -1457,6 +1457,75 @@ class AppLocalizationsTr extends AppLocalizations {
   String get healthImportWithAi => 'Yapay zekâ ile PDF\'ten aktar';
 
   @override
+  String get ctxSectionsTitle => 'AI\'a gönderilecekler';
+
+  @override
+  String get ctxSectionsIntro =>
+      'Plan isteği belgesine hangi bölümlerin gireceğini sen seçersin. Kapalı bölüm belgeye hiç yazılmaz. Kim/hedef/görev her zaman girer — onlarsız plan istenemez.';
+
+  @override
+  String get ctxPreviewButton => 'Önce belgeyi gör';
+
+  @override
+  String get ctxPreviewTitle => 'Belge önizleme';
+
+  @override
+  String get ctxCopy => 'Kopyala';
+
+  @override
+  String get ctxShare => 'Paylaş';
+
+  @override
+  String get ctxSectionMedical => 'Medikal';
+
+  @override
+  String get ctxSectionMedicalHint =>
+      'Durumlar, kısıtlar, tahliller ve ilaçlar';
+
+  @override
+  String get ctxSectionEnvironment => 'Ortam';
+
+  @override
+  String get ctxSectionEnvironmentHint =>
+      'Ekipman envanteri ve sevdiğin sporlar';
+
+  @override
+  String get ctxSectionRoutine => 'Öğün davranışları';
+
+  @override
+  String get ctxSectionRoutineHint =>
+      'Öğün saatleri ve yemekhane/sabit öğün bilgisi';
+
+  @override
+  String get ctxSectionForbidden => 'Yasaklı yiyecekler';
+
+  @override
+  String get ctxSectionForbiddenHint => 'AI bu listeyi asla önermez';
+
+  @override
+  String get ctxSectionRecent => 'Son 14 gün';
+
+  @override
+  String get ctxSectionRecentHint =>
+      'Öğünler, su (ml), ilaç uyumu, antrenman, kilo';
+
+  @override
+  String get ctxSectionNotes => 'Kendi sözlerin';
+
+  @override
+  String get ctxSectionNotesHint => 'Gün notların olduğu gibi';
+
+  @override
+  String get ctxSectionFoods => 'Besin listesi';
+
+  @override
+  String get ctxSectionFoodsHint =>
+      '368 besin — AI öğünleri besin id\'siyle yazabilsin';
+
+  @override
+  String get moreAiSections => 'AI\'a gönderilecekler';
+
+  @override
   String get rhythmMealsSection => 'Öğünler';
 
   @override

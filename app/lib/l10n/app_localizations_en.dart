@@ -1461,6 +1461,74 @@ class AppLocalizationsEn extends AppLocalizations {
   String get healthImportWithAi => 'Import from PDF with AI';
 
   @override
+  String get ctxSectionsTitle => 'What goes to the AI';
+
+  @override
+  String get ctxSectionsIntro =>
+      'You choose which sections enter the plan request document. A disabled section is never written. Who/goal/task always go — no plan can be requested without them.';
+
+  @override
+  String get ctxPreviewButton => 'See the document first';
+
+  @override
+  String get ctxPreviewTitle => 'Document preview';
+
+  @override
+  String get ctxCopy => 'Copy';
+
+  @override
+  String get ctxShare => 'Share';
+
+  @override
+  String get ctxSectionMedical => 'Medical';
+
+  @override
+  String get ctxSectionMedicalHint =>
+      'Conditions, restrictions, labs and medication';
+
+  @override
+  String get ctxSectionEnvironment => 'Environment';
+
+  @override
+  String get ctxSectionEnvironmentHint =>
+      'Equipment inventory and favourite sports';
+
+  @override
+  String get ctxSectionRoutine => 'Meal behaviours';
+
+  @override
+  String get ctxSectionRoutineHint => 'Meal times and canteen/fixed meal info';
+
+  @override
+  String get ctxSectionForbidden => 'Forbidden foods';
+
+  @override
+  String get ctxSectionForbiddenHint => 'The AI never suggests these';
+
+  @override
+  String get ctxSectionRecent => 'Last 14 days';
+
+  @override
+  String get ctxSectionRecentHint =>
+      'Meals, water (ml), medication adherence, workouts, weight';
+
+  @override
+  String get ctxSectionNotes => 'Your own words';
+
+  @override
+  String get ctxSectionNotesHint => 'Your day notes, verbatim';
+
+  @override
+  String get ctxSectionFoods => 'Food list';
+
+  @override
+  String get ctxSectionFoodsHint =>
+      '368 foods — so the AI can write meals with food ids';
+
+  @override
+  String get moreAiSections => 'What goes to the AI';
+
+  @override
   String get rhythmMealsSection => 'Meals';
 
   @override

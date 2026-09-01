@@ -6,7 +6,7 @@ import 'package:disport/features/plan/data/plan_repository.dart';
 /// Yalnız özet: `context.md`'nin ihtiyacı "hangi planın devamındayım"
 /// bilgisi, 28 günün tamamı değil. Geçen dönemin ne kadarının
 /// gerçekleştiği zaten `LogSource`'tan geliyor.
-class PlanSourceAdapter implements PlanSource {
+class PlanSourceAdapter implements PlanSource, RulesSource {
   const PlanSourceAdapter(this._repository);
 
   final PlanRepository _repository;
@@ -22,5 +22,13 @@ class PlanSourceAdapter implements PlanSource {
       endDate: PlanRepository.iso(plan.endDate),
       weeks: plan.weeks,
     );
+  }
+
+  /// Yasaklı etiketleri (v3 §9.3/5). Plan yoksa boş — yasaklılar
+  /// planla yaşıyor; plansız kullanıcının listesi henüz yok.
+  @override
+  Future<List<String>> forbidden() async {
+    final plan = await _repository.activePlan();
+    return plan?.rules.forbidden ?? const [];
   }
 }

@@ -70,6 +70,20 @@ abstract final class ProfileKeys {
   ];
 }
 
+/// Belgeye girip girmeyeceği seçilebilen bölümler (v3 §9.3).
+///
+/// Kim/hedef/görev hep girer — onlarsız plan istenemez. Gerisi
+/// kullanıcının kararı: kapalı bölüm belgeye **hiç** yazılmaz.
+enum ContextSection {
+  medical,
+  environment,
+  routine,
+  forbidden,
+  recent,
+  notes,
+  foods,
+}
+
 /// Yedi bölümlü `context.md` üretir (spec 7.1).
 ///
 /// Sağlayıcı bağımsız: çıktı herhangi bir AI sohbetine yapıştırılabilir.
@@ -82,6 +96,12 @@ class ContextMdBuilder {
     required this.catalog,
     required this.plan,
     required this.availability,
+    required this.medical,
+    required this.medications,
+    required this.environment,
+    required this.routine,
+    required this.nutrition,
+    required this.rules,
   });
 
   final ProfileSource profile;
@@ -90,22 +110,52 @@ class ContextMdBuilder {
   final CatalogSource catalog;
   final PlanSource plan;
   final AvailabilitySource availability;
+  final MedicalSource medical;
+  final MedicationSource medications;
+  final EnvironmentSource environment;
+  final RoutineSource routine;
+  final NutritionSource nutrition;
+  final RulesSource rules;
 
-  /// Geçen dönem verisi için bakılacak gün sayısı.
-  static const lookbackDays = 28;
+  /// Geçen dönem verisi için bakılacak gün sayısı (v3 §9.3/6: 14).
+  static const lookbackDays = 14;
 
-  Future<String> build({required DateTime today, int weeks = 4}) async {
+  Future<String> build({
+    required DateTime today,
+    int weeks = 4,
+    DateTime? graftFrom,
+    Set<ContextSection> sections = const {
+      ContextSection.medical,
+      ContextSection.environment,
+      ContextSection.routine,
+      ContextSection.forbidden,
+      ContextSection.recent,
+      ContextSection.notes,
+      ContextSection.foods,
+    },
+  }) async {
     final profileData = await profile.profile();
     final compliance = await logs.compliance(lastDays: lookbackDays);
     final notes = await logs.userNotes(lastDays: lookbackDays);
     final actuals = await logs.actuals(lastDays: lookbackDays);
     final metrics = await health.bodyMetrics(lastDays: lookbackDays);
     final labs = await health.recentLabs();
-    final exercises = await catalog.selectable();
+    final exercises = await catalog.all();
     final activePlan = await plan.activePlanSummary();
     final windows = await availability.windows();
+    final facts = await medical.facts();
+    final meds = await medications.medications();
+    final gear = await environment.equipment();
+    final sports = await environment.favoriteSports();
+    final behaviors = await routine.mealBehaviors();
+    final intake = await nutrition.dailyIntake(lastDays: lookbackDays);
+    final foods = await nutrition.foods();
+    final forbidden = await rules.forbidden();
 
-    final startDate = _iso(today.add(const Duration(days: 1)));
+    // Kapsam: aşılamada plan seçilen günden başlar; yoksa yarından.
+    final startDate = _iso(
+      graftFrom ?? today.add(const Duration(days: 1)),
+    );
 
     final buffer = StringBuffer()
       ..writeln('# Antrenman ve beslenme planı isteği')
@@ -119,11 +169,29 @@ class ContextMdBuilder {
 
     _writeWho(buffer, profileData);
     _writeGoal(buffer, profileData, weeks, activePlan);
+    if (sections.contains(ContextSection.medical)) {
+      _writeMedical(buffer, facts, labs, meds);
+    }
+    if (sections.contains(ContextSection.environment)) {
+      _writeEnvironment(buffer, gear, sports);
+    }
     _writeConstraints(buffer, profileData, windows);
-    _writeLastPeriod(buffer, compliance, metrics, actuals);
-    _writeNotes(buffer, notes);
-    _writeLabs(buffer, labs);
-    _writeTask(buffer, exercises, weeks, startDate);
+    if (sections.contains(ContextSection.routine)) {
+      _writeMealBehaviors(buffer, behaviors);
+    }
+    if (sections.contains(ContextSection.forbidden)) {
+      _writeForbidden(buffer, forbidden);
+    }
+    if (sections.contains(ContextSection.recent)) {
+      _writeLastPeriod(buffer, compliance, metrics, actuals, intake);
+    }
+    if (sections.contains(ContextSection.notes)) {
+      _writeNotes(buffer, notes);
+    }
+    _writeTask(buffer, exercises, weeks, startDate, graftFrom != null);
+    if (sections.contains(ContextSection.foods)) {
+      _writeFoods(buffer, foods);
+    }
 
     return buffer.toString();
   }
@@ -133,10 +201,31 @@ class ContextMdBuilder {
         ? data[key]!
         : 'belirtilmedi';
 
+    // Yaş doğum tarihinden türetilir; eski `age` anahtarı yedek. Ad
+    // hiç yazılmaz — kimlik AI'a gitmez (v3 §9.3/1).
+    String age() {
+      final birth = DateTime.tryParse(data[ProfileKeys.birthDate] ?? '');
+      if (birth == null) return value(ProfileKeys.age);
+      final now = DateTime.now();
+      var years = now.year - birth.year;
+      if (now.month < birth.month ||
+          (now.month == birth.month && now.day < birth.day)) {
+        years--;
+      }
+      return '$years';
+    }
+
+    final gender = switch (data[ProfileKeys.gender]) {
+      'male' => 'erkek',
+      'female' => 'kadın',
+      _ => 'belirtilmedi',
+    };
+
     buffer
       ..writeln('## 1. Kim')
       ..writeln()
-      ..writeln('- Yaş: ${value(ProfileKeys.age)}')
+      ..writeln('- Yaş: ${age()}')
+      ..writeln('- Cinsiyet: $gender')
       ..writeln('- Boy: ${value(ProfileKeys.heightCm)} cm')
       ..writeln('- Şu anki kilo: ${value(ProfileKeys.currentWeightKg)} kg')
       ..writeln(
@@ -145,9 +234,148 @@ class ContextMdBuilder {
       )
       ..writeln('- İş düzeni: ${value(ProfileKeys.workSchedule)}')
       ..writeln('- Salona erişim: ${value(ProfileKeys.gymAccessHours)}')
-      ..writeln('- Aile yemeği: ${value(ProfileKeys.familyDinnerTime)}')
-      ..writeln('- Evdeki ekipman: ${value(ProfileKeys.equipmentAtHome)}')
       ..writeln();
+  }
+
+  /// Medikal bölüm (v3 §9.3/2): durumlar + tahliller + ilaçlar, sınır
+  /// satırıyla.
+  void _writeMedical(
+    StringBuffer buffer,
+    List<MedicalFactDump> facts,
+    List<LabValueDump> labs,
+    List<MedicationDump> meds,
+  ) {
+    buffer
+      ..writeln('## 3. Medikal')
+      ..writeln();
+
+    if (facts.isEmpty) {
+      buffer.writeln('- Bilinen durum/kısıt/alerji kaydı yok.');
+    } else {
+      String label(String kind) => switch (kind) {
+        'condition' => 'Durum',
+        'restriction' => 'Hareket kısıtı',
+        'allergy' => 'Alerji',
+        'bloodType' => 'Kan grubu',
+        _ => kind,
+      };
+      for (final fact in facts) {
+        buffer.writeln(
+          '- ${label(fact.kind)}: ${fact.label}'
+          '${fact.note == null ? '' : ' (${fact.note})'}',
+        );
+      }
+    }
+
+    buffer
+      ..writeln()
+      ..writeln('### Son tahliller')
+      ..writeln();
+    if (labs.isEmpty) {
+      buffer.writeln('(tahlil kaydı yok)');
+    } else {
+      for (final lab in labs) {
+        final range = lab.refLow == null && lab.refHigh == null
+            ? ''
+            : ' (referans ${lab.refLow ?? "?"}-${lab.refHigh ?? "?"})';
+        buffer.writeln(
+          '- ${lab.marker}: ${lab.value} ${lab.unit}$range — ${lab.date}',
+        );
+      }
+    }
+
+    buffer
+      ..writeln()
+      ..writeln('### İlaç ve takviyeler')
+      ..writeln();
+    if (meds.isEmpty) {
+      buffer.writeln('(tanımlı ilaç/takviye yok)');
+    } else {
+      for (final med in meds) {
+        buffer.writeln(
+          '- ${med.isPrescription ? "Reçeteli" : "Takviye"}: ${med.name}'
+          '${med.doseLabel.isEmpty ? '' : ' · ${med.doseLabel}'}'
+          '${med.times.isEmpty ? '' : ' · ${med.times.join(", ")}'}',
+        );
+      }
+    }
+    buffer
+      ..writeln()
+      ..writeln(
+        '**Sınır:** İlaç etkileşimi, doz değişikliği ya da ilaç önerisi '
+        'verme; ilaçları yalnız zamanlama ve beslenme bağlamı olarak '
+        'kullan.',
+      )
+      ..writeln();
+  }
+
+  /// Ortam (v3 §9.3/3): ekipman enum adlarıyla + sevilen sporlar.
+  void _writeEnvironment(
+    StringBuffer buffer,
+    ({List<String> home, List<String> gym}) gear,
+    List<({String name, String? note})> sports,
+  ) {
+    buffer
+      ..writeln('## 4. Ortam')
+      ..writeln()
+      ..writeln(
+        '- Evdeki ekipman: '
+        '${gear.home.isEmpty ? "yok (yalnız vücut ağırlığı)" : gear.home.join(", ")}',
+      )
+      ..writeln(
+        '- Salondaki ekipman: '
+        '${gear.gym.isEmpty ? "salona gitmiyor" : gear.gym.join(", ")}',
+      );
+
+    if (sports.isNotEmpty) {
+      buffer.writeln(
+        '- Sevdiği sporlar (plana serpiştir): '
+        '${sports.map((s) => s.note == null ? s.name : "${s.name} (${s.note})").join(", ")}',
+      );
+    }
+    buffer.writeln();
+  }
+
+  /// Öğün davranışı tablosu (v3 §9.3/4).
+  void _writeMealBehaviors(
+    StringBuffer buffer,
+    List<MealBehaviorDump> behaviors,
+  ) {
+    if (behaviors.isEmpty) return;
+
+    buffer
+      ..writeln('### Öğün davranışları')
+      ..writeln()
+      ..writeln(
+        'planned = plan doldurur · fixed = hep aynı şey yenir, '
+        'kalorisini hesaba kat ama değiştirme · external = '
+        'yemekhane/dışarıda, bu öğünü planlama ve kalan öğünleri '
+        'denge için ayarla.',
+      )
+      ..writeln();
+    for (final behavior in behaviors) {
+      buffer.writeln(
+        '- ${behavior.meal}: ${behavior.behavior}'
+        '${behavior.time == null ? '' : ' · ${behavior.time}'}'
+        '${behavior.fixedNote == null ? '' : ' · "${behavior.fixedNote}"'}',
+      );
+    }
+    buffer.writeln();
+  }
+
+  /// Yasaklılar (v3 §9.3/5).
+  void _writeForbidden(StringBuffer buffer, List<String> forbidden) {
+    if (forbidden.isEmpty) return;
+
+    buffer
+      ..writeln('## 6. Yasaklı yiyecekler')
+      ..writeln()
+      ..writeln('Bunları **asla önerme**:')
+      ..writeln();
+    for (final label in forbidden) {
+      buffer.writeln('- $label');
+    }
+    buffer.writeln();
   }
 
   void _writeGoal(
@@ -186,7 +414,7 @@ class ContextMdBuilder {
     final constraints = data[ProfileKeys.healthConstraints];
 
     buffer
-      ..writeln('## 3. Kısıtlar')
+      ..writeln('## 5. Kısıtlar ve düzen')
       ..writeln()
       ..writeln(
         '- Sağlık: '
@@ -253,9 +481,10 @@ class ContextMdBuilder {
     List<DayCompliance> compliance,
     List<MetricPoint> metrics,
     List<SetActualDump> actuals,
+    List<DayIntakeDump> intake,
   ) {
     buffer
-      ..writeln('## 4. Geçen dönem')
+      ..writeln('## 7. Geçen dönem')
       ..writeln()
       ..writeln(
         'Aşağıdaki blok uygulamanın ürettiği kayıttır; son '
@@ -302,6 +531,18 @@ class ContextMdBuilder {
                   'durationSec': actual.durationSec,
               },
           ],
+          // v3: su ml ve ilaç uyumu da paylaşılıyor — kullanıcı kararı
+          // ("geçmiş su ilaç alım bilgisi de AI ile paylaşılır").
+          'dailyIntake': [
+            for (final day in intake)
+              {
+                'date': day.date,
+                'kcalEaten': day.kcalEaten.round(),
+                if (day.waterMl != null) 'waterMl': day.waterMl,
+                if (day.dosesPlanned != null)
+                  'doses': '${day.dosesTaken}/${day.dosesPlanned}',
+              },
+          ],
         }),
       )
       ..writeln('```')
@@ -313,7 +554,7 @@ class ContextMdBuilder {
     List<({String date, String text})> notes,
   ) {
     buffer
-      ..writeln('## 5. Kendi sözlerim')
+      ..writeln('## 8. Kendi sözlerim')
       ..writeln();
 
     if (notes.isEmpty) {
@@ -327,25 +568,26 @@ class ContextMdBuilder {
     buffer.writeln();
   }
 
-  void _writeLabs(StringBuffer buffer, List<LabValueDump> labs) {
+  /// Besin listesi (v3 §9.3/9): AI plana besin id'siyle kalem yazsın.
+  void _writeFoods(StringBuffer buffer, List<FoodDump> foods) {
     buffer
-      ..writeln('## 6. Son tahliller')
-      ..writeln();
-
-    if (labs.isEmpty) {
-      buffer.writeln('(tahlil kaydı yok)');
-    } else {
-      for (final lab in labs) {
-        final range = lab.refLow == null && lab.refHigh == null
-            ? ''
-            : ' (referans ${lab.refLow ?? "?"}-${lab.refHigh ?? "?"})';
-        buffer.writeln(
-          '- ${lab.marker}: ${lab.value} ${lab.unit}$range — ${lab.date}',
-        );
-      }
+      ..writeln('### Besin listesi')
+      ..writeln()
+      ..writeln(
+        'Öğün kalemlerinde (`items[].foodId`) yalnız bu id\'leri kullan:',
+      )
+      ..writeln()
+      ..writeln('```')
+      ..writeln('id · ad · kcal/100g · varsayılan porsiyon');
+    for (final food in foods) {
+      buffer.writeln(
+        '${food.id} · ${food.name} · ${food.kcal100.round()} · '
+        '${food.defaultPortion ?? "100 g"}',
+      );
     }
-
-    buffer.writeln();
+    buffer
+      ..writeln('```')
+      ..writeln();
   }
 
   void _writeTask(
@@ -353,9 +595,10 @@ class ContextMdBuilder {
     List<ExerciseRef> exercises,
     int weeks,
     String startDate,
+    bool graft,
   ) {
     buffer
-      ..writeln('## 7. Görev ve format')
+      ..writeln('## 9. Görev ve format')
       ..writeln()
       ..writeln('Bana $weeks haftalık, gün gün bir plan üret. Kurallar:')
       ..writeln()
@@ -385,11 +628,19 @@ class ContextMdBuilder {
       )
       ..writeln(
         '5. Tarihler `$startDate` gününden başlayarak ardışık olsun ve '
-        'gün sayısı hafta sayısının 7 katı olsun.',
+        'gün sayısı hafta sayısının 7 katı olsun.'
+        '${graft ? ' Bu bir devam planı: yalnız bu tarihten sonrasını yaz; önceki günlere dokunulmayacak.' : ''}',
       )
       ..writeln(
         '6. `dailyKcal` 1200-4000, `proteinG` 50-300, `waterL` 1-6 '
         'aralığında olmalı.',
+      )
+      ..writeln(
+        '7. Öğün slotlarına istersen `mealKind` '
+        '(kahvalti|araOgun|ogle|ikindi|aksam|gece) ve besin '
+        'listesindeki id\'lerle `items` dizisi ekle: '
+        '`[{"foodId": "...", "quantity": 1.5, "portionId": "..."}]`. '
+        'Listede olmayan besin id\'si kullanma.',
       )
       ..writeln()
       ..writeln('### Kullanılabilir katalog')

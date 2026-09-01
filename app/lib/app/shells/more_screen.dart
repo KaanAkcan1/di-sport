@@ -2,6 +2,7 @@ import 'package:disport/app/shells/shell_header.dart';
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
+import 'package:disport/features/ai_bridge/presentation/context_sections_screen.dart';
 import 'package:disport/features/catalog/presentation/equipment_screen.dart';
 import 'package:disport/features/medical/presentation/medical_screen.dart';
 import 'package:disport/features/nutrition/presentation/forbidden_editor_screen.dart';
@@ -82,6 +83,12 @@ class MoreScreen extends StatelessWidget {
                 area: AppArea.diet,
                 title: l10n.forbiddenTitle,
                 screen: (context) => const ForbiddenEditorScreen(),
+              ),
+              _MoreRow(
+                icon: LucideIcons.sparkles,
+                area: AppArea.neutral,
+                title: l10n.moreAiSections,
+                screen: (context) => const ContextSectionsScreen(),
               ),
               const SizedBox(height: AppSpacing.xl),
               AppSectionLabel(l10n.moreApp),

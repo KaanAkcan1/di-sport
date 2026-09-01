@@ -53,6 +53,9 @@ class _FakeCatalog implements CatalogSource {
 
   @override
   Future<List<ExerciseRef>> selectable() async => items;
+
+  @override
+  Future<List<ExerciseRef>> all() async => items;
 }
 
 class _FakePlan implements PlanSource {
@@ -62,6 +65,70 @@ class _FakePlan implements PlanSource {
 
   @override
   Future<ActivePlanSummary?> activePlanSummary() async => summary;
+}
+
+class _FakeMedical implements MedicalSource {
+  _FakeMedical([this.items = const []]);
+  final List<MedicalFactDump> items;
+
+  @override
+  Future<List<MedicalFactDump>> facts() async => items;
+}
+
+class _FakeMedications implements MedicationSource {
+  _FakeMedications([this.items = const []]);
+  final List<MedicationDump> items;
+
+  @override
+  Future<List<MedicationDump>> medications() async => items;
+}
+
+class _FakeEnvironment implements EnvironmentSource {
+  _FakeEnvironment({
+    this.home = const [],
+    this.gym = const [],
+    this.sports = const [],
+  });
+
+  final List<String> home;
+  final List<String> gym;
+  final List<({String name, String? note})> sports;
+
+  @override
+  Future<({List<String> home, List<String> gym})> equipment() async =>
+      (home: home, gym: gym);
+
+  @override
+  Future<List<({String name, String? note})>> favoriteSports() async => sports;
+}
+
+class _FakeRoutine implements RoutineSource {
+  _FakeRoutine([this.items = const []]);
+  final List<MealBehaviorDump> items;
+
+  @override
+  Future<List<MealBehaviorDump>> mealBehaviors() async => items;
+}
+
+class _FakeNutrition implements NutritionSource {
+  _FakeNutrition({this.items = const [], this.intake = const []});
+  final List<FoodDump> items;
+  final List<DayIntakeDump> intake;
+
+  @override
+  Future<List<FoodDump>> foods() async => items;
+
+  @override
+  Future<List<DayIntakeDump>> dailyIntake({required int lastDays}) async =>
+      intake;
+}
+
+class _FakeRules implements RulesSource {
+  _FakeRules([this.items = const []]);
+  final List<String> items;
+
+  @override
+  Future<List<String>> forbidden() async => items;
 }
 
 class _FakeAvailability implements AvailabilitySource {
@@ -85,6 +152,15 @@ void main() {
     List<ExerciseRef> catalog = const [],
     ActivePlanSummary? plan,
     List<WindowDump> windows = const [],
+    List<MedicalFactDump> facts = const [],
+    List<MedicationDump> meds = const [],
+    List<String> homeGear = const [],
+    List<String> gymGear = const [],
+    List<({String name, String? note})> sports = const [],
+    List<MealBehaviorDump> behaviors = const [],
+    List<FoodDump> foods = const [],
+    List<DayIntakeDump> intake = const [],
+    List<String> forbidden = const [],
   }) => ContextMdBuilder(
     profile: _FakeProfile(profile),
     logs: _FakeLogs(days: days, notes: notes, sets: sets),
@@ -92,6 +168,16 @@ void main() {
     catalog: _FakeCatalog(catalog),
     plan: _FakePlan(plan),
     availability: _FakeAvailability(windows),
+    medical: _FakeMedical(facts),
+    medications: _FakeMedications(meds),
+    environment: _FakeEnvironment(
+      home: homeGear,
+      gym: gymGear,
+      sports: sports,
+    ),
+    routine: _FakeRoutine(behaviors),
+    nutrition: _FakeNutrition(items: foods, intake: intake),
+    rules: _FakeRules(forbidden),
   );
 
   const fullProfile = {
@@ -108,20 +194,109 @@ void main() {
     ProfileKeys.healthConstraints: 'karaciğer yağlanması; diz hassasiyeti',
   };
 
-  test('yedi bölümün hepsi var', () async {
+  test('v2 bölümlerinin hepsi var', () async {
     final md = await builder().build(today: today);
 
     for (final heading in [
       '## 1. Kim',
       '## 2. Hedef',
-      '## 3. Kısıtlar',
-      '## 4. Geçen dönem',
-      '## 5. Kendi sözlerim',
-      '## 6. Son tahliller',
-      '## 7. Görev ve format',
+      '## 3. Medikal',
+      '## 4. Ortam',
+      '## 5. Kısıtlar ve düzen',
+      '## 7. Geçen dönem',
+      '## 8. Kendi sözlerim',
+      '## 9. Görev ve format',
+      '### Besin listesi',
     ]) {
       expect(md, contains(heading), reason: heading);
     }
+  });
+
+  test('kapalı bölüm belgeye hiç yazılmaz', () async {
+    final md = await builder(
+      facts: const [MedicalFactDump(kind: 'condition', label: 'İnsülin direnci')],
+    ).build(
+      today: today,
+      sections: const {ContextSection.recent, ContextSection.notes},
+    );
+
+    expect(md, isNot(contains('## 3. Medikal')));
+    expect(md, isNot(contains('İnsülin direnci')));
+    expect(md, isNot(contains('### Besin listesi')));
+    // Sabit bölümler her zaman girer.
+    expect(md, contains('## 1. Kim'));
+    expect(md, contains('## 9. Görev ve format'));
+  });
+
+  test('medikal bölüm ilaçları sınır satırıyla basar', () async {
+    final md = await builder(
+      facts: const [
+        MedicalFactDump(kind: 'restriction', label: 'Diz hassasiyeti'),
+      ],
+      meds: const [
+        MedicationDump(
+          name: 'Metformin',
+          isPrescription: true,
+          doseLabel: '1000 mg',
+          times: ['08:00'],
+        ),
+      ],
+    ).build(today: today);
+
+    expect(md, contains('Hareket kısıtı: Diz hassasiyeti'));
+    expect(md, contains('Reçeteli: Metformin · 1000 mg · 08:00'));
+    expect(md, contains('İlaç etkileşimi, doz değişikliği'));
+  });
+
+  test('ortam ekipmanı enum adlarıyla, sporlar notla basılır', () async {
+    final md = await builder(
+      homeGear: const ['dumbbell', 'chair'],
+      gymGear: const ['cable'],
+      sports: const [(name: 'Basketball', note: 'haftada 1')],
+    ).build(today: today);
+
+    expect(md, contains('Evdeki ekipman: dumbbell, chair'));
+    expect(md, contains('Salondaki ekipman: cable'));
+    expect(md, contains('Basketball (haftada 1)'));
+  });
+
+  test('öğün davranışları ve yasaklılar belgeye girer', () async {
+    final md = await builder(
+      behaviors: const [
+        MealBehaviorDump(meal: 'ogle', behavior: 'external', time: '12:30'),
+      ],
+      forbidden: const ['şeker'],
+    ).build(today: today);
+
+    expect(md, contains('ogle: external · 12:30'));
+    expect(md, contains('Bunları **asla önerme**'));
+    expect(md, contains('- şeker'));
+  });
+
+  test('son 14 gün bloğu su ml ve ilaç uyumunu taşır', () async {
+    final md = await builder(
+      intake: const [
+        DayIntakeDump(
+          date: '2026-09-27',
+          kcalEaten: 1850,
+          waterMl: 2750,
+          dosesTaken: 1,
+          dosesPlanned: 2,
+        ),
+      ],
+    ).build(today: today);
+
+    expect(md, contains('"waterMl": 2750'));
+    expect(md, contains('"doses": "1/2"'));
+  });
+
+  test('aşılamada başlangıç seçilen gün ve devam talimatı yazılır', () async {
+    final md = await builder().build(
+      today: today,
+      graftFrom: DateTime(2026, 10, 5),
+    );
+    expect(md, contains('`2026-10-05` gününden başlayarak'));
+    expect(md, contains('devam planı'));
   });
 
   test('profil bilgileri birinci bölüme yazılır', () async {
@@ -130,7 +305,6 @@ void main() {
     expect(md, contains('Yaş: 34'));
     expect(md, contains('Boy: 184 cm'));
     expect(md, contains('Fabrika, 07:30-17:30'));
-    expect(md, contains('direnç bandı, sandalye'));
   });
 
   test('eksik profil alanı "belirtilmedi" der, bölümü boş bırakmaz', () async {

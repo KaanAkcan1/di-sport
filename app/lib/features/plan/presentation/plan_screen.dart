@@ -135,9 +135,12 @@ class _PlanActionsState extends ConsumerState<PlanActions> {
   Future<void> _requestPlan() async {
     setState(() => _busy = true);
     try {
+      // Gönderilecekler ekranındaki seçim burada da geçerli: kapalı
+      // bölüm hiçbir yoldan belgeye girmez.
+      final sections = await ref.read(contextSectionsProvider.future);
       final markdown = await ref
           .read(contextMdBuilderProvider)
-          .build(today: DateTime.now());
+          .build(today: DateTime.now(), sections: sections);
 
       if (!mounted) return;
       await SharePlus.instance.share(
