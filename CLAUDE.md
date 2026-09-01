@@ -463,7 +463,7 @@ slotsuz. Varsayılan slot koymak silinecek satırlar üretmek olurdu.
 
 ## Durum
 
-**v1 tamamlandı (M1-M6). v2 tamamlandı (M7-M12).** 622 test yeşil, analiz temiz.
+**v1 tamamlandı (M1-M6). v2 tamamlandı (M7-M12).** 755 test yeşil, analiz temiz.
 
 | | |
 |---|---|
