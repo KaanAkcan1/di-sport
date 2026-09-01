@@ -38,6 +38,9 @@ class WorkoutRepository {
     int? reps,
     double? weightKg,
     int? durationSec,
+    double? speedKmh,
+    double? gradePct,
+    String? effort,
   }) => _db
       .into(_db.exerciseLogs)
       .insert(
@@ -51,8 +54,102 @@ class WorkoutRepository {
           reps: Value(reps),
           weightKg: Value(weightKg),
           durationSec: Value(durationSec),
+          speedKmh: Value(speedKmh),
+          gradePct: Value(gradePct),
+          effort: Value(effort),
         ),
       );
+
+  /// Bir seansı başlatır ya da o gün açık olanı döndürür.
+  ///
+  /// **Neden idempotent:** kullanıcı antrenman ekranına gün içinde
+  /// birkaç kez giriyor (bir hareketi yap, çık, dön). Her girişte yeni
+  /// seans açmak süreyi ve dolayısıyla kaloriyi katlardı.
+  Future<String> startSession(String isoDate, {DateTime? now}) async {
+    final open =
+        await (_db.select(_db.workoutSessions)
+              ..where(
+                (t) =>
+                    t.date.equals(isoDate) &
+                    t.endedAt.isNull() &
+                    t.deletedAt.isNull(),
+              )
+              ..limit(1))
+            .getSingleOrNull();
+    if (open != null) return open.id;
+
+    final id = const Uuid().v4();
+    await _db
+        .into(_db.workoutSessions)
+        .insert(
+          WorkoutSessionsCompanion.insert(
+            id: id,
+            date: isoDate,
+            startedAt: now ?? DateTime.now(),
+            updatedAt: DateTime.now().millisecondsSinceEpoch,
+          ),
+        );
+    return id;
+  }
+
+  /// O günün açık seansını kapatır.
+  ///
+  /// Açık seans yoksa hiçbir şey yapmıyor — "bitir"e iki kez basmak
+  /// süreyi uzatmamalı.
+  Future<void> endSession(String isoDate, {DateTime? now}) =>
+      (_db.update(_db.workoutSessions)..where(
+            (t) =>
+                t.date.equals(isoDate) &
+                t.endedAt.isNull() &
+                t.deletedAt.isNull(),
+          ))
+          .write(
+            WorkoutSessionsCompanion(
+              endedAt: Value(now ?? DateTime.now()),
+              updatedAt: Value(DateTime.now().millisecondsSinceEpoch),
+            ),
+          );
+
+  /// Bir günün tamamlanmış seans süreleri.
+  ///
+  /// Açık seanslar **dışarıda**: bitmemiş bir antrenmanın süresi
+  /// bilinmiyor ve "şu ana kadar" saymak, uygulamayı açık unutan
+  /// kullanıcıya 9 saatlik antrenman yazardı.
+  Stream<List<Duration>> watchSessionDurations(String isoDate) =>
+      (_db.select(_db.workoutSessions)..where(
+            (t) =>
+                t.date.equals(isoDate) &
+                t.endedAt.isNotNull() &
+                t.deletedAt.isNull(),
+          ))
+          .watch()
+          .map(
+            (rows) => [
+              for (final row in rows) row.endedAt!.difference(row.startedAt),
+            ],
+          );
+
+  Stream<Map<String, Duration>> sessionsBetween(
+    String fromIso,
+    String toIso,
+  ) =>
+      (_db.select(_db.workoutSessions)..where(
+            (t) =>
+                t.date.isBiggerOrEqualValue(fromIso) &
+                t.date.isSmallerOrEqualValue(toIso) &
+                t.endedAt.isNotNull() &
+                t.deletedAt.isNull(),
+          ))
+          .watch()
+          .map((rows) {
+            final totals = <String, Duration>{};
+            for (final row in rows) {
+              totals[row.date] =
+                  (totals[row.date] ?? Duration.zero) +
+                  row.endedAt!.difference(row.startedAt);
+            }
+            return totals;
+          });
 
   /// Son kaydedilen seti geri alır.
   ///
