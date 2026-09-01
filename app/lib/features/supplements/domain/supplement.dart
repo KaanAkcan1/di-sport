@@ -1,8 +1,31 @@
 /// Bir takviye ya da ilaç tanımı — saf model.
+/// Kaydın türü — takviye mi reçeteli ilaç mı (v3 §4).
+///
+/// Ayrım üç yerde okunuyor: Sağlık listesi iki başlık altında
+/// gösteriyor, medikal ekranı yalnız ilaçları aynalıyor, AI belgesi
+/// ilaçların yanına etkileşim-yasağı satırı basıyor.
+enum SupplementKind {
+  supplement,
+  medication;
+
+  static SupplementKind fromName(String name) =>
+      SupplementKind.values.firstWhere(
+        (kind) => kind.name == name,
+        orElse: () => throw ArgumentError.value(
+          name,
+          'kind',
+          // l10n-exempt: geliştiriciye giden hata metni.
+          'bilinmeyen tür; beklenen: '
+              '${SupplementKind.values.map((k) => k.name).join(' | ')}',
+        ),
+      );
+}
+
 class Supplement {
   const Supplement({
     required this.id,
     required this.name,
+    this.kind = SupplementKind.supplement,
     this.dose = '',
     this.unit = '',
     this.times = const [],
@@ -11,6 +34,8 @@ class Supplement {
   });
 
   final String id;
+
+  final SupplementKind kind;
 
   /// Kullanıcının kendi metni — çevrilmez.
   final String name;

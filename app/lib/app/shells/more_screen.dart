@@ -3,6 +3,7 @@ import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/presentation/equipment_screen.dart';
+import 'package:disport/features/medical/presentation/medical_screen.dart';
 import 'package:disport/features/settings/presentation/appearance_settings.dart';
 import 'package:disport/features/settings/presentation/backup_settings.dart';
 import 'package:disport/features/settings/presentation/language_settings.dart';
@@ -56,6 +57,12 @@ class MoreScreen extends StatelessWidget {
                 area: AppArea.sport,
                 title: l10n.moreEquipment,
                 screen: (context) => const EquipmentScreen(),
+              ),
+              _MoreRow(
+                icon: LucideIcons.heartPulse,
+                area: AppArea.health,
+                title: l10n.medicalTitle,
+                screen: (context) => const MedicalScreen(),
               ),
               _MoreRow(
                 icon: LucideIcons.clock,

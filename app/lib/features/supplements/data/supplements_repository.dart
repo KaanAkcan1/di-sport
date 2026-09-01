@@ -48,6 +48,7 @@ class SupplementsRepository {
             id: id,
             updatedAt: now,
             name: supplement.name,
+            kind: Value(supplement.kind.name),
             dose: Value(supplement.dose),
             unit: Value(supplement.unit),
             timesJson: Value(jsonEncode(supplement.times)),
@@ -146,6 +147,7 @@ class SupplementsRepository {
 
   Supplement _toModel(SupplementRow row) => Supplement(
     id: row.id,
+    kind: SupplementKind.fromName(row.kind),
     name: row.name,
     dose: row.dose,
     unit: row.unit,
