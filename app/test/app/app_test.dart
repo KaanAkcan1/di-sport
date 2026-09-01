@@ -73,6 +73,8 @@ void main() {
       // M12: `DisportApp` tema modunu Drift akışından okuyor — kabuk
       // testinde gerçek akışa bağlanırsa `pumpAndSettle` asılır.
       themeModeProvider.overrideWith((ref) => Stream.value(ThemeMode.dark)),
+      // M7: dil ayarı da Drift akışı; aynı sebeple sabitleniyor.
+      appLocaleProvider.overrideWith((ref) => Stream.value(const Locale('tr'))),
       // Hafta şeridi de günlük kayıtları akışla okuyor.
       weekFillProvider.overrideWith(
         (ref) => Stream.value(const <({DateTime day, bool filled})>[]),

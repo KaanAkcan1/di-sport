@@ -1,7 +1,9 @@
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/presentation/equipment_screen.dart';
 import 'package:disport/features/settings/presentation/appearance_settings.dart';
 import 'package:disport/features/settings/presentation/backup_settings.dart';
+import 'package:disport/features/settings/presentation/language_settings.dart';
 import 'package:disport/features/settings/presentation/notification_settings.dart';
 import 'package:disport/features/settings/presentation/profile_form.dart';
 import 'package:disport/features/settings/presentation/weekly_schedule_screen.dart';
@@ -17,12 +19,13 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Ayarlar')),
+      appBar: AppBar(title: Text(context.l10n.settingsTitle)),
       body: const ProfileForm(
         trailing: [
           _WeeklyScheduleEntry(),
           _EquipmentEntry(),
           AppearanceSettings(),
+          LanguageSettings(),
           NotificationSettings(),
           BackupSettings(),
         ],

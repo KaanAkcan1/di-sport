@@ -1,6 +1,7 @@
 import 'package:disport/app/theme/app_theme.dart';
 import 'package:disport/core/db/app_database.dart';
 import 'package:disport/core/notifications/local_notification_service.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/catalog/presentation/catalog_screen.dart';
@@ -40,6 +41,12 @@ class DisportApp extends ConsumerWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: mode,
+      // `null` = sistem dili. Flutter desteklenenler arasından en
+      // yakınını seçiyor; listede olmayan bir dilde ilk sıradaki
+      // (Türkçe) kullanılıyor.
+      locale: ref.watch(appLocaleProvider).value,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
       // Sistem yazı boyutu büyütüldüğünde arayüz bozulmadan büyümeli,
       // ama sınırsız da olmamalı: 1.6x üstünde iki satırlık etiketler
@@ -98,10 +105,8 @@ class _Shell extends StatefulWidget {
 /// bağımsız olarak da belli eder (ui-ux §1 `color-not-only`,
 /// §9 `nav-state-active`).
 typedef _Tab = ({
-  String label,
   IconData icon,
   IconData selectedIcon,
-  String semanticHint,
   Widget screen,
 });
 
@@ -136,54 +141,67 @@ class _ShellState extends State<_Shell> {
     if (tab != null && mounted) setState(() => _index = tab);
   }
 
+  /// Sekme sırası sabit; etiketler çeviriden geliyor.
+  ///
+  /// `ReminderPayloads.tabIndex` bu sıraya bağlı — bildirime dokunmak
+  /// doğru sekmeyi açıyor. Sıra değişirse orası da değişmeli.
   static const List<_Tab> _tabs = [
     (
-      label: 'Bugün',
       icon: Icons.today_outlined,
       selectedIcon: Icons.today,
-      semanticHint: 'Günün programı ve kayıtları',
       screen: TodayScreen(),
     ),
     (
-      label: 'Plan',
       icon: Icons.calendar_month_outlined,
       selectedIcon: Icons.calendar_month,
-      semanticHint: 'Dört haftalık program',
       screen: PlanScreen(),
     ),
     (
-      label: 'İlerleme',
       icon: Icons.show_chart_outlined,
       selectedIcon: Icons.show_chart,
-      semanticHint: 'Kilo trendi ve haftalık özet',
       screen: ProgressScreen(),
     ),
     (
-      label: 'Sağlık',
       icon: Icons.favorite_outline,
       selectedIcon: Icons.favorite,
-      semanticHint: 'Tahliller ve ölçümler',
       screen: HealthScreen(),
     ),
     (
-      label: 'Katalog',
       icon: Icons.fitness_center_outlined,
       selectedIcon: Icons.fitness_center,
-      semanticHint: 'Egzersiz kütüphanesi',
       screen: CatalogScreen(),
     ),
   ];
 
+  List<String> _labels(BuildContext context) => [
+    context.l10n.tabToday,
+    context.l10n.tabPlan,
+    context.l10n.tabProgress,
+    context.l10n.tabHealth,
+    context.l10n.tabCatalog,
+  ];
+
+  List<String> _hints(BuildContext context) => [
+    context.l10n.tabTodayHint,
+    context.l10n.tabPlanHint,
+    context.l10n.tabProgressHint,
+    context.l10n.tabHealthHint,
+    context.l10n.tabCatalogHint,
+  ];
+
   @override
   Widget build(BuildContext context) {
+    final labels = _labels(context);
+    final hints = _hints(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(_tabs[_index].label),
+        title: Text(labels[_index]),
         actions: [
           IconButton(
             key: const Key('settings-button'),
             icon: const Icon(Icons.settings_outlined),
-            tooltip: 'Profil ve yaşam tarzı',
+            tooltip: context.l10n.settingsTooltip,
             onPressed: () => Navigator.of(context).push(
               MaterialPageRoute<void>(builder: (_) => const SettingsScreen()),
             ),
@@ -203,12 +221,12 @@ class _ShellState extends State<_Shell> {
         selectedIndex: _index,
         onDestinationSelected: (i) => setState(() => _index = i),
         destinations: [
-          for (final tab in _tabs)
+          for (final (index, tab) in _tabs.indexed)
             NavigationDestination(
               icon: Icon(tab.icon),
               selectedIcon: Icon(tab.selectedIcon),
-              label: tab.label,
-              tooltip: tab.semanticHint,
+              label: labels[index],
+              tooltip: hints[index],
             ),
         ],
       ),

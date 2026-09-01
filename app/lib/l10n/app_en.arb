@@ -1,0 +1,37 @@
+{
+  "@@locale": "en",
+
+  "tabToday": "Today",
+  "tabPlan": "Plan",
+  "tabProgress": "Progress",
+  "tabHealth": "Health",
+  "tabCatalog": "Catalog",
+
+  "tabTodayHint": "Today's schedule and entries",
+  "tabPlanHint": "Four-week programme",
+  "tabProgressHint": "Weight trend and weekly summary",
+  "tabHealthHint": "Lab results and measurements",
+  "tabCatalogHint": "Exercise library",
+
+  "settingsTitle": "Settings",
+  "settingsTooltip": "Profile and lifestyle",
+
+  "commonSave": "Save",
+  "commonCancel": "Cancel",
+  "commonDelete": "Delete",
+  "commonEdit": "Edit",
+  "commonClear": "Clear",
+  "commonRetry": "Try again",
+
+  "appearanceTitle": "Appearance",
+  "appearanceDescription": "Dark is how the app is meant to look — readable in the gym and before sunrise.",
+  "appearanceSystem": "System",
+  "appearanceDark": "Dark",
+  "appearanceLight": "Light",
+
+  "languageTitle": "Language",
+  "languageDescription": "Interface language. Exercise and food names stay searchable in both.",
+  "languageSystem": "System",
+  "languageTurkish": "Türkçe",
+  "languageEnglish": "English"
+}

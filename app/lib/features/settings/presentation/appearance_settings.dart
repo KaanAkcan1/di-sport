@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/settings/application/settings_providers.dart';
@@ -18,30 +19,31 @@ class AppearanceSettings extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final mode = ref.watch(themeModeProvider).value ?? ThemeMode.dark;
 
+    final l10n = context.l10n;
+
     return AppSection(
-      title: 'Görünüm',
-      description: 'Koyu tema uygulamanın asıl hâli; salonda ve sabahın '
-          'köründe de okunur.',
+      title: l10n.appearanceTitle,
+      description: l10n.appearanceDescription,
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(AppSpacing.lg),
           child: SegmentedButton<ThemeMode>(
             key: const Key('theme-mode-selector'),
-            segments: const [
+            segments: [
               ButtonSegment(
                 value: ThemeMode.system,
-                label: Text('Sistem'),
-                icon: Icon(Icons.brightness_auto_outlined),
+                label: Text(l10n.appearanceSystem),
+                icon: const Icon(Icons.brightness_auto_outlined),
               ),
               ButtonSegment(
                 value: ThemeMode.dark,
-                label: Text('Koyu'),
-                icon: Icon(Icons.dark_mode_outlined),
+                label: Text(l10n.appearanceDark),
+                icon: const Icon(Icons.dark_mode_outlined),
               ),
               ButtonSegment(
                 value: ThemeMode.light,
-                label: Text('Açık'),
-                icon: Icon(Icons.light_mode_outlined),
+                label: Text(l10n.appearanceLight),
+                icon: const Icon(Icons.light_mode_outlined),
               ),
             ],
             selected: {mode},

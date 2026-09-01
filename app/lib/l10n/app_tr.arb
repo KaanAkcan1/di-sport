@@ -1,0 +1,37 @@
+{
+  "@@locale": "tr",
+
+  "tabToday": "Bugün",
+  "tabPlan": "Plan",
+  "tabProgress": "İlerleme",
+  "tabHealth": "Sağlık",
+  "tabCatalog": "Katalog",
+
+  "tabTodayHint": "Günün programı ve kayıtları",
+  "tabPlanHint": "Dört haftalık program",
+  "tabProgressHint": "Kilo trendi ve haftalık özet",
+  "tabHealthHint": "Tahliller ve ölçümler",
+  "tabCatalogHint": "Egzersiz kütüphanesi",
+
+  "settingsTitle": "Ayarlar",
+  "settingsTooltip": "Profil ve yaşam tarzı",
+
+  "commonSave": "Kaydet",
+  "commonCancel": "Vazgeç",
+  "commonDelete": "Sil",
+  "commonEdit": "Düzenle",
+  "commonClear": "Temizle",
+  "commonRetry": "Yeniden dene",
+
+  "appearanceTitle": "Görünüm",
+  "appearanceDescription": "Koyu tema uygulamanın asıl hâli; salonda ve sabahın köründe de okunur.",
+  "appearanceSystem": "Sistem",
+  "appearanceDark": "Koyu",
+  "appearanceLight": "Açık",
+
+  "languageTitle": "Dil",
+  "languageDescription": "Arayüz dili. Hareket ve besin adları her iki dilde de aranabilir.",
+  "languageSystem": "Sistem",
+  "languageTurkish": "Türkçe",
+  "languageEnglish": "English"
+}
