@@ -44,3 +44,18 @@ List<SupplementDose> todayDoses(Ref ref) {
 
   return doses..sort((a, b) => a.time.compareTo(b.time));
 }
+
+/// Son 7 günün alınmış dozları — uyum şeridi (v3 §7.4).
+@riverpod
+Stream<Map<String, Set<String>>> takenLastWeek(Ref ref) {
+  final todayIso = ref.watch(todayIsoProvider);
+  final today = DateTime.parse(todayIso);
+  final from = today.subtract(const Duration(days: 6));
+  final fromIso =
+      '${from.year.toString().padLeft(4, '0')}-'
+      '${from.month.toString().padLeft(2, '0')}-'
+      '${from.day.toString().padLeft(2, '0')}';
+  return ref
+      .watch(supplementsRepositoryProvider)
+      .watchTakenBetween(fromIso, todayIso);
+}

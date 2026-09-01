@@ -8,6 +8,8 @@ import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/health/data/body_metrics_repository.dart';
 import 'package:disport/features/health/data/lab_repository.dart';
 import 'package:disport/features/health/data/metric_definitions_repository.dart';
+import 'package:disport/features/medical/application/medical_providers.dart';
+import 'package:disport/features/medical/domain/medical_fact.dart';
 import 'package:disport/features/nutrition/application/nutrition_providers.dart';
 import 'package:disport/features/nutrition/domain/activity.dart';
 import 'package:disport/features/nutrition/domain/calorie_budget.dart';
@@ -45,6 +47,10 @@ void main() {
       // Drift akışları da override edilmeli (asılır).
       supplementsProvider.overrideWith(
         (ref) => Stream.value(const <Supplement>[]),
+      ),
+      // v3 T17.3: uyum şeridi son haftanın alımlarını akışla okuyor.
+      takenLastWeekProvider.overrideWith(
+        (ref) => Stream.value(const <String, Set<String>>{}),
       ),
       foodResultsProvider.overrideWith((ref) => Stream.value(const <Food>[])),
       // Kabuk testi sekme geçişini sınar, katalog içeriğini değil.
@@ -119,6 +125,10 @@ void main() {
         (ref) => Stream.value(
           const <({String date, Duration total, int exerciseCount})>[],
         ),
+      ),
+      // v3 T17.2: check-up rehberi medikal kayıtları akışla okuyor.
+      medicalFactsProvider.overrideWith(
+        (ref) => Stream.value(const <MedicalFact>[]),
       ),
       // v3: kurulum paneli ve doğum günü satırı Drift akışlarına bakıyor.
       setupProgressProvider.overrideWith(

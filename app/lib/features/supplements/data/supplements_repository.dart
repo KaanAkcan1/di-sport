@@ -88,6 +88,34 @@ class SupplementsRepository {
     );
   }
 
+  /// Aralıktaki **alınmış** dozlar — gün → doz anahtarları (v3 §7.4).
+  ///
+  /// Uyum şeridi son yedi günü tek sorguda okur; gün başına ayrı akış
+  /// yedi canlı sorgu demek olurdu.
+  Stream<Map<String, Set<String>>> watchTakenBetween(
+    String fromIso,
+    String toIso,
+  ) {
+    final query = _db.select(_db.supplementLogs)
+      ..where(
+        (t) =>
+            t.date.isBiggerOrEqualValue(fromIso) &
+            t.date.isSmallerOrEqualValue(toIso) &
+            t.takenAt.isNotNull() &
+            t.deletedAt.isNull(),
+      );
+
+    return query.watch().map((rows) {
+      final byDate = <String, Set<String>>{};
+      for (final row in rows) {
+        byDate
+            .putIfAbsent(row.date, () => {})
+            .add(doseKey(row.supplementId, row.time));
+      }
+      return byDate;
+    });
+  }
+
   /// Alındı işaretini kurar ya da kaldırır.
   ///
   /// [takenAt] `null` geçilirse işaret kalkar — yanlış dokunuş geri
