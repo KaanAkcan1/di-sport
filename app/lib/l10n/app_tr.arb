@@ -385,6 +385,8 @@
   "medicalCondLactose": "Laktoz",
   "medicalCondGluten": "Gluten",
   "medicalCondNuts": "Kuruyemiş",
+  "supplementKindSupplement": "Takviye",
+  "supplementKindMedication": "İlaç",
   "settingsProfileHeightRequired": "Boy alanı gerekli.",
   "settingsProfileContextNote": "Bu bilgiler yapay zekâya gönderilen bağlam dosyasına girer. Ne kadar doldurursan plan o kadar sana göre olur; boş bıraktıkların \"belirtilmedi\" diye geçer.",
   "importPlanTitle": "Planı içeri al",

@@ -43,12 +43,40 @@ class SupplementsScreen extends ConsumerWidget {
           description: l10n.supplementsEmptyDescription,
         ),
         onRetry: () => ref.invalidate(supplementsProvider),
-        data: (list) => AppScreenBody(
-          children: [
-            for (final supplement in list)
-              _SupplementRow(supplement: supplement),
-          ],
-        ),
+        data: (list) {
+          // İlaç ve takviye ayrı başlıklar altında (v3 §4): ikisi aynı
+          // tabloda yaşıyor ama kullanıcı için farklı şeyler — reçeteli
+          // ilaç atlanmaz, takviye esner.
+          final meds = [
+            for (final s in list)
+              if (s.kind == SupplementKind.medication) s,
+          ];
+          final supplements = [
+            for (final s in list)
+              if (s.kind == SupplementKind.supplement) s,
+          ];
+          return AppScreenBody(
+            children: [
+              if (meds.isNotEmpty) ...[
+                AppSectionLabel(
+                  l10n.supplementKindMedication,
+                  trailing: Text('${meds.length}'),
+                ),
+                for (final supplement in meds)
+                  _SupplementRow(supplement: supplement),
+                const SizedBox(height: AppSpacing.lg),
+              ],
+              if (supplements.isNotEmpty) ...[
+                AppSectionLabel(
+                  l10n.supplementKindSupplement,
+                  trailing: Text('${supplements.length}'),
+                ),
+                for (final supplement in supplements)
+                  _SupplementRow(supplement: supplement),
+              ],
+            ],
+          );
+        },
       ),
     );
   }

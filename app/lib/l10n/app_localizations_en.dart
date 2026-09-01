@@ -1103,6 +1103,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get medicalCondNuts => 'Nuts';
 
   @override
+  String get supplementKindSupplement => 'Supplement';
+
+  @override
+  String get supplementKindMedication => 'Medication';
+
+  @override
   String get settingsProfileHeightRequired => 'Height is required.';
 
   @override

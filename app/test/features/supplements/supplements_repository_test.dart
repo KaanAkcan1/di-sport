@@ -39,6 +39,20 @@ void main() {
       expect(saved.dose, '1000');
       expect(saved.unit, 'IU');
       expect(saved.times, ['08:00', '21:30']);
+      // Tür belirtilmedi — varsayılan takviye (v15 sütunu).
+      expect(saved.kind, SupplementKind.supplement);
+    });
+
+    test('ilaç türü korunur — Sağlık listesi ve AI belgesi buna bakıyor', () async {
+      await repo.upsert(
+        const Supplement(
+          id: '',
+          name: 'Metformin',
+          kind: SupplementKind.medication,
+        ),
+      );
+      final saved = (await repo.all()).single;
+      expect(saved.kind, SupplementKind.medication);
     });
 
     test('güncelleme yeni kayıt açmaz', () async {

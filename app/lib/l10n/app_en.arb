@@ -385,6 +385,8 @@
   "medicalCondLactose": "Lactose",
   "medicalCondGluten": "Gluten",
   "medicalCondNuts": "Nuts",
+  "supplementKindSupplement": "Supplement",
+  "supplementKindMedication": "Medication",
   "settingsProfileHeightRequired": "Height is required.",
   "settingsProfileContextNote": "This information goes into the context file sent to the AI. The more you fill in, the more the plan fits you; whatever you leave blank is reported as \"not specified\".",
   "importPlanTitle": "Import plan",

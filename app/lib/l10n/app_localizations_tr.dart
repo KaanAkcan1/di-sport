@@ -1101,6 +1101,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get medicalCondNuts => 'Kuruyemiş';
 
   @override
+  String get supplementKindSupplement => 'Takviye';
+
+  @override
+  String get supplementKindMedication => 'İlaç';
+
+  @override
   String get settingsProfileHeightRequired => 'Boy alanı gerekli.';
 
   @override

@@ -40,11 +40,13 @@ class _SupplementFormSheetState extends ConsumerState<SupplementFormSheet> {
 
   late List<String> _times;
   late Set<int> _weekdays;
+  late SupplementKind _kind;
 
   @override
   void initState() {
     super.initState();
     final existing = widget.existing;
+    _kind = existing?.kind ?? SupplementKind.supplement;
     _name = TextEditingController(text: existing?.name ?? '');
     _dose = TextEditingController(text: existing?.dose ?? '');
     _unit = TextEditingController(text: existing?.unit ?? '');
@@ -86,6 +88,7 @@ class _SupplementFormSheetState extends ConsumerState<SupplementFormSheet> {
         .upsert(
           Supplement(
             id: widget.existing?.id ?? '',
+            kind: _kind,
             name: _name.text.trim(),
             dose: _dose.text.trim(),
             unit: _unit.text.trim(),
@@ -116,6 +119,27 @@ class _SupplementFormSheetState extends ConsumerState<SupplementFormSheet> {
               style: theme.textTheme.titleMedium,
             ),
             const SizedBox(height: AppSpacing.lg),
+
+            // Tür ayrımı üç yerde okunuyor: liste başlıkları, medikal
+            // ekranındaki ilaç aynası ve AI belgesinin etkileşim-yasağı
+            // satırı. Varsayılan takviye — ilaç bilinçli seçilmeli.
+            SegmentedButton<SupplementKind>(
+              key: const Key('supplement-kind'),
+              segments: [
+                ButtonSegment(
+                  value: SupplementKind.supplement,
+                  label: Text(l10n.supplementKindSupplement),
+                ),
+                ButtonSegment(
+                  value: SupplementKind.medication,
+                  label: Text(l10n.supplementKindMedication),
+                ),
+              ],
+              selected: {_kind},
+              onSelectionChanged: (set) => setState(() => _kind = set.first),
+              showSelectedIcon: false,
+            ),
+            const SizedBox(height: AppSpacing.md),
 
             TextFormField(
               key: const Key('supplement-name'),

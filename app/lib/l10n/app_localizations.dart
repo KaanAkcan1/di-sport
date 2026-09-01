@@ -2042,6 +2042,18 @@ abstract class AppLocalizations {
   /// **'Kuruyemiş'**
   String get medicalCondNuts;
 
+  /// No description provided for @supplementKindSupplement.
+  ///
+  /// In tr, this message translates to:
+  /// **'Takviye'**
+  String get supplementKindSupplement;
+
+  /// No description provided for @supplementKindMedication.
+  ///
+  /// In tr, this message translates to:
+  /// **'İlaç'**
+  String get supplementKindMedication;
+
   /// No description provided for @settingsProfileHeightRequired.
   ///
   /// In tr, this message translates to:
