@@ -7,6 +7,7 @@ import 'package:disport/features/nutrition/domain/food.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/supplements/application/supplement_providers.dart';
 import 'package:disport/features/supplements/domain/supplement.dart';
+import 'package:disport/features/today/application/day_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/daily_rules_repository.dart';
 import 'package:disport/features/today/data/today_repository.dart';
@@ -63,10 +64,10 @@ void main() {
       // Takviye dozları da Drift akışı; ekran testi bağlanmamalı.
       todayDosesProvider.overrideWithValue(const <SupplementDose>[]),
       todayIsoProvider.overrideWithValue('2026-08-31'),
-      todayPlanDayProvider.overrideWith((ref) => Stream.value(planDay)),
-      todayLogProvider.overrideWith((ref) => Stream.value(log)),
-      todayWeightProvider.overrideWith((ref) => Stream.value(weight)),
-      todaySleepProvider.overrideWith((ref) => Stream.value(sleep)),
+      dayPlanDayProvider('2026-08-31').overrideWith((ref) => Stream.value(planDay)),
+      dayLogProvider('2026-08-31').overrideWith((ref) => Stream.value(log)),
+      dayWeightProvider('2026-08-31').overrideWith((ref) => Stream.value(weight)),
+      daySleepProvider('2026-08-31').overrideWith((ref) => Stream.value(sleep)),
       missedStreakProvider.overrideWith((ref) async => missedStreak),
       // Kurallar artık veritabanından geliyor; ekran testi Drift
       // akışına bağlanmamalı (asılır). Yerleşik üçü sabitle veriliyor.

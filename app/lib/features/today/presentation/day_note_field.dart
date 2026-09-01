@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
+import 'package:disport/features/today/application/day_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,13 +40,13 @@ class _DayNoteFieldState extends ConsumerState<DayNoteField> {
     _debounce = Timer(const Duration(milliseconds: 600), () {
       ref
           .read(todayRepositoryProvider)
-          .setNote(ref.read(todayIsoProvider), value);
+          .setNote(ref.read(viewedDateProvider), value);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final log = ref.watch(todayLogProvider).value;
+    final log = ref.watch(dayLogProvider(ref.watch(viewedDateProvider))).value;
 
     // Kaydedilmiş notu bir kez alana yaz. Sürekli senkronlarsak
     // kullanıcı yazarken imleç başa atlar.
@@ -76,7 +77,7 @@ class _DayNoteFieldState extends ConsumerState<DayNoteField> {
           _debounce?.cancel();
           ref
               .read(todayRepositoryProvider)
-              .setNote(ref.read(todayIsoProvider), _controller.text);
+              .setNote(ref.read(viewedDateProvider), _controller.text);
           _focusNode.unfocus();
         },
       ),

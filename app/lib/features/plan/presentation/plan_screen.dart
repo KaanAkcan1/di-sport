@@ -13,7 +13,7 @@ import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/plan/presentation/plan_calendar.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/today_repository.dart';
-import 'package:disport/features/workout/presentation/workout_screen.dart';
+import 'package:disport/features/today/presentation/today_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -430,13 +430,16 @@ class _WeekSection extends ConsumerWidget {
             today: today,
             netKcalByDay: netKcal,
             kcalGoal: kcalGoal,
-            onDayTap: (day) => day.exercises.isEmpty
-                ? null
-                : Navigator.of(context).push(
-                    MaterialPageRoute<void>(
-                      builder: (_) => WorkoutScreen(day: day),
-                    ),
-                  ),
+            // Takvim artık antrenman ekranını değil **gün ekranını**
+            // açıyor: kullanıcı o güne bakmak ve düzeltmek istiyor,
+            // hareketleri yeniden yapmak değil. Antrenman ekranı gün
+            // ekranındaki slottan bir dokunuş uzakta.
+            onDayTap: (day) => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) =>
+                    DayScreen(dateKey: PlanRepository.iso(day.date)),
+              ),
+            ),
           ),
         ],
       ),

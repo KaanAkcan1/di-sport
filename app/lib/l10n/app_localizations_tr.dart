@@ -1652,4 +1652,26 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get catalogTabOutside => 'Dışarıda';
+
+  @override
+  String get dayBadgePast => 'GEÇMİŞ GÜN';
+
+  @override
+  String get dayBadgeFuture => 'PLANLANAN GÜN';
+
+  @override
+  String get dayBackToToday => 'Bugüne dön';
+
+  @override
+  String get dayPrevious => 'Önceki gün';
+
+  @override
+  String get dayNext => 'Sonraki gün';
+
+  @override
+  String get dayPickDate => 'Tarih seç';
+
+  @override
+  String get dayFutureNoEntry =>
+      'Planı görebilirsin ama kayıt günü gelince girilir.';
 }

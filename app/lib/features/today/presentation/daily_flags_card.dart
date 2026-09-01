@@ -1,6 +1,7 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
+import 'package:disport/features/today/application/day_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/daily_rules_repository.dart';
 import 'package:disport/features/today/presentation/rule_icons.dart';
@@ -22,8 +23,8 @@ class DailyFlagsCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final log = ref.watch(todayLogProvider).value;
-    final iso = ref.watch(todayIsoProvider);
+    final iso = ref.watch(viewedDateProvider);
+    final log = ref.watch(dayLogProvider(iso)).value;
     final repository = ref.watch(todayRepositoryProvider);
     final rules = ref.watch(dailyRulesProvider);
 

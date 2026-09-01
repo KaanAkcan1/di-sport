@@ -628,5 +628,12 @@
       }
     }
   },
-  "catalogTabOutside": "Dışarıda"
+  "catalogTabOutside": "Dışarıda",
+  "dayBadgePast": "GEÇMİŞ GÜN",
+  "dayBadgeFuture": "PLANLANAN GÜN",
+  "dayBackToToday": "Bugüne dön",
+  "dayPrevious": "Önceki gün",
+  "dayNext": "Sonraki gün",
+  "dayPickDate": "Tarih seç",
+  "dayFutureNoEntry": "Planı görebilirsin ama kayıt günü gelince girilir."
 }

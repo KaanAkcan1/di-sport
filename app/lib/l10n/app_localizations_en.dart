@@ -1655,4 +1655,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get catalogTabOutside => 'Outside';
+
+  @override
+  String get dayBadgePast => 'PAST DAY';
+
+  @override
+  String get dayBadgeFuture => 'PLANNED DAY';
+
+  @override
+  String get dayBackToToday => 'Back to today';
+
+  @override
+  String get dayPrevious => 'Previous day';
+
+  @override
+  String get dayNext => 'Next day';
+
+  @override
+  String get dayPickDate => 'Pick a date';
+
+  @override
+  String get dayFutureNoEntry =>
+      'You can look at the plan, but entries start on the day itself.';
 }

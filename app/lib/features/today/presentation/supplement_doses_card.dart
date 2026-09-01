@@ -5,7 +5,7 @@ import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/supplements/application/supplement_providers.dart';
 import 'package:disport/features/supplements/domain/supplement.dart';
-import 'package:disport/features/today/application/today_providers.dart';
+import 'package:disport/features/today/application/day_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -132,7 +132,7 @@ class _DoseRow extends ConsumerWidget {
         .read(supplementsRepositoryProvider)
         .markTaken(
           supplementId: dose.supplement.id,
-          isoDate: ref.read(todayIsoProvider),
+          isoDate: ref.read(viewedDateProvider),
           time: dose.time,
           takenAt: dose.isTaken ? null : DateTime.now(),
         );

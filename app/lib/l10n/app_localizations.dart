@@ -2988,6 +2988,48 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'Dışarıda'**
   String get catalogTabOutside;
+
+  /// No description provided for @dayBadgePast.
+  ///
+  /// In tr, this message translates to:
+  /// **'GEÇMİŞ GÜN'**
+  String get dayBadgePast;
+
+  /// No description provided for @dayBadgeFuture.
+  ///
+  /// In tr, this message translates to:
+  /// **'PLANLANAN GÜN'**
+  String get dayBadgeFuture;
+
+  /// No description provided for @dayBackToToday.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bugüne dön'**
+  String get dayBackToToday;
+
+  /// No description provided for @dayPrevious.
+  ///
+  /// In tr, this message translates to:
+  /// **'Önceki gün'**
+  String get dayPrevious;
+
+  /// No description provided for @dayNext.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sonraki gün'**
+  String get dayNext;
+
+  /// No description provided for @dayPickDate.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tarih seç'**
+  String get dayPickDate;
+
+  /// No description provided for @dayFutureNoEntry.
+  ///
+  /// In tr, this message translates to:
+  /// **'Planı görebilirsin ama kayıt günü gelince girilir.'**
+  String get dayFutureNoEntry;
 }
 
 class _AppLocalizationsDelegate

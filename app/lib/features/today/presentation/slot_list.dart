@@ -3,6 +3,7 @@ import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/plan/presentation/slot_kind_icon.dart';
+import 'package:disport/features/today/application/day_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/workout/presentation/workout_screen.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,12 @@ class SlotList extends ConsumerWidget {
 
   /// Şu anki zaman. Dışarıdan alınıyor ki test sabit bir ana kilitlensin
   /// ve widget tiker'a bağımlı olmasın.
-  final DateTime now;
+  ///
+  /// **`null` = bugün değil.** Geçmiş bir günde "şimdi" diye bir şey
+  /// yok: hiçbir slot "geçmiş" ya da "sırada" sayılmıyor ve canlı
+  /// işaret çizilmiyor. Bugünün saatini dünün listesine uygulamak
+  /// kullanıcıya olmayan bir zaman gösterirdi.
+  final DateTime? now;
 
   /// Sıradaki slot listeden çıkarılsın mı.
   ///
@@ -54,12 +60,14 @@ class SlotList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final log = ref.watch(todayLogProvider).value;
-    final iso = ref.watch(todayIsoProvider);
+    final iso = ref.watch(viewedDateProvider);
+    final log = ref.watch(dayLogProvider(iso)).value;
 
     final all = [...day.slots]..sort((a, b) => a.time.compareTo(b.time));
-    final nowMinutes = now.hour * 60 + now.minute;
-    final next = nextSlotOf(day, now);
+    // Bugün değilse "geçmiş" eşiği yok: -1 hiçbir slotu geçmiş
+    // saymıyor ve zaman rayı tarafsız kalıyor.
+    final nowMinutes = now == null ? -1 : now!.hour * 60 + now!.minute;
+    final next = now == null ? null : nextSlotOf(day, now!);
 
     final slots = hoistNext
         ? all.where((slot) => slot.id != next?.id).toList()
@@ -75,7 +83,7 @@ class SlotList extends ConsumerWidget {
       // giriyor. Gün başındaysa (hiç slot geçmemişse) hiç çizilmiyor —
       // listenin tepesinde asılı bir çizgi bilgi taşımaz.
       if (!past && !markerDrawn && index > 0) {
-        rows.add(AppNowMarker(label: _formatNow()));
+        rows.add(AppNowMarker(label: _formatNow(now!)));
         markerDrawn = true;
       }
 
@@ -107,16 +115,16 @@ class SlotList extends ConsumerWidget {
     }
 
     // Bütün slotlar geçmişse işaret en sona giriyor: gün bitti bilgisi.
-    if (!markerDrawn && slots.isNotEmpty && next == null) {
-      rows.add(AppNowMarker(label: _formatNow()));
+    if (now != null && !markerDrawn && slots.isNotEmpty && next == null) {
+      rows.add(AppNowMarker(label: _formatNow(now!)));
     }
 
     return Column(children: rows);
   }
 
-  String _formatNow() =>
-      '${now.hour.toString().padLeft(2, '0')}:'
-      '${now.minute.toString().padLeft(2, '0')}';
+  static String _formatNow(DateTime at) =>
+      '${at.hour.toString().padLeft(2, '0')}:'
+      '${at.minute.toString().padLeft(2, '0')}';
 
   static RailNodeState _stateFor({
     required bool past,

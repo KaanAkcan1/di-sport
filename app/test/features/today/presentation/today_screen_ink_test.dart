@@ -8,6 +8,7 @@ import 'package:disport/features/nutrition/domain/food.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/supplements/application/supplement_providers.dart';
 import 'package:disport/features/supplements/domain/supplement.dart';
+import 'package:disport/features/today/application/day_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/today_repository.dart';
 import 'package:disport/features/today/presentation/today_screen.dart';
@@ -53,13 +54,13 @@ void main() {
         ),
         todayIsoProvider.overrideWithValue('2026-08-31'),
         clockProvider.overrideWith((ref) => Stream.value(at)),
-        todayPlanDayProvider.overrideWith((ref) => Stream.value(planDay)),
-        todayLogProvider.overrideWith((ref) => Stream.value(log)),
-        todayWeightProvider.overrideWith((ref) => Stream.value(weight)),
-        todaySleepProvider.overrideWith((ref) => Stream.value(null)),
+        dayPlanDayProvider('2026-08-31').overrideWith((ref) => Stream.value(planDay)),
+        dayLogProvider('2026-08-31').overrideWith((ref) => Stream.value(log)),
+        dayWeightProvider('2026-08-31').overrideWith((ref) => Stream.value(weight)),
+        daySleepProvider('2026-08-31').overrideWith((ref) => Stream.value(null)),
         missedStreakProvider.overrideWith((ref) async => 0),
         dailyRulesProvider.overrideWith((ref) => Stream.value(const [])),
-        weekFillProvider.overrideWith(
+        dayWeekFillProvider('2026-08-31').overrideWith(
           (ref) => Stream.value(
             week ??
                 [

@@ -7,7 +7,7 @@ import 'package:disport/features/nutrition/domain/food.dart';
 import 'package:disport/features/nutrition/presentation/activity_log_sheet.dart';
 import 'package:disport/features/nutrition/presentation/food_labels.dart';
 import 'package:disport/features/nutrition/presentation/food_picker_screen.dart';
-import 'package:disport/features/today/application/today_providers.dart';
+import 'package:disport/features/today/application/day_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,7 +21,7 @@ class DayMealsCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isoDate = ref.watch(todayIsoProvider);
+    final isoDate = ref.watch(viewedDateProvider);
     final meals = ref.watch(dayMealsProvider(isoDate)).value ?? const [];
     final activities =
         ref.watch(dayActivitiesProvider(isoDate)).value ?? const [];

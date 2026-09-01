@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/design/app_semantic_colors.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/core/utils/turkish_number.dart';
@@ -9,6 +10,7 @@ import 'package:disport/features/nutrition/application/nutrition_providers.dart'
 import 'package:disport/features/nutrition/presentation/day_meals_card.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/plan/presentation/slot_kind_icon.dart';
+import 'package:disport/features/today/application/day_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/presentation/daily_flags_card.dart';
 import 'package:disport/features/today/presentation/day_note_field.dart';
@@ -30,16 +32,50 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// ağırlıkta gösteriyordu ve ekranın "en önemli sayısı" yoktu; göz
 /// üçünü tarayıp hangisine bakacağına karar vermek zorunda kalıyordu.
 /// Artık tek kahraman rakam var, geri kalanı altında ince bir satır.
-class TodayScreen extends ConsumerWidget {
+class TodayScreen extends StatelessWidget {
   const TodayScreen({super.key});
+
+  /// Bugün, gün ekranının `dateKey = bugün` hâli.
+  ///
+  /// Sekme burayı çiziyor ve `viewedDate` varsayılanı zaten bugün;
+  /// ayrı bir kapsam açmaya gerek yok.
+  @override
+  Widget build(BuildContext context) => const DayBody();
+}
+
+/// Belirli bir günün ekranı — takvimden ya da başlıktaki oklardan.
+class DayScreen extends StatelessWidget {
+  const DayScreen({super.key, required this.dateKey});
+
+  final String dateKey;
+
+  @override
+  Widget build(BuildContext context) => ProviderScope(
+    // Kapsam, `dateKey`i onlarca widget yapıcısından geçirmenin
+    // yerine geçiyor: gün ekranının her parçası "hangi gün" sorusunu
+    // aynı provider'a soruyor.
+    overrides: [viewedDateProvider.overrideWithValue(dateKey)],
+    child: Scaffold(
+      appBar: AppBar(),
+      body: const DayBody(),
+    ),
+  );
+}
+
+/// Gün ekranının gövdesi.
+class DayBody extends ConsumerWidget {
+  const DayBody({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final planDay = ref.watch(todayPlanDayProvider);
+    final date = ref.watch(viewedDateProvider);
+    final planDay = ref.watch(dayPlanDayProvider(date));
+    final isFuture =
+        ref.watch(dayPositionProvider(date)) == DayPosition.future;
 
     return AppAsyncView<FullPlanDay?>(
       value: planDay,
-      onRetry: () => ref.invalidate(todayPlanDayProvider),
+      onRetry: () => ref.invalidate(dayPlanDayProvider(date)),
       data: (day) => AppScreenBody(
         children: [
           const _Header(),
@@ -60,60 +96,175 @@ class TodayScreen extends ConsumerWidget {
           ],
 
           const SizedBox(height: AppSpacing.xl2),
-          const DayMealsCard(),
-          const SizedBox(height: AppSpacing.xl2),
-          const SupplementDosesCard(),
-          const SizedBox(height: AppSpacing.xl2),
-          const MeasurementInputs(),
-          const SizedBox(height: AppSpacing.xl2),
-          const DailyFlagsCard(),
-          const SizedBox(height: AppSpacing.xl2),
-          const DayNoteField(),
+
+          // Gelecek güne kayıt girilmiyor: yarın ne yediğini yazmak
+          // anlamsız ve alanı bırakmak kullanıcıyı yanlış güne kayıt
+          // yapmaya davet ederdi. Plan bölümü görünür kalıyor —
+          // "yarın ne var" meşru bir soru.
+          if (isFuture)
+            _FutureNotice()
+          else ...[
+            const DayMealsCard(),
+            const SizedBox(height: AppSpacing.xl2),
+            const SupplementDosesCard(),
+            const SizedBox(height: AppSpacing.xl2),
+            const MeasurementInputs(),
+            const SizedBox(height: AppSpacing.xl2),
+            const DailyFlagsCard(),
+            const SizedBox(height: AppSpacing.xl2),
+            const DayNoteField(),
+          ],
         ],
       ),
     );
   }
 }
 
-/// Tarih başlığı — eyebrow + gün adı.
+/// Tarih başlığı — eyebrow, gün adı ve tarih gezinmesi.
+///
+/// Oklar ve tarihe dokunma geçmişe (ve plan varsa geleceğe) açılıyor.
+/// **Bugüne dönmek push değil pop:** `dateKey = bugün` ile ikinci bir
+/// ekran açmak, Bugün sekmesinin ikizini üretirdi.
 class _Header extends ConsumerWidget {
   const _Header();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final date = ref.watch(viewedDateProvider);
     final theme = Theme.of(context);
-    final now = ref.watch(clockProvider).value ?? DateTime.now();
-    final day = ref.watch(todayPlanDayProvider).value;
+    final semantic = context.semantic;
+    final position = ref.watch(dayPositionProvider(date));
+    final shown = DateTime.parse(date);
+    final day = ref.watch(dayPlanDayProvider(date)).value;
 
     final eyebrow = [
-      TurkishText.upper(TurkishDate.weekdayAndDay(now)),
+      TurkishText.upper(TurkishDate.weekdayAndDay(shown)),
       if (day case final d?)
         TurkishText.upper(context.l10n.todayWeekNumber(d.weekIndex)),
     ].join(' · ');
 
+    // Geçmiş ve gelecek farklı etiketler taşıyor: ikisi de "bugün
+    // değil" ama kullanıcının yapabildikleri farklı ve renk tek başına
+    // bunu söylemiyor.
+    final (badge, badgeColor) = switch (position) {
+      DayPosition.today => (null, null),
+      DayPosition.past => (context.l10n.dayBadgePast, semantic.warning),
+      DayPosition.future => (
+        context.l10n.dayBadgeFuture,
+        theme.colorScheme.onSurfaceVariant,
+      ),
+    };
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          eyebrow,
-          style: theme.textTheme.labelSmall?.copyWith(
-            color: theme.colorScheme.primary,
-            letterSpacing: 1.4,
-            fontWeight: FontWeight.w600,
-          ),
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                eyebrow,
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: theme.colorScheme.primary,
+                  letterSpacing: 1.4,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.chevron_left),
+              tooltip: context.l10n.dayPrevious,
+              onPressed: () => _goTo(
+                context,
+                ref,
+                shown.subtract(const Duration(days: 1)),
+              ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.calendar_today),
+              tooltip: context.l10n.dayPickDate,
+              onPressed: () => _pickDate(context, ref, shown),
+            ),
+            IconButton(
+              icon: const Icon(Icons.chevron_right),
+              tooltip: context.l10n.dayNext,
+              onPressed: () =>
+                  _goTo(context, ref, shown.add(const Duration(days: 1))),
+            ),
+          ],
         ),
-        const SizedBox(height: 2),
         Semantics(
           header: true,
           child: Text(
-            context.l10n.todayTitle,
+            position == DayPosition.today
+                ? context.l10n.todayTitle
+                : TurkishDate.weekdayAndDay(shown),
             style: theme.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.w700,
             ),
           ),
         ),
+        if (badge case final label?)
+          Padding(
+            padding: const EdgeInsets.only(top: AppSpacing.xs),
+            child: Row(
+              children: [
+                Text(
+                  label,
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    color: badgeColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                TextButton(
+                  onPressed: () => _backToToday(context, ref),
+                  child: Text(context.l10n.dayBackToToday),
+                ),
+              ],
+            ),
+          ),
       ],
     );
+  }
+
+  Future<void> _pickDate(
+    BuildContext context,
+    WidgetRef ref,
+    DateTime current,
+  ) async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: current,
+      firstDate: DateTime(current.year - 2),
+      lastDate: DateTime(current.year + 2),
+    );
+    if (picked == null || !context.mounted) return;
+    _goTo(context, ref, picked);
+  }
+
+  void _goTo(BuildContext context, WidgetRef ref, DateTime target) {
+    final key = dateKeyOf(target);
+    if (key == ref.read(todayIsoProvider)) {
+      _backToToday(context, ref);
+      return;
+    }
+
+    // Gün ekranından güne geçerken yığına yenisini eklemek yerine
+    // mevcut olanı değiştiriyoruz; aksi hâlde bir hafta gezinen
+    // kullanıcı geri tuşuna yedi kez basmak zorunda kalırdı.
+    final route = MaterialPageRoute<void>(
+      builder: (_) => DayScreen(dateKey: key),
+    );
+    if (Navigator.of(context).canPop()) {
+      Navigator.of(context).pushReplacement(route);
+    } else {
+      Navigator.of(context).push(route);
+    }
+  }
+
+  /// Bugüne dönmek: push edilmişse pop, sekmedeyse zaten bugündeyiz.
+  void _backToToday(BuildContext context, WidgetRef ref) {
+    if (Navigator.of(context).canPop()) Navigator.of(context).pop();
   }
 }
 
@@ -123,7 +274,8 @@ class _WeekStrip extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final week = ref.watch(weekFillProvider).value;
+    final date = ref.watch(viewedDateProvider);
+    final week = ref.watch(dayWeekFillProvider(date)).value;
     // Boş liste meşru: akış henüz gelmedi ya da test onu boş veriyor.
     if (week == null || week.isEmpty) return const SizedBox.shrink();
 
@@ -158,11 +310,12 @@ class _Hero extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final weight = ref.watch(todayWeightProvider).value;
-    final log = ref.watch(todayLogProvider).value;
+    final date = ref.watch(viewedDateProvider);
+    final weight = ref.watch(dayWeightProvider(date)).value;
+    final log = ref.watch(dayLogProvider(date)).value;
     final rules = ref.watch(dailyRulesProvider).value ?? const [];
 
-    final isoDate = ref.watch(todayIsoProvider);
+    final isoDate = date;
     final energy = ref.watch(dayEnergyProvider(isoDate)).value;
     final goal = ref.watch(dailyKcalGoalProvider).value;
     final remaining = ref.watch(todayRemainingKcalProvider);
@@ -245,8 +398,14 @@ class _Spine extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final date = ref.watch(viewedDateProvider);
+    final isToday = ref.watch(dayPositionProvider(date)) == DayPosition.today;
     final now = ref.watch(clockProvider).value ?? DateTime.now();
-    final next = SlotList.nextSlotOf(day, now);
+
+    // "Sıradaki iş" ve canlı şimdi işareti yalnız bugünde. Geçmiş bir
+    // günde "şimdi" diye bir şey yok; dünün ekranında bugünün saatine
+    // göre bir kart göstermek yanlış olurdu.
+    final next = isToday ? SlotList.nextSlotOf(day, now) : null;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -268,7 +427,7 @@ class _Spine extends ConsumerWidget {
           const SizedBox(height: AppSpacing.xl2),
         ],
         AppSectionLabel(context.l10n.todaySpineLabel),
-        SlotList(day: day, now: now, hoistNext: true),
+        SlotList(day: day, now: isToday ? now : null, hoistNext: isToday),
       ],
     );
   }
@@ -337,6 +496,37 @@ class _DinnerHint extends StatelessWidget {
           Expanded(
             child: Text(
               context.l10n.todayDinnerHint(text),
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Gelecek günde kayıt alanlarının yerine geçen tek satır.
+class _FutureNotice extends StatelessWidget {
+  const _FutureNotice();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
+      child: Row(
+        children: [
+          Icon(
+            Icons.schedule,
+            size: 18,
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+          const SizedBox(width: AppSpacing.sm),
+          Expanded(
+            child: Text(
+              context.l10n.dayFutureNoEntry,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),

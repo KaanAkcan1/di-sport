@@ -3,21 +3,22 @@ import 'package:disport/core/db/app_database.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
-import 'package:disport/features/nutrition/application/nutrition_providers.dart';
-import 'package:disport/features/nutrition/domain/activity.dart';
-import 'package:disport/features/nutrition/domain/calorie_budget.dart';
-import 'package:disport/features/nutrition/domain/food.dart';
 import 'package:disport/features/health/application/health_providers.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/health/data/body_metrics_repository.dart';
 import 'package:disport/features/health/data/lab_repository.dart';
 import 'package:disport/features/health/data/metric_definitions_repository.dart';
+import 'package:disport/features/nutrition/application/nutrition_providers.dart';
+import 'package:disport/features/nutrition/domain/activity.dart';
+import 'package:disport/features/nutrition/domain/calorie_budget.dart';
+import 'package:disport/features/nutrition/domain/food.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/progress/application/progress_providers.dart';
 import 'package:disport/features/progress/domain/transition_criteria.dart';
 import 'package:disport/features/settings/application/settings_providers.dart';
 import 'package:disport/features/supplements/application/supplement_providers.dart';
 import 'package:disport/features/supplements/domain/supplement.dart';
+import 'package:disport/features/today/application/day_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/daily_rules_repository.dart';
 import 'package:disport/features/today/data/today_repository.dart';
@@ -66,10 +67,10 @@ void main() {
       ).overrideWith((ref) => Stream.value(const <String, double>{})),
       // Bugün ekranı da veritabanına bağlı; kabuk testi içeriği değil
       // sekme geçişini sınıyor.
-      todayPlanDayProvider.overrideWith((ref) => Stream.value(null)),
-      todayLogProvider.overrideWith((ref) => Stream.value(const DailyLogView())),
-      todayWeightProvider.overrideWith((ref) => Stream.value(null)),
-      todaySleepProvider.overrideWith((ref) => Stream.value(null)),
+      dayPlanDayProvider('2026-09-01').overrideWith((ref) => Stream.value(null)),
+      dayLogProvider('2026-09-01').overrideWith((ref) => Stream.value(const DailyLogView())),
+      dayWeightProvider('2026-09-01').overrideWith((ref) => Stream.value(null)),
+      daySleepProvider('2026-09-01').overrideWith((ref) => Stream.value(null)),
       missedStreakProvider.overrideWith((ref) async => 0),
       // Kurallar artık veritabanından geliyor; ekran testi Drift
       // akışına bağlanmamalı (asılır). Yerleşik üçü sabitle veriliyor.
@@ -106,7 +107,7 @@ void main() {
       // Hafta şeridi de günlük kayıtları akışla okuyor.
       // Takviye dozları da Drift akışı; ekran testi bağlanmamalı.
       todayDosesProvider.overrideWithValue(const <SupplementDose>[]),
-      weekFillProvider.overrideWith(
+      dayWeekFillProvider('2026-09-01').overrideWith(
         (ref) => Stream.value(const <({DateTime day, bool filled})>[]),
       ),
       // Plan ekranı da veritabanına bağlı.

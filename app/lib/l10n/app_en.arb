@@ -628,5 +628,12 @@
       }
     }
   },
-  "catalogTabOutside": "Outside"
+  "catalogTabOutside": "Outside",
+  "dayBadgePast": "PAST DAY",
+  "dayBadgeFuture": "PLANNED DAY",
+  "dayBackToToday": "Back to today",
+  "dayPrevious": "Previous day",
+  "dayNext": "Next day",
+  "dayPickDate": "Pick a date",
+  "dayFutureNoEntry": "You can look at the plan, but entries start on the day itself."
 }
