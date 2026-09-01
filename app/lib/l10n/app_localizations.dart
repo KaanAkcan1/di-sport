@@ -2564,6 +2564,120 @@ abstract class AppLocalizations {
   /// **'D vitamini + B12'**
   String get checkupVitaminDB12;
 
+  /// No description provided for @supplementsTodayTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bugünün dozları'**
+  String get supplementsTodayTitle;
+
+  /// No description provided for @supplementsAdherenceTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Son 7 gün uyum'**
+  String get supplementsAdherenceTitle;
+
+  /// No description provided for @labImportTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yapay zekâ ile tahlil aktar'**
+  String get labImportTitle;
+
+  /// No description provided for @labImportStep1.
+  ///
+  /// In tr, this message translates to:
+  /// **'Aktarım belgesini kopyala.'**
+  String get labImportStep1;
+
+  /// No description provided for @labImportCopyDoc.
+  ///
+  /// In tr, this message translates to:
+  /// **'Belgeyi kopyala'**
+  String get labImportCopyDoc;
+
+  /// No description provided for @labImportShareDoc.
+  ///
+  /// In tr, this message translates to:
+  /// **'Paylaş'**
+  String get labImportShareDoc;
+
+  /// No description provided for @labImportCopied.
+  ///
+  /// In tr, this message translates to:
+  /// **'Belge panoya kopyalandı.'**
+  String get labImportCopied;
+
+  /// No description provided for @labImportStep2.
+  ///
+  /// In tr, this message translates to:
+  /// **'Belgeyi ve tahlil PDF\'ini herhangi bir yapay zekâ sohbetine ver. PDF uygulamaya girmez.'**
+  String get labImportStep2;
+
+  /// No description provided for @labImportStep3.
+  ///
+  /// In tr, this message translates to:
+  /// **'Dönen JSON\'u buraya yapıştır.'**
+  String get labImportStep3;
+
+  /// No description provided for @labImportPasteHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'JSON belgesini buraya yapıştır'**
+  String get labImportPasteHint;
+
+  /// No description provided for @labImportParse.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ayrıştır'**
+  String get labImportParse;
+
+  /// No description provided for @labImportPreview.
+  ///
+  /// In tr, this message translates to:
+  /// **'Önizleme'**
+  String get labImportPreview;
+
+  /// No description provided for @labImportUnknownMarker.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tahlil sözlükte yok'**
+  String get labImportUnknownMarker;
+
+  /// No description provided for @labImportUnexpectedUnit.
+  ///
+  /// In tr, this message translates to:
+  /// **'Birim beklenenden farklı'**
+  String get labImportUnexpectedUnit;
+
+  /// No description provided for @labImportImplausible.
+  ///
+  /// In tr, this message translates to:
+  /// **'Değer akla yatkın aralığın dışında'**
+  String get labImportImplausible;
+
+  /// No description provided for @labImportEditTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Satırı düzelt'**
+  String get labImportEditTitle;
+
+  /// No description provided for @labImportSave.
+  ///
+  /// In tr, this message translates to:
+  /// **'{save} değeri kaydet · {skip} atla'**
+  String labImportSave(int save, int skip);
+
+  /// No description provided for @labImportSaved.
+  ///
+  /// In tr, this message translates to:
+  /// **'{count} tahlil değeri kaydedildi.'**
+  String labImportSaved(int count);
+
+  /// No description provided for @healthImportWithAi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yapay zekâ ile PDF\'ten aktar'**
+  String get healthImportWithAi;
+
   /// No description provided for @rhythmMealsSection.
   ///
   /// In tr, this message translates to:

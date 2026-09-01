@@ -1399,6 +1399,68 @@ class AppLocalizationsEn extends AppLocalizations {
   String get checkupVitaminDB12 => 'Vitamin D + B12';
 
   @override
+  String get supplementsTodayTitle => 'Today\'s doses';
+
+  @override
+  String get supplementsAdherenceTitle => 'Last 7 days adherence';
+
+  @override
+  String get labImportTitle => 'Import labs with AI';
+
+  @override
+  String get labImportStep1 => 'Copy the transfer document.';
+
+  @override
+  String get labImportCopyDoc => 'Copy document';
+
+  @override
+  String get labImportShareDoc => 'Share';
+
+  @override
+  String get labImportCopied => 'Document copied to clipboard.';
+
+  @override
+  String get labImportStep2 =>
+      'Give the document and your lab PDF to any AI chat. The PDF never enters the app.';
+
+  @override
+  String get labImportStep3 => 'Paste the returned JSON here.';
+
+  @override
+  String get labImportPasteHint => 'Paste the JSON document here';
+
+  @override
+  String get labImportParse => 'Parse';
+
+  @override
+  String get labImportPreview => 'Preview';
+
+  @override
+  String get labImportUnknownMarker => 'Marker not in the dictionary';
+
+  @override
+  String get labImportUnexpectedUnit => 'Unit differs from expected';
+
+  @override
+  String get labImportImplausible => 'Value outside the plausible range';
+
+  @override
+  String get labImportEditTitle => 'Fix row';
+
+  @override
+  String labImportSave(int save, int skip) {
+    return 'Save $save values · skip $skip';
+  }
+
+  @override
+  String labImportSaved(int count) {
+    return '$count lab values saved.';
+  }
+
+  @override
+  String get healthImportWithAi => 'Import from PDF with AI';
+
+  @override
   String get rhythmMealsSection => 'Meals';
 
   @override

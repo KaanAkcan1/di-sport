@@ -17,6 +17,7 @@ import 'package:disport/features/health/presentation/add_lab_sheet.dart';
 import 'package:disport/features/health/presentation/body_measurements_card.dart';
 import 'package:disport/features/health/presentation/checkup_guide_section.dart';
 import 'package:disport/features/health/presentation/due_labs_banner.dart';
+import 'package:disport/features/health/presentation/lab_import_screen.dart';
 import 'package:disport/features/health/presentation/lab_panel_card.dart';
 import 'package:disport/features/health/presentation/metrics_editor_screen.dart';
 import 'package:disport/features/today/application/today_providers.dart';
@@ -52,6 +53,21 @@ class HealthScreen extends ConsumerWidget {
             _DueBanner(),
             _Measurements(),
             if (byPanel.isNotEmpty) _ShareRow(byPanel: byPanel),
+            // + Ekle'nin ikinci yolu (v3 §7.1): elle giriş FAB'da,
+            // yapay zekâ aktarımı burada.
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                key: const Key('open-lab-import'),
+                icon: const Icon(Icons.auto_awesome, size: 18),
+                label: Text(context.l10n.healthImportWithAi),
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const LabImportScreen(),
+                  ),
+                ),
+              ),
+            ),
             if (byPanel.isEmpty)
               AppEmptyState(
                 icon: Icons.science_outlined,

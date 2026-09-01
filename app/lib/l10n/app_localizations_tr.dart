@@ -1395,6 +1395,68 @@ class AppLocalizationsTr extends AppLocalizations {
   String get checkupVitaminDB12 => 'D vitamini + B12';
 
   @override
+  String get supplementsTodayTitle => 'Bugünün dozları';
+
+  @override
+  String get supplementsAdherenceTitle => 'Son 7 gün uyum';
+
+  @override
+  String get labImportTitle => 'Yapay zekâ ile tahlil aktar';
+
+  @override
+  String get labImportStep1 => 'Aktarım belgesini kopyala.';
+
+  @override
+  String get labImportCopyDoc => 'Belgeyi kopyala';
+
+  @override
+  String get labImportShareDoc => 'Paylaş';
+
+  @override
+  String get labImportCopied => 'Belge panoya kopyalandı.';
+
+  @override
+  String get labImportStep2 =>
+      'Belgeyi ve tahlil PDF\'ini herhangi bir yapay zekâ sohbetine ver. PDF uygulamaya girmez.';
+
+  @override
+  String get labImportStep3 => 'Dönen JSON\'u buraya yapıştır.';
+
+  @override
+  String get labImportPasteHint => 'JSON belgesini buraya yapıştır';
+
+  @override
+  String get labImportParse => 'Ayrıştır';
+
+  @override
+  String get labImportPreview => 'Önizleme';
+
+  @override
+  String get labImportUnknownMarker => 'Tahlil sözlükte yok';
+
+  @override
+  String get labImportUnexpectedUnit => 'Birim beklenenden farklı';
+
+  @override
+  String get labImportImplausible => 'Değer akla yatkın aralığın dışında';
+
+  @override
+  String get labImportEditTitle => 'Satırı düzelt';
+
+  @override
+  String labImportSave(int save, int skip) {
+    return '$save değeri kaydet · $skip atla';
+  }
+
+  @override
+  String labImportSaved(int count) {
+    return '$count tahlil değeri kaydedildi.';
+  }
+
+  @override
+  String get healthImportWithAi => 'Yapay zekâ ile PDF\'ten aktar';
+
+  @override
   String get rhythmMealsSection => 'Öğünler';
 
   @override
