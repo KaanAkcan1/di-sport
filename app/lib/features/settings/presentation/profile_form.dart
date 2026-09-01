@@ -21,7 +21,16 @@ class ProfileForm extends ConsumerStatefulWidget {
     this.onSaved,
     this.saveLabel,
     this.trailing = const [],
+    this.fields = ProfileKeys.form,
   });
+
+  /// Hangi alanlar sorulacak.
+  ///
+  /// Onboarding tam listeyi ([ProfileKeys.onboardingForm]), Ayarlar
+  /// sade listeyi kullanıyor — saatler Günlük Düzen'e taşındı ama ilk
+  /// açılışta bir kez sorulmaları gerekiyor (girilmezse sabah alarmı
+  /// sessizce kurulmuyor).
+  final List<(String, String, String)> fields;
 
   /// Onboarding'de kabuğa geçmek için; Ayarlar'da null.
   final VoidCallback? onSaved;
@@ -129,7 +138,7 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
         ),
         const SizedBox(height: AppSpacing.xl),
 
-        for (final (key, label, hint) in ProfileKeys.form)
+        for (final (key, label, hint) in widget.fields)
           Padding(
             padding: const EdgeInsets.only(bottom: AppSpacing.lg),
             child: TextField(

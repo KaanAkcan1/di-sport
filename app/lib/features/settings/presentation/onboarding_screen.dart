@@ -1,5 +1,7 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
+import 'package:disport/features/ai_bridge/domain/context_md_builder.dart'
+    show ProfileKeys;
 import 'package:disport/features/settings/presentation/profile_form.dart';
 import 'package:flutter/material.dart';
 
@@ -47,6 +49,7 @@ class OnboardingScreen extends StatelessWidget {
             ),
             Expanded(
               child: ProfileForm(
+                fields: ProfileKeys.onboardingForm,
                 onSaved: onDone,
                 saveLabel: l10n.settingsOnboardingSave,
               ),

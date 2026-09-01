@@ -70,13 +70,13 @@ class _WeeklyScheduleEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppSection(
-      title: context.l10n.settingsWeeklyTitle,
-      description: context.l10n.settingsWeeklyDescription,
+      title: context.l10n.dailyRhythmTitle,
+      description: context.l10n.dailyRhythmDescription,
       child: Card(
         child: ListTile(
           key: const Key('open-weekly-schedule'),
           leading: const Icon(Icons.calendar_view_week_outlined),
-          title: Text(context.l10n.settingsWeeklyTile),
+          title: Text(context.l10n.dailyRhythmTitle),
           trailing: const Icon(Icons.chevron_right),
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute<void>(

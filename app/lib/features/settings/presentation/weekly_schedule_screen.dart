@@ -3,16 +3,26 @@ import 'package:disport/core/design/app_typography.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/core/widgets/widgets.dart';
+import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
+import 'package:disport/features/ai_bridge/domain/context_md_builder.dart'
+    show ProfileKeys;
+import 'package:disport/features/reminders/application/reminder_providers.dart';
 import 'package:disport/features/settings/application/settings_providers.dart';
 import 'package:disport/features/settings/data/weekly_windows_repository.dart';
 import 'package:disport/features/settings/domain/weekly_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Haftalık mesai ve uygun olunmayan saatler.
+/// Günlük Düzen: kalkış, uyku, mesai ve uygun olunmayan saatler.
 ///
-/// İkisi tek ekranda çünkü kullanıcı için tek bir soru: "haftan nasıl
-/// geçiyor". Ayrı ekranlara bölmek aynı bilgiyi iki yerden girdirirdi.
+/// Dördü tek ekranda çünkü kullanıcı için tek bir soru: "günün nasıl
+/// geçiyor". Kalkış ve uyku saati M10'a kadar profil formundaydı ve
+/// orada kimlik bilgileriyle (yaş, boy) aynı listede duruyordu —
+/// oysa onlar bir ritmin parçası, bir kimliğin değil.
+///
+/// **Veri göçü yok:** saatler `profile_entries`'teki aynı anahtarlarda
+/// duruyor ve alarm zamanlayıcısı onları aynı yerden okumaya devam
+/// ediyor. Değişen yalnız girişin yeri.
 class WeeklyScheduleScreen extends ConsumerWidget {
   const WeeklyScheduleScreen({super.key});
 
@@ -21,13 +31,15 @@ class WeeklyScheduleScreen extends ConsumerWidget {
     final windows = ref.watch(weeklyWindowsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(context.l10n.settingsWeeklyTitle)),
+      appBar: AppBar(title: Text(context.l10n.dailyRhythmTitle)),
       body: AppAsyncView<List<WeeklyWindow>>(
         value: windows,
         onRetry: () => ref.invalidate(weeklyWindowsProvider),
         data: (list) => AppScreenBody(
           children: [
             const _Explanation(),
+            const SizedBox(height: AppSpacing.xl),
+            const _RhythmTimes(),
             const SizedBox(height: AppSpacing.xl),
             for (var weekday = 1; weekday <= 7; weekday++)
               _DayCard(
@@ -388,4 +400,84 @@ class _TimeField extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Kalkış ve uyku saati.
+///
+/// Profil formundan buraya taşındı. Anahtarlar aynı kaldı —
+/// `reminder_scheduler` uyanma saatini hâlâ `ProfileKeys.wakeTime`'dan
+/// okuyor ve sabah tartı alarmı bozulmadan çalışmaya devam ediyor.
+class _RhythmTimes extends ConsumerWidget {
+  const _RhythmTimes();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final profile = ref.watch(profileEntriesProvider).value ?? const {};
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppSectionLabel(context.l10n.dailyRhythmTitle),
+        _TimeRow(
+          label: context.l10n.dailyRhythmWake,
+          value: profile[ProfileKeys.wakeTime],
+          onChanged: (value) => _save(ref, ProfileKeys.wakeTime, value),
+        ),
+        _TimeRow(
+          label: context.l10n.dailyRhythmSleep,
+          value: profile[ProfileKeys.sleepTime],
+          onChanged: (value) => _save(ref, ProfileKeys.sleepTime, value),
+        ),
+      ],
+    );
+  }
+
+  /// Saat değişince alarmlar **hemen** yeniden kuruluyor.
+  ///
+  /// Bir sonraki açılışı beklemek, kullanıcının sabah eski saatte
+  /// alarm duyması demek olurdu — ve o noktada bildirimlere güveni
+  /// biter.
+  Future<void> _save(WidgetRef ref, String key, String value) async {
+    await ref.read(profileRepositoryProvider).set(key, value);
+    ref.invalidate(profileEntriesProvider);
+    await rescheduleQuietly(ref.read(reminderSchedulerProvider));
+  }
+}
+
+class _TimeRow extends StatelessWidget {
+  const _TimeRow({
+    required this.label,
+    required this.value,
+    required this.onChanged,
+  });
+
+  final String label;
+  final String? value;
+  final ValueChanged<String> onChanged;
+
+  @override
+  Widget build(BuildContext context) => ListTile(
+    contentPadding: EdgeInsets.zero,
+    leading: const Icon(Icons.schedule),
+    title: Text(label),
+    trailing: Text(
+      value?.isNotEmpty == true ? value! : '—',
+      style: Theme.of(context).textTheme.titleMedium,
+    ),
+    onTap: () async {
+      final parts = (value ?? '').split(':');
+      final picked = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay(
+          hour: int.tryParse(parts.first) ?? 7,
+          minute: parts.length > 1 ? int.tryParse(parts.last) ?? 0 : 0,
+        ),
+      );
+      if (picked == null) return;
+      onChanged(
+        '${picked.hour.toString().padLeft(2, '0')}:'
+        '${picked.minute.toString().padLeft(2, '0')}',
+      );
+    },
+  );
 }

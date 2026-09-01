@@ -20,7 +20,13 @@ abstract final class ProfileKeys {
   static const healthConstraints = 'healthConstraints';
 
   /// Onboarding formundaki sıra ve etiketler.
-  static const form = <(String, String, String)>[
+  /// **Onboarding** formu — ilk açılışta sorulanlar.
+  ///
+  /// Uyanma ve uyku saati burada **kalıyor**: girilmezse sabah tartı
+  /// alarmı sessizce kurulmuyor ve kullanıcı bunu asla fark etmiyor.
+  /// İlk açılışta bir kez sormak, sonradan hiç sormamaktan iyi.
+  /// Kalıcı düzenleme yeri Günlük Düzen ekranı.
+  static const onboardingForm = <(String, String, String)>[
     (age, 'Yaş', ''),
     (heightCm, 'Boy', 'cm'),
     (currentWeightKg, 'Şu anki kilo', 'kg'),
@@ -28,8 +34,28 @@ abstract final class ProfileKeys {
     (wakeTime, 'Uyanma saati', 'örn. 06:11'),
     (sleepTime, 'Uyku saati', 'örn. 23:45'),
     (workSchedule, 'İş düzeni', 'örn. Fabrika, 07:30-17:30'),
-    (gymAccessHours, 'Salona gidebildiğin saatler', 'örn. 22:00 sonrası'),
-    (familyDinnerTime, 'Aile yemeği saati', 'örn. 19:50'),
+    (equipmentAtHome, 'Evdeki ekipman', 'örn. direnç bandı, sandalye'),
+    (healthConstraints, 'Sağlık kısıtları', 'örn. diz hassasiyeti'),
+  ];
+
+  /// **Ayarlar** formu — yalnız kimlik ve ölçü.
+  ///
+  /// Saatler Günlük Düzen'e taşındı: kalkış, uyku, mesai ve uygun
+  /// olunmayan saatler tek bir sorunun parçaları ("haftan nasıl
+  /// geçiyor") ve dördünü iki ayrı ekrana bölmek aynı bilgiyi iki
+  /// yerden girdirirdi.
+  ///
+  /// **Aile yemeği saati kaldırıldı.** Serbest metindi, hiçbir hesaba
+  /// girmiyordu ve `context.md` onu olduğu gibi AI'a yapıştırıyordu;
+  /// bir alanın tek işlevi "AI belki dikkate alır" ise o alan
+  /// kullanıcının vaktini alıyor demektir. Veri `profile_entries`'te
+  /// duruyor — eski kurulumlarda kayıp yok, yalnız yeni girilemiyor.
+  static const form = <(String, String, String)>[
+    (age, 'Yaş', ''),
+    (heightCm, 'Boy', 'cm'),
+    (currentWeightKg, 'Şu anki kilo', 'kg'),
+    (targetWeightKg, 'Hedef kilo', 'kg'),
+    (workSchedule, 'İş düzeni', 'örn. Fabrika, 07:30-17:30'),
     (equipmentAtHome, 'Evdeki ekipman', 'örn. direnç bandı, sandalye'),
     (healthConstraints, 'Sağlık kısıtları', 'örn. diz hassasiyeti'),
   ];
