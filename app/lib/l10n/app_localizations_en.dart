@@ -1944,4 +1944,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String moreBackupStale(int days) {
     return 'No backup for $days days';
   }
+
+  @override
+  String get dayFlowTitle => 'Day flow';
+
+  @override
+  String get dayFlowWeighIn => 'Weigh-in';
+
+  @override
+  String get dayFlowCollapse => 'Show less';
+
+  @override
+  String dayFlowExpand(int count) {
+    return 'All of the day ($count)';
+  }
 }

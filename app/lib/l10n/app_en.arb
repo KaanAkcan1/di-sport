@@ -739,5 +739,16 @@
         "type": "int"
       }
     }
+  },
+  "dayFlowTitle": "Day flow",
+  "dayFlowWeighIn": "Weigh-in",
+  "dayFlowCollapse": "Show less",
+  "dayFlowExpand": "All of the day ({count})",
+  "@dayFlowExpand": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

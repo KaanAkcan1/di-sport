@@ -739,5 +739,16 @@
         "type": "int"
       }
     }
+  },
+  "dayFlowTitle": "Günün akışı",
+  "dayFlowWeighIn": "Tartı",
+  "dayFlowCollapse": "Daha az göster",
+  "dayFlowExpand": "Günün tamamı ({count})",
+  "@dayFlowExpand": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

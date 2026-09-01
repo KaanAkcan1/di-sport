@@ -1941,4 +1941,18 @@ class AppLocalizationsTr extends AppLocalizations {
   String moreBackupStale(int days) {
     return '$days gündür yedek alınmadı';
   }
+
+  @override
+  String get dayFlowTitle => 'Günün akışı';
+
+  @override
+  String get dayFlowWeighIn => 'Tartı';
+
+  @override
+  String get dayFlowCollapse => 'Daha az göster';
+
+  @override
+  String dayFlowExpand(int count) {
+    return 'Günün tamamı ($count)';
+  }
 }

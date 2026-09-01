@@ -177,15 +177,9 @@ void main() {
     for (final label in ['Ana Sayfa', 'Diyet', 'Spor', 'Sağlık', 'Daha']) {
       expect(find.text(label), findsWidgets);
     }
-    // Tartı alanı ekranın alt yarısında; gövde tembel bir liste ve
-    // M9'da öğün bölümü eklenince artık ilk pencerede kurulmuyor.
-    // Kaydırmak testin kullanıcıyı taklit etmesi.
-    await tester.scrollUntilVisible(
-      find.byKey(const Key('weight-field')),
-      300,
-      scrollable: find.byType(Scrollable).first,
-    );
-    expect(find.byKey(const Key('weight-field')), findsOneWidget);
+    // v3: tartı akış satırından giriliyor; kabuk testi ekran içeriğine
+    // inmez, akış bölümünün varlığı yeter.
+    expect(find.text('GÜNÜN AKIŞI'), findsOneWidget);
   });
 
   testWidgets('tapping a tab switches screen', (tester) async {

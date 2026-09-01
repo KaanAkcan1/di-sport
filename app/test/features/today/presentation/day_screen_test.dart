@@ -85,6 +85,16 @@ void main() {
     await tester.pumpWidget(wrap(dateKey: '2026-08-30', planDay: day));
     await tester.pumpAndSettle();
 
+    // v3: ölçüm alanları akışın "tamamı" arkasında.
+    final expander = find.textContaining('Günün tamamı');
+    await tester.scrollUntilVisible(
+      expander,
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(expander, warnIfMissed: false);
+    await tester.pumpAndSettle();
     await tester.scrollUntilVisible(
       find.byKey(const Key('weight-field')),
       300,

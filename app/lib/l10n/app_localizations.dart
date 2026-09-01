@@ -3552,6 +3552,30 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'{days} gündür yedek alınmadı'**
   String moreBackupStale(int days);
+
+  /// No description provided for @dayFlowTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Günün akışı'**
+  String get dayFlowTitle;
+
+  /// No description provided for @dayFlowWeighIn.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tartı'**
+  String get dayFlowWeighIn;
+
+  /// No description provided for @dayFlowCollapse.
+  ///
+  /// In tr, this message translates to:
+  /// **'Daha az göster'**
+  String get dayFlowCollapse;
+
+  /// No description provided for @dayFlowExpand.
+  ///
+  /// In tr, this message translates to:
+  /// **'Günün tamamı ({count})'**
+  String dayFlowExpand(int count);
 }
 
 class _AppLocalizationsDelegate

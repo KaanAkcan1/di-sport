@@ -8,7 +8,6 @@ import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/nutrition/application/nutrition_providers.dart';
 import 'package:disport/features/nutrition/domain/calorie_budget.dart';
-import 'package:disport/features/nutrition/presentation/day_meals_card.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/plan/presentation/day_editor_sheet.dart';
 import 'package:disport/features/plan/presentation/exercise_editor_sheet.dart';
@@ -16,12 +15,9 @@ import 'package:disport/features/plan/presentation/slot_editor_sheet.dart';
 import 'package:disport/features/plan/presentation/slot_kind_icon.dart';
 import 'package:disport/features/today/application/day_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
-import 'package:disport/features/today/presentation/daily_flags_card.dart';
-import 'package:disport/features/today/presentation/day_note_field.dart';
-import 'package:disport/features/today/presentation/measurement_inputs.dart';
+import 'package:disport/features/today/presentation/day_flow_section.dart';
 import 'package:disport/features/today/presentation/missed_streak_banner.dart';
 import 'package:disport/features/today/presentation/slot_list.dart';
-import 'package:disport/features/today/presentation/supplement_doses_card.dart';
 import 'package:disport/features/workout/presentation/workout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -80,6 +76,9 @@ class DayBody extends ConsumerWidget {
     return AppAsyncView<FullPlanDay?>(
       value: planDay,
       onRetry: () => ref.invalidate(dayPlanDayProvider(date)),
+      // v3: üç bölüm — kahraman, sırada, akış. v2'nin dokuz bölümlük
+      // kaydırma duvarı akış satırlarına indi; öğün listesi Diyet
+      // sekmesinde, takviye/ölçüm/kural/not akışın "tamamı"nda.
       data: (day) => AppScreenBody(
         children: [
           const _Header(),
@@ -106,19 +105,7 @@ class DayBody extends ConsumerWidget {
           // anlamsız ve alanı bırakmak kullanıcıyı yanlış güne kayıt
           // yapmaya davet ederdi. Plan bölümü görünür kalıyor —
           // "yarın ne var" meşru bir soru.
-          if (isFuture)
-            _FutureNotice()
-          else ...[
-            const DayMealsCard(),
-            const SizedBox(height: AppSpacing.xl2),
-            const SupplementDosesCard(),
-            const SizedBox(height: AppSpacing.xl2),
-            const MeasurementInputs(),
-            const SizedBox(height: AppSpacing.xl2),
-            const DailyFlagsCard(),
-            const SizedBox(height: AppSpacing.xl2),
-            const DayNoteField(),
-          ],
+          if (isFuture) _FutureNotice() else DayFlowSection(day: day),
         ],
       ),
     );

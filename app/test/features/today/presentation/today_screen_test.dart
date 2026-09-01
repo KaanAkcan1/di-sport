@@ -22,17 +22,33 @@ import '../../plan/plan_fixtures.dart';
 /// Ekran testleri veritabanına dokunmaz: Drift akışları gerçek async
 /// I/O ile gelir ve `pumpAndSettle` sahte-async bölgesinde asılı kalır.
 /// Depo davranışı kendi testlerinde doğrulanıyor.
-/// Kural kartına kaydırır.
+/// Akışın "tamamı"nı açıp kural kartına kaydırır.
 ///
-/// Ekran M9'da öğün ve aktivite bölümleriyle uzadı; gövde tembel bir
-/// liste ve kart artık ilk pencerede kurulmuyor. Kaydırmak testin
-/// kullanıcıyı taklit etmesi demek — kullanıcı da onu görmek için
-/// kaydırıyor.
-Future<void> scrollToRules(WidgetTester tester) => tester.scrollUntilVisible(
-  find.text('3 litre su'),
-  300,
-  scrollable: find.byType(Scrollable).first,
-);
+/// v3'te ölçüm/kural/not bölümleri akışın genişletme düğmesinin
+/// arkasında — test de kullanıcı gibi önce düğmeye basıyor.
+/// Akışın "tamamı"nı açar — ölçüm/kural/not v3'te bunun arkasında.
+Future<void> expandFlow(WidgetTester tester) async {
+  final expander = find.textContaining('Günün tamamı');
+  await tester.scrollUntilVisible(
+    expander,
+    300,
+    scrollable: find.byType(Scrollable).first,
+  );
+  // Alt gezinme çubuğu düğmenin bir kısmını örtebiliyor; kaydırma
+  // sonrası bir kare daha bekleyip düğmenin merkezine dokunuyoruz.
+  await tester.pumpAndSettle();
+  await tester.tap(expander, warnIfMissed: false);
+  await tester.pumpAndSettle();
+}
+
+Future<void> scrollToRules(WidgetTester tester) async {
+  await expandFlow(tester);
+  await tester.scrollUntilVisible(
+    find.text('3 litre su'),
+    300,
+    scrollable: find.byType(Scrollable).first,
+  );
+}
 
 void main() {
   final day = fixturePlan().days.first;
@@ -111,9 +127,15 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Bugün için plan yok'), findsOneWidget);
-      // Tartı ve kutucuklar plan olmadan da kullanılabilmeli.
+      // Tartı ve kutucuklar plan olmadan da kullanılabilmeli —
+      // v3'te akışın "tamamı" arkasındalar.
+      await expandFlow(tester);
       expect(find.byKey(const Key('weight-field')), findsOneWidget);
-      await scrollToRules(tester);
+      await tester.scrollUntilVisible(
+        find.text('3 litre su'),
+        300,
+        scrollable: find.byType(Scrollable).first,
+      );
       expect(find.text('3 litre su'), findsOneWidget);
     });
   });
@@ -174,6 +196,7 @@ void main() {
     testWidgets('kaydedilmiş kilo alana yansır, virgülle', (tester) async {
       await tester.pumpWidget(wrap(weight: 109.5));
       await tester.pumpAndSettle();
+      await expandFlow(tester);
 
       final field = tester.widget<TextField>(
         find.byKey(const Key('weight-field')),
@@ -184,6 +207,7 @@ void main() {
     testWidgets('değer yokken alan boş', (tester) async {
       await tester.pumpWidget(wrap());
       await tester.pumpAndSettle();
+      await expandFlow(tester);
 
       final field = tester.widget<TextField>(
         find.byKey(const Key('weight-field')),
@@ -194,6 +218,7 @@ void main() {
     testWidgets('uyku alanı ayrı', (tester) async {
       await tester.pumpWidget(wrap(sleep: 6.5));
       await tester.pumpAndSettle();
+      await expandFlow(tester);
 
       final field = tester.widget<TextField>(
         find.byKey(const Key('sleep-field')),
@@ -261,8 +286,8 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    // Not alanı ekranın en altında ve `ListView` görünmeyeni tembel
-    // kuruyor; okumadan önce görünür kılınması gerekiyor.
+    // v3: not alanı akışın "tamamı" arkasında.
+    await expandFlow(tester);
     await tester.scrollUntilVisible(
       find.byKey(const Key('day-note-field')),
       300,
