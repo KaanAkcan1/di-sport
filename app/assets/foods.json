@@ -1,0 +1,5254 @@
+{
+  "version": 1,
+  "foods": [
+    {
+      "id": "abiyuch_raw",
+      "nameEn": "Abiyuch, raw",
+      "category": "meyve",
+      "kcal100": 69.0,
+      "protein100": 1.5,
+      "carb100": 17.6,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 167782"
+    },
+    {
+      "id": "adana_kebap",
+      "nameEn": "Adana Kebab",
+      "nameTr": "Adana Kebap",
+      "category": "yemek",
+      "kcal100": 275.0,
+      "protein100": 17.5,
+      "carb100": 2.0,
+      "fat100": 22.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "adana_kebap_std",
+          "labelTr": "1 sis",
+          "labelEn": "1 skewer",
+          "grams": 180.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "ananas",
+      "nameEn": "Pineapple, raw, all varieties",
+      "nameTr": "Ananas",
+      "category": "meyve",
+      "kcal100": 50.0,
+      "protein100": 0.5,
+      "carb100": 13.1,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 169124"
+    },
+    {
+      "id": "antep_fistigi",
+      "nameEn": "Nuts, pistachio nuts, raw",
+      "nameTr": "Antep Fistigi",
+      "category": "kuruyemis",
+      "kcal100": 560.0,
+      "protein100": 20.2,
+      "carb100": 27.2,
+      "fat100": 45.3,
+      "source": "usda",
+      "sourceRef": "FDC 170184"
+    },
+    {
+      "id": "armut",
+      "nameEn": "Pears, raw",
+      "nameTr": "Armut",
+      "category": "meyve",
+      "kcal100": 57.0,
+      "protein100": 0.4,
+      "carb100": 15.2,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 169118"
+    },
+    {
+      "id": "arrowhead_raw",
+      "nameEn": "Arrowhead, raw",
+      "category": "sebze",
+      "kcal100": 99.0,
+      "protein100": 5.3,
+      "carb100": 20.2,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 169203"
+    },
+    {
+      "id": "arrowroot_raw",
+      "nameEn": "Arrowroot, raw",
+      "category": "sebze",
+      "kcal100": 65.0,
+      "protein100": 4.2,
+      "carb100": 13.4,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 168490"
+    },
+    {
+      "id": "avokado",
+      "nameEn": "Avocados, raw, all commercial varieties",
+      "nameTr": "Avokado",
+      "category": "meyve",
+      "kcal100": 160.0,
+      "protein100": 2.0,
+      "carb100": 8.5,
+      "fat100": 14.7,
+      "source": "usda",
+      "sourceRef": "FDC 171705"
+    },
+    {
+      "id": "ay_cekirdegi",
+      "nameEn": "Seeds, sunflower seed kernels, dried",
+      "nameTr": "Ay Cekirdegi",
+      "category": "kuruyemis",
+      "kcal100": 584.0,
+      "protein100": 20.8,
+      "carb100": 20.0,
+      "fat100": 51.5,
+      "source": "usda",
+      "sourceRef": "FDC 170562"
+    },
+    {
+      "id": "aycicek_yagi",
+      "nameEn": "Oil, sunflower, linoleic, (approx. 65%)",
+      "nameTr": "Aycicek Yagi",
+      "category": "diger",
+      "kcal100": 884.0,
+      "protein100": 0.0,
+      "carb100": 0.0,
+      "fat100": 100.0,
+      "source": "usda",
+      "sourceRef": "FDC 171025"
+    },
+    {
+      "id": "ayran",
+      "nameEn": "Ayran",
+      "nameTr": "Ayran",
+      "category": "icecek",
+      "kcal100": 37.0,
+      "protein100": 1.7,
+      "carb100": 2.9,
+      "fat100": 2.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "ayran_std",
+          "labelTr": "1 bardak",
+          "labelEn": "1 glass",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "bacon_meatless",
+      "nameEn": "Bacon, meatless",
+      "category": "sebze",
+      "kcal100": 309.0,
+      "protein100": 11.7,
+      "carb100": 5.3,
+      "fat100": 29.5,
+      "source": "usda",
+      "sourceRef": "FDC 172439"
+    },
+    {
+      "id": "badem",
+      "nameEn": "Nuts, almonds, dry roasted, without salt added",
+      "nameTr": "Badem",
+      "category": "kuruyemis",
+      "kcal100": 598.0,
+      "protein100": 21.0,
+      "carb100": 21.0,
+      "fat100": 52.5,
+      "source": "usda",
+      "sourceRef": "FDC 170158"
+    },
+    {
+      "id": "baklava",
+      "nameEn": "Baklava",
+      "nameTr": "Baklava",
+      "category": "atistirmalik",
+      "kcal100": 428.0,
+      "protein100": 6.5,
+      "carb100": 50.0,
+      "fat100": 22.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "baklava_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 piece",
+          "grams": 60.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "bal",
+      "nameEn": "Honey",
+      "nameTr": "Bal",
+      "category": "kahvaltilik",
+      "kcal100": 304.0,
+      "protein100": 0.3,
+      "carb100": 82.0,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "bal_std",
+          "labelTr": "1 tatli kasigi",
+          "labelEn": "1 teaspoon",
+          "grams": 10.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "bal_kabagi",
+      "nameEn": "Pumpkin, raw",
+      "nameTr": "Bal Kabagi",
+      "category": "sebze",
+      "kcal100": 26.0,
+      "protein100": 1.0,
+      "carb100": 6.5,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 168448"
+    },
+    {
+      "id": "balik_izgara",
+      "nameEn": "Grilled Fish",
+      "nameTr": "Izgara Balik",
+      "category": "yemek",
+      "kcal100": 148.0,
+      "protein100": 22.0,
+      "carb100": 0.0,
+      "fat100": 6.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "balik_izgara_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 180.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "bamya",
+      "nameEn": "Okra, raw",
+      "nameTr": "Bamya",
+      "category": "sebze",
+      "kcal100": 33.0,
+      "protein100": 1.9,
+      "carb100": 7.5,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 169260"
+    },
+    {
+      "id": "baobab_powder",
+      "nameEn": "Baobab powder",
+      "category": "meyve",
+      "kcal100": 250.0,
+      "protein100": 3.7,
+      "carb100": 79.7,
+      "fat100": 0.5,
+      "source": "usda",
+      "sourceRef": "FDC 167806"
+    },
+    {
+      "id": "barbunya_haslanmis",
+      "nameEn": "Beans, kidney, red, mature seeds, cooked, boiled, without salt",
+      "nameTr": "Haslanmis Barbunya",
+      "category": "sebze",
+      "kcal100": 127.0,
+      "protein100": 8.7,
+      "carb100": 22.8,
+      "fat100": 0.5,
+      "source": "usda",
+      "sourceRef": "FDC 175194"
+    },
+    {
+      "id": "beef_cured_breakfast_strips_cooked",
+      "nameEn": "Beef, cured, breakfast strips, cooked",
+      "category": "etBalik",
+      "kcal100": 449.0,
+      "protein100": 31.3,
+      "carb100": 1.4,
+      "fat100": 34.4,
+      "source": "usda",
+      "sourceRef": "FDC 170198"
+    },
+    {
+      "id": "beef_cured_corned_beef_brisket_cooked",
+      "nameEn": "Beef, cured, corned beef, brisket, cooked",
+      "category": "etBalik",
+      "kcal100": 251.0,
+      "protein100": 18.2,
+      "carb100": 0.5,
+      "fat100": 19.0,
+      "source": "usda",
+      "sourceRef": "FDC 170200"
+    },
+    {
+      "id": "beef_cured_corned_beef_brisket_raw",
+      "nameEn": "Beef, cured, corned beef, brisket, raw",
+      "category": "etBalik",
+      "kcal100": 198.0,
+      "protein100": 14.7,
+      "carb100": 0.1,
+      "fat100": 14.9,
+      "source": "usda",
+      "sourceRef": "FDC 170199"
+    },
+    {
+      "id": "beef_grass_fed_ground_raw",
+      "nameEn": "Beef, grass-fed, ground, raw",
+      "category": "etBalik",
+      "kcal100": 198.0,
+      "protein100": 19.4,
+      "carb100": 0.0,
+      "fat100": 12.7,
+      "source": "usda",
+      "sourceRef": "FDC 168608"
+    },
+    {
+      "id": "beef_ground_70_lean_meat_30_fat_raw",
+      "nameEn": "Beef, ground, 70% lean meat / 30% fat, raw",
+      "category": "etBalik",
+      "kcal100": 332.0,
+      "protein100": 14.3,
+      "carb100": 0.0,
+      "fat100": 30.0,
+      "source": "usda",
+      "sourceRef": "FDC 168652"
+    },
+    {
+      "id": "beef_ground_80_lean_meat_20_fat_raw",
+      "nameEn": "Beef, ground, 80% lean meat / 20% fat, raw",
+      "category": "etBalik",
+      "kcal100": 254.0,
+      "protein100": 17.2,
+      "carb100": 0.0,
+      "fat100": 20.0,
+      "source": "usda",
+      "sourceRef": "FDC 174036"
+    },
+    {
+      "id": "beef_ground_93_lean_meat_7_fat_raw",
+      "nameEn": "Beef, ground, 93% lean meat / 7% fat, raw",
+      "category": "etBalik",
+      "kcal100": 152.0,
+      "protein100": 20.9,
+      "carb100": 0.0,
+      "fat100": 7.0,
+      "source": "usda",
+      "sourceRef": "FDC 173110"
+    },
+    {
+      "id": "beef_ground_95_lean_meat_5_fat_raw",
+      "nameEn": "Beef, ground, 95% lean meat / 5% fat, raw",
+      "category": "etBalik",
+      "kcal100": 137.0,
+      "protein100": 21.4,
+      "carb100": 0.0,
+      "fat100": 5.0,
+      "source": "usda",
+      "sourceRef": "FDC 171790"
+    },
+    {
+      "id": "beef_ground_97_lean_meat_3_fat_raw",
+      "nameEn": "Beef, ground, 97% lean meat / 3% fat, raw",
+      "category": "etBalik",
+      "kcal100": 121.0,
+      "protein100": 22.0,
+      "carb100": 0.0,
+      "fat100": 3.0,
+      "source": "usda",
+      "sourceRef": "FDC 173111"
+    },
+    {
+      "id": "beef_new_zealand_imported_inside_raw",
+      "nameEn": "Beef, New Zealand, imported, inside, raw",
+      "category": "etBalik",
+      "kcal100": 128.0,
+      "protein100": 22.2,
+      "carb100": 0.1,
+      "fat100": 4.4,
+      "source": "usda",
+      "sourceRef": "FDC 174726"
+    },
+    {
+      "id": "beef_retail_cuts_separable_fat_cooked",
+      "nameEn": "Beef, retail cuts, separable fat, cooked",
+      "category": "etBalik",
+      "kcal100": 680.0,
+      "protein100": 10.7,
+      "carb100": 0.0,
+      "fat100": 70.3,
+      "source": "usda",
+      "sourceRef": "FDC 168606"
+    },
+    {
+      "id": "beef_retail_cuts_separable_fat_raw",
+      "nameEn": "Beef, retail cuts, separable fat, raw",
+      "category": "etBalik",
+      "kcal100": 674.0,
+      "protein100": 8.2,
+      "carb100": 0.0,
+      "fat100": 70.9,
+      "source": "usda",
+      "sourceRef": "FDC 168605"
+    },
+    {
+      "id": "beyaz_ekmek",
+      "nameEn": "White Bread",
+      "nameTr": "Beyaz Ekmek",
+      "category": "tahil",
+      "kcal100": 265.0,
+      "protein100": 8.5,
+      "carb100": 49.0,
+      "fat100": 3.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "beyaz_ekmek_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "beyaz_peynir",
+      "nameEn": "White Cheese",
+      "nameTr": "Beyaz Peynir",
+      "category": "kahvaltilik",
+      "kcal100": 264.0,
+      "protein100": 17.5,
+      "carb100": 2.0,
+      "fat100": 20.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "beyaz_peynir_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "bezelye",
+      "nameEn": "Peas, green, raw",
+      "nameTr": "Bezelye",
+      "category": "sebze",
+      "kcal100": 81.0,
+      "protein100": 5.4,
+      "carb100": 14.4,
+      "fat100": 0.4,
+      "source": "usda",
+      "sourceRef": "FDC 170419"
+    },
+    {
+      "id": "bira",
+      "nameEn": "Beer",
+      "nameTr": "Bira",
+      "category": "icecek",
+      "kcal100": 43.0,
+      "protein100": 0.5,
+      "carb100": 3.6,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "bira_std",
+          "labelTr": "1 sise",
+          "labelEn": "1 bottle",
+          "grams": 330.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "biskuvi_sade",
+      "nameEn": "Plain Biscuit",
+      "nameTr": "Sade Biskuvi",
+      "category": "atistirmalik",
+      "kcal100": 460.0,
+      "protein100": 7.0,
+      "carb100": 72.0,
+      "fat100": 16.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "biskuvi_sade_std",
+          "labelTr": "3 adet",
+          "labelEn": "3 pieces",
+          "grams": 25.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "borage_raw",
+      "nameEn": "Borage, raw",
+      "category": "sebze",
+      "kcal100": 21.0,
+      "protein100": 1.8,
+      "carb100": 3.1,
+      "fat100": 0.7,
+      "source": "usda",
+      "sourceRef": "FDC 170481"
+    },
+    {
+      "id": "borek_peynirli",
+      "nameEn": "Cheese Borek",
+      "nameTr": "Peynirli Borek",
+      "category": "kahvaltilik",
+      "kcal100": 295.0,
+      "protein100": 9.5,
+      "carb100": 28.0,
+      "fat100": 16.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "borek_peynirli_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 120.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "brokoli",
+      "nameEn": "Broccoli, raw",
+      "nameTr": "Brokoli",
+      "category": "sebze",
+      "kcal100": 34.0,
+      "protein100": 2.8,
+      "carb100": 6.6,
+      "fat100": 0.4,
+      "source": "usda",
+      "sourceRef": "FDC 170379"
+    },
+    {
+      "id": "brokoli_corbasi",
+      "nameEn": "Broccoli Soup",
+      "nameTr": "Brokoli Corbasi",
+      "category": "corba",
+      "kcal100": 45.0,
+      "protein100": 2.2,
+      "carb100": 5.5,
+      "fat100": 1.6,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "brokoli_corbasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "buckwheat",
+      "nameEn": "Buckwheat",
+      "category": "tahil",
+      "kcal100": 343.0,
+      "protein100": 13.2,
+      "carb100": 71.5,
+      "fat100": 3.4,
+      "source": "usda",
+      "sourceRef": "FDC 170286"
+    },
+    {
+      "id": "bugday_unu",
+      "nameEn": "Wheat flour, white, all-purpose, enriched, bleached",
+      "nameTr": "Bugday Unu",
+      "category": "tahil",
+      "kcal100": 364.0,
+      "protein100": 10.3,
+      "carb100": 76.3,
+      "fat100": 1.0,
+      "source": "usda",
+      "sourceRef": "FDC 168894"
+    },
+    {
+      "id": "bulgur_dry",
+      "nameEn": "Bulgur, dry",
+      "category": "tahil",
+      "kcal100": 342.0,
+      "protein100": 12.3,
+      "carb100": 75.9,
+      "fat100": 1.3,
+      "source": "usda",
+      "sourceRef": "FDC 170688"
+    },
+    {
+      "id": "bulgur_haslanmis",
+      "nameEn": "Bulgur, cooked",
+      "nameTr": "Haslanmis Bulgur",
+      "category": "tahil",
+      "kcal100": 83.0,
+      "protein100": 3.1,
+      "carb100": 18.6,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 170287"
+    },
+    {
+      "id": "bulgur_pilavi",
+      "nameEn": "Bulgur Pilaf",
+      "nameTr": "Bulgur Pilavi",
+      "category": "yemek",
+      "kcal100": 128.0,
+      "protein100": 3.5,
+      "carb100": 24.0,
+      "fat100": 2.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "bulgur_pilavi_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 180.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "butter_salted",
+      "nameEn": "Butter, salted",
+      "category": "sutUrunu",
+      "kcal100": 717.0,
+      "protein100": 0.8,
+      "carb100": 0.1,
+      "fat100": 81.1,
+      "source": "usda",
+      "sourceRef": "FDC 173410"
+    },
+    {
+      "id": "cacik",
+      "nameEn": "Cacik",
+      "nameTr": "Cacik",
+      "category": "sebze",
+      "kcal100": 48.0,
+      "protein100": 2.5,
+      "carb100": 4.0,
+      "fat100": 2.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "cacik_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "candied_fruit",
+      "nameEn": "Candied fruit",
+      "category": "meyve",
+      "kcal100": 322.0,
+      "protein100": 0.3,
+      "carb100": 82.7,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 167781"
+    },
+    {
+      "id": "cardoon_raw",
+      "nameEn": "Cardoon, raw",
+      "category": "sebze",
+      "kcal100": 17.0,
+      "protein100": 0.7,
+      "carb100": 4.1,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 169981"
+    },
+    {
+      "id": "carob_flour",
+      "nameEn": "Carob flour",
+      "category": "sebze",
+      "kcal100": 222.0,
+      "protein100": 4.6,
+      "carb100": 88.9,
+      "fat100": 0.7,
+      "source": "usda",
+      "sourceRef": "FDC 173755"
+    },
+    {
+      "id": "cassava_raw",
+      "nameEn": "Cassava, raw",
+      "category": "sebze",
+      "kcal100": 160.0,
+      "protein100": 1.4,
+      "carb100": 38.1,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 169985"
+    },
+    {
+      "id": "catsup",
+      "nameEn": "Catsup",
+      "category": "sebze",
+      "kcal100": 101.0,
+      "protein100": 1.0,
+      "carb100": 27.4,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 168556"
+    },
+    {
+      "id": "cavdar_ekmegi",
+      "nameEn": "Rye Bread",
+      "nameTr": "Cavdar Ekmegi",
+      "category": "tahil",
+      "kcal100": 258.0,
+      "protein100": 8.5,
+      "carb100": 48.0,
+      "fat100": 3.3,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "cavdar_ekmegi_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "cay",
+      "nameEn": "Tea, unsweetened",
+      "nameTr": "Cay",
+      "category": "icecek",
+      "kcal100": 1.0,
+      "protein100": 0.0,
+      "carb100": 0.2,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "cay_std",
+          "labelTr": "1 bardak",
+          "labelEn": "1 glass",
+          "grams": 100.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "celeriac_raw",
+      "nameEn": "Celeriac, raw",
+      "category": "sebze",
+      "kcal100": 42.0,
+      "protein100": 1.5,
+      "carb100": 9.2,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 170400"
+    },
+    {
+      "id": "celtuce_raw",
+      "nameEn": "Celtuce, raw",
+      "category": "sebze",
+      "kcal100": 18.0,
+      "protein100": 0.8,
+      "carb100": 3.6,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 169990"
+    },
+    {
+      "id": "ceviz",
+      "nameEn": "Nuts, walnuts, english",
+      "nameTr": "Ceviz",
+      "category": "kuruyemis",
+      "kcal100": 654.0,
+      "protein100": 15.2,
+      "carb100": 13.7,
+      "fat100": 65.2,
+      "source": "usda",
+      "sourceRef": "FDC 170187"
+    },
+    {
+      "id": "cheddar",
+      "nameEn": "Cheese, cheddar, sharp, sliced",
+      "nameTr": "Cheddar",
+      "category": "sutUrunu",
+      "kcal100": 410.0,
+      "protein100": 24.2,
+      "carb100": 2.1,
+      "fat100": 33.8,
+      "source": "usda",
+      "sourceRef": "FDC 170899"
+    },
+    {
+      "id": "cheese_blue",
+      "nameEn": "Cheese, blue",
+      "category": "sutUrunu",
+      "kcal100": 353.0,
+      "protein100": 21.4,
+      "carb100": 2.3,
+      "fat100": 28.7,
+      "source": "usda",
+      "sourceRef": "FDC 172175"
+    },
+    {
+      "id": "cheese_brick",
+      "nameEn": "Cheese, brick",
+      "category": "sutUrunu",
+      "kcal100": 371.0,
+      "protein100": 23.2,
+      "carb100": 2.8,
+      "fat100": 29.7,
+      "source": "usda",
+      "sourceRef": "FDC 172176"
+    },
+    {
+      "id": "cheese_brie",
+      "nameEn": "Cheese, brie",
+      "category": "sutUrunu",
+      "kcal100": 334.0,
+      "protein100": 20.8,
+      "carb100": 0.5,
+      "fat100": 27.7,
+      "source": "usda",
+      "sourceRef": "FDC 172177"
+    },
+    {
+      "id": "cheese_colby",
+      "nameEn": "Cheese, colby",
+      "category": "sutUrunu",
+      "kcal100": 394.0,
+      "protein100": 23.8,
+      "carb100": 2.6,
+      "fat100": 32.1,
+      "source": "usda",
+      "sourceRef": "FDC 173416"
+    },
+    {
+      "id": "cheese_edam",
+      "nameEn": "Cheese, edam",
+      "category": "sutUrunu",
+      "kcal100": 357.0,
+      "protein100": 25.0,
+      "carb100": 1.4,
+      "fat100": 28.6,
+      "source": "usda",
+      "sourceRef": "FDC 173419"
+    },
+    {
+      "id": "cheese_fontina",
+      "nameEn": "Cheese, fontina",
+      "category": "sutUrunu",
+      "kcal100": 389.0,
+      "protein100": 25.6,
+      "carb100": 1.6,
+      "fat100": 31.1,
+      "source": "usda",
+      "sourceRef": "FDC 170843"
+    },
+    {
+      "id": "cheese_gjetost",
+      "nameEn": "Cheese, gjetost",
+      "category": "sutUrunu",
+      "kcal100": 466.0,
+      "protein100": 9.7,
+      "carb100": 42.6,
+      "fat100": 29.5,
+      "source": "usda",
+      "sourceRef": "FDC 171240"
+    },
+    {
+      "id": "cheese_gouda",
+      "nameEn": "Cheese, gouda",
+      "category": "sutUrunu",
+      "kcal100": 356.0,
+      "protein100": 24.9,
+      "carb100": 2.2,
+      "fat100": 27.4,
+      "source": "usda",
+      "sourceRef": "FDC 171241"
+    },
+    {
+      "id": "cheese_romano",
+      "nameEn": "Cheese, romano",
+      "category": "sutUrunu",
+      "kcal100": 387.0,
+      "protein100": 31.8,
+      "carb100": 3.6,
+      "fat100": 26.9,
+      "source": "usda",
+      "sourceRef": "FDC 171249"
+    },
+    {
+      "id": "cheese_swiss",
+      "nameEn": "Cheese, swiss",
+      "category": "sutUrunu",
+      "kcal100": 393.0,
+      "protein100": 27.0,
+      "carb100": 1.4,
+      "fat100": 31.0,
+      "source": "usda",
+      "sourceRef": "FDC 171251"
+    },
+    {
+      "id": "cheese_tilsit",
+      "nameEn": "Cheese, tilsit",
+      "category": "sutUrunu",
+      "kcal100": 340.0,
+      "protein100": 24.4,
+      "carb100": 1.9,
+      "fat100": 26.0,
+      "source": "usda",
+      "sourceRef": "FDC 170852"
+    },
+    {
+      "id": "chia_tohumu",
+      "nameEn": "Seeds, chia seeds, dried",
+      "nameTr": "Chia Tohumu",
+      "category": "kuruyemis",
+      "kcal100": 486.0,
+      "protein100": 16.5,
+      "carb100": 42.1,
+      "fat100": 30.7,
+      "source": "usda",
+      "sourceRef": "FDC 170554"
+    },
+    {
+      "id": "chicken_feet_boiled",
+      "nameEn": "Chicken, feet, boiled",
+      "category": "etBalik",
+      "kcal100": 215.0,
+      "protein100": 19.4,
+      "carb100": 0.2,
+      "fat100": 14.6,
+      "source": "usda",
+      "sourceRef": "FDC 171119"
+    },
+    {
+      "id": "chicken_ground_raw",
+      "nameEn": "Chicken, ground, raw",
+      "category": "etBalik",
+      "kcal100": 143.0,
+      "protein100": 17.4,
+      "carb100": 0.0,
+      "fat100": 8.1,
+      "source": "usda",
+      "sourceRef": "FDC 171116"
+    },
+    {
+      "id": "chives_raw",
+      "nameEn": "Chives, raw",
+      "category": "sebze",
+      "kcal100": 30.0,
+      "protein100": 3.3,
+      "carb100": 4.3,
+      "fat100": 0.7,
+      "source": "usda",
+      "sourceRef": "FDC 169994"
+    },
+    {
+      "id": "cikolata_bitter",
+      "nameEn": "Dark Chocolate",
+      "nameTr": "Bitter Cikolata",
+      "category": "atistirmalik",
+      "kcal100": 546.0,
+      "protein100": 7.8,
+      "carb100": 46.0,
+      "fat100": 35.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "cikolata_bitter_std",
+          "labelTr": "4 kare",
+          "labelEn": "4 squares",
+          "grams": 25.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "cikolata_sutlu",
+      "nameEn": "Milk Chocolate",
+      "nameTr": "Sutlu Cikolata",
+      "category": "atistirmalik",
+      "kcal100": 535.0,
+      "protein100": 7.7,
+      "carb100": 59.0,
+      "fat100": 30.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "cikolata_sutlu_std",
+          "labelTr": "4 kare",
+          "labelEn": "4 squares",
+          "grams": 25.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "cilek",
+      "nameEn": "Strawberries, raw",
+      "nameTr": "Cilek",
+      "category": "meyve",
+      "kcal100": 32.0,
+      "protein100": 0.7,
+      "carb100": 7.7,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 167762"
+    },
+    {
+      "id": "cips",
+      "nameEn": "Potato Chips",
+      "nameTr": "Patates Cipsi",
+      "category": "atistirmalik",
+      "kcal100": 536.0,
+      "protein100": 6.6,
+      "carb100": 53.0,
+      "fat100": 34.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "cips_std",
+          "labelTr": "1 kucuk paket",
+          "labelEn": "1 small bag",
+          "grams": 40.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "coban_salata",
+      "nameEn": "Shepherd Salad",
+      "nameTr": "Coban Salata",
+      "category": "sebze",
+      "kcal100": 42.0,
+      "protein100": 1.2,
+      "carb100": 5.0,
+      "fat100": 2.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "coban_salata_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "collards_raw",
+      "nameEn": "Collards, raw",
+      "category": "sebze",
+      "kcal100": 32.0,
+      "protein100": 3.0,
+      "carb100": 5.4,
+      "fat100": 0.6,
+      "source": "usda",
+      "sourceRef": "FDC 170406"
+    },
+    {
+      "id": "cornsalad_raw",
+      "nameEn": "Cornsalad, raw",
+      "category": "sebze",
+      "kcal100": 21.0,
+      "protein100": 2.0,
+      "carb100": 3.6,
+      "fat100": 0.4,
+      "source": "usda",
+      "sourceRef": "FDC 169219"
+    },
+    {
+      "id": "cornstarch",
+      "nameEn": "Cornstarch",
+      "category": "tahil",
+      "kcal100": 381.0,
+      "protein100": 0.3,
+      "carb100": 91.3,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 169698"
+    },
+    {
+      "id": "cottage_peyniri",
+      "nameEn": "Cheese, cottage, lowfat, 2% milkfat",
+      "nameTr": "Cottage Peyniri",
+      "category": "sutUrunu",
+      "kcal100": 81.0,
+      "protein100": 10.4,
+      "carb100": 4.8,
+      "fat100": 2.3,
+      "source": "usda",
+      "sourceRef": "FDC 172182"
+    },
+    {
+      "id": "couscous_dry",
+      "nameEn": "Couscous, dry",
+      "category": "tahil",
+      "kcal100": 376.0,
+      "protein100": 12.8,
+      "carb100": 77.4,
+      "fat100": 0.6,
+      "source": "usda",
+      "sourceRef": "FDC 169699"
+    },
+    {
+      "id": "dock_raw",
+      "nameEn": "Dock, raw",
+      "category": "sebze",
+      "kcal100": 22.0,
+      "protein100": 2.0,
+      "carb100": 3.2,
+      "fat100": 0.7,
+      "source": "usda",
+      "sourceRef": "FDC 170076"
+    },
+    {
+      "id": "domates",
+      "nameEn": "Tomatoes, red, ripe, raw, year round average",
+      "nameTr": "Domates",
+      "category": "sebze",
+      "kcal100": 18.0,
+      "protein100": 0.9,
+      "carb100": 3.9,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 170457"
+    },
+    {
+      "id": "domates_corbasi",
+      "nameEn": "Tomato Soup",
+      "nameTr": "Domates Corbasi",
+      "category": "corba",
+      "kcal100": 52.0,
+      "protein100": 1.6,
+      "carb100": 7.5,
+      "fat100": 1.8,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "domates_corbasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "dondurma",
+      "nameEn": "Ice Cream",
+      "nameTr": "Dondurma",
+      "category": "atistirmalik",
+      "kcal100": 207.0,
+      "protein100": 3.5,
+      "carb100": 24.0,
+      "fat100": 11.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "dondurma_std",
+          "labelTr": "2 top",
+          "labelEn": "2 scoops",
+          "grams": 100.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "doner_et",
+      "nameEn": "Beef Doner",
+      "nameTr": "Et Doner",
+      "category": "yemek",
+      "kcal100": 258.0,
+      "protein100": 20.0,
+      "carb100": 2.0,
+      "fat100": 19.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "doner_et_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "doner_tavuk",
+      "nameEn": "Chicken Doner",
+      "nameTr": "Tavuk Doner",
+      "category": "yemek",
+      "kcal100": 195.0,
+      "protein100": 19.5,
+      "carb100": 2.0,
+      "fat100": 12.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "doner_tavuk_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "dulce_de_leche",
+      "nameEn": "Dulce de Leche",
+      "category": "sutUrunu",
+      "kcal100": 315.0,
+      "protein100": 6.8,
+      "carb100": 55.4,
+      "fat100": 7.3,
+      "source": "usda",
+      "sourceRef": "FDC 173461"
+    },
+    {
+      "id": "eggnog",
+      "nameEn": "Eggnog",
+      "category": "sutUrunu",
+      "kcal100": 88.0,
+      "protein100": 4.5,
+      "carb100": 8.1,
+      "fat100": 4.2,
+      "source": "usda",
+      "sourceRef": "FDC 171258"
+    },
+    {
+      "id": "elma",
+      "nameEn": "Apples, raw, with skin (Includes foods for USDA's Food Distribution Program)",
+      "nameTr": "Elma",
+      "category": "meyve",
+      "kcal100": 52.0,
+      "protein100": 0.3,
+      "carb100": 13.8,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 171688"
+    },
+    {
+      "id": "emu_fan_fillet_raw",
+      "nameEn": "Emu, fan fillet, raw",
+      "category": "etBalik",
+      "kcal100": 103.0,
+      "protein100": 22.5,
+      "carb100": 0.0,
+      "fat100": 0.8,
+      "source": "usda",
+      "sourceRef": "FDC 174476"
+    },
+    {
+      "id": "emu_full_rump_raw",
+      "nameEn": "Emu, full rump, raw",
+      "category": "etBalik",
+      "kcal100": 112.0,
+      "protein100": 22.8,
+      "carb100": 0.0,
+      "fat100": 1.6,
+      "source": "usda",
+      "sourceRef": "FDC 174479"
+    },
+    {
+      "id": "emu_ground_raw",
+      "nameEn": "Emu, ground, raw",
+      "category": "etBalik",
+      "kcal100": 134.0,
+      "protein100": 22.8,
+      "carb100": 0.0,
+      "fat100": 4.0,
+      "source": "usda",
+      "sourceRef": "FDC 172832"
+    },
+    {
+      "id": "emu_oyster_raw",
+      "nameEn": "Emu, oyster, raw",
+      "category": "etBalik",
+      "kcal100": 141.0,
+      "protein100": 22.8,
+      "carb100": 0.0,
+      "fat100": 4.9,
+      "source": "usda",
+      "sourceRef": "FDC 172838"
+    },
+    {
+      "id": "endive_raw",
+      "nameEn": "Endive, raw",
+      "category": "sebze",
+      "kcal100": 17.0,
+      "protein100": 1.2,
+      "carb100": 3.4,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 168412"
+    },
+    {
+      "id": "enginar",
+      "nameEn": "Artichokes, (globe or french), raw",
+      "nameTr": "Enginar",
+      "category": "sebze",
+      "kcal100": 47.0,
+      "protein100": 3.3,
+      "carb100": 10.5,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 169205"
+    },
+    {
+      "id": "epazote_raw",
+      "nameEn": "Epazote, raw",
+      "category": "sebze",
+      "kcal100": 32.0,
+      "protein100": 0.3,
+      "carb100": 7.4,
+      "fat100": 0.5,
+      "source": "usda",
+      "sourceRef": "FDC 169398"
+    },
+    {
+      "id": "eppaw_raw",
+      "nameEn": "Eppaw, raw",
+      "category": "sebze",
+      "kcal100": 150.0,
+      "protein100": 4.6,
+      "carb100": 31.7,
+      "fat100": 1.8,
+      "source": "usda",
+      "sourceRef": "FDC 170078"
+    },
+    {
+      "id": "erik",
+      "nameEn": "Plums, raw",
+      "nameTr": "Erik",
+      "category": "meyve",
+      "kcal100": 46.0,
+      "protein100": 0.7,
+      "carb100": 11.4,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 169949"
+    },
+    {
+      "id": "esmer_pirinc",
+      "nameEn": "Rice, brown, long-grain, cooked (Includes foods for USDA's Food Distribution Program)",
+      "nameTr": "Esmer Pirinc",
+      "category": "tahil",
+      "kcal100": 123.0,
+      "protein100": 2.7,
+      "carb100": 25.6,
+      "fat100": 1.0,
+      "source": "usda",
+      "sourceRef": "FDC 169704"
+    },
+    {
+      "id": "etli_biber_dolma",
+      "nameEn": "Stuffed Peppers with Meat",
+      "nameTr": "Etli Biber Dolmasi",
+      "category": "yemek",
+      "kcal100": 128.0,
+      "protein100": 5.5,
+      "carb100": 13.0,
+      "fat100": 6.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "etli_biber_dolma_std",
+          "labelTr": "2 dolma",
+          "labelEn": "2 peppers",
+          "grams": 240.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "etli_kuru_fasulye",
+      "nameEn": "White Beans with Beef",
+      "nameTr": "Etli Kuru Fasulye",
+      "category": "yemek",
+      "kcal100": 119.0,
+      "protein100": 7.0,
+      "carb100": 13.0,
+      "fat100": 4.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "etli_kuru_fasulye_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "etli_nohut",
+      "nameEn": "Chickpea Stew with Beef",
+      "nameTr": "Etli Nohut",
+      "category": "yemek",
+      "kcal100": 148.0,
+      "protein100": 8.5,
+      "carb100": 16.0,
+      "fat100": 5.8,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "etli_nohut_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "etli_taze_fasulye",
+      "nameEn": "Green Beans with Meat",
+      "nameTr": "Etli Taze Fasulye",
+      "category": "yemek",
+      "kcal100": 92.0,
+      "protein100": 5.0,
+      "carb100": 7.5,
+      "fat100": 4.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "etli_taze_fasulye_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "ezogelin_corbasi",
+      "nameEn": "Ezogelin Soup",
+      "nameTr": "Ezogelin Corbasi",
+      "category": "corba",
+      "kcal100": 68.0,
+      "protein100": 3.0,
+      "carb100": 10.5,
+      "fat100": 1.8,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "ezogelin_corbasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "feijoa_raw",
+      "nameEn": "Feijoa, raw",
+      "category": "meyve",
+      "kcal100": 61.0,
+      "protein100": 0.7,
+      "carb100": 15.2,
+      "fat100": 0.4,
+      "source": "usda",
+      "sourceRef": "FDC 168176"
+    },
+    {
+      "id": "feta_peyniri",
+      "nameEn": "Cheese, feta",
+      "nameTr": "Feta Peyniri",
+      "category": "sutUrunu",
+      "kcal100": 265.0,
+      "protein100": 14.2,
+      "carb100": 3.9,
+      "fat100": 21.5,
+      "source": "usda",
+      "sourceRef": "FDC 173420"
+    },
+    {
+      "id": "filtre_kahve",
+      "nameEn": "Filter Coffee, black",
+      "nameTr": "Filtre Kahve",
+      "category": "icecek",
+      "kcal100": 2.0,
+      "protein100": 0.1,
+      "carb100": 0.3,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "filtre_kahve_std",
+          "labelTr": "1 kupa",
+          "labelEn": "1 mug",
+          "grams": 240.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "findik",
+      "nameEn": "Nuts, hazelnuts or filberts",
+      "nameTr": "Findik",
+      "category": "kuruyemis",
+      "kcal100": 628.0,
+      "protein100": 14.9,
+      "carb100": 16.7,
+      "fat100": 60.8,
+      "source": "usda",
+      "sourceRef": "FDC 170581"
+    },
+    {
+      "id": "fish_bluefish_raw",
+      "nameEn": "Fish, bluefish, raw",
+      "category": "etBalik",
+      "kcal100": 124.0,
+      "protein100": 20.0,
+      "carb100": 0.0,
+      "fat100": 4.2,
+      "source": "usda",
+      "sourceRef": "FDC 171949"
+    },
+    {
+      "id": "fish_burbot_raw",
+      "nameEn": "Fish, burbot, raw",
+      "category": "etBalik",
+      "kcal100": 90.0,
+      "protein100": 19.3,
+      "carb100": 0.0,
+      "fat100": 0.8,
+      "source": "usda",
+      "sourceRef": "FDC 171950"
+    },
+    {
+      "id": "fish_carp_raw",
+      "nameEn": "Fish, carp, raw",
+      "category": "etBalik",
+      "kcal100": 127.0,
+      "protein100": 17.8,
+      "carb100": 0.0,
+      "fat100": 5.6,
+      "source": "usda",
+      "sourceRef": "FDC 171952"
+    },
+    {
+      "id": "fish_cisco_raw",
+      "nameEn": "Fish, cisco, raw",
+      "category": "etBalik",
+      "kcal100": 98.0,
+      "protein100": 19.0,
+      "carb100": 0.0,
+      "fat100": 1.9,
+      "source": "usda",
+      "sourceRef": "FDC 171953"
+    },
+    {
+      "id": "fish_cisco_smoked",
+      "nameEn": "Fish, cisco, smoked",
+      "category": "etBalik",
+      "kcal100": 177.0,
+      "protein100": 16.4,
+      "carb100": 0.0,
+      "fat100": 11.9,
+      "source": "usda",
+      "sourceRef": "FDC 171954"
+    },
+    {
+      "id": "fish_cusk_raw",
+      "nameEn": "Fish, cusk, raw",
+      "category": "etBalik",
+      "kcal100": 87.0,
+      "protein100": 19.0,
+      "carb100": 0.0,
+      "fat100": 0.7,
+      "source": "usda",
+      "sourceRef": "FDC 171958"
+    },
+    {
+      "id": "fish_haddock_raw",
+      "nameEn": "Fish, haddock, raw",
+      "category": "etBalik",
+      "kcal100": 74.0,
+      "protein100": 16.3,
+      "carb100": 0.0,
+      "fat100": 0.5,
+      "source": "usda",
+      "sourceRef": "FDC 171964"
+    },
+    {
+      "id": "fish_ling_raw",
+      "nameEn": "Fish, ling, raw",
+      "category": "etBalik",
+      "kcal100": 87.0,
+      "protein100": 19.0,
+      "carb100": 0.0,
+      "fat100": 0.6,
+      "source": "usda",
+      "sourceRef": "FDC 173670"
+    },
+    {
+      "id": "fish_lingcod_raw",
+      "nameEn": "Fish, lingcod, raw",
+      "category": "etBalik",
+      "kcal100": 85.0,
+      "protein100": 17.7,
+      "carb100": 0.0,
+      "fat100": 1.1,
+      "source": "usda",
+      "sourceRef": "FDC 173671"
+    },
+    {
+      "id": "fish_scup_raw",
+      "nameEn": "Fish, scup, raw",
+      "category": "etBalik",
+      "kcal100": 105.0,
+      "protein100": 18.9,
+      "carb100": 0.0,
+      "fat100": 2.7,
+      "source": "usda",
+      "sourceRef": "FDC 175141"
+    },
+    {
+      "id": "fish_spot_raw",
+      "nameEn": "Fish, spot, raw",
+      "category": "etBalik",
+      "kcal100": 123.0,
+      "protein100": 18.5,
+      "carb100": 0.0,
+      "fat100": 4.9,
+      "source": "usda",
+      "sourceRef": "FDC 173700"
+    },
+    {
+      "id": "fish_surimi",
+      "nameEn": "Fish, surimi",
+      "category": "etBalik",
+      "kcal100": 99.0,
+      "protein100": 15.2,
+      "carb100": 6.8,
+      "fat100": 0.9,
+      "source": "usda",
+      "sourceRef": "FDC 173702"
+    },
+    {
+      "id": "fish_tilapia_raw",
+      "nameEn": "Fish, tilapia, raw",
+      "category": "etBalik",
+      "kcal100": 96.0,
+      "protein100": 20.1,
+      "carb100": 0.0,
+      "fat100": 1.7,
+      "source": "usda",
+      "sourceRef": "FDC 175176"
+    },
+    {
+      "id": "fish_tuna_salad",
+      "nameEn": "Fish, tuna salad",
+      "category": "etBalik",
+      "kcal100": 187.0,
+      "protein100": 16.0,
+      "carb100": 9.4,
+      "fat100": 9.3,
+      "source": "usda",
+      "sourceRef": "FDC 175160"
+    },
+    {
+      "id": "fistik_ezmesi",
+      "nameEn": "Peanut butter, smooth style, without salt",
+      "nameTr": "Fistik Ezmesi",
+      "category": "sebze",
+      "kcal100": 598.0,
+      "protein100": 22.2,
+      "carb100": 22.3,
+      "fat100": 51.4,
+      "source": "usda",
+      "sourceRef": "FDC 172470"
+    },
+    {
+      "id": "frog_legs_raw",
+      "nameEn": "Frog legs, raw",
+      "category": "etBalik",
+      "kcal100": 73.0,
+      "protein100": 16.4,
+      "carb100": 0.0,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 168148"
+    },
+    {
+      "id": "goose_liver_raw",
+      "nameEn": "Goose, liver, raw",
+      "category": "etBalik",
+      "kcal100": 133.0,
+      "protein100": 16.4,
+      "carb100": 6.3,
+      "fat100": 4.3,
+      "source": "usda",
+      "sourceRef": "FDC 172415"
+    },
+    {
+      "id": "greyfurt",
+      "nameEn": "Grapefruit, raw, pink and red, all areas",
+      "nameTr": "Greyfurt",
+      "category": "meyve",
+      "kcal100": 42.0,
+      "protein100": 0.8,
+      "carb100": 10.7,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 174673"
+    },
+    {
+      "id": "guvec",
+      "nameEn": "Meat and Vegetable Casserole",
+      "nameTr": "Etli Sebze Guvec",
+      "category": "yemek",
+      "kcal100": 118.0,
+      "protein100": 9.0,
+      "carb100": 8.0,
+      "fat100": 5.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "guvec_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 280.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "hamsi",
+      "nameEn": "Fish, anchovy, european, raw",
+      "nameTr": "Hamsi",
+      "category": "etBalik",
+      "kcal100": 131.0,
+      "protein100": 20.4,
+      "carb100": 0.0,
+      "fat100": 4.8,
+      "source": "usda",
+      "sourceRef": "FDC 174182"
+    },
+    {
+      "id": "hamsi_tava",
+      "nameEn": "Fried Anchovies",
+      "nameTr": "Hamsi Tava",
+      "category": "yemek",
+      "kcal100": 240.0,
+      "protein100": 17.5,
+      "carb100": 8.0,
+      "fat100": 15.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "hamsi_tava_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "haslanmis_patates",
+      "nameEn": "Potatoes, boiled, cooked without skin, flesh, without salt",
+      "nameTr": "Haslanmis Patates",
+      "category": "sebze",
+      "kcal100": 86.0,
+      "protein100": 1.7,
+      "carb100": 20.0,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 170440"
+    },
+    {
+      "id": "haslanmis_yumurta",
+      "nameEn": "Boiled Egg",
+      "nameTr": "Haslanmis Yumurta",
+      "category": "kahvaltilik",
+      "kcal100": 155.0,
+      "protein100": 13.0,
+      "carb100": 1.1,
+      "fat100": 10.6,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "haslanmis_yumurta_std",
+          "labelTr": "1 yumurta",
+          "labelEn": "1 egg",
+          "grams": 55.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "havuc",
+      "nameEn": "Carrots, raw",
+      "nameTr": "Havuc",
+      "category": "sebze",
+      "kcal100": 41.0,
+      "protein100": 0.9,
+      "carb100": 9.6,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 170393"
+    },
+    {
+      "id": "haydari",
+      "nameEn": "Haydari",
+      "nameTr": "Haydari",
+      "category": "sebze",
+      "kcal100": 165.0,
+      "protein100": 7.0,
+      "carb100": 5.0,
+      "fat100": 13.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "haydari_std",
+          "labelTr": "1 yemek kasigi",
+          "labelEn": "1 tablespoon",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "hindi_eti",
+      "nameEn": "Turkey, whole, light meat, raw",
+      "nameTr": "Hindi Eti",
+      "category": "etBalik",
+      "kcal100": 114.0,
+      "protein100": 23.7,
+      "carb100": 0.1,
+      "fat100": 1.5,
+      "source": "usda",
+      "sourceRef": "FDC 171490"
+    },
+    {
+      "id": "hindistan_cevizi",
+      "nameEn": "Nuts, coconut meat, raw",
+      "nameTr": "Hindistan Cevizi",
+      "category": "kuruyemis",
+      "kcal100": 354.0,
+      "protein100": 3.3,
+      "carb100": 15.2,
+      "fat100": 33.5,
+      "source": "usda",
+      "sourceRef": "FDC 170169"
+    },
+    {
+      "id": "humus",
+      "nameEn": "Hummus",
+      "nameTr": "Humus",
+      "category": "sebze",
+      "kcal100": 177.0,
+      "protein100": 7.9,
+      "carb100": 14.3,
+      "fat100": 10.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "humus_std",
+          "labelTr": "1 yemek kasigi",
+          "labelEn": "1 tablespoon",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "hurma",
+      "nameEn": "Dates, medjool",
+      "nameTr": "Hurma",
+      "category": "meyve",
+      "kcal100": 277.0,
+      "protein100": 1.8,
+      "carb100": 75.0,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 168191"
+    },
+    {
+      "id": "imambayildi",
+      "nameEn": "Imam Bayildi",
+      "nameTr": "Imambayildi",
+      "category": "yemek",
+      "kcal100": 122.0,
+      "protein100": 1.8,
+      "carb100": 10.0,
+      "fat100": 8.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "imambayildi_std",
+          "labelTr": "1 adet",
+          "labelEn": "1 piece",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "incir",
+      "nameEn": "Figs, raw",
+      "nameTr": "Incir",
+      "category": "meyve",
+      "kcal100": 74.0,
+      "protein100": 0.8,
+      "carb100": 19.2,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 173021"
+    },
+    {
+      "id": "iskembe_corbasi",
+      "nameEn": "Tripe Soup",
+      "nameTr": "Iskembe Corbasi",
+      "category": "corba",
+      "kcal100": 78.0,
+      "protein100": 6.5,
+      "carb100": 3.5,
+      "fat100": 4.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "iskembe_corbasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "ispanak",
+      "nameEn": "Spinach, raw",
+      "nameTr": "Ispanak",
+      "category": "sebze",
+      "kcal100": 23.0,
+      "protein100": 2.9,
+      "carb100": 3.6,
+      "fat100": 0.4,
+      "source": "usda",
+      "sourceRef": "FDC 168462"
+    },
+    {
+      "id": "ispanak_yemegi",
+      "nameEn": "Spinach with Meat",
+      "nameTr": "Etli Ispanak",
+      "category": "yemek",
+      "kcal100": 84.0,
+      "protein100": 5.5,
+      "carb100": 5.5,
+      "fat100": 4.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "ispanak_yemegi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "izmir_kofte",
+      "nameEn": "Izmir Meatballs",
+      "nameTr": "Izmir Kofte",
+      "category": "yemek",
+      "kcal100": 165.0,
+      "protein100": 11.0,
+      "carb100": 7.0,
+      "fat100": 10.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "izmir_kofte_std",
+          "labelTr": "2 kofte",
+          "labelEn": "2 meatballs",
+          "grams": 180.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "jujube_raw",
+      "nameEn": "Jujube, raw",
+      "category": "meyve",
+      "kcal100": 79.0,
+      "protein100": 1.2,
+      "carb100": 20.2,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 168151"
+    },
+    {
+      "id": "kabak",
+      "nameEn": "Squash, summer, zucchini, includes skin, raw",
+      "nameTr": "Kabak",
+      "category": "sebze",
+      "kcal100": 17.0,
+      "protein100": 1.2,
+      "carb100": 3.1,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 169291"
+    },
+    {
+      "id": "kabak_cekirdegi",
+      "nameEn": "Seeds, pumpkin and squash seed kernels, dried",
+      "nameTr": "Kabak Cekirdegi",
+      "category": "kuruyemis",
+      "kcal100": 559.0,
+      "protein100": 30.2,
+      "carb100": 10.7,
+      "fat100": 49.0,
+      "source": "usda",
+      "sourceRef": "FDC 170556"
+    },
+    {
+      "id": "kabak_yemegi",
+      "nameEn": "Zucchini in Olive Oil",
+      "nameTr": "Zeytinyagli Kabak",
+      "category": "yemek",
+      "kcal100": 68.0,
+      "protein100": 1.8,
+      "carb100": 7.0,
+      "fat100": 3.8,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kabak_yemegi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 220.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kaju",
+      "nameEn": "Nuts, cashew nuts, raw",
+      "nameTr": "Kaju",
+      "category": "kuruyemis",
+      "kcal100": 553.0,
+      "protein100": 18.2,
+      "carb100": 30.2,
+      "fat100": 43.9,
+      "source": "usda",
+      "sourceRef": "FDC 170162"
+    },
+    {
+      "id": "kale_raw",
+      "nameEn": "Kale, raw",
+      "category": "sebze",
+      "kcal100": 35.0,
+      "protein100": 2.9,
+      "carb100": 4.4,
+      "fat100": 1.5,
+      "source": "usda",
+      "sourceRef": "FDC 168421"
+    },
+    {
+      "id": "karabugday",
+      "nameEn": "Buckwheat groats, roasted, cooked",
+      "nameTr": "Karabugday",
+      "category": "tahil",
+      "kcal100": 92.0,
+      "protein100": 3.4,
+      "carb100": 19.9,
+      "fat100": 0.6,
+      "source": "usda",
+      "sourceRef": "FDC 170686"
+    },
+    {
+      "id": "karides",
+      "nameEn": "Crustaceans, shrimp, mixed species, raw (may contain additives to retain moisture)",
+      "nameTr": "Karides",
+      "category": "etBalik",
+      "kcal100": 71.0,
+      "protein100": 13.6,
+      "carb100": 0.9,
+      "fat100": 1.0,
+      "source": "usda",
+      "sourceRef": "FDC 174210"
+    },
+    {
+      "id": "karnabahar",
+      "nameEn": "Cauliflower, raw",
+      "nameTr": "Karnabahar",
+      "category": "sebze",
+      "kcal100": 25.0,
+      "protein100": 1.9,
+      "carb100": 5.0,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 169986"
+    },
+    {
+      "id": "karniyarik",
+      "nameEn": "Stuffed Eggplant with Meat",
+      "nameTr": "Karniyarik",
+      "category": "yemek",
+      "kcal100": 148.0,
+      "protein100": 6.5,
+      "carb100": 9.0,
+      "fat100": 10.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "karniyarik_std",
+          "labelTr": "1 adet",
+          "labelEn": "1 piece",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "karpuz",
+      "nameEn": "Watermelon, raw",
+      "nameTr": "Karpuz",
+      "category": "meyve",
+      "kcal100": 30.0,
+      "protein100": 0.6,
+      "carb100": 7.5,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 167765"
+    },
+    {
+      "id": "kasar_peyniri",
+      "nameEn": "Kashkaval Cheese",
+      "nameTr": "Kasar Peyniri",
+      "category": "kahvaltilik",
+      "kcal100": 345.0,
+      "protein100": 25.0,
+      "carb100": 1.5,
+      "fat100": 26.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kasar_peyniri_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 25.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kavun",
+      "nameEn": "Melons, cantaloupe, raw",
+      "nameTr": "Kavun",
+      "category": "meyve",
+      "kcal100": 34.0,
+      "protein100": 0.8,
+      "carb100": 8.2,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 169092"
+    },
+    {
+      "id": "kayisi",
+      "nameEn": "Apricots, raw",
+      "nameTr": "Kayisi",
+      "category": "meyve",
+      "kcal100": 48.0,
+      "protein100": 1.4,
+      "carb100": 11.1,
+      "fat100": 0.4,
+      "source": "usda",
+      "sourceRef": "FDC 171697"
+    },
+    {
+      "id": "kazandibi",
+      "nameEn": "Kazandibi",
+      "nameTr": "Kazandibi",
+      "category": "atistirmalik",
+      "kcal100": 158.0,
+      "protein100": 4.0,
+      "carb100": 26.0,
+      "fat100": 4.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kazandibi_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 120.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kefir",
+      "nameEn": "Kefir",
+      "nameTr": "Kefir",
+      "category": "sutUrunu",
+      "kcal100": 55.0,
+      "protein100": 3.3,
+      "carb100": 4.5,
+      "fat100": 2.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kefir_std",
+          "labelTr": "1 bardak",
+          "labelEn": "1 glass",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kek_sade",
+      "nameEn": "Plain Cake",
+      "nameTr": "Sade Kek",
+      "category": "atistirmalik",
+      "kcal100": 370.0,
+      "protein100": 5.5,
+      "carb100": 52.0,
+      "fat100": 15.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kek_sade_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 60.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kereviz_sapi",
+      "nameEn": "Celery, raw",
+      "nameTr": "Kereviz Sapi",
+      "category": "sebze",
+      "kcal100": 14.0,
+      "protein100": 0.7,
+      "carb100": 3.0,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 169988"
+    },
+    {
+      "id": "keten_tohumu",
+      "nameEn": "Seeds, flaxseed",
+      "nameTr": "Keten Tohumu",
+      "category": "kuruyemis",
+      "kcal100": 534.0,
+      "protein100": 18.3,
+      "carb100": 28.9,
+      "fat100": 42.2,
+      "source": "usda",
+      "sourceRef": "FDC 169414"
+    },
+    {
+      "id": "kinoa",
+      "nameEn": "Quinoa, cooked",
+      "nameTr": "Kinoa",
+      "category": "tahil",
+      "kcal100": 120.0,
+      "protein100": 4.4,
+      "carb100": 21.3,
+      "fat100": 1.9,
+      "source": "usda",
+      "sourceRef": "FDC 168917"
+    },
+    {
+      "id": "kiraz",
+      "nameEn": "Cherries, sweet, raw",
+      "nameTr": "Kiraz",
+      "category": "meyve",
+      "kcal100": 63.0,
+      "protein100": 1.1,
+      "carb100": 16.0,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 171719"
+    },
+    {
+      "id": "kirmizi_biber",
+      "nameEn": "Peppers, sweet, red, raw",
+      "nameTr": "Kirmizi Biber",
+      "category": "sebze",
+      "kcal100": 26.0,
+      "protein100": 1.0,
+      "carb100": 6.0,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 170108"
+    },
+    {
+      "id": "kis_kabagi",
+      "nameEn": "Squash, winter, all varieties, raw",
+      "nameTr": "Kis Kabagi",
+      "category": "sebze",
+      "kcal100": 34.0,
+      "protein100": 0.9,
+      "carb100": 8.6,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 170489"
+    },
+    {
+      "id": "kivi",
+      "nameEn": "Kiwifruit, green, raw",
+      "nameTr": "Kivi",
+      "category": "meyve",
+      "kcal100": 61.0,
+      "protein100": 1.1,
+      "carb100": 14.7,
+      "fat100": 0.5,
+      "source": "usda",
+      "sourceRef": "FDC 168153"
+    },
+    {
+      "id": "kiyma_85",
+      "nameEn": "Beef, ground, 85% lean meat / 15% fat, raw (Includes foods for USDA's Food Distribution Program)",
+      "nameTr": "Dana Kiyma (%15 yagli)",
+      "category": "etBalik",
+      "kcal100": 215.0,
+      "protein100": 18.6,
+      "carb100": 0.0,
+      "fat100": 15.0,
+      "source": "usda",
+      "sourceRef": "FDC 171796"
+    },
+    {
+      "id": "kiyma_90",
+      "nameEn": "Beef, ground, 90% lean meat / 10% fat, raw",
+      "nameTr": "Dana Kiyma (%10 yagli)",
+      "category": "etBalik",
+      "kcal100": 176.0,
+      "protein100": 20.0,
+      "carb100": 0.0,
+      "fat100": 10.0,
+      "source": "usda",
+      "sourceRef": "FDC 174030"
+    },
+    {
+      "id": "kiymali_pilav",
+      "nameEn": "Rice with Minced Meat",
+      "nameTr": "Kiymali Pilav",
+      "category": "yemek",
+      "kcal100": 178.0,
+      "protein100": 7.0,
+      "carb100": 26.0,
+      "fat100": 5.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kiymali_pilav_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kofte_izgara",
+      "nameEn": "Grilled Meatballs",
+      "nameTr": "Izgara Kofte",
+      "category": "yemek",
+      "kcal100": 215.0,
+      "protein100": 18.0,
+      "carb100": 3.0,
+      "fat100": 14.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kofte_izgara_std",
+          "labelTr": "3 kofte",
+          "labelEn": "3 meatballs",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kohlrabi_raw",
+      "nameEn": "Kohlrabi, raw",
+      "category": "sebze",
+      "kcal100": 27.0,
+      "protein100": 1.7,
+      "carb100": 6.2,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 168424"
+    },
+    {
+      "id": "kola",
+      "nameEn": "Cola",
+      "nameTr": "Kola",
+      "category": "icecek",
+      "kcal100": 42.0,
+      "protein100": 0.0,
+      "carb100": 10.6,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kola_std",
+          "labelTr": "1 kutu",
+          "labelEn": "1 can",
+          "grams": 330.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kola_zero",
+      "nameEn": "Diet Cola",
+      "nameTr": "Kola (sekersiz)",
+      "category": "icecek",
+      "kcal100": 0.0,
+      "protein100": 0.0,
+      "carb100": 0.0,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kola_zero_std",
+          "labelTr": "1 kutu",
+          "labelEn": "1 can",
+          "grams": 330.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "krem_peynir",
+      "nameEn": "Cheese, cream",
+      "nameTr": "Krem Peynir",
+      "category": "sutUrunu",
+      "kcal100": 350.0,
+      "protein100": 6.2,
+      "carb100": 5.5,
+      "fat100": 34.4,
+      "source": "usda",
+      "sourceRef": "FDC 173418"
+    },
+    {
+      "id": "krema",
+      "nameEn": "Cream, fluid, heavy whipping",
+      "nameTr": "Krema",
+      "category": "sutUrunu",
+      "kcal100": 340.0,
+      "protein100": 2.8,
+      "carb100": 2.8,
+      "fat100": 36.1,
+      "source": "usda",
+      "sourceRef": "FDC 170859"
+    },
+    {
+      "id": "kumquats_raw",
+      "nameEn": "Kumquats, raw",
+      "category": "meyve",
+      "kcal100": 71.0,
+      "protein100": 1.9,
+      "carb100": 15.9,
+      "fat100": 0.9,
+      "source": "usda",
+      "sourceRef": "FDC 168154"
+    },
+    {
+      "id": "kunefe",
+      "nameEn": "Kunefe",
+      "nameTr": "Kunefe",
+      "category": "atistirmalik",
+      "kcal100": 385.0,
+      "protein100": 8.5,
+      "carb100": 42.0,
+      "fat100": 20.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kunefe_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kuru_fasulye",
+      "nameEn": "White Bean Stew",
+      "nameTr": "Kuru Fasulye",
+      "category": "yemek",
+      "kcal100": 97.0,
+      "protein100": 5.5,
+      "carb100": 14.0,
+      "fat100": 2.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kuru_fasulye_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kuru_kayisi",
+      "nameEn": "Apricots, dried, sulfured, uncooked",
+      "nameTr": "Kuru Kayisi",
+      "category": "meyve",
+      "kcal100": 241.0,
+      "protein100": 3.4,
+      "carb100": 62.6,
+      "fat100": 0.5,
+      "source": "usda",
+      "sourceRef": "FDC 173941"
+    },
+    {
+      "id": "kuru_kofte",
+      "nameEn": "Pan-Fried Meatballs",
+      "nameTr": "Kuru Kofte",
+      "category": "yemek",
+      "kcal100": 245.0,
+      "protein100": 17.5,
+      "carb100": 6.0,
+      "fat100": 16.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kuru_kofte_std",
+          "labelTr": "4 kofte",
+          "labelEn": "4 meatballs",
+          "grams": 140.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kuru_uzum",
+      "nameEn": "Raisins, dark, seedless (Includes foods for USDA's Food Distribution Program)",
+      "nameTr": "Kuru Uzum",
+      "category": "meyve",
+      "kcal100": 299.0,
+      "protein100": 3.3,
+      "carb100": 79.3,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 168165"
+    },
+    {
+      "id": "kuskonmaz",
+      "nameEn": "Asparagus, raw",
+      "nameTr": "Kuskonmaz",
+      "category": "sebze",
+      "kcal100": 20.0,
+      "protein100": 2.2,
+      "carb100": 3.9,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 168389"
+    },
+    {
+      "id": "kuskus",
+      "nameEn": "Couscous, cooked",
+      "nameTr": "Kuskus",
+      "category": "tahil",
+      "kcal100": 112.0,
+      "protein100": 3.8,
+      "carb100": 23.2,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 169700"
+    },
+    {
+      "id": "kuzu_tas_kebap",
+      "nameEn": "Lamb Stew",
+      "nameTr": "Kuzu Tas Kebap",
+      "category": "yemek",
+      "kcal100": 178.0,
+      "protein100": 15.0,
+      "carb100": 6.0,
+      "fat100": 10.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kuzu_tas_kebap_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 220.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "labne",
+      "nameEn": "Labneh",
+      "nameTr": "Labne",
+      "category": "sutUrunu",
+      "kcal100": 245.0,
+      "protein100": 7.5,
+      "carb100": 4.0,
+      "fat100": 22.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "labne_std",
+          "labelTr": "1 yemek kasigi",
+          "labelEn": "1 tablespoon",
+          "grams": 20.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "lahana",
+      "nameEn": "Cabbage, raw",
+      "nameTr": "Lahana",
+      "category": "sebze",
+      "kcal100": 25.0,
+      "protein100": 1.3,
+      "carb100": 5.8,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 169975"
+    },
+    {
+      "id": "lahmacun",
+      "nameEn": "Lahmacun",
+      "nameTr": "Lahmacun",
+      "category": "yemek",
+      "kcal100": 235.0,
+      "protein100": 10.5,
+      "carb100": 32.0,
+      "fat100": 7.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "lahmacun_std",
+          "labelTr": "1 adet",
+          "labelEn": "1 piece",
+          "grams": 130.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "lentils_raw",
+      "nameEn": "Lentils, raw",
+      "category": "sebze",
+      "kcal100": 352.0,
+      "protein100": 24.6,
+      "carb100": 63.4,
+      "fat100": 1.1,
+      "source": "usda",
+      "sourceRef": "FDC 172420"
+    },
+    {
+      "id": "levrek",
+      "nameEn": "Fish, sea bass, mixed species, raw",
+      "nameTr": "Levrek",
+      "category": "etBalik",
+      "kcal100": 97.0,
+      "protein100": 18.4,
+      "carb100": 0.0,
+      "fat100": 2.0,
+      "source": "usda",
+      "sourceRef": "FDC 175142"
+    },
+    {
+      "id": "limes_raw",
+      "nameEn": "Limes, raw",
+      "category": "meyve",
+      "kcal100": 30.0,
+      "protein100": 0.7,
+      "carb100": 10.5,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 168155"
+    },
+    {
+      "id": "limon",
+      "nameEn": "Lemons, raw, without peel",
+      "nameTr": "Limon",
+      "category": "meyve",
+      "kcal100": 29.0,
+      "protein100": 1.1,
+      "carb100": 9.3,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 167746"
+    },
+    {
+      "id": "limonata",
+      "nameEn": "Lemonade",
+      "nameTr": "Limonata",
+      "category": "icecek",
+      "kcal100": 48.0,
+      "protein100": 0.1,
+      "carb100": 12.0,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "limonata_std",
+          "labelTr": "1 bardak",
+          "labelEn": "1 glass",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "litchis_dried",
+      "nameEn": "Litchis, dried",
+      "category": "meyve",
+      "kcal100": 277.0,
+      "protein100": 3.8,
+      "carb100": 70.7,
+      "fat100": 1.2,
+      "source": "usda",
+      "sourceRef": "FDC 169087"
+    },
+    {
+      "id": "litchis_raw",
+      "nameEn": "Litchis, raw",
+      "category": "meyve",
+      "kcal100": 66.0,
+      "protein100": 0.8,
+      "carb100": 16.5,
+      "fat100": 0.4,
+      "source": "usda",
+      "sourceRef": "FDC 169086"
+    },
+    {
+      "id": "lokum",
+      "nameEn": "Turkish Delight",
+      "nameTr": "Lokum",
+      "category": "atistirmalik",
+      "kcal100": 345.0,
+      "protein100": 0.2,
+      "carb100": 86.0,
+      "fat100": 0.1,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "lokum_std",
+          "labelTr": "2 adet",
+          "labelEn": "2 pieces",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "longans_dried",
+      "nameEn": "Longans, dried",
+      "category": "meyve",
+      "kcal100": 286.0,
+      "protein100": 4.9,
+      "carb100": 74.0,
+      "fat100": 0.4,
+      "source": "usda",
+      "sourceRef": "FDC 169907"
+    },
+    {
+      "id": "longans_raw",
+      "nameEn": "Longans, raw",
+      "category": "meyve",
+      "kcal100": 60.0,
+      "protein100": 1.3,
+      "carb100": 15.1,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 169089"
+    },
+    {
+      "id": "loquats_raw",
+      "nameEn": "Loquats, raw",
+      "category": "meyve",
+      "kcal100": 47.0,
+      "protein100": 0.4,
+      "carb100": 12.1,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 169908"
+    },
+    {
+      "id": "lor_peyniri",
+      "nameEn": "Curd Cheese",
+      "nameTr": "Lor Peyniri",
+      "category": "kahvaltilik",
+      "kcal100": 98.0,
+      "protein100": 12.5,
+      "carb100": 3.0,
+      "fat100": 4.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "lor_peyniri_std",
+          "labelTr": "1 kasik",
+          "labelEn": "1 spoon",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "maden_suyu",
+      "nameEn": "Sparkling Mineral Water",
+      "nameTr": "Maden Suyu",
+      "category": "icecek",
+      "kcal100": 0.0,
+      "protein100": 0.0,
+      "carb100": 0.0,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "maden_suyu_std",
+          "labelTr": "1 sise",
+          "labelEn": "1 bottle",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "makarna",
+      "nameEn": "Cooked Pasta",
+      "nameTr": "Haslanmis Makarna",
+      "category": "yemek",
+      "kcal100": 158.0,
+      "protein100": 5.8,
+      "carb100": 31.0,
+      "fat100": 0.9,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "makarna_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "makarna_haslanmis",
+      "nameEn": "Pasta, cooked, enriched, without added salt",
+      "nameTr": "Haslanmis Makarna (sade)",
+      "category": "tahil",
+      "kcal100": 158.0,
+      "protein100": 5.8,
+      "carb100": 30.9,
+      "fat100": 0.9,
+      "source": "usda",
+      "sourceRef": "FDC 169737"
+    },
+    {
+      "id": "makarna_soslu",
+      "nameEn": "Pasta with Tomato Sauce",
+      "nameTr": "Domates Soslu Makarna",
+      "category": "yemek",
+      "kcal100": 148.0,
+      "protein100": 4.8,
+      "carb100": 26.0,
+      "fat100": 3.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "makarna_soslu_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "mandalina",
+      "nameEn": "Tangerines, (mandarin oranges), raw",
+      "nameTr": "Mandalina",
+      "category": "meyve",
+      "kcal100": 53.0,
+      "protein100": 0.8,
+      "carb100": 13.3,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 169105"
+    },
+    {
+      "id": "mango",
+      "nameEn": "Mangos, raw",
+      "nameTr": "Mango",
+      "category": "meyve",
+      "kcal100": 60.0,
+      "protein100": 0.8,
+      "carb100": 15.0,
+      "fat100": 0.4,
+      "source": "usda",
+      "sourceRef": "FDC 169910"
+    },
+    {
+      "id": "mantar",
+      "nameEn": "Mushrooms, white, raw",
+      "nameTr": "Mantar",
+      "category": "sebze",
+      "kcal100": 22.0,
+      "protein100": 3.1,
+      "carb100": 3.3,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 169251"
+    },
+    {
+      "id": "manti",
+      "nameEn": "Turkish Dumplings",
+      "nameTr": "Manti",
+      "category": "yemek",
+      "kcal100": 195.0,
+      "protein100": 8.5,
+      "carb100": 26.0,
+      "fat100": 6.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "manti_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "margarin",
+      "nameEn": "Margarine, regular, 80% fat, composite, tub, with salt",
+      "nameTr": "Margarin",
+      "category": "diger",
+      "kcal100": 713.0,
+      "protein100": 0.2,
+      "carb100": 0.8,
+      "fat100": 80.2,
+      "source": "usda",
+      "sourceRef": "FDC 172347"
+    },
+    {
+      "id": "marul",
+      "nameEn": "Lettuce, cos or romaine, raw",
+      "nameTr": "Marul",
+      "category": "sebze",
+      "kcal100": 17.0,
+      "protein100": 1.2,
+      "carb100": 3.3,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 169247"
+    },
+    {
+      "id": "maydanoz",
+      "nameEn": "Parsley, fresh",
+      "nameTr": "Maydanoz",
+      "category": "sebze",
+      "kcal100": 36.0,
+      "protein100": 3.0,
+      "carb100": 6.3,
+      "fat100": 0.8,
+      "source": "usda",
+      "sourceRef": "FDC 170416"
+    },
+    {
+      "id": "meat_extender",
+      "nameEn": "Meat extender",
+      "category": "sebze",
+      "kcal100": 311.0,
+      "protein100": 41.7,
+      "carb100": 34.7,
+      "fat100": 3.0,
+      "source": "usda",
+      "sourceRef": "FDC 174268"
+    },
+    {
+      "id": "menemen",
+      "nameEn": "Turkish Scrambled Eggs",
+      "nameTr": "Menemen",
+      "category": "yemek",
+      "kcal100": 118.0,
+      "protein100": 7.5,
+      "carb100": 4.5,
+      "fat100": 8.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "menemen_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "mercimek_corbasi",
+      "nameEn": "Red Lentil Soup",
+      "nameTr": "Mercimek Corbasi",
+      "category": "corba",
+      "kcal100": 62.0,
+      "protein100": 3.1,
+      "carb100": 9.4,
+      "fat100": 1.4,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "mercimek_corbasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "mercimek_haslanmis",
+      "nameEn": "Lentils, mature seeds, cooked, boiled, without salt",
+      "nameTr": "Haslanmis Mercimek",
+      "category": "sebze",
+      "kcal100": 116.0,
+      "protein100": 9.0,
+      "carb100": 20.1,
+      "fat100": 0.4,
+      "source": "usda",
+      "sourceRef": "FDC 172421"
+    },
+    {
+      "id": "mercimek_yemegi",
+      "nameEn": "Green Lentil Stew",
+      "nameTr": "Yesil Mercimek Yemegi",
+      "category": "yemek",
+      "kcal100": 105.0,
+      "protein100": 6.0,
+      "carb100": 15.0,
+      "fat100": 2.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "mercimek_yemegi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "mevsim_salata",
+      "nameEn": "Garden Salad",
+      "nameTr": "Mevsim Salata",
+      "category": "sebze",
+      "kcal100": 28.0,
+      "protein100": 1.4,
+      "carb100": 4.0,
+      "fat100": 0.6,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "mevsim_salata_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "milk_and_cereal_bar",
+      "nameEn": "Milk and cereal bar",
+      "category": "atistirmalik",
+      "kcal100": 413.0,
+      "protein100": 6.5,
+      "carb100": 72.0,
+      "fat100": 11.0,
+      "source": "usda",
+      "sourceRef": "FDC 174650"
+    },
+    {
+      "id": "millet_flour",
+      "nameEn": "Millet flour",
+      "category": "tahil",
+      "kcal100": 382.0,
+      "protein100": 10.8,
+      "carb100": 75.1,
+      "fat100": 4.2,
+      "source": "usda",
+      "sourceRef": "FDC 172023"
+    },
+    {
+      "id": "millet_raw",
+      "nameEn": "Millet, raw",
+      "category": "tahil",
+      "kcal100": 378.0,
+      "protein100": 11.0,
+      "carb100": 72.8,
+      "fat100": 4.2,
+      "source": "usda",
+      "sourceRef": "FDC 169702"
+    },
+    {
+      "id": "misir",
+      "nameEn": "Corn, sweet, yellow, raw",
+      "nameTr": "Misir",
+      "category": "sebze",
+      "kcal100": 86.0,
+      "protein100": 3.3,
+      "carb100": 18.7,
+      "fat100": 1.4,
+      "source": "usda",
+      "sourceRef": "FDC 169998"
+    },
+    {
+      "id": "misir_gevregi",
+      "nameEn": "Corn Flakes",
+      "nameTr": "Misir Gevregi",
+      "category": "tahil",
+      "kcal100": 357.0,
+      "protein100": 7.5,
+      "carb100": 84.0,
+      "fat100": 0.4,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "misir_gevregi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 40.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "miso",
+      "nameEn": "Miso",
+      "category": "sebze",
+      "kcal100": 198.0,
+      "protein100": 12.8,
+      "carb100": 25.4,
+      "fat100": 6.0,
+      "source": "usda",
+      "sourceRef": "FDC 172442"
+    },
+    {
+      "id": "mozzarella",
+      "nameEn": "Cheese, mozzarella, whole milk",
+      "nameTr": "Mozzarella",
+      "category": "sutUrunu",
+      "kcal100": 299.0,
+      "protein100": 22.2,
+      "carb100": 2.4,
+      "fat100": 22.1,
+      "source": "usda",
+      "sourceRef": "FDC 170845"
+    },
+    {
+      "id": "musakka",
+      "nameEn": "Moussaka",
+      "nameTr": "Musakka",
+      "category": "yemek",
+      "kcal100": 152.0,
+      "protein100": 7.0,
+      "carb100": 9.5,
+      "fat100": 9.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "musakka_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "muz",
+      "nameEn": "Bananas, raw",
+      "nameTr": "Muz",
+      "category": "meyve",
+      "kcal100": 89.0,
+      "protein100": 1.1,
+      "carb100": 22.8,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 173944"
+    },
+    {
+      "id": "nar",
+      "nameEn": "Pomegranates, raw",
+      "nameTr": "Nar",
+      "category": "meyve",
+      "kcal100": 83.0,
+      "protein100": 1.7,
+      "carb100": 18.7,
+      "fat100": 1.2,
+      "source": "usda",
+      "sourceRef": "FDC 169134"
+    },
+    {
+      "id": "natto",
+      "nameEn": "Natto",
+      "category": "sebze",
+      "kcal100": 211.0,
+      "protein100": 19.4,
+      "carb100": 12.7,
+      "fat100": 11.0,
+      "source": "usda",
+      "sourceRef": "FDC 172443"
+    },
+    {
+      "id": "nohut_haslanmis",
+      "nameEn": "Chickpeas (garbanzo beans, bengal gram), mature seeds, cooked, boiled, without salt",
+      "nameTr": "Haslanmis Nohut",
+      "category": "sebze",
+      "kcal100": 164.0,
+      "protein100": 8.9,
+      "carb100": 27.4,
+      "fat100": 2.6,
+      "source": "usda",
+      "sourceRef": "FDC 173757"
+    },
+    {
+      "id": "nohut_yemegi",
+      "nameEn": "Chickpea Stew",
+      "nameTr": "Nohut Yemegi",
+      "category": "yemek",
+      "kcal100": 128.0,
+      "protein100": 6.5,
+      "carb100": 17.0,
+      "fat100": 4.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "nohut_yemegi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "nopales_raw",
+      "nameEn": "Nopales, raw",
+      "category": "sebze",
+      "kcal100": 16.0,
+      "protein100": 1.3,
+      "carb100": 3.3,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 168571"
+    },
+    {
+      "id": "nuts_acorns_dried",
+      "nameEn": "Nuts, acorns, dried",
+      "category": "kuruyemis",
+      "kcal100": 509.0,
+      "protein100": 8.1,
+      "carb100": 53.7,
+      "fat100": 31.4,
+      "source": "usda",
+      "sourceRef": "FDC 170565"
+    },
+    {
+      "id": "nuts_acorns_raw",
+      "nameEn": "Nuts, acorns, raw",
+      "category": "kuruyemis",
+      "kcal100": 387.0,
+      "protein100": 6.2,
+      "carb100": 40.8,
+      "fat100": 23.9,
+      "source": "usda",
+      "sourceRef": "FDC 170157"
+    },
+    {
+      "id": "nuts_almond_paste",
+      "nameEn": "Nuts, almond paste",
+      "category": "kuruyemis",
+      "kcal100": 458.0,
+      "protein100": 9.0,
+      "carb100": 47.8,
+      "fat100": 27.7,
+      "source": "usda",
+      "sourceRef": "FDC 170160"
+    },
+    {
+      "id": "nuts_almonds",
+      "nameEn": "Nuts, almonds",
+      "category": "kuruyemis",
+      "kcal100": 579.0,
+      "protein100": 21.1,
+      "carb100": 21.6,
+      "fat100": 49.9,
+      "source": "usda",
+      "sourceRef": "FDC 170567"
+    },
+    {
+      "id": "nuts_beechnuts_dried",
+      "nameEn": "Nuts, beechnuts, dried",
+      "category": "kuruyemis",
+      "kcal100": 576.0,
+      "protein100": 6.2,
+      "carb100": 33.5,
+      "fat100": 50.0,
+      "source": "usda",
+      "sourceRef": "FDC 170161"
+    },
+    {
+      "id": "nuts_ginkgo_nuts_raw",
+      "nameEn": "Nuts, ginkgo nuts, raw",
+      "category": "kuruyemis",
+      "kcal100": 182.0,
+      "protein100": 4.3,
+      "carb100": 37.6,
+      "fat100": 1.7,
+      "source": "usda",
+      "sourceRef": "FDC 170584"
+    },
+    {
+      "id": "nuts_pecans",
+      "nameEn": "Nuts, pecans",
+      "category": "kuruyemis",
+      "kcal100": 691.0,
+      "protein100": 9.2,
+      "carb100": 13.9,
+      "fat100": 72.0,
+      "source": "usda",
+      "sourceRef": "FDC 170182"
+    },
+    {
+      "id": "nuts_pilinuts_dried",
+      "nameEn": "Nuts, pilinuts, dried",
+      "category": "kuruyemis",
+      "kcal100": 719.0,
+      "protein100": 10.8,
+      "carb100": 4.0,
+      "fat100": 79.5,
+      "source": "usda",
+      "sourceRef": "FDC 170590"
+    },
+    {
+      "id": "nuts_pine_nuts_dried",
+      "nameEn": "Nuts, pine nuts, dried",
+      "category": "kuruyemis",
+      "kcal100": 673.0,
+      "protein100": 13.7,
+      "carb100": 13.1,
+      "fat100": 68.4,
+      "source": "usda",
+      "sourceRef": "FDC 170591"
+    },
+    {
+      "id": "nuts_walnuts_glazed",
+      "nameEn": "Nuts, walnuts, glazed",
+      "category": "kuruyemis",
+      "kcal100": 500.0,
+      "protein100": 8.3,
+      "carb100": 47.6,
+      "fat100": 35.7,
+      "source": "usda",
+      "sourceRef": "FDC 170593"
+    },
+    {
+      "id": "oat_bran_raw",
+      "nameEn": "Oat bran, raw",
+      "category": "tahil",
+      "kcal100": 246.0,
+      "protein100": 17.3,
+      "carb100": 66.2,
+      "fat100": 7.0,
+      "source": "usda",
+      "sourceRef": "FDC 168872"
+    },
+    {
+      "id": "okara",
+      "nameEn": "Okara",
+      "category": "sebze",
+      "kcal100": 76.0,
+      "protein100": 3.5,
+      "carb100": 12.2,
+      "fat100": 1.7,
+      "source": "usda",
+      "sourceRef": "FDC 172452"
+    },
+    {
+      "id": "omlet",
+      "nameEn": "Omelette",
+      "nameTr": "Omlet",
+      "category": "yemek",
+      "kcal100": 154.0,
+      "protein100": 11.0,
+      "carb100": 1.0,
+      "fat100": 11.8,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "omlet_std",
+          "labelTr": "2 yumurta",
+          "labelEn": "2 eggs",
+          "grams": 120.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "ostrich_fan_raw",
+      "nameEn": "Ostrich, fan, raw",
+      "category": "etBalik",
+      "kcal100": 117.0,
+      "protein100": 21.8,
+      "carb100": 0.0,
+      "fat100": 2.6,
+      "source": "usda",
+      "sourceRef": "FDC 174483"
+    },
+    {
+      "id": "ostrich_ground_raw",
+      "nameEn": "Ostrich, ground, raw",
+      "category": "etBalik",
+      "kcal100": 165.0,
+      "protein100": 20.2,
+      "carb100": 0.0,
+      "fat100": 8.7,
+      "source": "usda",
+      "sourceRef": "FDC 174481"
+    },
+    {
+      "id": "ostrich_oyster_raw",
+      "nameEn": "Ostrich, oyster, raw",
+      "category": "etBalik",
+      "kcal100": 125.0,
+      "protein100": 21.6,
+      "carb100": 0.0,
+      "fat100": 3.7,
+      "source": "usda",
+      "sourceRef": "FDC 174487"
+    },
+    {
+      "id": "ostrich_round_raw",
+      "nameEn": "Ostrich, round, raw",
+      "category": "etBalik",
+      "kcal100": 116.0,
+      "protein100": 22.0,
+      "carb100": 0.0,
+      "fat100": 2.4,
+      "source": "usda",
+      "sourceRef": "FDC 172844"
+    },
+    {
+      "id": "pancar",
+      "nameEn": "Beets, raw",
+      "nameTr": "Pancar",
+      "category": "sebze",
+      "kcal100": 43.0,
+      "protein100": 1.6,
+      "carb100": 9.6,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 169145"
+    },
+    {
+      "id": "papad",
+      "nameEn": "Papad",
+      "category": "sebze",
+      "kcal100": 371.0,
+      "protein100": 25.6,
+      "carb100": 59.9,
+      "fat100": 3.2,
+      "source": "usda",
+      "sourceRef": "FDC 168106"
+    },
+    {
+      "id": "papayas_raw",
+      "nameEn": "Papayas, raw",
+      "category": "meyve",
+      "kcal100": 43.0,
+      "protein100": 0.5,
+      "carb100": 10.8,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 169926"
+    },
+    {
+      "id": "parmesan",
+      "nameEn": "Cheese, parmesan, grated",
+      "nameTr": "Parmesan",
+      "category": "sutUrunu",
+      "kcal100": 420.0,
+      "protein100": 28.4,
+      "carb100": 13.9,
+      "fat100": 27.8,
+      "source": "usda",
+      "sourceRef": "FDC 171247"
+    },
+    {
+      "id": "parsnips_raw",
+      "nameEn": "Parsnips, raw",
+      "category": "sebze",
+      "kcal100": 75.0,
+      "protein100": 1.2,
+      "carb100": 18.0,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 170417"
+    },
+    {
+      "id": "pastirma",
+      "nameEn": "Pastirma",
+      "nameTr": "Pastirma",
+      "category": "kahvaltilik",
+      "kcal100": 240.0,
+      "protein100": 32.0,
+      "carb100": 1.0,
+      "fat100": 12.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "pastirma_std",
+          "labelTr": "3 dilim",
+          "labelEn": "3 slices",
+          "grams": 25.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "patates_salatasi",
+      "nameEn": "Potato Salad",
+      "nameTr": "Patates Salatasi",
+      "category": "sebze",
+      "kcal100": 115.0,
+      "protein100": 2.0,
+      "carb100": 17.0,
+      "fat100": 4.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "patates_salatasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "patlamis_misir",
+      "nameEn": "Snacks, popcorn, air-popped",
+      "nameTr": "Patlamis Misir",
+      "category": "atistirmalik",
+      "kcal100": 387.0,
+      "protein100": 12.9,
+      "carb100": 77.8,
+      "fat100": 4.5,
+      "source": "usda",
+      "sourceRef": "FDC 167959"
+    },
+    {
+      "id": "patlican",
+      "nameEn": "Eggplant, raw",
+      "nameTr": "Patlican",
+      "category": "sebze",
+      "kcal100": 25.0,
+      "protein100": 1.0,
+      "carb100": 5.9,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 169228"
+    },
+    {
+      "id": "pekmez",
+      "nameEn": "Grape Molasses",
+      "nameTr": "Uzum Pekmezi",
+      "category": "kahvaltilik",
+      "kcal100": 293.0,
+      "protein100": 0.5,
+      "carb100": 72.0,
+      "fat100": 0.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "pekmez_std",
+          "labelTr": "1 yemek kasigi",
+          "labelEn": "1 tablespoon",
+          "grams": 20.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "pepeao_dried",
+      "nameEn": "Pepeao, dried",
+      "category": "sebze",
+      "kcal100": 298.0,
+      "protein100": 4.8,
+      "carb100": 81.0,
+      "fat100": 0.4,
+      "source": "usda",
+      "sourceRef": "FDC 168418"
+    },
+    {
+      "id": "pide_kiymali",
+      "nameEn": "Minced Meat Pide",
+      "nameTr": "Kiymali Pide",
+      "category": "yemek",
+      "kcal100": 255.0,
+      "protein100": 11.5,
+      "carb100": 31.0,
+      "fat100": 9.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "pide_kiymali_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "pilav",
+      "nameEn": "Rice Pilaf",
+      "nameTr": "Pirinc Pilavi",
+      "category": "yemek",
+      "kcal100": 145.0,
+      "protein100": 3.0,
+      "carb100": 28.0,
+      "fat100": 2.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "pilav_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 180.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "pirasa",
+      "nameEn": "Leeks, (bulb and lower leaf-portion), raw",
+      "nameTr": "Pirasa",
+      "category": "sebze",
+      "kcal100": 61.0,
+      "protein100": 1.5,
+      "carb100": 14.2,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 169246"
+    },
+    {
+      "id": "pirasa_yemegi",
+      "nameEn": "Leeks in Olive Oil",
+      "nameTr": "Zeytinyagli Pirasa",
+      "category": "yemek",
+      "kcal100": 72.0,
+      "protein100": 1.8,
+      "carb100": 9.5,
+      "fat100": 3.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "pirasa_yemegi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 220.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "pirinc_haslanmis",
+      "nameEn": "Rice, white, long-grain, regular, cooked, enriched, with salt",
+      "nameTr": "Haslanmis Pirinc",
+      "category": "tahil",
+      "kcal100": 130.0,
+      "protein100": 2.7,
+      "carb100": 28.2,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 169753"
+    },
+    {
+      "id": "piyaz",
+      "nameEn": "Piyaz",
+      "nameTr": "Piyaz",
+      "category": "sebze",
+      "kcal100": 118.0,
+      "protein100": 6.0,
+      "carb100": 14.0,
+      "fat100": 4.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "piyaz_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "pogaca",
+      "nameEn": "Pogaca",
+      "nameTr": "Pogaca",
+      "category": "kahvaltilik",
+      "kcal100": 330.0,
+      "protein100": 7.5,
+      "carb100": 40.0,
+      "fat100": 15.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "pogaca_std",
+          "labelTr": "1 adet",
+          "labelEn": "1 piece",
+          "grams": 70.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "poi",
+      "nameEn": "Poi",
+      "category": "sebze",
+      "kcal100": 112.0,
+      "protein100": 0.4,
+      "carb100": 27.2,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 170431"
+    },
+    {
+      "id": "portakal",
+      "nameEn": "Oranges, raw, all commercial varieties",
+      "nameTr": "Portakal",
+      "category": "meyve",
+      "kcal100": 47.0,
+      "protein100": 0.9,
+      "carb100": 11.8,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 169097"
+    },
+    {
+      "id": "portakal_suyu",
+      "nameEn": "Orange Juice",
+      "nameTr": "Portakal Suyu",
+      "category": "icecek",
+      "kcal100": 45.0,
+      "protein100": 0.7,
+      "carb100": 10.4,
+      "fat100": 0.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "portakal_suyu_std",
+          "labelTr": "1 bardak",
+          "labelEn": "1 glass",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "potato_flour",
+      "nameEn": "Potato flour",
+      "category": "sebze",
+      "kcal100": 357.0,
+      "protein100": 6.9,
+      "carb100": 83.1,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 168446"
+    },
+    {
+      "id": "pretzels_soft",
+      "nameEn": "Pretzels, soft",
+      "category": "atistirmalik",
+      "kcal100": 338.0,
+      "protein100": 8.2,
+      "carb100": 69.4,
+      "fat100": 3.1,
+      "source": "usda",
+      "sourceRef": "FDC 169064"
+    },
+    {
+      "id": "protein_bar",
+      "nameEn": "Protein Bar",
+      "nameTr": "Protein Bar",
+      "category": "atistirmalik",
+      "kcal100": 370.0,
+      "protein100": 30.0,
+      "carb100": 38.0,
+      "fat100": 10.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "protein_bar_std",
+          "labelTr": "1 bar",
+          "labelEn": "1 bar",
+          "grams": 60.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "prune_puree",
+      "nameEn": "Prune puree",
+      "category": "meyve",
+      "kcal100": 257.0,
+      "protein100": 2.1,
+      "carb100": 65.1,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 167780"
+    },
+    {
+      "id": "pummelo_raw",
+      "nameEn": "Pummelo, raw",
+      "category": "meyve",
+      "kcal100": 38.0,
+      "protein100": 0.8,
+      "carb100": 9.6,
+      "fat100": 0.0,
+      "source": "usda",
+      "sourceRef": "FDC 167754"
+    },
+    {
+      "id": "purslane_raw",
+      "nameEn": "Purslane, raw",
+      "category": "sebze",
+      "kcal100": 20.0,
+      "protein100": 2.0,
+      "carb100": 3.4,
+      "fat100": 0.4,
+      "source": "usda",
+      "sourceRef": "FDC 169274"
+    },
+    {
+      "id": "quinces_raw",
+      "nameEn": "Quinces, raw",
+      "category": "meyve",
+      "kcal100": 57.0,
+      "protein100": 0.4,
+      "carb100": 15.3,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 168163"
+    },
+    {
+      "id": "radicchio_raw",
+      "nameEn": "Radicchio, raw",
+      "category": "sebze",
+      "kcal100": 23.0,
+      "protein100": 1.4,
+      "carb100": 4.5,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 168564"
+    },
+    {
+      "id": "raki",
+      "nameEn": "Raki",
+      "nameTr": "Raki",
+      "category": "icecek",
+      "kcal100": 231.0,
+      "protein100": 0.0,
+      "carb100": 0.0,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "raki_std",
+          "labelTr": "1 kadeh",
+          "labelEn": "1 glass",
+          "grams": 50.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "recel",
+      "nameEn": "Jam",
+      "nameTr": "Recel",
+      "category": "kahvaltilik",
+      "kcal100": 250.0,
+      "protein100": 0.4,
+      "carb100": 62.0,
+      "fat100": 0.1,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "recel_std",
+          "labelTr": "1 tatli kasigi",
+          "labelEn": "1 teaspoon",
+          "grams": 15.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "rhubarb_raw",
+      "nameEn": "Rhubarb, raw",
+      "category": "meyve",
+      "kcal100": 21.0,
+      "protein100": 0.9,
+      "carb100": 4.5,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 167758"
+    },
+    {
+      "id": "rice_crackers",
+      "nameEn": "Rice crackers",
+      "category": "atistirmalik",
+      "kcal100": 416.0,
+      "protein100": 10.0,
+      "carb100": 82.6,
+      "fat100": 5.0,
+      "source": "usda",
+      "sourceRef": "FDC 173161"
+    },
+    {
+      "id": "roka",
+      "nameEn": "Arugula, raw",
+      "nameTr": "Roka",
+      "category": "sebze",
+      "kcal100": 25.0,
+      "protein100": 2.6,
+      "carb100": 3.6,
+      "fat100": 0.7,
+      "source": "usda",
+      "sourceRef": "FDC 169387"
+    },
+    {
+      "id": "roselle_raw",
+      "nameEn": "Roselle, raw",
+      "category": "meyve",
+      "kcal100": 49.0,
+      "protein100": 1.0,
+      "carb100": 11.3,
+      "fat100": 0.6,
+      "source": "usda",
+      "sourceRef": "FDC 168170"
+    },
+    {
+      "id": "rowal_raw",
+      "nameEn": "Rowal, raw",
+      "category": "meyve",
+      "kcal100": 111.0,
+      "protein100": 2.3,
+      "carb100": 23.9,
+      "fat100": 2.0,
+      "source": "usda",
+      "sourceRef": "FDC 167783"
+    },
+    {
+      "id": "rutabagas_raw",
+      "nameEn": "Rutabagas, raw",
+      "category": "sebze",
+      "kcal100": 37.0,
+      "protein100": 1.1,
+      "carb100": 8.6,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 168454"
+    },
+    {
+      "id": "rye_grain",
+      "nameEn": "Rye grain",
+      "category": "tahil",
+      "kcal100": 338.0,
+      "protein100": 10.3,
+      "carb100": 75.9,
+      "fat100": 1.6,
+      "source": "usda",
+      "sourceRef": "FDC 168884"
+    },
+    {
+      "id": "salatalik",
+      "nameEn": "Cucumber, with peel, raw",
+      "nameTr": "Salatalik",
+      "category": "sebze",
+      "kcal100": 15.0,
+      "protein100": 0.7,
+      "carb100": 3.6,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 168409"
+    },
+    {
+      "id": "salgam",
+      "nameEn": "Turnips, raw",
+      "nameTr": "Salgam",
+      "category": "sebze",
+      "kcal100": 28.0,
+      "protein100": 0.9,
+      "carb100": 6.4,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 170465"
+    },
+    {
+      "id": "sapodilla_raw",
+      "nameEn": "Sapodilla, raw",
+      "category": "meyve",
+      "kcal100": 83.0,
+      "protein100": 0.4,
+      "carb100": 20.0,
+      "fat100": 1.1,
+      "source": "usda",
+      "sourceRef": "FDC 167759"
+    },
+    {
+      "id": "sarap_kirmizi",
+      "nameEn": "Red Wine",
+      "nameTr": "Kirmizi Sarap",
+      "category": "icecek",
+      "kcal100": 85.0,
+      "protein100": 0.1,
+      "carb100": 2.6,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "sarap_kirmizi_std",
+          "labelTr": "1 kadeh",
+          "labelEn": "1 glass",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "sardalya",
+      "nameEn": "Fish, sardine, Atlantic, canned in oil, drained solids with bone",
+      "nameTr": "Sardalya",
+      "category": "etBalik",
+      "kcal100": 208.0,
+      "protein100": 24.6,
+      "carb100": 0.0,
+      "fat100": 11.4,
+      "source": "usda",
+      "sourceRef": "FDC 175139"
+    },
+    {
+      "id": "sarimsak",
+      "nameEn": "Garlic, raw",
+      "nameTr": "Sarimsak",
+      "category": "sebze",
+      "kcal100": 149.0,
+      "protein100": 6.4,
+      "carb100": 33.1,
+      "fat100": 0.5,
+      "source": "usda",
+      "sourceRef": "FDC 169230"
+    },
+    {
+      "id": "seftali",
+      "nameEn": "Peaches, yellow, raw",
+      "nameTr": "Seftali",
+      "category": "meyve",
+      "kcal100": 39.0,
+      "protein100": 0.9,
+      "carb100": 9.5,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 169928"
+    },
+    {
+      "id": "sehriye_corbasi",
+      "nameEn": "Chicken Noodle Soup",
+      "nameTr": "Tavuklu Sehriye Corbasi",
+      "category": "corba",
+      "kcal100": 48.0,
+      "protein100": 3.2,
+      "carb100": 6.0,
+      "fat100": 1.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "sehriye_corbasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "shallots_raw",
+      "nameEn": "Shallots, raw",
+      "category": "sebze",
+      "kcal100": 72.0,
+      "protein100": 2.5,
+      "carb100": 16.8,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 170499"
+    },
+    {
+      "id": "simit",
+      "nameEn": "Simit",
+      "nameTr": "Simit",
+      "category": "kahvaltilik",
+      "kcal100": 320.0,
+      "protein100": 9.5,
+      "carb100": 55.0,
+      "fat100": 6.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "simit_std",
+          "labelTr": "1 adet",
+          "labelEn": "1 piece",
+          "grams": 100.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "siyah_fasulye",
+      "nameEn": "Beans, black, mature seeds, cooked, boiled, without salt",
+      "nameTr": "Siyah Fasulye",
+      "category": "sebze",
+      "kcal100": 132.0,
+      "protein100": 8.9,
+      "carb100": 23.7,
+      "fat100": 0.5,
+      "source": "usda",
+      "sourceRef": "FDC 173735"
+    },
+    {
+      "id": "snacks_banana_chips",
+      "nameEn": "Snacks, banana chips",
+      "category": "atistirmalik",
+      "kcal100": 519.0,
+      "protein100": 2.3,
+      "carb100": 58.4,
+      "fat100": 33.6,
+      "source": "usda",
+      "sourceRef": "FDC 168849"
+    },
+    {
+      "id": "snacks_corn_cakes",
+      "nameEn": "Snacks, corn cakes",
+      "category": "atistirmalik",
+      "kcal100": 387.0,
+      "protein100": 8.1,
+      "carb100": 83.4,
+      "fat100": 2.4,
+      "source": "usda",
+      "sourceRef": "FDC 168857"
+    },
+    {
+      "id": "snacks_popcorn_cakes",
+      "nameEn": "Snacks, popcorn, cakes",
+      "category": "atistirmalik",
+      "kcal100": 384.0,
+      "protein100": 9.7,
+      "carb100": 80.1,
+      "fat100": 3.1,
+      "source": "usda",
+      "sourceRef": "FDC 167550"
+    },
+    {
+      "id": "snacks_potato_sticks",
+      "nameEn": "Snacks, potato sticks",
+      "category": "atistirmalik",
+      "kcal100": 522.0,
+      "protein100": 6.7,
+      "carb100": 53.3,
+      "fat100": 34.4,
+      "source": "usda",
+      "sourceRef": "FDC 168854"
+    },
+    {
+      "id": "snacks_taro_chips",
+      "nameEn": "Snacks, taro chips",
+      "category": "atistirmalik",
+      "kcal100": 498.0,
+      "protein100": 2.3,
+      "carb100": 68.1,
+      "fat100": 24.9,
+      "source": "usda",
+      "sourceRef": "FDC 168865"
+    },
+    {
+      "id": "sogan",
+      "nameEn": "Onions, raw",
+      "nameTr": "Sogan",
+      "category": "sebze",
+      "kcal100": 40.0,
+      "protein100": 1.1,
+      "carb100": 9.3,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 170000"
+    },
+    {
+      "id": "somon",
+      "nameEn": "Fish, salmon, Atlantic, farmed, raw",
+      "nameTr": "Somon",
+      "category": "etBalik",
+      "kcal100": 208.0,
+      "protein100": 20.4,
+      "carb100": 0.0,
+      "fat100": 13.4,
+      "source": "usda",
+      "sourceRef": "FDC 175167"
+    },
+    {
+      "id": "sorghum_grain",
+      "nameEn": "Sorghum grain",
+      "category": "tahil",
+      "kcal100": 329.0,
+      "protein100": 10.6,
+      "carb100": 72.1,
+      "fat100": 3.5,
+      "source": "usda",
+      "sourceRef": "FDC 169716"
+    },
+    {
+      "id": "soursop_raw",
+      "nameEn": "Soursop, raw",
+      "category": "meyve",
+      "kcal100": 66.0,
+      "protein100": 1.0,
+      "carb100": 16.8,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 167761"
+    },
+    {
+      "id": "soya_fasulyesi",
+      "nameEn": "Soybeans, mature cooked, boiled, without salt",
+      "nameTr": "Soya Fasulyesi",
+      "category": "sebze",
+      "kcal100": 172.0,
+      "protein100": 18.2,
+      "carb100": 8.4,
+      "fat100": 9.0,
+      "source": "usda",
+      "sourceRef": "FDC 174271"
+    },
+    {
+      "id": "sucuk",
+      "nameEn": "Turkish Sausage",
+      "nameTr": "Sucuk",
+      "category": "kahvaltilik",
+      "kcal100": 430.0,
+      "protein100": 22.0,
+      "carb100": 2.0,
+      "fat100": 37.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "sucuk_std",
+          "labelTr": "3 dilim",
+          "labelEn": "3 slices",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "sucuklu_yumurta",
+      "nameEn": "Eggs with Turkish Sausage",
+      "nameTr": "Sucuklu Yumurta",
+      "category": "yemek",
+      "kcal100": 232.0,
+      "protein100": 14.5,
+      "carb100": 1.5,
+      "fat100": 18.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "sucuklu_yumurta_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "susam",
+      "nameEn": "Seeds, sesame seeds, whole, dried",
+      "nameTr": "Susam",
+      "category": "kuruyemis",
+      "kcal100": 573.0,
+      "protein100": 17.7,
+      "carb100": 23.4,
+      "fat100": 49.7,
+      "source": "usda",
+      "sourceRef": "FDC 170150"
+    },
+    {
+      "id": "sut_tam_yagli",
+      "nameEn": "Whole Milk",
+      "nameTr": "Tam Yagli Sut",
+      "category": "sutUrunu",
+      "kcal100": 61.0,
+      "protein100": 3.2,
+      "carb100": 4.8,
+      "fat100": 3.3,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "sut_tam_yagli_std",
+          "labelTr": "1 su bardagi",
+          "labelEn": "1 cup",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "sut_yarim_yagli",
+      "nameEn": "Semi-Skimmed Milk",
+      "nameTr": "Yarim Yagli Sut",
+      "category": "sutUrunu",
+      "kcal100": 47.0,
+      "protein100": 3.4,
+      "carb100": 4.9,
+      "fat100": 1.6,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "sut_yarim_yagli_std",
+          "labelTr": "1 su bardagi",
+          "labelEn": "1 cup",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "sutlac",
+      "nameEn": "Rice Pudding",
+      "nameTr": "Sutlac",
+      "category": "atistirmalik",
+      "kcal100": 132.0,
+      "protein100": 3.5,
+      "carb100": 22.0,
+      "fat100": 3.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "sutlac_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "sutlu_kahve",
+      "nameEn": "Latte",
+      "nameTr": "Sutlu Kahve",
+      "category": "icecek",
+      "kcal100": 42.0,
+      "protein100": 2.2,
+      "carb100": 3.5,
+      "fat100": 2.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "sutlu_kahve_std",
+          "labelTr": "1 kupa",
+          "labelEn": "1 mug",
+          "grams": 240.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "suzme_yogurt",
+      "nameEn": "Strained Yogurt",
+      "nameTr": "Suzme Yogurt",
+      "category": "sutUrunu",
+      "kcal100": 97.0,
+      "protein100": 9.0,
+      "carb100": 3.9,
+      "fat100": 5.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "suzme_yogurt_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "tahin",
+      "nameEn": "Tahini",
+      "nameTr": "Tahin",
+      "category": "kahvaltilik",
+      "kcal100": 595.0,
+      "protein100": 17.0,
+      "carb100": 21.0,
+      "fat100": 50.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "tahin_std",
+          "labelTr": "1 yemek kasigi",
+          "labelEn": "1 tablespoon",
+          "grams": 15.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "tam_bugday_ekmek",
+      "nameEn": "Whole Wheat Bread",
+      "nameTr": "Tam Bugday Ekmegi",
+      "category": "tahil",
+      "kcal100": 247.0,
+      "protein100": 10.5,
+      "carb100": 41.0,
+      "fat100": 3.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "tam_bugday_ekmek_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "tamarinds_raw",
+      "nameEn": "Tamarinds, raw",
+      "category": "meyve",
+      "kcal100": 239.0,
+      "protein100": 2.8,
+      "carb100": 62.5,
+      "fat100": 0.6,
+      "source": "usda",
+      "sourceRef": "FDC 167763"
+    },
+    {
+      "id": "tarhana_corbasi",
+      "nameEn": "Tarhana Soup",
+      "nameTr": "Tarhana Corbasi",
+      "category": "corba",
+      "kcal100": 55.0,
+      "protein100": 2.4,
+      "carb100": 8.5,
+      "fat100": 1.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "tarhana_corbasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "taro_raw",
+      "nameEn": "Taro, raw",
+      "category": "sebze",
+      "kcal100": 112.0,
+      "protein100": 1.5,
+      "carb100": 26.5,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 169308"
+    },
+    {
+      "id": "tatli_patates",
+      "nameEn": "Sweet potato, cooked, boiled, without skin",
+      "nameTr": "Tatli Patates",
+      "category": "sebze",
+      "kcal100": 76.0,
+      "protein100": 1.4,
+      "carb100": 17.7,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 168484"
+    },
+    {
+      "id": "tavuk_but_firin",
+      "nameEn": "Roasted Chicken Thigh",
+      "nameTr": "Firinda Tavuk But",
+      "category": "yemek",
+      "kcal100": 232.0,
+      "protein100": 25.0,
+      "carb100": 0.0,
+      "fat100": 14.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "tavuk_but_firin_std",
+          "labelTr": "1 but",
+          "labelEn": "1 thigh",
+          "grams": 130.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "tavuk_but_pismis",
+      "nameEn": "Chicken, broilers or fryers, thigh, meat only, cooked, roasted",
+      "nameTr": "Pismis Tavuk But",
+      "category": "etBalik",
+      "kcal100": 179.0,
+      "protein100": 24.8,
+      "carb100": 0.0,
+      "fat100": 8.2,
+      "source": "usda",
+      "sourceRef": "FDC 172388"
+    },
+    {
+      "id": "tavuk_gogsu_pismis",
+      "nameEn": "Chicken, broilers or fryers, breast, meat only, cooked, roasted",
+      "nameTr": "Pismis Tavuk Gogsu",
+      "category": "etBalik",
+      "kcal100": 165.0,
+      "protein100": 31.0,
+      "carb100": 0.0,
+      "fat100": 3.6,
+      "source": "usda",
+      "sourceRef": "FDC 171477"
+    },
+    {
+      "id": "tavuk_izgara",
+      "nameEn": "Grilled Chicken Breast",
+      "nameTr": "Izgara Tavuk Gogsu",
+      "category": "yemek",
+      "kcal100": 165.0,
+      "protein100": 31.0,
+      "carb100": 0.0,
+      "fat100": 3.6,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "tavuk_izgara_std",
+          "labelTr": "1 gogus",
+          "labelEn": "1 breast",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "tavuk_sote",
+      "nameEn": "Chicken Saute",
+      "nameTr": "Tavuk Sote",
+      "category": "yemek",
+      "kcal100": 145.0,
+      "protein100": 17.0,
+      "carb100": 5.0,
+      "fat100": 6.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "tavuk_sote_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "taze_fasulye",
+      "nameEn": "Beans, snap, green, raw",
+      "nameTr": "Taze Fasulye",
+      "category": "sebze",
+      "kcal100": 31.0,
+      "protein100": 1.8,
+      "carb100": 7.0,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 169961"
+    },
+    {
+      "id": "teff_cooked",
+      "nameEn": "Teff, cooked",
+      "category": "tahil",
+      "kcal100": 101.0,
+      "protein100": 3.9,
+      "carb100": 19.9,
+      "fat100": 0.7,
+      "source": "usda",
+      "sourceRef": "FDC 168918"
+    },
+    {
+      "id": "tempeh",
+      "nameEn": "Tempeh",
+      "category": "sebze",
+      "kcal100": 192.0,
+      "protein100": 20.3,
+      "carb100": 7.6,
+      "fat100": 10.8,
+      "source": "usda",
+      "sourceRef": "FDC 174272"
+    },
+    {
+      "id": "tempeh_cooked",
+      "nameEn": "Tempeh, cooked",
+      "category": "sebze",
+      "kcal100": 195.0,
+      "protein100": 19.9,
+      "carb100": 7.6,
+      "fat100": 11.4,
+      "source": "usda",
+      "sourceRef": "FDC 172467"
+    },
+    {
+      "id": "tereyagi",
+      "nameEn": "Butter",
+      "nameTr": "Tereyagi",
+      "category": "kahvaltilik",
+      "kcal100": 717.0,
+      "protein100": 0.9,
+      "carb100": 0.1,
+      "fat100": 79.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "tereyagi_std",
+          "labelTr": "1 tatli kasigi",
+          "labelEn": "1 teaspoon",
+          "grams": 8.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "tofu_fried",
+      "nameEn": "Tofu, fried",
+      "category": "sebze",
+      "kcal100": 270.0,
+      "protein100": 18.8,
+      "carb100": 8.9,
+      "fat100": 20.2,
+      "source": "usda",
+      "sourceRef": "FDC 172451"
+    },
+    {
+      "id": "tofu_yogurt",
+      "nameEn": "Tofu yogurt",
+      "category": "sebze",
+      "kcal100": 94.0,
+      "protein100": 3.5,
+      "carb100": 16.0,
+      "fat100": 1.8,
+      "source": "usda",
+      "sourceRef": "FDC 167722"
+    },
+    {
+      "id": "tomatillos_raw",
+      "nameEn": "Tomatillos, raw",
+      "category": "sebze",
+      "kcal100": 32.0,
+      "protein100": 1.0,
+      "carb100": 5.8,
+      "fat100": 1.0,
+      "source": "usda",
+      "sourceRef": "FDC 168566"
+    },
+    {
+      "id": "tomato_powder",
+      "nameEn": "Tomato powder",
+      "category": "sebze",
+      "kcal100": 302.0,
+      "protein100": 12.9,
+      "carb100": 74.7,
+      "fat100": 0.4,
+      "source": "usda",
+      "sourceRef": "FDC 170461"
+    },
+    {
+      "id": "ton_baligi",
+      "nameEn": "Fish, tuna, light, canned in water, without salt, drained solids",
+      "nameTr": "Ton Baligi (konserve)",
+      "category": "etBalik",
+      "kcal100": 116.0,
+      "protein100": 25.5,
+      "carb100": 0.0,
+      "fat100": 0.8,
+      "source": "usda",
+      "sourceRef": "FDC 171986"
+    },
+    {
+      "id": "toz_seker",
+      "nameEn": "Sugars, granulated",
+      "nameTr": "Toz Seker",
+      "category": "atistirmalik",
+      "kcal100": 387.0,
+      "protein100": 0.0,
+      "carb100": 100.0,
+      "fat100": 0.0,
+      "source": "usda",
+      "sourceRef": "FDC 169655"
+    },
+    {
+      "id": "trabzon_hurmasi",
+      "nameEn": "Persimmons, japanese, raw",
+      "nameTr": "Trabzon Hurmasi",
+      "category": "meyve",
+      "kcal100": 70.0,
+      "protein100": 0.6,
+      "carb100": 18.6,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 169941"
+    },
+    {
+      "id": "triticale",
+      "nameEn": "Triticale",
+      "category": "tahil",
+      "kcal100": 336.0,
+      "protein100": 13.1,
+      "carb100": 72.1,
+      "fat100": 2.1,
+      "source": "usda",
+      "sourceRef": "FDC 169718"
+    },
+    {
+      "id": "turk_kahvesi",
+      "nameEn": "Turkish Coffee, plain",
+      "nameTr": "Turk Kahvesi",
+      "category": "icecek",
+      "kcal100": 3.0,
+      "protein100": 0.2,
+      "carb100": 0.5,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "turk_kahvesi_std",
+          "labelTr": "1 fincan",
+          "labelEn": "1 cup",
+          "grams": 70.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "turkey_ground_raw",
+      "nameEn": "Turkey, Ground, raw",
+      "category": "etBalik",
+      "kcal100": 148.0,
+      "protein100": 19.7,
+      "carb100": 0.0,
+      "fat100": 7.7,
+      "source": "usda",
+      "sourceRef": "FDC 171505"
+    },
+    {
+      "id": "turlu",
+      "nameEn": "Mixed Vegetable Stew",
+      "nameTr": "Sebze Turlu",
+      "category": "yemek",
+      "kcal100": 68.0,
+      "protein100": 2.0,
+      "carb100": 8.5,
+      "fat100": 3.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "turlu_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "turp",
+      "nameEn": "Radishes, raw",
+      "nameTr": "Turp",
+      "category": "sebze",
+      "kcal100": 16.0,
+      "protein100": 0.7,
+      "carb100": 3.4,
+      "fat100": 0.1,
+      "source": "usda",
+      "sourceRef": "FDC 169276"
+    },
+    {
+      "id": "turtle_green_raw",
+      "nameEn": "Turtle, green, raw",
+      "category": "etBalik",
+      "kcal100": 89.0,
+      "protein100": 19.8,
+      "carb100": 0.0,
+      "fat100": 0.5,
+      "source": "usda",
+      "sourceRef": "FDC 167745"
+    },
+    {
+      "id": "uzum",
+      "nameEn": "Grapes, red or green (European type, such as Thompson seedless), raw",
+      "nameTr": "Uzum",
+      "category": "meyve",
+      "kcal100": 69.0,
+      "protein100": 0.7,
+      "carb100": 18.1,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 174683"
+    },
+    {
+      "id": "wheat_durum",
+      "nameEn": "Wheat, durum",
+      "category": "tahil",
+      "kcal100": 339.0,
+      "protein100": 13.7,
+      "carb100": 71.1,
+      "fat100": 2.5,
+      "source": "usda",
+      "sourceRef": "FDC 169721"
+    },
+    {
+      "id": "whey_protein",
+      "nameEn": "Whey Protein Powder",
+      "nameTr": "Whey Protein Tozu",
+      "category": "atistirmalik",
+      "kcal100": 380.0,
+      "protein100": 78.0,
+      "carb100": 8.0,
+      "fat100": 4.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "whey_protein_std",
+          "labelTr": "1 olcek",
+          "labelEn": "1 scoop",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "yaban_mersini",
+      "nameEn": "Blueberries, raw",
+      "nameTr": "Yaban Mersini",
+      "category": "meyve",
+      "kcal100": 57.0,
+      "protein100": 0.7,
+      "carb100": 14.5,
+      "fat100": 0.3,
+      "source": "usda",
+      "sourceRef": "FDC 171711"
+    },
+    {
+      "id": "yam_raw",
+      "nameEn": "Yam, raw",
+      "category": "sebze",
+      "kcal100": 118.0,
+      "protein100": 1.5,
+      "carb100": 27.9,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 170071"
+    },
+    {
+      "id": "yaprak_sarma",
+      "nameEn": "Stuffed Vine Leaves",
+      "nameTr": "Zeytinyagli Yaprak Sarma",
+      "category": "yemek",
+      "kcal100": 165.0,
+      "protein100": 3.2,
+      "carb100": 22.0,
+      "fat100": 7.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "yaprak_sarma_std",
+          "labelTr": "5 sarma",
+          "labelEn": "5 rolls",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "yayla_corbasi",
+      "nameEn": "Yogurt and Rice Soup",
+      "nameTr": "Yayla Corbasi",
+      "category": "corba",
+      "kcal100": 58.0,
+      "protein100": 2.6,
+      "carb100": 7.5,
+      "fat100": 2.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "yayla_corbasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "yer_fistigi",
+      "nameEn": "Peanuts, all types, raw",
+      "nameTr": "Yer Fistigi",
+      "category": "sebze",
+      "kcal100": 567.0,
+      "protein100": 25.8,
+      "carb100": 16.1,
+      "fat100": 49.2,
+      "source": "usda",
+      "sourceRef": "FDC 172430"
+    },
+    {
+      "id": "yesil_biber",
+      "nameEn": "Peppers, sweet, green, raw",
+      "nameTr": "Yesil Biber",
+      "category": "sebze",
+      "kcal100": 20.0,
+      "protein100": 0.9,
+      "carb100": 4.6,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 170427"
+    },
+    {
+      "id": "yogurt_light",
+      "nameEn": "Low-Fat Yogurt",
+      "nameTr": "Light Yogurt",
+      "category": "sutUrunu",
+      "kcal100": 47.0,
+      "protein100": 4.3,
+      "carb100": 6.0,
+      "fat100": 0.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "yogurt_light_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "yogurt_tam",
+      "nameEn": "Full-Fat Yogurt",
+      "nameTr": "Tam Yagli Yogurt",
+      "category": "sutUrunu",
+      "kcal100": 61.0,
+      "protein100": 3.5,
+      "carb100": 4.7,
+      "fat100": 3.3,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "yogurt_tam_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "yulaf_ezmesi",
+      "nameEn": "Rolled Oats",
+      "nameTr": "Yulaf Ezmesi",
+      "category": "tahil",
+      "kcal100": 389.0,
+      "protein100": 16.9,
+      "carb100": 66.0,
+      "fat100": 6.9,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "yulaf_ezmesi_std",
+          "labelTr": "1 su bardagi",
+          "labelEn": "1 cup",
+          "grams": 80.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "yulaf_lapasi",
+      "nameEn": "Cereals, oats, regular and quick, unenriched, cooked with water (includes boiling and microwaving), without salt",
+      "nameTr": "Yulaf Lapasi",
+      "category": "kahvaltilik",
+      "kcal100": 71.0,
+      "protein100": 2.5,
+      "carb100": 12.0,
+      "fat100": 1.5,
+      "source": "usda",
+      "sourceRef": "FDC 173905"
+    },
+    {
+      "id": "yumurta",
+      "nameEn": "Egg, whole, raw, fresh",
+      "nameTr": "Yumurta",
+      "category": "sutUrunu",
+      "kcal100": 143.0,
+      "protein100": 12.6,
+      "carb100": 0.7,
+      "fat100": 9.5,
+      "source": "usda",
+      "sourceRef": "FDC 171287"
+    },
+    {
+      "id": "yumurta_beyazi",
+      "nameEn": "Egg, white, raw, fresh",
+      "nameTr": "Yumurta Beyazi",
+      "category": "sutUrunu",
+      "kcal100": 52.0,
+      "protein100": 10.9,
+      "carb100": 0.7,
+      "fat100": 0.2,
+      "source": "usda",
+      "sourceRef": "FDC 172183"
+    },
+    {
+      "id": "yumurta_sarisi",
+      "nameEn": "Egg, yolk, raw, fresh",
+      "nameTr": "Yumurta Sarisi",
+      "category": "sutUrunu",
+      "kcal100": 322.0,
+      "protein100": 15.9,
+      "carb100": 3.6,
+      "fat100": 26.5,
+      "source": "usda",
+      "sourceRef": "FDC 172184"
+    },
+    {
+      "id": "zeytin_siyah",
+      "nameEn": "Black Olives",
+      "nameTr": "Siyah Zeytin",
+      "category": "kahvaltilik",
+      "kcal100": 145.0,
+      "protein100": 1.0,
+      "carb100": 4.0,
+      "fat100": 14.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "zeytin_siyah_std",
+          "labelTr": "8 tane",
+          "labelEn": "8 pieces",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "zeytin_yesil",
+      "nameEn": "Green Olives",
+      "nameTr": "Yesil Zeytin",
+      "category": "kahvaltilik",
+      "kcal100": 132.0,
+      "protein100": 1.0,
+      "carb100": 3.5,
+      "fat100": 13.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "zeytin_yesil_std",
+          "labelTr": "8 tane",
+          "labelEn": "8 pieces",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "zeytinyagi",
+      "nameEn": "Oil, olive, salad or cooking",
+      "nameTr": "Zeytinyagi",
+      "category": "diger",
+      "kcal100": 884.0,
+      "protein100": 0.0,
+      "carb100": 0.0,
+      "fat100": 100.0,
+      "source": "usda",
+      "sourceRef": "FDC 171413"
+    },
+    {
+      "id": "zeytinyagli_taze_fasulye",
+      "nameEn": "Green Beans in Olive Oil",
+      "nameTr": "Zeytinyagli Taze Fasulye",
+      "category": "yemek",
+      "kcal100": 78.0,
+      "protein100": 2.2,
+      "carb100": 8.0,
+      "fat100": 4.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "zeytinyagli_taze_fasulye_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 220.0,
+          "isDefault": true
+        }
+      ]
+    }
+  ]
+}

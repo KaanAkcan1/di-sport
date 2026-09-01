@@ -1,0 +1,2293 @@
+{
+  "foods": [
+    {
+      "id": "adana_kebap",
+      "nameEn": "Adana Kebab",
+      "nameTr": "Adana Kebap",
+      "category": "yemek",
+      "kcal100": 275.0,
+      "protein100": 17.5,
+      "carb100": 2.0,
+      "fat100": 22.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "adana_kebap_std",
+          "labelTr": "1 sis",
+          "labelEn": "1 skewer",
+          "grams": 180.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "ayran",
+      "nameEn": "Ayran",
+      "nameTr": "Ayran",
+      "category": "icecek",
+      "kcal100": 37.0,
+      "protein100": 1.7,
+      "carb100": 2.9,
+      "fat100": 2.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "ayran_std",
+          "labelTr": "1 bardak",
+          "labelEn": "1 glass",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "baklava",
+      "nameEn": "Baklava",
+      "nameTr": "Baklava",
+      "category": "atistirmalik",
+      "kcal100": 428.0,
+      "protein100": 6.5,
+      "carb100": 50.0,
+      "fat100": 22.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "baklava_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 piece",
+          "grams": 60.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "bal",
+      "nameEn": "Honey",
+      "nameTr": "Bal",
+      "category": "kahvaltilik",
+      "kcal100": 304.0,
+      "protein100": 0.3,
+      "carb100": 82.0,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "bal_std",
+          "labelTr": "1 tatli kasigi",
+          "labelEn": "1 teaspoon",
+          "grams": 10.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "balik_izgara",
+      "nameEn": "Grilled Fish",
+      "nameTr": "Izgara Balik",
+      "category": "yemek",
+      "kcal100": 148.0,
+      "protein100": 22.0,
+      "carb100": 0.0,
+      "fat100": 6.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "balik_izgara_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 180.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "beyaz_ekmek",
+      "nameEn": "White Bread",
+      "nameTr": "Beyaz Ekmek",
+      "category": "tahil",
+      "kcal100": 265.0,
+      "protein100": 8.5,
+      "carb100": 49.0,
+      "fat100": 3.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "beyaz_ekmek_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "beyaz_peynir",
+      "nameEn": "White Cheese",
+      "nameTr": "Beyaz Peynir",
+      "category": "kahvaltilik",
+      "kcal100": 264.0,
+      "protein100": 17.5,
+      "carb100": 2.0,
+      "fat100": 20.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "beyaz_peynir_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "bira",
+      "nameEn": "Beer",
+      "nameTr": "Bira",
+      "category": "icecek",
+      "kcal100": 43.0,
+      "protein100": 0.5,
+      "carb100": 3.6,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "bira_std",
+          "labelTr": "1 sise",
+          "labelEn": "1 bottle",
+          "grams": 330.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "biskuvi_sade",
+      "nameEn": "Plain Biscuit",
+      "nameTr": "Sade Biskuvi",
+      "category": "atistirmalik",
+      "kcal100": 460.0,
+      "protein100": 7.0,
+      "carb100": 72.0,
+      "fat100": 16.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "biskuvi_sade_std",
+          "labelTr": "3 adet",
+          "labelEn": "3 pieces",
+          "grams": 25.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "borek_peynirli",
+      "nameEn": "Cheese Borek",
+      "nameTr": "Peynirli Borek",
+      "category": "kahvaltilik",
+      "kcal100": 295.0,
+      "protein100": 9.5,
+      "carb100": 28.0,
+      "fat100": 16.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "borek_peynirli_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 120.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "brokoli_corbasi",
+      "nameEn": "Broccoli Soup",
+      "nameTr": "Brokoli Corbasi",
+      "category": "corba",
+      "kcal100": 45.0,
+      "protein100": 2.2,
+      "carb100": 5.5,
+      "fat100": 1.6,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "brokoli_corbasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "bulgur_pilavi",
+      "nameEn": "Bulgur Pilaf",
+      "nameTr": "Bulgur Pilavi",
+      "category": "yemek",
+      "kcal100": 128.0,
+      "protein100": 3.5,
+      "carb100": 24.0,
+      "fat100": 2.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "bulgur_pilavi_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 180.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "cacik",
+      "nameEn": "Cacik",
+      "nameTr": "Cacik",
+      "category": "sebze",
+      "kcal100": 48.0,
+      "protein100": 2.5,
+      "carb100": 4.0,
+      "fat100": 2.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "cacik_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "cavdar_ekmegi",
+      "nameEn": "Rye Bread",
+      "nameTr": "Cavdar Ekmegi",
+      "category": "tahil",
+      "kcal100": 258.0,
+      "protein100": 8.5,
+      "carb100": 48.0,
+      "fat100": 3.3,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "cavdar_ekmegi_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "cay",
+      "nameEn": "Tea, unsweetened",
+      "nameTr": "Cay",
+      "category": "icecek",
+      "kcal100": 1.0,
+      "protein100": 0.0,
+      "carb100": 0.2,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "cay_std",
+          "labelTr": "1 bardak",
+          "labelEn": "1 glass",
+          "grams": 100.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "cikolata_bitter",
+      "nameEn": "Dark Chocolate",
+      "nameTr": "Bitter Cikolata",
+      "category": "atistirmalik",
+      "kcal100": 546.0,
+      "protein100": 7.8,
+      "carb100": 46.0,
+      "fat100": 35.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "cikolata_bitter_std",
+          "labelTr": "4 kare",
+          "labelEn": "4 squares",
+          "grams": 25.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "cikolata_sutlu",
+      "nameEn": "Milk Chocolate",
+      "nameTr": "Sutlu Cikolata",
+      "category": "atistirmalik",
+      "kcal100": 535.0,
+      "protein100": 7.7,
+      "carb100": 59.0,
+      "fat100": 30.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "cikolata_sutlu_std",
+          "labelTr": "4 kare",
+          "labelEn": "4 squares",
+          "grams": 25.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "cips",
+      "nameEn": "Potato Chips",
+      "nameTr": "Patates Cipsi",
+      "category": "atistirmalik",
+      "kcal100": 536.0,
+      "protein100": 6.6,
+      "carb100": 53.0,
+      "fat100": 34.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "cips_std",
+          "labelTr": "1 kucuk paket",
+          "labelEn": "1 small bag",
+          "grams": 40.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "coban_salata",
+      "nameEn": "Shepherd Salad",
+      "nameTr": "Coban Salata",
+      "category": "sebze",
+      "kcal100": 42.0,
+      "protein100": 1.2,
+      "carb100": 5.0,
+      "fat100": 2.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "coban_salata_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "domates_corbasi",
+      "nameEn": "Tomato Soup",
+      "nameTr": "Domates Corbasi",
+      "category": "corba",
+      "kcal100": 52.0,
+      "protein100": 1.6,
+      "carb100": 7.5,
+      "fat100": 1.8,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "domates_corbasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "dondurma",
+      "nameEn": "Ice Cream",
+      "nameTr": "Dondurma",
+      "category": "atistirmalik",
+      "kcal100": 207.0,
+      "protein100": 3.5,
+      "carb100": 24.0,
+      "fat100": 11.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "dondurma_std",
+          "labelTr": "2 top",
+          "labelEn": "2 scoops",
+          "grams": 100.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "doner_et",
+      "nameEn": "Beef Doner",
+      "nameTr": "Et Doner",
+      "category": "yemek",
+      "kcal100": 258.0,
+      "protein100": 20.0,
+      "carb100": 2.0,
+      "fat100": 19.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "doner_et_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "doner_tavuk",
+      "nameEn": "Chicken Doner",
+      "nameTr": "Tavuk Doner",
+      "category": "yemek",
+      "kcal100": 195.0,
+      "protein100": 19.5,
+      "carb100": 2.0,
+      "fat100": 12.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "doner_tavuk_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "etli_biber_dolma",
+      "nameEn": "Stuffed Peppers with Meat",
+      "nameTr": "Etli Biber Dolmasi",
+      "category": "yemek",
+      "kcal100": 128.0,
+      "protein100": 5.5,
+      "carb100": 13.0,
+      "fat100": 6.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "etli_biber_dolma_std",
+          "labelTr": "2 dolma",
+          "labelEn": "2 peppers",
+          "grams": 240.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "etli_kuru_fasulye",
+      "nameEn": "White Beans with Beef",
+      "nameTr": "Etli Kuru Fasulye",
+      "category": "yemek",
+      "kcal100": 119.0,
+      "protein100": 7.0,
+      "carb100": 13.0,
+      "fat100": 4.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "etli_kuru_fasulye_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "etli_nohut",
+      "nameEn": "Chickpea Stew with Beef",
+      "nameTr": "Etli Nohut",
+      "category": "yemek",
+      "kcal100": 148.0,
+      "protein100": 8.5,
+      "carb100": 16.0,
+      "fat100": 5.8,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "etli_nohut_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "etli_taze_fasulye",
+      "nameEn": "Green Beans with Meat",
+      "nameTr": "Etli Taze Fasulye",
+      "category": "yemek",
+      "kcal100": 92.0,
+      "protein100": 5.0,
+      "carb100": 7.5,
+      "fat100": 4.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "etli_taze_fasulye_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "ezogelin_corbasi",
+      "nameEn": "Ezogelin Soup",
+      "nameTr": "Ezogelin Corbasi",
+      "category": "corba",
+      "kcal100": 68.0,
+      "protein100": 3.0,
+      "carb100": 10.5,
+      "fat100": 1.8,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "ezogelin_corbasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "filtre_kahve",
+      "nameEn": "Filter Coffee, black",
+      "nameTr": "Filtre Kahve",
+      "category": "icecek",
+      "kcal100": 2.0,
+      "protein100": 0.1,
+      "carb100": 0.3,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "filtre_kahve_std",
+          "labelTr": "1 kupa",
+          "labelEn": "1 mug",
+          "grams": 240.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "guvec",
+      "nameEn": "Meat and Vegetable Casserole",
+      "nameTr": "Etli Sebze Guvec",
+      "category": "yemek",
+      "kcal100": 118.0,
+      "protein100": 9.0,
+      "carb100": 8.0,
+      "fat100": 5.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "guvec_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 280.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "hamsi_tava",
+      "nameEn": "Fried Anchovies",
+      "nameTr": "Hamsi Tava",
+      "category": "yemek",
+      "kcal100": 240.0,
+      "protein100": 17.5,
+      "carb100": 8.0,
+      "fat100": 15.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "hamsi_tava_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "haslanmis_yumurta",
+      "nameEn": "Boiled Egg",
+      "nameTr": "Haslanmis Yumurta",
+      "category": "kahvaltilik",
+      "kcal100": 155.0,
+      "protein100": 13.0,
+      "carb100": 1.1,
+      "fat100": 10.6,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "haslanmis_yumurta_std",
+          "labelTr": "1 yumurta",
+          "labelEn": "1 egg",
+          "grams": 55.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "haydari",
+      "nameEn": "Haydari",
+      "nameTr": "Haydari",
+      "category": "sebze",
+      "kcal100": 165.0,
+      "protein100": 7.0,
+      "carb100": 5.0,
+      "fat100": 13.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "haydari_std",
+          "labelTr": "1 yemek kasigi",
+          "labelEn": "1 tablespoon",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "humus",
+      "nameEn": "Hummus",
+      "nameTr": "Humus",
+      "category": "sebze",
+      "kcal100": 177.0,
+      "protein100": 7.9,
+      "carb100": 14.3,
+      "fat100": 10.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "humus_std",
+          "labelTr": "1 yemek kasigi",
+          "labelEn": "1 tablespoon",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "imambayildi",
+      "nameEn": "Imam Bayildi",
+      "nameTr": "Imambayildi",
+      "category": "yemek",
+      "kcal100": 122.0,
+      "protein100": 1.8,
+      "carb100": 10.0,
+      "fat100": 8.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "imambayildi_std",
+          "labelTr": "1 adet",
+          "labelEn": "1 piece",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "iskembe_corbasi",
+      "nameEn": "Tripe Soup",
+      "nameTr": "Iskembe Corbasi",
+      "category": "corba",
+      "kcal100": 78.0,
+      "protein100": 6.5,
+      "carb100": 3.5,
+      "fat100": 4.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "iskembe_corbasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "ispanak_yemegi",
+      "nameEn": "Spinach with Meat",
+      "nameTr": "Etli Ispanak",
+      "category": "yemek",
+      "kcal100": 84.0,
+      "protein100": 5.5,
+      "carb100": 5.5,
+      "fat100": 4.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "ispanak_yemegi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "izmir_kofte",
+      "nameEn": "Izmir Meatballs",
+      "nameTr": "Izmir Kofte",
+      "category": "yemek",
+      "kcal100": 165.0,
+      "protein100": 11.0,
+      "carb100": 7.0,
+      "fat100": 10.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "izmir_kofte_std",
+          "labelTr": "2 kofte",
+          "labelEn": "2 meatballs",
+          "grams": 180.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kabak_yemegi",
+      "nameEn": "Zucchini in Olive Oil",
+      "nameTr": "Zeytinyagli Kabak",
+      "category": "yemek",
+      "kcal100": 68.0,
+      "protein100": 1.8,
+      "carb100": 7.0,
+      "fat100": 3.8,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kabak_yemegi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 220.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "karniyarik",
+      "nameEn": "Stuffed Eggplant with Meat",
+      "nameTr": "Karniyarik",
+      "category": "yemek",
+      "kcal100": 148.0,
+      "protein100": 6.5,
+      "carb100": 9.0,
+      "fat100": 10.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "karniyarik_std",
+          "labelTr": "1 adet",
+          "labelEn": "1 piece",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kasar_peyniri",
+      "nameEn": "Kashkaval Cheese",
+      "nameTr": "Kasar Peyniri",
+      "category": "kahvaltilik",
+      "kcal100": 345.0,
+      "protein100": 25.0,
+      "carb100": 1.5,
+      "fat100": 26.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kasar_peyniri_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 25.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kazandibi",
+      "nameEn": "Kazandibi",
+      "nameTr": "Kazandibi",
+      "category": "atistirmalik",
+      "kcal100": 158.0,
+      "protein100": 4.0,
+      "carb100": 26.0,
+      "fat100": 4.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kazandibi_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 120.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kefir",
+      "nameEn": "Kefir",
+      "nameTr": "Kefir",
+      "category": "sutUrunu",
+      "kcal100": 55.0,
+      "protein100": 3.3,
+      "carb100": 4.5,
+      "fat100": 2.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kefir_std",
+          "labelTr": "1 bardak",
+          "labelEn": "1 glass",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kek_sade",
+      "nameEn": "Plain Cake",
+      "nameTr": "Sade Kek",
+      "category": "atistirmalik",
+      "kcal100": 370.0,
+      "protein100": 5.5,
+      "carb100": 52.0,
+      "fat100": 15.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kek_sade_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 60.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kiymali_pilav",
+      "nameEn": "Rice with Minced Meat",
+      "nameTr": "Kiymali Pilav",
+      "category": "yemek",
+      "kcal100": 178.0,
+      "protein100": 7.0,
+      "carb100": 26.0,
+      "fat100": 5.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kiymali_pilav_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kofte_izgara",
+      "nameEn": "Grilled Meatballs",
+      "nameTr": "Izgara Kofte",
+      "category": "yemek",
+      "kcal100": 215.0,
+      "protein100": 18.0,
+      "carb100": 3.0,
+      "fat100": 14.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kofte_izgara_std",
+          "labelTr": "3 kofte",
+          "labelEn": "3 meatballs",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kola",
+      "nameEn": "Cola",
+      "nameTr": "Kola",
+      "category": "icecek",
+      "kcal100": 42.0,
+      "protein100": 0.0,
+      "carb100": 10.6,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kola_std",
+          "labelTr": "1 kutu",
+          "labelEn": "1 can",
+          "grams": 330.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kola_zero",
+      "nameEn": "Diet Cola",
+      "nameTr": "Kola (sekersiz)",
+      "category": "icecek",
+      "kcal100": 0.0,
+      "protein100": 0.0,
+      "carb100": 0.0,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kola_zero_std",
+          "labelTr": "1 kutu",
+          "labelEn": "1 can",
+          "grams": 330.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kunefe",
+      "nameEn": "Kunefe",
+      "nameTr": "Kunefe",
+      "category": "atistirmalik",
+      "kcal100": 385.0,
+      "protein100": 8.5,
+      "carb100": 42.0,
+      "fat100": 20.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kunefe_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kuru_fasulye",
+      "nameEn": "White Bean Stew",
+      "nameTr": "Kuru Fasulye",
+      "category": "yemek",
+      "kcal100": 97.0,
+      "protein100": 5.5,
+      "carb100": 14.0,
+      "fat100": 2.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kuru_fasulye_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kuru_kofte",
+      "nameEn": "Pan-Fried Meatballs",
+      "nameTr": "Kuru Kofte",
+      "category": "yemek",
+      "kcal100": 245.0,
+      "protein100": 17.5,
+      "carb100": 6.0,
+      "fat100": 16.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kuru_kofte_std",
+          "labelTr": "4 kofte",
+          "labelEn": "4 meatballs",
+          "grams": 140.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "kuzu_tas_kebap",
+      "nameEn": "Lamb Stew",
+      "nameTr": "Kuzu Tas Kebap",
+      "category": "yemek",
+      "kcal100": 178.0,
+      "protein100": 15.0,
+      "carb100": 6.0,
+      "fat100": 10.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "kuzu_tas_kebap_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 220.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "labne",
+      "nameEn": "Labneh",
+      "nameTr": "Labne",
+      "category": "sutUrunu",
+      "kcal100": 245.0,
+      "protein100": 7.5,
+      "carb100": 4.0,
+      "fat100": 22.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "labne_std",
+          "labelTr": "1 yemek kasigi",
+          "labelEn": "1 tablespoon",
+          "grams": 20.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "lahmacun",
+      "nameEn": "Lahmacun",
+      "nameTr": "Lahmacun",
+      "category": "yemek",
+      "kcal100": 235.0,
+      "protein100": 10.5,
+      "carb100": 32.0,
+      "fat100": 7.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "lahmacun_std",
+          "labelTr": "1 adet",
+          "labelEn": "1 piece",
+          "grams": 130.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "limonata",
+      "nameEn": "Lemonade",
+      "nameTr": "Limonata",
+      "category": "icecek",
+      "kcal100": 48.0,
+      "protein100": 0.1,
+      "carb100": 12.0,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "limonata_std",
+          "labelTr": "1 bardak",
+          "labelEn": "1 glass",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "lokum",
+      "nameEn": "Turkish Delight",
+      "nameTr": "Lokum",
+      "category": "atistirmalik",
+      "kcal100": 345.0,
+      "protein100": 0.2,
+      "carb100": 86.0,
+      "fat100": 0.1,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "lokum_std",
+          "labelTr": "2 adet",
+          "labelEn": "2 pieces",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "lor_peyniri",
+      "nameEn": "Curd Cheese",
+      "nameTr": "Lor Peyniri",
+      "category": "kahvaltilik",
+      "kcal100": 98.0,
+      "protein100": 12.5,
+      "carb100": 3.0,
+      "fat100": 4.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "lor_peyniri_std",
+          "labelTr": "1 kasik",
+          "labelEn": "1 spoon",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "maden_suyu",
+      "nameEn": "Sparkling Mineral Water",
+      "nameTr": "Maden Suyu",
+      "category": "icecek",
+      "kcal100": 0.0,
+      "protein100": 0.0,
+      "carb100": 0.0,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "maden_suyu_std",
+          "labelTr": "1 sise",
+          "labelEn": "1 bottle",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "makarna",
+      "nameEn": "Cooked Pasta",
+      "nameTr": "Haslanmis Makarna",
+      "category": "yemek",
+      "kcal100": 158.0,
+      "protein100": 5.8,
+      "carb100": 31.0,
+      "fat100": 0.9,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "makarna_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "makarna_soslu",
+      "nameEn": "Pasta with Tomato Sauce",
+      "nameTr": "Domates Soslu Makarna",
+      "category": "yemek",
+      "kcal100": 148.0,
+      "protein100": 4.8,
+      "carb100": 26.0,
+      "fat100": 3.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "makarna_soslu_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "manti",
+      "nameEn": "Turkish Dumplings",
+      "nameTr": "Manti",
+      "category": "yemek",
+      "kcal100": 195.0,
+      "protein100": 8.5,
+      "carb100": 26.0,
+      "fat100": 6.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "manti_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "menemen",
+      "nameEn": "Turkish Scrambled Eggs",
+      "nameTr": "Menemen",
+      "category": "yemek",
+      "kcal100": 118.0,
+      "protein100": 7.5,
+      "carb100": 4.5,
+      "fat100": 8.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "menemen_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "mercimek_corbasi",
+      "nameEn": "Red Lentil Soup",
+      "nameTr": "Mercimek Corbasi",
+      "category": "corba",
+      "kcal100": 62.0,
+      "protein100": 3.1,
+      "carb100": 9.4,
+      "fat100": 1.4,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "mercimek_corbasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "mercimek_yemegi",
+      "nameEn": "Green Lentil Stew",
+      "nameTr": "Yesil Mercimek Yemegi",
+      "category": "yemek",
+      "kcal100": 105.0,
+      "protein100": 6.0,
+      "carb100": 15.0,
+      "fat100": 2.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "mercimek_yemegi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "mevsim_salata",
+      "nameEn": "Garden Salad",
+      "nameTr": "Mevsim Salata",
+      "category": "sebze",
+      "kcal100": 28.0,
+      "protein100": 1.4,
+      "carb100": 4.0,
+      "fat100": 0.6,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "mevsim_salata_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "misir_gevregi",
+      "nameEn": "Corn Flakes",
+      "nameTr": "Misir Gevregi",
+      "category": "tahil",
+      "kcal100": 357.0,
+      "protein100": 7.5,
+      "carb100": 84.0,
+      "fat100": 0.4,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "misir_gevregi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 40.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "musakka",
+      "nameEn": "Moussaka",
+      "nameTr": "Musakka",
+      "category": "yemek",
+      "kcal100": 152.0,
+      "protein100": 7.0,
+      "carb100": 9.5,
+      "fat100": 9.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "musakka_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "nohut_yemegi",
+      "nameEn": "Chickpea Stew",
+      "nameTr": "Nohut Yemegi",
+      "category": "yemek",
+      "kcal100": 128.0,
+      "protein100": 6.5,
+      "carb100": 17.0,
+      "fat100": 4.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "nohut_yemegi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "omlet",
+      "nameEn": "Omelette",
+      "nameTr": "Omlet",
+      "category": "yemek",
+      "kcal100": 154.0,
+      "protein100": 11.0,
+      "carb100": 1.0,
+      "fat100": 11.8,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "omlet_std",
+          "labelTr": "2 yumurta",
+          "labelEn": "2 eggs",
+          "grams": 120.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "pastirma",
+      "nameEn": "Pastirma",
+      "nameTr": "Pastirma",
+      "category": "kahvaltilik",
+      "kcal100": 240.0,
+      "protein100": 32.0,
+      "carb100": 1.0,
+      "fat100": 12.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "pastirma_std",
+          "labelTr": "3 dilim",
+          "labelEn": "3 slices",
+          "grams": 25.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "patates_salatasi",
+      "nameEn": "Potato Salad",
+      "nameTr": "Patates Salatasi",
+      "category": "sebze",
+      "kcal100": 115.0,
+      "protein100": 2.0,
+      "carb100": 17.0,
+      "fat100": 4.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "patates_salatasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "pekmez",
+      "nameEn": "Grape Molasses",
+      "nameTr": "Uzum Pekmezi",
+      "category": "kahvaltilik",
+      "kcal100": 293.0,
+      "protein100": 0.5,
+      "carb100": 72.0,
+      "fat100": 0.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "pekmez_std",
+          "labelTr": "1 yemek kasigi",
+          "labelEn": "1 tablespoon",
+          "grams": 20.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "pide_kiymali",
+      "nameEn": "Minced Meat Pide",
+      "nameTr": "Kiymali Pide",
+      "category": "yemek",
+      "kcal100": 255.0,
+      "protein100": 11.5,
+      "carb100": 31.0,
+      "fat100": 9.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "pide_kiymali_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "pilav",
+      "nameEn": "Rice Pilaf",
+      "nameTr": "Pirinc Pilavi",
+      "category": "yemek",
+      "kcal100": 145.0,
+      "protein100": 3.0,
+      "carb100": 28.0,
+      "fat100": 2.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "pilav_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 180.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "pirasa_yemegi",
+      "nameEn": "Leeks in Olive Oil",
+      "nameTr": "Zeytinyagli Pirasa",
+      "category": "yemek",
+      "kcal100": 72.0,
+      "protein100": 1.8,
+      "carb100": 9.5,
+      "fat100": 3.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "pirasa_yemegi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 220.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "piyaz",
+      "nameEn": "Piyaz",
+      "nameTr": "Piyaz",
+      "category": "sebze",
+      "kcal100": 118.0,
+      "protein100": 6.0,
+      "carb100": 14.0,
+      "fat100": 4.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "piyaz_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "pogaca",
+      "nameEn": "Pogaca",
+      "nameTr": "Pogaca",
+      "category": "kahvaltilik",
+      "kcal100": 330.0,
+      "protein100": 7.5,
+      "carb100": 40.0,
+      "fat100": 15.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "pogaca_std",
+          "labelTr": "1 adet",
+          "labelEn": "1 piece",
+          "grams": 70.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "portakal_suyu",
+      "nameEn": "Orange Juice",
+      "nameTr": "Portakal Suyu",
+      "category": "icecek",
+      "kcal100": 45.0,
+      "protein100": 0.7,
+      "carb100": 10.4,
+      "fat100": 0.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "portakal_suyu_std",
+          "labelTr": "1 bardak",
+          "labelEn": "1 glass",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "protein_bar",
+      "nameEn": "Protein Bar",
+      "nameTr": "Protein Bar",
+      "category": "atistirmalik",
+      "kcal100": 370.0,
+      "protein100": 30.0,
+      "carb100": 38.0,
+      "fat100": 10.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "protein_bar_std",
+          "labelTr": "1 bar",
+          "labelEn": "1 bar",
+          "grams": 60.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "raki",
+      "nameEn": "Raki",
+      "nameTr": "Raki",
+      "category": "icecek",
+      "kcal100": 231.0,
+      "protein100": 0.0,
+      "carb100": 0.0,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "raki_std",
+          "labelTr": "1 kadeh",
+          "labelEn": "1 glass",
+          "grams": 50.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "recel",
+      "nameEn": "Jam",
+      "nameTr": "Recel",
+      "category": "kahvaltilik",
+      "kcal100": 250.0,
+      "protein100": 0.4,
+      "carb100": 62.0,
+      "fat100": 0.1,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "recel_std",
+          "labelTr": "1 tatli kasigi",
+          "labelEn": "1 teaspoon",
+          "grams": 15.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "sarap_kirmizi",
+      "nameEn": "Red Wine",
+      "nameTr": "Kirmizi Sarap",
+      "category": "icecek",
+      "kcal100": 85.0,
+      "protein100": 0.1,
+      "carb100": 2.6,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "sarap_kirmizi_std",
+          "labelTr": "1 kadeh",
+          "labelEn": "1 glass",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "sehriye_corbasi",
+      "nameEn": "Chicken Noodle Soup",
+      "nameTr": "Tavuklu Sehriye Corbasi",
+      "category": "corba",
+      "kcal100": 48.0,
+      "protein100": 3.2,
+      "carb100": 6.0,
+      "fat100": 1.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "sehriye_corbasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "simit",
+      "nameEn": "Simit",
+      "nameTr": "Simit",
+      "category": "kahvaltilik",
+      "kcal100": 320.0,
+      "protein100": 9.5,
+      "carb100": 55.0,
+      "fat100": 6.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "simit_std",
+          "labelTr": "1 adet",
+          "labelEn": "1 piece",
+          "grams": 100.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "sucuk",
+      "nameEn": "Turkish Sausage",
+      "nameTr": "Sucuk",
+      "category": "kahvaltilik",
+      "kcal100": 430.0,
+      "protein100": 22.0,
+      "carb100": 2.0,
+      "fat100": 37.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "sucuk_std",
+          "labelTr": "3 dilim",
+          "labelEn": "3 slices",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "sucuklu_yumurta",
+      "nameEn": "Eggs with Turkish Sausage",
+      "nameTr": "Sucuklu Yumurta",
+      "category": "yemek",
+      "kcal100": 232.0,
+      "protein100": 14.5,
+      "carb100": 1.5,
+      "fat100": 18.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "sucuklu_yumurta_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "sut_tam_yagli",
+      "nameEn": "Whole Milk",
+      "nameTr": "Tam Yagli Sut",
+      "category": "sutUrunu",
+      "kcal100": 61.0,
+      "protein100": 3.2,
+      "carb100": 4.8,
+      "fat100": 3.3,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "sut_tam_yagli_std",
+          "labelTr": "1 su bardagi",
+          "labelEn": "1 cup",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "sut_yarim_yagli",
+      "nameEn": "Semi-Skimmed Milk",
+      "nameTr": "Yarim Yagli Sut",
+      "category": "sutUrunu",
+      "kcal100": 47.0,
+      "protein100": 3.4,
+      "carb100": 4.9,
+      "fat100": 1.6,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "sut_yarim_yagli_std",
+          "labelTr": "1 su bardagi",
+          "labelEn": "1 cup",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "sutlac",
+      "nameEn": "Rice Pudding",
+      "nameTr": "Sutlac",
+      "category": "atistirmalik",
+      "kcal100": 132.0,
+      "protein100": 3.5,
+      "carb100": 22.0,
+      "fat100": 3.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "sutlac_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "sutlu_kahve",
+      "nameEn": "Latte",
+      "nameTr": "Sutlu Kahve",
+      "category": "icecek",
+      "kcal100": 42.0,
+      "protein100": 2.2,
+      "carb100": 3.5,
+      "fat100": 2.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "sutlu_kahve_std",
+          "labelTr": "1 kupa",
+          "labelEn": "1 mug",
+          "grams": 240.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "suzme_yogurt",
+      "nameEn": "Strained Yogurt",
+      "nameTr": "Suzme Yogurt",
+      "category": "sutUrunu",
+      "kcal100": 97.0,
+      "protein100": 9.0,
+      "carb100": 3.9,
+      "fat100": 5.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "suzme_yogurt_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "tahin",
+      "nameEn": "Tahini",
+      "nameTr": "Tahin",
+      "category": "kahvaltilik",
+      "kcal100": 595.0,
+      "protein100": 17.0,
+      "carb100": 21.0,
+      "fat100": 50.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "tahin_std",
+          "labelTr": "1 yemek kasigi",
+          "labelEn": "1 tablespoon",
+          "grams": 15.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "tam_bugday_ekmek",
+      "nameEn": "Whole Wheat Bread",
+      "nameTr": "Tam Bugday Ekmegi",
+      "category": "tahil",
+      "kcal100": 247.0,
+      "protein100": 10.5,
+      "carb100": 41.0,
+      "fat100": 3.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "tam_bugday_ekmek_std",
+          "labelTr": "1 dilim",
+          "labelEn": "1 slice",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "tarhana_corbasi",
+      "nameEn": "Tarhana Soup",
+      "nameTr": "Tarhana Corbasi",
+      "category": "corba",
+      "kcal100": 55.0,
+      "protein100": 2.4,
+      "carb100": 8.5,
+      "fat100": 1.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "tarhana_corbasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "tavuk_but_firin",
+      "nameEn": "Roasted Chicken Thigh",
+      "nameTr": "Firinda Tavuk But",
+      "category": "yemek",
+      "kcal100": 232.0,
+      "protein100": 25.0,
+      "carb100": 0.0,
+      "fat100": 14.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "tavuk_but_firin_std",
+          "labelTr": "1 but",
+          "labelEn": "1 thigh",
+          "grams": 130.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "tavuk_izgara",
+      "nameEn": "Grilled Chicken Breast",
+      "nameTr": "Izgara Tavuk Gogsu",
+      "category": "yemek",
+      "kcal100": 165.0,
+      "protein100": 31.0,
+      "carb100": 0.0,
+      "fat100": 3.6,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "tavuk_izgara_std",
+          "labelTr": "1 gogus",
+          "labelEn": "1 breast",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "tavuk_sote",
+      "nameEn": "Chicken Saute",
+      "nameTr": "Tavuk Sote",
+      "category": "yemek",
+      "kcal100": 145.0,
+      "protein100": 17.0,
+      "carb100": 5.0,
+      "fat100": 6.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "tavuk_sote_std",
+          "labelTr": "1 porsiyon",
+          "labelEn": "1 serving",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "tereyagi",
+      "nameEn": "Butter",
+      "nameTr": "Tereyagi",
+      "category": "kahvaltilik",
+      "kcal100": 717.0,
+      "protein100": 0.9,
+      "carb100": 0.1,
+      "fat100": 79.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "tereyagi_std",
+          "labelTr": "1 tatli kasigi",
+          "labelEn": "1 teaspoon",
+          "grams": 8.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "turk_kahvesi",
+      "nameEn": "Turkish Coffee, plain",
+      "nameTr": "Turk Kahvesi",
+      "category": "icecek",
+      "kcal100": 3.0,
+      "protein100": 0.2,
+      "carb100": 0.5,
+      "fat100": 0.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "turk_kahvesi_std",
+          "labelTr": "1 fincan",
+          "labelEn": "1 cup",
+          "grams": 70.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "turlu",
+      "nameEn": "Mixed Vegetable Stew",
+      "nameTr": "Sebze Turlu",
+      "category": "yemek",
+      "kcal100": 68.0,
+      "protein100": 2.0,
+      "carb100": 8.5,
+      "fat100": 3.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "turlu_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "whey_protein",
+      "nameEn": "Whey Protein Powder",
+      "nameTr": "Whey Protein Tozu",
+      "category": "atistirmalik",
+      "kcal100": 380.0,
+      "protein100": 78.0,
+      "carb100": 8.0,
+      "fat100": 4.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "whey_protein_std",
+          "labelTr": "1 olcek",
+          "labelEn": "1 scoop",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "yaprak_sarma",
+      "nameEn": "Stuffed Vine Leaves",
+      "nameTr": "Zeytinyagli Yaprak Sarma",
+      "category": "yemek",
+      "kcal100": 165.0,
+      "protein100": 3.2,
+      "carb100": 22.0,
+      "fat100": 7.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "yaprak_sarma_std",
+          "labelTr": "5 sarma",
+          "labelEn": "5 rolls",
+          "grams": 150.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "yayla_corbasi",
+      "nameEn": "Yogurt and Rice Soup",
+      "nameTr": "Yayla Corbasi",
+      "category": "corba",
+      "kcal100": 58.0,
+      "protein100": 2.6,
+      "carb100": 7.5,
+      "fat100": 2.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "yayla_corbasi_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 250.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "yogurt_light",
+      "nameEn": "Low-Fat Yogurt",
+      "nameTr": "Light Yogurt",
+      "category": "sutUrunu",
+      "kcal100": 47.0,
+      "protein100": 4.3,
+      "carb100": 6.0,
+      "fat100": 0.5,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "yogurt_light_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "yogurt_tam",
+      "nameEn": "Full-Fat Yogurt",
+      "nameTr": "Tam Yagli Yogurt",
+      "category": "sutUrunu",
+      "kcal100": 61.0,
+      "protein100": 3.5,
+      "carb100": 4.7,
+      "fat100": 3.3,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "yogurt_tam_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 200.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "yulaf_ezmesi",
+      "nameEn": "Rolled Oats",
+      "nameTr": "Yulaf Ezmesi",
+      "category": "tahil",
+      "kcal100": 389.0,
+      "protein100": 16.9,
+      "carb100": 66.0,
+      "fat100": 6.9,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "yulaf_ezmesi_std",
+          "labelTr": "1 su bardagi",
+          "labelEn": "1 cup",
+          "grams": 80.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "zeytin_siyah",
+      "nameEn": "Black Olives",
+      "nameTr": "Siyah Zeytin",
+      "category": "kahvaltilik",
+      "kcal100": 145.0,
+      "protein100": 1.0,
+      "carb100": 4.0,
+      "fat100": 14.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "zeytin_siyah_std",
+          "labelTr": "8 tane",
+          "labelEn": "8 pieces",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "zeytin_yesil",
+      "nameEn": "Green Olives",
+      "nameTr": "Yesil Zeytin",
+      "category": "kahvaltilik",
+      "kcal100": 132.0,
+      "protein100": 1.0,
+      "carb100": 3.5,
+      "fat100": 13.0,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "zeytin_yesil_std",
+          "labelTr": "8 tane",
+          "labelEn": "8 pieces",
+          "grams": 30.0,
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "id": "zeytinyagli_taze_fasulye",
+      "nameEn": "Green Beans in Olive Oil",
+      "nameTr": "Zeytinyagli Taze Fasulye",
+      "category": "yemek",
+      "kcal100": 78.0,
+      "protein100": 2.2,
+      "carb100": 8.0,
+      "fat100": 4.2,
+      "source": "curated",
+      "sourceRef": "TUBER 2022 / TurKomp",
+      "portions": [
+        {
+          "id": "zeytinyagli_taze_fasulye_std",
+          "labelTr": "1 kase",
+          "labelEn": "1 bowl",
+          "grams": 220.0,
+          "isDefault": true
+        }
+      ]
+    }
+  ]
+}
