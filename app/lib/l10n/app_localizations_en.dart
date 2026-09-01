@@ -1160,6 +1160,45 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sportsNoteHint => 'e.g. once a week, Sunday morning';
 
   @override
+  String get reminderMealBody => 'Meal time. Log what you eat from Diet.';
+
+  @override
+  String get rhythmMealsSection => 'Meals';
+
+  @override
+  String get rhythmMealFlexible => 'Flexible time';
+
+  @override
+  String get mealBehaviorPlanned => 'Plan fills it';
+
+  @override
+  String get mealBehaviorFixed => 'Always the same';
+
+  @override
+  String get mealBehaviorExternal => 'Canteen/eating out';
+
+  @override
+  String get mealBehaviorFixedNoteLabel => 'What do you eat?';
+
+  @override
+  String get mealBehaviorFixedNoteHint => 'e.g. menemen + tea';
+
+  @override
+  String mealBehaviorSheetTitle(String meal) {
+    return '$meal routine';
+  }
+
+  @override
+  String get mealBehaviorTimeLabel => 'Time';
+
+  @override
+  String get mealBehaviorTimeClear => 'Clear time';
+
+  @override
+  String get mealBehaviorWhy =>
+      'This goes into the AI plan: a fixed meal is left untouched, an external meal is never planned.';
+
+  @override
   String get settingsProfileHeightRequired => 'Height is required.';
 
   @override

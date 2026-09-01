@@ -28,6 +28,7 @@ List<PlannedReminder> plan({
   List<String> dueLabMarkers = const [],
   DateTime? planEndDate,
   bool twoDayMissStreak = false,
+  List<MealTimeFact> mealTimes = const [],
   int maxCount = 60,
 }) => planWindow(
   now: now ?? DateTime(2026, 9, 1, 8),
@@ -37,6 +38,7 @@ List<PlannedReminder> plan({
   dueLabMarkers: dueLabMarkers,
   planEndDate: planEndDate,
   twoDayMissStreak: twoDayMissStreak,
+  mealTimes: mealTimes,
   maxCount: maxCount,
 );
 
@@ -141,6 +143,60 @@ void main() {
       final r = plan(slots: weekSlots(), kindEnabled: {'meal': true});
       expect(r.first.payload, ReminderPayloads.meal);
       expect(ReminderPayloads.tabIndex[ReminderPayloads.meal], 1);
+    });
+  });
+
+  group('öğün davranışı saatleri (v3)', () {
+    test('tanımlı saat her gün için kurulur ve Diyet sekmesini açar', () {
+      final r = plan(
+        kindEnabled: {'meal': true},
+        mealTimes: [(mealKind: 'ogle', time: '12:30')],
+      );
+
+      // 1 Eylül 12:30'dan pencere sonuna kadar günde bir.
+      expect(r, hasLength(7));
+      expect(r.every((p) => p.payload == ReminderPayloads.meal), isTrue);
+      expect(r.first.text.kind, ReminderTextKind.meal);
+      expect(r.first.text.marker, 'ogle');
+    });
+
+    test('düzen saati varsa plandaki öğün slotları susar', () {
+      final r = plan(
+        slots: weekSlots(),
+        kindEnabled: {'meal': true, 'workout': true},
+        mealTimes: [(mealKind: 'kahvalti', time: '07:00')],
+      );
+
+      // Slot kaynaklı kahvaltılar (06:30) yok; antrenmanlar duruyor.
+      expect(r.where((p) => p.text.kind == ReminderTextKind.slotOther),
+          isEmpty);
+      expect(
+        r.where((p) => p.text.kind == ReminderTextKind.slotWorkout),
+        isNotEmpty,
+      );
+      expect(
+        r.where((p) => p.text.kind == ReminderTextKind.meal),
+        isNotEmpty,
+      );
+    });
+
+    test('öğün bildirimi kapalıysa düzen saati de kurulmaz', () {
+      final r = plan(
+        kindEnabled: {'meal': false},
+        mealTimes: [(mealKind: 'ogle', time: '12:30')],
+      );
+      expect(r, isEmpty);
+    });
+
+    test('bozuk saat sessizce atlanır — diğer öğünler etkilenmez', () {
+      final r = plan(
+        kindEnabled: {'meal': true},
+        mealTimes: [
+          (mealKind: 'ogle', time: 'öğlen'),
+          (mealKind: 'aksam', time: '19:00'),
+        ],
+      );
+      expect(r.every((p) => p.text.marker == 'aksam'), isTrue);
     });
   });
 

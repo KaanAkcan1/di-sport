@@ -41,6 +41,10 @@ enum ReminderTextKind {
   dueLab,
   planEnding,
   supplement,
+
+  /// Öğün davranışından gelen günlük öğün hatırlatması (v3 §3.4).
+  /// `marker` öğünün `MealKind` adını taşır; metin katmanı çevirir.
+  meal,
 }
 
 /// Metnin türü ve içine gireceği **veri**.
@@ -73,6 +77,12 @@ class PlannedReminder {
 
 /// Plandaki tek slot — hatırlatma için gereken kadarı.
 typedef SlotFact = ({String date, String time, String kind, String label});
+
+/// Bir öğünün günlük saati — Günlük Düzen'deki davranıştan (v3 §3.4).
+///
+/// `external` öğünler buraya hiç girmez: yemekhane saatini hatırlatmak
+/// anlamsız. Saati boş olanlar da girmez — esnek öğüne alarm kurulmaz.
+typedef MealTimeFact = ({String mealKind, String time});
 
 /// Bir takviye — hatırlatma için gereken kadarı.
 ///
@@ -115,13 +125,18 @@ List<PlannedReminder> planWindow({
   required DateTime? planEndDate,
   required bool twoDayMissStreak,
   List<SupplementFact> supplements = const [],
+  List<MealTimeFact> mealTimes = const [],
   List<WeeklyWindow> blockedWindows = const [],
   int windowDays = 7,
   int maxCount = 60,
 }) {
   final until = now.add(Duration(days: windowDays));
   final candidates = <PlannedReminder>[
-    ..._slotReminders(slots, kindEnabled),
+    // Günlük Düzen'de öğün saati tanımlıysa öğün hatırlatmasının
+    // kaynağı odur; plan slotlarındaki öğünler o zaman sessiz kalır —
+    // 12:00 (düzen) ve 12:30 (plan) diye iki alarm çalmasın.
+    ..._slotReminders(slots, kindEnabled, skipMeals: mealTimes.isNotEmpty),
+    ..._mealTimeReminders(now, mealTimes, kindEnabled, windowDays),
     ..._weighInReminders(now, wakeTime, windowDays),
     ..._missStreakReminder(now, twoDayMissStreak),
     ..._dueLabReminders(now, dueLabMarkers),
@@ -216,10 +231,12 @@ Iterable<PlannedReminder> _supplementReminders(
 /// bir alarmla uyanmamalı.
 Iterable<PlannedReminder> _slotReminders(
   List<SlotFact> slots,
-  Map<String, bool> kindEnabled,
-) sync* {
+  Map<String, bool> kindEnabled, {
+  bool skipMeals = false,
+}) sync* {
   for (final slot in slots) {
     if (kindEnabled[slot.kind] != true) continue;
+    if (skipMeals && slot.kind == 'meal') continue;
 
     final at = _parseDateTime(slot.date, slot.time);
     if (at == null) continue;
@@ -238,6 +255,36 @@ Iterable<PlannedReminder> _slotReminders(
         _ => ReminderPayloads.today,
       },
     );
+  }
+}
+
+/// 1b. Öğün davranışı saatleri — her gün aynı saatte (v3 §3.4).
+///
+/// Öğün hatırlatmaları da `meal` anahtarına bağlı: kullanıcı öğün
+/// bildirimini kapattıysa düzen saati de çalmaz.
+Iterable<PlannedReminder> _mealTimeReminders(
+  DateTime now,
+  List<MealTimeFact> mealTimes,
+  Map<String, bool> kindEnabled,
+  int windowDays,
+) sync* {
+  if (kindEnabled['meal'] != true) return;
+
+  for (final meal in mealTimes) {
+    final time = _parseTime(meal.time);
+    if (time == null) continue;
+
+    for (var offset = 0; offset <= windowDays; offset++) {
+      final day = DateTime(now.year, now.month, now.day + offset);
+      final at = day.add(Duration(hours: time.hour, minutes: time.minute));
+
+      yield PlannedReminder(
+        id: _idFor(at, 'mealtime:${meal.mealKind}'),
+        fireAt: at,
+        text: ReminderText(ReminderTextKind.meal, marker: meal.mealKind),
+        payload: ReminderPayloads.meal,
+      );
+    }
   }
 }
 

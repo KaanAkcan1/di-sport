@@ -11,6 +11,22 @@ import 'package:disport/features/reminders/domain/reminder_planner.dart';
 ///
 /// Slot etiketi ve tahlil adı **çevrilmez** — onlar kullanıcının kendi
 /// verisi, arayüz metni değil.
+/// Öğün hatırlatmasının başlığı — `MealKind` adından çeviriye.
+///
+/// Bilinmeyen ad olduğu gibi döner: planlayıcıdan gelen değer bizim
+/// verimiz ama bildirim katmanında hata fırlatmak alarmı susturur;
+/// yanlış başlıklı alarm, hiç çalmayan alarmdan iyidir.
+String _mealTitle(AppLocalizations l10n, String mealKind) =>
+    switch (mealKind) {
+      'kahvalti' => l10n.mealKahvalti,
+      'araOgun' => l10n.mealAraOgun,
+      'ogle' => l10n.mealOgle,
+      'ikindi' => l10n.mealIkindi,
+      'aksam' => l10n.mealAksam,
+      'gece' => l10n.mealGece,
+      _ => mealKind,
+    };
+
 PendingReminder localiseReminder(
   PlannedReminder planned,
   AppLocalizations l10n,
@@ -44,6 +60,10 @@ PendingReminder localiseReminder(
           ? l10n.reminderSupplementBody
           : l10n.reminderSupplementBodyWithDose(text.marker!),
     ),
+    ReminderTextKind.meal => (
+      _mealTitle(l10n, text.marker ?? ''),
+      l10n.reminderMealBody,
+    ),
     ReminderTextKind.planEnding => (
       l10n.reminderPlanEndingTitle,
       (text.daysLeft ?? 0) == 0
@@ -53,6 +73,7 @@ PendingReminder localiseReminder(
   };
 
   return PendingReminder(
+
     id: planned.id,
     fireAt: planned.fireAt,
     title: title,

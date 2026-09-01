@@ -2138,6 +2138,78 @@ abstract class AppLocalizations {
   /// **'örn. haftada 1, pazar sabahı'**
   String get sportsNoteHint;
 
+  /// No description provided for @reminderMealBody.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öğün saati. Yediklerini Diyet\'ten kaydet.'**
+  String get reminderMealBody;
+
+  /// No description provided for @rhythmMealsSection.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öğünler'**
+  String get rhythmMealsSection;
+
+  /// No description provided for @rhythmMealFlexible.
+  ///
+  /// In tr, this message translates to:
+  /// **'Saat esnek'**
+  String get rhythmMealFlexible;
+
+  /// No description provided for @mealBehaviorPlanned.
+  ///
+  /// In tr, this message translates to:
+  /// **'Plan doldurur'**
+  String get mealBehaviorPlanned;
+
+  /// No description provided for @mealBehaviorFixed.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hep aynı'**
+  String get mealBehaviorFixed;
+
+  /// No description provided for @mealBehaviorExternal.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yemekhane/dışarıda'**
+  String get mealBehaviorExternal;
+
+  /// No description provided for @mealBehaviorFixedNoteLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ne yenir?'**
+  String get mealBehaviorFixedNoteLabel;
+
+  /// No description provided for @mealBehaviorFixedNoteHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'örn. menemen + çay'**
+  String get mealBehaviorFixedNoteHint;
+
+  /// No description provided for @mealBehaviorSheetTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'{meal} düzeni'**
+  String mealBehaviorSheetTitle(String meal);
+
+  /// No description provided for @mealBehaviorTimeLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Saat'**
+  String get mealBehaviorTimeLabel;
+
+  /// No description provided for @mealBehaviorTimeClear.
+  ///
+  /// In tr, this message translates to:
+  /// **'Saati kaldır'**
+  String get mealBehaviorTimeClear;
+
+  /// No description provided for @mealBehaviorWhy.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu bilgi yapay zekâ planına gider: sabit öğün değiştirilmez, dışarıda yenen öğün planlanmaz.'**
+  String get mealBehaviorWhy;
+
   /// No description provided for @settingsProfileHeightRequired.
   ///
   /// In tr, this message translates to:

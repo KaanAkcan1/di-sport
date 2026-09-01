@@ -6,8 +6,10 @@ import 'package:disport/features/health/data/lab_repository.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/reminders/application/reminder_texts.dart';
 import 'package:disport/features/reminders/domain/reminder_planner.dart';
+import 'package:disport/features/settings/data/meal_behaviors_repository.dart';
 import 'package:disport/features/settings/data/profile_repository.dart';
 import 'package:disport/features/settings/data/weekly_windows_repository.dart';
+import 'package:disport/features/settings/domain/meal_behavior.dart';
 import 'package:disport/features/supplements/data/supplements_repository.dart';
 import 'package:disport/features/today/data/today_repository.dart';
 
@@ -43,6 +45,7 @@ class ReminderScheduler {
     required this.profile,
     required this.windows,
     required this.supplements,
+    required this.mealBehaviors,
   });
 
   final NotificationService service;
@@ -57,6 +60,10 @@ class ReminderScheduler {
 
   /// Takviye ve ilaç tanımları — altıncı bildirim türünün kaynağı.
   final SupplementsRepository supplements;
+
+  /// Günlük Düzen'deki öğün saatleri (v3 §3.4) — saat tanımlıysa öğün
+  /// hatırlatmasının kaynağı plandaki slot değil budur.
+  final MealBehaviorsRepository mealBehaviors;
 
   /// Pencereyi baştan kurar; kurulan bildirim sayısını döner.
   ///
@@ -108,6 +115,14 @@ class ReminderScheduler {
       planEndDate: plan?.days.last.date,
       twoDayMissStreak: missedStreak >= 2,
       blockedWindows: await windows.all(),
+      // `external` öğüne alarm kurulmaz: yemekhanenin saati bizim
+      // hatırlatmamıza bakmıyor. Saatsiz (esnek) öğün de girmez.
+      mealTimes: [
+        for (final entry in await mealBehaviors.watchAll().first)
+          if (entry.behavior != MealBehavior.external &&
+              (entry.time ?? '').isNotEmpty)
+            (mealKind: entry.meal.name, time: entry.time!),
+      ],
       // `notifiableKinds` zaten 'supplement' içeriyordu ama karşılığı
       // yoktu — Ayarlar'da işlevsiz bir anahtar duruyordu. Artık
       // gerçekten süzüyor: kapalıysa hiç aday üretilmiyor.

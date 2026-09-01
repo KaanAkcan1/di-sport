@@ -8,6 +8,7 @@ import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart'
 import 'package:disport/features/health/application/health_providers.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/reminders/application/reminder_scheduler.dart';
+import 'package:disport/features/settings/data/meal_behaviors_repository.dart';
 import 'package:disport/features/settings/data/weekly_windows_repository.dart';
 import 'package:disport/features/supplements/application/supplement_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
@@ -77,4 +78,5 @@ ReminderScheduler reminderScheduler(Ref ref) => ReminderScheduler(
   profile: ref.watch(profileRepositoryProvider),
   windows: WeeklyWindowsRepository(ref.watch(appDatabaseProvider)),
   supplements: ref.watch(supplementsRepositoryProvider),
+  mealBehaviors: MealBehaviorsRepository(ref.watch(appDatabaseProvider)),
 );

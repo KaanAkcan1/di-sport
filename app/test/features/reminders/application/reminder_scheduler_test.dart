@@ -7,6 +7,7 @@ import 'package:disport/features/health/data/lab_repository.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/reminders/application/reminder_scheduler.dart';
 import 'package:disport/features/reminders/domain/reminder_planner.dart';
+import 'package:disport/features/settings/data/meal_behaviors_repository.dart';
 import 'package:disport/features/settings/data/profile_repository.dart';
 import 'package:disport/features/settings/data/weekly_windows_repository.dart';
 import 'package:disport/features/supplements/data/supplements_repository.dart';
@@ -60,6 +61,7 @@ void main() {
       profile: ProfileRepository(db),
       windows: WeeklyWindowsRepository(db),
       supplements: SupplementsRepository(db),
+      mealBehaviors: MealBehaviorsRepository(db),
     );
   });
   tearDown(() => db.close());

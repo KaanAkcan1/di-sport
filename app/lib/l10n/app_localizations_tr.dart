@@ -1157,6 +1157,45 @@ class AppLocalizationsTr extends AppLocalizations {
   String get sportsNoteHint => 'örn. haftada 1, pazar sabahı';
 
   @override
+  String get reminderMealBody => 'Öğün saati. Yediklerini Diyet\'ten kaydet.';
+
+  @override
+  String get rhythmMealsSection => 'Öğünler';
+
+  @override
+  String get rhythmMealFlexible => 'Saat esnek';
+
+  @override
+  String get mealBehaviorPlanned => 'Plan doldurur';
+
+  @override
+  String get mealBehaviorFixed => 'Hep aynı';
+
+  @override
+  String get mealBehaviorExternal => 'Yemekhane/dışarıda';
+
+  @override
+  String get mealBehaviorFixedNoteLabel => 'Ne yenir?';
+
+  @override
+  String get mealBehaviorFixedNoteHint => 'örn. menemen + çay';
+
+  @override
+  String mealBehaviorSheetTitle(String meal) {
+    return '$meal düzeni';
+  }
+
+  @override
+  String get mealBehaviorTimeLabel => 'Saat';
+
+  @override
+  String get mealBehaviorTimeClear => 'Saati kaldır';
+
+  @override
+  String get mealBehaviorWhy =>
+      'Bu bilgi yapay zekâ planına gider: sabit öğün değiştirilmez, dışarıda yenen öğün planlanmaz.';
+
+  @override
   String get settingsProfileHeightRequired => 'Boy alanı gerekli.';
 
   @override
