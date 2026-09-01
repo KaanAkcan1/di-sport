@@ -2,6 +2,8 @@ import 'package:disport/app/theme/app_theme.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/supplements/application/supplement_providers.dart';
+import 'package:disport/features/supplements/domain/supplement.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/today_repository.dart';
 import 'package:disport/features/today/presentation/today_screen.dart';
@@ -26,6 +28,8 @@ void main() {
 
     return ProviderScope(
       overrides: [
+        // Takviye dozları da Drift akışı; ekran testi bağlanmamalı.
+        todayDosesProvider.overrideWithValue(const <SupplementDose>[]),
         todayIsoProvider.overrideWithValue('2026-08-31'),
         clockProvider.overrideWith((ref) => Stream.value(at)),
         todayPlanDayProvider.overrideWith((ref) => Stream.value(planDay)),

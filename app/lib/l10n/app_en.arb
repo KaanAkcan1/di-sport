@@ -446,5 +446,48 @@
   "reminderDueLabBody": "{marker} is due for a retest.",
   "reminderPlanEndingTitle": "Plan is ending",
   "reminderPlanEndingToday": "Your plan ends today. Grab the context file for a new one.",
-  "reminderPlanEndingIn": "Your plan ends in {days} days. Time to prepare the next one."
+  "reminderPlanEndingIn": "Your plan ends in {days} days. Time to prepare the next one.",
+  "supplementsTitle": "Supplements and medication",
+  "supplementsDescription": "Vitamins, supplements, medication — set the times and tick them off on Today.",
+  "supplementsOpen": "Supplement list",
+  "supplementsEmptyTitle": "No supplements yet",
+  "supplementsEmptyDescription": "Add whatever you take. Give it a time and you'll get a reminder too.",
+  "supplementAddFab": "Supplement",
+  "supplementAddTitle": "Add supplement",
+  "supplementEditTitle": "Edit supplement",
+  "supplementNameLabel": "Name",
+  "supplementNameHint": "Vitamin D",
+  "supplementNameRequired": "Name is required",
+  "supplementDoseLabel": "Dose",
+  "supplementDoseHint": "1000",
+  "supplementUnitLabel": "Unit",
+  "supplementUnitHint": "IU",
+  "supplementNoteLabel": "Note",
+  "supplementNoteHint": "With food",
+  "supplementTimesSection": "Times",
+  "supplementTimesEmpty": "No times set — no reminder will be scheduled.",
+  "supplementAddTime": "Add time",
+  "supplementRemoveTime": "Remove time",
+  "supplementDaysSection": "Days",
+  "supplementEveryDay": "Every day",
+  "supplementDeleteTitle": "Delete \"{name}\"?",
+  "supplementDeleteBody": "Removed from the list and from reminders. Your past records stay — nothing is lost.",
+  "supplementTakenSemantics": "{name} at {time}, taken",
+  "@supplementTakenSemantics": {
+    "placeholders": {
+      "name": {},
+      "time": {}
+    }
+  },
+  "supplementNotTakenSemantics": "{name} at {time}, not taken",
+  "@supplementNotTakenSemantics": {
+    "placeholders": {
+      "name": {},
+      "time": {}
+    }
+  },
+  "supplementDoseCount": "{count} item(s)",
+  "supplementSectionLabel": "Supplements",
+  "reminderSupplementBody": "Time to take it.",
+  "reminderSupplementBodyWithDose": "{dose} — time to take it."
 }

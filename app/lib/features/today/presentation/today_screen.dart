@@ -13,6 +13,7 @@ import 'package:disport/features/today/presentation/day_note_field.dart';
 import 'package:disport/features/today/presentation/measurement_inputs.dart';
 import 'package:disport/features/today/presentation/missed_streak_banner.dart';
 import 'package:disport/features/today/presentation/slot_list.dart';
+import 'package:disport/features/today/presentation/supplement_doses_card.dart';
 import 'package:disport/features/workout/presentation/workout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -56,6 +57,8 @@ class TodayScreen extends ConsumerWidget {
               _DinnerHint(text: day.dinnerSuggestion),
           ],
 
+          const SizedBox(height: AppSpacing.xl2),
+          const SupplementDosesCard(),
           const SizedBox(height: AppSpacing.xl2),
           const MeasurementInputs(),
           const SizedBox(height: AppSpacing.xl2),

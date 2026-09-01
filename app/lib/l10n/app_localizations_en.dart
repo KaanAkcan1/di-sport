@@ -1260,4 +1260,111 @@ class AppLocalizationsEn extends AppLocalizations {
   String reminderPlanEndingIn(Object days) {
     return 'Your plan ends in $days days. Time to prepare the next one.';
   }
+
+  @override
+  String get supplementsTitle => 'Supplements and medication';
+
+  @override
+  String get supplementsDescription =>
+      'Vitamins, supplements, medication — set the times and tick them off on Today.';
+
+  @override
+  String get supplementsOpen => 'Supplement list';
+
+  @override
+  String get supplementsEmptyTitle => 'No supplements yet';
+
+  @override
+  String get supplementsEmptyDescription =>
+      'Add whatever you take. Give it a time and you\'ll get a reminder too.';
+
+  @override
+  String get supplementAddFab => 'Supplement';
+
+  @override
+  String get supplementAddTitle => 'Add supplement';
+
+  @override
+  String get supplementEditTitle => 'Edit supplement';
+
+  @override
+  String get supplementNameLabel => 'Name';
+
+  @override
+  String get supplementNameHint => 'Vitamin D';
+
+  @override
+  String get supplementNameRequired => 'Name is required';
+
+  @override
+  String get supplementDoseLabel => 'Dose';
+
+  @override
+  String get supplementDoseHint => '1000';
+
+  @override
+  String get supplementUnitLabel => 'Unit';
+
+  @override
+  String get supplementUnitHint => 'IU';
+
+  @override
+  String get supplementNoteLabel => 'Note';
+
+  @override
+  String get supplementNoteHint => 'With food';
+
+  @override
+  String get supplementTimesSection => 'Times';
+
+  @override
+  String get supplementTimesEmpty =>
+      'No times set — no reminder will be scheduled.';
+
+  @override
+  String get supplementAddTime => 'Add time';
+
+  @override
+  String get supplementRemoveTime => 'Remove time';
+
+  @override
+  String get supplementDaysSection => 'Days';
+
+  @override
+  String get supplementEveryDay => 'Every day';
+
+  @override
+  String supplementDeleteTitle(Object name) {
+    return 'Delete \"$name\"?';
+  }
+
+  @override
+  String get supplementDeleteBody =>
+      'Removed from the list and from reminders. Your past records stay — nothing is lost.';
+
+  @override
+  String supplementTakenSemantics(Object name, Object time) {
+    return '$name at $time, taken';
+  }
+
+  @override
+  String supplementNotTakenSemantics(Object name, Object time) {
+    return '$name at $time, not taken';
+  }
+
+  @override
+  String supplementDoseCount(Object count) {
+    return '$count item(s)';
+  }
+
+  @override
+  String get supplementSectionLabel => 'Supplements';
+
+  @override
+  String get reminderSupplementBody => 'Time to take it.';
+
+  @override
+  String reminderSupplementBodyWithDose(Object dose) {
+    return '$dose — time to take it.';
+  }
 }

@@ -2280,6 +2280,192 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'Plan {days} gün sonra bitiyor. Yeni planı hazırlamanın vakti.'**
   String reminderPlanEndingIn(Object days);
+
+  /// No description provided for @supplementsTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Takviye ve ilaçlar'**
+  String get supplementsTitle;
+
+  /// No description provided for @supplementsDescription.
+  ///
+  /// In tr, this message translates to:
+  /// **'Vitamin, takviye, ilaç — saatini gir, Bugün ekranında işaretle.'**
+  String get supplementsDescription;
+
+  /// No description provided for @supplementsOpen.
+  ///
+  /// In tr, this message translates to:
+  /// **'Takviye listesi'**
+  String get supplementsOpen;
+
+  /// No description provided for @supplementsEmptyTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Takviye eklenmemiş'**
+  String get supplementsEmptyTitle;
+
+  /// No description provided for @supplementsEmptyDescription.
+  ///
+  /// In tr, this message translates to:
+  /// **'Vitamin, ilaç, ne alıyorsan ekle. Saatini girersen hatırlatma da kurulur.'**
+  String get supplementsEmptyDescription;
+
+  /// No description provided for @supplementAddFab.
+  ///
+  /// In tr, this message translates to:
+  /// **'Takviye'**
+  String get supplementAddFab;
+
+  /// No description provided for @supplementAddTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Takviye ekle'**
+  String get supplementAddTitle;
+
+  /// No description provided for @supplementEditTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Takviyeyi düzenle'**
+  String get supplementEditTitle;
+
+  /// No description provided for @supplementNameLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ad'**
+  String get supplementNameLabel;
+
+  /// No description provided for @supplementNameHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'D Vitamini'**
+  String get supplementNameHint;
+
+  /// No description provided for @supplementNameRequired.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ad gerekli'**
+  String get supplementNameRequired;
+
+  /// No description provided for @supplementDoseLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Doz'**
+  String get supplementDoseLabel;
+
+  /// No description provided for @supplementDoseHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'1000'**
+  String get supplementDoseHint;
+
+  /// No description provided for @supplementUnitLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Birim'**
+  String get supplementUnitLabel;
+
+  /// No description provided for @supplementUnitHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'IU'**
+  String get supplementUnitHint;
+
+  /// No description provided for @supplementNoteLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Not'**
+  String get supplementNoteLabel;
+
+  /// No description provided for @supplementNoteHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yemekle birlikte'**
+  String get supplementNoteHint;
+
+  /// No description provided for @supplementTimesSection.
+  ///
+  /// In tr, this message translates to:
+  /// **'Saatler'**
+  String get supplementTimesSection;
+
+  /// No description provided for @supplementTimesEmpty.
+  ///
+  /// In tr, this message translates to:
+  /// **'Saat eklenmedi — hatırlatma kurulmaz.'**
+  String get supplementTimesEmpty;
+
+  /// No description provided for @supplementAddTime.
+  ///
+  /// In tr, this message translates to:
+  /// **'Saat ekle'**
+  String get supplementAddTime;
+
+  /// No description provided for @supplementRemoveTime.
+  ///
+  /// In tr, this message translates to:
+  /// **'Saati kaldır'**
+  String get supplementRemoveTime;
+
+  /// No description provided for @supplementDaysSection.
+  ///
+  /// In tr, this message translates to:
+  /// **'Günler'**
+  String get supplementDaysSection;
+
+  /// No description provided for @supplementEveryDay.
+  ///
+  /// In tr, this message translates to:
+  /// **'Her gün'**
+  String get supplementEveryDay;
+
+  /// No description provided for @supplementDeleteTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'\"{name}\" silinsin mi?'**
+  String supplementDeleteTitle(Object name);
+
+  /// No description provided for @supplementDeleteBody.
+  ///
+  /// In tr, this message translates to:
+  /// **'Listeden ve hatırlatmalardan kalkar. Geçmiş kayıtların durur — hiçbir şey kaybolmaz.'**
+  String get supplementDeleteBody;
+
+  /// No description provided for @supplementTakenSemantics.
+  ///
+  /// In tr, this message translates to:
+  /// **'{name}, {time}, alındı'**
+  String supplementTakenSemantics(Object name, Object time);
+
+  /// No description provided for @supplementNotTakenSemantics.
+  ///
+  /// In tr, this message translates to:
+  /// **'{name}, {time}, alınmadı'**
+  String supplementNotTakenSemantics(Object name, Object time);
+
+  /// No description provided for @supplementDoseCount.
+  ///
+  /// In tr, this message translates to:
+  /// **'{count} kalem'**
+  String supplementDoseCount(Object count);
+
+  /// No description provided for @supplementSectionLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Takviye'**
+  String get supplementSectionLabel;
+
+  /// No description provided for @reminderSupplementBody.
+  ///
+  /// In tr, this message translates to:
+  /// **'Alma vakti geldi.'**
+  String get reminderSupplementBody;
+
+  /// No description provided for @reminderSupplementBodyWithDose.
+  ///
+  /// In tr, this message translates to:
+  /// **'{dose} — alma vakti geldi.'**
+  String reminderSupplementBodyWithDose(Object dose);
 }
 
 class _AppLocalizationsDelegate

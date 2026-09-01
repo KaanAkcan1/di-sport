@@ -446,5 +446,48 @@
   "reminderDueLabBody": "{marker} tahlilinin vakti geldi.",
   "reminderPlanEndingTitle": "Plan bitiyor",
   "reminderPlanEndingToday": "Plan bugün bitiyor. Yeni plan için bağlam dosyasını al.",
-  "reminderPlanEndingIn": "Plan {days} gün sonra bitiyor. Yeni planı hazırlamanın vakti."
+  "reminderPlanEndingIn": "Plan {days} gün sonra bitiyor. Yeni planı hazırlamanın vakti.",
+  "supplementsTitle": "Takviye ve ilaçlar",
+  "supplementsDescription": "Vitamin, takviye, ilaç — saatini gir, Bugün ekranında işaretle.",
+  "supplementsOpen": "Takviye listesi",
+  "supplementsEmptyTitle": "Takviye eklenmemiş",
+  "supplementsEmptyDescription": "Vitamin, ilaç, ne alıyorsan ekle. Saatini girersen hatırlatma da kurulur.",
+  "supplementAddFab": "Takviye",
+  "supplementAddTitle": "Takviye ekle",
+  "supplementEditTitle": "Takviyeyi düzenle",
+  "supplementNameLabel": "Ad",
+  "supplementNameHint": "D Vitamini",
+  "supplementNameRequired": "Ad gerekli",
+  "supplementDoseLabel": "Doz",
+  "supplementDoseHint": "1000",
+  "supplementUnitLabel": "Birim",
+  "supplementUnitHint": "IU",
+  "supplementNoteLabel": "Not",
+  "supplementNoteHint": "Yemekle birlikte",
+  "supplementTimesSection": "Saatler",
+  "supplementTimesEmpty": "Saat eklenmedi — hatırlatma kurulmaz.",
+  "supplementAddTime": "Saat ekle",
+  "supplementRemoveTime": "Saati kaldır",
+  "supplementDaysSection": "Günler",
+  "supplementEveryDay": "Her gün",
+  "supplementDeleteTitle": "\"{name}\" silinsin mi?",
+  "supplementDeleteBody": "Listeden ve hatırlatmalardan kalkar. Geçmiş kayıtların durur — hiçbir şey kaybolmaz.",
+  "supplementTakenSemantics": "{name}, {time}, alındı",
+  "@supplementTakenSemantics": {
+    "placeholders": {
+      "name": {},
+      "time": {}
+    }
+  },
+  "supplementNotTakenSemantics": "{name}, {time}, alınmadı",
+  "@supplementNotTakenSemantics": {
+    "placeholders": {
+      "name": {},
+      "time": {}
+    }
+  },
+  "supplementDoseCount": "{count} kalem",
+  "supplementSectionLabel": "Takviye",
+  "reminderSupplementBody": "Alma vakti geldi.",
+  "reminderSupplementBodyWithDose": "{dose} — alma vakti geldi."
 }

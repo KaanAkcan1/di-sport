@@ -9,6 +9,7 @@ import 'package:disport/features/reminders/application/reminder_scheduler.dart';
 import 'package:disport/features/reminders/domain/reminder_planner.dart';
 import 'package:disport/features/settings/data/profile_repository.dart';
 import 'package:disport/features/settings/data/weekly_windows_repository.dart';
+import 'package:disport/features/supplements/data/supplements_repository.dart';
 import 'package:disport/features/today/data/today_repository.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -58,6 +59,7 @@ void main() {
       labs: LabRepository(db),
       profile: ProfileRepository(db),
       windows: WeeklyWindowsRepository(db),
+      supplements: SupplementsRepository(db),
     );
   });
   tearDown(() => db.close());

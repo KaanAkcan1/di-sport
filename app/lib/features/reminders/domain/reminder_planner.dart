@@ -33,6 +33,7 @@ enum ReminderTextKind {
   missStreak,
   dueLab,
   planEnding,
+  supplement,
 }
 
 /// Metnin türü ve içine gireceği **veri**.
@@ -66,6 +67,19 @@ class PlannedReminder {
 /// Plandaki tek slot — hatırlatma için gereken kadarı.
 typedef SlotFact = ({String date, String time, String kind, String label});
 
+/// Bir takviye — hatırlatma için gereken kadarı.
+///
+/// Saf katman `Supplement` modelini görmüyor: planlayıcının feature'a
+/// bağımlı olmaması, "salı 08:00 alarmı kurulur mu" sorusunun tek
+/// başına cevaplanabilmesi demek.
+typedef SupplementFact = ({
+  String id,
+  String name,
+  String doseLabel,
+  List<String> times,
+  Set<int> weekdays,
+});
+
 /// Önümüzdeki pencereye düşen bildirimleri hesaplar — saf fonksiyon.
 ///
 /// **Neden pencere:** iOS aynı anda en fazla 64 bekleyen bildirim tutar
@@ -93,6 +107,7 @@ List<PlannedReminder> planWindow({
   required List<String> dueLabMarkers,
   required DateTime? planEndDate,
   required bool twoDayMissStreak,
+  List<SupplementFact> supplements = const [],
   List<WeeklyWindow> blockedWindows = const [],
   int windowDays = 7,
   int maxCount = 60,
@@ -124,9 +139,67 @@ List<PlannedReminder> planWindow({
           .toList()
         ..sort((a, b) => a.fireAt.compareTo(b.fireAt));
 
-  return inWindow.length <= maxCount
-      ? inWindow
-      : inWindow.sublist(0, maxCount);
+  // Takviyeler yasaklı pencere süzgecinden **sonra** ekleniyor.
+  //
+  // Gerekçe: "bu saatlerde uygun değilim" mesai için doğru bir kural
+  // ama ilaç saati mesaiye kurban edilmez. Toplantıdayken antrenman
+  // hatırlatması istemeyen kullanıcı, tansiyon hapını da atlamak
+  // istemiyor.
+  final withSupplements =
+      [
+        ...inWindow,
+        ..._supplementReminders(now, supplements, windowDays)
+            .where((r) => r.fireAt.isAfter(now) && r.fireAt.isBefore(until)),
+      ]..sort((a, b) => a.fireAt.compareTo(b.fireAt));
+
+  return withSupplements.length <= maxCount
+      ? withSupplements
+      : withSupplements.sublist(0, maxCount);
+}
+
+/// 6. Takviye ve ilaç hatırlatmaları.
+///
+/// Hafta günü süzgeci burada uygulanıyor; saatsiz takviye hiç bildirim
+/// üretmiyor (kullanıcı saat girmediyse hatırlatma da istememiştir).
+Iterable<PlannedReminder> _supplementReminders(
+  DateTime now,
+  List<SupplementFact> supplements,
+  int windowDays,
+) sync* {
+  for (var offset = 0; offset <= windowDays; offset++) {
+    final day = DateTime(now.year, now.month, now.day + offset);
+
+    for (final supplement in supplements) {
+      final activeToday =
+          supplement.weekdays.isEmpty ||
+          supplement.weekdays.contains(day.weekday);
+      if (!activeToday) continue;
+
+      for (final time in supplement.times) {
+        final at = _parseTime(time);
+        if (at == null) continue;
+
+        final fireAt = DateTime(
+          day.year,
+          day.month,
+          day.day,
+          at.hour,
+          at.minute,
+        );
+
+        yield PlannedReminder(
+          id: _idFor(fireAt, 'supplement:${supplement.id}:$time'),
+          fireAt: fireAt,
+          text: ReminderText(
+            ReminderTextKind.supplement,
+            label: supplement.name,
+            marker: supplement.doseLabel,
+          ),
+          payload: ReminderPayloads.today,
+        );
+      }
+    }
+  }
 }
 
 /// 1. Slot hatırlatmaları.

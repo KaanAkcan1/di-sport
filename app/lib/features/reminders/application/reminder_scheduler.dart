@@ -8,6 +8,7 @@ import 'package:disport/features/reminders/application/reminder_texts.dart';
 import 'package:disport/features/reminders/domain/reminder_planner.dart';
 import 'package:disport/features/settings/data/profile_repository.dart';
 import 'package:disport/features/settings/data/weekly_windows_repository.dart';
+import 'package:disport/features/supplements/data/supplements_repository.dart';
 import 'package:disport/features/today/data/today_repository.dart';
 
 /// Bir bildirim türünün profil anahtarı.
@@ -41,6 +42,7 @@ class ReminderScheduler {
     required this.labs,
     required this.profile,
     required this.windows,
+    required this.supplements,
   });
 
   final NotificationService service;
@@ -52,6 +54,9 @@ class ReminderScheduler {
   /// Mesai ve yasaklı saat pencereleri; yasaklı olanlar bildirimleri
   /// eliyor.
   final WeeklyWindowsRepository windows;
+
+  /// Takviye ve ilaç tanımları — altıncı bildirim türünün kaynağı.
+  final SupplementsRepository supplements;
 
   /// Pencereyi baştan kurar; kurulan bildirim sayısını döner.
   ///
@@ -103,6 +108,22 @@ class ReminderScheduler {
       planEndDate: plan?.days.last.date,
       twoDayMissStreak: missedStreak >= 2,
       blockedWindows: await windows.all(),
+      // `notifiableKinds` zaten 'supplement' içeriyordu ama karşılığı
+      // yoktu — Ayarlar'da işlevsiz bir anahtar duruyordu. Artık
+      // gerçekten süzüyor: kapalıysa hiç aday üretilmiyor.
+      supplements: settings[notifKindKey('supplement')] == 'false'
+          ? const []
+          : [
+              for (final item in await supplements.all())
+                if (item.times.isNotEmpty)
+                  (
+                    id: item.id,
+                    name: item.name,
+                    doseLabel: item.doseLabel,
+                    times: item.times,
+                    weekdays: item.weekdays,
+                  ),
+            ],
     );
 
     // Boş liste de kuruluyor: önceki kurulumun temizlenmesi gerekiyor.

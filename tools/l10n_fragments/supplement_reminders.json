@@ -1,0 +1,4 @@
+{
+  "reminderSupplementBody": {"tr": "Alma vakti geldi.", "en": "Time to take it."},
+  "reminderSupplementBodyWithDose": {"tr": "{dose} — alma vakti geldi.", "en": "{dose} — time to take it."}
+}

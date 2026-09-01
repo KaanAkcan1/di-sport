@@ -7,6 +7,7 @@ import 'package:disport/features/settings/presentation/language_settings.dart';
 import 'package:disport/features/settings/presentation/notification_settings.dart';
 import 'package:disport/features/settings/presentation/profile_form.dart';
 import 'package:disport/features/settings/presentation/weekly_schedule_screen.dart';
+import 'package:disport/features/supplements/presentation/supplements_screen.dart';
 import 'package:flutter/material.dart';
 
 /// Ayarlar: profil, bildirimler, yedekleme.
@@ -24,6 +25,7 @@ class SettingsScreen extends StatelessWidget {
         trailing: [
           _WeeklyScheduleEntry(),
           _EquipmentEntry(),
+          _SupplementsEntry(),
           AppearanceSettings(),
           LanguageSettings(),
           NotificationSettings(),
@@ -79,6 +81,34 @@ class _WeeklyScheduleEntry extends StatelessWidget {
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute<void>(
               builder: (_) => const WeeklyScheduleScreen(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Takviye ve ilaç listesine giriş.
+class _SupplementsEntry extends StatelessWidget {
+  const _SupplementsEntry();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
+    return AppSection(
+      title: l10n.supplementsTitle,
+      description: l10n.supplementsDescription,
+      child: Card(
+        child: ListTile(
+          key: const Key('open-supplements'),
+          leading: const Icon(Icons.medication_outlined),
+          title: Text(l10n.supplementsOpen),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => const SupplementsScreen(),
             ),
           ),
         ),

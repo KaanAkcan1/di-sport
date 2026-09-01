@@ -1256,4 +1256,110 @@ class AppLocalizationsTr extends AppLocalizations {
   String reminderPlanEndingIn(Object days) {
     return 'Plan $days gün sonra bitiyor. Yeni planı hazırlamanın vakti.';
   }
+
+  @override
+  String get supplementsTitle => 'Takviye ve ilaçlar';
+
+  @override
+  String get supplementsDescription =>
+      'Vitamin, takviye, ilaç — saatini gir, Bugün ekranında işaretle.';
+
+  @override
+  String get supplementsOpen => 'Takviye listesi';
+
+  @override
+  String get supplementsEmptyTitle => 'Takviye eklenmemiş';
+
+  @override
+  String get supplementsEmptyDescription =>
+      'Vitamin, ilaç, ne alıyorsan ekle. Saatini girersen hatırlatma da kurulur.';
+
+  @override
+  String get supplementAddFab => 'Takviye';
+
+  @override
+  String get supplementAddTitle => 'Takviye ekle';
+
+  @override
+  String get supplementEditTitle => 'Takviyeyi düzenle';
+
+  @override
+  String get supplementNameLabel => 'Ad';
+
+  @override
+  String get supplementNameHint => 'D Vitamini';
+
+  @override
+  String get supplementNameRequired => 'Ad gerekli';
+
+  @override
+  String get supplementDoseLabel => 'Doz';
+
+  @override
+  String get supplementDoseHint => '1000';
+
+  @override
+  String get supplementUnitLabel => 'Birim';
+
+  @override
+  String get supplementUnitHint => 'IU';
+
+  @override
+  String get supplementNoteLabel => 'Not';
+
+  @override
+  String get supplementNoteHint => 'Yemekle birlikte';
+
+  @override
+  String get supplementTimesSection => 'Saatler';
+
+  @override
+  String get supplementTimesEmpty => 'Saat eklenmedi — hatırlatma kurulmaz.';
+
+  @override
+  String get supplementAddTime => 'Saat ekle';
+
+  @override
+  String get supplementRemoveTime => 'Saati kaldır';
+
+  @override
+  String get supplementDaysSection => 'Günler';
+
+  @override
+  String get supplementEveryDay => 'Her gün';
+
+  @override
+  String supplementDeleteTitle(Object name) {
+    return '\"$name\" silinsin mi?';
+  }
+
+  @override
+  String get supplementDeleteBody =>
+      'Listeden ve hatırlatmalardan kalkar. Geçmiş kayıtların durur — hiçbir şey kaybolmaz.';
+
+  @override
+  String supplementTakenSemantics(Object name, Object time) {
+    return '$name, $time, alındı';
+  }
+
+  @override
+  String supplementNotTakenSemantics(Object name, Object time) {
+    return '$name, $time, alınmadı';
+  }
+
+  @override
+  String supplementDoseCount(Object count) {
+    return '$count kalem';
+  }
+
+  @override
+  String get supplementSectionLabel => 'Takviye';
+
+  @override
+  String get reminderSupplementBody => 'Alma vakti geldi.';
+
+  @override
+  String reminderSupplementBodyWithDose(Object dose) {
+    return '$dose — alma vakti geldi.';
+  }
 }

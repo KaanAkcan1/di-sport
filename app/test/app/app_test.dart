@@ -12,6 +12,8 @@ import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/progress/application/progress_providers.dart';
 import 'package:disport/features/progress/domain/transition_criteria.dart';
 import 'package:disport/features/settings/application/settings_providers.dart';
+import 'package:disport/features/supplements/application/supplement_providers.dart';
+import 'package:disport/features/supplements/domain/supplement.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/daily_rules_repository.dart';
 import 'package:disport/features/today/data/today_repository.dart';
@@ -76,6 +78,8 @@ void main() {
       // M7: dil ayarı da Drift akışı; aynı sebeple sabitleniyor.
       appLocaleProvider.overrideWith((ref) => Stream.value(const Locale('tr'))),
       // Hafta şeridi de günlük kayıtları akışla okuyor.
+      // Takviye dozları da Drift akışı; ekran testi bağlanmamalı.
+      todayDosesProvider.overrideWithValue(const <SupplementDose>[]),
       weekFillProvider.overrideWith(
         (ref) => Stream.value(const <({DateTime day, bool filled})>[]),
       ),

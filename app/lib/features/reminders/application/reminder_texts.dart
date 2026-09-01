@@ -38,6 +38,12 @@ PendingReminder localiseReminder(
       l10n.reminderDueLabTitle,
       l10n.reminderDueLabBody(text.marker ?? ''),
     ),
+    ReminderTextKind.supplement => (
+      text.label ?? l10n.reminderSlotFallbackTitle,
+      (text.marker ?? '').isEmpty
+          ? l10n.reminderSupplementBody
+          : l10n.reminderSupplementBodyWithDose(text.marker!),
+    ),
     ReminderTextKind.planEnding => (
       l10n.reminderPlanEndingTitle,
       (text.daysLeft ?? 0) == 0
