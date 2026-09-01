@@ -111,13 +111,16 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('Geçen sefer: 9 · 8'), findsOneWidget);
+    // M12: düz cümle yerine GEÇEN sütunu.
+    expect(find.text('GEÇEN'), findsOneWidget);
+    expect(find.text('9/8'), findsOneWidget);
   });
 
   testWidgets('geçmiş yoksa satır hiç çıkmaz', (tester) async {
     await tester.pumpWidget(wrap());
     await tester.pumpAndSettle();
-    expect(find.textContaining('Geçen sefer'), findsNothing);
+    // Boş bir "—" kıyas varmış gibi görünürdü; sütun hiç çizilmiyor.
+    expect(find.text('GEÇEN'), findsNothing);
   });
 
   testWidgets('hareketin ipuçları kartta görünür', (tester) async {
@@ -126,11 +129,11 @@ void main() {
     expect(find.text('Karın sıkı'), findsWidgets);
   });
 
-  testWidgets('kardiyo yoğunluğu hedefin yanında gösterilir', (tester) async {
+  testWidgets('her hareket PLAN sütunu taşır', (tester) async {
     // fixturePlan'ın ilk günü salon günü değil; yoğunluk taşıyan bir
     // hareketle ayrı doğrulama gerekiyorsa örnek plan testinde yapılıyor.
     await tester.pumpWidget(wrap());
     await tester.pumpAndSettle();
-    expect(find.textContaining('Hedef: '), findsNWidgets(2));
+    expect(find.text('PLAN'), findsNWidgets(2));
   });
 }

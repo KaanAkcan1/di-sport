@@ -1,5 +1,7 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
+import 'package:disport/core/design/app_typography.dart';
+import 'package:disport/core/utils/turkish_text.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/presentation/exercise_detail_screen.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
@@ -85,10 +87,9 @@ class ExerciseSetCard extends ConsumerWidget {
               ],
             ),
 
-            const SizedBox(height: AppSpacing.sm),
-            _TargetRow(planExercise: planExercise),
-            _LastSessionRow(
-              exerciseId: planExercise.exerciseId,
+            const SizedBox(height: AppSpacing.md),
+            _ReferenceColumns(
+              planExercise: planExercise,
               isoDate: isoDate,
             ),
 
@@ -156,57 +157,115 @@ class ExerciseSetCard extends ConsumerWidget {
   }
 }
 
-class _TargetRow extends StatelessWidget {
-  const _TargetRow({required this.planExercise});
+/// Hedef ve geçen seans — iki soluk sütun.
+///
+/// **Neden iki sütun:** hedef tek başına "iyi gidiyor muyum" sorusunu
+/// cevaplamıyor. Hevy'nin deseni: geçen seferki gerçekleşme hedefin
+/// yanında durur ve oyunun kendisi onu geçmek olur. Önceden geçen seans
+/// hedefin altında düz bir cümleydi ve kıyas kurmak için okumak
+/// gerekiyordu; sütun hâlinde göz kendiliğinden karşılaştırıyor.
+///
+/// Geçen seans yoksa o sütun **hiç çizilmiyor** — boş bir "—" kıyas
+/// varmış gibi görünürdü.
+class _ReferenceColumns extends ConsumerWidget {
+  const _ReferenceColumns({required this.planExercise, required this.isoDate});
 
   final PlanExercise planExercise;
+  final String isoDate;
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final actuals =
+        ref
+            .watch(
+              lastActualsProvider(
+                lastActualsKey(planExercise.exerciseId, isoDate),
+              ),
+            )
+            .value ??
+        const <SetActual>[];
+
     final intensity = planExercise.intensity;
 
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Hedef: ', style: theme.textTheme.bodySmall),
-        Text(
-          planExercise.targetLabel,
-          style: theme.textTheme.titleSmall?.copyWith(
-            color: theme.colorScheme.primary,
+        if (actuals.isNotEmpty) ...[
+          _RefColumn(
+            caption: 'Geçen',
+            value: actuals.map((a) => a.shortLabel).join('/'),
           ),
-        ),
-        if (intensity != null) ...[
-          Text(' · ', style: theme.textTheme.bodySmall),
-          Text(intensity, style: theme.textTheme.bodySmall),
+          const SizedBox(width: AppSpacing.xl),
         ],
+        _RefColumn(
+          caption: 'Plan',
+          value: planExercise.targetLabel,
+          note: intensity,
+          accent: true,
+        ),
       ],
     );
   }
 }
 
-/// Geçen seferki gerçekleşme — hedefin altında, gri.
-class _LastSessionRow extends ConsumerWidget {
-  const _LastSessionRow({required this.exerciseId, required this.isoDate});
+class _RefColumn extends StatelessWidget {
+  const _RefColumn({
+    required this.caption,
+    required this.value,
+    this.note,
+    this.accent = false,
+  });
 
-  final String exerciseId;
-  final String isoDate;
+  final String caption;
+  final String value;
+  final String? note;
+  final bool accent;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final actuals = ref
-        .watch(lastActualsProvider(lastActualsKey(exerciseId, isoDate)))
-        .value;
-
-    if (actuals == null || actuals.isEmpty) return const SizedBox.shrink();
-
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.only(top: AppSpacing.xs),
-      child: Text(
-        'Geçen sefer: ${actuals.map((SetActual a) => a.shortLabel).join(' · ')}',
-        style: theme.textTheme.bodySmall?.copyWith(
-          color: theme.colorScheme.onSurfaceVariant,
-        ),
+
+    return Semantics(
+      label: '$caption: $value',
+      excludeSemantics: true,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            TurkishText.upper(caption),
+            style: AppTypography.statCaption.copyWith(
+              fontSize: 9,
+              letterSpacing: 1.2,
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+          const SizedBox(height: 2),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                value,
+                style: AppTypography.metricSmall.copyWith(
+                  color: accent
+                      ? theme.colorScheme.primary
+                      : theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+              if (note case final n?) ...[
+                const SizedBox(width: AppSpacing.xs),
+                Text(
+                  n,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ],
       ),
     );
   }

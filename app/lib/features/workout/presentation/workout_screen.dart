@@ -25,6 +25,20 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   Timer? _restTimer;
   var _restRemaining = 0;
 
+  /// Seansın başlangıcı — ekran açıldığı an.
+  ///
+  /// M9'da `workout_sessions` tablosuna yazılacak; kuvvet antrenmanının
+  /// kalorisi seans süresinden hesaplanıyor ve o veri şu an hiçbir yerde
+  /// tutulmuyor. Şimdilik ekran ömrü boyunca bellekte: ekran kapanıp
+  /// açılırsa sayaç sıfırlanır, kabul edilmiş sınır.
+  late final DateTime _startedAt;
+
+  @override
+  void initState() {
+    super.initState();
+    _startedAt = DateTime.now();
+  }
+
   @override
   void dispose() {
     _restTimer?.cancel();
@@ -103,6 +117,19 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
 
           return AppScreenBody(
             children: [
+              _SessionHeader(
+                // Saat `clockProvider`'dan: dakikada bir ilerliyor ve
+                // testte sabitlenebiliyor. Widget'ın kendi `Timer`ı
+                // olsaydı ekran söküldüğünde sızma riski doğardı ve
+                // test onu sahte-async bölgesinde kovalamak zorunda
+                // kalırdı.
+                elapsed:
+                    (ref.watch(clockProvider).value ?? _startedAt)
+                        .difference(_startedAt),
+                day: widget.day,
+                counts: value,
+              ),
+              const SizedBox(height: AppSpacing.xl2),
               for (final exercise in widget.day.exercises)
                 Padding(
                   padding: const EdgeInsets.only(bottom: AppSpacing.md),
@@ -117,6 +144,68 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
           );
         },
       ),
+    );
+  }
+}
+
+/// Seansın kahraman rakamı: geçen süre.
+///
+/// Her ekranın bir kahraman rakamı var (spec §2a.3); Antrenman'ınki
+/// süre. Kol mesafesinden okunuyor — telefon yerde, kullanıcı set
+/// arasında ona bakıyor.
+///
+/// ≈kcal M9'da bunun yanına geliyor: hesap seans süresi × MET ve MET
+/// verisi katalogda henüz yok.
+class _SessionHeader extends StatelessWidget {
+  const _SessionHeader({
+    required this.elapsed,
+    required this.day,
+    required this.counts,
+  });
+
+  final Duration elapsed;
+  final FullPlanDay day;
+  final Map<String, int> counts;
+
+  @override
+  Widget build(BuildContext context) {
+    final targetSets = day.exercises.fold<int>(
+      0,
+      (sum, exercise) => sum + (exercise.sets ?? 1),
+    );
+    final doneSets = day.exercises.fold<int>(0, (sum, exercise) {
+      final done = counts[exercise.exerciseId] ?? 0;
+      return sum + done.clamp(0, exercise.sets ?? 1);
+    });
+
+    // Negatife düşemez: saat kaynağı ile başlangıç anı arasında kayma
+    // olabilir (yaz saati, cihaz saatinin elle değiştirilmesi) ve
+    // "-3 dakikadır çalışıyorsun" saçma olurdu.
+    final minutes = elapsed.inMinutes.clamp(0, 24 * 60);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppHeroNumber(
+          caption: 'dakikadır çalışıyorsun',
+          // İlk dakikada "0" yazmak sayacın bozuk olduğunu düşündürüyor;
+          // bir dakika dolana kadar başlangıç anı gösteriliyor.
+          value: minutes == 0 ? 'yeni' : '$minutes',
+          unit: minutes == 0 ? null : 'dk',
+        ),
+        const SizedBox(height: AppSpacing.xl),
+        AppMetricStrip([
+          AppMetric(
+            caption: 'Set',
+            value: '$doneSets',
+            unit: '/$targetSets',
+          ),
+          AppMetric(
+            caption: 'Hareket',
+            value: '${day.exercises.length}',
+          ),
+        ]),
+      ],
     );
   }
 }
