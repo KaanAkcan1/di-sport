@@ -103,10 +103,10 @@ void main() {
 
     // Yer artık bir bağlam: ekran "Evde" sekmesiyle açılıyor, salona
     // özel hareket burada görünmüyor (M12).
-    expect(find.text('Eğimli Şınav'), findsOneWidget);
-    expect(find.text('Sandalyeye Squat'), findsOneWidget);
+    expect(find.text('Incline Push-Up (Eğimli Şınav)'), findsOneWidget);
+    expect(find.text('Chair Squat (Sandalyeye Squat)'), findsOneWidget);
     expect(find.text('Plank'), findsOneWidget, reason: '"both" her sekmede');
-    expect(find.text('Kondisyon Bisikleti'), findsNothing);
+    expect(find.text('Stationary Bike (Kondisyon Bisikleti)'), findsNothing);
     expect(_countLabel(tester), '3');
   });
 
@@ -117,8 +117,8 @@ void main() {
     await tester.enterText(find.byType(TextField), 'squat');
     await tester.pumpAndSettle();
 
-    expect(find.text('Sandalyeye Squat'), findsOneWidget);
-    expect(find.text('Eğimli Şınav'), findsNothing);
+    expect(find.text('Chair Squat (Sandalyeye Squat)'), findsOneWidget);
+    expect(find.text('Incline Push-Up (Eğimli Şınav)'), findsNothing);
     expect(_countLabel(tester), '1');
   });
 
@@ -129,7 +129,7 @@ void main() {
     await tester.enterText(find.byType(TextField), 'sinav');
     await tester.pumpAndSettle();
 
-    expect(find.text('Eğimli Şınav'), findsOneWidget);
+    expect(find.text('Incline Push-Up (Eğimli Şınav)'), findsOneWidget);
   });
 
   testWidgets('kas adıyla arama çalışır', (tester) async {
@@ -150,14 +150,14 @@ void main() {
     await tester.tap(find.text('Salonda'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Kondisyon Bisikleti'), findsOneWidget);
-    expect(find.text('Sandalyeye Squat'), findsNothing);
+    expect(find.text('Stationary Bike (Kondisyon Bisikleti)'), findsOneWidget);
+    expect(find.text('Chair Squat (Sandalyeye Squat)'), findsNothing);
     // 'both' olan hareket her iki sekmede de görünür.
     expect(find.text('Plank'), findsOneWidget);
 
     await tester.tap(find.text('Evde'));
     await tester.pumpAndSettle();
-    expect(find.text('Sandalyeye Squat'), findsOneWidget);
+    expect(find.text('Chair Squat (Sandalyeye Squat)'), findsOneWidget);
   });
 
   testWidgets('sekme seçili yeri korur — tekrar dokunmak sıfırlamaz', (
@@ -171,7 +171,7 @@ void main() {
     await tester.tap(find.text('Salonda'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Kondisyon Bisikleti'), findsOneWidget);
+    expect(find.text('Stationary Bike (Kondisyon Bisikleti)'), findsOneWidget);
   });
 
   testWidgets('kategori filtresi alt sayfadan uygulanır', (tester) async {
@@ -191,7 +191,7 @@ void main() {
     await tester.tapAt(const Offset(10, 10));
     await tester.pumpAndSettle();
 
-    expect(find.text('Kondisyon Bisikleti'), findsOneWidget);
+    expect(find.text('Stationary Bike (Kondisyon Bisikleti)'), findsOneWidget);
     expect(find.text('Plank'), findsNothing);
   });
 
@@ -228,7 +228,7 @@ void main() {
     await tester.tap(find.text('Filtreleri temizle'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Eğimli Şınav'), findsOneWidget);
+    expect(find.text('Incline Push-Up (Eğimli Şınav)'), findsOneWidget);
     // Filtre temizlenince arama kutusu da boşalmalı; yazı kalırsa
     // kullanıcı dolu listeyi filtreli sanır.
     expect(find.text('zzzz'), findsNothing);

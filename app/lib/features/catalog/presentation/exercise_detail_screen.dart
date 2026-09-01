@@ -3,6 +3,7 @@ import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
+import 'package:disport/features/catalog/presentation/display_name.dart';
 import 'package:disport/features/catalog/presentation/exercise_detail_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -70,7 +71,7 @@ class _Content extends StatelessWidget {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(exercise.displayNameTr),
+          title: Text(exerciseDisplayName(context, exercise)),
           // Etiketlerin varsayılan yatay dolgusu dört Türkçe kelimeyi
           // taşırıyor; "Varyantlar" son harfinden kırpılıyordu.
           bottom: TabBar(

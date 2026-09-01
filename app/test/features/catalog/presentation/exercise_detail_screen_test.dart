@@ -55,7 +55,7 @@ void main() {
     await tester.pumpWidget(wrap(exercise: pushup));
     await tester.pumpAndSettle();
 
-    expect(find.text('Eğimli Şınav'), findsOneWidget);
+    expect(find.text('Incline Push-Up (Eğimli Şınav)'), findsOneWidget);
     for (final tab in [
       'Adımlar',
       'Hatalar',

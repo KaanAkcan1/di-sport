@@ -1,5 +1,8 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/features/catalog/data/equipment_repository.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
+import 'package:disport/features/catalog/presentation/display_name.dart';
+import 'package:disport/features/catalog/presentation/equipment_badge.dart';
 import 'package:disport/features/catalog/presentation/exercise_visuals.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +17,8 @@ class ExerciseListTile extends StatelessWidget {
     required this.onTap,
     this.trailing,
     this.overline,
+    this.inventory = const EquipmentInventory.empty(),
+    this.where = ExerciseLocation.home,
   });
 
   final Exercise exercise;
@@ -21,6 +26,10 @@ class ExerciseListTile extends StatelessWidget {
 
   /// Sağ tarafa eklenecek isteğe bağlı içerik (M3'te set × tekrar).
   final Widget? trailing;
+
+  /// Envanter ve yer — gereklilik rozetinin girdisi.
+  final EquipmentInventory inventory;
+  final ExerciseLocation where;
 
   /// Kas listesinin yerine geçen bağlam satırı — "Cuma · 3×12 · 12,5 kg".
   ///
@@ -47,7 +56,7 @@ class ExerciseListTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      exercise.displayNameTr,
+                      exerciseDisplayName(context, exercise),
                       style: theme.textTheme.titleSmall,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -66,9 +75,17 @@ class ExerciseListTile extends StatelessWidget {
                     const SizedBox(height: AppSpacing.sm),
                     Row(
                       children: [
-                        ExerciseLocationBadge(location: exercise.location),
-                        const SizedBox(width: AppSpacing.sm),
                         ExerciseDifficultyBar(level: exercise.difficulty),
+                        const SizedBox(width: AppSpacing.sm),
+                        // Yer artık sekmeden belli; rozet onun yerine
+                        // "ne gerekiyor, bende var mı" diyor.
+                        Flexible(
+                          child: EquipmentBadge(
+                            exercise: exercise,
+                            inventory: inventory,
+                            where: where,
+                          ),
+                        ),
                       ],
                     ),
                   ],

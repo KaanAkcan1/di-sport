@@ -2,6 +2,7 @@ import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
+import 'package:disport/features/catalog/data/equipment_repository.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:disport/features/catalog/domain/recent_exercise_source.dart';
 import 'package:disport/features/catalog/presentation/catalog_filter_sheet.dart';
@@ -314,6 +315,10 @@ class _ExerciseList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final filter = ref.watch(catalogFilterProvider);
     final recent = ref.watch(recentExercisesProvider).value ?? const [];
+    final inventory =
+        ref.watch(equipmentInventoryProvider).value ??
+        const EquipmentInventory.empty();
+    final where = filter.location ?? ExerciseLocation.home;
 
     // "Son yaptıkların" yalnız süzülmemiş listede: kullanıcı arama
     // yaptığında sonuçların üstünde alakasız bir bölüm istemiyor.
@@ -342,6 +347,8 @@ class _ExerciseList extends ConsumerWidget {
               child: ExerciseListTile(
                 exercise: row.exercise,
                 overline: row.entry.summary,
+                inventory: inventory,
+                where: where,
                 onTap: () => _open(context, row.exercise),
               ),
             ),
@@ -363,6 +370,8 @@ class _ExerciseList extends ConsumerWidget {
             padding: const EdgeInsets.only(bottom: AppSpacing.sm),
             child: ExerciseListTile(
               exercise: exercise,
+              inventory: inventory,
+              where: where,
               onTap: () => _open(context, exercise),
             ),
           ),
