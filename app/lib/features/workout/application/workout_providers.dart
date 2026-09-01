@@ -42,3 +42,9 @@ Stream<List<LoggedSet>> dayWorkoutLogs(Ref ref, String isoDate) =>
 @riverpod
 Stream<List<SessionInfo>> daySessions(Ref ref, String isoDate) =>
     ref.watch(workoutRepositoryProvider).watchSessions(isoDate);
+
+/// Antrenman geçmişi günleri (v3 §6.3).
+@riverpod
+Stream<List<({String date, Duration total, int exerciseCount})>>
+workoutHistoryDays(Ref ref) =>
+    ref.watch(workoutRepositoryProvider).watchHistoryDays();

@@ -26,6 +26,7 @@ import 'package:disport/features/today/application/day_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/daily_rules_repository.dart';
 import 'package:disport/features/today/data/today_repository.dart';
+import 'package:disport/features/workout/application/workout_providers.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -110,6 +111,14 @@ void main() {
             isBuiltIn: true,
           ),
         ]),
+      ),
+      // v3 T16.3: ANTRENMAN sekmesi geçmişi ve bugünün planını akışla
+      // okuyor.
+      todayPlanDayProvider.overrideWith((ref) => Stream.value(null)),
+      workoutHistoryDaysProvider.overrideWith(
+        (ref) => Stream.value(
+          const <({String date, Duration total, int exerciseCount})>[],
+        ),
       ),
       // v3: kurulum paneli ve doğum günü satırı Drift akışlarına bakıyor.
       setupProgressProvider.overrideWith(

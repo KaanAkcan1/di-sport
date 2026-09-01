@@ -404,6 +404,45 @@ class WorkoutRepository {
             ],
           );
 
+  /// Antrenman geçmişi: seans ya da set kaydı olan günler, en yeni
+  /// önce (v3 §6.3). İki tabloyu da dinler — geçmişe elle eklenen
+  /// seans da, düzeltilen set de listeyi tazeler.
+  Stream<List<({String date, Duration total, int exerciseCount})>>
+  watchHistoryDays({int limit = 60}) => _db
+      .customSelect(
+        '''
+        SELECT dates.date AS date,
+          COALESCE((SELECT COUNT(DISTINCT e.exercise_id)
+            FROM exercise_logs e
+            WHERE e.date = dates.date AND e.deleted_at IS NULL), 0)
+            AS exercise_count,
+          COALESCE((SELECT SUM(s.ended_at - s.started_at)
+            FROM workout_sessions s
+            WHERE s.date = dates.date AND s.ended_at IS NOT NULL
+              AND s.deleted_at IS NULL), 0) AS total_seconds
+        FROM (
+          SELECT date FROM workout_sessions WHERE deleted_at IS NULL
+          UNION
+          SELECT date FROM exercise_logs WHERE deleted_at IS NULL
+        ) AS dates
+        ORDER BY dates.date DESC
+        LIMIT ?
+        ''',
+        variables: [Variable.withInt(limit)],
+        readsFrom: {_db.workoutSessions, _db.exerciseLogs},
+      )
+      .watch()
+      .map(
+        (rows) => [
+          for (final row in rows)
+            (
+              date: row.read<String>('date'),
+              total: Duration(seconds: row.read<int>('total_seconds')),
+              exerciseCount: row.read<int>('exercise_count'),
+            ),
+        ],
+      );
+
   /// Seans saatlerini elle yazar (geçmiş gün için seans girişi).
   ///
   /// [sessionId] verilirse o satır güncellenir; verilmezse kapalı bir

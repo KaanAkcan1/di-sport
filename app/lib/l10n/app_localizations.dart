@@ -2426,6 +2426,30 @@ abstract class AppLocalizations {
   /// **'Saniye'**
   String get plannedVsDoneSeconds;
 
+  /// No description provided for @sportWorkoutTodayTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bugünün antrenmanı'**
+  String get sportWorkoutTodayTitle;
+
+  /// No description provided for @sportWorkoutTodayBody.
+  ///
+  /// In tr, this message translates to:
+  /// **'Plan bugüne antrenman koydu.'**
+  String get sportWorkoutTodayBody;
+
+  /// No description provided for @sportWorkoutHistory.
+  ///
+  /// In tr, this message translates to:
+  /// **'Geçmiş'**
+  String get sportWorkoutHistory;
+
+  /// No description provided for @sportWorkoutExerciseCount.
+  ///
+  /// In tr, this message translates to:
+  /// **'{count} hareket'**
+  String sportWorkoutExerciseCount(int count);
+
   /// No description provided for @rhythmMealsSection.
   ///
   /// In tr, this message translates to:

@@ -1319,6 +1319,20 @@ class AppLocalizationsTr extends AppLocalizations {
   String get plannedVsDoneSeconds => 'Saniye';
 
   @override
+  String get sportWorkoutTodayTitle => 'Bugünün antrenmanı';
+
+  @override
+  String get sportWorkoutTodayBody => 'Plan bugüne antrenman koydu.';
+
+  @override
+  String get sportWorkoutHistory => 'Geçmiş';
+
+  @override
+  String sportWorkoutExerciseCount(int count) {
+    return '$count hareket';
+  }
+
+  @override
   String get rhythmMealsSection => 'Öğünler';
 
   @override

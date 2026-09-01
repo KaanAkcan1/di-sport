@@ -1322,6 +1322,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get plannedVsDoneSeconds => 'Seconds';
 
   @override
+  String get sportWorkoutTodayTitle => 'Today\'s workout';
+
+  @override
+  String get sportWorkoutTodayBody => 'The plan scheduled a workout today.';
+
+  @override
+  String get sportWorkoutHistory => 'History';
+
+  @override
+  String sportWorkoutExerciseCount(int count) {
+    return '$count exercises';
+  }
+
+  @override
   String get rhythmMealsSection => 'Meals';
 
   @override
