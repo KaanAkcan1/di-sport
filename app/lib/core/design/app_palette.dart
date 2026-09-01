@@ -214,4 +214,42 @@ abstract final class AppPalette {
   /// fildişi zeminde 2.83'e düştü. Ton (326°) korunarak koyulaştırıldı,
   /// 3.32:1. Koyu modda özgün pembe kullanılmaya devam ediyor.
   static const chartPinkOnLight = Color(0xFFC06C9B);
+
+  // ---------------------------------------------------------------------
+  // Alan renkleri (v3) — beş sekmenin kimliği.
+  //
+  // Okabe-Ito ailesinden seçildi ki grafiklerle aynı dili konuşsunlar.
+  // Renk hiçbir yerde tek başına anlam taşımaz; ikon + etiket her zaman
+  // eşlik eder. Diyet marka yeşilini kullanır (ayrı sabit yok).
+  //
+  // `*OnLight` varyantları grafiklerdeki kuralın aynısı: özgün renkler
+  // fildişi zeminde 3:1 eşiğinin altında kalıyor (sport 2.13, health
+  // 2.83, med 2.22); eşik düşürülmez, ton korunarak koyulaştırılır.
+  // Ölçülen oranlar: sportOnLight 4.19, healthOnLight 4.31,
+  // medOnLight 4.75 (fildişi üstünde).
+  // ---------------------------------------------------------------------
+  static const areaSport = chartSky; // #56B4E9 — ink850'de 6.92:1
+  static const areaSportOnLight = Color(0xFF2E7DAB);
+  static const areaHealth = chartPink; // #CC79A7 — ink850'de 5.21:1
+  static const areaHealthOnLight = Color(0xFFA85B86);
+  static const areaMed = Color(0xFFB39DDB); // ink850'de 6.66:1
+  static const areaMedOnLight = Color(0xFF7E5FA8);
+  static const areaEnergy = chartOrange;
+
+  /// `chartOrangeOnLight` (3.20 fildişi) alan yüzeyi `F7EDD8` üstünde
+  /// 2.97'ye düşüyor — ikon kutusu kendi yüzeyinde de 3:1 ister. Ton
+  /// korunarak bir kademe daha koyu: yüzeyde 3.50, fildişide 3.76.
+  static const areaEnergyOnLight = Color(0xFFA87400);
+
+  /// Alan renklerinin koyu moddaki zemin yüzeyleri — `tile` kutuları.
+  static const areaSportSurfaceDark = Color(0xFF16303F);
+  static const areaHealthSurfaceDark = Color(0xFF33222E);
+  static const areaMedSurfaceDark = Color(0xFF2A2438);
+  static const areaEnergySurfaceDark = Color(0xFF382E18);
+
+  /// Açık moddaki yüzeyler — fildişiyle uyumlu soluk tonlar.
+  static const areaSportSurfaceLight = Color(0xFFE2EFF7);
+  static const areaHealthSurfaceLight = Color(0xFFF4E6EE);
+  static const areaMedSurfaceLight = Color(0xFFEDE7F6);
+  static const areaEnergySurfaceLight = Color(0xFFF7EDD8);
 }

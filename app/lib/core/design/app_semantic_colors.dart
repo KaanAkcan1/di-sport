@@ -28,6 +28,16 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
     required this.chartSeries,
     required this.chartGrid,
     required this.chartMuted,
+    required this.areaDiet,
+    required this.areaDietSurface,
+    required this.areaSport,
+    required this.areaSportSurface,
+    required this.areaHealth,
+    required this.areaHealthSurface,
+    required this.areaMed,
+    required this.areaMedSurface,
+    required this.areaEnergy,
+    required this.areaEnergySurface,
   });
 
   /// Yapıldı, referans aralığında, hedefe ulaşıldı.
@@ -69,6 +79,20 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
   /// kalması gereken ikincil seri.
   final Color chartMuted;
 
+  /// Alan renkleri (v3): beş sekmenin kimliği. Açık modda koyulaştırılmış
+  /// varyantlar döner (`areaSportOnLight`…) — eşik düşmez, renk koyulaşır.
+  /// Diyet marka yeşilini paylaşır.
+  final Color areaDiet;
+  final Color areaDietSurface;
+  final Color areaSport;
+  final Color areaSportSurface;
+  final Color areaHealth;
+  final Color areaHealthSurface;
+  final Color areaMed;
+  final Color areaMedSurface;
+  final Color areaEnergy;
+  final Color areaEnergySurface;
+
   static const light = AppSemanticColors(
     success: AppPalette.successLight,
     onSuccess: AppPalette.neutral0,
@@ -90,6 +114,16 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
     ],
     chartGrid: AppPalette.ivory200,
     chartMuted: AppPalette.neutral400,
+    areaDiet: AppPalette.brand700,
+    areaDietSurface: AppPalette.brand50,
+    areaSport: AppPalette.areaSportOnLight,
+    areaSportSurface: AppPalette.areaSportSurfaceLight,
+    areaHealth: AppPalette.areaHealthOnLight,
+    areaHealthSurface: AppPalette.areaHealthSurfaceLight,
+    areaMed: AppPalette.areaMedOnLight,
+    areaMedSurface: AppPalette.areaMedSurfaceLight,
+    areaEnergy: AppPalette.areaEnergyOnLight,
+    areaEnergySurface: AppPalette.areaEnergySurfaceLight,
   );
 
   static const dark = AppSemanticColors(
@@ -113,6 +147,16 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
     ],
     chartGrid: AppPalette.ink750,
     chartMuted: AppPalette.mist500,
+    areaDiet: AppPalette.brand400,
+    areaDietSurface: AppPalette.successSurfaceDark,
+    areaSport: AppPalette.areaSport,
+    areaSportSurface: AppPalette.areaSportSurfaceDark,
+    areaHealth: AppPalette.areaHealth,
+    areaHealthSurface: AppPalette.areaHealthSurfaceDark,
+    areaMed: AppPalette.areaMed,
+    areaMedSurface: AppPalette.areaMedSurfaceDark,
+    areaEnergy: AppPalette.areaEnergy,
+    areaEnergySurface: AppPalette.areaEnergySurfaceDark,
   );
 
   @override
@@ -131,6 +175,16 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
     List<Color>? chartSeries,
     Color? chartGrid,
     Color? chartMuted,
+    Color? areaDiet,
+    Color? areaDietSurface,
+    Color? areaSport,
+    Color? areaSportSurface,
+    Color? areaHealth,
+    Color? areaHealthSurface,
+    Color? areaMed,
+    Color? areaMedSurface,
+    Color? areaEnergy,
+    Color? areaEnergySurface,
   }) {
     return AppSemanticColors(
       success: success ?? this.success,
@@ -147,6 +201,16 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
       chartSeries: chartSeries ?? this.chartSeries,
       chartGrid: chartGrid ?? this.chartGrid,
       chartMuted: chartMuted ?? this.chartMuted,
+      areaDiet: areaDiet ?? this.areaDiet,
+      areaDietSurface: areaDietSurface ?? this.areaDietSurface,
+      areaSport: areaSport ?? this.areaSport,
+      areaSportSurface: areaSportSurface ?? this.areaSportSurface,
+      areaHealth: areaHealth ?? this.areaHealth,
+      areaHealthSurface: areaHealthSurface ?? this.areaHealthSurface,
+      areaMed: areaMed ?? this.areaMed,
+      areaMedSurface: areaMedSurface ?? this.areaMedSurface,
+      areaEnergy: areaEnergy ?? this.areaEnergy,
+      areaEnergySurface: areaEnergySurface ?? this.areaEnergySurface,
     );
   }
 
@@ -168,6 +232,19 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
       chartSeries: t < 0.5 ? chartSeries : other.chartSeries,
       chartGrid: Color.lerp(chartGrid, other.chartGrid, t)!,
       chartMuted: Color.lerp(chartMuted, other.chartMuted, t)!,
+      areaDiet: Color.lerp(areaDiet, other.areaDiet, t)!,
+      areaDietSurface: Color.lerp(areaDietSurface, other.areaDietSurface, t)!,
+      areaSport: Color.lerp(areaSport, other.areaSport, t)!,
+      areaSportSurface:
+          Color.lerp(areaSportSurface, other.areaSportSurface, t)!,
+      areaHealth: Color.lerp(areaHealth, other.areaHealth, t)!,
+      areaHealthSurface:
+          Color.lerp(areaHealthSurface, other.areaHealthSurface, t)!,
+      areaMed: Color.lerp(areaMed, other.areaMed, t)!,
+      areaMedSurface: Color.lerp(areaMedSurface, other.areaMedSurface, t)!,
+      areaEnergy: Color.lerp(areaEnergy, other.areaEnergy, t)!,
+      areaEnergySurface:
+          Color.lerp(areaEnergySurface, other.areaEnergySurface, t)!,
     );
   }
 }

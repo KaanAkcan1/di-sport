@@ -129,6 +129,42 @@ void main() {
         }
       });
 
+      test('alan renkleri yüzey üstünde arayüz eşiğini geçer (3:1)', () {
+        // v3 alan renkleri: sekme kimliği ve ikon kutuları. Açık modda
+        // koyulaştırılmış varyantlar döner (eşik düşmez, renk koyulaşır —
+        // grafiklerle aynı kural).
+        for (final (name, color) in [
+          ('diet', sem.areaDiet),
+          ('sport', sem.areaSport),
+          ('health', sem.areaHealth),
+          ('med', sem.areaMed),
+          ('energy', sem.areaEnergy),
+        ]) {
+          expect(
+            contrastRatio(color, s.surface),
+            greaterThanOrEqualTo(aaLarge),
+            reason: '$mode: alan rengi $name yüzeyde silik',
+          );
+        }
+      });
+
+      test('alan yüzeyleri üstünde alan rengi okunur (3:1)', () {
+        // İkon kutusu: alan rengi kendi yüzeyinin üstünde duruyor.
+        for (final (name, fg, bg) in [
+          ('diet', sem.areaDiet, sem.areaDietSurface),
+          ('sport', sem.areaSport, sem.areaSportSurface),
+          ('health', sem.areaHealth, sem.areaHealthSurface),
+          ('med', sem.areaMed, sem.areaMedSurface),
+          ('energy', sem.areaEnergy, sem.areaEnergySurface),
+        ]) {
+          expect(
+            contrastRatio(fg, bg),
+            greaterThanOrEqualTo(aaLarge),
+            reason: '$mode: $name ikonu kendi kutusunda silik',
+          );
+        }
+      });
+
       test('grafik serileri zeminden ayrışır (3:1)', () {
         for (final (i, c) in sem.chartSeries.indexed) {
           expect(
