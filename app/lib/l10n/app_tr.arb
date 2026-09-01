@@ -509,5 +509,124 @@
   "equipmentJumpRope": "Atlama ipi",
   "catalogEquipmentMissingHome": "{equipment} gerekiyor (evinde yok)",
   "catalogEquipmentMissingGym": "{equipment} gerekiyor (salonunda yok)",
-  "catalogEquipmentCheck": "{equipment} — kontrol et"
+  "catalogEquipmentCheck": "{equipment} — kontrol et",
+  "foodSearchHint": "Besin ara",
+  "foodSearchEmptyTitle": "Bulunamadı",
+  "foodSearchEmptyMessage": "Daha kısa bir sözcük dene ya da diğer dilde ara.",
+  "foodStartTitle": "Henüz kayıt yok",
+  "foodStartMessage": "Bir besin ara ya da yukarıdan tür seç.",
+  "foodFrequentTitle": "Sık yediklerin",
+  "foodCopyLastMeal": "Bu öğünü son seferkinden kopyala",
+  "foodCopyDone": "{count, plural, one{1 kalem kopyalandı} other{{count} kalem kopyalandı}}",
+  "@foodCopyDone": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "foodCopyNothingToCopy": "Bu öğünde daha önce kayıt yok",
+  "foodPer100g": "100 g'da {kcal} kcal",
+  "@foodPer100g": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "foodPerPortion": "{portion} — {kcal} kcal",
+  "@foodPerPortion": {
+    "placeholders": {
+      "portion": {
+        "type": "String"
+      },
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "foodCategoryYemek": "Yemek",
+  "foodCategoryCorba": "Çorba",
+  "foodCategoryKahvaltilik": "Kahvaltılık",
+  "foodCategoryMeyve": "Meyve",
+  "foodCategorySebze": "Sebze",
+  "foodCategoryKuruyemis": "Kuruyemiş",
+  "foodCategoryIcecek": "İçecek",
+  "foodCategoryTahil": "Tahıl",
+  "foodCategoryEtBalik": "Et ve balık",
+  "foodCategorySutUrunu": "Süt ürünü",
+  "foodCategoryAtistirmalik": "Atıştırmalık",
+  "foodCategoryDiger": "Diğer",
+  "mealKahvalti": "Kahvaltı",
+  "mealAraOgun": "Kuşluk",
+  "mealOgle": "Öğle",
+  "mealIkindi": "İkindi",
+  "mealAksam": "Akşam",
+  "mealGece": "Gece",
+  "portionUnitGrams100": "100 g",
+  "portionCustomGramsLabel": "Tarttın mı?",
+  "portionCustomGramsHelper": "Gram girersen porsiyonun yerine geçer",
+  "portionGrams": "MİKTAR",
+  "portionKcal": "KALORİ",
+  "portionProtein": "PROTEİN",
+  "portionAddToMeal": "Öğüne ekle",
+  "portionDecrease": "Bir azalt",
+  "portionIncrease": "Bir artır",
+  "activityLogTitle": "Aktivite ekle",
+  "activitySearchHint": "Aktivite ara",
+  "activityMinutesLabel": "Dakika",
+  "activityEstimate": "≈{kcal} kcal",
+  "@activityEstimate": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "activityAdd": "Ekle",
+  "activityEmptyTitle": "Eşleşen aktivite yok",
+  "activityEmptyMessage": "Başka bir sözcük dene ya da aşağıdan kendin ekle.",
+  "activityCustomTitle": "Kendin ekle",
+  "activityCustomNameLabel": "Aktivite adı",
+  "activityCustomEffortLabel": "Ne kadar zorladı?",
+  "effortLight": "Hafif",
+  "effortModerate": "Orta",
+  "effortVigorous": "Zorlu",
+  "todayMealsTitle": "Öğünler",
+  "todayActivitiesTitle": "Hareket",
+  "todayAddMeal": "Öğün ekle",
+  "todayAddActivity": "Aktivite ekle",
+  "todayHeroRemaining": "BUGÜN KALAN",
+  "todayHeroEatenNoPlan": "BUGÜN YENEN",
+  "todayMetricProtein": "PROTEİN",
+  "todayMetricBurned": "YAKILAN",
+  "mealEntryRemoved": "Kaldırıldı",
+  "mealEntryUndo": "Geri al",
+  "progressCaloriesTitle": "Bu haftanın kalorisi",
+  "progressCaloriesGoalLine": "Hedef",
+  "progressDayBreakdown": "{date} dökümü",
+  "@progressDayBreakdown": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarOverBy": "+{kcal}",
+  "@calendarOverBy": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarUnderBy": "−{kcal}",
+  "@calendarUnderBy": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "catalogTabOutside": "Dışarıda"
 }

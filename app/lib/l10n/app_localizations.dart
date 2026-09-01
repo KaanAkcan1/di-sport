@@ -2586,6 +2586,408 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'{equipment} — kontrol et'**
   String catalogEquipmentCheck(Object equipment);
+
+  /// No description provided for @foodSearchHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Besin ara'**
+  String get foodSearchHint;
+
+  /// No description provided for @foodSearchEmptyTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bulunamadı'**
+  String get foodSearchEmptyTitle;
+
+  /// No description provided for @foodSearchEmptyMessage.
+  ///
+  /// In tr, this message translates to:
+  /// **'Daha kısa bir sözcük dene ya da diğer dilde ara.'**
+  String get foodSearchEmptyMessage;
+
+  /// No description provided for @foodStartTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Henüz kayıt yok'**
+  String get foodStartTitle;
+
+  /// No description provided for @foodStartMessage.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bir besin ara ya da yukarıdan tür seç.'**
+  String get foodStartMessage;
+
+  /// No description provided for @foodFrequentTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sık yediklerin'**
+  String get foodFrequentTitle;
+
+  /// No description provided for @foodCopyLastMeal.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu öğünü son seferkinden kopyala'**
+  String get foodCopyLastMeal;
+
+  /// No description provided for @foodCopyDone.
+  ///
+  /// In tr, this message translates to:
+  /// **'{count, plural, one{1 kalem kopyalandı} other{{count} kalem kopyalandı}}'**
+  String foodCopyDone(int count);
+
+  /// No description provided for @foodCopyNothingToCopy.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu öğünde daha önce kayıt yok'**
+  String get foodCopyNothingToCopy;
+
+  /// No description provided for @foodPer100g.
+  ///
+  /// In tr, this message translates to:
+  /// **'100 g\'da {kcal} kcal'**
+  String foodPer100g(int kcal);
+
+  /// No description provided for @foodPerPortion.
+  ///
+  /// In tr, this message translates to:
+  /// **'{portion} — {kcal} kcal'**
+  String foodPerPortion(String portion, int kcal);
+
+  /// No description provided for @foodCategoryYemek.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yemek'**
+  String get foodCategoryYemek;
+
+  /// No description provided for @foodCategoryCorba.
+  ///
+  /// In tr, this message translates to:
+  /// **'Çorba'**
+  String get foodCategoryCorba;
+
+  /// No description provided for @foodCategoryKahvaltilik.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kahvaltılık'**
+  String get foodCategoryKahvaltilik;
+
+  /// No description provided for @foodCategoryMeyve.
+  ///
+  /// In tr, this message translates to:
+  /// **'Meyve'**
+  String get foodCategoryMeyve;
+
+  /// No description provided for @foodCategorySebze.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sebze'**
+  String get foodCategorySebze;
+
+  /// No description provided for @foodCategoryKuruyemis.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kuruyemiş'**
+  String get foodCategoryKuruyemis;
+
+  /// No description provided for @foodCategoryIcecek.
+  ///
+  /// In tr, this message translates to:
+  /// **'İçecek'**
+  String get foodCategoryIcecek;
+
+  /// No description provided for @foodCategoryTahil.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tahıl'**
+  String get foodCategoryTahil;
+
+  /// No description provided for @foodCategoryEtBalik.
+  ///
+  /// In tr, this message translates to:
+  /// **'Et ve balık'**
+  String get foodCategoryEtBalik;
+
+  /// No description provided for @foodCategorySutUrunu.
+  ///
+  /// In tr, this message translates to:
+  /// **'Süt ürünü'**
+  String get foodCategorySutUrunu;
+
+  /// No description provided for @foodCategoryAtistirmalik.
+  ///
+  /// In tr, this message translates to:
+  /// **'Atıştırmalık'**
+  String get foodCategoryAtistirmalik;
+
+  /// No description provided for @foodCategoryDiger.
+  ///
+  /// In tr, this message translates to:
+  /// **'Diğer'**
+  String get foodCategoryDiger;
+
+  /// No description provided for @mealKahvalti.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kahvaltı'**
+  String get mealKahvalti;
+
+  /// No description provided for @mealAraOgun.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kuşluk'**
+  String get mealAraOgun;
+
+  /// No description provided for @mealOgle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öğle'**
+  String get mealOgle;
+
+  /// No description provided for @mealIkindi.
+  ///
+  /// In tr, this message translates to:
+  /// **'İkindi'**
+  String get mealIkindi;
+
+  /// No description provided for @mealAksam.
+  ///
+  /// In tr, this message translates to:
+  /// **'Akşam'**
+  String get mealAksam;
+
+  /// No description provided for @mealGece.
+  ///
+  /// In tr, this message translates to:
+  /// **'Gece'**
+  String get mealGece;
+
+  /// No description provided for @portionUnitGrams100.
+  ///
+  /// In tr, this message translates to:
+  /// **'100 g'**
+  String get portionUnitGrams100;
+
+  /// No description provided for @portionCustomGramsLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tarttın mı?'**
+  String get portionCustomGramsLabel;
+
+  /// No description provided for @portionCustomGramsHelper.
+  ///
+  /// In tr, this message translates to:
+  /// **'Gram girersen porsiyonun yerine geçer'**
+  String get portionCustomGramsHelper;
+
+  /// No description provided for @portionGrams.
+  ///
+  /// In tr, this message translates to:
+  /// **'MİKTAR'**
+  String get portionGrams;
+
+  /// No description provided for @portionKcal.
+  ///
+  /// In tr, this message translates to:
+  /// **'KALORİ'**
+  String get portionKcal;
+
+  /// No description provided for @portionProtein.
+  ///
+  /// In tr, this message translates to:
+  /// **'PROTEİN'**
+  String get portionProtein;
+
+  /// No description provided for @portionAddToMeal.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öğüne ekle'**
+  String get portionAddToMeal;
+
+  /// No description provided for @portionDecrease.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bir azalt'**
+  String get portionDecrease;
+
+  /// No description provided for @portionIncrease.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bir artır'**
+  String get portionIncrease;
+
+  /// No description provided for @activityLogTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Aktivite ekle'**
+  String get activityLogTitle;
+
+  /// No description provided for @activitySearchHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Aktivite ara'**
+  String get activitySearchHint;
+
+  /// No description provided for @activityMinutesLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Dakika'**
+  String get activityMinutesLabel;
+
+  /// No description provided for @activityEstimate.
+  ///
+  /// In tr, this message translates to:
+  /// **'≈{kcal} kcal'**
+  String activityEstimate(int kcal);
+
+  /// No description provided for @activityAdd.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ekle'**
+  String get activityAdd;
+
+  /// No description provided for @activityEmptyTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Eşleşen aktivite yok'**
+  String get activityEmptyTitle;
+
+  /// No description provided for @activityEmptyMessage.
+  ///
+  /// In tr, this message translates to:
+  /// **'Başka bir sözcük dene ya da aşağıdan kendin ekle.'**
+  String get activityEmptyMessage;
+
+  /// No description provided for @activityCustomTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kendin ekle'**
+  String get activityCustomTitle;
+
+  /// No description provided for @activityCustomNameLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Aktivite adı'**
+  String get activityCustomNameLabel;
+
+  /// No description provided for @activityCustomEffortLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ne kadar zorladı?'**
+  String get activityCustomEffortLabel;
+
+  /// No description provided for @effortLight.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hafif'**
+  String get effortLight;
+
+  /// No description provided for @effortModerate.
+  ///
+  /// In tr, this message translates to:
+  /// **'Orta'**
+  String get effortModerate;
+
+  /// No description provided for @effortVigorous.
+  ///
+  /// In tr, this message translates to:
+  /// **'Zorlu'**
+  String get effortVigorous;
+
+  /// No description provided for @todayMealsTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öğünler'**
+  String get todayMealsTitle;
+
+  /// No description provided for @todayActivitiesTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hareket'**
+  String get todayActivitiesTitle;
+
+  /// No description provided for @todayAddMeal.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öğün ekle'**
+  String get todayAddMeal;
+
+  /// No description provided for @todayAddActivity.
+  ///
+  /// In tr, this message translates to:
+  /// **'Aktivite ekle'**
+  String get todayAddActivity;
+
+  /// No description provided for @todayHeroRemaining.
+  ///
+  /// In tr, this message translates to:
+  /// **'BUGÜN KALAN'**
+  String get todayHeroRemaining;
+
+  /// No description provided for @todayHeroEatenNoPlan.
+  ///
+  /// In tr, this message translates to:
+  /// **'BUGÜN YENEN'**
+  String get todayHeroEatenNoPlan;
+
+  /// No description provided for @todayMetricProtein.
+  ///
+  /// In tr, this message translates to:
+  /// **'PROTEİN'**
+  String get todayMetricProtein;
+
+  /// No description provided for @todayMetricBurned.
+  ///
+  /// In tr, this message translates to:
+  /// **'YAKILAN'**
+  String get todayMetricBurned;
+
+  /// No description provided for @mealEntryRemoved.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kaldırıldı'**
+  String get mealEntryRemoved;
+
+  /// No description provided for @mealEntryUndo.
+  ///
+  /// In tr, this message translates to:
+  /// **'Geri al'**
+  String get mealEntryUndo;
+
+  /// No description provided for @progressCaloriesTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu haftanın kalorisi'**
+  String get progressCaloriesTitle;
+
+  /// No description provided for @progressCaloriesGoalLine.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hedef'**
+  String get progressCaloriesGoalLine;
+
+  /// No description provided for @progressDayBreakdown.
+  ///
+  /// In tr, this message translates to:
+  /// **'{date} dökümü'**
+  String progressDayBreakdown(String date);
+
+  /// No description provided for @calendarOverBy.
+  ///
+  /// In tr, this message translates to:
+  /// **'+{kcal}'**
+  String calendarOverBy(int kcal);
+
+  /// No description provided for @calendarUnderBy.
+  ///
+  /// In tr, this message translates to:
+  /// **'−{kcal}'**
+  String calendarUnderBy(int kcal);
+
+  /// No description provided for @catalogTabOutside.
+  ///
+  /// In tr, this message translates to:
+  /// **'Dışarıda'**
+  String get catalogTabOutside;
 }
 
 class _AppLocalizationsDelegate

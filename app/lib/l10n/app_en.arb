@@ -509,5 +509,124 @@
   "equipmentJumpRope": "Jump rope",
   "catalogEquipmentMissingHome": "Needs {equipment} (not at home)",
   "catalogEquipmentMissingGym": "Needs {equipment} (not at the gym)",
-  "catalogEquipmentCheck": "{equipment} — check"
+  "catalogEquipmentCheck": "{equipment} — check",
+  "foodSearchHint": "Search foods",
+  "foodSearchEmptyTitle": "Nothing found",
+  "foodSearchEmptyMessage": "Try a shorter word, or search in the other language.",
+  "foodStartTitle": "Nothing logged yet",
+  "foodStartMessage": "Search for a food, or pick a category above.",
+  "foodFrequentTitle": "You eat these often",
+  "foodCopyLastMeal": "Copy this meal from last time",
+  "foodCopyDone": "{count, plural, one{Copied 1 item} other{Copied {count} items}}",
+  "@foodCopyDone": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "foodCopyNothingToCopy": "No earlier entry for this meal",
+  "foodPer100g": "{kcal} kcal per 100 g",
+  "@foodPer100g": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "foodPerPortion": "{portion} - {kcal} kcal",
+  "@foodPerPortion": {
+    "placeholders": {
+      "portion": {
+        "type": "String"
+      },
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "foodCategoryYemek": "Dishes",
+  "foodCategoryCorba": "Soups",
+  "foodCategoryKahvaltilik": "Breakfast",
+  "foodCategoryMeyve": "Fruit",
+  "foodCategorySebze": "Vegetables",
+  "foodCategoryKuruyemis": "Nuts",
+  "foodCategoryIcecek": "Drinks",
+  "foodCategoryTahil": "Grains",
+  "foodCategoryEtBalik": "Meat and fish",
+  "foodCategorySutUrunu": "Dairy",
+  "foodCategoryAtistirmalik": "Snacks",
+  "foodCategoryDiger": "Other",
+  "mealKahvalti": "Breakfast",
+  "mealAraOgun": "Morning snack",
+  "mealOgle": "Lunch",
+  "mealIkindi": "Afternoon snack",
+  "mealAksam": "Dinner",
+  "mealGece": "Late snack",
+  "portionUnitGrams100": "100 g",
+  "portionCustomGramsLabel": "Weighed it?",
+  "portionCustomGramsHelper": "Enter grams to override the portion",
+  "portionGrams": "AMOUNT",
+  "portionKcal": "CALORIES",
+  "portionProtein": "PROTEIN",
+  "portionAddToMeal": "Add to meal",
+  "portionDecrease": "One less",
+  "portionIncrease": "One more",
+  "activityLogTitle": "Log activity",
+  "activitySearchHint": "Search activities",
+  "activityMinutesLabel": "Minutes",
+  "activityEstimate": "~{kcal} kcal",
+  "@activityEstimate": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "activityAdd": "Add",
+  "activityEmptyTitle": "No activities match",
+  "activityEmptyMessage": "Try another word, or add your own below.",
+  "activityCustomTitle": "Add your own",
+  "activityCustomNameLabel": "Activity name",
+  "activityCustomEffortLabel": "How hard was it?",
+  "effortLight": "Light",
+  "effortModerate": "Moderate",
+  "effortVigorous": "Hard",
+  "todayMealsTitle": "Meals",
+  "todayActivitiesTitle": "Activity",
+  "todayAddMeal": "Add meal",
+  "todayAddActivity": "Add activity",
+  "todayHeroRemaining": "LEFT TODAY",
+  "todayHeroEatenNoPlan": "EATEN TODAY",
+  "todayMetricProtein": "PROTEIN",
+  "todayMetricBurned": "BURNED",
+  "mealEntryRemoved": "Removed",
+  "mealEntryUndo": "Undo",
+  "progressCaloriesTitle": "Calories this week",
+  "progressCaloriesGoalLine": "Goal",
+  "progressDayBreakdown": "{date} breakdown",
+  "@progressDayBreakdown": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarOverBy": "+{kcal}",
+  "@calendarOverBy": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarUnderBy": "-{kcal}",
+  "@calendarUnderBy": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "catalogTabOutside": "Outside"
 }

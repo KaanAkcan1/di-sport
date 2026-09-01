@@ -6,10 +6,12 @@ import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:disport/features/catalog/domain/recent_exercise_source.dart';
 import 'package:disport/features/catalog/presentation/catalog_screen.dart';
+import 'package:disport/features/nutrition/application/nutrition_providers.dart';
+import 'package:disport/features/nutrition/domain/activity.dart';
+import 'package:disport/features/today/application/today_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import '../exercise_fixtures.dart';
 
 /// Ekran testleri veritabanına dokunmaz.
@@ -87,6 +89,12 @@ void main() {
       recentExercisesProvider.overrideWith(
         (ref) => Stream.value(const <RecentExercise>[]),
       ),
+      // Dışarıda sekmesi aktiviteleri veritabanından okuyor; ekran
+      // testi Drift akışına bağlanmamalı (asılır).
+      activityCatalogProvider('').overrideWith(
+        (ref) => Stream.value(const <Activity>[]),
+      ),
+      todayIsoProvider.overrideWithValue('2026-09-01'),
     ],
     child: MaterialApp(
       theme: AppTheme.light,

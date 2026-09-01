@@ -1,5 +1,9 @@
 import 'package:disport/app/theme/app_theme.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
+import 'package:disport/features/nutrition/application/nutrition_providers.dart';
+import 'package:disport/features/nutrition/domain/activity.dart';
+import 'package:disport/features/nutrition/domain/calorie_budget.dart';
+import 'package:disport/features/nutrition/domain/food.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/supplements/application/supplement_providers.dart';
 import 'package:disport/features/supplements/domain/supplement.dart';
@@ -17,6 +21,18 @@ import '../../plan/plan_fixtures.dart';
 /// Ekran testleri veritabanına dokunmaz: Drift akışları gerçek async
 /// I/O ile gelir ve `pumpAndSettle` sahte-async bölgesinde asılı kalır.
 /// Depo davranışı kendi testlerinde doğrulanıyor.
+/// Kural kartına kaydırır.
+///
+/// Ekran M9'da öğün ve aktivite bölümleriyle uzadı; gövde tembel bir
+/// liste ve kart artık ilk pencerede kurulmuyor. Kaydırmak testin
+/// kullanıcıyı taklit etmesi demek — kullanıcı da onu görmek için
+/// kaydırıyor.
+Future<void> scrollToRules(WidgetTester tester) => tester.scrollUntilVisible(
+  find.text('3 litre su'),
+  300,
+  scrollable: find.byType(Scrollable).first,
+);
+
 void main() {
   final day = fixturePlan().days.first;
 
@@ -26,8 +42,24 @@ void main() {
     double? weight,
     double? sleep,
     int missedStreak = 0,
+    DayEnergy energy = const DayEnergy(),
+    int? kcalGoal,
+    List<MealEntry> meals = const [],
   }) => ProviderScope(
     overrides: [
+      // Besin ve aktivite akışları da Drift; ekran testi bağlanmamalı.
+      dayEnergyProvider(
+        '2026-08-31',
+      ).overrideWith((ref) => Stream.value(energy)),
+      dayMealsProvider(
+        '2026-08-31',
+      ).overrideWith((ref) => Stream.value(meals)),
+      dayActivitiesProvider(
+        '2026-08-31',
+      ).overrideWith((ref) => Stream.value(const <ActivityLog>[])),
+      dailyKcalGoalProvider.overrideWith((ref) async => kcalGoal),
+      dailyProteinGoalProvider.overrideWith((ref) async => null),
+      frequentFoodsProvider.overrideWith((ref) => Stream.value(const <Food>[])),
       // Takviye dozları da Drift akışı; ekran testi bağlanmamalı.
       todayDosesProvider.overrideWithValue(const <SupplementDose>[]),
       todayIsoProvider.overrideWithValue('2026-08-31'),
@@ -80,6 +112,7 @@ void main() {
       expect(find.text('Bugün için plan yok'), findsOneWidget);
       // Tartı ve kutucuklar plan olmadan da kullanılabilmeli.
       expect(find.byKey(const Key('weight-field')), findsOneWidget);
+      await scrollToRules(tester);
       expect(find.text('3 litre su'), findsOneWidget);
     });
   });
@@ -168,6 +201,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
+      await scrollToRules(tester);
       expect(find.text('3 litre su'), findsOneWidget);
       expect(find.text('Alkol ve şeker yok'), findsOneWidget);
       expect(find.text('Antrenman yapıldı'), findsOneWidget);
@@ -189,6 +223,7 @@ void main() {
       await tester.pumpWidget(wrap(log: const DailyLogView(workoutDone: true)));
       await tester.pumpAndSettle();
 
+      await scrollToRules(tester);
       final tile = tester.widget<SwitchListTile>(
         find.byKey(const Key('flag-workout')),
       );

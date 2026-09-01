@@ -5,6 +5,8 @@ import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/core/utils/turkish_text.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
+import 'package:disport/features/nutrition/application/nutrition_providers.dart';
+import 'package:disport/features/nutrition/presentation/day_meals_card.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/plan/presentation/slot_kind_icon.dart';
 import 'package:disport/features/today/application/today_providers.dart';
@@ -57,6 +59,8 @@ class TodayScreen extends ConsumerWidget {
               _DinnerHint(text: day.dinnerSuggestion),
           ],
 
+          const SizedBox(height: AppSpacing.xl2),
+          const DayMealsCard(),
           const SizedBox(height: AppSpacing.xl2),
           const SupplementDosesCard(),
           const SizedBox(height: AppSpacing.xl2),
@@ -158,31 +162,65 @@ class _Hero extends ConsumerWidget {
     final log = ref.watch(todayLogProvider).value;
     final rules = ref.watch(dailyRulesProvider).value ?? const [];
 
+    final isoDate = ref.watch(todayIsoProvider);
+    final energy = ref.watch(dayEnergyProvider(isoDate)).value;
+    final goal = ref.watch(dailyKcalGoalProvider).value;
+    final remaining = ref.watch(todayRemainingKcalProvider);
+    final gauge = ref.watch(todayGaugeFractionProvider);
+    final proteinGoal = ref.watch(dailyProteinGoalProvider).value;
+    final protein =
+        ref.watch(dayMealsProvider(isoDate)).value?.fold<double>(
+          0,
+          (sum, entry) => sum + entry.protein,
+        ) ??
+        0;
+
     final checked = log?.checkedSlotIds.length ?? 0;
     final total = day?.slots.length ?? 0;
     final rulesMet = log?.metAmong(rules.map((r) => r.id)) ?? 0;
+
+    // Bütçe yoksa kahraman **yenen** kaloriyi gösteriyor (spec §5.4):
+    // "kalan" demek için önce bir hedef olması gerekiyor ve plan içeri
+    // alınmamış kullanıcıya hedef uydurmak yanlış olurdu.
+    final heroValue = switch ((goal, energy)) {
+      (null, final e?) => e.eaten.round().toString(),
+      (_, _) => remaining?.round().toString(),
+    };
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppHeroNumber(
-          caption: switch (day) {
-            null => context.l10n.todayHeroNoPlan,
-            // Diyeti boş gün açıkça söyleniyor: aksi hâlde öğünsüz bir
-            // gün "plan eksik gelmiş" gibi okunuyor.
-            final d when d.isFullyFree => context.l10n.todayHeroFreeDay,
-            final d when d.isDietFree => context.l10n.todayHeroDietFree(
-              dayTypeLabel(context, d.type),
-            ),
-            final d => dayTypeLabel(context, d.type),
-          },
-          value: weight == null
-              ? null
-              : TurkishNumber.format(weight, fractionDigits: 1),
-          unit: MetricKinds.unitOf(MetricKinds.weight),
+          caption: goal == null
+              ? context.l10n.todayHeroEatenNoPlan
+              : context.l10n.todayHeroRemaining,
+          value: heroValue,
+          unit: 'kcal',
+          gaugeFraction: gauge,
         ),
         const SizedBox(height: AppSpacing.xl),
         AppMetricStrip([
+          AppMetric(
+            caption: context.l10n.todayMetricProtein,
+            value: energy == null ? null : protein.round().toString(),
+            unit: proteinGoal == null ? 'g' : '/$proteinGoal g',
+          ),
+          AppMetric(
+            caption: context.l10n.todayMetricBurned,
+            // `≈` her tahminde: hesabın hata payı kolayca %20 ve
+            // kesin rakam vaat etmek kullanıcıyı yanıltır.
+            value: energy == null ? null : '≈${energy.burned.round()}',
+            unit: 'kcal',
+          ),
+          AppMetric(
+            caption: TurkishText.upper(
+              MetricKinds.labelOf(MetricKinds.weight),
+            ),
+            value: weight == null
+                ? null
+                : TurkishNumber.format(weight, fractionDigits: 1),
+            unit: MetricKinds.unitOf(MetricKinds.weight),
+          ),
           AppMetric(
             caption: context.l10n.todayMetricProgram,
             value: total == 0 ? null : '$checked',

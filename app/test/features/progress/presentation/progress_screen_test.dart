@@ -2,11 +2,13 @@ import 'package:disport/app/theme/app_theme.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/health/data/body_metrics_repository.dart';
+import 'package:disport/features/nutrition/application/nutrition_providers.dart';
 import 'package:disport/features/progress/application/progress_providers.dart';
 import 'package:disport/features/progress/domain/transition_criteria.dart';
 import 'package:disport/features/progress/domain/weekly_summary.dart';
 import 'package:disport/features/progress/domain/weight_trend.dart';
 import 'package:disport/features/progress/presentation/progress_screen.dart';
+import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/l10n/app_localizations.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -82,6 +84,14 @@ void main() {
   }) => ProviderScope(
     overrides: [
       progressViewProvider.overrideWith((ref) async => data),
+      // Kalori çubukları da Drift akışı; ekran testi bağlanmamalı.
+      todayIsoProvider.overrideWithValue('2026-09-01'),
+      dailyKcalGoalProvider.overrideWith((ref) async => null),
+      netKcalByDayProvider(
+        '2026-08-26',
+        '2026-09-01',
+      ).overrideWith((ref) => Stream.value(const <String, double>{})),
+
       if (onPainFree != null)
         setPainFreeConfirmedProvider.overrideWith((ref) => onPainFree),
     ],

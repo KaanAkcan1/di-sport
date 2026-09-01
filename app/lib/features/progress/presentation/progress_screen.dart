@@ -3,6 +3,7 @@ import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
+import 'package:disport/features/nutrition/presentation/calorie_week_chart.dart';
 import 'package:disport/features/progress/application/progress_providers.dart';
 import 'package:disport/features/progress/presentation/transition_card.dart';
 import 'package:disport/features/progress/presentation/week_summary_card.dart';
@@ -33,6 +34,9 @@ class ProgressScreen extends ConsumerWidget {
       data: (data) => AppScreenBody(
         children: [
           _ProgressHero(data: data),
+          const SizedBox(height: AppSpacing.xl2),
+
+          const CalorieWeekChart(),
           const SizedBox(height: AppSpacing.xl2),
 
           if (data.weights.isNotEmpty)

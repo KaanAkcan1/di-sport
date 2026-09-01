@@ -5,7 +5,9 @@ import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/ai_bridge/presentation/import_plan_sheet.dart';
+import 'package:disport/features/nutrition/application/nutrition_providers.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
+import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/plan/data/sample_plan.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/plan/presentation/plan_calendar.dart';
@@ -368,7 +370,7 @@ class _Goal extends StatelessWidget {
   }
 }
 
-class _WeekSection extends StatelessWidget {
+class _WeekSection extends ConsumerWidget {
   const _WeekSection({
     required this.plan,
     required this.weekIndex,
@@ -382,10 +384,24 @@ class _WeekSection extends StatelessWidget {
   final Map<String, DailyLogView> logs;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final days = plan.days.where((d) => d.weekIndex == weekIndex).toList()
       ..sort((a, b) => a.date.compareTo(b.date));
     if (days.isEmpty) return const SizedBox.shrink();
+
+    // Haftanın tamamı için tek sorgu; gün başına ayrı akış açmak 28
+    // canlı sorgu demek olurdu.
+    final netKcal =
+        ref
+            .watch(
+              netKcalByDayProvider(
+                PlanRepository.iso(days.first.date),
+                PlanRepository.iso(days.last.date),
+              ),
+            )
+            .value ??
+        const <String, double>{};
+    final kcalGoal = plan.goals.dailyKcal;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: AppSpacing.xl2),
@@ -412,6 +428,8 @@ class _WeekSection extends StatelessWidget {
             days: days,
             logs: logs,
             today: today,
+            netKcalByDay: netKcal,
+            kcalGoal: kcalGoal,
             onDayTap: (day) => day.exercises.isEmpty
                 ? null
                 : Navigator.of(context).push(

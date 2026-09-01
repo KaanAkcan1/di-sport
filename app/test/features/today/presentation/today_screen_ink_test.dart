@@ -1,6 +1,10 @@
 import 'package:disport/app/theme/app_theme.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
+import 'package:disport/features/nutrition/application/nutrition_providers.dart';
+import 'package:disport/features/nutrition/domain/activity.dart';
+import 'package:disport/features/nutrition/domain/calorie_budget.dart';
+import 'package:disport/features/nutrition/domain/food.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/supplements/application/supplement_providers.dart';
 import 'package:disport/features/supplements/domain/supplement.dart';
@@ -23,6 +27,8 @@ void main() {
     double? weight,
     DateTime? now,
     List<({DateTime day, bool filled})>? week,
+    DayEnergy energy = const DayEnergy(),
+    int? kcalGoal,
   }) {
     final at = now ?? DateTime(2026, 8, 31, 10);
 
@@ -30,6 +36,21 @@ void main() {
       overrides: [
         // Takviye dozları da Drift akışı; ekran testi bağlanmamalı.
         todayDosesProvider.overrideWithValue(const <SupplementDose>[]),
+        // Besin ve aktivite de Drift akışı.
+        dayEnergyProvider(
+          '2026-08-31',
+        ).overrideWith((ref) => Stream.value(energy)),
+        dayMealsProvider(
+          '2026-08-31',
+        ).overrideWith((ref) => Stream.value(const <MealEntry>[])),
+        dayActivitiesProvider(
+          '2026-08-31',
+        ).overrideWith((ref) => Stream.value(const <ActivityLog>[])),
+        dailyKcalGoalProvider.overrideWith((ref) async => kcalGoal),
+        dailyProteinGoalProvider.overrideWith((ref) async => null),
+        frequentFoodsProvider.overrideWith(
+          (ref) => Stream.value(const <Food>[]),
+        ),
         todayIsoProvider.overrideWithValue('2026-08-31'),
         clockProvider.overrideWith((ref) => Stream.value(at)),
         todayPlanDayProvider.overrideWith((ref) => Stream.value(planDay)),
@@ -79,15 +100,23 @@ void main() {
     expect(find.text('—'), findsWidgets);
   });
 
-  testWidgets('kilo varsa kahraman rakam olarak çizilir', (tester) async {
-    await tester.pumpWidget(wrap(planDay: day, weight: 108.9));
+  testWidgets('bütçe varsa kahraman kalan kaloriyi gösterir', (tester) async {
+    // M9'da kahraman kilodan kalan kaloriye döndü; kilo metrik
+    // şeridine indi (spec §2a).
+    await tester.pumpWidget(
+      wrap(
+        planDay: day,
+        weight: 108.9,
+        kcalGoal: 2200,
+        energy: const DayEnergy(eaten: 1500, burned: 300),
+      ),
+    );
     await tester.pumpAndSettle();
 
-    // Ölçüm giriş alanı da aynı değeri taşıyor; kahramandakini arıyoruz.
     expect(
       find.descendant(
         of: find.byType(AppHeroNumber),
-        matching: find.text('108,9'),
+        matching: find.text('1000'),
       ),
       findsOneWidget,
     );
@@ -137,14 +166,18 @@ void main() {
   testWidgets('plan yokken kahraman yine çizilir — tartı bağımsız', (
     tester,
   ) async {
-    await tester.pumpWidget(wrap(weight: 108.9));
+    // Plan yoksa bütçe de yok; kahraman **yenen** kaloriyi gösteriyor
+    // (spec §5.4) — hedef uydurmak yanlış olurdu.
+    await tester.pumpWidget(
+      wrap(weight: 108.9, energy: const DayEnergy(eaten: 640)),
+    );
     await tester.pumpAndSettle();
 
     expect(find.byType(AppHeroNumber), findsOneWidget);
     expect(
       find.descendant(
         of: find.byType(AppHeroNumber),
-        matching: find.text('108,9'),
+        matching: find.text('640'),
       ),
       findsOneWidget,
     );

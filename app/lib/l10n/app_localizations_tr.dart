@@ -1428,4 +1428,228 @@ class AppLocalizationsTr extends AppLocalizations {
   String catalogEquipmentCheck(Object equipment) {
     return '$equipment — kontrol et';
   }
+
+  @override
+  String get foodSearchHint => 'Besin ara';
+
+  @override
+  String get foodSearchEmptyTitle => 'Bulunamadı';
+
+  @override
+  String get foodSearchEmptyMessage =>
+      'Daha kısa bir sözcük dene ya da diğer dilde ara.';
+
+  @override
+  String get foodStartTitle => 'Henüz kayıt yok';
+
+  @override
+  String get foodStartMessage => 'Bir besin ara ya da yukarıdan tür seç.';
+
+  @override
+  String get foodFrequentTitle => 'Sık yediklerin';
+
+  @override
+  String get foodCopyLastMeal => 'Bu öğünü son seferkinden kopyala';
+
+  @override
+  String foodCopyDone(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kalem kopyalandı',
+      one: '1 kalem kopyalandı',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get foodCopyNothingToCopy => 'Bu öğünde daha önce kayıt yok';
+
+  @override
+  String foodPer100g(int kcal) {
+    return '100 g\'da $kcal kcal';
+  }
+
+  @override
+  String foodPerPortion(String portion, int kcal) {
+    return '$portion — $kcal kcal';
+  }
+
+  @override
+  String get foodCategoryYemek => 'Yemek';
+
+  @override
+  String get foodCategoryCorba => 'Çorba';
+
+  @override
+  String get foodCategoryKahvaltilik => 'Kahvaltılık';
+
+  @override
+  String get foodCategoryMeyve => 'Meyve';
+
+  @override
+  String get foodCategorySebze => 'Sebze';
+
+  @override
+  String get foodCategoryKuruyemis => 'Kuruyemiş';
+
+  @override
+  String get foodCategoryIcecek => 'İçecek';
+
+  @override
+  String get foodCategoryTahil => 'Tahıl';
+
+  @override
+  String get foodCategoryEtBalik => 'Et ve balık';
+
+  @override
+  String get foodCategorySutUrunu => 'Süt ürünü';
+
+  @override
+  String get foodCategoryAtistirmalik => 'Atıştırmalık';
+
+  @override
+  String get foodCategoryDiger => 'Diğer';
+
+  @override
+  String get mealKahvalti => 'Kahvaltı';
+
+  @override
+  String get mealAraOgun => 'Kuşluk';
+
+  @override
+  String get mealOgle => 'Öğle';
+
+  @override
+  String get mealIkindi => 'İkindi';
+
+  @override
+  String get mealAksam => 'Akşam';
+
+  @override
+  String get mealGece => 'Gece';
+
+  @override
+  String get portionUnitGrams100 => '100 g';
+
+  @override
+  String get portionCustomGramsLabel => 'Tarttın mı?';
+
+  @override
+  String get portionCustomGramsHelper =>
+      'Gram girersen porsiyonun yerine geçer';
+
+  @override
+  String get portionGrams => 'MİKTAR';
+
+  @override
+  String get portionKcal => 'KALORİ';
+
+  @override
+  String get portionProtein => 'PROTEİN';
+
+  @override
+  String get portionAddToMeal => 'Öğüne ekle';
+
+  @override
+  String get portionDecrease => 'Bir azalt';
+
+  @override
+  String get portionIncrease => 'Bir artır';
+
+  @override
+  String get activityLogTitle => 'Aktivite ekle';
+
+  @override
+  String get activitySearchHint => 'Aktivite ara';
+
+  @override
+  String get activityMinutesLabel => 'Dakika';
+
+  @override
+  String activityEstimate(int kcal) {
+    return '≈$kcal kcal';
+  }
+
+  @override
+  String get activityAdd => 'Ekle';
+
+  @override
+  String get activityEmptyTitle => 'Eşleşen aktivite yok';
+
+  @override
+  String get activityEmptyMessage =>
+      'Başka bir sözcük dene ya da aşağıdan kendin ekle.';
+
+  @override
+  String get activityCustomTitle => 'Kendin ekle';
+
+  @override
+  String get activityCustomNameLabel => 'Aktivite adı';
+
+  @override
+  String get activityCustomEffortLabel => 'Ne kadar zorladı?';
+
+  @override
+  String get effortLight => 'Hafif';
+
+  @override
+  String get effortModerate => 'Orta';
+
+  @override
+  String get effortVigorous => 'Zorlu';
+
+  @override
+  String get todayMealsTitle => 'Öğünler';
+
+  @override
+  String get todayActivitiesTitle => 'Hareket';
+
+  @override
+  String get todayAddMeal => 'Öğün ekle';
+
+  @override
+  String get todayAddActivity => 'Aktivite ekle';
+
+  @override
+  String get todayHeroRemaining => 'BUGÜN KALAN';
+
+  @override
+  String get todayHeroEatenNoPlan => 'BUGÜN YENEN';
+
+  @override
+  String get todayMetricProtein => 'PROTEİN';
+
+  @override
+  String get todayMetricBurned => 'YAKILAN';
+
+  @override
+  String get mealEntryRemoved => 'Kaldırıldı';
+
+  @override
+  String get mealEntryUndo => 'Geri al';
+
+  @override
+  String get progressCaloriesTitle => 'Bu haftanın kalorisi';
+
+  @override
+  String get progressCaloriesGoalLine => 'Hedef';
+
+  @override
+  String progressDayBreakdown(String date) {
+    return '$date dökümü';
+  }
+
+  @override
+  String calendarOverBy(int kcal) {
+    return '+$kcal';
+  }
+
+  @override
+  String calendarUnderBy(int kcal) {
+    return '−$kcal';
+  }
+
+  @override
+  String get catalogTabOutside => 'Dışarıda';
 }

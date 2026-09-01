@@ -3,6 +3,10 @@ import 'package:disport/core/db/app_database.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
+import 'package:disport/features/nutrition/application/nutrition_providers.dart';
+import 'package:disport/features/nutrition/domain/activity.dart';
+import 'package:disport/features/nutrition/domain/calorie_budget.dart';
+import 'package:disport/features/nutrition/domain/food.dart';
 import 'package:disport/features/health/application/health_providers.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/health/data/body_metrics_repository.dart';
@@ -38,6 +42,28 @@ void main() {
       filteredExercisesProvider.overrideWith(
         (ref) => Stream.value(const <Exercise>[]),
       ),
+      // Besin, aktivite ve kalori akışları da Drift; kabuk testi
+      // bunlara bağlanırsa aynı şekilde asılır.
+      activityCatalogProvider('').overrideWith(
+        (ref) => Stream.value(const <Activity>[]),
+      ),
+      todayIsoProvider.overrideWithValue('2026-09-01'),
+      dayEnergyProvider(
+        '2026-09-01',
+      ).overrideWith((ref) => Stream.value(const DayEnergy())),
+      dayMealsProvider(
+        '2026-09-01',
+      ).overrideWith((ref) => Stream.value(const <MealEntry>[])),
+      dayActivitiesProvider(
+        '2026-09-01',
+      ).overrideWith((ref) => Stream.value(const <ActivityLog>[])),
+      dailyKcalGoalProvider.overrideWith((ref) async => null),
+      dailyProteinGoalProvider.overrideWith((ref) async => null),
+      frequentFoodsProvider.overrideWith((ref) => Stream.value(const <Food>[])),
+      netKcalByDayProvider(
+        '2026-08-26',
+        '2026-09-01',
+      ).overrideWith((ref) => Stream.value(const <String, double>{})),
       // Bugün ekranı da veritabanına bağlı; kabuk testi içeriği değil
       // sekme geçişini sınıyor.
       todayPlanDayProvider.overrideWith((ref) => Stream.value(null)),
@@ -144,6 +170,14 @@ void main() {
     for (final label in ['Plan', 'İlerleme', 'Sağlık', 'Katalog']) {
       expect(find.text(label), findsOneWidget);
     }
+    // Tartı alanı ekranın alt yarısında; gövde tembel bir liste ve
+    // M9'da öğün bölümü eklenince artık ilk pencerede kurulmuyor.
+    // Kaydırmak testin kullanıcıyı taklit etmesi.
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('weight-field')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
     expect(find.byKey(const Key('weight-field')), findsOneWidget);
   });
 

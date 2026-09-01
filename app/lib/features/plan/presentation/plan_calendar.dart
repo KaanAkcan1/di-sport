@@ -20,12 +20,20 @@ class PlanWeekGrid extends StatelessWidget {
     required this.logs,
     required this.today,
     this.onDayTap,
+    this.netKcalByDay = const {},
+    this.kcalGoal,
   });
 
   final List<FullPlanDay> days;
   final Map<String, DailyLogView> logs;
   final DateTime today;
   final void Function(FullPlanDay day)? onDayTap;
+
+  /// Gün → (yenen − yakılan). Kaydı olmayan gün haritada yok.
+  final Map<String, double> netKcalByDay;
+
+  /// Günlük kalori hedefi; plan yoksa null ve ton hiç çizilmez.
+  final int? kcalGoal;
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +69,8 @@ class PlanWeekGrid extends StatelessWidget {
                     day: day,
                     log: logs[PlanRepository.iso(day.date)],
                     today: today,
+                    net: netKcalByDay[PlanRepository.iso(day.date)],
+                    kcalGoal: kcalGoal,
                     onTap: onDayTap == null ? null : () => onDayTap!(day),
                   ),
                 ),
@@ -78,12 +88,16 @@ class _DayCell extends StatelessWidget {
     required this.log,
     required this.today,
     this.onTap,
+    this.net,
+    this.kcalGoal,
   });
 
   final FullPlanDay day;
   final DailyLogView? log;
   final DateTime today;
   final VoidCallback? onTap;
+  final double? net;
+  final int? kcalGoal;
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +107,7 @@ class _DayCell extends StatelessWidget {
     final checked = log?.checkedSlotIds.length ?? 0;
     final total = day.slots.length;
     final fill = resolveDayFill(day: day, checkedCount: checked, today: today);
+    final tone = resolveCalorieTone(goalKcal: kcalGoal, net: net);
     final isToday = _sameDay(day.date, today);
 
     final (background, border) = switch (fill) {
@@ -162,6 +177,31 @@ class _DayCell extends StatelessWidget {
                       Icons.change_history,
                       size: 8,
                       color: theme.colorScheme.primary,
+                    ),
+                  ),
+
+                // Kalori farkı sol üstte. **Doluluk tonunun yerine
+                // geçmiyor, yanına giriyor:** "planı yaptım mı" ve
+                // "bütçede kaldım mı" ayrı sorular ve tek renge
+                // indirmek ikisini de yanlış cevaplardı.
+                if (tone != DayCalorieTone.none && net != null)
+                  Positioned(
+                    top: 3,
+                    left: 4,
+                    child: Text(
+                      tone == DayCalorieTone.over
+                          ? context.l10n.calendarOverBy(
+                              (net! - kcalGoal!).round(),
+                            )
+                          : context.l10n.calendarUnderBy(
+                              (kcalGoal! - net!).round(),
+                            ),
+                      style: AppTypography.statCaption.copyWith(
+                        fontSize: 8,
+                        color: tone == DayCalorieTone.over
+                            ? semantic.danger
+                            : semantic.success,
+                      ),
                     ),
                   ),
                 Center(

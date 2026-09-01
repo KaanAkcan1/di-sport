@@ -1433,4 +1433,226 @@ class AppLocalizationsEn extends AppLocalizations {
   String catalogEquipmentCheck(Object equipment) {
     return '$equipment — check';
   }
+
+  @override
+  String get foodSearchHint => 'Search foods';
+
+  @override
+  String get foodSearchEmptyTitle => 'Nothing found';
+
+  @override
+  String get foodSearchEmptyMessage =>
+      'Try a shorter word, or search in the other language.';
+
+  @override
+  String get foodStartTitle => 'Nothing logged yet';
+
+  @override
+  String get foodStartMessage => 'Search for a food, or pick a category above.';
+
+  @override
+  String get foodFrequentTitle => 'You eat these often';
+
+  @override
+  String get foodCopyLastMeal => 'Copy this meal from last time';
+
+  @override
+  String foodCopyDone(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Copied $count items',
+      one: 'Copied 1 item',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get foodCopyNothingToCopy => 'No earlier entry for this meal';
+
+  @override
+  String foodPer100g(int kcal) {
+    return '$kcal kcal per 100 g';
+  }
+
+  @override
+  String foodPerPortion(String portion, int kcal) {
+    return '$portion - $kcal kcal';
+  }
+
+  @override
+  String get foodCategoryYemek => 'Dishes';
+
+  @override
+  String get foodCategoryCorba => 'Soups';
+
+  @override
+  String get foodCategoryKahvaltilik => 'Breakfast';
+
+  @override
+  String get foodCategoryMeyve => 'Fruit';
+
+  @override
+  String get foodCategorySebze => 'Vegetables';
+
+  @override
+  String get foodCategoryKuruyemis => 'Nuts';
+
+  @override
+  String get foodCategoryIcecek => 'Drinks';
+
+  @override
+  String get foodCategoryTahil => 'Grains';
+
+  @override
+  String get foodCategoryEtBalik => 'Meat and fish';
+
+  @override
+  String get foodCategorySutUrunu => 'Dairy';
+
+  @override
+  String get foodCategoryAtistirmalik => 'Snacks';
+
+  @override
+  String get foodCategoryDiger => 'Other';
+
+  @override
+  String get mealKahvalti => 'Breakfast';
+
+  @override
+  String get mealAraOgun => 'Morning snack';
+
+  @override
+  String get mealOgle => 'Lunch';
+
+  @override
+  String get mealIkindi => 'Afternoon snack';
+
+  @override
+  String get mealAksam => 'Dinner';
+
+  @override
+  String get mealGece => 'Late snack';
+
+  @override
+  String get portionUnitGrams100 => '100 g';
+
+  @override
+  String get portionCustomGramsLabel => 'Weighed it?';
+
+  @override
+  String get portionCustomGramsHelper => 'Enter grams to override the portion';
+
+  @override
+  String get portionGrams => 'AMOUNT';
+
+  @override
+  String get portionKcal => 'CALORIES';
+
+  @override
+  String get portionProtein => 'PROTEIN';
+
+  @override
+  String get portionAddToMeal => 'Add to meal';
+
+  @override
+  String get portionDecrease => 'One less';
+
+  @override
+  String get portionIncrease => 'One more';
+
+  @override
+  String get activityLogTitle => 'Log activity';
+
+  @override
+  String get activitySearchHint => 'Search activities';
+
+  @override
+  String get activityMinutesLabel => 'Minutes';
+
+  @override
+  String activityEstimate(int kcal) {
+    return '~$kcal kcal';
+  }
+
+  @override
+  String get activityAdd => 'Add';
+
+  @override
+  String get activityEmptyTitle => 'No activities match';
+
+  @override
+  String get activityEmptyMessage => 'Try another word, or add your own below.';
+
+  @override
+  String get activityCustomTitle => 'Add your own';
+
+  @override
+  String get activityCustomNameLabel => 'Activity name';
+
+  @override
+  String get activityCustomEffortLabel => 'How hard was it?';
+
+  @override
+  String get effortLight => 'Light';
+
+  @override
+  String get effortModerate => 'Moderate';
+
+  @override
+  String get effortVigorous => 'Hard';
+
+  @override
+  String get todayMealsTitle => 'Meals';
+
+  @override
+  String get todayActivitiesTitle => 'Activity';
+
+  @override
+  String get todayAddMeal => 'Add meal';
+
+  @override
+  String get todayAddActivity => 'Add activity';
+
+  @override
+  String get todayHeroRemaining => 'LEFT TODAY';
+
+  @override
+  String get todayHeroEatenNoPlan => 'EATEN TODAY';
+
+  @override
+  String get todayMetricProtein => 'PROTEIN';
+
+  @override
+  String get todayMetricBurned => 'BURNED';
+
+  @override
+  String get mealEntryRemoved => 'Removed';
+
+  @override
+  String get mealEntryUndo => 'Undo';
+
+  @override
+  String get progressCaloriesTitle => 'Calories this week';
+
+  @override
+  String get progressCaloriesGoalLine => 'Goal';
+
+  @override
+  String progressDayBreakdown(String date) {
+    return '$date breakdown';
+  }
+
+  @override
+  String calendarOverBy(int kcal) {
+    return '+$kcal';
+  }
+
+  @override
+  String calendarUnderBy(int kcal) {
+    return '-$kcal';
+  }
+
+  @override
+  String get catalogTabOutside => 'Outside';
 }

@@ -8,6 +8,11 @@ import 'package:disport/features/catalog/domain/recent_exercise_source.dart';
 import 'package:disport/features/catalog/presentation/catalog_filter_sheet.dart';
 import 'package:disport/features/catalog/presentation/exercise_detail_screen.dart';
 import 'package:disport/features/catalog/presentation/exercise_list_tile.dart';
+import 'package:disport/features/nutrition/application/nutrition_providers.dart';
+import 'package:disport/features/nutrition/domain/activity.dart';
+import 'package:disport/features/nutrition/presentation/activity_log_sheet.dart';
+import 'package:disport/features/nutrition/presentation/food_labels.dart';
+import 'package:disport/features/today/application/today_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,12 +35,19 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen>
   late final TabController _tabs;
 
   /// Sekme sırası `_locations` ile aynı olmak zorunda.
+  ///
+  /// Üçüncü sekme (**Dışarıda**) bu listede yok: orada katalog
+  /// hareketleri değil serbest aktiviteler listeleniyor ve `location`
+  /// filtresinin karşılığı yok. Listeye `null` koymak yerine sekme
+  /// sayısını ayrı tutmak, "hangi yer seçili" sorusunun cevabını
+  /// belirsizleştirmiyor.
   static const _locations = [ExerciseLocation.home, ExerciseLocation.gym];
+  static const _outsideTabIndex = 2;
 
   @override
   void initState() {
     super.initState();
-    _tabs = TabController(length: _locations.length, vsync: this)
+    _tabs = TabController(length: _locations.length + 1, vsync: this)
       ..addListener(_syncLocation);
     // İlk kare: sekme zaten "Evde"de duruyor, filtre de öyle olmalı.
     WidgetsBinding.instance.addPostFrameCallback((_) => _syncLocation());
@@ -51,6 +63,7 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen>
 
   void _syncLocation() {
     if (_tabs.indexIsChanging) return;
+    if (_tabs.index == _outsideTabIndex) return;
     ref
         .read(catalogFilterProvider.notifier)
         .setLocation(_locations[_tabs.index]);
@@ -60,30 +73,38 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen>
   Widget build(BuildContext context) {
     final exercises = ref.watch(filteredExercisesProvider);
 
+    final outside = _tabs.index == _outsideTabIndex;
+
     return Column(
       children: [
-        // "Dışarıda" sekmesi M9'da geliyor: serbest aktiviteler
-        // (basketbol, koşu) veri olarak henüz yok, boş sekme açmak
-        // kullanıcıya kırık bir söz verirdi.
         TabBar(
           controller: _tabs,
+          onTap: (_) => setState(() {}),
           tabs: [
             Tab(text: context.l10n.catalogTabHome),
             Tab(text: context.l10n.catalogTabGym),
+            Tab(text: context.l10n.catalogTabOutside),
           ],
         ),
-        const _SearchRow(),
-        const _ActiveFilterChips(),
+
+        // Dışarıda sekmesinde arama ve filtreler gizli: aktivitenin
+        // ekipmanı, zorluğu ya da kategorisi yok. Görünür ama işlevsiz
+        // bir filtre çubuğu bırakmak, kullanıcıya çalışmayan bir
+        // düğme vermek olurdu.
+        if (!outside) ...[const _SearchRow(), const _ActiveFilterChips()],
+
         Expanded(
-          child: AppAsyncView<List<Exercise>>(
-            value: exercises,
-            emptyWhen: (list) => list.isEmpty,
-            empty: _NoResults(onClear: () {
-              ref.read(catalogFilterProvider.notifier).clear();
-            }),
-            onRetry: () => ref.invalidate(filteredExercisesProvider),
-            data: (list) => _ExerciseList(exercises: list),
-          ),
+          child: outside
+              ? const _OutsideList()
+              : AppAsyncView<List<Exercise>>(
+                  value: exercises,
+                  emptyWhen: (list) => list.isEmpty,
+                  empty: _NoResults(onClear: () {
+                    ref.read(catalogFilterProvider.notifier).clear();
+                  }),
+                  onRetry: () => ref.invalidate(filteredExercisesProvider),
+                  data: (list) => _ExerciseList(exercises: list),
+                ),
         ),
       ],
     );
@@ -400,4 +421,43 @@ class _NoResults extends StatelessWidget {
     actionLabel: context.l10n.catalogClearFilters,
     onAction: onClear,
   );
+}
+
+/// Dışarıda sekmesi — serbest aktiviteler.
+///
+/// **Neden katalogla aynı listede değil:** basketbol maçı plana
+/// konulacak bir hareket değil, olmuş bitmiş bir şey. Set, tekrar,
+/// ipucu ve ilerleme zinciri yok; tek sorulan ne kadar sürdüğü.
+/// Aynı listeye koymak plan editörünü ve filtreleri kirletirdi.
+class _OutsideList extends ConsumerWidget {
+  const _OutsideList();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final activities = ref.watch(activityCatalogProvider(''));
+    final isoDate = ref.watch(todayIsoProvider);
+
+    return AppAsyncView<List<Activity>>(
+      value: activities,
+      emptyWhen: (list) => list.isEmpty,
+      empty: AppEmptyState(
+        icon: Icons.directions_run,
+        title: context.l10n.activityEmptyTitle,
+        description: context.l10n.activityEmptyMessage,
+      ),
+      data: (list) => ListView.builder(
+        padding: const EdgeInsets.only(bottom: AppSpacing.xl2),
+        itemCount: list.length,
+        itemBuilder: (context, index) {
+          final activity = list[index];
+          return ListTile(
+            title: Text(activityDisplayName(context, activity)),
+            subtitle: Text('${activity.met} MET'),
+            trailing: const Icon(Icons.add),
+            onTap: () => showActivityLogSheet(context, isoDate: isoDate),
+          );
+        },
+      ),
+    );
+  }
 }
