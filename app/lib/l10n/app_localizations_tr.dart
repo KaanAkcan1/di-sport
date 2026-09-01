@@ -1362,4 +1362,58 @@ class AppLocalizationsTr extends AppLocalizations {
   String reminderSupplementBodyWithDose(Object dose) {
     return '$dose — alma vakti geldi.';
   }
+
+  @override
+  String get equipmentBodyOnly => 'Vücut ağırlığı';
+
+  @override
+  String get equipmentBarbell => 'Halter';
+
+  @override
+  String get equipmentDumbbell => 'Dambıl';
+
+  @override
+  String get equipmentKettlebell => 'Kettlebell';
+
+  @override
+  String get equipmentCable => 'Kablo makinesi';
+
+  @override
+  String get equipmentMachine => 'Makine';
+
+  @override
+  String get equipmentBands => 'Direnç bandı';
+
+  @override
+  String get equipmentMedicineBall => 'Sağlık topu';
+
+  @override
+  String get equipmentExerciseBall => 'Pilates topu';
+
+  @override
+  String get equipmentFoamRoll => 'Köpük rulo';
+
+  @override
+  String get equipmentEzCurlBar => 'Z bar';
+
+  @override
+  String get equipmentOther => 'Ev eşyası';
+
+  @override
+  String get equipmentNone => 'Ekipman gerekmiyor';
+
+  @override
+  String catalogEquipmentMissingHome(Object equipment) {
+    return '$equipment gerekiyor (evinde yok)';
+  }
+
+  @override
+  String catalogEquipmentMissingGym(Object equipment) {
+    return '$equipment gerekiyor (salonunda yok)';
+  }
+
+  @override
+  String catalogEquipmentCheck(Object equipment) {
+    return '$equipment — kontrol et';
+  }
 }

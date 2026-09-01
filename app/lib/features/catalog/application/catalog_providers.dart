@@ -126,15 +126,15 @@ class CatalogFilter extends _$CatalogFilter {
 EquipmentRepository equipmentRepository(Ref ref) =>
     EquipmentRepository(ref.watch(appDatabaseProvider));
 
-/// Envanterdeki tüm ekipman.
+/// Envanterdeki tüm ekipman — yönetim ekranı bunu listeliyor.
 @riverpod
-Stream<List<EquipmentItem>> equipmentInventory(Ref ref) =>
+Stream<List<EquipmentItem>> equipmentItems(Ref ref) =>
     ref.watch(equipmentRepositoryProvider).watchAll();
 
-/// Kullanıcıda olan ekipmanın kimlikleri.
+/// Nerede neye sahip olunduğu — katalog filtresi bunu okuyor.
 @riverpod
-Stream<Set<String>> ownedEquipmentIds(Ref ref) =>
-    ref.watch(equipmentRepositoryProvider).watchOwnedIds();
+Stream<EquipmentInventory> equipmentInventory(Ref ref) =>
+    ref.watch(equipmentRepositoryProvider).watchInventory();
 
 @riverpod
 Stream<List<Exercise>> filteredExercises(Ref ref) {
@@ -153,11 +153,21 @@ Stream<List<Exercise>> filteredExercises(Ref ref) {
   // ve "listenin tamamı şu kümenin alt kümesi mi" sorusu SQLite'ta
   // okunabilir biçimde yazılamıyor. Katalog birkaç düzine satır,
   // bellekte süzmek ölçülebilir bir maliyet değil.
-  final owned = ref.watch(ownedEquipmentIdsProvider).value ?? const <String>{};
+  final inventory =
+      ref.watch(equipmentInventoryProvider).value ??
+      const EquipmentInventory.empty();
+
+  // Yer sekmeden geliyor; filtre "burada yapabilir miyim" diye soruyor.
+  final where = filter.location ?? ExerciseLocation.home;
+
   return base.map(
     (list) => [
       for (final exercise in list)
-        if (canPerform(equipment: exercise.equipment, ownedIds: owned))
+        if (canPerform(
+          required: exercise.equipment,
+          inventory: inventory,
+          where: where,
+        ))
           exercise,
     ],
   );

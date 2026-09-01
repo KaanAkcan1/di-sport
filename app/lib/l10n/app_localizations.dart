@@ -2466,6 +2466,102 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'{dose} — alma vakti geldi.'**
   String reminderSupplementBodyWithDose(Object dose);
+
+  /// No description provided for @equipmentBodyOnly.
+  ///
+  /// In tr, this message translates to:
+  /// **'Vücut ağırlığı'**
+  String get equipmentBodyOnly;
+
+  /// No description provided for @equipmentBarbell.
+  ///
+  /// In tr, this message translates to:
+  /// **'Halter'**
+  String get equipmentBarbell;
+
+  /// No description provided for @equipmentDumbbell.
+  ///
+  /// In tr, this message translates to:
+  /// **'Dambıl'**
+  String get equipmentDumbbell;
+
+  /// No description provided for @equipmentKettlebell.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kettlebell'**
+  String get equipmentKettlebell;
+
+  /// No description provided for @equipmentCable.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kablo makinesi'**
+  String get equipmentCable;
+
+  /// No description provided for @equipmentMachine.
+  ///
+  /// In tr, this message translates to:
+  /// **'Makine'**
+  String get equipmentMachine;
+
+  /// No description provided for @equipmentBands.
+  ///
+  /// In tr, this message translates to:
+  /// **'Direnç bandı'**
+  String get equipmentBands;
+
+  /// No description provided for @equipmentMedicineBall.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sağlık topu'**
+  String get equipmentMedicineBall;
+
+  /// No description provided for @equipmentExerciseBall.
+  ///
+  /// In tr, this message translates to:
+  /// **'Pilates topu'**
+  String get equipmentExerciseBall;
+
+  /// No description provided for @equipmentFoamRoll.
+  ///
+  /// In tr, this message translates to:
+  /// **'Köpük rulo'**
+  String get equipmentFoamRoll;
+
+  /// No description provided for @equipmentEzCurlBar.
+  ///
+  /// In tr, this message translates to:
+  /// **'Z bar'**
+  String get equipmentEzCurlBar;
+
+  /// No description provided for @equipmentOther.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ev eşyası'**
+  String get equipmentOther;
+
+  /// No description provided for @equipmentNone.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ekipman gerekmiyor'**
+  String get equipmentNone;
+
+  /// No description provided for @catalogEquipmentMissingHome.
+  ///
+  /// In tr, this message translates to:
+  /// **'{equipment} gerekiyor (evinde yok)'**
+  String catalogEquipmentMissingHome(Object equipment);
+
+  /// No description provided for @catalogEquipmentMissingGym.
+  ///
+  /// In tr, this message translates to:
+  /// **'{equipment} gerekiyor (salonunda yok)'**
+  String catalogEquipmentMissingGym(Object equipment);
+
+  /// No description provided for @catalogEquipmentCheck.
+  ///
+  /// In tr, this message translates to:
+  /// **'{equipment} — kontrol et'**
+  String catalogEquipmentCheck(Object equipment);
 }
 
 class _AppLocalizationsDelegate

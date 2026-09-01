@@ -489,5 +489,21 @@
   "supplementDoseCount": "{count} kalem",
   "supplementSectionLabel": "Takviye",
   "reminderSupplementBody": "Alma vakti geldi.",
-  "reminderSupplementBodyWithDose": "{dose} — alma vakti geldi."
+  "reminderSupplementBodyWithDose": "{dose} — alma vakti geldi.",
+  "equipmentBodyOnly": "Vücut ağırlığı",
+  "equipmentBarbell": "Halter",
+  "equipmentDumbbell": "Dambıl",
+  "equipmentKettlebell": "Kettlebell",
+  "equipmentCable": "Kablo makinesi",
+  "equipmentMachine": "Makine",
+  "equipmentBands": "Direnç bandı",
+  "equipmentMedicineBall": "Sağlık topu",
+  "equipmentExerciseBall": "Pilates topu",
+  "equipmentFoamRoll": "Köpük rulo",
+  "equipmentEzCurlBar": "Z bar",
+  "equipmentOther": "Ev eşyası",
+  "equipmentNone": "Ekipman gerekmiyor",
+  "catalogEquipmentMissingHome": "{equipment} gerekiyor (evinde yok)",
+  "catalogEquipmentMissingGym": "{equipment} gerekiyor (salonunda yok)",
+  "catalogEquipmentCheck": "{equipment} — kontrol et"
 }

@@ -48,12 +48,26 @@ void main() {
     expect(await db.select(db.supplementLogs).get(), isEmpty);
   });
 
-  test('taze kurulum güncel sürümde açılır', () async {
+  test('taze kurulum tüm tabloları açar', () async {
+    // Sürüm numarası sabit yazılmıyor: her şema artışında güncellenmesi
+    // gereken bir sayı, insanların düzeltmeden geçtiği bir teste dönüşür.
+    // Ölçüt tabloların çalışır olması.
     final db = AppDatabase.forTesting(NativeDatabase.memory());
     addTearDown(db.close);
 
-    expect(db.schemaVersion, 11);
+    expect(db.schemaVersion, greaterThanOrEqualTo(12));
     expect(await db.select(db.supplements).get(), isEmpty);
+    expect(await db.select(db.equipmentItems).get(), isEmpty);
+  });
+
+  test('v11 kurulumu v12 seviyesine yukseltilebilir', () async {
+    final db = await openAt(11);
+    addTearDown(db.close);
+
+    await db.customStatement('SELECT 1');
+
+    // Yeni sütunlar okunabiliyorsa göç çalışmış demektir.
+    expect(await db.select(db.equipmentItems).get(), isEmpty);
   });
 
   test('göç eski verileri korur', () async {

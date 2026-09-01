@@ -3,6 +3,7 @@ import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/data/equipment_repository.dart';
+import 'package:disport/features/catalog/presentation/equipment_labels.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,7 +18,7 @@ class EquipmentScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final inventory = ref.watch(equipmentInventoryProvider);
+    final inventory = ref.watch(equipmentItemsProvider);
     final repository = ref.watch(equipmentRepositoryProvider);
     final theme = Theme.of(context);
     final l10n = context.l10n;
@@ -26,7 +27,7 @@ class EquipmentScreen extends ConsumerWidget {
       appBar: AppBar(title: Text(l10n.catalogEquipmentTitle)),
       body: AppAsyncView<List<EquipmentItem>>(
         value: inventory,
-        onRetry: () => ref.invalidate(equipmentInventoryProvider),
+        onRetry: () => ref.invalidate(equipmentItemsProvider),
         emptyWhen: (list) => list.isEmpty,
         empty: Padding(
           padding: const EdgeInsets.all(AppSpacing.xl2),
@@ -37,7 +38,13 @@ class EquipmentScreen extends ConsumerWidget {
           ),
         ),
         data: (list) {
-          final owned = list.where((e) => e.isOwned).length;
+          // Yalnız seçilebilir olanlar sayılıyor: vücut ağırlığı ve ev
+          // eşyası zaten her yerde geçerli, onları saymak "3 ekipmanım
+          // var" gibi yanlış bir izlenim verirdi.
+          final selectable = list.where((e) => e.isSelectable).toList();
+          final owned = selectable
+              .where((e) => e.atHome || e.atGym)
+              .length;
 
           return AppScreenBody(
             children: [
@@ -52,19 +59,34 @@ class EquipmentScreen extends ConsumerWidget {
                   ),
                 ),
               ),
+              // Başlık satırı: iki sütunun ne olduğu bir kez söyleniyor,
+              // her satırda tekrarlanmıyor.
+              Padding(
+                padding: const EdgeInsets.only(
+                  right: AppSpacing.lg,
+                  bottom: AppSpacing.sm,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    _ColumnHeader(label: l10n.catalogLocationHome),
+                    _ColumnHeader(label: l10n.catalogLocationGym),
+                  ],
+                ),
+              ),
               Card(
                 child: Column(
                   children: [
-                    for (final (index, item) in list.indexed) ...[
+                    for (final (index, item) in selectable.indexed) ...[
                       if (index > 0)
                         const Divider(height: 1, indent: AppSpacing.lg),
-                      SwitchListTile(
-                        key: Key('equipment-${item.id}'),
-                        value: item.isOwned,
-                        onChanged: (value) =>
-                            repository.setOwned(item.id, owned: value),
-                        title: Text(item.label),
-                        secondary: const Icon(Icons.fitness_center),
+                      _EquipmentRow(
+                        item: item,
+                        onChanged: (atHome, atGym) => repository.setOwnedAt(
+                          item.id,
+                          atHome: atHome,
+                          atGym: atGym,
+                        ),
                       ),
                     ],
                   ],
@@ -118,5 +140,66 @@ class EquipmentScreen extends ConsumerWidget {
 
     if (label == null || label.trim().isEmpty) return;
     await ref.read(equipmentRepositoryProvider).add(label);
+  }
+}
+
+/// İki sütunun başlığı — 56dp sabit genişlik, satırlardaki kutularla
+/// aynı hizada.
+class _ColumnHeader extends StatelessWidget {
+  const _ColumnHeader({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return SizedBox(
+      width: 56,
+      child: Text(
+        label,
+        textAlign: TextAlign.center,
+        style: theme.textTheme.labelSmall?.copyWith(
+          color: theme.colorScheme.onSurfaceVariant,
+        ),
+      ),
+    );
+  }
+}
+
+/// Bir ekipman satırı: ad + ev/salon kutuları.
+class _EquipmentRow extends StatelessWidget {
+  const _EquipmentRow({required this.item, required this.onChanged});
+
+  final EquipmentItem item;
+  final void Function(bool? atHome, bool? atGym) onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: AppSpacing.lg),
+      child: Row(
+        children: [
+          const Icon(Icons.fitness_center, size: 20),
+          const SizedBox(width: AppSpacing.md),
+          Expanded(child: Text(equipmentLabel(context, item.kind))),
+          SizedBox(
+            width: 56,
+            child: Checkbox(
+              key: Key('equipment-home-${item.id}'),
+              value: item.atHome,
+              onChanged: (value) => onChanged(value ?? false, null),
+            ),
+          ),
+          SizedBox(
+            width: 56,
+            child: Checkbox(
+              key: Key('equipment-gym-${item.id}'),
+              value: item.atGym,
+              onChanged: (value) => onChanged(null, value ?? false),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

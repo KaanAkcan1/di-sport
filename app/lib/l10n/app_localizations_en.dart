@@ -1367,4 +1367,58 @@ class AppLocalizationsEn extends AppLocalizations {
   String reminderSupplementBodyWithDose(Object dose) {
     return '$dose — time to take it.';
   }
+
+  @override
+  String get equipmentBodyOnly => 'Body only';
+
+  @override
+  String get equipmentBarbell => 'Barbell';
+
+  @override
+  String get equipmentDumbbell => 'Dumbbell';
+
+  @override
+  String get equipmentKettlebell => 'Kettlebell';
+
+  @override
+  String get equipmentCable => 'Cable';
+
+  @override
+  String get equipmentMachine => 'Machine';
+
+  @override
+  String get equipmentBands => 'Resistance bands';
+
+  @override
+  String get equipmentMedicineBall => 'Medicine ball';
+
+  @override
+  String get equipmentExerciseBall => 'Exercise ball';
+
+  @override
+  String get equipmentFoamRoll => 'Foam roller';
+
+  @override
+  String get equipmentEzCurlBar => 'E-Z curl bar';
+
+  @override
+  String get equipmentOther => 'Household item';
+
+  @override
+  String get equipmentNone => 'No equipment';
+
+  @override
+  String catalogEquipmentMissingHome(Object equipment) {
+    return 'Needs $equipment (not at home)';
+  }
+
+  @override
+  String catalogEquipmentMissingGym(Object equipment) {
+    return 'Needs $equipment (not at the gym)';
+  }
+
+  @override
+  String catalogEquipmentCheck(Object equipment) {
+    return '$equipment — check';
+  }
 }

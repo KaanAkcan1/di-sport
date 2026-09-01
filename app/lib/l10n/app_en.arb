@@ -489,5 +489,21 @@
   "supplementDoseCount": "{count} item(s)",
   "supplementSectionLabel": "Supplements",
   "reminderSupplementBody": "Time to take it.",
-  "reminderSupplementBodyWithDose": "{dose} — time to take it."
+  "reminderSupplementBodyWithDose": "{dose} — time to take it.",
+  "equipmentBodyOnly": "Body only",
+  "equipmentBarbell": "Barbell",
+  "equipmentDumbbell": "Dumbbell",
+  "equipmentKettlebell": "Kettlebell",
+  "equipmentCable": "Cable",
+  "equipmentMachine": "Machine",
+  "equipmentBands": "Resistance bands",
+  "equipmentMedicineBall": "Medicine ball",
+  "equipmentExerciseBall": "Exercise ball",
+  "equipmentFoamRoll": "Foam roller",
+  "equipmentEzCurlBar": "E-Z curl bar",
+  "equipmentOther": "Household item",
+  "equipmentNone": "No equipment",
+  "catalogEquipmentMissingHome": "Needs {equipment} (not at home)",
+  "catalogEquipmentMissingGym": "Needs {equipment} (not at the gym)",
+  "catalogEquipmentCheck": "{equipment} — check"
 }

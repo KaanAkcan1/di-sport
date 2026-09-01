@@ -61,7 +61,7 @@ void main() {
     return catalog.where((e) {
       if (needle.isNotEmpty) {
         final haystack = TurkishText.fold(
-          [e.nameTr, e.nameEn, ...e.primaryMuscles].join(' '),
+          [e.displayNameTr, e.nameEn, ...e.primaryMuscles].join(' '),
         );
         if (!haystack.contains(needle)) return false;
       }
@@ -74,7 +74,7 @@ void main() {
         return false;
       }
       return true;
-    }).toList()..sort((a, b) => a.nameTr.compareTo(b.nameTr));
+    }).toList()..sort((a, b) => a.displayNameTr.compareTo(b.displayNameTr));
   }
 
   Widget wrap() => ProviderScope(

@@ -191,7 +191,7 @@ void main() {
         'nameEn': 'Burpee',
         'category': 'strength',
         'location': 'home',
-        'equipment': ['vücut ağırlığı'],
+        'equipment': ['bodyOnly'],
         'primaryMuscles': ['tüm vücut'],
         'secondaryMuscles': <String>[],
         'difficulty': 4,

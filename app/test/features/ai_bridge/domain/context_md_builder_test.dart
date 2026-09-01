@@ -283,7 +283,7 @@ void main() {
 
       expect(md, contains('**yalnızca**'));
       expect(md, contains('markdown'));
-      expect(md, contains('vücut ağırlığı'));
+      expect(md, contains('bodyOnly'));
       expect(md, contains('1200-4000'));
       expect(md, contains('Dinlenme'));
     });

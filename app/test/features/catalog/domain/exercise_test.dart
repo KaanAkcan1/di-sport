@@ -10,7 +10,7 @@ Map<String, dynamic> sampleJson() => {
   'nameEn': 'Incline Push-up',
   'category': 'strength',
   'location': 'home',
-  'equipment': <String>['vücut ağırlığı'],
+  'equipment': <String>['bodyOnly'],
   'primaryMuscles': ['göğüs'],
   'secondaryMuscles': ['triceps', 'ön omuz'],
   'difficulty': 2,

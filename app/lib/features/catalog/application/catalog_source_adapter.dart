@@ -16,9 +16,9 @@ class CatalogSourceAdapter implements CatalogSource {
       for (final exercise in exercises)
         ExerciseRef(
           id: exercise.id,
-          nameTr: exercise.nameTr,
+          nameTr: exercise.displayNameTr,
           location: exercise.location.name,
-          equipment: exercise.equipment,
+          equipment: [for (final kind in exercise.equipment) kind.name],
           primaryMuscles: exercise.primaryMuscles,
         ),
     ];
@@ -30,7 +30,7 @@ class CatalogSourceAdapter implements CatalogSource {
     final exercises = await _repository.watchFiltered().first;
     return {
       for (final exercise in exercises)
-        exercise.id: (location: exercise.location, nameTr: exercise.nameTr),
+        exercise.id: (location: exercise.location, nameTr: exercise.displayNameTr),
     };
   }
 }

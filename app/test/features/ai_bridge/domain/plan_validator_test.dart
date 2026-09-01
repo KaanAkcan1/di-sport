@@ -300,7 +300,7 @@ void main() {
 
     test('boş ekipman listesi yönlendirmeli hata verir', () {
       final document = withNewExercise((e) => e..['equipment'] = <String>[]);
-      expect(errorFor(document), contains('vücut ağırlığı'));
+      expect(errorFor(document), contains('equipment'));
     });
 
     test('boş güvenlik notu reddedilir', () {

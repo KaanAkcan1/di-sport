@@ -338,8 +338,11 @@ class ContextMdBuilder {
         '`newExercises` dizisine **tam tanımıyla** ekle: `execution` en '
         'az 3 adım, `commonMistakes` en az 2 kayıt (mistake/why/fix üçü '
         'de dolu), `breathing`, `safety`, `summary`, `primaryMuscles` ve '
-        '`equipment` boş olamaz — ekipmansız hareket için '
-        '`["vücut ağırlığı"]` yaz.',
+        '`equipment` boş olamaz. Ekipman değerleri sabit bir listeden '
+        'seçilir: `bodyOnly`, `barbell`, `dumbbell`, `kettlebell`, '
+        '`cable`, `machine`, `bands`, `medicineBall`, `exerciseBall`, '
+        '`foamRoll`, `ezCurlBar`, `other`, `none`. Ekipmansız hareket '
+        'için `["bodyOnly"]` yaz.',
       )
       ..writeln(
         '4. Saatleri bölüm 1\'deki yaşam düzenime göre koy. Dinlenme '

@@ -55,8 +55,10 @@ class HowToTab extends StatelessWidget {
         ),
         const SizedBox(height: AppSpacing.lg),
 
-        Text(exercise.summary, style: theme.textTheme.bodyLarge),
-        const SizedBox(height: AppSpacing.xl2),
+        if (exercise.summary case final summary?) ...[
+          Text(summary, style: theme.textTheme.bodyLarge),
+          const SizedBox(height: AppSpacing.xl2),
+        ],
 
         if (exercise.cues.isNotEmpty) ...[
           AppSection(
@@ -72,34 +74,41 @@ class HowToTab extends StatelessWidget {
           ),
         ],
 
-        AppSection(
-          title: l10n.catalogSetupTitle,
-          child: _BulletList(items: exercise.setup),
-        ),
+        if (exercise.setup.isNotEmpty)
+          AppSection(
+            title: l10n.catalogSetupTitle,
+            child: _BulletList(items: exercise.setup),
+          ),
 
         AppSection(
           title: l10n.catalogExecutionTitle,
           child: _NumberedList(items: exercise.execution),
         ),
 
-        AppSection(
-          title: l10n.catalogBreathingTempoTitle,
-          child: Column(
-            children: [
-              _LabeledRow(
-                icon: Icons.air,
-                label: l10n.catalogBreathingLabel,
-                value: exercise.breathing,
-              ),
-              const SizedBox(height: AppSpacing.md),
-              _LabeledRow(
-                icon: Icons.timer_outlined,
-                label: l10n.catalogTempoLabel,
-                value: exercise.tempo,
-              ),
-            ],
+        // İkisi de boşsa bölüm hiç çizilmiyor: boş bir başlık
+        // kullanıcıya "burada bir şey olmalıydı" dedirtir.
+        if (exercise.breathing != null || exercise.tempo != null)
+          AppSection(
+            title: l10n.catalogBreathingTempoTitle,
+            child: Column(
+              children: [
+                if (exercise.breathing case final breathing?)
+                  _LabeledRow(
+                    icon: Icons.air,
+                    label: l10n.catalogBreathingLabel,
+                    value: breathing,
+                  ),
+                if (exercise.breathing != null && exercise.tempo != null)
+                  const SizedBox(height: AppSpacing.md),
+                if (exercise.tempo case final tempo?)
+                  _LabeledRow(
+                    icon: Icons.timer_outlined,
+                    label: l10n.catalogTempoLabel,
+                    value: tempo,
+                  ),
+              ],
+            ),
           ),
-        ),
 
         _MetaSection(exercise: exercise),
       ],
@@ -242,7 +251,7 @@ class SafetyTab extends StatelessWidget {
                 const SizedBox(width: AppSpacing.md),
                 Expanded(
                   child: Text(
-                    exercise.safety,
+                    exercise.safety ?? context.l10n.catalogSafetyDisclaimer,
                     style: theme.textTheme.bodyLarge,
                   ),
                 ),
@@ -275,7 +284,7 @@ class _HeaderImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: context.l10n.catalogImageSemantics(exercise.nameTr),
+      label: context.l10n.catalogImageSemantics(exercise.displayNameTr),
       image: true,
       child: ClipRRect(
         borderRadius: AppRadius.lgAll,
@@ -476,7 +485,7 @@ class _VariantList extends StatelessWidget {
               margin: const EdgeInsets.only(bottom: AppSpacing.sm),
               child: ListTile(
                 leading: Icon(icon),
-                title: Text(exercise.nameTr),
+                title: Text(exercise.displayNameTr),
                 subtitle: Text(
                   context.l10n.catalogDifficultyOutOfFive(exercise.difficulty),
                 ),

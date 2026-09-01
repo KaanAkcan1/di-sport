@@ -70,7 +70,7 @@ class _Content extends StatelessWidget {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(exercise.nameTr),
+          title: Text(exercise.displayNameTr),
           // Etiketlerin varsayılan yatay dolgusu dört Türkçe kelimeyi
           // taşırıyor; "Varyantlar" son harfinden kırpılıyordu.
           bottom: TabBar(

@@ -9,7 +9,7 @@
       "category": "strength",
       "location": "home",
       "equipment": [
-        "vücut ağırlığı"
+        "bodyOnly"
       ],
       "primaryMuscles": [
         "göğüs"
@@ -69,8 +69,8 @@
       "category": "strength",
       "location": "home",
       "equipment": [
-        "vücut ağırlığı",
-        "sağlam yükselti"
+        "bodyOnly",
+        "other"
       ],
       "primaryMuscles": [
         "göğüs"
@@ -135,7 +135,7 @@
       "category": "strength",
       "location": "home",
       "equipment": [
-        "vücut ağırlığı"
+        "bodyOnly"
       ],
       "primaryMuscles": [
         "göğüs"
@@ -192,7 +192,7 @@
       "category": "strength",
       "location": "both",
       "equipment": [
-        "vücut ağırlığı"
+        "bodyOnly"
       ],
       "primaryMuscles": [
         "göğüs"
@@ -255,7 +255,7 @@
       "category": "strength",
       "location": "home",
       "equipment": [
-        "direnç bandı"
+        "bands"
       ],
       "primaryMuscles": [
         "sırt"
@@ -313,7 +313,7 @@
       "category": "strength",
       "location": "home",
       "equipment": [
-        "direnç bandı"
+        "bands"
       ],
       "primaryMuscles": [
         "arka omuz"
@@ -365,7 +365,7 @@
       "category": "core",
       "location": "home",
       "equipment": [
-        "vücut ağırlığı"
+        "bodyOnly"
       ],
       "primaryMuscles": [
         "bel",
@@ -421,7 +421,7 @@
       "category": "core",
       "location": "both",
       "equipment": [
-        "vücut ağırlığı"
+        "bodyOnly"
       ],
       "primaryMuscles": [
         "karın"
@@ -481,7 +481,7 @@
       "category": "core",
       "location": "home",
       "equipment": [
-        "vücut ağırlığı"
+        "bodyOnly"
       ],
       "primaryMuscles": [
         "karın"
@@ -534,7 +534,7 @@
       "category": "strength",
       "location": "home",
       "equipment": [
-        "sandalye"
+        "other"
       ],
       "primaryMuscles": [
         "bacak",
@@ -595,7 +595,7 @@
       "category": "strength",
       "location": "home",
       "equipment": [
-        "basamak"
+        "other"
       ],
       "primaryMuscles": [
         "bacak",
@@ -653,7 +653,7 @@
       "category": "strength",
       "location": "home",
       "equipment": [
-        "vücut ağırlığı"
+        "bodyOnly"
       ],
       "primaryMuscles": [
         "kalça"
@@ -712,8 +712,8 @@
       "category": "strength",
       "location": "home",
       "equipment": [
-        "vücut ağırlığı",
-        "duvar"
+        "bodyOnly",
+        "other"
       ],
       "primaryMuscles": [
         "bacak"
@@ -771,7 +771,7 @@
       "category": "strength",
       "location": "both",
       "equipment": [
-        "vücut ağırlığı"
+        "bodyOnly"
       ],
       "primaryMuscles": [
         "baldır"
@@ -821,7 +821,7 @@
       "category": "core",
       "location": "home",
       "equipment": [
-        "vücut ağırlığı"
+        "bodyOnly"
       ],
       "primaryMuscles": [
         "bel",
@@ -880,7 +880,7 @@
       "category": "cardio",
       "location": "gym",
       "equipment": [
-        "kondisyon bisikleti"
+        "machine"
       ],
       "primaryMuscles": [
         "bacak"
@@ -938,7 +938,7 @@
       "category": "cardio",
       "location": "gym",
       "equipment": [
-        "koşu bandı"
+        "machine"
       ],
       "primaryMuscles": [
         "bacak",
@@ -996,8 +996,8 @@
       "category": "strength",
       "location": "both",
       "equipment": [
-        "dambıl",
-        "sandalye"
+        "dumbbell",
+        "other"
       ],
       "primaryMuscles": [
         "sırt"
@@ -1056,8 +1056,8 @@
       "category": "strength",
       "location": "both",
       "equipment": [
-        "dambıl",
-        "sandalye"
+        "dumbbell",
+        "other"
       ],
       "primaryMuscles": [
         "omuz"
@@ -1115,7 +1115,7 @@
       "category": "strength",
       "location": "both",
       "equipment": [
-        "dambıl"
+        "dumbbell"
       ],
       "primaryMuscles": [
         "bacak"
@@ -1176,7 +1176,7 @@
       "category": "strength",
       "location": "both",
       "equipment": [
-        "dambıl"
+        "dumbbell"
       ],
       "primaryMuscles": [
         "arka bacak",
@@ -1236,7 +1236,7 @@
       "category": "strength",
       "location": "both",
       "equipment": [
-        "dambıl"
+        "dumbbell"
       ],
       "primaryMuscles": [
         "karın",
@@ -1290,7 +1290,7 @@
       "category": "core",
       "location": "both",
       "equipment": [
-        "vücut ağırlığı"
+        "bodyOnly"
       ],
       "difficulty": 3,
       "primaryMuscles": [
@@ -1348,7 +1348,7 @@
       "category": "mobility",
       "location": "home",
       "equipment": [
-        "vücut ağırlığı"
+        "bodyOnly"
       ],
       "difficulty": 1,
       "primaryMuscles": [
@@ -1400,7 +1400,7 @@
       "category": "mobility",
       "location": "home",
       "equipment": [
-        "vücut ağırlığı"
+        "bodyOnly"
       ],
       "difficulty": 1,
       "primaryMuscles": [
@@ -1452,7 +1452,7 @@
       "category": "mobility",
       "location": "home",
       "equipment": [
-        "vücut ağırlığı"
+        "bodyOnly"
       ],
       "difficulty": 1,
       "primaryMuscles": [

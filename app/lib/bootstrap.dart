@@ -6,6 +6,7 @@ import 'package:disport/features/catalog/data/equipment_repository.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:disport/features/health/data/metric_definitions_repository.dart';
 import 'package:disport/features/reminders/application/reminder_providers.dart';
+import 'package:disport/features/settings/data/profile_repository.dart';
 import 'package:disport/features/today/data/daily_rules_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -50,12 +51,22 @@ Future<void> bootstrap() async {
 /// Hata durumunda uygulama yine de açılır: katalog boş kalır, kullanıcı
 /// bir sonraki açılışta tekrar dener. Tohumlama hatası uygulamayı
 /// başlatılamaz hâle getirmemeli.
+const _catalogSeedVersionKey = 'catalog.seededVersion';
+
 Future<void> _seedCatalog(ProviderContainer container) async {
   try {
     final json = await rootBundle.loadString('assets/catalog.json');
-    await CatalogRepository(
-      container.read(appDatabaseProvider),
-    ).seedFromJson(json);
+    final profile = ProfileRepository(container.read(appDatabaseProvider));
+
+    await CatalogRepository(container.read(appDatabaseProvider)).seedFromJson(
+      json,
+      // Uygulanan tohum sürümü profil tablosunda; katalog deposu o
+      // tabloyu tanımıyor ve tanımaması gerekiyor.
+      readVersion: () async =>
+          int.tryParse(await profile.read(_catalogSeedVersionKey) ?? '') ?? 0,
+      writeVersion: (version) =>
+          profile.set(_catalogSeedVersionKey, '$version'),
+    );
   } catch (error, stackTrace) {
     debugPrint('Katalog tohumlaması başarısız: $error');
     debugPrintStack(stackTrace: stackTrace);

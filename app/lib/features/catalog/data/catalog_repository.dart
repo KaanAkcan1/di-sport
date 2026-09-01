@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:ui' show Locale;
 
 import 'package:disport/core/db/app_database.dart';
+import 'package:disport/core/utils/locale_text.dart';
 import 'package:disport/core/utils/turkish_text.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:drift/drift.dart';
@@ -22,22 +24,71 @@ class CatalogRepository {
     return (await query.getSingle()).read(count)!;
   }
 
-  /// Tohum verisini yükler. Tablo doluysa hiçbir şey yapmaz.
+  /// Tohum verisini yükler ve **güncellenmişse yeniden uygular**.
   ///
-  /// Uygulama her açılışta çağırır; ikinci çağrının ucuz ve etkisiz
-  /// olması gerekiyor. Kullanıcının eklediği hareketlerin üzerine
-  /// yazmaması da bu kontrole bağlı.
-  Future<void> seedFromJson(String jsonString) async {
-    if (await countAll() > 0) return;
-
+  /// **Neden sürüm damgası:** eskiden ölçüt "tablo dolu mu"ydu. Bu,
+  /// katalog güncellemesinin mevcut kurulumlara **hiç ulaşmaması**
+  /// demekti — yeni hareketler yalnız uygulamayı ilk kez kuranlarda
+  /// görünürdü. Kusur M8 gözden geçirmesinde yakalandı.
+  ///
+  /// Uygulanan sürüm profil tablosunda duruyor. Dosyadaki sürüm daha
+  /// büyükse yerleşik kayıtlar **id bazında upsert** ediliyor:
+  ///
+  /// - Kullanıcının eklediği hareketler (`isUserDefined`) korunuyor.
+  /// - Kullanıcının **sildiği** yerleşikler geri gelmiyor — ölçüt
+  ///   satırın varlığı (M6 kullanıcı-tanımlı-veri kalıbı 2).
+  ///
+  /// [readVersion]/[writeVersion] dışarıdan veriliyor: bu depo profil
+  /// tablosunu tanımıyor ve tanımaması gerekiyor.
+  Future<void> seedFromJson(
+    String jsonString, {
+    Future<int> Function()? readVersion,
+    Future<void> Function(int version)? writeVersion,
+  }) async {
     final decoded = jsonDecode(jsonString) as Map<String, dynamic>;
+    final fileVersion = decoded['version'] as int? ?? 1;
+    final applied = await readVersion?.call() ?? 0;
+
+    final isEmpty = await countAll() == 0;
+    if (!isEmpty && fileVersion <= applied) return;
+
     final items = (decoded['exercises'] as List)
         .map((e) => Exercise.fromJson(e as Map<String, dynamic>))
         .toList();
 
-    await _db.batch((batch) {
-      batch.insertAll(_db.exercises, [for (final e in items) _toRow(e)]);
-    });
+    if (isEmpty) {
+      await _db.batch((batch) {
+        batch.insertAll(_db.exercises, [for (final e in items) _toRow(e)]);
+      });
+    } else {
+      // Silinmiş yerleşikler geri gelmesin: yalnız hâlâ duran id'ler
+      // güncelleniyor, yenileri ekleniyor.
+      final existing = await (_db.select(
+        _db.exercises,
+      )..where((t) => t.deletedAt.isNull())).get();
+      final known = {for (final row in existing) row.id};
+      final deleted = await _deletedIds();
+
+      await _db.batch((batch) {
+        for (final exercise in items) {
+          if (deleted.contains(exercise.id)) continue;
+          if (known.contains(exercise.id)) {
+            batch.replace(_db.exercises, _toRow(exercise));
+          } else {
+            batch.insert(_db.exercises, _toRow(exercise));
+          }
+        }
+      });
+    }
+
+    await writeVersion?.call(fileVersion);
+  }
+
+  Future<Set<String>> _deletedIds() async {
+    final rows = await (_db.select(
+      _db.exercises,
+    )..where((t) => t.deletedAt.isNotNull())).get();
+    return {for (final row in rows) row.id};
   }
 
   /// Filtrelenmiş liste; veritabanı değiştikçe kendiliğinden yenilenir.
@@ -119,16 +170,33 @@ class CatalogRepository {
   ExercisesCompanion _toRow(Exercise e) => ExercisesCompanion.insert(
     id: e.id,
     updatedAt: DateTime.now().millisecondsSinceEpoch,
-    nameTr: e.nameTr,
+    nameTr: e.displayNameTr,
     nameEn: e.nameEn,
     category: e.category.name,
     location: e.location.name,
     difficulty: e.difficulty,
     isUserDefined: Value(e.isUserDefined),
-    searchText: TurkishText.fold(
-      [e.nameTr, e.nameEn, ...e.primaryMuscles, ...e.secondaryMuscles].join(' '),
-    ),
-    equipmentJson: jsonEncode(e.equipment),
+    // Arama blob'u **iki dilin katlamasını da** taşıyor: Türkçe
+    // arayüzdeki kullanıcı "pushup", İngilizce arayüzdeki "sinav"
+    // yazabilmeli. Tek katlamaya bağlanmak birini cezalandırırdı
+    // (M7 düzeltmesi 6). Sorgu tarafı tek katlama uyguluyor ve
+    // ikisinden biri tutuyor.
+    searchText: [
+      LocaleText.fold(
+        const Locale('tr'),
+        [
+          e.displayNameTr,
+          e.nameEn,
+          ...e.primaryMuscles,
+          ...e.secondaryMuscles,
+        ].join(' '),
+      ),
+      LocaleText.fold(
+        const Locale('en'),
+        [e.displayNameTr, e.nameEn].join(' '),
+      ),
+    ].join(' '),
+    equipmentJson: jsonEncode([for (final kind in e.equipment) kind.name]),
     primaryMusclesJson: jsonEncode(e.primaryMuscles),
     detailJson: jsonEncode(e.toJson()),
   );

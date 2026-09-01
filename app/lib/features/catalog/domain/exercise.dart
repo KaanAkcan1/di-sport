@@ -1,3 +1,30 @@
+import 'package:disport/features/catalog/domain/equipment_kind.dart';
+
+/// MET'in nasıl hesaplanacağı (spec §4.4).
+///
+/// Kardiyoda tek bir MET değeri yetmiyor: koşu bandında 5 km/h düz
+/// yürüyüş ~4 MET, 8 km/h %8 eğimde ~11 MET — aynı harekete tek sayı
+/// vermek üç kat hata demek.
+enum MetModel {
+  /// Sabit değer — kuvvet ve gövde hareketleri.
+  fixed,
+
+  /// ACSM denklemi, hız + eğim girdisiyle.
+  treadmill,
+
+  /// Direnç kademesi → MET tablosu. ACSM'in bisiklet denklemi watt
+  /// istiyor ve ev/salon bisikletlerindeki kademe watt'a güvenilir
+  /// şekilde çevrilemiyor.
+  cycling,
+}
+
+/// Kardiyo ve kuvvette şiddet kademesi.
+///
+/// Burada tanımlı çünkü MET modeliyle birlikte kullanılıyor; M9'un
+/// enerji hesabı ve M10'un plan editörü ikisini de buradan alıyor —
+/// çifte tanım riski böyle kapanıyor.
+enum Effort { light, moderate, vigorous }
+
 /// Hareketin türü.
 enum ExerciseCategory { strength, cardio, mobility, core }
 
@@ -43,7 +70,6 @@ class CommonMistake {
 class Exercise {
   const Exercise({
     required this.id,
-    required this.nameTr,
     required this.nameEn,
     required this.category,
     required this.location,
@@ -51,24 +77,27 @@ class Exercise {
     required this.primaryMuscles,
     required this.secondaryMuscles,
     required this.difficulty,
-    required this.summary,
-    required this.setup,
     required this.execution,
-    required this.breathing,
-    required this.tempo,
-    required this.cues,
-    required this.commonMistakes,
-    required this.safety,
-    required this.regressions,
-    required this.progressions,
     required this.isUserDefined,
+    this.nameTr,
+    this.summary,
+    this.setup = const [],
+    this.breathing,
+    this.tempo,
+    this.cues = const [],
+    this.commonMistakes = const [],
+    this.safety,
+    this.regressions = const [],
+    this.progressions = const [],
+    this.met,
+    this.metModel = MetModel.fixed,
     this.imagePath,
     this.videoQuery,
   });
 
   factory Exercise.fromJson(Map<String, dynamic> json) => Exercise(
     id: json['id'] as String,
-    nameTr: json['nameTr'] as String,
+    nameTr: json['nameTr'] as String?,
     nameEn: json['nameEn'] as String,
     category: _enumByName(
       ExerciseCategory.values,
@@ -80,37 +109,54 @@ class Exercise {
       json['location'] as String,
       'location',
     ),
-    equipment: _strings(json['equipment']),
+    equipment: [
+      for (final raw in _strings(json['equipment']))
+        EquipmentKind.fromName(raw),
+    ],
     primaryMuscles: _strings(json['primaryMuscles']),
     secondaryMuscles: _strings(json['secondaryMuscles']),
     difficulty: json['difficulty'] as int,
-    summary: json['summary'] as String,
+    summary: json['summary'] as String?,
     setup: _strings(json['setup']),
     execution: _strings(json['execution']),
-    breathing: json['breathing'] as String,
-    tempo: json['tempo'] as String,
+    breathing: json['breathing'] as String?,
+    tempo: json['tempo'] as String?,
     cues: _strings(json['cues']),
     commonMistakes: [
       for (final m in json['commonMistakes'] as List? ?? const [])
         CommonMistake.fromJson(m as Map<String, dynamic>),
     ],
-    safety: json['safety'] as String,
+    safety: json['safety'] as String?,
     regressions: _strings(json['regressions']),
     progressions: _strings(json['progressions']),
+    met: (json['met'] as num?)?.toDouble(),
+    metModel: json['metModel'] == null
+        ? MetModel.fixed
+        : _enumByName(MetModel.values, json['metModel'] as String, 'metModel'),
     imagePath: json['imagePath'] as String?,
     videoQuery: json['videoQuery'] as String?,
     isUserDefined: json['isUserDefined'] as bool? ?? false,
   );
 
   final String id;
-  final String nameTr;
+
+  /// Türkçe ad — **boş olabilir**.
+  ///
+  /// Katalog ~120 harekete çıkarken kaynakta yalnız İngilizce ad var;
+  /// çevrilebilenler çevrildi, özel ad taşıyanlar boş bırakıldı.
+  /// Uydurma bir Türkçe ad hem aramayı hem internette aratmayı
+  /// zorlaştırırdı (spec §4.1, §4.3).
+  final String? nameTr;
+
   final String nameEn;
   final ExerciseCategory category;
   final ExerciseLocation location;
 
-  /// Boş dizi değil, `['vücut ağırlığı']` yazılır — "ekipman gerekmiyor"
-  /// bilgisi de bir bilgidir ve filtrede görünmesi gerekir.
-  final List<String> equipment;
+  /// Gereken ekipman — tipli.
+  ///
+  /// Boş dizi değil `[EquipmentKind.none]` yazılır: "ekipman
+  /// gerekmiyor" bilgisi de bir bilgidir ve rozette görünmesi gerekir.
+  final List<EquipmentKind> equipment;
 
   final List<String> primaryMuscles;
   final List<String> secondaryMuscles;
@@ -119,7 +165,13 @@ class Exercise {
   final int difficulty;
 
   /// Bir-iki cümle: ne işe yarar, neden bu programda.
-  final String summary;
+  ///
+  /// Zenginlik alanları (`summary`, `setup`, `breathing`, `tempo`,
+  /// `cues`, `safety`) **boş olabilir**: kaynakta yoklar ve araştırmayla
+  /// bulunamadıysa uydurulmuyor. Boş alan ekranda hiç çizilmiyor
+  /// (spec §4.3). Çekirdek listede zorunlular —
+  /// `catalog_seed_test.dart` orayı denetliyor.
+  final String? summary;
 
   /// Başlangıç pozisyonu, adım adım.
   final List<String> setup;
@@ -127,21 +179,29 @@ class Exercise {
   /// Hareketin kendisi, numaralandırılacak adımlar.
   final List<String> execution;
 
-  final String breathing;
-  final String tempo;
+  final String? breathing;
+  final String? tempo;
 
   /// Antrenman sırasında kartta görünen kısa hatırlatmalar. Set arasında
   /// paragraf okunmaz; bunlar bir bakışta okunur.
   final List<String> cues;
 
   final List<CommonMistake> commonMistakes;
-  final String safety;
+  final String? safety;
 
   /// Kolaylaştırılmış varyantların id'leri.
   final List<String> regressions;
 
   /// Zorlaştırılmış varyantların id'leri.
   final List<String> progressions;
+
+  /// Metabolik eşdeğer — enerji hesabının temeli (spec §4.4).
+  ///
+  /// `null` ise bu hareket için kalori tahmini üretilmiyor; uydurma bir
+  /// sayı olmayan bir hassasiyet iddia etmek olurdu.
+  final double? met;
+
+  final MetModel metModel;
 
   final String? imagePath;
   final String? videoQuery;
@@ -151,12 +211,11 @@ class Exercise {
 
   bool get hasImage => imagePath != null;
 
-  /// Ekipman gerektirmiyor mu — filtrede "evde yapılabilir" ayrımı için.
-  bool get isBodyweight =>
-      equipment.isEmpty ||
-      // l10n-exempt: katalog verisi, arayüz metni değil. M8'de
-      // `EquipmentKind.bodyOnly` karşılaştırmasına dönüyor.
-      (equipment.length == 1 && equipment.first == 'vücut ağırlığı');
+  /// Ekipman gerektirmiyor mu.
+  bool get isBodyweight => equipment.every((kind) => !kind.needsInventory);
+
+  /// Gösterim ve arama için Türkçe ad — yoksa İngilizcesi.
+  String get displayNameTr => nameTr ?? nameEn;
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -164,7 +223,7 @@ class Exercise {
     'nameEn': nameEn,
     'category': category.name,
     'location': location.name,
-    'equipment': equipment,
+    'equipment': [for (final kind in equipment) kind.name],
     'primaryMuscles': primaryMuscles,
     'secondaryMuscles': secondaryMuscles,
     'difficulty': difficulty,
@@ -173,6 +232,8 @@ class Exercise {
     'execution': execution,
     'breathing': breathing,
     'tempo': tempo,
+    'met': met,
+    'metModel': metModel.name,
     'cues': cues,
     'commonMistakes': [for (final m in commonMistakes) m.toJson()],
     'safety': safety,

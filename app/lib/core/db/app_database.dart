@@ -1,5 +1,6 @@
 import 'package:disport/features/catalog/data/equipment_table.dart';
 import 'package:disport/features/catalog/data/exercise_table.dart';
+import 'package:disport/features/catalog/domain/equipment_kind.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/health/data/lab_tables.dart';
 import 'package:disport/features/health/data/metric_definition_table.dart';
@@ -48,7 +49,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 11;
+  int get schemaVersion => 12;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -92,6 +93,33 @@ class AppDatabase extends _$AppDatabase {
       if (from < 11) {
         await m.createTable(supplements);
         await m.createTable(supplementLogs);
+      }
+      if (from < 12) {
+        await m.addColumn(equipmentItems, equipmentItems.kind);
+        await m.addColumn(equipmentItems, equipmentItems.atHome);
+        await m.addColumn(equipmentItems, equipmentItems.atGym);
+
+        // Eski "sahibim" işareti ikisine birden yazılıyor: yer bilgisi
+        // yokken en geniş yorum doğru olan. Kullanıcının işaretlediği
+        // hiçbir şey kaybolmamalı; daralttığımızda "dambılım vardı,
+        // nereye gitti" diye sorar.
+        await m.database.customStatement(
+          'UPDATE equipment_items SET at_home = 1, at_gym = 1 '
+          'WHERE is_owned = 1',
+        );
+
+        // Türkçe etiketler tipli karşılıklarına çevriliyor. SQL'de
+        // yazılamaz: eşleme Türkçe katlaması gerektiriyor ve o Dart
+        // tarafında (`TurkishText.fold`). Envanter birkaç düzine satır,
+        // tek tek dolaşmak ölçülebilir bir maliyet değil.
+        for (final row in await select(equipmentItems).get()) {
+          await (update(equipmentItems)..where((t) => t.id.equals(row.id)))
+              .write(
+                EquipmentItemsCompanion(
+                  kind: Value(EquipmentKind.fromLegacyTr(row.label).name),
+                ),
+              );
+        }
       }
     },
   );

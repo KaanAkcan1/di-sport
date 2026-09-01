@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:disport/features/catalog/domain/equipment_kind.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
 
 /// Testlerde kullanılan hareket üreteci.
@@ -13,7 +14,9 @@ Map<String, dynamic> fixtureJson({
   required String nameTr,
   required String nameEn,
   List<String> muscles = const ['göğüs'],
-  List<String> equipment = const ['vücut ağırlığı'],
+  // JSON tarafında enum **adı** duruyor; `Exercise.fromJson` onu
+  // çözüyor. Tipli değer `fixtureExercise`'te.
+  List<String> equipment = const ['bodyOnly'],
   int difficulty = 2,
   String category = 'strength',
   String location = 'home',
@@ -53,7 +56,7 @@ Exercise fixtureExercise({
   required String nameTr,
   required String nameEn,
   List<String> muscles = const ['göğüs'],
-  List<String> equipment = const ['vücut ağırlığı'],
+  List<EquipmentKind> equipment = const [EquipmentKind.bodyOnly],
   int difficulty = 2,
   ExerciseCategory category = ExerciseCategory.strength,
   ExerciseLocation location = ExerciseLocation.home,
@@ -67,7 +70,7 @@ Exercise fixtureExercise({
     nameTr: nameTr,
     nameEn: nameEn,
     muscles: muscles,
-    equipment: equipment,
+    equipment: [for (final kind in equipment) kind.name],
     difficulty: difficulty,
     category: category.name,
     location: location.name,
@@ -93,7 +96,7 @@ String fixtureSeedJson() => jsonEncode({
       nameTr: 'Sandalyeye Squat',
       nameEn: 'Chair Squat',
       muscles: ['bacak'],
-      equipment: ['sandalye'],
+      equipment: ['other'],
       difficulty: 1,
     ),
     fixtureJson(
@@ -101,7 +104,7 @@ String fixtureSeedJson() => jsonEncode({
       nameTr: 'Kondisyon Bisikleti',
       nameEn: 'Stationary Bike',
       muscles: ['bacak'],
-      equipment: ['kondisyon bisikleti'],
+      equipment: ['machine'],
       difficulty: 1,
       category: 'cardio',
       location: 'gym',
