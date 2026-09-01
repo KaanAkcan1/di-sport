@@ -1107,6 +1107,56 @@ class AppLocalizationsTr extends AppLocalizations {
   String get supplementKindMedication => 'İlaç';
 
   @override
+  String get equipmentTabHome => 'Evde';
+
+  @override
+  String get equipmentTabGym => 'Salonda';
+
+  @override
+  String get equipmentTabSports => 'Sporlar';
+
+  @override
+  String equipmentImpactHome(int count) {
+    return 'Bu işaretlerle evde $count hareket yapılabilir.';
+  }
+
+  @override
+  String equipmentImpactGym(int count) {
+    return 'Bu işaretlerle salonda $count hareket yapılabilir.';
+  }
+
+  @override
+  String equipmentUnlocks(int count) {
+    return '+$count hareket açar';
+  }
+
+  @override
+  String get equipmentGymToggle => 'Salona gidiyor musun?';
+
+  @override
+  String get equipmentGymOffBody =>
+      'Salona gitmiyorsan burada iş yok — plan yalnız evde ve dışarıda yapılabilenlerden kurulur. Fikrin değişirse anahtarı aç.';
+
+  @override
+  String get sportsIntro =>
+      'Sevdiğin sporları seç; yapay zekâ planı onların etrafına kurar. İstersen sıklık notu ekle.';
+
+  @override
+  String get sportsChosen => 'Seçtiklerin';
+
+  @override
+  String get sportsSearchHint => 'Spor ara — koşu, basketbol, yüzme…';
+
+  @override
+  String get sportsNoteTooltip => 'Sıklık notu';
+
+  @override
+  String get sportsNoteTitle => 'Ne sıklıkla?';
+
+  @override
+  String get sportsNoteHint => 'örn. haftada 1, pazar sabahı';
+
+  @override
   String get settingsProfileHeightRequired => 'Boy alanı gerekli.';
 
   @override

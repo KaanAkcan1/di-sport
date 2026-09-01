@@ -1109,6 +1109,57 @@ class AppLocalizationsEn extends AppLocalizations {
   String get supplementKindMedication => 'Medication';
 
   @override
+  String get equipmentTabHome => 'At home';
+
+  @override
+  String get equipmentTabGym => 'At the gym';
+
+  @override
+  String get equipmentTabSports => 'Sports';
+
+  @override
+  String equipmentImpactHome(int count) {
+    return 'With these checks you can do $count exercises at home.';
+  }
+
+  @override
+  String equipmentImpactGym(int count) {
+    return 'With these checks you can do $count exercises at the gym.';
+  }
+
+  @override
+  String equipmentUnlocks(int count) {
+    return 'unlocks +$count';
+  }
+
+  @override
+  String get equipmentGymToggle => 'Do you go to a gym?';
+
+  @override
+  String get equipmentGymOffBody =>
+      'If you don\'t go to a gym there\'s nothing to do here — plans are built only from what\'s doable at home and outdoors. Flip the switch if that changes.';
+
+  @override
+  String get sportsIntro =>
+      'Pick the sports you love; the AI builds the plan around them. Add a frequency note if you like.';
+
+  @override
+  String get sportsChosen => 'Your picks';
+
+  @override
+  String get sportsSearchHint =>
+      'Search sports — running, basketball, swimming…';
+
+  @override
+  String get sportsNoteTooltip => 'Frequency note';
+
+  @override
+  String get sportsNoteTitle => 'How often?';
+
+  @override
+  String get sportsNoteHint => 'e.g. once a week, Sunday morning';
+
+  @override
   String get settingsProfileHeightRequired => 'Height is required.';
 
   @override

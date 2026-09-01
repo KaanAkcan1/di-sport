@@ -1,6 +1,7 @@
 import 'package:disport/app/app.dart';
 import 'package:disport/features/catalog/data/catalog_repository.dart';
 import 'package:disport/features/catalog/data/equipment_repository.dart';
+import 'package:disport/features/catalog/data/favorite_sports_repository.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:disport/features/catalog/domain/recent_exercise_source.dart';
 import 'package:disport/features/workout/application/recent_exercise_adapter.dart';
@@ -225,3 +226,21 @@ Future<Map<String, Exercise>> exerciseVariants(Ref ref, String exerciseId) async
 @riverpod
 Stream<List<Exercise>> catalogSearch(Ref ref, String query) =>
     ref.watch(catalogRepositoryProvider).watchFiltered(query: query);
+
+/// Tüm katalog — "Etkisi" paneli her hareketi görmek zorunda.
+///
+/// `filteredExercises`'tan ayrı: o ekran filtresine bağlı, buradaki
+/// hesap filtreden bağımsız ("dambıl 12 hareket açar" sorgu yazınca
+/// değişmemeli).
+@riverpod
+Stream<List<Exercise>> allExercises(Ref ref) =>
+    ref.watch(catalogRepositoryProvider).watchFiltered();
+
+@riverpod
+FavoriteSportsRepository favoriteSportsRepository(Ref ref) =>
+    FavoriteSportsRepository(ref.watch(appDatabaseProvider));
+
+/// Sevilen sporlar — ekipman ekranı yazar, AI belgesi okur.
+@riverpod
+Stream<List<FavoriteSport>> favoriteSports(Ref ref) =>
+    ref.watch(favoriteSportsRepositoryProvider).watchAll();

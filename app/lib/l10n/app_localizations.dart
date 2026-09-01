@@ -2054,6 +2054,90 @@ abstract class AppLocalizations {
   /// **'İlaç'**
   String get supplementKindMedication;
 
+  /// No description provided for @equipmentTabHome.
+  ///
+  /// In tr, this message translates to:
+  /// **'Evde'**
+  String get equipmentTabHome;
+
+  /// No description provided for @equipmentTabGym.
+  ///
+  /// In tr, this message translates to:
+  /// **'Salonda'**
+  String get equipmentTabGym;
+
+  /// No description provided for @equipmentTabSports.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sporlar'**
+  String get equipmentTabSports;
+
+  /// No description provided for @equipmentImpactHome.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu işaretlerle evde {count} hareket yapılabilir.'**
+  String equipmentImpactHome(int count);
+
+  /// No description provided for @equipmentImpactGym.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu işaretlerle salonda {count} hareket yapılabilir.'**
+  String equipmentImpactGym(int count);
+
+  /// No description provided for @equipmentUnlocks.
+  ///
+  /// In tr, this message translates to:
+  /// **'+{count} hareket açar'**
+  String equipmentUnlocks(int count);
+
+  /// No description provided for @equipmentGymToggle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Salona gidiyor musun?'**
+  String get equipmentGymToggle;
+
+  /// No description provided for @equipmentGymOffBody.
+  ///
+  /// In tr, this message translates to:
+  /// **'Salona gitmiyorsan burada iş yok — plan yalnız evde ve dışarıda yapılabilenlerden kurulur. Fikrin değişirse anahtarı aç.'**
+  String get equipmentGymOffBody;
+
+  /// No description provided for @sportsIntro.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sevdiğin sporları seç; yapay zekâ planı onların etrafına kurar. İstersen sıklık notu ekle.'**
+  String get sportsIntro;
+
+  /// No description provided for @sportsChosen.
+  ///
+  /// In tr, this message translates to:
+  /// **'Seçtiklerin'**
+  String get sportsChosen;
+
+  /// No description provided for @sportsSearchHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Spor ara — koşu, basketbol, yüzme…'**
+  String get sportsSearchHint;
+
+  /// No description provided for @sportsNoteTooltip.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sıklık notu'**
+  String get sportsNoteTooltip;
+
+  /// No description provided for @sportsNoteTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ne sıklıkla?'**
+  String get sportsNoteTitle;
+
+  /// No description provided for @sportsNoteHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'örn. haftada 1, pazar sabahı'**
+  String get sportsNoteHint;
+
   /// No description provided for @settingsProfileHeightRequired.
   ///
   /// In tr, this message translates to:
