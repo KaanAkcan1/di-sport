@@ -56,6 +56,19 @@ class PlanExercises extends Table with SyncColumns {
   IntColumn get reps => integer().nullable()();
   IntColumn get durationSec => integer().nullable()();
   IntColumn get restSec => integer().nullable()();
+  /// Serbest metin — "orta tempo", "RPE 7". **Ayrıştırılmıyor:**
+  /// AI'ın ve kullanıcının yazdığı her şeyi bir sayıya çevirmeye
+  /// çalışmak sessizce yanlış kalori üretirdi.
   TextColumn get intensity => text().nullable()();
+
+  // Kardiyo şiddeti — kalori hesabının girdisi (spec §5.5). Serbest
+  // `intensity` metninden ayrı üç tipli alan: hesap yapılabilir bir
+  // sayı ile insana yazılmış bir not aynı sütunda duramaz.
+  RealColumn get speedKmh => real().nullable()();
+  RealColumn get gradePct => real().nullable()();
+
+  /// `Effort` enum adı — bisiklette hız/eğim yerine efor seviyesi.
+  TextColumn get effort => text().nullable()();
+
   TextColumn get note => text().nullable()();
 }

@@ -23,4 +23,13 @@ class ExerciseLogs extends Table with SyncColumns {
   IntColumn get reps => integer().nullable()();
   RealColumn get weightKg => real().nullable()();
   IntColumn get durationSec => integer().nullable()();
+
+  // Fiilen yapılan kardiyo şiddeti. Plandaki hedeften ayrı tutuluyor:
+  // "%8 eğim hedeflendi, %5'te yapıldı" farkı hem ilerlemenin kendisi
+  // hem de kalorinin doğru girdisi.
+  RealColumn get speedKmh => real().nullable()();
+  RealColumn get gradePct => real().nullable()();
+
+  /// `Effort` enum adı.
+  TextColumn get effort => text().nullable()();
 }

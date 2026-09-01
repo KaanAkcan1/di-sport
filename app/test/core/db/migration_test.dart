@@ -55,7 +55,7 @@ void main() {
     final db = AppDatabase.forTesting(NativeDatabase.memory());
     addTearDown(db.close);
 
-    expect(db.schemaVersion, greaterThanOrEqualTo(12));
+    expect(db.schemaVersion, greaterThanOrEqualTo(13));
     expect(await db.select(db.supplements).get(), isEmpty);
     expect(await db.select(db.equipmentItems).get(), isEmpty);
   });
@@ -68,6 +68,30 @@ void main() {
 
     // Yeni sütunlar okunabiliyorsa göç çalışmış demektir.
     expect(await db.select(db.equipmentItems).get(), isEmpty);
+  });
+
+  test('v12 kurulumu v13 seviyesine yükseltilebilir', () async {
+    final db = await openAt(12);
+    addTearDown(db.close);
+
+    await db.customStatement('SELECT 1');
+
+    // Beş yeni tablo ve altı yeni sütun. Sorgulanabiliyorsa göç
+    // çalışmış demektir.
+    expect(await db.select(db.foods).get(), isEmpty);
+    expect(await db.select(db.foodPortions).get(), isEmpty);
+    expect(await db.select(db.mealEntries).get(), isEmpty);
+    expect(await db.select(db.activities).get(), isEmpty);
+    expect(await db.select(db.activityLogs).get(), isEmpty);
+    expect(await db.select(db.workoutSessions).get(), isEmpty);
+
+    // Şiddet sütunları iki tabloda da okunabilmeli.
+    await db.customStatement(
+      'SELECT speed_kmh, grade_pct, effort FROM plan_exercises',
+    );
+    await db.customStatement(
+      'SELECT speed_kmh, grade_pct, effort FROM exercise_logs',
+    );
   });
 
   test('göç eski verileri korur', () async {

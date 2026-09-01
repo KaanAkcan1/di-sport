@@ -4,6 +4,7 @@ import 'package:disport/features/catalog/domain/equipment_kind.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/health/data/lab_tables.dart';
 import 'package:disport/features/health/data/metric_definition_table.dart';
+import 'package:disport/features/nutrition/data/nutrition_tables.dart';
 import 'package:disport/features/plan/data/plan_tables.dart';
 import 'package:disport/features/settings/data/profile_table.dart';
 import 'package:disport/features/settings/data/weekly_window_table.dart';
@@ -11,6 +12,7 @@ import 'package:disport/features/supplements/data/supplement_tables.dart';
 import 'package:disport/features/today/data/daily_log_table.dart';
 import 'package:disport/features/today/data/daily_rule_table.dart';
 import 'package:disport/features/workout/data/exercise_log_table.dart';
+import 'package:disport/features/workout/data/workout_session_table.dart';
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
 
@@ -40,6 +42,12 @@ part 'app_database.g.dart';
     WeeklyWindows,
     Supplements,
     SupplementLogs,
+    Foods,
+    FoodPortions,
+    MealEntries,
+    Activities,
+    ActivityLogs,
+    WorkoutSessions,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -49,7 +57,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 12;
+  int get schemaVersion => 13;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -120,6 +128,21 @@ class AppDatabase extends _$AppDatabase {
                 ),
               );
         }
+      }
+      if (from < 13) {
+        await m.createTable(foods);
+        await m.createTable(foodPortions);
+        await m.createTable(mealEntries);
+        await m.createTable(activities);
+        await m.createTable(activityLogs);
+        await m.createTable(workoutSessions);
+
+        await m.addColumn(planExercises, planExercises.speedKmh);
+        await m.addColumn(planExercises, planExercises.gradePct);
+        await m.addColumn(planExercises, planExercises.effort);
+        await m.addColumn(exerciseLogs, exerciseLogs.speedKmh);
+        await m.addColumn(exerciseLogs, exerciseLogs.gradePct);
+        await m.addColumn(exerciseLogs, exerciseLogs.effort);
       }
     },
   );
