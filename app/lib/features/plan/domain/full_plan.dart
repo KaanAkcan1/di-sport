@@ -50,17 +50,52 @@ class PlanGoals {
 
 /// Beslenme kuralları — PDF'in "kesinlikle yok" ve "serbest" listeleri.
 class PlanRules {
-  const PlanRules({required this.forbidden, required this.free});
+  const PlanRules({
+    required this.forbidden,
+    required this.free,
+    this.forbiddenFoodIds = const {},
+  });
 
-  factory PlanRules.fromJson(Map<String, dynamic> json) => PlanRules(
-    forbidden: (json['forbidden'] as List).cast<String>(),
-    free: (json['free'] as List).cast<String>(),
-  );
+  /// Okuyucu iki biçimi kabul eder (v3 §5.4): `String` eleman ile
+  /// `{label, foodIds}` haritası. AI sözleşmesi string kalır; besin
+  /// bağlama kullanıcının işi — yazma her zaman yeni biçimde.
+  factory PlanRules.fromJson(Map<String, dynamic> json) {
+    final labels = <String>[];
+    final foodIds = <String, List<String>>{};
+    for (final item in json['forbidden'] as List) {
+      if (item is String) {
+        labels.add(item);
+      } else {
+        final map = item as Map<String, dynamic>;
+        final label = map['label'] as String;
+        labels.add(label);
+        final ids = (map['foodIds'] as List? ?? const []).cast<String>();
+        if (ids.isNotEmpty) foodIds[label] = ids;
+      }
+    }
+    return PlanRules(
+      forbidden: labels,
+      forbiddenFoodIds: foodIds,
+      free: (json['free'] as List).cast<String>(),
+    );
+  }
 
+  /// Yasaklı etiketleri — arayüz metinleri ve AI belgesi bunları basar.
   final List<String> forbidden;
+
+  /// Etiket → bağlı besin id'leri. Bağsız etiket haritada yok; rozet
+  /// o zaman yalnız ad eşleşmesine düşer.
+  final Map<String, List<String>> forbiddenFoodIds;
+
   final List<String> free;
 
-  Map<String, dynamic> toJson() => {'forbidden': forbidden, 'free': free};
+  Map<String, dynamic> toJson() => {
+    'forbidden': [
+      for (final label in forbidden)
+        {'label': label, 'foodIds': forbiddenFoodIds[label] ?? const []},
+    ],
+    'free': free,
+  };
 }
 
 /// Plan öğününün bir kalemi — besin id'siyle (v3 §5.0).

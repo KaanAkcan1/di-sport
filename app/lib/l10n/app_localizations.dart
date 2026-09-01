@@ -2216,6 +2216,90 @@ abstract class AppLocalizations {
   /// **'Sabit öğün: {note}'**
   String dietFixedUnbound(String note);
 
+  /// No description provided for @foodSortAz.
+  ///
+  /// In tr, this message translates to:
+  /// **'A–Z'**
+  String get foodSortAz;
+
+  /// No description provided for @foodSortKcalAsc.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kalori ↑'**
+  String get foodSortKcalAsc;
+
+  /// No description provided for @foodSortKcalDesc.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kalori ↓'**
+  String get foodSortKcalDesc;
+
+  /// No description provided for @foodSortProteinDesc.
+  ///
+  /// In tr, this message translates to:
+  /// **'Protein ↓'**
+  String get foodSortProteinDesc;
+
+  /// No description provided for @foodSortFrequent.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sık yenen'**
+  String get foodSortFrequent;
+
+  /// No description provided for @foodForbiddenBadge.
+  ///
+  /// In tr, this message translates to:
+  /// **'YASAKLI'**
+  String get foodForbiddenBadge;
+
+  /// No description provided for @forbiddenTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yasaklı yiyecekler'**
+  String get forbiddenTitle;
+
+  /// No description provided for @forbiddenIntro.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu liste yapay zekâ planına gider (önerilmez) ve eşleşen besinler listede rozet taşır. Kayıt engellenmez — karar senin.'**
+  String get forbiddenIntro;
+
+  /// No description provided for @forbiddenAddHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'örn. şeker, hamur işi, alkol'**
+  String get forbiddenAddHint;
+
+  /// No description provided for @forbiddenAdd.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ekle'**
+  String get forbiddenAdd;
+
+  /// No description provided for @forbiddenLinkFoods.
+  ///
+  /// In tr, this message translates to:
+  /// **'Besinlere bağla'**
+  String get forbiddenLinkFoods;
+
+  /// No description provided for @forbiddenLinkedCount.
+  ///
+  /// In tr, this message translates to:
+  /// **'{count} besin bağlı'**
+  String forbiddenLinkedCount(int count);
+
+  /// No description provided for @forbiddenNoPlan.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yasaklı listesi plana yazılır; önce bir plan gerekli.'**
+  String get forbiddenNoPlan;
+
+  /// No description provided for @forbiddenEmpty.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yasaklı yok. Satır ekle; istersen besinlere bağla.'**
+  String get forbiddenEmpty;
+
   /// No description provided for @rhythmMealsSection.
   ///
   /// In tr, this message translates to:

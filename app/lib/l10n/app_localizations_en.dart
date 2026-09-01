@@ -1204,6 +1204,53 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get foodSortAz => 'A–Z';
+
+  @override
+  String get foodSortKcalAsc => 'Calories ↑';
+
+  @override
+  String get foodSortKcalDesc => 'Calories ↓';
+
+  @override
+  String get foodSortProteinDesc => 'Protein ↓';
+
+  @override
+  String get foodSortFrequent => 'Often eaten';
+
+  @override
+  String get foodForbiddenBadge => 'FORBIDDEN';
+
+  @override
+  String get forbiddenTitle => 'Forbidden foods';
+
+  @override
+  String get forbiddenIntro =>
+      'This list goes into the AI plan (never suggested) and matching foods carry a badge. Logging is never blocked — your call.';
+
+  @override
+  String get forbiddenAddHint => 'e.g. sugar, pastry, alcohol';
+
+  @override
+  String get forbiddenAdd => 'Add';
+
+  @override
+  String get forbiddenLinkFoods => 'Link to foods';
+
+  @override
+  String forbiddenLinkedCount(int count) {
+    return '$count foods linked';
+  }
+
+  @override
+  String get forbiddenNoPlan =>
+      'The forbidden list is stored on the plan; you need a plan first.';
+
+  @override
+  String get forbiddenEmpty =>
+      'Nothing forbidden. Add a line; link it to foods if you like.';
+
+  @override
   String get rhythmMealsSection => 'Meals';
 
   @override

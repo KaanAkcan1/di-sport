@@ -230,3 +230,9 @@ Future<int> waterTargetMl(Ref ref) async {
   final liters = plan?.goals.waterL;
   return liters == null ? 3000 : (liters * 1000).round();
 }
+
+/// Yasaklı bağlama sayfasının araması — besin listesinin durumundan
+/// bağımsız; sayfayı açmak ana listedeki filtreyi bozmasın.
+@riverpod
+Stream<List<Food>> foodLinkResults(Ref ref, String query) =>
+    ref.watch(nutritionRepositoryProvider).watchFoods(query: query);

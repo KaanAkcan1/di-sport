@@ -4,6 +4,7 @@ import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/presentation/equipment_screen.dart';
 import 'package:disport/features/medical/presentation/medical_screen.dart';
+import 'package:disport/features/nutrition/presentation/forbidden_editor_screen.dart';
 import 'package:disport/features/settings/presentation/appearance_settings.dart';
 import 'package:disport/features/settings/presentation/backup_settings.dart';
 import 'package:disport/features/settings/presentation/language_settings.dart';
@@ -75,6 +76,12 @@ class MoreScreen extends StatelessWidget {
                 area: AppArea.diet,
                 title: l10n.moreRules,
                 screen: (context) => const RulesEditorScreen(),
+              ),
+              _MoreRow(
+                icon: LucideIcons.ban,
+                area: AppArea.diet,
+                title: l10n.forbiddenTitle,
+                screen: (context) => const ForbiddenEditorScreen(),
               ),
               const SizedBox(height: AppSpacing.xl),
               AppSectionLabel(l10n.moreApp),

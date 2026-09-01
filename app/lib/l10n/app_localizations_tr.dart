@@ -1201,6 +1201,53 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String get foodSortAz => 'A–Z';
+
+  @override
+  String get foodSortKcalAsc => 'Kalori ↑';
+
+  @override
+  String get foodSortKcalDesc => 'Kalori ↓';
+
+  @override
+  String get foodSortProteinDesc => 'Protein ↓';
+
+  @override
+  String get foodSortFrequent => 'Sık yenen';
+
+  @override
+  String get foodForbiddenBadge => 'YASAKLI';
+
+  @override
+  String get forbiddenTitle => 'Yasaklı yiyecekler';
+
+  @override
+  String get forbiddenIntro =>
+      'Bu liste yapay zekâ planına gider (önerilmez) ve eşleşen besinler listede rozet taşır. Kayıt engellenmez — karar senin.';
+
+  @override
+  String get forbiddenAddHint => 'örn. şeker, hamur işi, alkol';
+
+  @override
+  String get forbiddenAdd => 'Ekle';
+
+  @override
+  String get forbiddenLinkFoods => 'Besinlere bağla';
+
+  @override
+  String forbiddenLinkedCount(int count) {
+    return '$count besin bağlı';
+  }
+
+  @override
+  String get forbiddenNoPlan =>
+      'Yasaklı listesi plana yazılır; önce bir plan gerekli.';
+
+  @override
+  String get forbiddenEmpty =>
+      'Yasaklı yok. Satır ekle; istersen besinlere bağla.';
+
+  @override
   String get rhythmMealsSection => 'Öğünler';
 
   @override

@@ -158,7 +158,17 @@ class _PlanSettingsScreenState extends ConsumerState<PlanSettingsScreen> {
     );
     await editor.updateRules(
       widget.plan.id,
-      PlanRules(forbidden: _forbidden, free: _free),
+      PlanRules(
+        forbidden: _forbidden,
+        free: _free,
+        // Besin bağları yasaklı editöründe kuruluyor (v3 §5.4); burada
+        // yalnız hayatta kalan etiketlerin bağı korunur — etiketi silmek
+        // bağını da götürür.
+        forbiddenFoodIds: {
+          for (final entry in widget.plan.rules.forbiddenFoodIds.entries)
+            if (_forbidden.contains(entry.key)) entry.key: entry.value,
+        },
+      ),
     );
 
     await planChanged();
