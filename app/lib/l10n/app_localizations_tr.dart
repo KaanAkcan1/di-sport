@@ -1360,6 +1360,41 @@ class AppLocalizationsTr extends AppLocalizations {
   String get healthShareTitle => 'Tahlil özeti — di@sport';
 
   @override
+  String get checkupTitle => 'Check-up rehberi';
+
+  @override
+  String get checkupDisclaimer =>
+      'Genel tarama önerileri — tıbbi tavsiye değildir, doktoruna danış.';
+
+  @override
+  String get checkupNeedsWeight => 'Kilo girilirse öneriler netleşir.';
+
+  @override
+  String get checkupDue => 'Vakti geldi';
+
+  @override
+  String checkupInMonths(int months) {
+    return '$months ay sonra';
+  }
+
+  @override
+  String checkupScheduled(String test) {
+    return '$test vadesi takvime eklendi.';
+  }
+
+  @override
+  String get checkupFullPanel => 'Tam panel (CBC, CMP, lipit, HbA1c, TSH)';
+
+  @override
+  String get checkupHba1c => 'HbA1c';
+
+  @override
+  String get checkupLipid => 'Lipit paneli';
+
+  @override
+  String get checkupVitaminDB12 => 'D vitamini + B12';
+
+  @override
   String get rhythmMealsSection => 'Öğünler';
 
   @override

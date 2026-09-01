@@ -2504,6 +2504,66 @@ abstract class AppLocalizations {
   /// **'Tahlil özeti — di@sport'**
   String get healthShareTitle;
 
+  /// No description provided for @checkupTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Check-up rehberi'**
+  String get checkupTitle;
+
+  /// No description provided for @checkupDisclaimer.
+  ///
+  /// In tr, this message translates to:
+  /// **'Genel tarama önerileri — tıbbi tavsiye değildir, doktoruna danış.'**
+  String get checkupDisclaimer;
+
+  /// No description provided for @checkupNeedsWeight.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kilo girilirse öneriler netleşir.'**
+  String get checkupNeedsWeight;
+
+  /// No description provided for @checkupDue.
+  ///
+  /// In tr, this message translates to:
+  /// **'Vakti geldi'**
+  String get checkupDue;
+
+  /// No description provided for @checkupInMonths.
+  ///
+  /// In tr, this message translates to:
+  /// **'{months} ay sonra'**
+  String checkupInMonths(int months);
+
+  /// No description provided for @checkupScheduled.
+  ///
+  /// In tr, this message translates to:
+  /// **'{test} vadesi takvime eklendi.'**
+  String checkupScheduled(String test);
+
+  /// No description provided for @checkupFullPanel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tam panel (CBC, CMP, lipit, HbA1c, TSH)'**
+  String get checkupFullPanel;
+
+  /// No description provided for @checkupHba1c.
+  ///
+  /// In tr, this message translates to:
+  /// **'HbA1c'**
+  String get checkupHba1c;
+
+  /// No description provided for @checkupLipid.
+  ///
+  /// In tr, this message translates to:
+  /// **'Lipit paneli'**
+  String get checkupLipid;
+
+  /// No description provided for @checkupVitaminDB12.
+  ///
+  /// In tr, this message translates to:
+  /// **'D vitamini + B12'**
+  String get checkupVitaminDB12;
+
   /// No description provided for @rhythmMealsSection.
   ///
   /// In tr, this message translates to:

@@ -1363,6 +1363,42 @@ class AppLocalizationsEn extends AppLocalizations {
   String get healthShareTitle => 'Lab summary — di@sport';
 
   @override
+  String get checkupTitle => 'Check-up guide';
+
+  @override
+  String get checkupDisclaimer =>
+      'General screening suggestions — not medical advice, ask your doctor.';
+
+  @override
+  String get checkupNeedsWeight =>
+      'Enter your weight to sharpen the suggestions.';
+
+  @override
+  String get checkupDue => 'Due now';
+
+  @override
+  String checkupInMonths(int months) {
+    return 'in $months months';
+  }
+
+  @override
+  String checkupScheduled(String test) {
+    return '$test added to your lab schedule.';
+  }
+
+  @override
+  String get checkupFullPanel => 'Full panel (CBC, CMP, lipid, HbA1c, TSH)';
+
+  @override
+  String get checkupHba1c => 'HbA1c';
+
+  @override
+  String get checkupLipid => 'Lipid panel';
+
+  @override
+  String get checkupVitaminDB12 => 'Vitamin D + B12';
+
+  @override
   String get rhythmMealsSection => 'Meals';
 
   @override

@@ -10,6 +10,8 @@ import 'package:disport/features/health/data/body_metrics_repository.dart';
 import 'package:disport/features/health/data/lab_repository.dart';
 import 'package:disport/features/health/data/metric_definitions_repository.dart';
 import 'package:disport/features/health/presentation/health_screen.dart';
+import 'package:disport/features/medical/application/medical_providers.dart';
+import 'package:disport/features/medical/domain/medical_fact.dart';
 import 'package:disport/l10n/app_localizations.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +64,10 @@ void main() {
       // v3: VKİ satırı boyu profilden okuyor — Drift akışına bağlanmasın.
       profileEntriesProvider.overrideWith(
         (ref) => Stream.value(const <String, String>{}),
+      ),
+      // Check-up rehberi medikal kayıtları okuyor.
+      medicalFactsProvider.overrideWith(
+        (ref) => Stream.value(const <MedicalFact>[]),
       ),
       labsByPanelProvider.overrideWith((ref) => Stream.value(labs)),
       dueLabsProvider.overrideWith((ref) async => due),

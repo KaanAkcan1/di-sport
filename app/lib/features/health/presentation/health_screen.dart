@@ -15,6 +15,7 @@ import 'package:disport/features/health/domain/bmi.dart';
 import 'package:disport/features/health/domain/lab_share.dart';
 import 'package:disport/features/health/presentation/add_lab_sheet.dart';
 import 'package:disport/features/health/presentation/body_measurements_card.dart';
+import 'package:disport/features/health/presentation/checkup_guide_section.dart';
 import 'package:disport/features/health/presentation/due_labs_banner.dart';
 import 'package:disport/features/health/presentation/lab_panel_card.dart';
 import 'package:disport/features/health/presentation/metrics_editor_screen.dart';
@@ -63,6 +64,7 @@ class HealthScreen extends ConsumerWidget {
               for (final panel in LabPanels.ordered)
                 if (byPanel[panel] case final entries?)
                   LabPanelCard(panel: panel, entries: entries),
+            CheckupGuideSection(byPanel: byPanel),
           ],
         ),
       ),
