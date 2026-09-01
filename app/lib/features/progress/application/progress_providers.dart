@@ -43,6 +43,16 @@ class ProgressViewData {
   final bool hasPlan;
 
   bool get isEmpty => weights.isEmpty && weeks.isEmpty;
+
+  /// İlk tartıdan bugüne toplam değişim — ekranın kahraman rakamı.
+  ///
+  /// Negatif = kayıp. `null` iki durumda: hiç tartı yok ya da tek tartı
+  /// var. Tek ölçümle "değişim" diye bir şey yok; "0,0 kg" yazmak
+  /// ilerleme olmadığını söyler, oysa henüz kıyas noktası yok.
+  double? get totalChangeKg {
+    if (weights.length < 2) return null;
+    return weights.last.value - weights.first.value;
+  }
 }
 
 /// Kilo serisi — akış.

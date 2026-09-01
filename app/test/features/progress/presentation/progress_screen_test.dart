@@ -225,6 +225,10 @@ void main() {
       );
       await tester.pumpAndSettle();
 
+      // M12'de ekranın tepesine kahraman rakam geldi; geçiş kartı
+      // katlamanın altına indi.
+      await tester.ensureVisible(find.byKey(const Key('pain-free-switch')));
+      await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('pain-free-switch')));
       await tester.pumpAndSettle();
 

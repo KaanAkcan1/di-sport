@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/progress/application/progress_providers.dart';
@@ -31,6 +32,9 @@ class ProgressScreen extends ConsumerWidget {
       ),
       data: (data) => AppScreenBody(
         children: [
+          _ProgressHero(data: data),
+          const SizedBox(height: AppSpacing.xl2),
+
           if (data.weights.isNotEmpty)
             AppSection(
               title: 'Kilo',
@@ -69,6 +73,67 @@ class ProgressScreen extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// İlerleme ekranının kahraman rakamı: toplam değişim.
+///
+/// Whoop'un üç katmanı (spec §2a): önce tek büyük sayı — "ne kadar yol
+/// aldım", sonra trend grafiği, sonra haftalık kartlar. Kullanıcı
+/// ekranı açtığında cevabı okumak için grafiği yorumlamak zorunda
+/// kalmamalı.
+///
+/// Haftalık kalori çubukları M9'da grafiğin altına giriyor (spec §2a
+/// İlerleme satırı); kalori verisi henüz yok.
+class _ProgressHero extends StatelessWidget {
+  const _ProgressHero({required this.data});
+
+  final ProgressViewData data;
+
+  @override
+  Widget build(BuildContext context) {
+    final change = data.totalChangeKg;
+    final latest = data.latestMetrics[MetricKinds.weight]?.value;
+    final pushups = data.latestMetrics[MetricKinds.pushupMax]?.value;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppHeroNumber(
+          caption: change == null
+              ? 'İlk tartıdan sonra değişim burada görünecek'
+              : 'kg · ilk tartıdan bugüne',
+          // İşaret açıkça yazılıyor: "2,8" tek başına yön taşımıyor,
+          // kilo veren de alan da aynı rakamı görürdü.
+          value: change == null
+              ? null
+              : '${change <= 0 ? '−' : '+'}'
+                    '${TurkishNumber.format(change.abs(), fractionDigits: 1)}',
+          // Kayıp iyi haber, artış değil: vurgu yalnız düşüşte.
+          accent: (change ?? 0) <= 0,
+        ),
+        const SizedBox(height: AppSpacing.xl),
+        AppMetricStrip([
+          AppMetric(
+            caption: 'Şu an',
+            value: latest == null
+                ? null
+                : TurkishNumber.format(latest, fractionDigits: 1),
+            unit: 'kg',
+          ),
+          AppMetric(
+            caption: 'Şınav',
+            value: pushups == null
+                ? null
+                : TurkishNumber.format(pushups, fractionDigits: 0),
+          ),
+          AppMetric(
+            caption: 'Hafta',
+            value: data.weeks.isEmpty ? null : '${data.weeks.length}',
+          ),
+        ]),
+      ],
     );
   }
 }
