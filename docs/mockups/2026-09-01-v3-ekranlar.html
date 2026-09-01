@@ -367,12 +367,6 @@
               </div>
             </div>
           </div>
-          <div class="panel" style="display:flex; gap:12px; align-items:center">
-            <span class="tile t-energy"><svg class="icon"><use href="#i-gift"/></svg></span>
-            <p style="margin:0; font-size:13px; color:var(--mist400)">
-              Doğum gününde seni kutlarız — o gün tartı sormayız. 🎈
-            </p>
-          </div>
           <div>
             <label style="display:block; font-family:var(--narrow); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--mist500); margin-bottom:9px">Cinsiyet — kalori hesabı için</label>
             <div class="chips">
@@ -387,9 +381,9 @@
       </div>
       <figcaption>
         <div class="cap-title"><span class="cap-step">02</span>Kimlik — tam doğum tarihi</div>
-        <p class="cap-why">Gün + ay + yıl: doğum gününde uygulama kutluyor ve o gün
-        <b>tartı sormuyor</b> — küçük ama akılda kalan bir jest. Yaş artık türetiliyor,
-        her yıl elle güncellenmiyor.</p>
+        <p class="cap-why">Gün + ay + yıl — yaş türetiliyor, her yıl elle
+        güncellenmiyor. Doğum gününde Ana Sayfa başlığında kısa bir kutlama
+        görünür; başka bir davranış değişmez.</p>
       </figcaption>
     </figure>
 
@@ -408,15 +402,11 @@
             <div class="field focus"><label>Şu anki kilo</label><div class="val">108,9 kg</div></div>
             <div class="field"><label>Hedef kilo</label><div class="val">92 kg</div></div>
           </div>
-          <div class="panel accent pad-lg">
-            <div class="hero-cap">VÜCUT KİTLE İNDEKSİN</div>
-            <div style="display:flex; align-items:baseline; gap:12px; margin-top:4px">
-              <span class="hero-num" style="font-size:44px">32,2</span>
-              <span class="badge warnb">OBEZ</span>
-            </div>
-            <div class="gauge"><i style="width:78%; background:var(--warn)"></i></div>
-            <p style="margin:10px 0 0; font-size:13px; color:var(--mist400)">
-              Hedefinde 27,2 olacak — fazla kilolu aralığının alt ucu.
+          <div class="panel" style="display:flex; gap:12px; align-items:center">
+            <span class="tile t-diet"><svg class="icon"><use href="#i-check"/></svg></span>
+            <p style="margin:0; font-size:13px; color:var(--mist400)">
+              Hedefin: <b style="color:var(--mist200)">16,9 kg</b>. Vücut analizi
+              ve VKİ takibin Sağlık sekmesinde.
             </p>
           </div>
           <div style="flex:1"></div>
@@ -425,8 +415,9 @@
       </div>
       <figcaption>
         <div class="cap-title"><span class="cap-step">03</span>Ölçüler</div>
-        <p class="cap-why">Girilen sayı anında VKİ'ye dönüşüyor — formun ilk geri bildirimi.
-        Buradaki kilo ilk <b>ölçüm kaydı</b> oluyor; profilde saklanan ayrı bir "kilo" alanı yok.</p>
+        <p class="cap-why">VKİ değerlendirmesi buradan <b>Sağlık → Ölçüm'e taşındı</b> —
+        yeni kullanıcıya ilk ekranda "obez" damgası vurmak kötü bir karşılamaydı.
+        Buradaki kilo ilk ölçüm kaydı oluyor.</p>
       </figcaption>
     </figure>
 
@@ -1330,6 +1321,12 @@
         <div class="seg"><span class="on">TAHLİL</span><span>ÖLÇÜM</span><span>İLAÇ</span></div>
         <div class="body">
           <div class="panel">
+            <div style="display:flex; align-items:center; gap:12px; padding-bottom:10px; margin-bottom:10px; border-bottom:1px solid var(--ink750)">
+              <span class="tile sm t-health"><svg class="icon sm"><use href="#i-scale"/></svg></span>
+              <div style="flex:1"><strong style="font-size:14px; color:var(--mist200)">VKİ 32,2</strong>
+                <div style="font-size:12px; color:var(--mist500)">Hedefinde 27,2 · fazla kilolu alt ucu</div></div>
+              <span class="badge warnb">OBEZ</span>
+            </div>
             <div style="display:flex; gap:8px">
               <span class="chip on"><svg class="icon sm"><use href="#i-check"/></svg>7 normal</span>
               <span class="chip" style="background:var(--warn-surface); border-color:var(--warn); color:var(--warn)">2 sınırda</span>
@@ -1728,7 +1725,7 @@
               <div class="row-main"><strong style="font-size:14px">Günlük düzen + öğün davranışı</strong><span>öğle: yemekhane, planlanmaz</span></div>
               <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
             <div class="row" style="min-height:42px; padding:8px 0"><span class="tile sm t-danger" style="width:28px;height:28px"><svg class="icon sm" style="width:14px;height:14px"><use href="#i-ban"/></svg></span>
-              <div class="row-main"><strong style="font-size:14px">Yasaklılar + son 14 gün kayıtların</strong></div>
+              <div class="row-main"><strong style="font-size:14px">Yasaklılar + son 14 gün kayıtların</strong><span>öğün, su, ilaç uyumu, antrenman</span></div>
               <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
             <div class="row" style="min-height:42px; padding:8px 0"><span class="tile sm t-diet" style="width:28px;height:28px"><svg class="icon sm" style="width:14px;height:14px"><use href="#i-doc"/></svg></span>
               <div class="row-main"><strong style="font-size:14px">Katalog + besin listesi</strong><span>161 hareket · 368 besin · id'li</span></div>
