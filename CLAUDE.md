@@ -73,7 +73,8 @@ di@sport/
 | `workout` | **tamam** | Antrenman akışı: set sayacı, dinlenme, geri alma |
 | `ai_bridge` | **tamam** | context.md üretimi, dört kapılı doğrulama, plan.json içe alma |
 | `reminders` | tam | Saf `planWindow` + platform katmanı, 7 günlük kaydırmalı pencere |
-| `settings` | tam | Profil formu, bildirimler, yedekleme, **haftalık mesai/yasaklı saat pencereleri** |
+| `settings` | tam | Profil formu, bildirimler, yedekleme, **haftalık mesai/yasaklı saat pencereleri**, görünüm ve dil |
+| `supplements` | **tamam** | Vitamin/ilaç tanımı, günlük alım işareti, saatli hatırlatma |
 
 ---
 
@@ -359,6 +360,7 @@ plan Bugün ekranında.
 | v8 | `metric_definitions` |
 | v9 | `equipment_items` |
 | v10 | `weekly_windows` |
+| v11 | `supplements`, `supplement_logs` |
 
 Tablo eklerken `schemaVersion`'ı artır ve `onUpgrade`'e **yeni bir**
 `if (from < N)` bloğu ekle; eskileri değiştirme.
@@ -389,6 +391,14 @@ feature'ın `application/` klasörüne koy, `ai_bridge_providers.dart`'ta bağla
 
 **Kurallar:**
 
+- **Bildirim metni planner'da değil.** `planWindow` metnin *türünü*
+  üretiyor (`ReminderTextKind`), sözcükleri `reminder_texts.dart`
+  kullanıcının dilinde kuruyor. Planner saf kaldı — "salı 06:30 alarmı
+  kurulur mu" sorusu hâlâ emülatörsüz cevaplanıyor. Arka planda
+  `BuildContext` olmadığı için dil `PlatformDispatcher`'dan çözülüyor.
+- **Yasaklı pencere takviyeye uygulanmaz.** "Bu saatlerde uygun
+  değilim" mesai için doğru bir kural ama ilaç saati mesaiye kurban
+  edilmez. Takviye adayları süzgeçten *sonra* ekleniyor.
 - `canScheduleExact()` **sorar, istemez**. İstemek (`requestExactPermission`)
   Android'de sistem ayarları sayfasını açıyor; bunu bildirim kurarken
   çağırmak kullanıcıyı sebepsiz ayarlara fırlatır. Yalnız Ayarlar
