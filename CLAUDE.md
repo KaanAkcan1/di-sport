@@ -73,6 +73,7 @@ di@sport/
 | `workout` | **tamam** | Antrenman akışı: set sayacı, dinlenme, geri alma |
 | `ai_bridge` | **tamam** | context.md üretimi, dört kapılı doğrulama, plan.json içe alma |
 | `reminders` | tam | Saf `planWindow` + platform katmanı, 7 günlük kaydırmalı pencere |
+| `nutrition` | **tamam** | Besin veritabanı, porsiyonlu öğün kaydı, kalori bütçesi, serbest aktiviteler |
 | `settings` | tam | Profil formu, bildirimler, yedekleme, **haftalık mesai/yasaklı saat pencereleri**, görünüm ve dil |
 | `supplements` | **tamam** | Vitamin/ilaç tanımı, günlük alım işareti, saatli hatırlatma |
 
@@ -370,9 +371,52 @@ okunur marka kalan kayıtlar **bilerek görselsiz**: yanlış görsel
 görselsizden kötüdür. Görsel eklemek için o dosyadaki `SOURCES`
 tablosuna satır ekle.
 
+## Besin ve kalori
+
+`app/assets/foods.json` — **368 besin**, iki kaynaktan, `tools/build_foods.py`
+üretiyor.
+
+| Dosya | Ne |
+|---|---|
+| `tools/foods_curated.json` | 109 Türk ev yemeği, ev ölçüsü porsiyonlarıyla. `tools/_gen_curated.py` üretiyor (kompakt tablodan). |
+| `tools/foods_usda_selection.txt` | `fdcId \| slug \| Türkçe ad` — USDA SR Legacy seçimi. `tools/_gen_usda_selection.py` çözüyor. |
+| `tools/cache/usda_sr_legacy.zip` | Kaynak arşiv. **Git'te yok**, bir kez indiriliyor (komut `build_foods.py` başlığında). |
+| `app/assets/activities.json` | 72 serbest aktivite + MET. `tools/_gen_activities.py`. |
+
+**Neden iki kaynak:** etli kuru fasulyenin hiçbir açık veri tabanında
+karşılığı yok ve kimse onu gramla düşünmüyor — elle, "1 kase = 250 g"
+ile yazılıyor. Elma ve tavuk göğsünde tersi: USDA'da zaten var, elle
+yazmak hem uzun hem daha hatalı. USDA kayıtlarının **Türkçe adı
+boş kalabilir**; arayüz İngilizcesini gösteriyor (katalogun §4.1
+kuralı).
+
+**Snapshot ilkesi — taşıyıcı karar.** `meal_entries.kcalSnapshot` ve
+`activity_logs.kcalSnapshot` kayıt anında donuyor. Besin tablosunu
+düzeltmek dünkü toplamı oynatmaz; 10 kilo vermek eski antrenmanın
+harcamasını yeniden yazmaz. İkisi de kaydedildiğinde doğruydu. İki test
+bunu tutuyor (`nutrition_repository_test`, `activities_repository_test`).
+
+**Enerji hesabı** `workout/domain/energy_estimator.dart` — saf. ACSM
+yürüyüş/koşu denklemleri (eğim **kesire** çevriliyor; birim karışırsa
+sonuç 25 kat şişer), bisiklette efor→MET, kuvvette seans süresi × 5.0
+MET. **Seans kaydı yoksa kcal üretilmiyor** — setlerin toplam süresi
+seansın süresi değil ve dinlenmeyi bilmeden tahmin uydurmak olurdu.
+Her sonuç arayüzde `≈` ile gösteriliyor.
+
+**`EnergySource` portu** (`nutrition/domain/ports.dart`): `nutrition`
+arayüzü tanımlıyor, `workout` uyguluyor. Serbest aktiviteler porta
+**dahil değil** — onlar `nutrition`'ın kendi tablosunda ve iki kaynak
+`nutrition_providers`'ta toplanıyor. Aksi hâlde `workout`,
+`nutrition`'ın verisini okurdu.
+
+**Spec'ten sapma:** şablon tablosu (`meal_templates`) açılmadı. Yerine
+`copyMeal` var ve **dünden değil, o öğünde kayıt bulunan en son
+günden** kopyalıyor — dün kahvaltı girilmemiş olabilir ve boş bir kopya
+işe yaramaz. Gerçek şablon özelliği istenirse sonra eklenir.
+
 ## Durum
 
-**v1 tamamlandı (M1-M6). v2'de M7, M8, M11, M12 bitti; M9 ve M10
+**v1 tamamlandı (M1-M6). v2'de M7, M8, M9, M11, M12 bitti; M10
 sırada.** 622 test yeşil, analiz temiz.
 
 | | |
@@ -387,7 +431,7 @@ sırada.** 622 test yeşil, analiz temiz.
 | M8 | katalog 2.0 — 161 hareket, boru hattı, tipli ekipman, İngilizce-öncelikli adlar |
 | M11 | takviye ve ilaç takibi |
 | M12 | mürekkep tasarım dili — koyu yüzey, kartsız, ekran başına bir kahraman sayı |
-| M9 | *(sırada)* besin ve kalori |
+| M9 | besin ve kalori — 368 besin, 72 aktivite, kalori bütçesi |
 | M10 | *(sırada)* düzenlenebilirlik — geçmiş günler, takvimden giriş |
 
 **Döngü kapandı:** onboarding → "Yeni plan iste" → `context.md` paylaş →
@@ -410,6 +454,7 @@ plan Bugün ekranında.
 | v10 | `weekly_windows` |
 | v11 | `supplements`, `supplement_logs` |
 | v12 | `equipment_items.atHome/atGym`, tipli `equipment` |
+| v13 | `foods`, `food_portions`, `meal_entries`, `activities`, `activity_logs`, `workout_sessions` + `plan_exercises`/`exercise_logs` şiddet sütunları |
 
 Tablo eklerken `schemaVersion`'ı artır ve `onUpgrade`'e **yeni bir**
 `if (from < N)` bloğu ekle; eskileri değiştirme.

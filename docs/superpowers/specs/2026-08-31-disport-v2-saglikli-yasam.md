@@ -654,3 +654,24 @@ Bilerek yapılmayanlar:
 | Dil taşıması sırasında metin kaybı | Gömülü Türkçe metin taraması + eksik çeviri testi |
 | Plan editörü AI akışını bozar | `sourceRaw` korunur; içeri alma yolu değişmez, editör onun üstüne biner |
 | Şema v10 → v14 göçleri | Her sürüm kendi `if (from < N)` bloğunu alır; eskiler değiştirilmez (v1 kuralı). M11 → v11 (takviye), M8 → v12 (ekipman enum + yer bayrakları), M9 → v13 (besin + aktivite + plan/log şiddet alanları), M10 → v14 (`plan_slots.mealKind`) |
+
+## Uygulama sırasında alınan kararlar
+
+### M9 — şablon yerine "son öğünü kopyala"
+
+Spec §5.3'te öğün şablonu (`meal_templates`) öngörülmüştü. Uygulamada
+açılmadı: kullanıcının kahvaltısı zaten tekrar ediyor ve `copyMeal`
+aynı işi tablo açmadan yapıyor. **Kaynak gün "dün" değil, o öğünde
+kayıt bulunan en son gün** — dün kahvaltı girilmemiş olabilir ve boş
+bir kopya hiçbir işe yaramaz.
+
+Gerçek şablon özelliği (adlandırılmış, elle düzenlenebilir öğün
+kümeleri) kullanıcı isterse sonra eklenir; bu sadeleştirme açık bir
+karar olarak işaretli.
+
+### M9 — `FoodCategory` on iki değer, ekranda sekiz
+
+Enum veri kararı, kart listesi arayüz kararı. USDA kayıtları
+`etBalik`/`sutUrunu` olmadan bir yere sığmıyor ama on iki çip tek
+satıra sığmıyor ve seçim yapmayı zorlaştırıyor. Kalan dört tür
+aramadan geliyor.
