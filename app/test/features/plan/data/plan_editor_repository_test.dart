@@ -200,6 +200,52 @@ void main() {
       expect(slots.single.time, '08:30');
     });
 
+    test('öğün kalemleri eklenir, güncellenir ve temizlenir (v3 §5.0)', () async {
+      await newPlan();
+      final day = (await plans.activePlan())!.days.first;
+
+      final slotId = await editor.upsertSlot(
+        day.id,
+        time: '08:00',
+        kind: SlotKind.meal,
+        mealKind: MealKind.kahvalti,
+        items: const [
+          PlanMealItem(foodId: 'egg', quantity: 4, portionId: 'egg-piece'),
+          PlanMealItem(foodId: 'cheese', quantity: 1),
+        ],
+        label: 'Kahvaltı',
+      );
+
+      var slot = (await plans.activePlan())!.days.first.slots.single;
+      expect(slot.items, hasLength(2));
+      expect(slot.items.first.foodId, 'egg');
+
+      // items null = dokunma: kalemler korunur.
+      await editor.upsertSlot(
+        day.id,
+        slotId: slotId,
+        time: '08:15',
+        kind: SlotKind.meal,
+        mealKind: MealKind.kahvalti,
+        label: 'Kahvaltı',
+      );
+      slot = (await plans.activePlan())!.days.first.slots.single;
+      expect(slot.items, hasLength(2));
+
+      // Boş liste = bilinçli temizleme.
+      await editor.upsertSlot(
+        day.id,
+        slotId: slotId,
+        time: '08:15',
+        kind: SlotKind.meal,
+        mealKind: MealKind.kahvalti,
+        items: const [],
+        label: 'Kahvaltı',
+      );
+      slot = (await plans.activePlan())!.days.first.slots.single;
+      expect(slot.items, isEmpty);
+    });
+
     test('tür öğünden çıkınca öğün türü temizlenir', () async {
       // Kalırsa sonraki okuma "kahvaltı olan bir antrenman" görürdü.
       await newPlan();

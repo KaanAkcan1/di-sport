@@ -1,6 +1,9 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
+import 'package:disport/features/nutrition/application/nutrition_providers.dart'
+    show foodByIdProvider;
 import 'package:disport/features/nutrition/presentation/food_labels.dart';
+import 'package:disport/features/nutrition/presentation/food_picker_screen.dart';
 import 'package:disport/features/plan/application/plan_editor_providers.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/plan/domain/meal_kind.dart';
@@ -40,6 +43,7 @@ class _SlotEditorState extends ConsumerState<_SlotEditor> {
   late MealKind? _mealKind = widget.slot?.mealKind ?? MealKind.kahvalti;
   late final _label = TextEditingController(text: widget.slot?.label ?? '');
   late final _note = TextEditingController(text: widget.slot?.note ?? '');
+  late List<PlanMealItem> _items = [...?widget.slot?.items];
   String? _error;
 
   static TimeOfDay _parseTime(String raw) {
@@ -150,6 +154,30 @@ class _SlotEditorState extends ConsumerState<_SlotEditor> {
                   ),
               ],
             ),
+            const SizedBox(height: AppSpacing.md),
+            // Öğün kalemleri (v3 §5.0): plana besin id'siyle bağlanan
+            // satırlar. "Plandaki gibi yedim" tek dokunuşu bunları okur.
+            Text(l10n.planSlotItems),
+            const SizedBox(height: AppSpacing.xs),
+            Wrap(
+              spacing: AppSpacing.sm,
+              runSpacing: AppSpacing.xs,
+              children: [
+                for (final (index, item) in _items.indexed)
+                  _ItemChip(
+                    key: Key('slot-item-$index'),
+                    item: item,
+                    onDeleted: () =>
+                        setState(() => _items = [..._items]..removeAt(index)),
+                  ),
+                ActionChip(
+                  key: const Key('slot-add-item'),
+                  avatar: const Icon(Icons.add, size: 16),
+                  label: Text(l10n.planSlotAddItem),
+                  onPressed: _pickItem,
+                ),
+              ],
+            ),
           ],
 
           const SizedBox(height: AppSpacing.md),
@@ -176,6 +204,34 @@ class _SlotEditorState extends ConsumerState<_SlotEditor> {
     );
   }
 
+  Future<void> _pickItem() async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => FoodPickerScreen(
+          mealKind: _mealKind ?? MealKind.kahvalti,
+          onPicked: (choice) => setState(
+            () => _items = [
+              ..._items,
+              PlanMealItem(
+                foodId: choice.food.id,
+                // Elle gram girildiyse 100 g tabanına çevrilir: plan
+                // kalemi gram değil çarpan taşıyor (null porsiyon =
+                // 100 g × çarpan) ve 180 g = 1,8 çarpan aynı kaloriyi
+                // verir.
+                quantity: choice.customGrams != null
+                    ? choice.customGrams! / 100
+                    : choice.quantity,
+                portionId: choice.customGrams != null
+                    ? null
+                    : choice.portion?.id,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Future<void> _save() async {
     final l10n = context.l10n;
 
@@ -197,10 +253,34 @@ class _SlotEditorState extends ConsumerState<_SlotEditor> {
           time: _timeText,
           kind: _kind,
           mealKind: _mealKind,
+          items: _items,
           label: _label.text,
           note: _note.text.trim().isEmpty ? null : _note.text,
         );
     await ref.read(planChangedProvider)();
     navigator.pop();
+  }
+}
+
+/// Kalem çipi — adı id'den çözer; besin yüklenene dek id gösterir.
+class _ItemChip extends ConsumerWidget {
+  const _ItemChip({super.key, required this.item, required this.onDeleted});
+
+  final PlanMealItem item;
+  final VoidCallback onDeleted;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final food = ref.watch(foodByIdProvider(item.foodId)).value;
+    final name = food == null ? item.foodId : foodDisplayName(context, food);
+    final quantityText = item.quantity == item.quantity.roundToDouble()
+        ? item.quantity.toInt().toString()
+        : item.quantity.toStringAsFixed(1).replaceAll('.', ',');
+
+    return InputChip(
+      label: Text('$name ×$quantityText'),
+      onDeleted: onDeleted,
+      deleteIcon: const Icon(Icons.close, size: 15),
+    );
   }
 }

@@ -405,6 +405,8 @@
   "sportsNoteTitle": "Ne sıklıkla?",
   "sportsNoteHint": "örn. haftada 1, pazar sabahı",
   "reminderMealBody": "Öğün saati. Yediklerini Diyet'ten kaydet.",
+  "planSlotItems": "Öğün kalemleri",
+  "planSlotAddItem": "Besin ekle",
   "rhythmMealsSection": "Öğünler",
   "rhythmMealFlexible": "Saat esnek",
   "mealBehaviorPlanned": "Plan doldurur",

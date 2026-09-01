@@ -2144,6 +2144,18 @@ abstract class AppLocalizations {
   /// **'Öğün saati. Yediklerini Diyet\'ten kaydet.'**
   String get reminderMealBody;
 
+  /// No description provided for @planSlotItems.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öğün kalemleri'**
+  String get planSlotItems;
+
+  /// No description provided for @planSlotAddItem.
+  ///
+  /// In tr, this message translates to:
+  /// **'Besin ekle'**
+  String get planSlotAddItem;
+
   /// No description provided for @rhythmMealsSection.
   ///
   /// In tr, this message translates to:

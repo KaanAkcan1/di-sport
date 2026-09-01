@@ -1163,6 +1163,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reminderMealBody => 'Meal time. Log what you eat from Diet.';
 
   @override
+  String get planSlotItems => 'Meal items';
+
+  @override
+  String get planSlotAddItem => 'Add food';
+
+  @override
   String get rhythmMealsSection => 'Meals';
 
   @override

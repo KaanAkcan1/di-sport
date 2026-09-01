@@ -213,3 +213,9 @@ Stream<Map<String, double>> netKcalByDay(
 
   yield* controller.stream;
 }
+
+/// Tek besin — plan editörünün kalem çipleri ve GÜNLÜK plan satırları
+/// adı ve değeri id'den çözmek zorunda.
+@riverpod
+Future<Food?> foodById(Ref ref, String id) =>
+    ref.watch(nutritionRepositoryProvider).foodById(id);

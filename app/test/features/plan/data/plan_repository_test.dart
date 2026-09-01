@@ -1,6 +1,7 @@
 import 'package:disport/core/db/app_database.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/plan/domain/meal_kind.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -50,6 +51,70 @@ void main() {
 
     test('plan yokken activePlan null', () async {
       expect(await repo.activePlan(), isNull);
+    });
+
+    test('öğün kalemleri slotla yazılır ve okunur (v3 §5.0)', () async {
+      final base = fixturePlan();
+      final withItems = FullPlan(
+        id: base.id,
+        title: base.title,
+        startDate: base.startDate,
+        weeks: base.weeks,
+        goals: base.goals,
+        rules: base.rules,
+        sourceRaw: base.sourceRaw,
+        days: [
+          for (final day in base.days)
+            FullPlanDay(
+              id: day.id,
+              date: day.date,
+              type: day.type,
+              weekIndex: day.weekIndex,
+              headline: day.headline,
+              dinnerSuggestion: day.dinnerSuggestion,
+              exercises: day.exercises,
+              slots: [
+                for (final slot in day.slots)
+                  PlanSlot(
+                    id: slot.id,
+                    time: slot.time,
+                    kind: slot.kind,
+                    mealKind: slot.kind == SlotKind.meal
+                        ? MealKind.kahvalti
+                        : null,
+                    items: slot.id.endsWith('s0')
+                        ? const [
+                            PlanMealItem(
+                              foodId: 'egg',
+                              quantity: 4,
+                              portionId: 'egg-piece',
+                            ),
+                          ]
+                        : const [],
+                    label: slot.label,
+                    note: slot.note,
+                  ),
+              ],
+            ),
+        ],
+      );
+
+      await repo.insertFullPlan(withItems);
+
+      final day = await repo.watchDay('2026-08-31').first;
+      final breakfast = day!.slots.first;
+      expect(breakfast.mealKind, MealKind.kahvalti);
+      expect(breakfast.items, hasLength(1));
+      expect(breakfast.items.single.foodId, 'egg');
+      expect(breakfast.items.single.quantity, 4);
+      expect(breakfast.items.single.portionId, 'egg-piece');
+      // Kalemsiz slot eski davranışta: boş liste, null değil.
+      expect(day.slots[1].items, isEmpty);
+
+      // Aynı plan yeniden içeri alınınca kalemler çoğalmaz.
+      await repo.insertFullPlan(withItems);
+      final again = await repo.watchDay('2026-08-31').first;
+      expect(again!.slots.first.items, hasLength(1));
     });
   });
 

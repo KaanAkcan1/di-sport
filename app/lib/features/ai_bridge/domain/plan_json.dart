@@ -139,6 +139,8 @@ class PlanSlotJson {
     required this.kind,
     required this.label,
     required this.path,
+    this.mealKind,
+    this.items = const [],
     this.note,
   });
 
@@ -153,6 +155,23 @@ class PlanSlotJson {
       'other',
     }),
     label: reader['label'].asString,
+    // v3: öğün slotu hangi öğün olduğunu ve isteğe bağlı besin
+    // kalemlerini söyleyebilir (§5.0). İkisi de isteğe bağlı — eski
+    // sözleşmeyle üretilmiş plan aynen çalışır.
+    mealKind: reader['mealKind'].asStringOrNull == null
+        ? null
+        : reader['mealKind'].enumValue(const {
+            'kahvalti',
+            'araOgun',
+            'ogle',
+            'ikindi',
+            'aksam',
+            'gece',
+          }),
+    items: [
+      for (final item in reader['items'].listOrEmpty())
+        PlanMealItemJson.parse(item),
+    ],
     note: reader['note'].asStringOrNull,
     path: reader.path,
   );
@@ -160,7 +179,31 @@ class PlanSlotJson {
   final String time;
   final String kind;
   final String label;
+  final String? mealKind;
+  final List<PlanMealItemJson> items;
   final String? note;
+  final String path;
+}
+
+/// Öğün slotunun bir besin kalemi (v3 §5.0).
+class PlanMealItemJson {
+  const PlanMealItemJson({
+    required this.foodId,
+    required this.path,
+    this.quantity = 1,
+    this.portionId,
+  });
+
+  factory PlanMealItemJson.parse(JsonReader reader) => PlanMealItemJson(
+    foodId: reader['foodId'].asString,
+    quantity: reader['quantity'].exists ? reader['quantity'].asDouble : 1,
+    portionId: reader['portionId'].asStringOrNull,
+    path: reader.path,
+  );
+
+  final String foodId;
+  final double quantity;
+  final String? portionId;
   final String path;
 }
 

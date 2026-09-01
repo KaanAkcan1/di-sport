@@ -5,6 +5,7 @@ import 'package:disport/features/ai_bridge/domain/plan_importer.dart';
 import 'package:disport/features/ai_bridge/domain/plan_validator.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/plan/domain/meal_kind.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../ai_fixtures.dart';
@@ -49,6 +50,43 @@ void main() {
       expect(plan.days.first.slots, hasLength(2));
       expect(plan.days.first.type, PlanDayType.gym);
       expect(plan.days.last.type, PlanDayType.rest);
+    });
+
+    test('öğün türü ve kalemler taşınır, eksikse eski davranış (v3)', () async {
+      final document = validPlanMap();
+      final day0 = (document['days'] as List).first as Map<String, dynamic>;
+      // Fixture'ın slot listesi dar tipte (`List<Map<String, String>>`)
+      // çıkabiliyor; kalem ekleyebilmek için listeyi baştan kuruyoruz.
+      final slots = [
+        for (final slot in day0['slots'] as List)
+          Map<String, dynamic>.from(slot as Map),
+      ];
+      slots[0]['mealKind'] = 'kahvalti';
+      slots[0]['items'] = [
+        {'foodId': 'egg', 'quantity': 4, 'portionId': 'egg-piece'},
+        {'foodId': 'cheese'},
+      ];
+      day0['slots'] = slots;
+
+      await importer.import(
+        validate(document),
+        acceptedNewExerciseIds: const {},
+      );
+
+      final slot = insertedPlans.single.days.first.slots.first;
+      expect(slot.mealKind, MealKind.kahvalti);
+      expect(slot.items, hasLength(2));
+      expect(slot.items.first.foodId, 'egg');
+      expect(slot.items.first.quantity, 4);
+      expect(slot.items.first.portionId, 'egg-piece');
+      // Eksik alanlar varsayılan: çarpan 1, porsiyon null.
+      expect(slot.items.last.quantity, 1);
+      expect(slot.items.last.portionId, isNull);
+
+      // items/mealKind vermeyen slot eski davranışta.
+      final other = insertedPlans.single.days[1].slots.first;
+      expect(other.mealKind, isNull);
+      expect(other.items, isEmpty);
     });
 
     test('hedefler ve kurallar taşınır', () async {

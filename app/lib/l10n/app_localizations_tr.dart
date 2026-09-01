@@ -1160,6 +1160,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get reminderMealBody => 'Öğün saati. Yediklerini Diyet\'ten kaydet.';
 
   @override
+  String get planSlotItems => 'Öğün kalemleri';
+
+  @override
+  String get planSlotAddItem => 'Besin ekle';
+
+  @override
   String get rhythmMealsSection => 'Öğünler';
 
   @override

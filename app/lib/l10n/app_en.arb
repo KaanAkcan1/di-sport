@@ -405,6 +405,8 @@
   "sportsNoteTitle": "How often?",
   "sportsNoteHint": "e.g. once a week, Sunday morning",
   "reminderMealBody": "Meal time. Log what you eat from Diet.",
+  "planSlotItems": "Meal items",
+  "planSlotAddItem": "Add food",
   "rhythmMealsSection": "Meals",
   "rhythmMealFlexible": "Flexible time",
   "mealBehaviorPlanned": "Plan fills it",

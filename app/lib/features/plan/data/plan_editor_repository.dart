@@ -79,6 +79,7 @@ class PlanEditorRepository {
     required SlotKind kind,
     required String label,
     MealKind? mealKind,
+    List<PlanMealItem>? items,
     String? note,
   }) async {
     if (!RegExp(r'^([01]\d|2[0-3]):[0-5]\d$').hasMatch(time)) {
@@ -87,6 +88,14 @@ class PlanEditorRepository {
     }
 
     if (slotId != null) {
+      // Kalemler null ise dokunulmaz (çağıran taşımadı); boş liste ise
+      // bilinçli temizleme.
+      if (items != null) {
+        await _writeItems(
+          slotId,
+          kind == SlotKind.meal ? items : const <PlanMealItem>[],
+        );
+      }
       await (_db.update(_db.planSlots)..where((t) => t.id.equals(slotId)))
           .write(
             PlanSlotsCompanion(
@@ -122,7 +131,31 @@ class PlanEditorRepository {
             updatedAt: _now,
           ),
         );
+    if (items != null && kind == SlotKind.meal) {
+      await _writeItems(id, items);
+    }
     return id;
+  }
+
+  /// Slotun öğün kalemlerini baştan yazar (v3 §5.0).
+  Future<void> _writeItems(String slotId, List<PlanMealItem> items) async {
+    await (_db.delete(_db.planMealItems)
+          ..where((t) => t.planSlotId.equals(slotId)))
+        .go();
+    for (final (index, item) in items.indexed) {
+      await _db
+          .into(_db.planMealItems)
+          .insert(
+            PlanMealItemsCompanion.insert(
+              id: '$slotId-i$index',
+              planSlotId: slotId,
+              foodId: item.foodId,
+              quantity: Value(item.quantity),
+              portionId: Value(item.portionId),
+              updatedAt: _now,
+            ),
+          );
+    }
   }
 
   /// Yumuşak silme.

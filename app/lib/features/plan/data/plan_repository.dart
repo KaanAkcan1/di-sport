@@ -74,11 +74,32 @@ class PlanRepository {
                 planDayId: day.id,
                 time: slot.time,
                 kind: slot.kind.name,
+                mealKind: Value(slot.mealKind?.name),
                 label: slot.label,
                 note: Value(slot.note),
                 orderIndex: index,
               ),
             );
+
+        // Kalemler slotla birlikte baştan yazılır: aynı plan yeniden
+        // içeri alındığında eski kalemler hayalet olarak kalmasın.
+        await (_db.delete(_db.planMealItems)
+              ..where((t) => t.planSlotId.equals(slot.id)))
+            .go();
+        for (final (itemIndex, item) in slot.items.indexed) {
+          await _db
+              .into(_db.planMealItems)
+              .insert(
+                PlanMealItemsCompanion.insert(
+                  id: '${slot.id}-i$itemIndex',
+                  updatedAt: now,
+                  planSlotId: slot.id,
+                  foodId: item.foodId,
+                  quantity: Value(item.quantity),
+                  portionId: Value(item.portionId),
+                ),
+              );
+        }
       }
 
       for (final (index, exercise) in day.exercises.indexed) {
@@ -191,6 +212,30 @@ class PlanRepository {
               ..orderBy([(t) => OrderingTerm.asc(t.orderIndex)]))
             .get();
 
+    // Kalemler slot başına değil gün başına tek sorguda: slot sayısı
+    // kadar sorgu atmak gün ekranının her çiziminde gereksiz gidiş
+    // geliş olurdu.
+    final itemRows = slotRows.isEmpty
+        ? const <PlanMealItemRow>[]
+        : await (_db.select(_db.planMealItems)..where(
+                (t) =>
+                    t.planSlotId.isIn([for (final s in slotRows) s.id]) &
+                    t.deletedAt.isNull(),
+              ))
+              .get();
+    final itemsBySlot = <String, List<PlanMealItem>>{};
+    for (final item in itemRows) {
+      itemsBySlot
+          .putIfAbsent(item.planSlotId, () => [])
+          .add(
+            PlanMealItem(
+              foodId: item.foodId,
+              quantity: item.quantity,
+              portionId: item.portionId,
+            ),
+          );
+    }
+
     final exerciseRows =
         await (_db.select(_db.planExercises)
               ..where((t) => t.planDayId.equals(row.id) & t.deletedAt.isNull())
@@ -214,6 +259,7 @@ class PlanRepository {
               final name? => MealKind.fromName(name),
               null => null,
             },
+            items: itemsBySlot[slot.id] ?? const [],
             label: slot.label,
             note: slot.note,
           ),

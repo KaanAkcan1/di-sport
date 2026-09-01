@@ -63,6 +63,27 @@ class PlanRules {
   Map<String, dynamic> toJson() => {'forbidden': forbidden, 'free': free};
 }
 
+/// Plan öğününün bir kalemi — besin id'siyle (v3 §5.0).
+///
+/// "Plandaki gibi yedim" tek dokunuşu ve yasaklı kontrolü planın besin
+/// **id'siyle** konuşmasını gerektiriyor; etiket ("Öğle yemeği") bunun
+/// için yetmiyordu.
+class PlanMealItem {
+  const PlanMealItem({
+    required this.foodId,
+    this.quantity = 1,
+    this.portionId,
+  });
+
+  final String foodId;
+
+  /// Porsiyon çarpanı — "1,5 kase".
+  final double quantity;
+
+  /// Ev ölçüsü; null = 100 g tabanı.
+  final String? portionId;
+}
+
 /// Günün bir zaman dilimi: saat, tür, etiket.
 class PlanSlot {
   const PlanSlot({
@@ -71,6 +92,7 @@ class PlanSlot {
     required this.kind,
     required this.label,
     this.mealKind,
+    this.items = const [],
     this.note,
   });
 
@@ -84,6 +106,9 @@ class PlanSlot {
 
   /// Öğün slotlarında hangi öğün. Diğer türlerde null.
   final MealKind? mealKind;
+
+  /// Öğün kalemleri; boşsa slot eski davranışta (yalnız etiket).
+  final List<PlanMealItem> items;
 
   final String label;
   final String? note;

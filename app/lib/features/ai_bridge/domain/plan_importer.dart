@@ -3,6 +3,7 @@ import 'package:disport/features/ai_bridge/domain/plan_json.dart';
 import 'package:disport/features/ai_bridge/domain/plan_validator.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/plan/domain/meal_kind.dart';
 import 'package:uuid/uuid.dart';
 
 /// İçe alma sonucu.
@@ -129,6 +130,17 @@ class PlanImporter {
                   id: '$planId-d$dayIndex-s$slotIndex',
                   time: slot.time,
                   kind: SlotKind.values.byName(slot.kind),
+                  mealKind: slot.mealKind == null
+                      ? null
+                      : MealKind.fromName(slot.mealKind!),
+                  items: [
+                    for (final item in slot.items)
+                      PlanMealItem(
+                        foodId: item.foodId,
+                        quantity: item.quantity,
+                        portionId: item.portionId,
+                      ),
+                  ],
                   label: slot.label,
                   note: slot.note,
                 ),
