@@ -28,5 +28,7 @@ String equipmentLabel(BuildContext context, EquipmentKind kind) {
     EquipmentKind.dipBars => l10n.equipmentDipBars,
     EquipmentKind.bench => l10n.equipmentBench,
     EquipmentKind.jumpRope => l10n.equipmentJumpRope,
+    EquipmentKind.chair => l10n.equipmentChair,
+    EquipmentKind.step => l10n.equipmentStep,
   };
 }

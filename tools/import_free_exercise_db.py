@@ -35,7 +35,7 @@ OUTPUT = os.path.join(ROOT, 'app', 'assets', 'catalog.json')
 
 # Şu an geçerli tohum sürümü. Artırmak mevcut kurulumlarda yeniden
 # tohumlamayı tetikler (`CatalogRepository.seedFromJson`).
-CATALOG_VERSION = 2
+CATALOG_VERSION = 3
 
 EQUIPMENT = {
     'body only': 'bodyOnly',
@@ -91,6 +91,9 @@ LOCATION = {
     'dipBars': 'both',
     'bench': 'both',
     'jumpRope': 'both',
+    # v3: ev esyasi arti soruluyor; yeri ev.
+    'chair': 'home',
+    'step': 'home',
 }
 
 # Kategori başına MET varsayılanı — 2024 Adult Compendium of Physical

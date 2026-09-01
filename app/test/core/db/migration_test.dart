@@ -55,7 +55,7 @@ void main() {
     final db = AppDatabase.forTesting(NativeDatabase.memory());
     addTearDown(db.close);
 
-    expect(db.schemaVersion, greaterThanOrEqualTo(14));
+    expect(db.schemaVersion, greaterThanOrEqualTo(15));
     expect(await db.select(db.supplements).get(), isEmpty);
     expect(await db.select(db.equipmentItems).get(), isEmpty);
   });
@@ -102,6 +102,32 @@ void main() {
     // Plan slotunun öğün türü; `meal_entries.mealKind` (v13) ile
     // karıştırılmamalı — biri planlanan, öteki yenen.
     await db.customStatement('SELECT meal_kind FROM plan_slots');
+  });
+
+  test('v14 kurulumu v15 seviyesine yükseltilebilir', () async {
+    final db = AppDatabase.forTesting(NativeDatabase.memory());
+    addTearDown(db.close);
+
+    // `openAt` deseni yapısal kontroller için yeterli ama **veri**
+    // göçünü tetiklemiyor: aynı bağlantıda `user_version`'ı geriye
+    // almak `onUpgrade`'i yeniden çalıştırmaz. v15'in chair/step
+    // ekleme davranışı için göç bloğu doğrudan çağrılıyor.
+    await db.migration.onUpgrade(db.createMigrator(), 14, 15);
+
+    expect(await db.select(db.medicalFacts).get(), isEmpty);
+    expect(await db.select(db.mealBehaviors).get(), isEmpty);
+    expect(await db.select(db.favoriteSports).get(), isEmpty);
+    expect(await db.select(db.planMealItems).get(), isEmpty);
+    await db.customStatement('SELECT kind FROM supplements');
+    await db.customStatement('SELECT water_ml FROM daily_logs');
+
+    // v2 "sandalye/basamak herkeste var" varsayımı korunuyor: göç iki
+    // satırı evde-işaretli açıyor.
+    final equipment = await db.select(db.equipmentItems).get();
+    final chair = equipment.firstWhere((row) => row.id == 'chair');
+    expect(chair.atHome, isTrue);
+    expect(chair.atGym, isFalse);
+    expect(equipment.any((row) => row.id == 'step'), isTrue);
   });
 
   test('göç eski verileri korur', () async {

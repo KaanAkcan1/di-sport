@@ -4,7 +4,9 @@ import 'package:disport/features/catalog/domain/equipment_kind.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/health/data/lab_tables.dart';
 import 'package:disport/features/health/data/metric_definition_table.dart';
+import 'package:disport/features/medical/data/medical_tables.dart';
 import 'package:disport/features/nutrition/data/nutrition_tables.dart';
+import 'package:disport/features/plan/data/plan_meal_item_table.dart';
 import 'package:disport/features/plan/data/plan_tables.dart';
 import 'package:disport/features/settings/data/profile_table.dart';
 import 'package:disport/features/settings/data/weekly_window_table.dart';
@@ -44,6 +46,10 @@ part 'app_database.g.dart';
     SupplementLogs,
     Foods,
     FoodPortions,
+    MedicalFacts,
+    MealBehaviors,
+    FavoriteSports,
+    PlanMealItems,
     MealEntries,
     Activities,
     ActivityLogs,
@@ -57,7 +63,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 14;
+  int get schemaVersion => 15;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -149,6 +155,52 @@ class AppDatabase extends _$AppDatabase {
         // karıştırılmamalı: biri planlanan, öteki yenen.
         await m.addColumn(planSlots, planSlots.mealKind);
       }
+      if (from < 15) {
+        await m.createTable(medicalFacts);
+        await m.createTable(mealBehaviors);
+        await m.createTable(favoriteSports);
+        await m.createTable(planMealItems);
+        // Sütunlar tekrarlı çalışmaya dayanıklı: yarıda kesilen bir
+        // yükseltme yeniden denendiğinde "duplicate column" ile
+        // çakılmamalı. `createTable` zaten IF NOT EXISTS; addColumn
+        // için aynı garantiyi elle veriyoruz.
+        await _addColumnIfAbsent(m, supplements, supplements.kind);
+        await _addColumnIfAbsent(m, dailyLogs, dailyLogs.waterMl);
+
+        // v2 "sandalye ve basamak herkeste var" sayıyordu; v3 soruyor.
+        // Mevcut kurulumda varsayımı koruyarak işaretli açılıyorlar —
+        // kullanıcının filtresi bir gecede daralmasın. Taze kurulum
+        // tohumu işaretsiz bırakır (EquipmentRepository.seedFrom).
+        // Id şeması tohumla aynı (`kind.name`) — aksi hâlde bir sonraki
+        // açılışta seedFrom aynı türü ikinci kez eklerdi.
+        final now = DateTime.now().millisecondsSinceEpoch;
+        for (final kind in ['chair', 'step']) {
+          await m.database.customStatement(
+            'INSERT OR IGNORE INTO equipment_items '
+            '(id, user_id, updated_at, deleted_at, label, kind, '
+            ' is_owned, at_home, at_gym, sort_order) '
+            "VALUES ('$kind', '', $now, NULL, '$kind', "
+            "'$kind', 1, 1, 0, 900)",
+          );
+        }
+      }
     },
   );
+
+  /// `Migrator.addColumn`, sütun zaten varsa `duplicate column` ile
+  /// düşer; yarım kalmış bir yükseltmenin tekrarı bunu yaşar. Yalnız o
+  /// hata yutulur — başka her SQL hatası yukarı fırlar.
+  Future<void> _addColumnIfAbsent(
+    Migrator m,
+    TableInfo<Table, dynamic> table,
+    GeneratedColumn<Object> column,
+  ) async {
+    try {
+      await m.addColumn(table, column);
+    } on Exception catch (error) {
+      // `SqliteException` doğrudan import edilmiyor (sqlite3 geçişli
+      // bağımlılık); mesaj üzerinden ayıklanıyor.
+      if (!error.toString().contains('duplicate column')) rethrow;
+    }
+  }
 }

@@ -36,4 +36,12 @@ class DailyLogs extends Table with SyncColumns {
   /// Kullanıcının kendi sözleri. M4'te `context.md`'ye düzenlenmeden
   /// aktarılır (spec 7.1, beşinci bölüm).
   TextColumn get note => text().withDefault(const Constant(''))();
+
+  /// İçilen su, mililitre (v3).
+  ///
+  /// v2'de su bir kutucuktu (`waterTargetMet`); kaloriyi grama kadar
+  /// takip edip suyu "içtim/içmedim" diye sormak tutarsızdı. Kutucuk
+  /// sütunu kalıyor — kaçak serisi ve eski okuyucular bozulmasın —
+  /// ama artık her `waterMl` yazımında `waterMl >= hedef`ten türetiliyor.
+  IntColumn get waterMl => integer().nullable()();
 }

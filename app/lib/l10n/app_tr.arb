@@ -750,5 +750,7 @@
         "type": "int"
       }
     }
-  }
+  },
+  "equipmentChair": "Sandalye",
+  "equipmentStep": "Basamak / merdiven"
 }

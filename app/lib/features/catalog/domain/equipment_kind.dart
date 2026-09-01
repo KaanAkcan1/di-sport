@@ -47,7 +47,13 @@ enum EquipmentKind {
   pullUpBar,
   dipBars,
   bench,
-  jumpRope;
+  jumpRope,
+
+  // v3: sandalye ve basamak `other`dan ayrıştı. "Herkeste var"
+  // varsayımı yanlıştı — basamağı olmayan ev çok; artık envanterde
+  // soruluyorlar. Duvar hâlâ sorulmuyor (o gerçekten her evde var).
+  chair,
+  step;
 
   /// free-exercise-db değerinden enum'a.
   ///
@@ -119,4 +125,5 @@ enum EquipmentKind {
   /// için onay kutusu göstermek kullanıcıya hiçbir şey sormaz.
   bool get needsInventory =>
       this != bodyOnly && this != none && this != other;
+
 }

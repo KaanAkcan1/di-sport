@@ -1958,4 +1958,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String dayFlowExpand(int count) {
     return 'All of the day ($count)';
   }
+
+  @override
+  String get equipmentChair => 'Chair';
+
+  @override
+  String get equipmentStep => 'Step / stairs';
 }

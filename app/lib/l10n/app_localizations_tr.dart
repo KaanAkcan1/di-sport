@@ -1955,4 +1955,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String dayFlowExpand(int count) {
     return 'Günün tamamı ($count)';
   }
+
+  @override
+  String get equipmentChair => 'Sandalye';
+
+  @override
+  String get equipmentStep => 'Basamak / merdiven';
 }

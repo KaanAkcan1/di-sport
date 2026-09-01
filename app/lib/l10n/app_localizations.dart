@@ -3576,6 +3576,18 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'Günün tamamı ({count})'**
   String dayFlowExpand(int count);
+
+  /// No description provided for @equipmentChair.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sandalye'**
+  String get equipmentChair;
+
+  /// No description provided for @equipmentStep.
+  ///
+  /// In tr, this message translates to:
+  /// **'Basamak / merdiven'**
+  String get equipmentStep;
 }
 
 class _AppLocalizationsDelegate

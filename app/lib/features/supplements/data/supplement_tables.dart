@@ -30,6 +30,13 @@ class Supplements extends Table with SyncColumns {
   TextColumn get weekdaysJson => text().withDefault(const Constant('[]'))();
 
   TextColumn get note => text().withDefault(const Constant(''))();
+
+  /// `prescription` | `supplement` (v3).
+  ///
+  /// AI belgesine ikisi ayrı bölüm olarak gider: biri doktorun kararı,
+  /// öteki kullanıcının. Varsayılan `supplement` — v2 kayıtlarının
+  /// hepsi takviyeydi.
+  TextColumn get kind => text().withDefault(const Constant('supplement'))();
 }
 
 /// Bir takviyenin belirli bir gün ve saatteki alım kaydı.

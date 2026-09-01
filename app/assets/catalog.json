@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "exercises": [
     {
       "id": "ab_roller",
@@ -1007,7 +1007,7 @@
       "id": "chair_squat",
       "nameEn": "Chair Squat",
       "equipment": [
-        "other"
+        "chair"
       ],
       "category": "strength",
       "location": "home",
@@ -4320,7 +4320,7 @@
       "id": "step_up",
       "nameEn": "Step-Up",
       "equipment": [
-        "other"
+        "step"
       ],
       "category": "strength",
       "location": "home",

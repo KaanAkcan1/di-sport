@@ -750,5 +750,7 @@
         "type": "int"
       }
     }
-  }
+  },
+  "equipmentChair": "Chair",
+  "equipmentStep": "Step / stairs"
 }
