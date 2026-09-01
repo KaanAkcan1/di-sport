@@ -1,10 +1,14 @@
 import 'package:disport/app/theme/app_theme.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
+import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart'
+    show profileEntriesProvider;
 import 'package:disport/features/nutrition/application/nutrition_providers.dart';
 import 'package:disport/features/nutrition/domain/activity.dart';
 import 'package:disport/features/nutrition/domain/calorie_budget.dart';
 import 'package:disport/features/nutrition/domain/food.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/settings/application/setup_providers.dart';
+import 'package:disport/features/settings/domain/setup_progress.dart';
 import 'package:disport/features/supplements/application/supplement_providers.dart';
 import 'package:disport/features/supplements/domain/supplement.dart';
 import 'package:disport/features/today/application/day_providers.dart';
@@ -29,6 +33,18 @@ void main() {
         (ref) => Stream.value(DateTime(2026, 8, 31, 10)),
       ),
       todayDosesProvider.overrideWithValue(const <SupplementDose>[]),
+      // v3: kurulum paneli ve doğum günü satırı Drift akışlarına bakıyor.
+      setupProgressProvider.overrideWith(
+        (ref) => const SetupProgress(
+          wizardDone: true,
+          equipmentDone: true,
+          medicalDone: true,
+          rhythmDone: true,
+        ),
+      ),
+      profileEntriesProvider.overrideWith(
+        (ref) => Stream.value(const <String, String>{}),
+      ),
       dayPlanDayProvider(dateKey).overrideWith((ref) => Stream.value(planDay)),
       dayLogProvider(
         dateKey,

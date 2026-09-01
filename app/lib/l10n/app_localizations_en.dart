@@ -900,6 +900,209 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsOnboardingSave => 'Save and start';
 
   @override
+  String get onboardingWelcomeTitle => 'Welcome to di@sport';
+
+  @override
+  String get onboardingWelcomeBody =>
+      'Track your diet, workouts, health values and medication in one place.';
+
+  @override
+  String get onboardingAreaDiet => 'Diet — meals, calorie budget, water';
+
+  @override
+  String get onboardingAreaSport => 'Sport — plan, workouts, exercise catalog';
+
+  @override
+  String get onboardingAreaHealth => 'Health — labs, measurements, progress';
+
+  @override
+  String get onboardingAreaMed =>
+      'Medication & supplements — reminders and tracking';
+
+  @override
+  String get onboardingStart => 'Let\'s start';
+
+  @override
+  String get onboardingIdentityTitle => 'About you';
+
+  @override
+  String get onboardingFirstName => 'First name';
+
+  @override
+  String get onboardingLastName => 'Last name';
+
+  @override
+  String get onboardingFirstNameRequired =>
+      'We need your first name to continue.';
+
+  @override
+  String get onboardingBirthDate => 'Birth date';
+
+  @override
+  String get onboardingBirthDay => 'Day';
+
+  @override
+  String get onboardingBirthMonth => 'Month';
+
+  @override
+  String get onboardingBirthYear => 'Year';
+
+  @override
+  String get onboardingBirthDateInvalid => 'Birth date must be a valid day.';
+
+  @override
+  String get onboardingGender => 'Gender';
+
+  @override
+  String get onboardingMale => 'Male';
+
+  @override
+  String get onboardingFemale => 'Female';
+
+  @override
+  String get onboardingGenderUnspecified => 'Prefer not to say';
+
+  @override
+  String get onboardingGenderWhy =>
+      'Used for calorie estimates; an average factor is used if unspecified.';
+
+  @override
+  String get onboardingMeasuresTitle => 'Your measurements';
+
+  @override
+  String get onboardingMeasuresBody =>
+      'Your weight also becomes your first weigh-in — your Progress chart starts today.';
+
+  @override
+  String get onboardingHeight => 'Height';
+
+  @override
+  String get onboardingWeight => 'Current weight';
+
+  @override
+  String get onboardingTargetWeight => 'Target weight';
+
+  @override
+  String get commonBack => 'Back';
+
+  @override
+  String get commonNext => 'Next';
+
+  @override
+  String get setupPanelTitle => 'Setup';
+
+  @override
+  String setupPanelProgress(int done, int total) {
+    return '$done/$total done';
+  }
+
+  @override
+  String get setupPanelBody =>
+      'A few short steps left. These feed your plan too — the fuller they are, the better the plan.';
+
+  @override
+  String get setupCardEquipment => 'Pick your equipment';
+
+  @override
+  String get setupCardMedical => 'Your medical info';
+
+  @override
+  String get setupCardRhythm => 'Your daily rhythm';
+
+  @override
+  String setupCardMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get setupCardSkip => 'Skip';
+
+  @override
+  String get setupRequestPlan => 'Request your first plan';
+
+  @override
+  String todayBirthday(String name) {
+    return 'Happy birthday, $name! 🎉';
+  }
+
+  @override
+  String get medicalTitle => 'Medical info';
+
+  @override
+  String get medicalPrivacyNote =>
+      'This never leaves your device; it only reaches a plan when you share the AI document yourself.';
+
+  @override
+  String get medicalKindCondition => 'Conditions';
+
+  @override
+  String get medicalKindRestriction => 'Movement restrictions';
+
+  @override
+  String get medicalKindAllergy => 'Allergies';
+
+  @override
+  String get medicalKindBloodType => 'Blood type';
+
+  @override
+  String get medicalKindEmpty => 'No records.';
+
+  @override
+  String get medicalAddCustom => 'Add another';
+
+  @override
+  String get medicalCustomHint => 'e.g. knee sensitivity';
+
+  @override
+  String medicalRemoveTitle(String label) {
+    return 'Remove $label?';
+  }
+
+  @override
+  String get medicalRemoveBody =>
+      'The record leaves the list; your history stays intact.';
+
+  @override
+  String get medicalMedsTitle => 'Medication';
+
+  @override
+  String get medicalMedsEmpty =>
+      'No medication defined. Medication lives in the Medication & Supplements screen for reminders and tracking.';
+
+  @override
+  String get medicalMedsManage => 'Manage medication and supplements';
+
+  @override
+  String get medicalCondInsulinResistance => 'Insulin resistance';
+
+  @override
+  String get medicalCondType2Diabetes => 'Type 2 diabetes';
+
+  @override
+  String get medicalCondHypertension => 'Hypertension';
+
+  @override
+  String get medicalCondThyroid => 'Thyroid';
+
+  @override
+  String get medicalCondKneeIssue => 'Knee issue';
+
+  @override
+  String get medicalCondBackIssue => 'Back issue';
+
+  @override
+  String get medicalCondShoulderIssue => 'Shoulder issue';
+
+  @override
+  String get medicalCondLactose => 'Lactose';
+
+  @override
+  String get medicalCondGluten => 'Gluten';
+
+  @override
+  String get medicalCondNuts => 'Nuts';
+
+  @override
   String get settingsProfileHeightRequired => 'Height is required.';
 
   @override

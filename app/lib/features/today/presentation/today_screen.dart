@@ -5,6 +5,10 @@ import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/core/utils/turkish_text.dart';
 import 'package:disport/core/widgets/widgets.dart';
+import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart'
+    show profileEntriesProvider;
+import 'package:disport/features/ai_bridge/domain/context_md_builder.dart'
+    show ProfileKeys;
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/nutrition/application/nutrition_providers.dart';
 import 'package:disport/features/nutrition/domain/calorie_budget.dart';
@@ -13,10 +17,12 @@ import 'package:disport/features/plan/presentation/day_editor_sheet.dart';
 import 'package:disport/features/plan/presentation/exercise_editor_sheet.dart';
 import 'package:disport/features/plan/presentation/slot_editor_sheet.dart';
 import 'package:disport/features/plan/presentation/slot_kind_icon.dart';
+import 'package:disport/features/settings/application/setup_providers.dart';
 import 'package:disport/features/today/application/day_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/presentation/day_flow_section.dart';
 import 'package:disport/features/today/presentation/missed_streak_banner.dart';
+import 'package:disport/features/today/presentation/setup_panel.dart';
 import 'package:disport/features/today/presentation/slot_list.dart';
 import 'package:disport/features/workout/presentation/workout_screen.dart';
 import 'package:flutter/material.dart';
@@ -70,8 +76,15 @@ class DayBody extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final date = ref.watch(viewedDateProvider);
     final planDay = ref.watch(dayPlanDayProvider(date));
-    final isFuture =
-        ref.watch(dayPositionProvider(date)) == DayPosition.future;
+    final position = ref.watch(dayPositionProvider(date));
+    final isFuture = position == DayPosition.future;
+
+    // Kurulum paneli yalnız bugünde ve yalnız kurulum bitmemişken;
+    // geçmiş güne bakan kullanıcıya "ekipmanını seç" demek yersiz.
+    final setup = position == DayPosition.today
+        ? ref.watch(setupProgressProvider)
+        : null;
+    final showSetup = setup != null && !setup.complete;
 
     return AppAsyncView<FullPlanDay?>(
       value: planDay,
@@ -85,7 +98,9 @@ class DayBody extends ConsumerWidget {
           const SizedBox(height: AppSpacing.lg),
           const _WeekStrip(),
           const SizedBox(height: AppSpacing.xl2),
-          _Hero(day: day),
+          // Kurulum bitmeden kahraman sayı çizilmiyor: kayıt yokken
+          // kahraman anlamsız, panel ise ilk işleri gösteriyor.
+          if (showSetup) SetupPanel(progress: setup) else _Hero(day: day),
           const SizedBox(height: AppSpacing.xl2),
           const MissedStreakBanner(),
 
@@ -128,6 +143,23 @@ class _Header extends ConsumerWidget {
     final position = ref.watch(dayPositionProvider(date));
     final shown = DateTime.parse(date);
     final day = ref.watch(dayPlanDayProvider(date)).value;
+
+    // Doğum günü kutlaması (v3 §3.1): yalnız bugünde, yalnız ay-gün
+    // eşleşince, tek satır — başka hiçbir davranış değişmez.
+    String? birthday;
+    if (position == DayPosition.today) {
+      final profile = ref.watch(profileEntriesProvider).value;
+      final birth = DateTime.tryParse(
+        profile?[ProfileKeys.birthDate] ?? '',
+      );
+      final name = (profile?[ProfileKeys.firstName] ?? '').trim();
+      if (birth != null &&
+          name.isNotEmpty &&
+          birth.month == shown.month &&
+          birth.day == shown.day) {
+        birthday = context.l10n.todayBirthday(name);
+      }
+    }
 
     final eyebrow = [
       TurkishText.upper(TurkishDate.weekdayAndDay(shown)),
@@ -195,6 +227,17 @@ class _Header extends ConsumerWidget {
             ),
           ),
         ),
+        if (birthday case final text?)
+          Padding(
+            padding: const EdgeInsets.only(top: AppSpacing.xs),
+            child: Text(
+              text,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.primary,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
         if (badge case final label?)
           Padding(
             padding: const EdgeInsets.only(top: AppSpacing.xs),

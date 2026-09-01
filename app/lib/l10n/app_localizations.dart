@@ -1670,6 +1670,378 @@ abstract class AppLocalizations {
   /// **'Kaydet ve başla'**
   String get settingsOnboardingSave;
 
+  /// No description provided for @onboardingWelcomeTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'di@sport\'a hoş geldin'**
+  String get onboardingWelcomeTitle;
+
+  /// No description provided for @onboardingWelcomeBody.
+  ///
+  /// In tr, this message translates to:
+  /// **'Diyetini, sporunu, sağlık değerlerini ve ilaçlarını tek yerden takip et.'**
+  String get onboardingWelcomeBody;
+
+  /// No description provided for @onboardingAreaDiet.
+  ///
+  /// In tr, this message translates to:
+  /// **'Diyet — öğünler, kalori bütçesi, su'**
+  String get onboardingAreaDiet;
+
+  /// No description provided for @onboardingAreaSport.
+  ///
+  /// In tr, this message translates to:
+  /// **'Spor — plan, antrenman, hareket kataloğu'**
+  String get onboardingAreaSport;
+
+  /// No description provided for @onboardingAreaHealth.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sağlık — tahliller, ölçümler, ilerleme'**
+  String get onboardingAreaHealth;
+
+  /// No description provided for @onboardingAreaMed.
+  ///
+  /// In tr, this message translates to:
+  /// **'İlaç ve takviye — hatırlatma ve takip'**
+  String get onboardingAreaMed;
+
+  /// No description provided for @onboardingStart.
+  ///
+  /// In tr, this message translates to:
+  /// **'Başlayalım'**
+  String get onboardingStart;
+
+  /// No description provided for @onboardingIdentityTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Seni tanıyalım'**
+  String get onboardingIdentityTitle;
+
+  /// No description provided for @onboardingFirstName.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ad'**
+  String get onboardingFirstName;
+
+  /// No description provided for @onboardingLastName.
+  ///
+  /// In tr, this message translates to:
+  /// **'Soyad'**
+  String get onboardingLastName;
+
+  /// No description provided for @onboardingFirstNameRequired.
+  ///
+  /// In tr, this message translates to:
+  /// **'Adını yazmadan geçemeyiz.'**
+  String get onboardingFirstNameRequired;
+
+  /// No description provided for @onboardingBirthDate.
+  ///
+  /// In tr, this message translates to:
+  /// **'Doğum tarihi'**
+  String get onboardingBirthDate;
+
+  /// No description provided for @onboardingBirthDay.
+  ///
+  /// In tr, this message translates to:
+  /// **'Gün'**
+  String get onboardingBirthDay;
+
+  /// No description provided for @onboardingBirthMonth.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ay'**
+  String get onboardingBirthMonth;
+
+  /// No description provided for @onboardingBirthYear.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yıl'**
+  String get onboardingBirthYear;
+
+  /// No description provided for @onboardingBirthDateInvalid.
+  ///
+  /// In tr, this message translates to:
+  /// **'Doğum tarihi geçerli bir gün olmalı.'**
+  String get onboardingBirthDateInvalid;
+
+  /// No description provided for @onboardingGender.
+  ///
+  /// In tr, this message translates to:
+  /// **'Cinsiyet'**
+  String get onboardingGender;
+
+  /// No description provided for @onboardingMale.
+  ///
+  /// In tr, this message translates to:
+  /// **'Erkek'**
+  String get onboardingMale;
+
+  /// No description provided for @onboardingFemale.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kadın'**
+  String get onboardingFemale;
+
+  /// No description provided for @onboardingGenderUnspecified.
+  ///
+  /// In tr, this message translates to:
+  /// **'Belirtmek istemiyorum'**
+  String get onboardingGenderUnspecified;
+
+  /// No description provided for @onboardingGenderWhy.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kalori hesabında kullanılır; belirtmezsen ortalama katsayı alınır.'**
+  String get onboardingGenderWhy;
+
+  /// No description provided for @onboardingMeasuresTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ölçülerin'**
+  String get onboardingMeasuresTitle;
+
+  /// No description provided for @onboardingMeasuresBody.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kilo ilk tartı kaydın olarak da işlenir — İlerleme grafiğin bugünden başlar.'**
+  String get onboardingMeasuresBody;
+
+  /// No description provided for @onboardingHeight.
+  ///
+  /// In tr, this message translates to:
+  /// **'Boy'**
+  String get onboardingHeight;
+
+  /// No description provided for @onboardingWeight.
+  ///
+  /// In tr, this message translates to:
+  /// **'Şu anki kilo'**
+  String get onboardingWeight;
+
+  /// No description provided for @onboardingTargetWeight.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hedef kilo'**
+  String get onboardingTargetWeight;
+
+  /// No description provided for @commonBack.
+  ///
+  /// In tr, this message translates to:
+  /// **'Geri'**
+  String get commonBack;
+
+  /// No description provided for @commonNext.
+  ///
+  /// In tr, this message translates to:
+  /// **'Devam'**
+  String get commonNext;
+
+  /// No description provided for @setupPanelTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kurulum'**
+  String get setupPanelTitle;
+
+  /// No description provided for @setupPanelProgress.
+  ///
+  /// In tr, this message translates to:
+  /// **'{done}/{total} tamam'**
+  String setupPanelProgress(int done, int total);
+
+  /// No description provided for @setupPanelBody.
+  ///
+  /// In tr, this message translates to:
+  /// **'Birkaç kısa adım kaldı. Bunlar plana da gider — ne kadar dolu, plan o kadar isabetli.'**
+  String get setupPanelBody;
+
+  /// No description provided for @setupCardEquipment.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ekipmanlarını seç'**
+  String get setupCardEquipment;
+
+  /// No description provided for @setupCardMedical.
+  ///
+  /// In tr, this message translates to:
+  /// **'Medikal bilgilerin'**
+  String get setupCardMedical;
+
+  /// No description provided for @setupCardRhythm.
+  ///
+  /// In tr, this message translates to:
+  /// **'Günlük düzenin'**
+  String get setupCardRhythm;
+
+  /// No description provided for @setupCardMinutes.
+  ///
+  /// In tr, this message translates to:
+  /// **'{minutes} dk'**
+  String setupCardMinutes(int minutes);
+
+  /// No description provided for @setupCardSkip.
+  ///
+  /// In tr, this message translates to:
+  /// **'Geç'**
+  String get setupCardSkip;
+
+  /// No description provided for @setupRequestPlan.
+  ///
+  /// In tr, this message translates to:
+  /// **'İlk planını iste'**
+  String get setupRequestPlan;
+
+  /// No description provided for @todayBirthday.
+  ///
+  /// In tr, this message translates to:
+  /// **'İyi ki doğdun {name}! 🎉'**
+  String todayBirthday(String name);
+
+  /// No description provided for @medicalTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Medikal bilgiler'**
+  String get medicalTitle;
+
+  /// No description provided for @medicalPrivacyNote.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu bilgiler cihazından çıkmaz; yalnızca sen yapay zekâ belgesini paylaştığında plana girer.'**
+  String get medicalPrivacyNote;
+
+  /// No description provided for @medicalKindCondition.
+  ///
+  /// In tr, this message translates to:
+  /// **'Durumlar'**
+  String get medicalKindCondition;
+
+  /// No description provided for @medicalKindRestriction.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hareket kısıtları'**
+  String get medicalKindRestriction;
+
+  /// No description provided for @medicalKindAllergy.
+  ///
+  /// In tr, this message translates to:
+  /// **'Alerjiler'**
+  String get medicalKindAllergy;
+
+  /// No description provided for @medicalKindBloodType.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kan grubu'**
+  String get medicalKindBloodType;
+
+  /// No description provided for @medicalKindEmpty.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kayıt yok.'**
+  String get medicalKindEmpty;
+
+  /// No description provided for @medicalAddCustom.
+  ///
+  /// In tr, this message translates to:
+  /// **'Başka ekle'**
+  String get medicalAddCustom;
+
+  /// No description provided for @medicalCustomHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'örn. diz hassasiyeti'**
+  String get medicalCustomHint;
+
+  /// No description provided for @medicalRemoveTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'{label} silinsin mi?'**
+  String medicalRemoveTitle(String label);
+
+  /// No description provided for @medicalRemoveBody.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kayıt listeden kalkar; geçmiş verilerin bozulmaz.'**
+  String get medicalRemoveBody;
+
+  /// No description provided for @medicalMedsTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'İlaçlar'**
+  String get medicalMedsTitle;
+
+  /// No description provided for @medicalMedsEmpty.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tanımlı ilaç yok. İlaçlar hatırlatma ve takip için İlaç & Takviye ekranında tutulur.'**
+  String get medicalMedsEmpty;
+
+  /// No description provided for @medicalMedsManage.
+  ///
+  /// In tr, this message translates to:
+  /// **'İlaç ve takviyeleri yönet'**
+  String get medicalMedsManage;
+
+  /// No description provided for @medicalCondInsulinResistance.
+  ///
+  /// In tr, this message translates to:
+  /// **'İnsülin direnci'**
+  String get medicalCondInsulinResistance;
+
+  /// No description provided for @medicalCondType2Diabetes.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tip 2 diyabet'**
+  String get medicalCondType2Diabetes;
+
+  /// No description provided for @medicalCondHypertension.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hipertansiyon'**
+  String get medicalCondHypertension;
+
+  /// No description provided for @medicalCondThyroid.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tiroid'**
+  String get medicalCondThyroid;
+
+  /// No description provided for @medicalCondKneeIssue.
+  ///
+  /// In tr, this message translates to:
+  /// **'Diz sorunu'**
+  String get medicalCondKneeIssue;
+
+  /// No description provided for @medicalCondBackIssue.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bel sorunu'**
+  String get medicalCondBackIssue;
+
+  /// No description provided for @medicalCondShoulderIssue.
+  ///
+  /// In tr, this message translates to:
+  /// **'Omuz sorunu'**
+  String get medicalCondShoulderIssue;
+
+  /// No description provided for @medicalCondLactose.
+  ///
+  /// In tr, this message translates to:
+  /// **'Laktoz'**
+  String get medicalCondLactose;
+
+  /// No description provided for @medicalCondGluten.
+  ///
+  /// In tr, this message translates to:
+  /// **'Gluten'**
+  String get medicalCondGluten;
+
+  /// No description provided for @medicalCondNuts.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kuruyemiş'**
+  String get medicalCondNuts;
+
   /// No description provided for @settingsProfileHeightRequired.
   ///
   /// In tr, this message translates to:

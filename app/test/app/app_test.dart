@@ -16,6 +16,8 @@ import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/progress/application/progress_providers.dart';
 import 'package:disport/features/progress/domain/transition_criteria.dart';
 import 'package:disport/features/settings/application/settings_providers.dart';
+import 'package:disport/features/settings/application/setup_providers.dart';
+import 'package:disport/features/settings/domain/setup_progress.dart';
 import 'package:disport/features/supplements/application/supplement_providers.dart';
 import 'package:disport/features/supplements/domain/supplement.dart';
 import 'package:disport/features/today/application/day_providers.dart';
@@ -101,6 +103,18 @@ void main() {
             isBuiltIn: true,
           ),
         ]),
+      ),
+      // v3: kurulum paneli ve doğum günü satırı Drift akışlarına bakıyor.
+      setupProgressProvider.overrideWith(
+        (ref) => const SetupProgress(
+          wizardDone: true,
+          equipmentDone: true,
+          medicalDone: true,
+          rhythmDone: true,
+        ),
+      ),
+      profileEntriesProvider.overrideWith(
+        (ref) => Stream.value(const <String, String>{}),
       ),
       // Kabuk artık onboarding kontrolünün arkasında; test doğrudan
       // sekmelere bakıyor.

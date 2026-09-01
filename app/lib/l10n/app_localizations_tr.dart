@@ -899,6 +899,208 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsOnboardingSave => 'Kaydet ve başla';
 
   @override
+  String get onboardingWelcomeTitle => 'di@sport\'a hoş geldin';
+
+  @override
+  String get onboardingWelcomeBody =>
+      'Diyetini, sporunu, sağlık değerlerini ve ilaçlarını tek yerden takip et.';
+
+  @override
+  String get onboardingAreaDiet => 'Diyet — öğünler, kalori bütçesi, su';
+
+  @override
+  String get onboardingAreaSport => 'Spor — plan, antrenman, hareket kataloğu';
+
+  @override
+  String get onboardingAreaHealth => 'Sağlık — tahliller, ölçümler, ilerleme';
+
+  @override
+  String get onboardingAreaMed => 'İlaç ve takviye — hatırlatma ve takip';
+
+  @override
+  String get onboardingStart => 'Başlayalım';
+
+  @override
+  String get onboardingIdentityTitle => 'Seni tanıyalım';
+
+  @override
+  String get onboardingFirstName => 'Ad';
+
+  @override
+  String get onboardingLastName => 'Soyad';
+
+  @override
+  String get onboardingFirstNameRequired => 'Adını yazmadan geçemeyiz.';
+
+  @override
+  String get onboardingBirthDate => 'Doğum tarihi';
+
+  @override
+  String get onboardingBirthDay => 'Gün';
+
+  @override
+  String get onboardingBirthMonth => 'Ay';
+
+  @override
+  String get onboardingBirthYear => 'Yıl';
+
+  @override
+  String get onboardingBirthDateInvalid =>
+      'Doğum tarihi geçerli bir gün olmalı.';
+
+  @override
+  String get onboardingGender => 'Cinsiyet';
+
+  @override
+  String get onboardingMale => 'Erkek';
+
+  @override
+  String get onboardingFemale => 'Kadın';
+
+  @override
+  String get onboardingGenderUnspecified => 'Belirtmek istemiyorum';
+
+  @override
+  String get onboardingGenderWhy =>
+      'Kalori hesabında kullanılır; belirtmezsen ortalama katsayı alınır.';
+
+  @override
+  String get onboardingMeasuresTitle => 'Ölçülerin';
+
+  @override
+  String get onboardingMeasuresBody =>
+      'Kilo ilk tartı kaydın olarak da işlenir — İlerleme grafiğin bugünden başlar.';
+
+  @override
+  String get onboardingHeight => 'Boy';
+
+  @override
+  String get onboardingWeight => 'Şu anki kilo';
+
+  @override
+  String get onboardingTargetWeight => 'Hedef kilo';
+
+  @override
+  String get commonBack => 'Geri';
+
+  @override
+  String get commonNext => 'Devam';
+
+  @override
+  String get setupPanelTitle => 'Kurulum';
+
+  @override
+  String setupPanelProgress(int done, int total) {
+    return '$done/$total tamam';
+  }
+
+  @override
+  String get setupPanelBody =>
+      'Birkaç kısa adım kaldı. Bunlar plana da gider — ne kadar dolu, plan o kadar isabetli.';
+
+  @override
+  String get setupCardEquipment => 'Ekipmanlarını seç';
+
+  @override
+  String get setupCardMedical => 'Medikal bilgilerin';
+
+  @override
+  String get setupCardRhythm => 'Günlük düzenin';
+
+  @override
+  String setupCardMinutes(int minutes) {
+    return '$minutes dk';
+  }
+
+  @override
+  String get setupCardSkip => 'Geç';
+
+  @override
+  String get setupRequestPlan => 'İlk planını iste';
+
+  @override
+  String todayBirthday(String name) {
+    return 'İyi ki doğdun $name! 🎉';
+  }
+
+  @override
+  String get medicalTitle => 'Medikal bilgiler';
+
+  @override
+  String get medicalPrivacyNote =>
+      'Bu bilgiler cihazından çıkmaz; yalnızca sen yapay zekâ belgesini paylaştığında plana girer.';
+
+  @override
+  String get medicalKindCondition => 'Durumlar';
+
+  @override
+  String get medicalKindRestriction => 'Hareket kısıtları';
+
+  @override
+  String get medicalKindAllergy => 'Alerjiler';
+
+  @override
+  String get medicalKindBloodType => 'Kan grubu';
+
+  @override
+  String get medicalKindEmpty => 'Kayıt yok.';
+
+  @override
+  String get medicalAddCustom => 'Başka ekle';
+
+  @override
+  String get medicalCustomHint => 'örn. diz hassasiyeti';
+
+  @override
+  String medicalRemoveTitle(String label) {
+    return '$label silinsin mi?';
+  }
+
+  @override
+  String get medicalRemoveBody =>
+      'Kayıt listeden kalkar; geçmiş verilerin bozulmaz.';
+
+  @override
+  String get medicalMedsTitle => 'İlaçlar';
+
+  @override
+  String get medicalMedsEmpty =>
+      'Tanımlı ilaç yok. İlaçlar hatırlatma ve takip için İlaç & Takviye ekranında tutulur.';
+
+  @override
+  String get medicalMedsManage => 'İlaç ve takviyeleri yönet';
+
+  @override
+  String get medicalCondInsulinResistance => 'İnsülin direnci';
+
+  @override
+  String get medicalCondType2Diabetes => 'Tip 2 diyabet';
+
+  @override
+  String get medicalCondHypertension => 'Hipertansiyon';
+
+  @override
+  String get medicalCondThyroid => 'Tiroid';
+
+  @override
+  String get medicalCondKneeIssue => 'Diz sorunu';
+
+  @override
+  String get medicalCondBackIssue => 'Bel sorunu';
+
+  @override
+  String get medicalCondShoulderIssue => 'Omuz sorunu';
+
+  @override
+  String get medicalCondLactose => 'Laktoz';
+
+  @override
+  String get medicalCondGluten => 'Gluten';
+
+  @override
+  String get medicalCondNuts => 'Kuruyemiş';
+
+  @override
   String get settingsProfileHeightRequired => 'Boy alanı gerekli.';
 
   @override

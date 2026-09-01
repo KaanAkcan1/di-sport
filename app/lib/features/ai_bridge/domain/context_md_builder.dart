@@ -8,6 +8,15 @@ import 'package:disport/features/ai_bridge/domain/ports.dart';
 /// kullanılıyor; tek yerde tanımlı olmaları üçünün ayrışmasını önlüyor.
 abstract final class ProfileKeys {
   static const age = 'age';
+
+  // v3 kimlik anahtarları. Ad AI belgesine girmez (kimlik gitmez);
+  // cinsiyet girer (kalori katsayısı). `birthDate` varsa yaş ondan
+  // türetilir, eski `age` yalnız yedek.
+  static const firstName = 'firstName';
+  static const lastName = 'lastName';
+  static const birthDate = 'birthDate'; // yyyy-MM-dd
+  static const gender = 'gender'; // male | female | unspecified
+
   static const heightCm = 'heightCm';
   static const currentWeightKg = 'currentWeightKg';
   static const targetWeightKg = 'targetWeightKg';
