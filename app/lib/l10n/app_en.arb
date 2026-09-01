@@ -503,6 +503,10 @@
   "equipmentEzCurlBar": "E-Z curl bar",
   "equipmentOther": "Household item",
   "equipmentNone": "No equipment",
+  "equipmentPullUpBar": "Pull-up bar",
+  "equipmentDipBars": "Dip bars",
+  "equipmentBench": "Bench",
+  "equipmentJumpRope": "Jump rope",
   "catalogEquipmentMissingHome": "Needs {equipment} (not at home)",
   "catalogEquipmentMissingGym": "Needs {equipment} (not at the gym)",
   "catalogEquipmentCheck": "{equipment} — check"

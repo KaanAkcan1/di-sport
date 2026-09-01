@@ -34,7 +34,20 @@ enum EquipmentKind {
   /// Hiçbir şey gerekmiyor. `bodyOnly`'den farkı yok gibi görünüyor ama
   /// kaynak ikisini ayırıyor ve veriyi kaynağa sadık tutmak, ileride
   /// yeniden içe aktarırken eşleme kaybı yaşamamak demek.
-  none;
+  none,
+
+  // --- Kaynakta olmayan, elle eklenen türler ---
+  //
+  // free-exercise-db barfiksi "body only" sayıyor. Bu kaynak için
+  // doğru (vücut ağırlığıyla çalışıyorsun) ama envanter için yanlış:
+  // "evde barfiks demirin var mı" gerçek bir soru ve cevabı katalogun
+  // yarısını açıp kapatıyor. Aynısı paralel bar, sehpa ve ip için
+  // geçerli. Bu değerleri [fromSource] hiç üretmez — yalnız
+  // `catalog_overrides.json` verir.
+  pullUpBar,
+  dipBars,
+  bench,
+  jumpRope;
 
   /// free-exercise-db değerinden enum'a.
   ///

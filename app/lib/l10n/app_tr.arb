@@ -503,6 +503,10 @@
   "equipmentEzCurlBar": "Z bar",
   "equipmentOther": "Ev eşyası",
   "equipmentNone": "Ekipman gerekmiyor",
+  "equipmentPullUpBar": "Barfiks demiri",
+  "equipmentDipBars": "Paralel bar",
+  "equipmentBench": "Sehpa",
+  "equipmentJumpRope": "Atlama ipi",
   "catalogEquipmentMissingHome": "{equipment} gerekiyor (evinde yok)",
   "catalogEquipmentMissingGym": "{equipment} gerekiyor (salonunda yok)",
   "catalogEquipmentCheck": "{equipment} — kontrol et"

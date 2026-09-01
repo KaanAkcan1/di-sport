@@ -2545,6 +2545,30 @@ abstract class AppLocalizations {
   /// **'Ekipman gerekmiyor'**
   String get equipmentNone;
 
+  /// No description provided for @equipmentPullUpBar.
+  ///
+  /// In tr, this message translates to:
+  /// **'Barfiks demiri'**
+  String get equipmentPullUpBar;
+
+  /// No description provided for @equipmentDipBars.
+  ///
+  /// In tr, this message translates to:
+  /// **'Paralel bar'**
+  String get equipmentDipBars;
+
+  /// No description provided for @equipmentBench.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sehpa'**
+  String get equipmentBench;
+
+  /// No description provided for @equipmentJumpRope.
+  ///
+  /// In tr, this message translates to:
+  /// **'Atlama ipi'**
+  String get equipmentJumpRope;
+
   /// No description provided for @catalogEquipmentMissingHome.
   ///
   /// In tr, this message translates to:

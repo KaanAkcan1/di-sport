@@ -24,5 +24,9 @@ String equipmentLabel(BuildContext context, EquipmentKind kind) {
     EquipmentKind.ezCurlBar => l10n.equipmentEzCurlBar,
     EquipmentKind.other => l10n.equipmentOther,
     EquipmentKind.none => l10n.equipmentNone,
+    EquipmentKind.pullUpBar => l10n.equipmentPullUpBar,
+    EquipmentKind.dipBars => l10n.equipmentDipBars,
+    EquipmentKind.bench => l10n.equipmentBench,
+    EquipmentKind.jumpRope => l10n.equipmentJumpRope,
   };
 }

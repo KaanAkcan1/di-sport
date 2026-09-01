@@ -1,16 +1,24 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:disport/features/catalog/domain/equipment_kind.dart';
+import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// Tohum kataloğunun sözleşmesi.
+/// Tohum kataloğunun sözleşmesi — **iki kademeli** (spec §4.3).
 ///
-/// İçerik elle yazıldığı için bir kaydın alanı eksik kalabilir ya da bir
-/// varyant referansı yanlış yazılabilir. Bu testler o hataları uygulama
-/// çalışmadan önce yakalar.
+/// **Her kayıtta zorunlu:** `id`, `nameEn`, `category`, `location`,
+/// `equipment`, `primaryMuscles`, `difficulty`, `execution`. Bunlar
+/// olmadan kayıt işlevsizdir — plana konamaz, filtrelenemez.
 ///
-/// Çıta, M4'te AI'ın önereceği yeni hareketlere uygulanacak çıtayla
-/// aynı (spec 7.4): kendi tohum verimiz kendi kuralımızı geçmeli.
+/// **Çekirdek listede ayrıca zorunlu:** `nameTr`, `summary`, `setup`,
+/// `breathing`, `cues`, `commonMistakes`, `safety`. Çekirdek =
+/// programda fiilen geçen hareketler; kullanıcının yapacağı hareketlerde
+/// eksik alan kabul edilmez.
+///
+/// Çekirdek dışında alan **boş bırakılabilir**: kaynakta yok ve
+/// araştırmayla bulunamadıysa uydurulmuyor. Uydurma bir "sık yapılan
+/// hata" gerçeğiyle aynı görünür ve kullanıcı ikisini ayırt edemez.
 void main() {
   late Map<String, dynamic> doc;
   late List<Map<String, dynamic>> exercises;
@@ -21,12 +29,91 @@ void main() {
     exercises = (doc['exercises'] as List).cast<Map<String, dynamic>>();
   });
 
-  const categories = {'strength', 'cardio', 'mobility', 'core'};
-  const locations = {'home', 'gym', 'both'};
+  /// Programda geçen hareketler — zenginlik çıtası bunlara uygulanıyor.
+  ///
+  /// Liste açıkça yazılı: bir hareket programa girerse buraya eklenir ve
+  /// test onu doldurmaya zorlar. Otomatik türetilseydi (ör. "görseli
+  /// olanlar") çıta sessizce kayardı.
+  const coreIds = {
+    'wall_pushup',
+    'incline_pushup',
+    'knee_pushup',
+    'pushup',
+    'chair_squat',
+    'goblet_squat',
+    'glute_bridge',
+    'dumbbell_row',
+    'band_row',
+    'plank',
+    'side_plank',
+    'bird_dog',
+    'wall_sit',
+    'step_up',
+    'calf_raise',
+    'treadmill_incline_walk',
+    'stationary_bike',
+  };
 
-  test('şema sürümü ve kayıt sayısı', () {
-    expect(doc['version'], 1);
-    expect(exercises.length, greaterThanOrEqualTo(15));
+  List<dynamic> listAt(Map<String, dynamic> exercise, String field) =>
+      (exercise[field] as List?) ?? const [];
+
+  test('tohum sürümü tanımlı ve pozitif', () {
+    // Sürüm yeniden tohumlamayı tetikliyor; sabit bir sayı beklemek
+    // her katalog güncellemesinde bu testi düzeltmeyi gerektirirdi.
+    expect(doc['version'], isA<int>());
+    expect(doc['version'] as int, greaterThan(0));
+  });
+
+  test('katalog kapsama tabanını tutuyor', () {
+    // Spec §4.3'ün tabanı. Sayı değil kapsamanın vekili: 100 kaydın
+    // altına düşmek bir hareket kalıbının ya da bir ekipmanın tamamen
+    // düştüğü anlamına gelir.
+    expect(exercises.length, greaterThanOrEqualTo(100));
+  });
+
+  test('her ekipman türü en az bir harekette temsil ediliyor', () {
+    // Envanterde işaretlenebilen ama hiçbir hareketi olmayan ekipman,
+    // kullanıcıya boş bir filtre sonucu vaat eder.
+    final used = {
+      for (final exercise in exercises)
+        ...listAt(exercise, 'equipment').cast<String>(),
+    };
+
+    for (final kind in EquipmentKind.values.where((k) => k.needsInventory)) {
+      expect(used, contains(kind.name), reason: '${kind.name} hiç kullanılmıyor');
+    }
+  });
+
+  test('her kalıp ve yer için hareket var', () {
+    for (final category in ['strength', 'cardio', 'mobility', 'core']) {
+      expect(
+        exercises.where((e) => e['category'] == category),
+        isNotEmpty,
+        reason: '$category kategorisi boş',
+      );
+    }
+    for (final location in ['home', 'gym', 'both']) {
+      expect(
+        exercises.where((e) => e['location'] == location).length,
+        greaterThanOrEqualTo(10),
+        reason: '$location yerinde yeterli hareket yok',
+      );
+    }
+  });
+
+  test('kardiyo dışındaki her kayıtta MET ya da MET modeli var', () {
+    // Kalori tahmini (M9) bunlara dayanacak; eksik MET sessizce sıfır
+    // harcama demek olurdu.
+    for (final exercise in exercises) {
+      final hasMet = exercise['met'] != null;
+      final hasModel = (exercise['metModel'] as String?) != null &&
+          exercise['metModel'] != 'fixed';
+      expect(
+        hasMet || hasModel,
+        isTrue,
+        reason: '${exercise['id']}: MET de metModel de yok',
+      );
+    }
   });
 
   test('id\'ler benzersiz ve snake_case', () {
@@ -41,48 +128,95 @@ void main() {
     }
   });
 
-  test('zorunlu alanlar dolu ve geçerli', () {
-    for (final e in exercises) {
-      final id = e['id'];
-      expect(categories.contains(e['category']), isTrue, reason: '$id kategori');
-      expect(locations.contains(e['location']), isTrue, reason: '$id konum');
-      expect(e['difficulty'], inInclusiveRange(1, 5), reason: '$id zorluk');
-      for (final field in ['nameTr', 'nameEn', 'summary', 'breathing',
-        'tempo', 'safety']) {
-        expect(
-          (e[field] as String?)?.trim().isNotEmpty,
-          isTrue,
-          reason: '$id.$field boş',
-        );
+  test('her kayıt modele çözülür', () {
+    // Ölçüt sabit sayı değil "hepsi çözüldü": model ile elle yazılmış
+    // veri arasındaki uyum ancak gerçek dosya okunarak doğrulanabilir.
+    final parsed = [for (final e in exercises) Exercise.fromJson(e)];
+    expect(parsed, hasLength(exercises.length));
+  });
+
+  test('her kayıtta zorunlu alanlar dolu ve geçerli', () {
+    const categories = {'strength', 'cardio', 'mobility', 'core'};
+    const locations = {'home', 'gym', 'both'};
+    final kinds = EquipmentKind.values.map((k) => k.name).toSet();
+
+    for (final exercise in exercises) {
+      final id = exercise['id'];
+
+      expect(exercise['nameEn'], isNotEmpty, reason: '$id: nameEn boş');
+      expect(categories, contains(exercise['category']), reason: '$id');
+      expect(locations, contains(exercise['location']), reason: '$id');
+      expect(
+        exercise['difficulty'],
+        allOf(greaterThanOrEqualTo(1), lessThanOrEqualTo(5)),
+        reason: '$id: difficulty aralık dışı',
+      );
+
+      final equipment = listAt(exercise, 'equipment');
+      expect(equipment, isNotEmpty, reason: '$id: equipment boş');
+      for (final kind in equipment) {
+        expect(kinds, contains(kind), reason: '$id: bilinmeyen ekipman $kind');
       }
-      for (final field in ['equipment', 'primaryMuscles', 'setup', 'cues']) {
-        expect((e[field] as List).isNotEmpty, isTrue, reason: '$id.$field boş');
-      }
+
+      expect(
+        listAt(exercise, 'primaryMuscles'),
+        isNotEmpty,
+        reason: '$id: primaryMuscles boş',
+      );
+      expect(
+        listAt(exercise, 'execution').length,
+        greaterThanOrEqualTo(2),
+        reason: '$id: execution en az 2 adım olmalı',
+      );
     }
   });
 
-  test('anlatım çıtası: en az 3 adım, en az 2 tam hata kaydı', () {
-    for (final e in exercises) {
-      final id = e['id'];
+  test('çekirdek listede zenginlik alanları da dolu', () {
+    final byId = {for (final e in exercises) e['id'] as String: e};
+
+    for (final id in coreIds) {
+      final exercise = byId[id];
+      expect(exercise, isNotNull, reason: '$id çekirdekte ama katalogda yok');
+      if (exercise == null) continue;
+
+      for (final field in ['nameTr', 'summary', 'breathing', 'safety']) {
+        expect(
+          exercise[field],
+          isNotNull,
+          reason: '$id: çekirdek kayıtta $field boş olamaz',
+        );
+        expect((exercise[field] as String).trim(), isNotEmpty, reason: id);
+      }
+
       expect(
-        (e['execution'] as List).length,
+        listAt(exercise, 'setup'),
+        isNotEmpty,
+        reason: '$id: çekirdek kayıtta setup boş olamaz',
+      );
+      expect(
+        listAt(exercise, 'execution').length,
         greaterThanOrEqualTo(3),
-        reason: '$id execution 3 adımdan az',
+        reason: '$id: çekirdekte en az 3 adım',
+      );
+      expect(
+        listAt(exercise, 'cues').length,
+        greaterThanOrEqualTo(2),
+        reason: '$id: çekirdekte en az 2 ipucu',
       );
 
-      final mistakes = (e['commonMistakes'] as List)
-          .cast<Map<String, dynamic>>();
+      final mistakes = listAt(exercise, 'commonMistakes');
       expect(
         mistakes.length,
         greaterThanOrEqualTo(2),
-        reason: '$id commonMistakes 2 kayıttan az',
+        reason: '$id: çekirdekte en az 2 hata kaydı',
       );
-      for (final m in mistakes) {
+      for (final raw in mistakes) {
+        final mistake = raw as Map<String, dynamic>;
         for (final field in ['mistake', 'why', 'fix']) {
           expect(
-            (m[field] as String?)?.trim().isNotEmpty,
-            isTrue,
-            reason: '$id hata kaydında $field boş',
+            (mistake[field] as String?)?.trim(),
+            isNotEmpty,
+            reason: '$id: hata kaydında $field boş',
           );
         }
       }
@@ -91,61 +225,65 @@ void main() {
 
   test('varyant referansları katalogda mevcut', () {
     final ids = exercises.map((e) => e['id'] as String).toSet();
-    for (final e in exercises) {
+
+    for (final exercise in exercises) {
       for (final field in ['regressions', 'progressions']) {
-        for (final ref in (e[field] as List).cast<String>()) {
+        for (final ref in listAt(exercise, field)) {
           expect(
-            ids.contains(ref),
-            isTrue,
-            reason: '${e['id']}.$field -> "$ref" katalogda yok',
+            ids,
+            contains(ref),
+            reason: '${exercise['id']}.$field → $ref katalogda yok',
           );
         }
       }
     }
   });
 
-  test('varyant zinciri tutarlı: A ilerlemesi B ise B gerilemesi A olmalı', () {
+  test('varyant zinciri tutarlı: A ilerlemesi B ise B gerilemesi A', () {
     final byId = {for (final e in exercises) e['id'] as String: e};
-    for (final e in exercises) {
-      for (final next in (e['progressions'] as List).cast<String>()) {
-        final target = byId[next]!;
-        final back = (target['regressions'] as List).cast<String>();
-        // Zincir tek yönlü tanımlanabilir; ama tanımlıysa doğru olmalı.
-        if (back.isNotEmpty) {
-          expect(
-            back.contains(e['id']) ||
-                (e['progressions'] as List).length > 1,
-            isTrue,
-            reason: '${e['id']} -> $next zinciri geri yönde tutarsız',
-          );
-        }
+
+    for (final exercise in exercises) {
+      final id = exercise['id'] as String;
+      for (final ref in listAt(exercise, 'progressions')) {
+        final target = byId[ref];
+        if (target == null) continue;
+        expect(
+          listAt(target, 'regressions'),
+          contains(id),
+          reason: '$id ilerlemesi $ref ama $ref gerilemesinde $id yok',
+        );
       }
     }
   });
 
   test('bildirilen görseller diskte var', () {
-    for (final e in exercises) {
-      final path = e['imagePath'] as String?;
+    for (final exercise in exercises) {
+      final path = exercise['imagePath'] as String?;
       if (path == null) continue;
       expect(
         File(path).existsSync(),
         isTrue,
-        reason: '${e['id']} -> $path bulunamadı',
+        reason: '${exercise['id']}: $path bulunamadı',
+      );
+    }
+  });
+
+  test('MET değerleri makul aralıkta', () {
+    // Dinlenme 1.0, çok yoğun aktivite ~15. Bu aralığın dışı bir
+    // yazım hatasıdır ve kalori hesabını sessizce bozar.
+    for (final exercise in exercises) {
+      final met = exercise['met'] as num?;
+      if (met == null) continue;
+      expect(
+        met,
+        allOf(greaterThanOrEqualTo(1.0), lessThanOrEqualTo(15.0)),
+        reason: '${exercise['id']}: met=$met aralık dışı',
       );
     }
   });
 
   test('PDF programındaki hareketlerin tamamı katalogda', () {
-    // Çizelgenin Program A, Program B ve salon kardiyo bölümleri.
-    const required = {
-      'incline_pushup', 'band_row', 'band_pull_apart', 'superman',
-      'plank', 'dead_bug',
-      'chair_squat', 'step_up', 'glute_bridge', 'wall_sit',
-      'calf_raise', 'bird_dog',
-      'stationary_bike', 'treadmill_incline_walk',
-      'pushup', // geçiş kriterinin ölçütü
-    };
     final ids = exercises.map((e) => e['id'] as String).toSet();
-    expect(required.difference(ids), isEmpty, reason: 'eksik hareket');
+    expect(ids, containsAll(coreIds));
   });
 }

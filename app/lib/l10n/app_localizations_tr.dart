@@ -1403,6 +1403,18 @@ class AppLocalizationsTr extends AppLocalizations {
   String get equipmentNone => 'Ekipman gerekmiyor';
 
   @override
+  String get equipmentPullUpBar => 'Barfiks demiri';
+
+  @override
+  String get equipmentDipBars => 'Paralel bar';
+
+  @override
+  String get equipmentBench => 'Sehpa';
+
+  @override
+  String get equipmentJumpRope => 'Atlama ipi';
+
+  @override
   String catalogEquipmentMissingHome(Object equipment) {
     return '$equipment gerekiyor (evinde yok)';
   }

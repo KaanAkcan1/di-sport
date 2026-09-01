@@ -1,0 +1,204 @@
+# Katalog seçim listesi — hangi hareketler kataloğa girecek.
+#
+# Ölçüt kapsama (spec §4.3): her hareket kalıbı (itme/çekme yatay ve
+# dikey, kalça menteşesi, çömelme, taşıma, gövde) x her ekipman x
+# ev/salon temsil edilsin, varyant yığılmasın. Kaynaktaki 876 kaydın
+# çoğu bu ürüne gürültü: 24 ayrı deadlift varyantı, strongman ve
+# olympic weightlifting kategorileri dışarıda.
+#
+# Kaynakta karşılığı olmayan id'ler tools/catalog_overrides.json'dan
+# geliyor (elle yazılmış kayıtlar).
+#
+# "Bir kalıp için bir temsilci" kuralı: aynı hareketin bench/incline/
+# decline üçlüsünden ikisi alınır (düz + eğik), üçüncüsü kullanıcıya
+# hiçbir şey öğretmez. Aynı şekilde 9 farklı biceps curl yerine 6:
+# serbest ağırlık, kablo, sehpa, çekiç, tek kol, bilek.
+
+# ─── İTME: yatay (göğüs) ───────────────────────────────────────────
+pushup   # yalnız override
+wall_pushup   # yalnız override
+knee_pushup   # yalnız override
+incline_pushup   # yalnız override
+push_up_wide
+decline_push_up
+push_up_to_side_plank
+single_arm_push_up
+plyo_push_up
+dips_triceps_version
+bench_dips
+barbell_bench_press_medium_grip
+barbell_incline_bench_press_medium_grip
+dumbbell_bench_press
+incline_dumbbell_press
+dumbbell_flyes
+cable_crossover
+medicine_ball_chest_pass
+machine_bench_press
+butterfly
+
+# ─── İTME: dikey (omuz) ────────────────────────────────────────────
+barbell_shoulder_press
+seated_dumbbell_press
+arnold_dumbbell_press
+machine_shoulder_military_press
+shoulder_press_with_bands
+handstand_push_ups
+front_dumbbell_raise
+side_lateral_raise
+lateral_raise_with_bands
+face_pull
+external_rotation_with_band
+
+# ─── İTME: kol (triceps) ───────────────────────────────────────────
+close_grip_barbell_bench_press
+ez_bar_skullcrusher
+triceps_pushdown_rope_attachment
+tricep_dumbbell_kickback
+standing_dumbbell_triceps_extension
+
+# ─── ÇEKME: dikey (sırt) ───────────────────────────────────────────
+pullups
+chin_up
+wide_grip_rear_pull_up
+band_assisted_pull_up
+scapular_pull_up
+wide_grip_lat_pulldown
+close_grip_front_lat_pulldown
+straight_arm_pulldown
+
+# ─── ÇEKME: yatay (kürek) ──────────────────────────────────────────
+band_row   # yalnız override
+dumbbell_row   # yalnız override
+inverted_row
+bodyweight_mid_row
+one_arm_dumbbell_row
+bent_over_two_dumbbell_row
+bent_over_barbell_row
+seated_cable_rows
+t_bar_row_with_handle
+leverage_iso_row
+one_arm_kettlebell_row
+
+# ─── ÇEKME: trapez ve kol ──────────────────────────────────────────
+dumbbell_shrug
+barbell_shrug
+upright_row_with_bands
+dumbbell_bicep_curl
+hammer_curls
+barbell_curl
+ez_bar_curl
+concentration_curls
+preacher_curl
+standing_biceps_cable_curl
+seated_dumbbell_palms_up_wrist_curl
+
+# ─── ÇÖMELME ───────────────────────────────────────────────────────
+chair_squat
+bodyweight_squat
+freehand_jump_squat
+goblet_squat
+dumbbell_squat
+barbell_squat
+front_barbell_squat
+leg_press
+hack_squat
+leg_extensions
+wall_sit   # yalnız override
+kettlebell_pistol_squat
+
+# ─── HAMLE VE TEK BACAK ────────────────────────────────────────────
+bodyweight_walking_lunge
+dumbbell_lunges
+dumbbell_rear_lunge
+split_squat_with_dumbbells
+step_up   # yalnız override
+dumbbell_step_ups
+step_up_with_knee_raise
+
+# ─── KALÇA MENTEŞESİ ───────────────────────────────────────────────
+glute_bridge   # yalnız override
+dumbbell_rdl   # yalnız override
+single_leg_glute_bridge
+barbell_hip_thrust
+romanian_deadlift
+stiff_legged_dumbbell_deadlift
+barbell_deadlift
+sumo_deadlift
+trap_bar_deadlift
+good_morning
+band_good_morning
+seated_leg_curl
+ball_leg_curl
+natural_glute_ham_raise
+one_arm_kettlebell_swings
+
+# ─── BALDIR ────────────────────────────────────────────────────────
+calf_raise   # yalnız override
+standing_calf_raises
+seated_calf_raise
+standing_dumbbell_calf_raise
+
+# ─── TAŞIMA ────────────────────────────────────────────────────────
+farmer_carry   # yalnız override
+
+# ─── GÖVDE ─────────────────────────────────────────────────────────
+plank
+side_plank   # yalnız override
+bird_dog   # yalnız override
+dead_bug
+superman
+side_bridge
+crunches
+sit_up
+reverse_crunch
+cross_body_crunch
+oblique_crunches
+air_bike
+russian_twist
+hanging_leg_raise
+flat_bench_lying_leg_raise
+bent_knee_hip_raise
+cable_crunch
+pallof_press
+standing_cable_wood_chop
+ab_roller
+spider_crawl
+hyperextensions_back_extensions
+exercise_ball_crunch
+weighted_crunches
+
+# ─── HAREKETLİLİK VE ESNEME ────────────────────────────────────────
+cat_cow   # yalnız override
+thoracic_rotation   # yalnız override
+hip_flexor_stretch   # yalnız override
+cat_stretch
+child_s_pose
+hug_knees_to_chest
+hamstring_stretch
+standing_gastrocnemius_calf_stretch
+shoulder_stretch
+chest_and_front_of_shoulder_stretch
+dynamic_chest_stretch
+arm_circles
+kneeling_hip_flexor
+world_s_greatest_stretch
+inchworm
+groiners
+quadriceps_smr
+iliotibial_tract_smr
+
+# ─── KARDİYO ───────────────────────────────────────────────────────
+treadmill_incline_walk   # yalnız override
+stationary_bike   # yalnız override
+walking_treadmill
+jogging_treadmill
+running_treadmill
+elliptical_trainer
+rowing_stationary
+stairmaster
+step_mill
+recumbent_bike
+bicycling
+trail_running_walking
+rope_jumping
+band_pull_apart

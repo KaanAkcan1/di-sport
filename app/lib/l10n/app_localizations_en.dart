@@ -1408,6 +1408,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get equipmentNone => 'No equipment';
 
   @override
+  String get equipmentPullUpBar => 'Pull-up bar';
+
+  @override
+  String get equipmentDipBars => 'Dip bars';
+
+  @override
+  String get equipmentBench => 'Bench';
+
+  @override
+  String get equipmentJumpRope => 'Jump rope';
+
+  @override
   String catalogEquipmentMissingHome(Object equipment) {
     return 'Needs $equipment (not at home)';
   }
