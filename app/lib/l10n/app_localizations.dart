@@ -2450,6 +2450,18 @@ abstract class AppLocalizations {
   /// **'{count} hareket'**
   String sportWorkoutExerciseCount(int count);
 
+  /// No description provided for @catalogSafetyLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Güvenlik'**
+  String get catalogSafetyLabel;
+
+  /// No description provided for @catalogSafetyRestricted.
+  ///
+  /// In tr, this message translates to:
+  /// **'Güvenlik — kısıtınla eşleşiyor'**
+  String get catalogSafetyRestricted;
+
   /// No description provided for @rhythmMealsSection.
   ///
   /// In tr, this message translates to:

@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../exercise_fixtures.dart';
+
 Map<String, dynamic> sampleJson() => {
   'id': 'incline_pushup',
   'nameTr': 'Eğimli Şınav',
@@ -113,5 +115,49 @@ void main() {
       parsed.map((e) => e.id),
       contains('treadmill_incline_walk'),
     );
+  });
+
+  group('iki dilli içerik (v3 §6.5)', () {
+    test('soneksiz eski anahtarlar Türkçe taraf sayılır', () {
+      // AI `newExercises` blokları ve v2 `detailJson` satırları eski
+      // sözleşmeyle geliyor; sessizce kaybolmamalılar.
+      final exercise = Exercise.fromJson(
+        fixtureJson(id: 'legacy', nameTr: 'Eski', nameEn: 'Legacy'),
+      );
+      expect(exercise.execution, isNotEmpty);
+      expect(exercise.summary, isNotNull);
+    });
+
+    test('contentFor dil içeriğini seçer, boşsa öteki dile düşer', () {
+      final exercise = Exercise.fromJson(
+        fixtureJson(id: 'dual', nameTr: 'Çift', nameEn: 'Dual')
+          ..['executionTr'] = ['Türkçe adım 1', 'Türkçe adım 2']
+          ..['executionEn'] = ['English step 1', 'English step 2']
+          ..['summaryEn'] = 'English summary'
+          ..remove('summary'),
+      );
+
+      final tr = exercise.contentFor('tr');
+      expect(tr.execution.first, 'Türkçe adım 1');
+      // Türkçe özet yok — İngilizceye düşer (alan alan).
+      expect(tr.summary, 'English summary');
+
+      final en = exercise.contentFor('en');
+      expect(en.execution.first, 'English step 1');
+      expect(en.summary, 'English summary');
+    });
+
+    test('gidiş-dönüş sonekli anahtarlarla kayıpsız', () {
+      final exercise = Exercise.fromJson(
+        fixtureJson(id: 'rt', nameTr: 'Tur', nameEn: 'Round')
+          ..['executionEn'] = ['Step 1', 'Step 2']
+          ..['safetyEn'] = 'Keep it safe.',
+      );
+      final again = Exercise.fromJson(exercise.toJson());
+      expect(again.executionEn, ['Step 1', 'Step 2']);
+      expect(again.safetyEn, 'Keep it safe.');
+      expect(again.execution, exercise.execution);
+      expect(again.summary, exercise.summary);
+    });
   });
 }

@@ -35,7 +35,7 @@ OUTPUT = os.path.join(ROOT, 'app', 'assets', 'catalog.json')
 
 # Şu an geçerli tohum sürümü. Artırmak mevcut kurulumlarda yeniden
 # tohumlamayı tetikler (`CatalogRepository.seedFromJson`).
-CATALOG_VERSION = 3
+CATALOG_VERSION = 4
 
 EQUIPMENT = {
     'body only': 'bodyOnly',
@@ -206,17 +206,26 @@ def build():
         record['difficulty'] = override.get(
             'difficulty', LEVEL.get(entry.get('level') if entry else None, 3)
         )
-        record['execution'] = override.get(
-            'execution', entry.get('instructions', []) if entry else []
+        # v3 (T16.4): icerik iki dilli veri. Kaynagin Ingilizce
+        # `instructions` alani `executionEn`e gider; Turkce adimlar
+        # override'daki `executionTr`den gelir.
+        record['executionEn'] = override.get(
+            'executionEn', entry.get('instructions', []) if entry else []
         )
+        if 'executionTr' in override:
+            record['executionTr'] = override['executionTr']
         record['isUserDefined'] = False
 
         # Elle yazılan alanlar — yoksa yazılmıyor. `null` yazmak ile
         # anahtarı hiç koymamak aynı sonucu veriyor ama dosya okunurken
         # "burada bir şey olmalıydı" izlenimi vermiyor.
         for field in [
-            'nameTr', 'summary', 'setup', 'breathing', 'tempo', 'cues',
-            'commonMistakes', 'safety', 'regressions', 'progressions',
+            'nameTr',
+            'summaryTr', 'summaryEn', 'setupTr', 'setupEn',
+            'breathingTr', 'breathingEn', 'tempoTr', 'tempoEn',
+            'cuesTr', 'cuesEn', 'commonMistakesTr', 'commonMistakesEn',
+            'safetyTr', 'safetyEn',
+            'regressions', 'progressions',
             'met', 'metModel', 'imagePath', 'videoQuery',
         ]:
             if field in override:
@@ -244,6 +253,14 @@ def build():
 
     if missing_met:
         print('UYARI - kardiyo MET degeri yok: %s' % ', '.join(missing_met))
+
+    # Kademeli cita: EN icerik zorunlu degil, eksigi raporlanir.
+    missing_en = [
+        r['id'] for r in exercises
+        if len(r.get('executionEn', [])) < 2 and 'summaryEn' not in r
+    ]
+    if missing_en:
+        print('BILGI - EN icerigi eksik kayit: %d' % len(missing_en))
 
     return collections.OrderedDict(
         version=CATALOG_VERSION,

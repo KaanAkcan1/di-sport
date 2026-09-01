@@ -463,6 +463,8 @@
   "sportWorkoutHistory": "History",
   "sportWorkoutExerciseCount": "{count} exercises",
   "@sportWorkoutExerciseCount": {"placeholders": {"count": {"type": "int"}}},
+  "catalogSafetyLabel": "Safety",
+  "catalogSafetyRestricted": "Safety — matches your restriction",
   "rhythmMealsSection": "Meals",
   "rhythmMealFlexible": "Flexible time",
   "mealBehaviorPlanned": "Plan fills it",

@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "exercises": [
     {
       "id": "ab_roller",
@@ -16,7 +16,7 @@
         "shoulders"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Hold the Ab Roller with both hands and kneel on the floor.",
         "Now place the ab roller on the floor in front of you so that you are on all your hands and knees (as in a kneeling push up position). This will be your starting position.",
         "Slowly roll the ab roller straight forward, stretching your body into a straight position. Tip: Go down as far as you can without touching the floor with your body. Breathe in during this portion of the movement.",
@@ -40,7 +40,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie flat on the floor with your lower back pressed to the ground. For this exercise, you will need to put your hands beside your head. Be careful however to not strain with the neck as you perform it. Now lift your shoulders into the crunch position.",
         "Bring knees up to where they are perpendicular to the floor, with your lower legs parallel to the floor. This will be your starting position.",
         "Now simultaneously, slowly go through a cycle pedal motion kicking forward with the right leg and bringing in the knee of the left leg. Bring your right elbow close to your left knee by crunching to the side, as you breathe out.",
@@ -68,7 +68,7 @@
         "traps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Stand up and extend your arms straight out by the sides. The arms should be parallel to the floor and perpendicular (90-degree angle) to your torso. This will be your starting position.",
         "Slowly start to make circles of about 1 foot in diameter with each outstretched arm. Breathe normally as you perform the movement.",
         "Continue the circular motion of the outstretched arms for about ten seconds. Then reverse the movement, going the opposite direction."
@@ -93,7 +93,7 @@
         "triceps"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Sit on an exercise bench with back support and hold two dumbbells in front of you at about upper chest level with your palms facing your body and your elbows bent. Tip: Your arms should be next to your torso. The starting position should look like the contracted portion of a dumbbell curl.",
         "Now to perform the movement, raise the dumbbells as you rotate the palms of your hands until they are facing forward.",
         "Continue lifting the dumbbells until your arms are extended above you in straight arm position. Breathe out as you perform this portion of the movement.",
@@ -121,7 +121,7 @@
         "glutes"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Begin on the floor laying on your back with your feet on top of the ball.",
         "Position the ball so that when your legs are extended your ankles are on top of the ball. This will be your starting position.",
         "Raise your hips off of the ground, keeping your weight on the shoulder blades and your feet.",
@@ -151,7 +151,7 @@
         "middle back"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Choke the band around the center of the pullup bar. You can use different bands to provide varying levels of assistance.",
         "Pull the end of the band down, and place one bent knee into the loop, ensuring it won't slip out. Take a medium to wide grip on the bar. This will be your starting position.",
         "Pull yourself upward by contracting the lats as you flex the elbow. The elbow should be driven to your side. Pull to the front, attempting to get your chin over the bar. Avoid swinging or jerking movements.",
@@ -178,7 +178,7 @@
         "lower back"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Using a 41 inch band, stand on one end, spreading your feet a small amount. Bend at the hips to loop the end of the band behind your neck. This will be your starting position.",
         "Keeping your legs straight, extend through the hips to come to a near vertical position.",
         "Ensure that you do not round your back as you go down back to the starting position."
@@ -203,27 +203,33 @@
         "orta sırt"
       ],
       "difficulty": 1,
-      "execution": [
+      "executionEn": [
+        "Begin with your arms extended straight out in front of you, holding the band with both hands.",
+        "Initiate the movement by performing a reverse fly motion, moving your hands out laterally to your sides.",
+        "Keep your elbows extended as you perform the movement, bringing the band to your chest. Ensure that you keep your shoulders back during the exercise.",
+        "Pause as you complete the movement, returning to the starting position under control."
+      ],
+      "executionTr": [
         "Bandı iki yana açarak kollarını yanlara doğru götür.",
         "Band göğsüne değene ve kürek kemiklerin birleşene kadar aç.",
         "Bir an dur, sonra kontrollü şekilde başlangıca dön — bandın seni geri çekmesine izin verme."
       ],
       "isUserDefined": false,
       "nameTr": "Band Açma",
-      "summary": "Küçük ama önemli bir hareket: arka omuzu ve kürek kemikleri arasını çalıştırır. Masa ve direksiyon başında geçen günü dengeler.",
-      "setup": [
+      "summaryTr": "Küçük ama önemli bir hareket: arka omuzu ve kürek kemikleri arasını çalıştırır. Masa ve direksiyon başında geçen günü dengeler.",
+      "setupTr": [
         "Bandı iki elinle, omuz genişliğinde tut.",
         "Kolları omuz hizasında öne uzat, dirsekler hafif bükülü.",
         "Göğsü aç, karnı hafif sık."
       ],
-      "breathing": "Açarken nefes ver, kapatırken al.",
-      "tempo": "1 sn açış · 1 sn duraklama · 2 sn kapanış",
-      "cues": [
+      "breathingTr": "Açarken nefes ver, kapatırken al.",
+      "tempoTr": "1 sn açış · 1 sn duraklama · 2 sn kapanış",
+      "cuesTr": [
         "Kollar omuz hizasında",
         "Kürekleri sıkıştır",
         "Yavaş geri gel"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Kollar yukarı kayıyor, hareket baş hizasında yapılıyor",
           "why": "Hedef arka omuzdan çıkar, boyun kasları devralır.",
@@ -235,7 +241,7 @@
           "fix": "Daha ince band al. Bu harekette direnç değil hareket genişliği önemli."
         }
       ],
-      "safety": "Bandı yüz hizasında germekten kaçın; kopması hâlinde göze gelir.",
+      "safetyTr": "Bandı yüz hizasında germekten kaçın; kopması hâlinde göze gelir.",
       "videoQuery": "band pull apart form",
       "met": 5.0
     },
@@ -255,27 +261,28 @@
         "arka omuz"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Kürek kemiklerini birbirine yaklaştırarak harekete başla — önce sırt, sonra kol.",
         "Dirsekleri gövdenin yanından geriye çek; eller alt kaburga hizasına gelsin.",
         "Bir an sıkıştır, sonra kontrollü şekilde kolları uzat."
       ],
       "isUserDefined": false,
       "nameTr": "Bandlı Kürek",
-      "summary": "Şınavın karşı hareketi. Gün boyu öne dönük omuz duruşunu dengeler; sırtın çalışmadığı bir program omuz ağrısı üretir.",
-      "setup": [
+      "summaryTr": "Şınavın karşı hareketi. Gün boyu öne dönük omuz duruşunu dengeler; sırtın çalışmadığı bir program omuz ağrısı üretir.",
+      "setupTr": [
         "Bandı kapı koluna, kaloriferin sağlam ayağına ya da ayaklarının altına sabitle.",
         "Bandın uçlarını iki elinle tut, kollar öne uzanmış olsun.",
         "Dizler hafif bükülü, göğüs açık, karın sıkı."
       ],
-      "breathing": "Çekerken nefes ver, bırakırken al.",
-      "tempo": "1 sn çekiş · 1 sn sıkıştırma · 2 sn bırakış",
-      "cues": [
+      "breathingTr": "Çekerken nefes ver, bırakırken al.",
+      "tempoTr": "1 sn çekiş · 1 sn sıkıştırma · 2 sn bırakış",
+      "cuesTr": [
         "Önce kürek, sonra kol",
         "Dirsek gövdeye yakın",
         "Omuzlar kulağa kalkmasın"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Hareket kolla başlıyor, sırt hiç devreye girmiyor",
           "why": "Biceps çalışır, hedef kas olan sırt boş kalır; duruş bozukluğu düzelmez.",
@@ -292,7 +299,7 @@
           "fix": "Gövdeyi sabitle. Yatmadan çekemiyorsan bandın gerginliğini azalt."
         }
       ],
-      "safety": "Bandın sabitlendiği yeri her sette kontrol et; kopan ya da boşalan band yüze çarpabilir. Bandı gözünden uzak tut.",
+      "safetyTr": "Bandın sabitlendiği yeri her sette kontrol et; kopan ya da boşalan band yüze çarpabilir. Bandı gözünden uzak tut.",
       "videoQuery": "resistance band row form",
       "met": 5.0
     },
@@ -312,7 +319,7 @@
         "triceps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie back on a flat bench. Using a medium width grip (a grip that creates a 90-degree angle in the middle of the movement between the forearms and the upper arms), lift the bar from the rack and hold it straight over you with your arms locked. This will be your starting position.",
         "From the starting position, breathe in and begin coming down slowly until the bar touches your middle chest.",
         "After a brief pause, push the bar back to the starting position as you breathe out. Focus on pushing the bar using your chest muscles. Lock your arms and squeeze your chest in the contracted position at the top of the motion, hold for a second and then start coming down slowly again. Tip: Ideally, lowering the weight should take about twice as long as raising it.",
@@ -339,7 +346,7 @@
         "forearms"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Stand up with your torso upright while holding a barbell at a shoulder-width grip. The palm of your hands should be facing forward and the elbows should be close to the torso. This will be your starting position.",
         "While holding the upper arms stationary, curl the weights forward while contracting the biceps as you breathe out. Tip: Only the forearms should move.",
         "Continue the movement until your biceps are fully contracted and the bar is at shoulder level. Hold the contracted position for a second and squeeze the biceps hard.",
@@ -373,7 +380,7 @@
         "traps"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Stand in front of a loaded barbell.",
         "While keeping the back as straight as possible, bend your knees, bend forward and grasp the bar using a medium (shoulder width) overhand grip. This will be the starting position of the exercise. Tip: If it is difficult to hold on to the bar with this grip, alternate your grip or use wrist straps.",
         "While holding the bar, start the lift by pushing with your legs while simultaneously getting your torso to the upright position as you breathe out. In the upright position, stick your chest out and contract the back by bringing the shoulder blades back. Think of how the soldiers in the military look when they are in standing in attention.",
@@ -401,7 +408,7 @@
         "hamstrings"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Begin seated on the ground with a bench directly behind you. Have a loaded barbell over your legs. Using a fat bar or having a pad on the bar can greatly reduce the discomfort caused by this exercise.",
         "Roll the bar so that it is directly above your hips, and lean back against the bench so that your shoulder blades are near the top of it.",
         "Begin the movement by driving through your feet, extending your hips vertically through the bar. Your weight should be supported by your shoulder blades and your feet. Extend as far as possible, then reverse the motion to return to the starting position."
@@ -427,7 +434,7 @@
         "triceps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie back on an incline bench. Using a medium-width grip (a grip that creates a 90-degree angle in the middle of the movement between the forearms and the upper arms), lift the bar from the rack and hold it straight over you with your arms locked. This will be your starting position.",
         "As you breathe in, come down slowly until you feel the bar on you upper chest.",
         "After a second pause, bring the bar back to the starting position as you breathe out and push the bar using your chest muscles. Lock your arms in the contracted position, squeeze your chest, hold for a second and then start coming down slowly again. Tip: it should take at least twice as long to go down than to come up.",
@@ -455,7 +462,7 @@
         "triceps"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Sit on a bench with back support in a squat rack. Position a barbell at a height that is just above your head. Grab the barbell with a pronated grip (palms facing forward).",
         "Once you pick up the barbell with the correct grip width, lift the bar up over your head by locking your arms. Hold at about shoulder level and slightly in front of your head. This is your starting position.",
         "Lower the bar down to the shoulders slowly as you inhale.",
@@ -480,7 +487,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Stand up straight with your feet at shoulder width as you hold a barbell with both hands in front of you using a pronated grip (palms facing the thighs). Tip: Your hands should be a little wider than shoulder width apart. You can use wrist wraps for this exercise for a better grip. This will be your starting position.",
         "Raise your shoulders up as far as you can go as you breathe out and hold the contraction for a second. Tip: Refrain from trying to lift the barbell by using your biceps.",
         "Slowly return to the starting position as you breathe in.",
@@ -509,7 +516,7 @@
         "lower back"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "This exercise is best performed inside a squat rack for safety purposes. To begin, first set the bar on a rack to just below shoulder level. Once the correct height is chosen and the bar is loaded, step under the bar and place the back of your shoulders (slightly below the neck) across it.",
         "Hold on to the bar using both arms at each side and lift it off the rack by first pushing with your legs and at the same time straightening your torso.",
         "Step away from the rack and position your legs using a shoulder width medium stance with the toes slightly pointed out. Keep your head up at all times and also maintain a straight back. This will be your starting position. (Note: For the purposes of this discussion we will use the medium stance described above which targets overall development; however you can choose any of the three stances discussed in the foot stances section).",
@@ -538,7 +545,7 @@
         "shoulders"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "For this exercise you will need to place a bench behind your back. With the bench perpendicular to your body, and while looking away from it, hold on to the bench on its edge with the hands fully extended, separated at shoulder width. The legs will be extended forward, bent at the waist and perpendicular to your torso. This will be your starting position.",
         "Slowly lower your body as you inhale by bending at the elbows until you lower yourself far enough to where there is an angle slightly smaller than 90 degrees between the upper arm and the forearm. Tip: Keep the elbows as close as possible throughout the movement. Forearms should always be pointing down.",
         "Using your triceps to bring your torso up again, lift yourself back to the starting position.",
@@ -562,7 +569,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lay flat on the floor with your arms next to your sides.",
         "Now bend your knees at around a 75 degree angle and lift your feet off the floor by around 2 inches.",
         "Using your lower abs, bring your knees in towards you as you maintain the 75 degree angle bend in your legs. Continue this movement until you raise your hips off of the floor by rolling your pelvis backward. Breathe out as you perform this portion of the movement. Tip: At the end of the movement your knees will be over your chest.",
@@ -591,7 +598,7 @@
         "shoulders"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Holding a barbell with a pronated grip (palms facing down), bend your knees slightly and bring your torso forward, by bending at the waist, while keeping the back straight until it is almost parallel to the floor. Tip: Make sure that you keep the head up. The barbell should hang directly in front of you as your arms hang perpendicular to the floor and your torso. This is your starting position.",
         "Now, while keeping the torso stationary, breathe out and lift the barbell to you. Keep the elbows close to the body and only use the forearms to hold the weight. At the top contracted position, squeeze the back muscles and hold for a brief pause.",
         "Then inhale and slowly lower the barbell back to the starting position.",
@@ -619,7 +626,7 @@
         "shoulders"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "With a dumbbell in each hand (palms facing your torso), bend your knees slightly and bring your torso forward by bending at the waist; as you bend make sure to keep your back straight until it is almost parallel to the floor. Tip: Make sure that you keep the head up. The weights should hang directly in front of you as your arms hang perpendicular to the floor and your torso. This is your starting position.",
         "While keeping the torso stationary, lift the dumbbells to your side (as you breathe out), keeping the elbows close to the body (do not exert any force with the forearm other than holding the weights). On the top contracted position, squeeze the back muscles and hold for a second.",
         "Slowly lower the weight again to the starting position as you inhale.",
@@ -647,7 +654,10 @@
         "hamstrings"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
+        "To begin, seat yourself on the bike and adjust the seat to your height."
+      ],
+      "executionTr": [
         "Adjust the saddle so your knee stays slightly bent at the bottom of the pedal stroke.",
         "Grip the bars with relaxed shoulders and elbows soft, keeping your gaze up the road rather than at the front wheel.",
         "Pedal with a smooth circular stroke, aiming for 70-90 revolutions per minute rather than grinding a heavy gear.",
@@ -675,27 +685,28 @@
         "omuz"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Sağ kolu öne, sol bacağı geriye aynı anda uzat.",
         "Kalçanı yana devirmeden, sırtın düz kalacak şekilde bir–iki saniye tut.",
         "Kontrollü şekilde başlangıca dön ve diğer tarafla tekrarla."
       ],
       "isUserDefined": false,
       "nameTr": "Kuş–Köpek",
-      "summary": "Ölü böceğin yüzükoyun karşılığı. Kol ve bacak hareket ederken gövdenin dönmeden kalmasını öğretir; bel için en güvenli çalışmalardan biri.",
-      "setup": [
+      "summaryTr": "Ölü böceğin yüzükoyun karşılığı. Kol ve bacak hareket ederken gövdenin dönmeden kalmasını öğretir; bel için en güvenli çalışmalardan biri.",
+      "setupTr": [
         "Emekleme pozisyonuna gel: eller omuz altında, dizler kalça altında.",
         "Dizlerin altına yumuşak bir şey koy.",
         "Sırtını düz bir masa yüzeyi gibi düşün; karnı hafif sık."
       ],
-      "breathing": "Uzatırken nefes ver, dönerken al.",
-      "tempo": "2 sn uzatış · 2 sn tutuş · 2 sn dönüş",
-      "cues": [
+      "breathingTr": "Uzatırken nefes ver, dönerken al.",
+      "tempoTr": "2 sn uzatış · 2 sn tutuş · 2 sn dönüş",
+      "cuesTr": [
         "Kalça dönmesin",
         "Bacak omuz hizasından yükselmesin",
         "Yavaş"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Kalça yana deviriliyor",
           "why": "Hareketin amacı gövdeyi sabit tutmak; devriliyorsa amaç kaybolmuş demektir.",
@@ -712,7 +723,7 @@
           "fix": "Parmaklarını aç ve parmak uçlarına da bastır; ya da yumruk üstünde çalış."
         }
       ],
-      "safety": "Diz hassasiyeti için yumuşak zemin şart. Belde ağrı olursa menzili kısalt.",
+      "safetyTr": "Diz hassasiyeti için yumuşak zemin şart. Belde ağrı olursa menzili kısalt.",
       "regressions": [
         "superman"
       ],
@@ -735,7 +746,7 @@
         "lats"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Begin by taking a medium to wide grip on a pull-up apparatus with your palms facing away from you. From a hanging position, tuck your knees to your chest, leaning back and getting your legs over your side of the pull-up apparatus. This will be your starting position.",
         "Beginning with your arms straight, flex the elbows and retract the shoulder blades to raise your body up until your legs contact the pull-up apparatus.",
         "After a brief pause, return to the starting position."
@@ -761,7 +772,7 @@
         "hamstrings"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Stand with your feet shoulder width apart. You can place your hands behind your head. This will be your starting position.",
         "Begin the movement by flexing your knees and hips, sitting back with your hips.",
         "Continue down to full depth if you are able,and quickly reverse the motion until you return to the starting position. As you squat, keep your head and chest up and push your knees out."
@@ -788,7 +799,7 @@
         "hamstrings"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Begin standing with your feet shoulder width apart and your hands on your hips.",
         "Step forward with one leg, flexing the knees to drop your hips. Descend until your rear knee nearly touches the ground. Your posture should remain upright, and your front knee should stay above the front foot.",
         "Drive through the heel of your lead foot and extend both knees to raise yourself back up.",
@@ -812,7 +823,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Sit on the machine with your back flat on the pad.",
         "Take hold of the handles. Tip: Your upper arms should be positioned parallel to the floor; adjust the machine accordingly. This will be your starting position.",
         "Push the handles together slowly as you squeeze your chest in the middle. Breathe out during this part of the motion and hold the contraction for a second.",
@@ -839,7 +850,7 @@
         "shoulders"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "To get yourself into the starting position, place the pulleys on a high position (above your head), select the resistance to be used and hold the pulleys in each hand.",
         "Step forward in front of an imaginary straight line between both pulleys while pulling your arms together in front of you. Your torso should have a small forward bend from the waist. This will be your starting position.",
         "With a slight bend on your elbows in order to prevent stress at the biceps tendon, extend your arms to the side (straight out at both sides) in a wide arc until you feel a stretch on your chest. Breathe in as you perform this portion of the movement. Tip: Keep in mind that throughout the movement, the arms and torso should remain stationary; the movement should only occur at the shoulder joint.",
@@ -864,7 +875,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Kneel below a high pulley that contains a rope attachment.",
         "Grasp cable rope attachment and lower the rope until your hands are placed next to your face.",
         "Flex your hips slightly and allow the weight to hyperextend the lower back. This will be your starting position.",
@@ -890,27 +901,28 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 1,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Topuklarını yerden kaldırarak parmak uçlarına yüksel.",
         "En tepede bir saniye dur ve baldırı sık.",
         "Yavaşça indir; topuk yere değer değmez bir sonrakine başla."
       ],
       "isUserDefined": false,
       "nameTr": "Topuk Kaldırma",
-      "summary": "Baldırı ve aşil bölgesini güçlendirir. Koşuya geçiş hedefin olduğu için önemli: incik ağrısının önlemi buradan başlar.",
-      "setup": [
+      "summaryTr": "Baldırı ve aşil bölgesini güçlendirir. Koşuya geçiş hedefin olduğu için önemli: incik ağrısının önlemi buradan başlar.",
+      "setupTr": [
         "Ayakta, ayaklar kalça genişliğinde dur.",
         "Gerekiyorsa duvara ya da sandalye arkalığına parmak ucuyla destek al.",
         "Gövdeyi dik tut."
       ],
-      "breathing": "Kalkarken nefes ver, inerken al.",
-      "tempo": "1 sn kalkış · 1 sn duraklama · 2 sn iniş",
-      "cues": [
+      "breathingTr": "Kalkarken nefes ver, inerken al.",
+      "tempoTr": "1 sn kalkış · 1 sn duraklama · 2 sn iniş",
+      "cuesTr": [
         "Yavaş in",
         "Baldırı sık",
         "Dengeye asılma"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Hızlı zıplayarak yapılıyor",
           "why": "Aşil tendonu ani yüklenir; incik ve topuk ağrısının nedenidir.",
@@ -922,7 +934,7 @@
           "fix": "Baş parmağın altına bas; yükü ayağın iç tarafında tut."
         }
       ],
-      "safety": "Aşil bölgesinde ağrı ya da tutukluk varsa menzili kısalt ve tekrar sayısını düşür.",
+      "safetyTr": "Aşil bölgesinde ağrı ya da tutukluk varsa menzili kısalt ve tekrar sayısını düşür.",
       "videoQuery": "standing calf raise form",
       "met": 5.0
     },
@@ -942,26 +954,27 @@
         "sırt"
       ],
       "difficulty": 1,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Nefes verirken sırtı yukarı yuvarla, çeneyi göğse yaklaştır.",
         "Nefes alırken göğsü öne aç, kuyruk sokumunu yukarı çevir.",
         "Zorlamadan, akıcı şekilde gidip gel."
       ],
       "isUserDefined": false,
       "nameTr": "Kedi–Deve",
-      "summary": "Omurgayı ısıtan temel hareket. Antrenman öncesi bel ve sırtı hazırlar; gün boyu oturmuş bir omurgayı hareket ettirir.",
-      "setup": [
+      "summaryTr": "Omurgayı ısıtan temel hareket. Antrenman öncesi bel ve sırtı hazırlar; gün boyu oturmuş bir omurgayı hareket ettirir.",
+      "setupTr": [
         "Emekleme pozisyonuna geç: eller omuz altında, dizler kalça altında.",
         "Boyun gövdenin uzantısı, bakış yere."
       ],
-      "breathing": "Yuvarlarken ver, açarken al — hareket nefese bağlı.",
-      "tempo": "Yavaş, her yöne 3-4 sn",
-      "cues": [
+      "breathingTr": "Yuvarlarken ver, açarken al — hareket nefese bağlı.",
+      "tempoTr": "Yavaş, her yöne 3-4 sn",
+      "cuesTr": [
         "Zorlama, akıt",
         "Nefesle birlikte",
         "Boyun rahat"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Hareket sadece belden yapılıyor",
           "why": "Sırt ortası hareketsiz kalır ve asıl sertlik orada.",
@@ -973,7 +986,7 @@
           "fix": "Her yöne 3-4 saniye ver."
         }
       ],
-      "safety": "Bilek ağrısı varsa yumruk üstünde ya da ön kol üstünde yap.",
+      "safetyTr": "Bilek ağrısı varsa yumruk üstünde ya da ön kol üstünde yap.",
       "videoQuery": "cat cow exercise form",
       "met": 2.3
     },
@@ -993,7 +1006,7 @@
         "traps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Position yourself on the floor on your hands and knees.",
         "Pull your belly in and round your spine, lower back, shoulders, and neck, letting your head drop.",
         "Hold for 15 seconds."
@@ -1019,27 +1032,35 @@
         "karın"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
+        "To begin, first set the bar to a position that best matches your height. Once the bar is loaded, step under it and position it across the back of your shoulders.",
+        "Take the bar with your hands facing forward, unlock it and lift it off the rack by extending your legs.",
+        "Move your feet forward about 18 inches in front of the bar. Position your legs using a shoulder width stance with the toes slightly pointed out. Look forward at all times and maintain a neutral or slightly arched spine. This will be your starting position.",
+        "Slowly lower the bar by bending the knees as you maintain a straight posture with the head up. Continue down until the angle between the upper and lower leg breaks 90 degrees.",
+        "Begin to raise the bar as you exhale by pushing the floor with the heels of your feet, extending the knees and returning to the starting position.",
+        "Repeat for the recommended amount of repetitions."
+      ],
+      "executionTr": [
         "Kalçanı geriye iterek, sandalyeye oturuyormuş gibi in.",
         "Sandalyeye değ ama üstüne çökme — teması hisset ve dur.",
         "Topuklardan iterek ayağa kalk; dizler içe düşmesin."
       ],
       "isUserDefined": false,
       "nameTr": "Sandalyeye Squat",
-      "summary": "Alt vücudun temeli. Sandalye hem derinliği ölçer hem güven verir; günlük hayatta oturup kalkmanın çalışılmış hâli.",
-      "setup": [
+      "summaryTr": "Alt vücudun temeli. Sandalye hem derinliği ölçer hem güven verir; günlük hayatta oturup kalkmanın çalışılmış hâli.",
+      "setupTr": [
         "Sandalyeye sırtın dönük, bir adım önünde dur.",
         "Ayaklar omuz genişliğinde, parmak uçları hafif dışa dönük.",
         "Göğüs açık, kollar öne uzatılabilir."
       ],
-      "breathing": "İnerken nefes al, kalkarken ver.",
-      "tempo": "2 sn iniş · 1 sn duraklama · 1 sn çıkış",
-      "cues": [
+      "breathingTr": "İnerken nefes al, kalkarken ver.",
+      "tempoTr": "2 sn iniş · 1 sn duraklama · 1 sn çıkış",
+      "cuesTr": [
         "Kalça geriye",
         "Diz ayak ucu hizasında",
         "Topuktan it"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Dizler içeri düşüyor",
           "why": "Diz ekleminin iç yanı zorlanır; senin diz hassasiyetinde bu doğrudan ağrı üretir.",
@@ -1056,7 +1077,7 @@
           "fix": "Sandalyeye yalnız değ, ağırlığını bırakma."
         }
       ],
-      "safety": "Sandalye kaymayacak, tekerleksiz olmalı. Dizde keskin ağrıda derinliği azalt.",
+      "safetyTr": "Sandalye kaymayacak, tekerleksiz olmalı. Dizde keskin ağrıda derinliği azalt.",
       "progressions": [
         "goblet_squat"
       ],
@@ -1079,7 +1100,7 @@
         "shoulders"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Start off by standing with your legs together, holding a bodybar or a broomstick.",
         "Take a slightly wider than shoulder width grip on the pole and hold it in front of you with your palms facing down.",
         "Carefully lift the pole up and behind your head."
@@ -1105,7 +1126,7 @@
         "middle back"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Get on your hands and knees, walk your hands in front of you.",
         "Lower your buttocks down to sit on your heels. Let your arms drag along the floor as you sit back to stretch your entire spine.",
         "Once you settle onto your heels, bring your hands next to your feet and relax. \"breathe\" into your back. Rest your forehead on the floor. Avoid this position if you have knee problems."
@@ -1132,7 +1153,7 @@
         "middle back"
       ],
       "difficulty": 4,
-      "execution": [
+      "executionEn": [
         "Grab the pull-up bar with the palms facing your torso and a grip closer than the shoulder width.",
         "As you have both arms extended in front of you holding the bar at the chosen grip width, keep your torso as straight as possible while creating a curvature on your lower back and sticking your chest out. This is your starting position. Tip: Keeping the torso as straight as possible maximizes biceps stimulation while minimizing back involvement.",
         "As you breathe out, pull your torso up until your head is around the level of the pull-up bar. Concentrate on using the biceps muscles in order to perform the movement. Keep the elbows close to your body. Tip: The upper torso should remain stationary as it moves through space and only the arms should move. The forearms should do no other work other than hold the bar.",
@@ -1160,7 +1181,7 @@
         "shoulders"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie back on a flat bench. Using a close grip (around shoulder width), lift the bar from the rack and hold it straight over you with your arms locked. This will be your starting position.",
         "As you breathe in, come down slowly until you feel the bar on your middle chest. Tip: Make sure that - as opposed to a regular bench press - you keep the elbows close to the torso at all times in order to maximize triceps involvement.",
         "After a second pause, bring the bar back to the starting position as you breathe out and push the bar using your triceps muscles. Lock your arms in the contracted position, hold for a second and then start coming down slowly again. Tip: It should take at least twice as long to go down than to come up.",
@@ -1189,7 +1210,7 @@
         "shoulders"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Sit down on a pull-down machine with a wide bar attached to the top pulley. Make sure that you adjust the knee pad of the machine to fit your height. These pads will prevent your body from being raised by the resistance attached to the bar.",
         "Grab the bar with the palms facing forward using the prescribed grip. Note on grips: For a wide grip, your hands need to be spaced out at a distance wider than your shoulder width. For a medium grip, your hands need to be spaced out at a distance equal to your shoulder width and for a close grip at a distance smaller than your shoulder width.",
         "As you have both arms extended in front of you - while holding the bar at the chosen grip width - bring your torso back around 30 degrees or so while creating a curvature on your lower back and sticking your chest out. This is your starting position.",
@@ -1217,7 +1238,7 @@
         "forearms"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Sit down on a flat bench with one dumbbell in front of you between your legs. Your legs should be spread with your knees bent and feet on the floor.",
         "Use your right arm to pick the dumbbell up. Place the back of your right upper arm on the top of your inner right thigh. Rotate the palm of your hand until it is facing forward away from your thigh. Tip: Your arm should be extended and the dumbbell should be above the floor. This will be your starting position.",
         "While holding the upper arm stationary, curl the weights forward while contracting the biceps as you breathe out. Only the forearms should move. Continue the movement until your biceps are fully contracted and the dumbbells are at shoulder level. Tip: At the top of the movement make sure that the little finger of your arm is higher than your thumb. This guarantees a good contraction. Hold the contracted position for a second as you squeeze the biceps.",
@@ -1242,7 +1263,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie flat on your back and bend your knees about 60 degrees.",
         "Keep your feet flat on the floor and place your hands loosely behind your head. This will be your starting position.",
         "Now curl up and bring your right elbow and shoulder across your body while bring your left knee in toward your left shoulder at the same time. Reach with your elbow and try to touch your knee. Exhale as you perform this movement. Tip: Try to bring your shoulder up towards your knee rather than just your elbow and remember that the key is to contract the abs as you perform the movement; not just to move the elbow.",
@@ -1267,7 +1288,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie flat on your back with your feet flat on the ground, or resting on a bench with your knees bent at a 90 degree angle. If you are resting your feet on a bench, place them three to four inches apart and point your toes inward so they touch.",
         "Now place your hands lightly on either side of your head keeping your elbows in. Tip: Don't lock your fingers behind your head.",
         "While pushing the small of your back down in the floor to better isolate your abdominal muscles, begin to roll your shoulders off the floor.",
@@ -1295,27 +1316,36 @@
         "kalça"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
+        "Begin lying on your back with your hands extended above you toward the ceiling.",
+        "Bring your feet, knees, and hips up to 90 degrees.",
+        "Exhale hard to bring your ribcage down and flatten your back onto the floor, rotating your pelvis up and squeezing your glutes. Hold this position throughout the movement. This will be your starting position.",
+        "Initiate the exercise by extending one leg, straightening the knee and hip to bring the leg just above the ground.",
+        "Maintain the position of your lumbar and pelvis as you perform the movement, as your back is going to want to arch.",
+        "Stay tight and return the working leg to the starting position.",
+        "Repeat on the opposite side, alternating until the set is complete."
+      ],
+      "executionTr": [
         "Sağ kolu başının üstüne, sol bacağı ileri doğru aynı anda uzat.",
         "Bel yerden kalkmadan gidebildiğin kadar git; bel kalkacak gibi olursa orada dur.",
         "Başlangıca dön ve diğer tarafla tekrarla."
       ],
       "isUserDefined": false,
       "nameTr": "Ölü Böcek",
-      "summary": "Kol ve bacak hareket ederken belin yerden kalkmamasını öğretir. Bele en nazik karın hareketlerinden biri.",
-      "setup": [
+      "summaryTr": "Kol ve bacak hareket ederken belin yerden kalkmamasını öğretir. Bele en nazik karın hareketlerinden biri.",
+      "setupTr": [
         "Sırtüstü uzan; kollar tavana dik, dizler 90 derece bükülü ve kalça hizasında.",
         "Belini yere yapıştır — el ayası bel altından geçmemeli.",
         "Karnı hafif sık."
       ],
-      "breathing": "Uzatırken nefes ver, dönerken al.",
-      "tempo": "2 sn uzatış · 2 sn dönüş",
-      "cues": [
+      "breathingTr": "Uzatırken nefes ver, dönerken al.",
+      "tempoTr": "2 sn uzatış · 2 sn dönüş",
+      "cuesTr": [
         "Bel yere yapışık",
         "Yavaş",
         "Karşı kol–karşı bacak"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Bel yerden kalkıyor, kaburgalar açılıyor",
           "why": "Hareketin tek amacı beli sabit tutmak; kalkıyorsa hareket amacını kaybetmiş demektir.",
@@ -1327,7 +1357,7 @@
           "fix": "Her tekrarı iki saniyeye yay. Bu harekette hız yoktur."
         }
       ],
-      "safety": "Boyun yorulursa başın altına ince bir yastık koy.",
+      "safetyTr": "Boyun yorulursa başın altına ince bir yastık koy.",
       "imagePath": "assets/exercises/dead_bug.webp",
       "videoQuery": "dead bug exercise form",
       "met": 3.8
@@ -1348,7 +1378,7 @@
         "triceps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie on the floor face down and place your hands about 36 inches apart while holding your torso up at arms length. Move your feet up to a box or bench. This will be your starting position.",
         "Next, lower yourself downward until your chest almost touches the floor as you inhale.",
         "Now breathe out and press your upper body back up to the starting position while squeezing your chest.",
@@ -1375,7 +1405,7 @@
         "shoulders"
       ],
       "difficulty": 4,
-      "execution": [
+      "executionEn": [
         "To get into the starting position, hold your body at arm's length with your arms nearly locked above the bars.",
         "Now, inhale and slowly lower yourself downward. Your torso should remain upright and your elbows should stay close to your body. This helps to better focus on tricep involvement. Lower yourself until there is a 90 degree angle formed between the upper arm and forearm.",
         "Then, exhale and push your torso back up using your triceps to bring your body back to the starting position.",
@@ -1402,7 +1432,7 @@
         "triceps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie down on a flat bench with a dumbbell in each hand resting on top of your thighs. The palms of your hands will be facing each other.",
         "Then, using your thighs to help raise the dumbbells up, lift the dumbbells one at a time so that you can hold them in front of you at shoulder width.",
         "Once at shoulder width, rotate your wrists forward so that the palms of your hands are facing away from you. The dumbbells should be just to the sides of your chest, with your upper arm and forearm creating a 90 degree angle. Be sure to maintain full control of the dumbbells at all times. This will be your starting position.",
@@ -1429,7 +1459,7 @@
         "forearms"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Stand up straight with a dumbbell in each hand at arm's length. Keep your elbows close to your torso and rotate the palms of your hands until they are facing forward. This will be your starting position.",
         "Now, keeping the upper arms stationary, exhale and curl the weights while contracting your biceps. Continue to raise the weights until your biceps are fully contracted and the dumbbells are at shoulder level. Hold the contracted position for a brief pause as you squeeze your biceps.",
         "Then, inhale and slowly begin to lower the dumbbells back to the starting position.",
@@ -1453,7 +1483,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie down on a flat bench with a dumbbell on each hand resting on top of your thighs. The palms of your hand will be facing each other.",
         "Then using your thighs to help raise the dumbbells, lift the dumbbells one at a time so you can hold them in front of you at shoulder width with the palms of your hands facing each other. Raise the dumbbells up like you're pressing them, but stop and hold just before you lock out. This will be your starting position.",
         "With a slight bend on your elbows in order to prevent stress at the biceps tendon, lower your arms out at both sides in a wide arc until you feel a stretch on your chest. Breathe in as you perform this portion of the movement. Tip: Keep in mind that throughout the movement, the arms should remain stationary; the movement should only occur at the shoulder joint.",
@@ -1482,7 +1512,7 @@
         "hamstrings"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Stand with your torso upright holding two dumbbells in your hands by your sides. This will be your starting position.",
         "Step forward with your right leg around 2 feet or so from the foot being left stationary behind and lower your upper body down, while keeping the torso upright and maintaining balance. Inhale as you go down. Note: As in the other exercises, do not allow your knee to go forward beyond your toes as you come down, as this will put undue stress on the knee joint. Make sure that you keep your front shin perpendicular to the ground.",
         "Using mainly the heel of your foot, push up and go back to the starting position as you exhale.",
@@ -1510,7 +1540,8 @@
         "sırt"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Kalçayı geriye it — hareket dizden değil kalçadan başlar.",
         "Dambıllar bacağa değecek kadar yakın aşağı iner.",
         "Arka bacakta gerilme hissettiğin noktada dur; sırt düzlüğünü kaybetme.",
@@ -1518,20 +1549,20 @@
       ],
       "isUserDefined": false,
       "nameTr": "Dambıl Romen Deadlift",
-      "summary": "Kalça menteşesi kalıbı — programda hiç yoktu. Gün boyu oturmanın zayıflattığı arka zinciri çalıştırır ve bel sağlığının temelidir.",
-      "setup": [
+      "summaryTr": "Kalça menteşesi kalıbı — programda hiç yoktu. Gün boyu oturmanın zayıflattığı arka zinciri çalıştırır ve bel sağlığının temelidir.",
+      "setupTr": [
         "Dambılları uyluklarının önünde tut, ayaklar kalça genişliğinde.",
         "Dizleri hafif bük ve hareket boyunca o açıda tut.",
         "Kürekleri hafif geriye al, sırt düz."
       ],
-      "breathing": "İnerken al, doğrulurken ver.",
-      "tempo": "3 sn iniş · 1 sn kalkış",
-      "cues": [
+      "breathingTr": "İnerken al, doğrulurken ver.",
+      "tempoTr": "3 sn iniş · 1 sn kalkış",
+      "cuesTr": [
         "Kalçayı geriye it",
         "Dambıl bacağa sürtsün",
         "Sırt düz"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Sırt yuvarlanıyor",
           "why": "Yük omurga bükülüyken bele biner; bu hareketin en ciddi hatası.",
@@ -1548,7 +1579,7 @@
           "fix": "Dambılları bacağa sürterek indir."
         }
       ],
-      "safety": "Bel ağrın varsa bu hareketi çok hafif ağırlıkla ve kısa mesafede öğren; ağrı varsa hiç yapma.",
+      "safetyTr": "Bel ağrın varsa bu hareketi çok hafif ağırlıkla ve kısa mesafede öğren; ağrı varsa hiç yapma.",
       "videoQuery": "dumbbell romanian deadlift form",
       "met": 5.0
     },
@@ -1569,7 +1600,7 @@
         "hamstrings"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Stand with your torso upright holding two dumbbells in your hands by your sides. This will be your starting position.",
         "Step backward with your right leg around two feet or so from the left foot and lower your upper body down, while keeping the torso upright and maintaining balance. Inhale as you go down. Tip: As in the other exercises, do not allow your knee to go forward beyond your toes as you come down, as this will put undue stress on the knee joint. Make sure that you keep your front shin perpendicular to the ground. Keep the torso upright during the lunge; flexible hip flexors are important. A long lunge emphasizes the Gluteus Maximus; a short lunge emphasizes Quadriceps.",
         "Push up and go back to the starting position as you exhale. Tip: Use the ball of your feet to push in order to accentuate the quadriceps. To focus on the glutes, press with your heels.",
@@ -1597,7 +1628,8 @@
         "arka omuz"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Önce sol kürek kemiğini omurgaya doğru çek.",
         "Dirseği gövdenin yanından geriye, kalçaya doğru sürükle.",
         "Dambıl alt kaburga hizasına gelince bir an sıkıştır.",
@@ -1605,20 +1637,20 @@
       ],
       "isUserDefined": false,
       "nameTr": "Tek Kol Dambıl Kürek",
-      "summary": "Bandın veremediği ağırlığı verir. Tek kol çalışmak iki taraf arasındaki güç farkını kapatır; şınav programının karşı hareketi budur.",
-      "setup": [
+      "summaryTr": "Bandın veremediği ağırlığı verir. Tek kol çalışmak iki taraf arasındaki güç farkını kapatır; şınav programının karşı hareketi budur.",
+      "setupTr": [
         "Sağ dizini ve sağ elini sandalyeye koy, sırtın yere paralel olsun.",
         "Sol ayak yerde, dizi hafif bükülü.",
         "Dambılı sol elinle al, kol serbest sarksın."
       ],
-      "breathing": "Çekerken nefes ver, indirirken al.",
-      "tempo": "1 sn çekiş · 1 sn sıkıştırma · 2 sn iniş",
-      "cues": [
+      "breathingTr": "Çekerken nefes ver, indirirken al.",
+      "tempoTr": "1 sn çekiş · 1 sn sıkıştırma · 2 sn iniş",
+      "cuesTr": [
         "Sırt düz, kalça sabit",
         "Dirsek cebe doğru",
         "Gövde dönmesin"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Gövde her tekrarda dönüyor",
           "why": "Ağırlığı sırt değil bel dönüşü kaldırıyor; bel yüklenir ve hedef kas çalışmaz.",
@@ -1635,7 +1667,7 @@
           "fix": "Göğsü aç, kalçayı geriye ver. Sırtın düz kalmıyorsa daha yüksek bir desteğe tutun."
         }
       ],
-      "safety": "Bel fıtığı ya da bel ağrısı varsa bu hareketi göğüs destekli yap. Sırtın yuvarlandığı ilk tekrarda seti bitir.",
+      "safetyTr": "Bel fıtığı ya da bel ağrısı varsa bu hareketi göğüs destekli yap. Sırtın yuvarlandığı ilk tekrarda seti bitir.",
       "videoQuery": "one arm dumbbell row form",
       "met": 5.0
     },
@@ -1652,7 +1684,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Stand erect with a dumbbell on each hand (palms facing your torso), arms extended on the sides.",
         "Lift the dumbbells by elevating the shoulders as high as possible while you exhale. Hold the contraction at the top for a second. Tip: The arms should remain extended at all times. Refrain from using the biceps to help lift the dumbbells. Only the shoulders should be moving up and down.",
         "Lower the dumbbells back to the original position.",
@@ -1681,7 +1713,7 @@
         "lower back"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Stand up straight while holding a dumbbell on each hand (palms facing the side of your legs).",
         "Position your legs using a shoulder width medium stance with the toes slightly pointed out. Keep your head up at all times as looking down will get you off balance and also maintain a straight back. This will be your starting position. Note: For the purposes of this discussion we will use the medium stance described above which targets overall development; however you can choose any of the three stances discussed in the foot stances section.",
         "Begin to slowly lower your torso by bending the knees as you maintain a straight posture with the head up. Continue down until your thighs are parallel to the floor. Tip: If you performed the exercise correctly, the front of the knees should make an imaginary straight line with the toes that is perpendicular to the front. If your knees are past that imaginary line (if they are past your toes) then you are placing undue stress on the knee and the exercise has been performed incorrectly.",
@@ -1710,7 +1742,7 @@
         "hamstrings"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Stand up straight while holding a dumbbell on each hand (palms facing the side of your legs).",
         "Place the right foot on the elevated platform. Step on the platform by extending the hip and the knee of your right leg. Use the heel mainly to lift the rest of your body up and place the foot of the left leg on the platform as well. Breathe out as you execute the force required to come up.",
         "Step down with the left leg by flexing the hip and knee of the right leg as you inhale. Return to the original standing position by placing the right foot of to next to the left foot on the initial position.",
@@ -1736,7 +1768,7 @@
         "middle back"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Stand with your hands together, arms extended directly in front of you. This will be your starting position.",
         "Keeping your arms straight, quickly move your arms back as far as possible and back in again, similar to an exaggerated clapping motion. Repeat 5-10 times, increasing speed as you do so."
       ],
@@ -1762,7 +1794,7 @@
         "hamstrings"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "To begin, step onto the elliptical and select the desired option from the menu. Most ellipticals have a manual setting, or you can select a program to run. Typically, you can enter your age and weight to estimate the amount of calories burned during exercise. Elevation can be adjusted to change the intensity of the workout.",
         "The handles can be used to monitor your heart rate to help you stay at an appropriate intensity."
       ],
@@ -1784,7 +1816,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie on an exercise ball with your lower back curvature pressed against the spherical surface of the ball. Your feet should be bent at the knee and pressed firmly against the floor. The upper torso should be hanging off the top of the ball. The arms should either be kept alongside the body or crossed on top of your chest as these positions avoid neck strains (as opposed to the hands behind the back of the head position).",
         "Lower your torso into a stretch position keeping the neck stationary at all times. This will be your starting position.",
         "With the hips stationary, flex the waist by contracting the abdominals and curl the shoulders and trunk upward until you feel a nice contraction on your abdominals. The arms should simply slide up the side of your legs if you have them at the side or just stay on top of your chest if you have them crossed. The lower back should always stay in contact with the ball. Exhale as you perform this movement and hold the contraction for a second.",
@@ -1809,7 +1841,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Choke the band around a post. The band should be at the same height as your elbow. Stand with your left side to the band a couple of feet away.",
         "Grasp the end of the band with your right hand, and keep your elbow pressed firmly to your side. We recommend you hold a pad or foam roll in place with your elbow to keep it firmly in position.",
         "With your upper arm in position, your elbow should be flexed to 90 degrees with your hand reaching across the front of your torso. This will be your starting position.",
@@ -1834,7 +1866,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Stand up straight while holding an EZ curl bar at the wide outer handle. The palms of your hands should be facing forward and slightly tilted inward due to the shape of the bar. Keep your elbows close to your torso. This will be your starting position.",
         "Now, while keeping your upper arms stationary, exhale and curl the weights forward while contracting the biceps. Focus on only moving your forearms.",
         "Continue to raise the weight until your biceps are fully contracted and the bar is at shoulder level. Hold the top contracted position for a moment and squeeze the biceps.",
@@ -1861,7 +1893,7 @@
         "forearms"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Using a close grip, lift the EZ bar and hold it with your elbows in as you lie on the bench. Your arms should be perpendicular to the floor. This will be your starting position.",
         "Keeping the upper arms stationary, lower the bar by allowing the elbows to flex. Inhale as you perform this portion of the movement. Pause once the bar is directly above the forehead.",
         "Lift the bar back to the starting position by extending the elbow and exhaling.",
@@ -1887,7 +1919,10 @@
         "middle back"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
+        "Facing a high pulley with a rope or dual handles attached, pull the weight directly towards your face, separating your hands as you do so. Keep your upper arms parallel to the ground."
+      ],
+      "executionTr": [
         "Set a cable pulley to slightly above head height and attach a rope. Take one end in each hand with a neutral grip.",
         "Step back until the cable is taut and stand with a split stance, arms extended in front of you.",
         "Pull the rope towards your face, driving your elbows high and wide and separating your hands as they approach your ears.",
@@ -1915,27 +1950,28 @@
         "bacak"
       ],
       "difficulty": 1,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Normal adımlarla düz yürü.",
         "Gövdeyi dik ve sabit tut, yana yalpalama.",
         "Belirlenen mesafeyi ya da süreyi tamamla, dambılları kontrollü bırak."
       ],
       "isUserDefined": false,
       "nameTr": "Çiftçi Yürüyüşü",
-      "summary": "Taşıma kalıbı. Öğrenmesi en kolay, günlük hayata en çok benzeyen hareket: ağırlık taşırken gövdeyi dik tutmak.",
-      "setup": [
+      "summaryTr": "Taşıma kalıbı. Öğrenmesi en kolay, günlük hayata en çok benzeyen hareket: ağırlık taşırken gövdeyi dik tutmak.",
+      "setupTr": [
         "İki dambılı yanlarında tut.",
         "Omuzları geriye al, göğsü aç.",
         "Karnı hafif sık."
       ],
-      "breathing": "Normal nefes al; tutma.",
-      "tempo": "30-45 sn taşıma",
-      "cues": [
+      "breathingTr": "Normal nefes al; tutma.",
+      "tempoTr": "30-45 sn taşıma",
+      "cuesTr": [
         "Omuz geriye",
         "Yalpalama",
         "Nefesi tutma"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Gövde ağırlığın olduğu tarafa yatıyor",
           "why": "Yan karın kasları çalışmaz, bel tek taraflı yüklenir.",
@@ -1947,7 +1983,7 @@
           "fix": "Göğsü aç, kürekleri geriye al."
         }
       ],
-      "safety": "Kalp-damar rahatsızlığı olanlar nefes tutmamalı. Dambılları yere bırakırken sırtı düz tut.",
+      "safetyTr": "Kalp-damar rahatsızlığı olanlar nefes tutmamalı. Dambılları yere bırakırken sırtı düz tut.",
       "videoQuery": "farmer carry form",
       "met": 5.0
     },
@@ -1964,7 +2000,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie with your back flat on a bench and your legs extended in front of you off the end.",
         "Place your hands either under your glutes with your palms down or by the sides holding on to the bench. This will be your starting position.",
         "As you keep your legs extended, straight as possible with your knees slightly bent but locked raise your legs until they make a 90-degree angle with the floor. Exhale as you perform this portion of the movement and hold the contraction at the top for a second.",
@@ -1992,7 +2028,7 @@
         "hamstrings"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Cross your arms over your chest.",
         "With your head up and your back straight, position your feet at shoulder width.",
         "Keeping your back straight and chest up, squat down as you inhale until your upper thighs are parallel, or lower, to the floor.",
@@ -2022,7 +2058,7 @@
         "hamstrings"
       ],
       "difficulty": 4,
-      "execution": [
+      "executionEn": [
         "This exercise is best performed inside a squat rack for safety purposes. To begin, first set the bar on a rack that best matches your height. Once the correct height is chosen and the bar is loaded, bring your arms up under the bar while keeping the elbows high and the upper arm slightly above parallel to the floor. Rest the bar on top of the deltoids and cross your arms while grasping the bar for total control.",
         "Lift the bar off the rack by first pushing with your legs and at the same time straightening your torso.",
         "Step away from the rack and position your legs using a shoulder width medium stance with the toes slightly pointed out. Keep your head up at all times as looking down will get you off balance and also maintain a straight back. This will be your starting position. (Note: For the purposes of this discussion we will use the medium stance described above which targets overall development; however you can choose any of the three stances described in the foot positioning section).",
@@ -2048,7 +2084,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Pick a couple of dumbbells and stand with a straight torso and the dumbbells on front of your thighs at arms length with the palms of the hand facing your thighs. This will be your starting position.",
         "While maintaining the torso stationary (no swinging), lift the left dumbbell to the front with a slight bend on the elbow and the palms of the hands always facing down. Continue to go up until you arm is slightly above parallel to the floor. Exhale as you execute this portion of the movement and pause for a second at the top. Inhale after the second pause.",
         "Now lower the dumbbell back down slowly to the starting position as you simultaneously lift the right dumbbell.",
@@ -2075,27 +2111,28 @@
         "bel"
       ],
       "difficulty": 1,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Topuklardan iterek kalçanı yukarı kaldır.",
         "Diz–kalça–omuz düz bir çizgi olunca dur ve kalçanı sık.",
         "Kontrollü şekilde indir; kalçan yere değmeden bir sonraki tekrara başla."
       ],
       "isUserDefined": false,
       "nameTr": "Kalça Köprüsü",
-      "summary": "Kalçayı doğrudan çalıştıran, bele yük bindirmeyen hareket. Gün boyu oturmaktan uyuşan kalça kaslarını uyandırır.",
-      "setup": [
+      "summaryTr": "Kalçayı doğrudan çalıştıran, bele yük bindirmeyen hareket. Gün boyu oturmaktan uyuşan kalça kaslarını uyandırır.",
+      "setupTr": [
         "Sırtüstü uzan, dizler bükülü, ayak tabanları yere basılı.",
         "Ayakları kalça genişliğinde, topukları kalçana bir el mesafede konumla.",
         "Kollar yanda, avuç içleri yere baksın."
       ],
-      "breathing": "Kaldırırken nefes ver, indirirken al.",
-      "tempo": "1 sn kalkış · 2 sn sıkıştırma · 2 sn iniş",
-      "cues": [
+      "breathingTr": "Kaldırırken nefes ver, indirirken al.",
+      "tempoTr": "1 sn kalkış · 2 sn sıkıştırma · 2 sn iniş",
+      "cuesTr": [
         "Topuktan it",
         "Kalçayı sık",
         "Beli değil kalçayı kaldır"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Kalça yerine bel kaldırılıyor, sırt aşırı geriye bükülüyor",
           "why": "Kalça çalışmaz, bel omurları sıkışır.",
@@ -2112,7 +2149,7 @@
           "fix": "Parmakları hafif yukarı kaldırıp topuktan it."
         }
       ],
-      "safety": "Boyun rahat kalmalı; başını yerden kaldırma.",
+      "safetyTr": "Boyun rahat kalmalı; başını yerden kaldırma.",
       "imagePath": "assets/exercises/glute_bridge.webp",
       "videoQuery": "glute bridge form",
       "met": 5.0
@@ -2133,7 +2170,12 @@
         "karın"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
+        "Stand holding a light kettlebell by the horns close to your chest. This will be your starting position.",
+        "Squat down between your legs until your hamstrings are on your calves. Keep your chest and head up and your back straight.",
+        "At the bottom position, pause and use your elbows to push your knees out. Return to the starting position, and repeat for 10-20 repetitions."
+      ],
+      "executionTr": [
         "Kalçayı geriye ve aşağıya götürerek çök.",
         "Dizler ayak parmaklarıyla aynı yöne baksın, içeri kapanmasın.",
         "Uyluklar yere paralel olana kadar in — ağrısız gidebildiğin kadar.",
@@ -2141,20 +2183,20 @@
       ],
       "isUserDefined": false,
       "nameTr": "Goblet Squat",
-      "summary": "Sandalye squatın bir üst basamağı. Ağırlık göğüste olduğu için gövde dik kalır; squat öğrenmenin en güvenli yolu.",
-      "setup": [
+      "summaryTr": "Sandalye squatın bir üst basamağı. Ağırlık göğüste olduğu için gövde dik kalır; squat öğrenmenin en güvenli yolu.",
+      "setupTr": [
         "Dambılı dikey tutup göğsünün önünde, iki avucunla üst ucundan kavra.",
         "Ayaklar omuz genişliğinde, parmak uçları hafif dışa dönük.",
         "Dirsekler gövdeye yakın."
       ],
-      "breathing": "İnerken al, kalkarken ver.",
-      "tempo": "2 sn iniş · 1 sn kalkış",
-      "cues": [
+      "breathingTr": "İnerken al, kalkarken ver.",
+      "tempoTr": "2 sn iniş · 1 sn kalkış",
+      "cuesTr": [
         "Göğüs yukarı",
         "Diz dışarı",
         "Topuktan it"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Dizler içeri kapanıyor",
           "why": "Diz iç bağı yüklenir; kilo fazlaysa risk daha yüksek.",
@@ -2171,7 +2213,7 @@
           "fix": "Dambılı göğse yapıştır, dirsekleri içeride tut."
         }
       ],
-      "safety": "Diz ağrısı varsa derinliği ağrısız aralıkla sınırla. Ağrı hissettiğin noktaya kadar inme.",
+      "safetyTr": "Diz ağrısı varsa derinliği ağrısız aralıkla sınırla. Ağrı hissettiğin noktaya kadar inme.",
       "regressions": [
         "chair_squat"
       ],
@@ -2195,7 +2237,7 @@
         "lower back"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Begin with a bar on a rack at shoulder height. Rack the bar across the rear of your shoulders as you would a power squat, not on top of your shoulders. Keep your back tight, shoulder blades pinched together, and your knees slightly bent. Step back from the rack.",
         "Begin by bending at the hips, moving them back as you bend over to near parallel. Keep your back arched and your cervical spine in proper alignment.",
         "Reverse the motion by extending through the hips with your glutes and hamstrings. Continue until you have returned to the starting position."
@@ -2218,7 +2260,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Begin in a pushup position on the floor. This will be your starting position.",
         "Using both legs, jump forward landing with your feet next to your hands. Keep your head up as you do so.",
         "Return to the starting position and immediately repeat the movement, continuing for 10-20 repetitions."
@@ -2245,7 +2287,7 @@
         "hamstrings"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Place the back of your torso against the back pad of the machine and hook your shoulders under the shoulder pads provided.",
         "Position your legs in the platform using a shoulder width medium stance with the toes slightly pointed out. Tip: Keep your head up at all times and also maintain the back on the pad at all times.",
         "Place your arms on the side handles of the machine and disengage the safety bars (which on most designs is done by moving the side handles from a facing front position to a diagonal position).",
@@ -2272,7 +2314,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Stand up with your torso upright and a dumbbell on each hand being held at arms length. The elbows should be close to the torso.",
         "The palms of the hands should be facing your torso. This will be your starting position.",
         "Now, while holding your upper arm stationary, exhale and curl the weight forward while contracting the biceps. Continue to raise the weight until the biceps are fully contracted and the dumbbell is at shoulder level. Hold the contracted position for a brief moment as you squeeze the biceps. Tip: Focus on keeping the elbow stationary and only moving your forearm.",
@@ -2297,7 +2339,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie on your back with one leg extended above you, with the hip at ninety degrees. Keep the other leg flat on the floor.",
         "Loop a belt, band, or rope over the ball of your foot. This will be your starting position.",
         "Pull on the belt to create tension in the calves and hamstrings. Hold this stretch for 10-30 seconds, and repeat with the other leg."
@@ -2322,7 +2364,7 @@
         "triceps"
       ],
       "difficulty": 5,
-      "execution": [
+      "executionEn": [
         "With your back to the wall bend at the waist and place both hands on the floor at shoulder width.",
         "Kick yourself up against the wall with your arms straight. Your body should be upside down with the arms and legs fully extended. Keep your whole body as straight as possible. Tip: If doing this for the first time, have a spotter help you. Also, make sure that you keep facing the wall with your head, rather than looking down.",
         "Slowly lower yourself to the ground as you inhale until your head almost touches the floor. Tip: It is of utmost importance that you come down slow in order to avoid head injury.",
@@ -2347,7 +2389,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 4,
-      "execution": [
+      "executionEn": [
         "Hang from a chin-up bar with both arms extended at arms length in top of you using either a wide grip or a medium grip. The legs should be straight down with the pelvis rolled slightly backwards. This will be your starting position.",
         "Raise your legs until the torso makes a 90-degree angle with the legs. Exhale as you perform this movement and hold the contraction for a second or so.",
         "Go back slowly to the starting position as you breathe in.",
@@ -2373,27 +2415,28 @@
         "bel"
       ],
       "difficulty": 1,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Kalçayı hafifçe öne kaydır; sağ kalçanın önünde gerilme hisset.",
         "Kuyruk sokumunu içeri al — gerilme burada artar.",
         "20-30 saniye tut, sonra taraf değiştir."
       ],
       "isUserDefined": false,
       "nameTr": "Kalça Ön Esnetme",
-      "summary": "Uzun süre oturmak kalça önünü kısaltır; kısalan kalça bel yayını artırır ve bel ağrısı üretir. Bu esnetme onu geri açar.",
-      "setup": [
+      "summaryTr": "Uzun süre oturmak kalça önünü kısaltır; kısalan kalça bel yayını artırır ve bel ağrısı üretir. Bu esnetme onu geri açar.",
+      "setupTr": [
         "Yarım diz çök: sağ diz yerde, sol ayak önde 90 derece.",
         "Diz altına yastık koy.",
         "Gövde dik."
       ],
-      "breathing": "Sakin nefes al; germe sırasında nefesi tutma.",
-      "tempo": "20-30 sn tutuş, iki taraf",
-      "cues": [
+      "breathingTr": "Sakin nefes al; germe sırasında nefesi tutma.",
+      "tempoTr": "20-30 sn tutuş, iki taraf",
+      "cuesTr": [
         "Bel yayını abartma",
         "Kuyruk sokumu içeri",
         "Gövde dik"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Bel geriye yaylanıyor",
           "why": "Gerilme kalçadan bele kayar; ağrıyı azaltmak yerine artırır.",
@@ -2405,7 +2448,7 @@
           "fix": "Öndeki ayağı biraz daha ileri al."
         }
       ],
-      "safety": "Diz üstünde durmak acı veriyorsa mutlaka yastık kullan; ağrı hissediyorsan esnetmeyi ayakta yap.",
+      "safetyTr": "Diz üstünde durmak acı veriyorsa mutlaka yastık kullan; ağrı hissediyorsan esnetmeyi ayakta yap.",
       "videoQuery": "half kneeling hip flexor stretch",
       "met": 2.3
     },
@@ -2424,7 +2467,7 @@
         "glutes"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie down on your back and pull both knees up to your chest.",
         "Hold your arms under the knees, not over (that would put to much pressure on your knee joints).",
         "Slowly pull the knees toward your shoulders. This also stretches your buttocks muscles."
@@ -2450,7 +2493,7 @@
         "hamstrings"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie face down on a hyperextension bench, tucking your ankles securely under the footpads.",
         "Adjust the upper pad if possible so your upper thighs lie flat across the wide pad, leaving enough room for you to bend at the waist without any restriction.",
         "With your body straight, cross your arms in front of you (my preference) or behind your head. This will be your starting position. Tip: You can also hold a weight plate for extra resistance in front of you under your crossed arms.",
@@ -2476,7 +2519,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Lay on your side, with the bottom leg placed onto a foam roller between the hip and the knee. The other leg can be crossed in front of you.",
         "Place as much of your weight as is tolerable onto your bottom leg; there is no need to keep your bottom leg in contact with the ground. Be sure to relax the muscles of the leg you are stretching.",
         "Roll your leg over the foam from you hip to your knee, pausing for 10-30 seconds at points of tension. Repeat with the opposite leg."
@@ -2499,7 +2542,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Stand with your feet close together. Keeping your legs straight, stretch down and put your hands on the floor directly in front of you. This will be your starting position.",
         "Begin by walking your hands forward slowly, alternating your left and your right. As you do so, bend only at the hip, keeping your legs straight.",
         "Keep going until your body is parallel to the ground in a pushup position.",
@@ -2527,7 +2570,7 @@
         "triceps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie back on an incline bench with a dumbbell in each hand atop your thighs. The palms of your hands will be facing each other.",
         "Then, using your thighs to help push the dumbbells up, lift the dumbbells one at a time so that you can hold them at shoulder width.",
         "Once you have the dumbbells raised to shoulder width, rotate your wrists forward so that the palms of your hands are facing away from you. This will be your starting position.",
@@ -2559,27 +2602,28 @@
         "karın"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Dirsekleri 45 derece açıyla bükerek gövdeni tek parça hâlinde indir.",
         "Göğsün yükseltiye değecek kadar yaklaşınca bir an dur.",
         "Yerden ittiğini düşünerek başlangıca dön, kürek kemiklerini sabit tut."
       ],
       "isUserDefined": false,
       "nameTr": "Eğimli Şınav",
-      "summary": "Programın üst vücut temeli. Eller yükseltide olduğu için yükün bir kısmı ayaklarda kalır; nizami şınava giden yolun orta basamağı.",
-      "setup": [
+      "summaryTr": "Programın üst vücut temeli. Eller yükseltide olduğu için yükün bir kısmı ayaklarda kalır; nizami şınava giden yolun orta basamağı.",
+      "setupTr": [
         "Sağlam bir yükselti seç: sehpa, koltuk kolçağı, mutfak tezgâhı. Kaymayacağından emin ol.",
         "Ellerini omuz genişliğinden biraz açık, yükseltinin kenarına koy.",
         "Ayaklarını geri yürüt; gövden topuktan başa düz bir çizgi olsun."
       ],
-      "breathing": "İnerken nefes al, iterken ver.",
-      "tempo": "2 sn iniş · 1 sn duraklama · 1 sn çıkış",
-      "cues": [
+      "breathingTr": "İnerken nefes al, iterken ver.",
+      "tempoTr": "2 sn iniş · 1 sn duraklama · 1 sn çıkış",
+      "cuesTr": [
         "Karın sıkı",
         "Bel çukurlaşmasın",
         "Göğüs değsin"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Kalça düşüyor, bel çukurlaşıyor",
           "why": "Karın gevşeyince yükün tamamı bele biner; bel ağrısının en sık nedeni budur.",
@@ -2596,7 +2640,7 @@
           "fix": "Bakışını ellerinin biraz önüne sabitle, çeneni hafif içeri al."
         }
       ],
-      "safety": "Yükselti sabit olmalı; tekerlekli sandalye ya da kaygan yüzey kullanma. Omuzda batma hissinde yüksekliği artır.",
+      "safetyTr": "Yükselti sabit olmalı; tekerlekli sandalye ya da kaygan yüzey kullanma. Omuzda batma hissinde yüksekliği artır.",
       "regressions": [
         "wall_pushup"
       ],
@@ -2623,7 +2667,7 @@
         "lats"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Position a bar in a rack to about waist height. You can also use a smith machine.",
         "Take a wider than shoulder width grip on the bar and position yourself hanging underneath the bar. Your body should be straight with your heels on the ground with your arms fully extended. This will be your starting position.",
         "Begin by flexing the elbow, pulling your chest towards the bar. Retract your shoulder blades as you perform the movement.",
@@ -2651,7 +2695,7 @@
         "hamstrings"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "To begin, step onto the treadmill and select the desired option from the menu. Most treadmills have a manual setting, or you can select a program to run. Typically, you can enter your age and weight to estimate the amount of calories burned during exercise. Elevation can be adjusted to change the intensity of the workout.",
         "Treadmills offer convenience, cardiovascular benefits, and usually have less impact than jogging outside. A 150 lb person will burn almost 250 calories jogging for 30 minutes, compared to more than 450 calories running. Maintain proper posture as you jog, and only hold onto the handles when necessary, such as when dismounting or checking your heart rate."
       ],
@@ -2678,7 +2722,7 @@
         "shoulders"
       ],
       "difficulty": 5,
-      "execution": [
+      "executionEn": [
         "Pick up a kettlebell with two hands and hold it by the horns. Hold one leg off of the floor and squat down on the other.",
         "Squat down by flexing the knee and sitting back with the hips, holding the kettlebell up in front of you.",
         "Hold the bottom position for a second and then reverse the motion, driving through the heel and keeping your head and chest up.",
@@ -2706,27 +2750,28 @@
         "karın"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Dirsekleri 45 derece bükerek göğsünü yere indir.",
         "Göğsün yere bir yumruk mesafe kalınca dur.",
         "Yeri iterek başlangıca dön; dizlerin sabit kalsın."
       ],
       "isUserDefined": false,
       "nameTr": "Dizüstü Şınav",
-      "summary": "Eğimli şınav ile nizami şınav arasındaki köprü. Yer seviyesinde çalışırsın ama kaldıracın kısaldığı için yük azalır.",
-      "setup": [
+      "summaryTr": "Eğimli şınav ile nizami şınav arasındaki köprü. Yer seviyesinde çalışırsın ama kaldıracın kısaldığı için yük azalır.",
+      "setupTr": [
         "Dizlerinin altına yastık ya da katlanmış havlu koy.",
         "Ellerini omuz genişliğinden biraz açık yere koy, parmaklar ileri baksın.",
         "Dizden başa düz bir çizgi oluştur; kalçayı yukarı kaldırma."
       ],
-      "breathing": "İnerken nefes al, iterken ver.",
-      "tempo": "2 sn iniş · 1 sn duraklama · 1 sn çıkış",
-      "cues": [
+      "breathingTr": "İnerken nefes al, iterken ver.",
+      "tempoTr": "2 sn iniş · 1 sn duraklama · 1 sn çıkış",
+      "cuesTr": [
         "Diz–kalça–omuz tek çizgi",
         "Karın sıkı",
         "Dirsekler 45°"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Kalça yukarıda, vücut ters V şeklinde",
           "why": "Hareket kısalır ve göğüs yerine omuz çalışır; kolay geldiği için fark edilmez.",
@@ -2738,7 +2783,7 @@
           "fix": "Mutlaka yastık ya da katlanmış havlu kullan."
         }
       ],
-      "safety": "Diz hassasiyeti nedeniyle yumuşak zemin şart. Diz kapağında ağrı olursa eğimli şınava geri dön.",
+      "safetyTr": "Diz hassasiyeti nedeniyle yumuşak zemin şart. Diz kapağında ağrı olursa eğimli şınava geri dön.",
       "regressions": [
         "incline_pushup"
       ],
@@ -2763,7 +2808,7 @@
         "quadriceps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Kneel on a mat and bring your right knee up so the bottom of your foot is on the floor and extend your left leg out behind you so the top of your foot is on the floor.",
         "Shift your weight forward until you feel a stretch in your hip. Hold for 15 seconds, then repeat for your other side."
       ],
@@ -2785,7 +2830,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "To begin, stand on an exercise band so that tension begins at arm's length. Grasp the handles using a pronated (palms facing your thighs) grip that is slightly less than shoulder width. The handles should be resting on the sides of your thighs. Your arms should be extended with a slight bend at the elbows and your back should be straight. This will be your starting position.",
         "Use your side shoulders to lift the handles to the sides as you exhale. Continue to lift the handles until they are slightly above parallel. Tip: As you lift the handles, slightly tilt the hand as if you were pouring water and keep your arms extended. Also, keep your torso stationary and pause for a second at the top of the movement.",
         "Lower the handles back down slowly to the starting position. Inhale as you perform this portion of the movement.",
@@ -2809,7 +2854,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "For this exercise you will need to use a leg extension machine. First choose your weight and sit on the machine with your legs under the pad (feet pointed forward) and the hands holding the side bars. This will be your starting position. Tip: You will need to adjust the pad so that it falls on top of your lower leg (just above your feet). Also, make sure that your legs form a 90-degree angle between the lower and upper leg. If the angle is less than 90-degrees then that means the knee is over the toes which in turn creates undue stress at the knee joint. If the machine is designed that way, either look for another machine or just make sure that when you start executing the exercise you stop going down once you hit the 90-degree angle.",
         "Using your quadriceps, extend your legs to the maximum as you exhale. Ensure that the rest of the body remains stationary on the seat. Pause a second on the contracted position.",
         "Slowly lower the weight back to the original position as you inhale, ensuring that you do not go past the 90-degree angle limit.",
@@ -2837,7 +2882,7 @@
         "hamstrings"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Using a leg press machine, sit down on the machine and place your legs on the platform directly in front of you at a medium (shoulder width) foot stance. (Note: For the purposes of this discussion we will use the medium stance described above which targets overall development; however you can choose any of the three stances described in the foot positioning section).",
         "Lower the safety bars holding the weighted platform in place and press the platform all the way up until your legs are fully extended in front of you. Tip: Make sure that you do not lock your knees. Your torso and the legs should make a perfect 90-degree angle. This will be your starting position.",
         "As you inhale, slowly lower the platform until your upper and lower legs make a 90-degree angle.",
@@ -2865,7 +2910,7 @@
         "middle back"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Load an appropriate weight onto the pins and adjust the seat height so that the handles are at chest level. Grasp the handles with either a neutral or pronated grip. This will be your starting position.",
         "Pull the handles towards your torso, retracting your shoulder blades as you flex the elbow.",
         "Pause at the bottom of the motion, and then slowly return the handles to the starting position. For multiple repetitions, avoid completely returning the weight to the stops to keep tension on the muscles being worked."
@@ -2891,7 +2936,7 @@
         "triceps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Sit down on the Chest Press Machine and select the weight.",
         "Step on the lever provided by the machine since it will help you to bring the handles forward so that you can grab the handles and fully extend the arms.",
         "Grab the handles with a palms-down grip and lift your elbows so that your upper arms are parallel to the floor to the sides of your torso. Tip: Your forearms will be pointing forward since you are grabbing the handles. Once you bring the handles forward and extend the arms you will be at the starting position.",
@@ -2920,7 +2965,7 @@
         "triceps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Sit down on the Shoulder Press Machine and select the weight.",
         "Grab the handles to your sides as you keep the elbows bent and in line with your torso. This will be your starting position.",
         "Now lift the handles as you exhale and you extend the arms fully. At the top of the position make sure that you hold the contraction for a second.",
@@ -2948,7 +2993,7 @@
         "triceps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "You will need a partner for this exercise. Lacking one, this movement can be performed against a wall.",
         "Begin facing your partner holding the medicine ball at your torso with both hands.",
         "Pull the ball to your chest, and reverse the motion by extending through the elbows. For sports applications, you can take a step as you throw.",
@@ -2977,7 +3022,7 @@
         "lower back"
       ],
       "difficulty": 4,
-      "execution": [
+      "executionEn": [
         "Using the leg pad of a lat pulldown machine or a preacher bench, position yourself so that your ankles are under the pads, knees on the seat, and you are facing away from the machine. You should be upright and maintaining good posture.",
         "This will be your starting position. Lower yourself under control until your knees are almost completely straight.",
         "Remaining in control, raise yourself back up to the starting position.",
@@ -3001,7 +3046,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie flat on the floor with your lower back pressed to the ground. For this exercise, you will need to put one hand beside your head and the other to the side against the floor.",
         "Make sure your feet are elevated and resting on a flat surface.",
         "Now lift the shoulder in which your hand is touching your head.",
@@ -3032,7 +3077,7 @@
         "shoulders"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Choose a flat bench and place a dumbbell on each side of it.",
         "Place the right leg on top of the end of the bench, bend your torso forward from the waist until your upper body is parallel to the floor, and place your right hand on the other end of the bench for support.",
         "Use the left hand to pick up the dumbbell on the floor and hold the weight while keeping your lower back straight. The palm of the hand should be facing your torso. This will be your starting position.",
@@ -3062,7 +3107,10 @@
         "lats"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
+        "Place a kettlebell in front of your feet. Bend your knees slightly and then push your butt out as much as possible as you bend over to get in the starting position. Grab the kettlebell and pull it to your stomach, retracting your shoulder blade and flexing the elbow. Keep your back straight. Lower and repeat."
+      ],
+      "executionTr": [
         "Place a kettlebell on the floor just outside your lead foot and take a staggered stance.",
         "Hinge at the hips until your torso is close to parallel with the floor, bracing your free hand on your thigh or a bench.",
         "Grip the handle with a neutral wrist and pull the bell towards your hip, leading with the elbow and retracting the shoulder blade.",
@@ -3091,7 +3139,8 @@
         "shoulders"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Set the kettlebell about a foot in front of you and take a stance slightly wider than your hips.",
         "Hinge at the hips, grip the handle with one hand and hike the bell back between your legs like a football snap.",
         "Drive your hips forward explosively so the bell floats up to chest height; the arms guide, they do not lift.",
@@ -3119,7 +3168,7 @@
         "triceps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Connect a standard handle to a tower, and—if possible—position the cable to shoulder height. If not, a low pulley will suffice.",
         "With your side to the cable, grab the handle with both hands and step away from the tower. You should be approximately arm's length away from the pulley, with the tension of the weight on the cable.",
         "With your feet positioned hip-width apart and knees slightly bent, hold the cable to the middle of your chest. This will be your starting position.",
@@ -3149,27 +3198,31 @@
         "bel"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
+        "Get into a prone position on the floor, supporting your weight on your toes and your forearms. Your arms are bent and directly below the shoulder.",
+        "Keep your body straight at all times, and hold this position as long as possible. To increase difficulty, an arm or leg can be raised."
+      ],
+      "executionTr": [
         "Karnı sık, kalçayı sık, kürek kemiklerini hafif ayır.",
         "Nefesini tutmadan pozisyonu koru.",
         "Form bozulduğu anda süreyi bitir — kalça düşerse ya da yükselirse set bitmiştir."
       ],
       "isUserDefined": false,
       "nameTr": "Plank",
-      "summary": "Gövdeyi hareketsiz tutma çalışması. Ay sonu ölçümlerinde süresi kaydedilir; ilerlemenin en kolay okunan göstergelerinden biri.",
-      "setup": [
+      "summaryTr": "Gövdeyi hareketsiz tutma çalışması. Ay sonu ölçümlerinde süresi kaydedilir; ilerlemenin en kolay okunan göstergelerinden biri.",
+      "setupTr": [
         "Önkolların üstüne gel; dirsekler omuzların tam altında olsun.",
         "Ayaklarını kalça genişliğinde aç, parmak uçlarına bas.",
         "Kalçayı topuk–omuz çizgisine getir."
       ],
-      "breathing": "Sakin ve kesintisiz; nefesi tutma.",
-      "tempo": "Sabit tutuş — hedef süre kadar",
-      "cues": [
+      "breathingTr": "Sakin ve kesintisiz; nefesi tutma.",
+      "tempoTr": "Sabit tutuş — hedef süre kadar",
+      "cuesTr": [
         "Kalça topuk hizasında",
         "Karın sıkı",
         "Nefes al"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Kalça yukarıda, vücut ters V şeklinde",
           "why": "Karın devre dışı kalır; süre uzar ama çalışma olmaz.",
@@ -3186,7 +3239,7 @@
           "fix": "Yüksek sesle sayarak nefes almayı kendine hatırlat."
         }
       ],
-      "safety": "Omuzda ya da belde ağrı olursa dizüstü plank'a geç. Baş dönmesinde hemen bırak.",
+      "safetyTr": "Omuzda ya da belde ağrı olursa dizüstü plank'a geç. Baş dönmesinde hemen bırak.",
       "imagePath": "assets/exercises/plank.webp",
       "videoQuery": "forearm plank form",
       "met": 3.8
@@ -3207,7 +3260,7 @@
         "triceps"
       ],
       "difficulty": 4,
-      "execution": [
+      "executionEn": [
         "Move into a prone position on the floor, supporting your weight on your hands and toes.",
         "Your arms should be fully extended with the hands around shoulder width. Keep your body straight throughout the movement. This will be your starting position.",
         "Descend by flexing at the elbow, lowering your chest towards the ground.",
@@ -3233,7 +3286,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "To perform this movement you will need a preacher bench and an E-Z bar. Grab the E-Z curl bar at the close inner handle (either have someone hand you the bar which is preferable or grab the bar from the front bar rest provided by most preacher benches). The palm of your hands should be facing forward and they should be slightly tilted inwards due to the shape of the bar.",
         "With the upper arms positioned against the preacher bench pad and the chest against it, hold the E-Z Curl Bar at shoulder length. This will be your starting position.",
         "As you breathe in, slowly lower the bar until your upper arm is extended and the biceps is fully stretched.",
@@ -3261,7 +3314,7 @@
         "middle back"
       ],
       "difficulty": 4,
-      "execution": [
+      "executionEn": [
         "Grab the pull-up bar with the palms facing forward using the prescribed grip. Note on grips: For a wide grip, your hands need to be spaced out at a distance wider than your shoulder width. For a medium grip, your hands need to be spaced out at a distance equal to your shoulder width and for a close grip at a distance smaller than your shoulder width.",
         "As you have both arms extended in front of you holding the bar at the chosen grip width, bring your torso back around 30 degrees or so while creating a curvature on your lower back and sticking your chest out. This is your starting position.",
         "Pull your torso up until the bar touches your upper chest by drawing the shoulders and the upper arms down and back. Exhale as you perform this portion of the movement. Tip: Concentrate on squeezing the back muscles once you reach the full contracted position. The upper torso should remain stationary as it moves through space and only the arms should move. The forearms should do no other work other than hold the bar.",
@@ -3290,7 +3343,7 @@
         "triceps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Get into pushup position on the toes with your hands just outside of shoulder width.",
         "Perform a pushup by allowing the elbows to flex. As you descend, keep your body straight.",
         "Do one pushup and as you come up, shift your weight on the left side of the body, twist to the side while bringing the right arm up towards the ceiling in a side plank.",
@@ -3319,7 +3372,7 @@
         "triceps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "With your hands wide apart, support your body on your toes and hands in a plank position. Your elbows should be extended and your body straight. Do not allow your hips to sag. This will be your starting position.",
         "To begin, allow the elbows to flex, lowering your chest to the floor as you inhale.",
         "Using your pectoral muscles, press your upper body back up to the starting position by extending the elbows. Exhale as you perform this step.",
@@ -3347,27 +3400,28 @@
         "karın"
       ],
       "difficulty": 4,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Gövdeni tek parça hâlinde indir; dirsekler 45 derece.",
         "Göğsün yere bir yumruk mesafe kalınca dur.",
         "Yeri iterek başlangıca dön; kalça önce ya da sonra hareket etmesin."
       ],
       "isUserDefined": false,
       "nameTr": "Nizami Şınav",
-      "summary": "Zincirin son basamağı ve geçiş kriterinin ölçütü: kesintisiz 8 nizami tekrar, geçiş için gereken üç şarttan biri.",
-      "setup": [
+      "summaryTr": "Zincirin son basamağı ve geçiş kriterinin ölçütü: kesintisiz 8 nizami tekrar, geçiş için gereken üç şarttan biri.",
+      "setupTr": [
         "Ellerini omuz genişliğinden biraz açık yere koy.",
         "Ayaklarını birleştir ya da kalça genişliğinde aç.",
         "Topuktan başa düz bir çizgi kur; karnı ve kalçayı sık."
       ],
-      "breathing": "İnerken nefes al, iterken ver.",
-      "tempo": "2 sn iniş · 1 sn duraklama · 1 sn çıkış",
-      "cues": [
+      "breathingTr": "İnerken nefes al, iterken ver.",
+      "tempoTr": "2 sn iniş · 1 sn duraklama · 1 sn çıkış",
+      "cuesTr": [
         "Tek parça in, tek parça çık",
         "Kalça sıkı",
         "Dirsekler 45°"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Önce kalça, sonra göğüs kalkıyor",
           "why": "Gövde tek parça değil; bel eklemleri yükü tek tek karşılar.",
@@ -3384,7 +3438,7 @@
           "fix": "Göğsün mesafeyi belirlesin. Nizami tekrar sayarken bunu ölçüt al."
         }
       ],
-      "safety": "Bilekte ağrı olursa şınav sapları kullan ya da yumruk üstünde çalış.",
+      "safetyTr": "Bilekte ağrı olursa şınav sapları kullan ya da yumruk üstünde çalış.",
       "regressions": [
         "knee_pushup",
         "incline_pushup"
@@ -3406,7 +3460,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Lay facedown on the floor with your weight supported by your hands or forearms. Place a foam roll underneath one leg on the quadriceps, and keep the foot off of the ground. Make sure to relax the leg as much as possible. This will be your starting position.",
         "Shifting as much weight onto the leg to be stretched as is tolerable, roll over the foam from above the knee to below the hip, holding points of tension for 10-30 seconds. Switch sides."
       ],
@@ -3432,7 +3486,7 @@
         "hamstrings"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "To begin, seat yourself on the bike and adjust the seat to your height.",
         "Select the desired option from the menu. You may have to start pedaling to turn it on. You can use the manual setting, or you can select a program to use. Typically, you can enter your age and weight to estimate the amount of calories burned during exercise. The level of resistance can be changed throughout the workout. The handles can be used to monitor your heart rate to help you stay at an appropriate intensity.",
         "Recumbent bikes offer convenience, cardiovascular benefits, and have less impact than other activities. A 150 lb person will burn about 230 calories cycling at a moderate rate for 30 minutes, compared to 450 calories or more running."
@@ -3455,7 +3509,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie down on the floor with your legs fully extended and arms to the side of your torso with the palms on the floor. Your arms should be stationary for the entire exercise.",
         "Move your legs up so that your thighs are perpendicular to the floor and feet are together and parallel to the floor. This is the starting position.",
         "While inhaling, move your legs towards the torso as you roll your pelvis backwards and you raise your hips off the floor. At the end of this movement your knees will be touching your chest.",
@@ -3484,7 +3538,7 @@
         "lower back"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Put a barbell in front of you on the ground and grab it using a pronated (palms facing down) grip that a little wider than shoulder width. Tip: Depending on the weight used, you may need wrist wraps to perform the exercise and also a raised platform in order to allow for better range of motion.",
         "Bend the knees slightly and keep the shins vertical, hips back and back straight. This will be your starting position.",
         "Keeping your back and arms completely straight at all times, use your hips to lift the bar as you exhale. Tip: The movement should not be fast but steady and under control.",
@@ -3512,7 +3566,7 @@
         "hamstrings"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Hold an end of the rope in each hand. Position the rope behind you on the ground. Raise your arms up and turn the rope over your head bringing it down in front of you. When it reaches the ground, jump over it. Find a good turning pace that can be maintained. Different speeds and techniques can be used to introduce variation.",
         "Rope jumping is exciting, challenges your coordination, and requires a lot of energy. A 150 lb person will burn about 350 calories jumping rope for 30 minutes, compared to over 450 calories running."
       ],
@@ -3541,7 +3595,7 @@
         "middle back"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "To begin, seat yourself on the rower. Make sure that your heels are resting comfortably against the base of the foot pedals and that the straps are secured. Select the program that you wish to use, if applicable. Sit up straight and bend forward at the hips.",
         "There are three phases of movement when using a rower. The first phase is when you come forward on the rower. Your knees are bent and against your chest. Your upper body is leaning slightly forward while still maintaining good posture. Next, push against the foot pedals and extend your legs while bringing your hands to your upper abdominal area, squeezing your shoulders back as you do so. To avoid straining your back, use primarily your leg and hip muscles.",
         "The recovery phase simply involves straightening your arms, bending the knees, and bringing your body forward again as you transition back into the first phase."
@@ -3568,7 +3622,7 @@
         "hamstrings"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "To begin, step onto the treadmill and select the desired option from the menu. Most treadmills have a manual setting, or you can select a program to run. Typically, you can enter your age and weight to estimate the amount of calories burned during exercise. Elevation can be adjusted to change the intensity of the workout.",
         "Treadmills offer convenience, cardiovascular benefits, and usually have less impact than running outside. A 150 lb person will burn over 450 calories running 8 miles per hour for 30 minutes. Maintain proper posture as you run, and only hold onto the handles when necessary, such as when dismounting or checking your heart rate."
       ],
@@ -3592,7 +3646,7 @@
         "lower back"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Lie down on the floor placing your feet either under something that will not move or by having a partner hold them. Your legs should be bent at the knees.",
         "Elevate your upper body so that it creates an imaginary V-shape with your thighs. Your arms should be fully extended in front of you perpendicular to your torso and with the hands clasped. This is the starting position.",
         "Twist your torso to the right side until your arms are parallel with the floor while breathing out.",
@@ -3620,7 +3674,7 @@
         "middle back"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Take a pronated grip on a pull-up bar.",
         "From a hanging position, raise yourself a few inches without using your arms. Do this by depressing your shoulder girdle in a reverse shrugging motion.",
         "Pause at the completion of the movement, and then slowly return to the starting position before performing more repetitions."
@@ -3647,7 +3701,7 @@
         "shoulders"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "For this exercise you will need access to a low pulley row machine with a V-bar. Note: The V-bar will enable you to have a neutral grip where the palms of your hands face each other. To get into the starting position, first sit down on the machine and place your feet on the front platform or crossbar provided making sure that your knees are slightly bent and not locked.",
         "Lean over as you keep the natural alignment of your back and grab the V-bar handles.",
         "With your arms extended pull back until your torso is at a 90-degree angle from your legs. Your back should be slightly arched and your chest should be sticking out. You should be feeling a nice stretch on your lats as you hold the bar in front of you. This is the starting position of the exercise.",
@@ -3672,7 +3726,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Sit on the machine and place your toes on the lower portion of the platform provided with the heels extending off. Choose the toe positioning of your choice (forward, in, or out) as per the beginning of this chapter.",
         "Place your lower thighs under the lever pad, which will need to be adjusted according to the height of your thighs. Now place your hands on top of the lever pad in order to prevent it from slipping forward.",
         "Lift the lever slightly by pushing your heels up and release the safety bar. This will be your starting position.",
@@ -3698,7 +3752,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Start out by placing two dumbbells on the floor in front of a flat bench.",
         "Sit down on the edge of the flat bench with your legs at about shoulder width apart. Make sure to keep your feet on the floor.",
         "Use your arms to grab both of the dumbbells and bring them up so that your forearms are resting against your thighs with the palms of the hands facing up. Your wrists should be hanging over the edge of your thighs.",
@@ -3727,7 +3781,7 @@
         "triceps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Grab a couple of dumbbells and sit on a military press bench or a utility bench that has a back support on it as you place the dumbbells upright on top of your thighs.",
         "Clean the dumbbells up one at a time by using your thighs to bring the dumbbells up to shoulder height at each side.",
         "Rotate the wrists so that the palms of your hands are facing forward. This is your starting position.",
@@ -3753,7 +3807,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Adjust the machine lever to fit your height and sit on the machine with your back against the back support pad.",
         "Place the back of lower leg on top of padded lever (just a few inches under the calves) and secure the lap pad against your thighs, just above the knees. Then grasp the side handles on the machine as you point your toes straight (or you can also use any of the other two stances) and ensure that the legs are fully straight right in front of you. This will be your starting position.",
         "As you exhale, pull the machine lever as far as possible to the back of your thighs by flexing at the knees. Keep your torso stationary at all times. Hold the contracted position for a second.",
@@ -3780,7 +3834,7 @@
         "triceps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "To begin, stand on an exercise band so that tension begins at arm's length. Grasp the handles and lift them so that the hands are at shoulder height at each side.",
         "Rotate the wrists so that the palms of your hands are facing forward. Your elbows should be bent, with the upper arms and forearms in line to the torso. This is your starting position.",
         "As you exhale, lift the handles up until your arms are fully extended overhead."
@@ -3803,7 +3857,10 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
+        "Reach your left arm across your body and hold it straight."
+      ],
+      "executionTr": [
         "Stand tall and bring one arm straight across your chest at shoulder height.",
         "Hook the opposite forearm under it and draw it gently towards your body.",
         "Keep the stretched shoulder down; letting it ride up towards the ear removes the stretch.",
@@ -3829,7 +3886,8 @@
         "shoulders"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Lie on your side with your legs stacked and your elbow directly under your shoulder.",
         "Brace your midsection and lift your hips until your body forms a straight line from ankle to head.",
         "Keep the top hip stacked over the bottom one rather than rolling forwards.",
@@ -3853,7 +3911,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Pick a couple of dumbbells and stand with a straight torso and the dumbbells by your side at arms length with the palms of the hand facing you. This will be your starting position.",
         "While maintaining the torso in a stationary position (no swinging), lift the dumbbells to your side with a slight bend on the elbow and the hands slightly tilted forward as if pouring water in a glass. Continue to go up until you arms are parallel to the floor. Exhale as you execute this movement and pause for a second at the top.",
         "Lower the dumbbells back down slowly to the starting position as you inhale.",
@@ -3880,27 +3938,28 @@
         "omuz"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Kalçayı yerden kaldır; omuz, kalça ve diz tek çizgi olsun.",
         "Pozisyonu koru, kalça düşmesin.",
         "Süre dolunca kontrollü indir, diğer tarafa geç."
       ],
       "isUserDefined": false,
       "nameTr": "Yan Plank",
-      "summary": "Plankın eksik bıraktığı yön. Yan gövde zayıfsa bel her adımda ufak bir eğilme yaşar; bu hareket onu kapatır.",
-      "setup": [
+      "summaryTr": "Plankın eksik bıraktığı yön. Yan gövde zayıfsa bel her adımda ufak bir eğilme yaşar; bu hareket onu kapatır.",
+      "setupTr": [
         "Yan yat, dirsek omzun tam altında.",
         "Bacaklar üst üste, dizler bükülü ya da düz.",
         "Üstteki eli kalçana koy."
       ],
-      "breathing": "Sakin ve düzenli; nefesi tutma.",
-      "tempo": "20-40 sn tutuş, iki taraf",
-      "cues": [
+      "breathingTr": "Sakin ve düzenli; nefesi tutma.",
+      "tempoTr": "20-40 sn tutuş, iki taraf",
+      "cuesTr": [
         "Kalça yukarı",
         "Omuz dirseğin üstünde",
         "Boyun uzun"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Kalça yavaş yavaş düşüyor",
           "why": "Hedef kas gevşer, hareket dinlenmeye dönüşür.",
@@ -3917,7 +3976,7 @@
           "fix": "Üstteki kalçayı tavana çevir, gövdeyi tek düzlemde tut."
         }
       ],
-      "safety": "Omuz ağrısı varsa dizden yapılan hâliyle başla ya da hiç yapma.",
+      "safetyTr": "Omuz ağrısı varsa dizden yapılan hâliyle başla ya da hiç yapma.",
       "videoQuery": "side plank form",
       "met": 3.8
     },
@@ -3937,7 +3996,7 @@
         "triceps"
       ],
       "difficulty": 5,
-      "execution": [
+      "executionEn": [
         "Begin laying prone on the ground. Move yourself into a position supporting your weight on your toes and one arm. Your working arm should be placed directly under the shoulder, fully extended. Your legs should be extended, and for this movement you may need a wider base, placing your feet further apart than in a normal push-up.",
         "Maintain good posture, and place your free hand behind your back. This will be your starting position.",
         "Lower yourself by allowing the elbow to flex until you touch the ground.",
@@ -3963,7 +4022,7 @@
         "hamstrings"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lay on the floor with your feet flat and knees bent.",
         "Raise one leg off of the ground, pulling the knee to your chest. This will be your starting position.",
         "Execute the movement by driving through the heel, extending your hip upward and raising your glutes off of the ground.",
@@ -3987,7 +4046,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie down on the floor placing your feet either under something that will not move or by having a partner hold them. Your legs should be bent at the knees.",
         "Place your hands behind your head and lock them together by clasping your fingers. This is the starting position.",
         "Elevate your upper body so that it creates an imaginary V-shape with your thighs. Breathe out when performing this part of the exercise.",
@@ -4016,7 +4075,7 @@
         "triceps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Begin in a prone position on the floor. Support your weight on your hands and toes, with your feet together and your body straight. Your arms should be bent to 90 degrees. This will be your starting position.",
         "Initiate the movement by raising one foot off of the ground. Externally rotate the leg and bring the knee toward your elbow, as far forward as possible.",
         "Return this leg to the starting position and repeat on the opposite side."
@@ -4042,7 +4101,7 @@
         "hamstrings"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Position yourself into a staggered stance with the rear foot elevated and front foot forward.",
         "Hold a dumbbell in each hand, letting them hang at the sides. This will be your starting position.",
         "Begin by descending, flexing your knee and hip to lower your body down. Maintain good posture througout the movement. Keep the front knee in line with the foot as you perform the exercise.",
@@ -4070,7 +4129,7 @@
         "hamstrings"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "To begin, step onto the stairmaster and select the desired option from the menu. You can choose a manual setting, or you can select a program to run. Typically, you can enter your age and weight to estimate the amount of calories burned during exercise.",
         "Pump your legs up and down in an established rhythm, driving the pedals down but not all the way to the floor. It is recommended that you maintain your grip on the handles so that you don't fall. The handles can be used to monitor your heart rate to help you stay at an appropriate intensity.",
         "Stairmasters offer convenience, cardiovascular benefits, and usually have less impact than running outside. They are typically much harder than other cardio equipment. A 150 lb person will typically burn over 300 calories in 30 minutes, compared to about 175 calories walking."
@@ -4093,7 +4152,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Stand up with your torso upright while holding a cable curl bar that is attached to a low pulley. Grab the cable bar at shoulder width and keep the elbows close to the torso. The palm of your hands should be facing up (supinated grip). This will be your starting position.",
         "While holding the upper arms stationary, curl the weights while contracting the biceps as you breathe out. Only the forearms should move. Continue the movement until your biceps are fully contracted and the bar is at shoulder level. Hold the contracted position for a second as you squeeze the muscle.",
         "Slowly begin to bring the curl bar back to starting position as your breathe in.",
@@ -4119,7 +4178,7 @@
         "shoulders"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Connect a standard handle to a tower, and move the cable to the highest pulley position.",
         "With your side to the cable, grab the handle with one hand and step away from the tower. You should be approximately arm's length away from the pulley, with the tension of the weight on the cable. Your outstretched arm should be aligned with the cable.",
         "With your feet positioned shoulder width apart, reach upward with your other hand and grab the handle with both hands. Your arms should still be fully extended.",
@@ -4147,7 +4206,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Adjust the padded lever of the calf raise machine to fit your height.",
         "Place your shoulders under the pads provided and position your toes facing forward (or using any of the two other positions described at the beginning of the chapter). The balls of your feet should be secured on top of the calf block with the heels extending off it. Push the lever up by extending your hips and knees until your torso is standing erect. The knees should be kept with a slight bend; never locked. Toes should be facing forward, outwards or inwards as described at the beginning of the chapter. This will be your starting position.",
         "Raise your heels as you breathe out by extending your ankles as high as possible and flexing your calf. Ensure that the knee is kept stationary at all times. There should be no bending at any time. Hold the contracted position by a second before you start to go back down.",
@@ -4172,7 +4231,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Stand with your torso upright holding two dumbbells in your hands by your sides. Place the ball of the foot on a sturdy and stable wooden board (that is around 2-3 inches tall) while your heels extend off and touch the floor. This will be your starting position.",
         "With the toes pointing either straight (to hit all parts equally), inwards (for emphasis on the outer head) or outwards (for emphasis on the inner head), raise the heels off the floor as you exhale by contracting the calves. Hold the top contraction for a second.",
         "As you inhale, go back to the starting position by slowly lowering the heels.",
@@ -4196,7 +4255,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "To begin, stand up with a dumbbell held by both hands. Your feet should be about shoulder width apart from each other. Slowly use both hands to grab the dumbbell and lift it over your head until both arms are fully extended.",
         "The resistance should be resting in the palms of your hands with your thumbs around it. The palm of the hands should be facing up towards the ceiling. This will be your starting position.",
         "Keeping your upper arms close to your head with elbows in and perpendicular to the floor, lower the resistance in a semicircular motion behind your head until your forearms touch your biceps. Tip: The upper arms should remain stationary and only the forearms should move. Breathe in as you perform this step.",
@@ -4223,7 +4282,7 @@
         "hamstrings"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Place your right heel on a step with your knee extended and lean forward to grab your right toe with your right hand. Your left knee should be slightly bent and your back should be straight.",
         "Support your weight on your left leg and place your left hand on your left thigh.",
         "Pull your right toes toward your knee until you feel a stretch in your calf."
@@ -4249,27 +4308,28 @@
         "kalp–damar"
       ],
       "difficulty": 1,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "5 dakika düşük dirençte ısın.",
         "Hedef kademede sabit tempoda pedal çevir; dakikada 60–80 devir hedefle.",
         "Son 3–5 dakikada direnci düşürerek soğu."
       ],
       "isUserDefined": false,
       "nameTr": "Kondisyon Bisikleti",
-      "summary": "Programın kardiyo omurgası. Eklemlere darbe binmediği için mevcut kiloda ve diz hassasiyetinde koşuya tercih edilir.",
-      "setup": [
+      "summaryTr": "Programın kardiyo omurgası. Eklemlere darbe binmediği için mevcut kiloda ve diz hassasiyetinde koşuya tercih edilir.",
+      "setupTr": [
         "Sele yüksekliğini ayarla: pedal en altta iken dizin hafif bükülü kalmalı, tam düz değil.",
         "Gidona rahat uzan; omuzlar kulaklara kalkmasın.",
         "Direnci programdaki kademeye getir."
       ],
-      "breathing": "Konuşabilecek ama şarkı söyleyemeyecek tempo.",
-      "tempo": "Sabit — dakikada 60–80 devir",
-      "cues": [
+      "breathingTr": "Konuşabilecek ama şarkı söyleyemeyecek tempo.",
+      "tempoTr": "Sabit — dakikada 60–80 devir",
+      "cuesTr": [
         "Diz tam düzelmesin",
         "Omuzlar gevşek",
         "Sabit tempo"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Sele çok alçak",
           "why": "Diz her devirde aşırı bükülür; diz kapağı ardındaki basınç artar.",
@@ -4286,7 +4346,7 @@
           "fix": "Gövdeyi kendi karnınla taşı; gidona yalnız dokun."
         }
       ],
-      "safety": "Göğüs ağrısı, baş dönmesi ya da olağandışı nefes darlığında dur ve hekimine başvur.",
+      "safetyTr": "Göğüs ağrısı, baş dönmesi ya da olağandışı nefes darlığında dur ve hekimine başvur.",
       "metModel": "cycling",
       "videoQuery": "stationary bike setup seat height"
     },
@@ -4307,7 +4367,7 @@
         "hamstrings"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "To begin, step onto the stepmill and select the desired option from the menu. You can choose a manual setting, or you can select a program to run. Typically, you can enter your age and weight to estimate the amount of calories burned during exercise. Use caution so that you don't trip as you climb the stairs. It is recommended that you maintain your grip on the handles so that you don't fall.",
         "Stepmills offer convenience, cardiovascular benefits, and usually have less impact than running outside while offering a similar rate of calories burned. They are typically much harder than other cardio equipment. A 150 lb person will typically burn over 300 calories in 30 minutes, compared to about 175 calories walking."
       ],
@@ -4332,27 +4392,28 @@
         "karın"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Sağ ayağını tamamen basamağa yerleştir — topuk boşta kalmasın.",
         "Sağ topuktan iterek yukarı çık; arkadaki bacakla yerden itme.",
         "Kontrollü şekilde aynı ayakla in. Set boyunca aynı bacakla çalış, sonra tarafı değiştir."
       ],
       "isUserDefined": false,
       "nameTr": "Basamak Çıkışı",
-      "summary": "Tek bacak çalışması. İki bacak arasındaki güç farkını ortaya çıkarır ve dengeyi geliştirir — zıplamasız, dize nazik.",
-      "setup": [
+      "summaryTr": "Tek bacak çalışması. İki bacak arasındaki güç farkını ortaya çıkarır ve dengeyi geliştirir — zıplamasız, dize nazik.",
+      "setupTr": [
         "Diz hizasından alçak, sağlam bir basamak ya da merdiven basamağı seç.",
         "Basamağın önünde dik dur.",
         "Karnı hafif sık, gerekiyorsa duvara parmak ucuyla destek al."
       ],
-      "breathing": "Çıkarken nefes ver, inerken al.",
-      "tempo": "1 sn çıkış · 2 sn iniş",
-      "cues": [
+      "breathingTr": "Çıkarken nefes ver, inerken al.",
+      "tempoTr": "1 sn çıkış · 2 sn iniş",
+      "cuesTr": [
         "Topuk tam bassın",
         "Arka ayakla itme",
         "Diz ayak ucu hizasında"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Arkadaki ayakla yerden itiliyor",
           "why": "İş çalışan bacaktan alınır; hareketin tek bacak olma amacı kaybolur.",
@@ -4369,7 +4430,7 @@
           "fix": "İnişi iki saniyeye yay, ayağını yere sessizce koy."
         }
       ],
-      "safety": "Basamak sabit olmalı. Zıplamalı çıkış geçiş kriterleri sağlanana kadar yasak.",
+      "safetyTr": "Basamak sabit olmalı. Zıplamalı çıkış geçiş kriterleri sağlanana kadar yasak.",
       "videoQuery": "step up exercise form",
       "met": 5.0
     },
@@ -4389,7 +4450,7 @@
         "quadriceps"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Stand facing a box or bench of an appropriate height with your feet together. This will be your starting position.",
         "Begin the movement by stepping up, putting your left foot on the top of the bench. Extend through the hip and knee of your front leg to stand up on the box. As you stand on the box with your left leg, flex your right knee and hip, bringing your knee as high as you can.",
         "Reverse this motion to step down off the box, and then repeat the sequence on the opposite leg."
@@ -4415,7 +4476,7 @@
         "lower back"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Grasp a couple of dumbbells holding them by your side at arm's length.",
         "Stand with your torso straight and your legs spaced using a shoulder width or narrower stance. The knees should be slightly bent. This is your starting position.",
         "Keeping the knees stationary, lower the dumbbells to over the top of your feet by bending at the waist while keeping your back straight. Keep moving forward as if you were going to pick something from the floor until you feel a stretch on the hamstrings. Exhale as you perform this movement",
@@ -4440,7 +4501,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "You will start by grabbing the wide bar from the top pulley of a pulldown machine and using a wider than shoulder-width pronated (palms down) grip. Step backwards two feet or so.",
         "Bend your torso forward at the waist by around 30-degrees with your arms fully extended in front of you and a slight bend at the elbows. If your arms are not fully extended then you need to step a bit more backwards until they are. Once your arms are fully extended and your torso is slightly bent at the waist, tighten the lats and then you are ready to begin.",
         "While keeping the arms straight, pull the bar down by contracting the lats until your hands are next to the side of the thighs. Breathe out as you perform this step.",
@@ -4473,7 +4534,7 @@
         "traps"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "Begin with a bar loaded on the ground. Approach the bar so that the bar intersects the middle of the feet. The feet should be set very wide, near the collars. Bend at the hips to grip the bar. The arms should be directly below the shoulders, inside the legs, and you can use a pronated grip, a mixed grip, or hook grip. Relax the shoulders, which in effect lengthens your arms.",
         "Take a breath, and then lower your hips, looking forward with your head with your chest up. Drive through the floor, spreading your feet apart, with your weight on the back half of your feet. Extend through the hips and knees.",
         "As the bar passes through the knees, lean back and drive the hips into the bar, pulling your shoulder blades together.",
@@ -4500,27 +4561,33 @@
         "kalça"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
+        "To begin, lie straight and face down on the floor or exercise mat. Your arms should be fully extended in front of you. This is the starting position.",
+        "Simultaneously raise your arms, legs, and chest off of the floor and hold this contraction for 2 seconds. Tip: Squeeze your lower back to get the best results from this exercise. Remember to exhale during this movement. Note: When holding the contracted position, you should look like superman when he is flying.",
+        "Slowly begin to lower your arms, legs and chest back down to the starting position while inhaling.",
+        "Repeat for the recommended amount of repetitions prescribed in your program."
+      ],
+      "executionTr": [
         "Kollarını ve bacaklarını aynı anda yerden birkaç santim kaldır.",
         "Kalçayı ve sırtı sıkarak bir–iki saniye tut.",
         "Kontrollü şekilde indir; her tekrarda tamamen gevşe."
       ],
       "isUserDefined": false,
       "nameTr": "Superman",
-      "summary": "Gövdenin arka zincirini çalıştırır. Karın hareketlerinin karşılığı; ikisi dengede olmazsa bel korunmasız kalır.",
-      "setup": [
+      "summaryTr": "Gövdenin arka zincirini çalıştırır. Karın hareketlerinin karşılığı; ikisi dengede olmazsa bel korunmasız kalır.",
+      "setupTr": [
         "Yüzüstü uzan, kolları başının üstüne uzat.",
         "Alnını yere yakın tut, boynu nötr bırak.",
         "Ayak parmakları yere değsin."
       ],
-      "breathing": "Kaldırırken nefes ver, indirirken al.",
-      "tempo": "1 sn kalkış · 2 sn tutuş · 2 sn iniş",
-      "cues": [
+      "breathingTr": "Kaldırırken nefes ver, indirirken al.",
+      "tempoTr": "1 sn kalkış · 2 sn tutuş · 2 sn iniş",
+      "cuesTr": [
         "Boyun nötr",
         "Yükseklik değil sıkma",
         "Kalçayı sık"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Mümkün olduğunca yükseğe kalkmaya çalışılıyor",
           "why": "Bel omurları aşırı geriye bükülür; koruma amacıyla yapılan hareket bele zarar verir.",
@@ -4532,7 +4599,7 @@
           "fix": "Bakışını yere sabitle; baş gövdeyle aynı hizada kalksın."
         }
       ],
-      "safety": "Bel fıtığı ya da akut bel ağrısı varsa bu hareketi atla ve hekimine sor.",
+      "safetyTr": "Bel fıtığı ya da akut bel ağrısı varsa bu hareketi atla ve hekimine sor.",
       "progressions": [
         "bird_dog"
       ],
@@ -4556,7 +4623,7 @@
         "lats"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Position a bar into a landmine or in a corner to keep it from moving. Load an appropriate weight onto your end.",
         "Stand over the bar, and position a Double D row handle around the bar next to the collar. Using your hips and legs, rise to a standing position.",
         "Assume a wide stance with your hips back and your chest up. Your arms should be extended. This will be your starting position.",
@@ -4584,26 +4651,27 @@
         "omuz"
       ],
       "difficulty": 1,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Üstteki kolu yay çizerek karşı tarafa aç, gövde takip etsin.",
         "Dizleri yerde sabit tut — dönüş belden değil sırttan gelmeli.",
         "Açık pozisyonda birkaç saniye nefes al, sonra geri kapat."
       ],
       "isUserDefined": false,
       "nameTr": "Sırt Rotasyonu",
-      "summary": "Sırt ortasının dönme kabiliyetini açar. Sert bir üst sırt, omuz ve belin fazladan çalışmasına neden olur.",
-      "setup": [
+      "summaryTr": "Sırt ortasının dönme kabiliyetini açar. Sert bir üst sırt, omuz ve belin fazladan çalışmasına neden olur.",
+      "setupTr": [
         "Yan yat, dizler 90 derece bükülü ve üst üste.",
         "Kollar önde, avuçlar birleşik, omuz hizasında."
       ],
-      "breathing": "Açarken derin nefes al, kapatırken ver.",
-      "tempo": "Yavaş, her yöne 5 tekrar",
-      "cues": [
+      "breathingTr": "Açarken derin nefes al, kapatırken ver.",
+      "tempoTr": "Yavaş, her yöne 5 tekrar",
+      "cuesTr": [
         "Dizler yerde kalsın",
         "Bakış eli takip etsin",
         "Zorlama"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Dizler yerden kalkıyor",
           "why": "Dönüş belden yapılır; hedeflenen üst sırt açılmaz.",
@@ -4615,7 +4683,7 @@
           "fix": "Nefesle birlikte yavaşça aç."
         }
       ],
-      "safety": "Omuzda ani ağrı olursa dur. Omuz problemi varsa kolu yerine kadar açmaya çalışma.",
+      "safetyTr": "Omuzda ani ağrı olursa dur. Omuz problemi varsa kolu yerine kadar açmaya çalışma.",
       "videoQuery": "open book thoracic rotation",
       "met": 2.3
     },
@@ -4636,7 +4704,7 @@
         "hamstrings"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Running or hiking on trails will get the blood pumping and heart beating almost immediately. Make sure you have good shoes. While you use the muscles in your calves and buttocks to pull yourself up a hill, the knees, joints and ankles absorb the bulk of the pounding coming back down. Take smaller steps as you walk downhill, keep your knees bent to reduce the impact and slow down to avoid falling.",
         "A 150 lb person can burn over 200 calories for 30 minutes walking uphill, compared to 175 on a flat surface. If running the trail, a 150 lb person can burn well over 500 calories in 30 minutes."
       ],
@@ -4661,7 +4729,7 @@
         "hamstrings"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "For this exercise load a trap bar, also known as a hex bar, to an appropriate weight resting on the ground. Stand in the center of the apparatus and grasp both handles.",
         "Lower your hips, look forward with your head and keep your chest up.",
         "Begin the movement by driving through the heels and extend your hips and knees. Avoid rounding your back at all times.",
@@ -4688,27 +4756,28 @@
         "kalp–damar"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Dik dur; gövdeni öne yatırma.",
         "Adımını normal uzunlukta at, topuktan bas parmak ucundan it.",
         "Hedef süre dolunca eğimi kademeli sıfırla ve 3 dakika düz yürüyerek soğu."
       ],
       "isUserDefined": false,
       "nameTr": "Eğimli Bantta Yürüyüş",
-      "summary": "Koşunun darbesi olmadan koşuya yakın yüklenme. Eğim arttıkça kalça ve arka bacak devreye girer; geçiş kriterlerine giden yolun asıl aracı.",
-      "setup": [
+      "summaryTr": "Koşunun darbesi olmadan koşuya yakın yüklenme. Eğim arttıkça kalça ve arka bacak devreye girer; geçiş kriterlerine giden yolun asıl aracı.",
+      "setupTr": [
         "Bandı yürüyüş hızında başlat, eğimi sıfırda tut.",
         "2–3 dakika düz yürüyerek ısın.",
         "Eğimi programdaki yüzdeye kademeli çıkar."
       ],
-      "breathing": "Konuşabilecek ama şarkı söyleyemeyecek tempo.",
-      "tempo": "Sabit yürüyüş hızı",
-      "cues": [
+      "breathingTr": "Konuşabilecek ama şarkı söyleyemeyecek tempo.",
+      "tempoTr": "Sabit yürüyüş hızı",
+      "cuesTr": [
         "Tutunma",
         "Dik dur",
         "Topuktan bas"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Tutamaklara asılınıyor",
           "why": "Vücut ağırlığının bir kısmı kollara geçer; harcanan enerji ve eğimin etkisi ciddi biçimde azalır — makinedeki kalori değeri de yanıltıcı olur.",
@@ -4725,7 +4794,7 @@
           "fix": "Hızı düşür, eğimi artır. Zorluk eğimden gelsin."
         }
       ],
-      "safety": "Acil durdurma klipsini tak. Göğüs ağrısı, baş dönmesi ya da diz/incik ağrısında dur.",
+      "safetyTr": "Acil durdurma klipsini tak. Göğüs ağrısı, baş dönmesi ya da diz/incik ağrısında dur.",
       "metModel": "treadmill",
       "videoQuery": "incline treadmill walking form"
     },
@@ -4742,7 +4811,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Start with a dumbbell in each hand and your palms facing your torso. Keep your back straight with a slight bend in the knees and bend forward at the waist. Your torso should be almost parallel to the floor. Make sure to keep your head up. Your upper arms should be close to your torso and parallel to the floor. Your forearms should be pointed towards the floor as you hold the weights. There should be a 90-degree angle formed between your forearm and upper arm. This is your starting position.",
         "Now, while keeping your upper arms stationary, exhale and use your triceps to lift the weights until the arm is fully extended. Focus on moving the forearm.",
         "After a brief pause at the top contraction, inhale and slowly lower the dumbbells back down to the starting position.",
@@ -4766,7 +4835,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Attach a rope attachment to a high pulley and grab with a neutral grip (palms facing each other).",
         "Standing upright with the torso straight and a very small inclination forward, bring the upper arms close to your body and perpendicular to the floor. The forearms should be pointing up towards the pulley as they hold the rope with the palms facing each other. This is your starting position.",
         "Using the triceps, bring the rope down as you bring each side of the rope to the side of your thighs. At the end of the movement the arms are fully extended and perpendicular to the floor. The upper arms should always remain stationary next to your torso and only the forearms should move. Exhale as you perform this movement.",
@@ -4793,7 +4862,7 @@
         "shoulders"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "To begin, stand on an exercise band so that tension begins at arm's length. Grasp the handles using a pronated (palms facing your thighs) grip that is slightly less than shoulder width. The handles should be resting on top of your thighs. Your arms should be extended with a slight bend at the elbows and your back should be straight. This will be your starting position.",
         "Use your side shoulders to lift the handles as you exhale. The handles should be close to the body as you move them up. Continue to lift the handles until they nearly touches your chin. Tip: Your elbows should drive the motion. As you lift the handles, your elbows should always be higher than your forearms. Also, keep your torso stationary and pause for a second at the top of the movement.",
         "Lower the handles back down slowly to the starting position. Inhale as you perform this portion of the movement.",
@@ -4821,7 +4890,7 @@
         "hamstrings"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "To begin, step onto the treadmill and select the desired option from the menu. Most treadmills have a manual setting, or you can select a program to run. Typically, you can enter your age and weight to estimate the amount of calories burned during exercise. Elevation can be adjusted to change the intensity of the workout.",
         "Treadmills offer convenience, cardiovascular benefits, and usually have less impact than walking outside. When walking, you should move at a moderate to fast pace, not a leisurely one. Being an activity of lower intensity, walking doesn't burn as many calories as some other activities, but still provides great benefit. A 150 lb person will burn about 175 calories walking 4 miles per hour for 30 minutes, compared to 450 calories running twice as fast. Maintain proper posture as you walk, and only hold onto the handles when necessary, such as when dismounting or checking your heart rate."
       ],
@@ -4847,27 +4916,28 @@
         "karın"
       ],
       "difficulty": 1,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Dirsekleri gövdene 45 derece açıyla bükerek göğsünü duvara yaklaştır.",
         "Göğsün duvara neredeyse değecek kadar yaklaşınca bir an dur.",
         "Avuç içlerinden ittirerek başlangıç pozisyonuna dön; dirseklerini sonuna kadar kilitleme."
       ],
       "isUserDefined": false,
       "nameTr": "Duvar Şınavı",
-      "summary": "Şınav zincirinin ilk basamağı. Gövde ne kadar dikse yük o kadar az; omuz ve bilek buradan alışır.",
-      "setup": [
+      "summaryTr": "Şınav zincirinin ilk basamağı. Gövde ne kadar dikse yük o kadar az; omuz ve bilek buradan alışır.",
+      "setupTr": [
         "Duvardan bir kol boyu uzakta ayakta dur.",
         "Ellerini omuz hizasında, omuz genişliğinden biraz açık duvara koy.",
         "Ayaklarını birleştir, karnını hafif sık, gövden topuktan başa düz bir çizgi olsun."
       ],
-      "breathing": "İnerken nefes al, iterken ver.",
-      "tempo": "2 sn iniş · 1 sn duraklama · 1 sn çıkış",
-      "cues": [
+      "breathingTr": "İnerken nefes al, iterken ver.",
+      "tempoTr": "2 sn iniş · 1 sn duraklama · 1 sn çıkış",
+      "cuesTr": [
         "Karın sıkı",
         "Kalça geride kalmasın",
         "Dirsekler 45°"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Kalça geride kalıyor, gövde bükülüyor",
           "why": "Yük göğüsten çıkıp kola biner; hareket kolaylaşır ama çalıştırması gereken kası çalıştırmaz.",
@@ -4884,7 +4954,7 @@
           "fix": "Bakışını iki elinin arasına sabitle; göğsün değsin, başın değil."
         }
       ],
-      "safety": "Bilek ağrısı olursa elleri biraz aşağı al ya da yumruk üstünde çalış. Omuzda keskin ağrı varsa dur.",
+      "safetyTr": "Bilek ağrısı olursa elleri biraz aşağı al ya da yumruk üstünde çalış. Omuzda keskin ağrı varsa dur.",
       "progressions": [
         "incline_pushup"
       ],
@@ -4908,27 +4978,28 @@
         "karın"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [],
+      "executionTr": [
         "Duvardan kayarak dizlerin 90 dereceye yaklaşana kadar in.",
         "Uyluğun yere paralel olsun; diz ayak bileğinin üstünde kalsın.",
         "Hedef süre boyunca pozisyonu koru, sonra duvardan kayarak kalk."
       ],
       "isUserDefined": false,
       "nameTr": "Duvar Oturuşu",
-      "summary": "Hareketsiz bacak çalışması. Eklem hareketi olmadığı için dize nazik; dayanıklılığı süreyle ölçersin.",
-      "setup": [
+      "summaryTr": "Hareketsiz bacak çalışması. Eklem hareketi olmadığı için dize nazik; dayanıklılığı süreyle ölçersin.",
+      "setupTr": [
         "Sırtını düz bir duvara yasla.",
         "Ayaklarını duvardan bir adım öne al, omuz genişliğinde aç.",
         "Sırtını duvara tamamen yapıştır."
       ],
-      "breathing": "Sakin ve kesintisiz; nefesi tutma.",
-      "tempo": "Sabit tutuş — hedef süre kadar",
-      "cues": [
+      "breathingTr": "Sakin ve kesintisiz; nefesi tutma.",
+      "tempoTr": "Sabit tutuş — hedef süre kadar",
+      "cuesTr": [
         "Sırt duvara yapışık",
         "Diz ayak bileği üstünde",
         "Nefes al"
       ],
-      "commonMistakes": [
+      "commonMistakesTr": [
         {
           "mistake": "Dizler ayak parmaklarını geçiyor",
           "why": "Diz kapağı ardındaki basınç ciddi biçimde artar; hassas dizde ağrı yapar.",
@@ -4945,7 +5016,7 @@
           "fix": "Elleri yanda ya da göğüste tut."
         }
       ],
-      "safety": "Diz ağrısında derinliği azalt — 90 derece şart değil. Baş dönmesinde hemen kalk.",
+      "safetyTr": "Diz ağrısında derinliği azalt — 90 derece şart değil. Baş dönmesinde hemen kalk.",
       "videoQuery": "wall sit form",
       "met": 5.0
     },
@@ -4962,7 +5033,7 @@
       ],
       "secondaryMuscles": [],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Lie flat on your back with your feet flat on the ground or resting on a bench with your knees bent at a 90 degree angle.",
         "Hold a weight to your chest, or you may hold it extended above your torso. This will be your starting position.",
         "Now, exhale and slowly begin to roll your shoulders off the floor. Your shoulders should come up off the floor about 4 inches while your lower back remains on the floor.",
@@ -4991,7 +5062,7 @@
         "shoulders"
       ],
       "difficulty": 2,
-      "execution": [
+      "executionEn": [
         "Sit down on a pull-down machine with a wide bar attached to the top pulley. Make sure that you adjust the knee pad of the machine to fit your height. These pads will prevent your body from being raised by the resistance attached to the bar.",
         "Grab the bar with the palms facing forward using the prescribed grip. Note on grips: For a wide grip, your hands need to be spaced out at a distance wider than shoulder width. For a medium grip, your hands need to be spaced out at a distance equal to your shoulder width and for a close grip at a distance smaller than your shoulder width.",
         "As you have both arms extended in front of you holding the bar at the chosen grip width, bring your torso back around 30 degrees or so while creating a curvature on your lower back and sticking your chest out. This is your starting position.",
@@ -5021,7 +5092,7 @@
         "shoulders"
       ],
       "difficulty": 5,
-      "execution": [
+      "executionEn": [
         "Grab the pull-up bar with the palms facing forward using a wide grip.",
         "As you have both arms extended in front of you holding the bar, bring your torso forward and head so that there is an imaginary line from the pull-up bar to the back of your neck. This is your starting position.",
         "Pull your torso up until the bar is near the back of your neck. To do this, draw the shoulders and upper arms down and back while slightly leaning your head forward. Exhale as you perform this portion of the movement. Tip: Concentrate on squeezing the back muscles once you reach the full contracted position. The upper torso should remain stationary as it moves through space and only the arms should move. The forearms should do no other work other than hold the bar.",
@@ -5050,7 +5121,7 @@
         "quadriceps"
       ],
       "difficulty": 3,
-      "execution": [
+      "executionEn": [
         "This is a three-part stretch. Begin by lunging forward, with your front foot flat on the ground and on the toes of your back foot. With your knees bent, squat down until your knee is almost touching the ground. Keep your torso erect, and hold this position for 10-20 seconds.",
         "Now, place the arm on the same side as your front leg on the ground, with the elbow next to the foot. Your other hand should be placed on the ground, parallel to your lead leg, to help support you during this portion of the stretch.",
         "After 10-20 seconds, place your hands on either side of your front foot. Raise the toes of the front foot off of the ground, and straighten your leg. You may need to reposition your rear leg to do so. Hold for 10-20 seconds, and then repeat the entire sequence for the other side."

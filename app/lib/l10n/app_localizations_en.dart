@@ -1336,6 +1336,12 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get catalogSafetyLabel => 'Safety';
+
+  @override
+  String get catalogSafetyRestricted => 'Safety — matches your restriction';
+
+  @override
   String get rhythmMealsSection => 'Meals';
 
   @override

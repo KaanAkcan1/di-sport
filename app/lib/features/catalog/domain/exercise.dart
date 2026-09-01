@@ -61,6 +61,29 @@ class CommonMistake {
   Map<String, dynamic> toJson() => {'mistake': mistake, 'why': why, 'fix': fix};
 }
 
+/// Tek dile çözülmüş hareket içeriği — [Exercise.contentFor] üretir.
+class ExerciseContent {
+  const ExerciseContent({
+    required this.summary,
+    required this.setup,
+    required this.execution,
+    required this.breathing,
+    required this.tempo,
+    required this.cues,
+    required this.commonMistakes,
+    required this.safety,
+  });
+
+  final String? summary;
+  final List<String> setup;
+  final List<String> execution;
+  final String? breathing;
+  final String? tempo;
+  final List<String> cues;
+  final List<CommonMistake> commonMistakes;
+  final String? safety;
+}
+
 /// Katalogdaki bir hareket.
 ///
 /// Saf veri sınıfı: veritabanını da arayüzü de bilmez (spec 4.1). Hem
@@ -87,6 +110,14 @@ class Exercise {
     this.cues = const [],
     this.commonMistakes = const [],
     this.safety,
+    this.summaryEn,
+    this.setupEn = const [],
+    this.executionEn = const [],
+    this.breathingEn,
+    this.tempoEn,
+    this.cuesEn = const [],
+    this.commonMistakesEn = const [],
+    this.safetyEn,
     this.regressions = const [],
     this.progressions = const [],
     this.met,
@@ -116,17 +147,33 @@ class Exercise {
     primaryMuscles: _strings(json['primaryMuscles']),
     secondaryMuscles: _strings(json['secondaryMuscles']),
     difficulty: json['difficulty'] as int,
-    summary: json['summary'] as String?,
-    setup: _strings(json['setup']),
-    execution: _strings(json['execution']),
-    breathing: json['breathing'] as String?,
-    tempo: json['tempo'] as String?,
-    cues: _strings(json['cues']),
+    // v3 §6.5: içerik anahtarları `Tr/En` sonekli. Soneksiz anahtarlar
+    // eski sözleşme (AI `newExercises` blokları ve v2 `detailJson`
+    // satırları) — Türkçe taraf sayılır; sessizce kaybolmazlar.
+    summary: (json['summaryTr'] ?? json['summary']) as String?,
+    setup: _strings(json['setupTr'] ?? json['setup']),
+    execution: _strings(json['executionTr'] ?? json['execution']),
+    breathing: (json['breathingTr'] ?? json['breathing']) as String?,
+    tempo: (json['tempoTr'] ?? json['tempo']) as String?,
+    cues: _strings(json['cuesTr'] ?? json['cues']),
     commonMistakes: [
-      for (final m in json['commonMistakes'] as List? ?? const [])
+      for (final m
+          in (json['commonMistakesTr'] ?? json['commonMistakes']) as List? ??
+              const [])
         CommonMistake.fromJson(m as Map<String, dynamic>),
     ],
-    safety: json['safety'] as String?,
+    safety: (json['safetyTr'] ?? json['safety']) as String?,
+    summaryEn: json['summaryEn'] as String?,
+    setupEn: _strings(json['setupEn']),
+    executionEn: _strings(json['executionEn']),
+    breathingEn: json['breathingEn'] as String?,
+    tempoEn: json['tempoEn'] as String?,
+    cuesEn: _strings(json['cuesEn']),
+    commonMistakesEn: [
+      for (final m in json['commonMistakesEn'] as List? ?? const [])
+        CommonMistake.fromJson(m as Map<String, dynamic>),
+    ],
+    safetyEn: json['safetyEn'] as String?,
     regressions: _strings(json['regressions']),
     progressions: _strings(json['progressions']),
     met: (json['met'] as num?)?.toDouble(),
@@ -189,6 +236,19 @@ class Exercise {
   final List<CommonMistake> commonMistakes;
   final String? safety;
 
+  /// İngilizce içerik çiftleri (v3 §6.5). İçerik **veri**, ARB işi
+  /// değil: "dizlerini kilitleme" bir arayüz metni değil, o hareketin
+  /// bilgisi. Arayüz dili hangisiyse o gösterilir; boşsa öteki dile
+  /// düşülür — [contentFor].
+  final String? summaryEn;
+  final List<String> setupEn;
+  final List<String> executionEn;
+  final String? breathingEn;
+  final String? tempoEn;
+  final List<String> cuesEn;
+  final List<CommonMistake> commonMistakesEn;
+  final String? safetyEn;
+
   /// Kolaylaştırılmış varyantların id'leri.
   final List<String> regressions;
 
@@ -217,6 +277,34 @@ class Exercise {
   /// Gösterim ve arama için Türkçe ad — yoksa İngilizcesi.
   String get displayNameTr => nameTr ?? nameEn;
 
+  /// Arayüz diline göre çözülmüş içerik.
+  ///
+  /// Kural (v3 §6.5): dilin kendi içeriği varsa o, yoksa öteki dile
+  /// düşülür. Alan alan düşülüyor — Türkçe özet + İngilizce adımlar
+  /// meşru bir ara durum (çeviri kademeli yazılıyor).
+  ExerciseContent contentFor(String languageCode) {
+    final turkish = languageCode == 'tr';
+    T pick<T>(T primary, T secondary, bool Function(T) isEmpty) {
+      final first = turkish ? primary : secondary;
+      final second = turkish ? secondary : primary;
+      return isEmpty(first) ? second : first;
+    }
+
+    bool nullOrEmpty(String? v) => v == null || v.isEmpty;
+    bool listEmpty(List<Object?> v) => v.isEmpty;
+
+    return ExerciseContent(
+      summary: pick(summary, summaryEn, nullOrEmpty),
+      setup: pick(setup, setupEn, listEmpty),
+      execution: pick(execution, executionEn, listEmpty),
+      breathing: pick(breathing, breathingEn, nullOrEmpty),
+      tempo: pick(tempo, tempoEn, nullOrEmpty),
+      cues: pick(cues, cuesEn, listEmpty),
+      commonMistakes: pick(commonMistakes, commonMistakesEn, listEmpty),
+      safety: pick(safety, safetyEn, nullOrEmpty),
+    );
+  }
+
   Map<String, dynamic> toJson() => {
     'id': id,
     'nameTr': nameTr,
@@ -227,16 +315,26 @@ class Exercise {
     'primaryMuscles': primaryMuscles,
     'secondaryMuscles': secondaryMuscles,
     'difficulty': difficulty,
-    'summary': summary,
-    'setup': setup,
-    'execution': execution,
-    'breathing': breathing,
-    'tempo': tempo,
+    // Yazma her zaman yeni (sonekli) biçimde; okuma iki biçimi de
+    // kabul ediyor.
+    'summaryTr': summary,
+    'setupTr': setup,
+    'executionTr': execution,
+    'breathingTr': breathing,
+    'tempoTr': tempo,
     'met': met,
     'metModel': metModel.name,
-    'cues': cues,
-    'commonMistakes': [for (final m in commonMistakes) m.toJson()],
-    'safety': safety,
+    'cuesTr': cues,
+    'commonMistakesTr': [for (final m in commonMistakes) m.toJson()],
+    'safetyTr': safety,
+    'summaryEn': summaryEn,
+    'setupEn': setupEn,
+    'executionEn': executionEn,
+    'breathingEn': breathingEn,
+    'tempoEn': tempoEn,
+    'cuesEn': cuesEn,
+    'commonMistakesEn': [for (final m in commonMistakesEn) m.toJson()],
+    'safetyEn': safetyEn,
     'regressions': regressions,
     'progressions': progressions,
     if (imagePath != null) 'imagePath': imagePath,

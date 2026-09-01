@@ -1333,6 +1333,12 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String get catalogSafetyLabel => 'Güvenlik';
+
+  @override
+  String get catalogSafetyRestricted => 'Güvenlik — kısıtınla eşleşiyor';
+
+  @override
   String get rhythmMealsSection => 'Öğünler';
 
   @override

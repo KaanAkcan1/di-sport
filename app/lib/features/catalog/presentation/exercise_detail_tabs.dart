@@ -4,8 +4,11 @@ import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
+import 'package:disport/features/catalog/domain/restriction_match.dart';
 import 'package:disport/features/catalog/presentation/exercise_detail_screen.dart';
 import 'package:disport/features/catalog/presentation/exercise_visuals.dart';
+import 'package:disport/features/medical/application/medical_providers.dart';
+import 'package:disport/features/medical/domain/medical_fact.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -22,16 +25,32 @@ const _tabPadding = EdgeInsets.fromLTRB(
   AppSpacing.xl4,
 );
 
-/// Sekme 1: özet, başlangıç, adımlar, nefes ve tempo.
-class HowToTab extends StatelessWidget {
+/// Sekme 1: özet, başlangıç, adımlar, nefes/tempo/güvenlik satırları.
+///
+/// İçerik `contentFor(locale)` ile çözülür (v3 §6.5): dilin kendi
+/// içeriği varsa o, yoksa öteki dil. Güvenlik satırı kullanıcının
+/// kimlikli hareket kısıtıyla eşleşiyorsa amber vurgulanır.
+class HowToTab extends ConsumerWidget {
   const HowToTab({super.key, required this.exercise});
 
   final Exercise exercise;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final l10n = context.l10n;
+    final semantic = context.semantic;
+    final content = exercise.contentFor(
+      Localizations.localeOf(context).languageCode,
+    );
+    final restrictions =
+        ref.watch(medicalFactsProvider).value ?? const <MedicalFact>[];
+    final restricted = matchingRestrictions(exercise, [
+      for (final fact in restrictions)
+        if (fact.kind == MedicalFactKind.restriction &&
+            fact.conditionId != null)
+          fact.conditionId!,
+    ]).isNotEmpty;
 
     return ListView(
       padding: _tabPadding,
@@ -55,12 +74,12 @@ class HowToTab extends StatelessWidget {
         ),
         const SizedBox(height: AppSpacing.lg),
 
-        if (exercise.summary case final summary?) ...[
+        if (content.summary case final summary?) ...[
           Text(summary, style: theme.textTheme.bodyLarge),
           const SizedBox(height: AppSpacing.xl2),
         ],
 
-        if (exercise.cues.isNotEmpty) ...[
+        if (content.cues.isNotEmpty) ...[
           AppSection(
             title: l10n.catalogCuesTitle,
             description: l10n.catalogCuesDescription,
@@ -68,43 +87,61 @@ class HowToTab extends StatelessWidget {
               spacing: AppSpacing.sm,
               runSpacing: AppSpacing.sm,
               children: [
-                for (final cue in exercise.cues) Chip(label: Text(cue)),
+                for (final cue in content.cues) Chip(label: Text(cue)),
               ],
             ),
           ),
         ],
 
-        if (exercise.setup.isNotEmpty)
+        if (content.setup.isNotEmpty)
           AppSection(
             title: l10n.catalogSetupTitle,
-            child: _BulletList(items: exercise.setup),
+            child: _BulletList(items: content.setup),
           ),
 
-        AppSection(
-          title: l10n.catalogExecutionTitle,
-          child: _NumberedList(items: exercise.execution),
-        ),
+        if (content.execution.isNotEmpty)
+          AppSection(
+            title: l10n.catalogExecutionTitle,
+            child: _NumberedList(items: content.execution),
+          ),
 
-        // İkisi de boşsa bölüm hiç çizilmiyor: boş bir başlık
-        // kullanıcıya "burada bir şey olmalıydı" dedirtir.
-        if (exercise.breathing != null || exercise.tempo != null)
+        // Boş alan hiç çizilmiyor: boş bir başlık kullanıcıya "burada
+        // bir şey olmalıydı" dedirtir.
+        if (content.breathing != null ||
+            content.tempo != null ||
+            content.safety != null)
           AppSection(
             title: l10n.catalogBreathingTempoTitle,
             child: Column(
               children: [
-                if (exercise.breathing case final breathing?)
+                if (content.breathing case final breathing?) ...[
                   _LabeledRow(
                     icon: Icons.air,
                     label: l10n.catalogBreathingLabel,
                     value: breathing,
                   ),
-                if (exercise.breathing != null && exercise.tempo != null)
                   const SizedBox(height: AppSpacing.md),
-                if (exercise.tempo case final tempo?)
+                ],
+                if (content.tempo case final tempo?) ...[
                   _LabeledRow(
                     icon: Icons.timer_outlined,
                     label: l10n.catalogTempoLabel,
                     value: tempo,
+                  ),
+                  const SizedBox(height: AppSpacing.md),
+                ],
+                if (content.safety case final safety?)
+                  // Kısıt eşleşmesinde amber: renk + ikon + metin
+                  // birlikte (renk tek başına anlam taşımaz).
+                  _LabeledRow(
+                    icon: restricted
+                        ? Icons.warning_amber_outlined
+                        : Icons.shield_outlined,
+                    label: restricted
+                        ? l10n.catalogSafetyRestricted
+                        : l10n.catalogSafetyLabel,
+                    value: safety,
+                    color: restricted ? semantic.warning : null,
                   ),
               ],
             ),
@@ -124,7 +161,10 @@ class MistakesTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (exercise.commonMistakes.isEmpty) {
+    final content = exercise.contentFor(
+      Localizations.localeOf(context).languageCode,
+    );
+    if (content.commonMistakes.isEmpty) {
       return AppEmptyState(title: context.l10n.catalogNoMistakes);
     }
 
@@ -133,10 +173,10 @@ class MistakesTab extends StatelessWidget {
 
     return ListView.separated(
       padding: _tabPadding,
-      itemCount: exercise.commonMistakes.length,
+      itemCount: content.commonMistakes.length,
       separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
       itemBuilder: (context, index) {
-        final mistake = exercise.commonMistakes[index];
+        final mistake = content.commonMistakes[index];
         return Card(
           child: Padding(
             padding: const EdgeInsets.all(AppSpacing.lg),
@@ -251,7 +291,12 @@ class SafetyTab extends StatelessWidget {
                 const SizedBox(width: AppSpacing.md),
                 Expanded(
                   child: Text(
-                    exercise.safety ?? context.l10n.catalogSafetyDisclaimer,
+                    exercise
+                            .contentFor(
+                              Localizations.localeOf(context).languageCode,
+                            )
+                            .safety ??
+                        context.l10n.catalogSafetyDisclaimer,
                     style: theme.textTheme.bodyLarge,
                   ),
                 ),
@@ -390,19 +435,25 @@ class _LabeledRow extends StatelessWidget {
     required this.icon,
     required this.label,
     required this.value,
+    this.color,
   });
 
   final IconData icon;
   final String label;
   final String value;
 
+  /// Verilirse ikon ve etiket bu tonda — kısıt eşleşmesinin amber
+  /// vurgusu. Metin normal kalır: uyarı okunurluğu bozmamalı.
+  final Color? color;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final accent = color ?? theme.colorScheme.onSurfaceVariant;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 18, color: theme.colorScheme.onSurfaceVariant),
+        Icon(icon, size: 18, color: accent),
         const SizedBox(width: AppSpacing.md),
         Expanded(
           child: Column(
@@ -411,7 +462,8 @@ class _LabeledRow extends StatelessWidget {
               Text(
                 label,
                 style: theme.textTheme.labelSmall?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
+                  color: accent,
+                  fontWeight: color == null ? null : FontWeight.w600,
                 ),
               ),
               Text(value, style: theme.textTheme.bodyMedium),

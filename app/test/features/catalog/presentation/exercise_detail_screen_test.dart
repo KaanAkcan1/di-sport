@@ -3,6 +3,8 @@ import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:disport/features/catalog/presentation/exercise_detail_screen.dart';
+import 'package:disport/features/medical/application/medical_providers.dart';
+import 'package:disport/features/medical/domain/medical_fact.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -41,6 +43,11 @@ void main() {
       exerciseVariantsProvider(
         'incline_pushup',
       ).overrideWith((ref) async => withVariants ? variants : {}),
+      // v3: NASIL sekmesi kısıt eşleşmesi için medikal kayıtları
+      // okuyor; Drift akışına bağlanmasın.
+      medicalFactsProvider.overrideWith(
+        (ref) => Stream.value(const <MedicalFact>[]),
+      ),
     ],
     child: MaterialApp(
       theme: AppTheme.light,
@@ -154,6 +161,9 @@ void main() {
           exerciseVariantsProvider(
             'incline_pushup',
           ).overrideWith((ref) async => const <String, Exercise>{}),
+          medicalFactsProvider.overrideWith(
+            (ref) => Stream.value(const <MedicalFact>[]),
+          ),
         ],
         child: MaterialApp(
           theme: AppTheme.light,

@@ -94,13 +94,20 @@ class ExerciseSetCard extends ConsumerWidget {
               isoDate: isoDate,
             ),
 
-            if (exercise != null && exercise.cues.isNotEmpty) ...[
+            if (exercise != null &&
+                exercise
+                    .contentFor(Localizations.localeOf(context).languageCode)
+                    .cues
+                    .isNotEmpty) ...[
               const SizedBox(height: AppSpacing.md),
               Wrap(
                 spacing: AppSpacing.sm,
                 runSpacing: AppSpacing.xs,
                 children: [
-                  for (final cue in exercise.cues.take(3))
+                  for (final cue in exercise
+                      .contentFor(Localizations.localeOf(context).languageCode)
+                      .cues
+                      .take(3))
                     Chip(
                       label: Text(cue),
                       visualDensity: VisualDensity.compact,

@@ -463,6 +463,8 @@
   "sportWorkoutHistory": "Geçmiş",
   "sportWorkoutExerciseCount": "{count} hareket",
   "@sportWorkoutExerciseCount": {"placeholders": {"count": {"type": "int"}}},
+  "catalogSafetyLabel": "Güvenlik",
+  "catalogSafetyRestricted": "Güvenlik — kısıtınla eşleşiyor",
   "rhythmMealsSection": "Öğünler",
   "rhythmMealFlexible": "Saat esnek",
   "mealBehaviorPlanned": "Plan doldurur",

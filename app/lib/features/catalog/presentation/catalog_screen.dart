@@ -3,6 +3,7 @@ import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/data/equipment_repository.dart';
+import 'package:disport/features/catalog/data/favorite_sports_repository.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:disport/features/catalog/domain/recent_exercise_source.dart';
 import 'package:disport/features/catalog/presentation/catalog_filter_sheet.dart';
@@ -30,60 +31,62 @@ class CatalogScreen extends ConsumerStatefulWidget {
   ConsumerState<CatalogScreen> createState() => _CatalogScreenState();
 }
 
-class _CatalogScreenState extends ConsumerState<CatalogScreen>
-    with SingleTickerProviderStateMixin {
-  late final TabController _tabs;
-
-  /// Sekme sırası `_locations` ile aynı olmak zorunda.
+class _CatalogScreenState extends ConsumerState<CatalogScreen> {
+  /// Çip sırası `_index` ile eşleşir.
   ///
-  /// Üçüncü sekme (**Dışarıda**) bu listede yok: orada katalog
+  /// Üçüncü çip (**Dışarıda**) bu listede yok: orada katalog
   /// hareketleri değil serbest aktiviteler listeleniyor ve `location`
-  /// filtresinin karşılığı yok. Listeye `null` koymak yerine sekme
-  /// sayısını ayrı tutmak, "hangi yer seçili" sorusunun cevabını
-  /// belirsizleştirmiyor.
+  /// filtresinin karşılığı yok.
+  ///
+  /// v3 (§6.4): yer seçimi sekme değil **çip** — segment üstte alt
+  /// sekme sırası olarak durduğundan ikinci bir sekme çubuğu
+  /// gezinmeyi bulanıklaştırıyordu.
   static const _locations = [ExerciseLocation.home, ExerciseLocation.gym];
-  static const _outsideTabIndex = 2;
+  static const _outsideIndex = 2;
+
+  var _index = 0;
 
   @override
   void initState() {
     super.initState();
-    _tabs = TabController(length: _locations.length + 1, vsync: this)
-      ..addListener(_syncLocation);
-    // İlk kare: sekme zaten "Evde"de duruyor, filtre de öyle olmalı.
+    // İlk kare: çip "Evde"de duruyor, filtre de öyle olmalı.
     WidgetsBinding.instance.addPostFrameCallback((_) => _syncLocation());
   }
 
-  @override
-  void dispose() {
-    _tabs
-      ..removeListener(_syncLocation)
-      ..dispose();
-    super.dispose();
-  }
-
   void _syncLocation() {
-    if (_tabs.indexIsChanging) return;
-    if (_tabs.index == _outsideTabIndex) return;
-    ref
-        .read(catalogFilterProvider.notifier)
-        .setLocation(_locations[_tabs.index]);
+    if (_index == _outsideIndex) return;
+    ref.read(catalogFilterProvider.notifier).setLocation(_locations[_index]);
   }
 
   @override
   Widget build(BuildContext context) {
     final exercises = ref.watch(filteredExercisesProvider);
 
-    final outside = _tabs.index == _outsideTabIndex;
+    final outside = _index == _outsideIndex;
+    final labels = [
+      context.l10n.catalogTabHome,
+      context.l10n.catalogTabGym,
+      context.l10n.catalogTabOutside,
+    ];
 
     return Column(
       children: [
-        TabBar(
-          controller: _tabs,
-          onTap: (_) => setState(() {}),
-          tabs: [
-            Tab(text: context.l10n.catalogTabHome),
-            Tab(text: context.l10n.catalogTabGym),
-            Tab(text: context.l10n.catalogTabOutside),
+        const SizedBox(height: AppSpacing.sm),
+        Row(
+          children: [
+            const SizedBox(width: AppSpacing.screenH),
+            for (final (i, label) in labels.indexed) ...[
+              ChoiceChip(
+                key: Key('catalog-location-$i'),
+                label: Text(label),
+                selected: _index == i,
+                onSelected: (_) {
+                  setState(() => _index = i);
+                  _syncLocation();
+                },
+              ),
+              const SizedBox(width: AppSpacing.sm),
+            ],
           ],
         ),
 
@@ -436,6 +439,14 @@ class _OutsideList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final activities = ref.watch(activityCatalogProvider(''));
     final isoDate = ref.watch(todayIsoProvider);
+    // Sevilen sporlar üstte (v3 §6.4): kullanıcının seçtikleri her
+    // seferinde 72 satır arasında aranmamalı.
+    final favoriteIds = {
+      for (final favorite
+          in ref.watch(favoriteSportsProvider).value ??
+              const <FavoriteSport>[])
+        favorite.activityId,
+    };
 
     return AppAsyncView<List<Activity>>(
       value: activities,
@@ -445,19 +456,35 @@ class _OutsideList extends ConsumerWidget {
         title: context.l10n.activityEmptyTitle,
         description: context.l10n.activityEmptyMessage,
       ),
-      data: (list) => ListView.builder(
-        padding: const EdgeInsets.only(bottom: AppSpacing.xl2),
-        itemCount: list.length,
-        itemBuilder: (context, index) {
-          final activity = list[index];
-          return ListTile(
-            title: Text(activityDisplayName(context, activity)),
-            subtitle: Text('${activity.met} MET'),
-            trailing: const Icon(Icons.add),
-            onTap: () => showActivityLogSheet(context, isoDate: isoDate),
-          );
-        },
-      ),
+      data: (list) {
+        final ordered = [
+          for (final a in list)
+            if (favoriteIds.contains(a.id)) a,
+          for (final a in list)
+            if (!favoriteIds.contains(a.id)) a,
+        ];
+        return ListView.builder(
+          padding: const EdgeInsets.only(bottom: AppSpacing.xl2),
+          itemCount: ordered.length,
+          itemBuilder: (context, index) {
+            final activity = ordered[index];
+            final favorite = favoriteIds.contains(activity.id);
+            return ListTile(
+              leading: favorite
+                  ? Icon(
+                      Icons.star,
+                      size: 18,
+                      color: Theme.of(context).colorScheme.primary,
+                    )
+                  : null,
+              title: Text(activityDisplayName(context, activity)),
+              subtitle: Text('${activity.met} MET'),
+              trailing: const Icon(Icons.add),
+              onTap: () => showActivityLogSheet(context, isoDate: isoDate),
+            );
+          },
+        );
+      },
     );
   }
 }

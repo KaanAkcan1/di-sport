@@ -163,10 +163,16 @@ void main() {
         isNotEmpty,
         reason: '$id: primaryMuscles boş',
       );
+      // v3 (T16.4): içerik iki dilli; adımlar iki dilden en az
+      // birinde olmalı. TR zorunluluğu çekirdekte, EN zorunluluğu
+      // içerik yazımı bitince açılacak (kademeli çıta).
+      final steps = listAt(exercise, 'executionTr').isNotEmpty
+          ? listAt(exercise, 'executionTr')
+          : listAt(exercise, 'executionEn');
       expect(
-        listAt(exercise, 'execution').length,
+        steps.length,
         greaterThanOrEqualTo(2),
-        reason: '$id: execution en az 2 adım olmalı',
+        reason: '$id: execution (Tr ya da En) en az 2 adım olmalı',
       );
     }
   });
@@ -179,7 +185,12 @@ void main() {
       expect(exercise, isNotNull, reason: '$id çekirdekte ama katalogda yok');
       if (exercise == null) continue;
 
-      for (final field in ['nameTr', 'summary', 'breathing', 'safety']) {
+      for (final field in [
+        'nameTr',
+        'summaryTr',
+        'breathingTr',
+        'safetyTr',
+      ]) {
         expect(
           exercise[field],
           isNotNull,
@@ -189,22 +200,22 @@ void main() {
       }
 
       expect(
-        listAt(exercise, 'setup'),
+        listAt(exercise, 'setupTr'),
         isNotEmpty,
-        reason: '$id: çekirdek kayıtta setup boş olamaz',
+        reason: '$id: çekirdek kayıtta setupTr boş olamaz',
       );
       expect(
-        listAt(exercise, 'execution').length,
+        listAt(exercise, 'executionTr').length,
         greaterThanOrEqualTo(3),
-        reason: '$id: çekirdekte en az 3 adım',
+        reason: '$id: çekirdekte en az 3 Türkçe adım',
       );
       expect(
-        listAt(exercise, 'cues').length,
+        listAt(exercise, 'cuesTr').length,
         greaterThanOrEqualTo(2),
         reason: '$id: çekirdekte en az 2 ipucu',
       );
 
-      final mistakes = listAt(exercise, 'commonMistakes');
+      final mistakes = listAt(exercise, 'commonMistakesTr');
       expect(
         mistakes.length,
         greaterThanOrEqualTo(2),
