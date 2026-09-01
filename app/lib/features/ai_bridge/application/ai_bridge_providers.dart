@@ -103,6 +103,8 @@ Future<PlanValidator> planValidator(Ref ref) async {
 PlanImporter planImporter(Ref ref) => PlanImporter(
   insertPlan: ref.watch(planRepositoryProvider).insertFullPlan,
   addExercise: ref.watch(catalogRepositoryProvider).upsertUserDefined,
+  loadActivePlan: ref.watch(planRepositoryProvider).activePlan,
+  pruneDays: ref.watch(planRepositoryProvider).softDeleteDaysNotIn,
 );
 
 /// Kapatılan bölümlerin profil anahtarı (v3 §9.3 — gönderilecekler).

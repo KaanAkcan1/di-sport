@@ -6,6 +6,8 @@ import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart'
 import 'package:disport/features/ai_bridge/domain/plan_importer.dart';
 import 'package:disport/features/ai_bridge/presentation/import_plan_sheet.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
+import 'package:disport/features/plan/application/plan_providers.dart'
+    show activePlanProvider;
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,6 +27,8 @@ void main() {
   Widget wrap() => ProviderScope(
     overrides: [
       planValidatorProvider.overrideWith((ref) async => fixtureValidator()),
+      // v3: aşılama adaylığı aktif plana bakıyor — Drift'e bağlanmasın.
+      activePlanProvider.overrideWith((ref) async => null),
       planImporterProvider.overrideWithValue(
         PlanImporter(
           insertPlan: (plan) async => insertedPlans.add(plan),

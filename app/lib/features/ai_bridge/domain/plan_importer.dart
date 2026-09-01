@@ -28,11 +28,22 @@ class PlanImporter {
   const PlanImporter({
     required this.insertPlan,
     required this.addExercise,
+    this.loadActivePlan,
+    this.pruneDays,
     this.uuid = const Uuid(),
   });
 
   final Future<void> Function(FullPlan plan) insertPlan;
   final Future<void> Function(Exercise exercise) addExercise;
+
+  /// Aşılama için (v3 §9.1). Verilmezse aşılama yapılamaz — eski
+  /// çağıranlar değişmeden çalışır.
+  final Future<FullPlan?> Function()? loadActivePlan;
+
+  /// Kesim tarihinden sonraki eski günleri düşürür.
+  final Future<void> Function(String planId, Set<String> keepDayIds)?
+  pruneDays;
+
   final Uuid uuid;
 
   /// [acceptedNewExerciseIds] kullanıcının onayladığı yeni hareketler.
@@ -43,6 +54,7 @@ class PlanImporter {
   Future<Result<ImportSummary>> import(
     ValidatedPlan validated, {
     required Set<String> acceptedNewExerciseIds,
+    bool graft = false,
   }) async {
     final plan = validated.plan;
 
@@ -82,6 +94,28 @@ class PlanImporter {
       added++;
     }
 
+    // Aşılama (v3 §9.1): dönen plan mevcut aktif planın üstüne,
+    // başlangıç tarihinden itibaren aşılanır. Önceki günler ve tüm
+    // tarihli kayıtlar aynen kalır.
+    if (graft) {
+      final active = await loadActivePlan?.call();
+      if (active != null) {
+        final merged = _graft(plan, active, validated.rawJson);
+        await insertPlan(merged);
+        await pruneDays?.call(
+          active.id,
+          {for (final day in merged.days) day.id},
+        );
+        return Ok(
+          ImportSummary(
+            planId: active.id,
+            dayCount: plan.days.length,
+            addedExercises: added,
+          ),
+        );
+      }
+    }
+
     final planId = uuid.v4();
     await insertPlan(_toDomain(plan, planId, validated.rawJson));
 
@@ -93,6 +127,91 @@ class PlanImporter {
       ),
     );
   }
+
+  /// Dönen planı aktif planın üstüne aşılar (v3 §9.1).
+  ///
+  /// - Kesim = dönen planın ilk günü. Öncesi aynen korunur.
+  /// - `startDate` değişmez; `endDate` en geç günden, `weeks` ondan.
+  /// - **Tüm** `weekIndex` değerleri `startDate`'e göre tarih
+  ///   aritmetiğiyle yeniden atanır; dönen belgedeki hafta numaraları
+  ///   yok sayılır.
+  /// - `sourceRaw` planın kökeni: yeni belge sona eklenir, orijinal
+  ///   yerinde kalır.
+  FullPlan _graft(PlanJson incoming, FullPlan active, String rawJson) {
+    final cut = DateTime.parse(incoming.meta.startDate);
+    final base = DateTime(
+      active.startDate.year,
+      active.startDate.month,
+      active.startDate.day,
+    );
+
+    int weekOf(DateTime date) =>
+        DateTime(date.year, date.month, date.day).difference(base).inDays ~/
+            7 +
+        1;
+
+    final kept = [
+      for (final day in active.days)
+        if (day.date.isBefore(cut))
+          FullPlanDay(
+            id: day.id,
+            date: day.date,
+            type: day.type,
+            weekIndex: weekOf(day.date),
+            headline: day.headline,
+            dinnerSuggestion: day.dinnerSuggestion,
+            slots: day.slots,
+            exercises: day.exercises,
+          ),
+    ];
+
+    // Yeni günlerin id'si tarihten türetiliyor: aynı belge iki kez
+    // aşılanırsa satırlar çakışmadan üzerine yazılır.
+    final incomingPlan = _toDomain(incoming, active.id, rawJson);
+    final grafted = [
+      for (final day in incomingPlan.days)
+        FullPlanDay(
+          id: '${active.id}-g${_iso(day.date)}',
+          date: day.date,
+          type: day.type,
+          weekIndex: weekOf(day.date),
+          headline: day.headline,
+          dinnerSuggestion: day.dinnerSuggestion,
+          slots: day.slots,
+          exercises: day.exercises,
+        ),
+    ];
+
+    final all = [...kept, ...grafted]
+      ..sort((a, b) => a.date.compareTo(b.date));
+    final lastDate = all.last.date;
+    final weeks =
+        (DateTime(
+                  lastDate.year,
+                  lastDate.month,
+                  lastDate.day,
+                ).difference(base).inDays +
+            7) ~/
+        7;
+
+    return FullPlan(
+      id: active.id,
+      title: incoming.meta.title,
+      startDate: active.startDate,
+      weeks: weeks,
+      goals: incomingPlan.goals,
+      rules: incomingPlan.rules,
+      sourceRaw: active.sourceRaw.isEmpty
+          ? rawJson
+          : '${active.sourceRaw}\n\n--- aşılama (${incoming.meta.startDate}) ---\n$rawJson',
+      days: all,
+    );
+  }
+
+  static String _iso(DateTime date) =>
+      '${date.year.toString().padLeft(4, '0')}-'
+      '${date.month.toString().padLeft(2, '0')}-'
+      '${date.day.toString().padLeft(2, '0')}';
 
   FullPlan _toDomain(PlanJson plan, String planId, String rawJson) {
     return FullPlan(

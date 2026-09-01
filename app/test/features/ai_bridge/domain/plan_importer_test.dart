@@ -157,6 +157,133 @@ void main() {
     });
   });
 
+  group('aşılama (v3 §9.1)', () {
+    // Aktif plan 31 Ağustos'ta başlıyor; dönen belge 7 Eylül'den (2.
+    // hafta) itibaren yenisini getiriyor.
+    FullPlan activePlan() {
+      final start = DateTime(2026, 8, 31);
+      return FullPlan(
+        id: 'active-1',
+        title: 'Eski Plan',
+        startDate: start,
+        weeks: 2,
+        goals: const PlanGoals(
+          dailyKcal: 2200,
+          proteinG: 160,
+          waterL: 3,
+          weeklyGym: 2,
+          weeklyHome: 3,
+          targetLossKg: 2,
+        ),
+        rules: const PlanRules(forbidden: ['alkol'], free: []),
+        sourceRaw: '{"eski": true}',
+        days: [
+          for (var i = 0; i < 14; i++)
+            FullPlanDay(
+              id: 'active-1-d$i',
+              date: start.add(Duration(days: i)),
+              type: PlanDayType.home,
+              weekIndex: i ~/ 7 + 1,
+            ),
+        ],
+      );
+    }
+
+    PlanImporter graftImporter(FullPlan active, Set<String>? prunedKeep) =>
+        PlanImporter(
+          insertPlan: (plan) async => insertedPlans.add(plan),
+          addExercise: (exercise) async => addedExercises.add(exercise),
+          loadActivePlan: () async => active,
+          pruneDays: (planId, keep) async {
+            expect(planId, active.id);
+            prunedKeep?.addAll(keep);
+          },
+        );
+
+    Map<String, dynamic> incomingFrom(String startDate) {
+      final document = validPlanMap();
+      (document['meta'] as Map<String, dynamic>)['startDate'] = startDate;
+      final days = document['days'] as List;
+      final start = DateTime.parse(startDate);
+      for (final (index, raw) in days.indexed) {
+        (raw as Map<String, dynamic>)['date'] = [
+          start.add(Duration(days: index)),
+        ].map((d) =>
+            '${d.year.toString().padLeft(4, '0')}-'
+            '${d.month.toString().padLeft(2, '0')}-'
+            '${d.day.toString().padLeft(2, '0')}').single;
+      }
+      return document;
+    }
+
+    test('kesimden önceki günler korunur, sonrası değişir', () async {
+      final keep = <String>{};
+      final importer = graftImporter(activePlan(), keep);
+
+      final result = await importer.import(
+        validate(incomingFrom('2026-09-07')),
+        acceptedNewExerciseIds: const {},
+        graft: true,
+      );
+
+      expect(result.isOk, isTrue);
+      final merged = insertedPlans.single;
+      // Aynı plan güncellenir — yeni plan açılmaz.
+      expect(merged.id, 'active-1');
+      // 7 korunan + 7 yeni gün.
+      expect(merged.days, hasLength(14));
+      expect(
+        merged.days.take(7).map((d) => d.id),
+        everyElement(startsWith('active-1-d')),
+      );
+      expect(
+        merged.days.skip(7).map((d) => d.id),
+        everyElement(startsWith('active-1-g')),
+      );
+      // Budama korunacak günlerin tam kümesini alır.
+      expect(keep, merged.days.map((d) => d.id).toSet());
+    });
+
+    test('startDate değişmez, weekIndex tarihten yeniden atanır', () async {
+      final importer = graftImporter(activePlan(), null);
+      await importer.import(
+        validate(incomingFrom('2026-09-07')),
+        acceptedNewExerciseIds: const {},
+        graft: true,
+      );
+
+      final merged = insertedPlans.single;
+      expect(merged.startDate, DateTime(2026, 8, 31));
+      expect(merged.weeks, 2);
+      // Dönen belge weekIndex=1 diyordu; tarih aritmetiği 2 der.
+      expect(merged.days.last.weekIndex, 2);
+      expect(merged.days.first.weekIndex, 1);
+    });
+
+    test('başlık ve hedefler dönen belgeden, sourceRaw eklenir', () async {
+      final importer = graftImporter(activePlan(), null);
+      await importer.import(
+        validate(incomingFrom('2026-09-07')),
+        acceptedNewExerciseIds: const {},
+        graft: true,
+      );
+
+      final merged = insertedPlans.single;
+      expect(merged.title, 'Eylül Planı');
+      expect(merged.sourceRaw, contains('{"eski": true}'));
+      expect(merged.sourceRaw, contains('aşılama (2026-09-07)'));
+    });
+
+    test('graft=false eski davranış — yeni plan açılır', () async {
+      final importer = graftImporter(activePlan(), null);
+      await importer.import(
+        validate(incomingFrom('2026-09-07')),
+        acceptedNewExerciseIds: const {},
+      );
+      expect(insertedPlans.single.id, isNot('active-1'));
+    });
+  });
+
   group('yeni hareketler', () {
     Map<String, dynamic> documentWithNew({bool useInPlan = false}) {
       final document = validPlanMap();

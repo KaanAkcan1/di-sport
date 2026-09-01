@@ -124,6 +124,48 @@ class PlanRepository {
     }
   });
 
+  /// Aşılama artığı günleri yumuşak siler (v3 §9.1).
+  ///
+  /// `insertFullPlan` var olanı günceller ama listede olmayanı silmez;
+  /// aşılamada kesim tarihinden sonraki eski günler burada düşer.
+  /// Slot ve hareketleri de işaretlenir — hayalet satır kalmasın.
+  Future<void> softDeleteDaysNotIn(String planId, Set<String> dayIds) =>
+      _db.transaction(() async {
+        final now = DateTime.now().millisecondsSinceEpoch;
+        final rows =
+            await (_db.select(_db.planDays)..where(
+                  (t) => t.planId.equals(planId) & t.deletedAt.isNull(),
+                ))
+                .get();
+
+        for (final row in rows) {
+          if (dayIds.contains(row.id)) continue;
+          await (_db.update(_db.planDays)..where((t) => t.id.equals(row.id)))
+              .write(
+                PlanDaysCompanion(
+                  deletedAt: Value(now),
+                  updatedAt: Value(now),
+                ),
+              );
+          await (_db.update(_db.planSlots)
+                ..where((t) => t.planDayId.equals(row.id)))
+              .write(
+                PlanSlotsCompanion(
+                  deletedAt: Value(now),
+                  updatedAt: Value(now),
+                ),
+              );
+          await (_db.update(_db.planExercises)
+                ..where((t) => t.planDayId.equals(row.id)))
+              .write(
+                PlanExercisesCompanion(
+                  deletedAt: Value(now),
+                  updatedAt: Value(now),
+                ),
+              );
+        }
+      });
+
   Future<FullPlan?> activePlan() async {
     final row =
         await (_db.select(_db.plans)..where(

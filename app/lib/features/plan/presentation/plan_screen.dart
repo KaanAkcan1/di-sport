@@ -132,7 +132,47 @@ class PlanActions extends ConsumerStatefulWidget {
 class _PlanActionsState extends ConsumerState<PlanActions> {
   var _busy = false;
 
+  /// Kapsam sorusu (v3 §9.1): aktif plan varken yeni plan ya baştan
+  /// istenir ya seçilen tarihten sonrası için — önceki günler korunur.
+  Future<DateTime?> _pickScope() async {
+    final active = await ref.read(activePlanProvider.future);
+    if (active == null || !mounted) return null;
+
+    final l10n = context.l10n;
+    final choice = await showDialog<String>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(l10n.requestScopeTitle),
+        content: Text(l10n.requestScopeBody),
+        actions: [
+          TextButton(
+            key: const Key('scope-fresh'),
+            onPressed: () => Navigator.of(dialogContext).pop('fresh'),
+            child: Text(l10n.requestScopeFresh),
+          ),
+          FilledButton(
+            key: const Key('scope-graft'),
+            onPressed: () => Navigator.of(dialogContext).pop('graft'),
+            child: Text(l10n.requestScopeGraft),
+          ),
+        ],
+      ),
+    );
+    if (choice != 'graft' || !mounted) return null;
+
+    final tomorrow = DateTime.now().add(const Duration(days: 1));
+    return showDatePicker(
+      context: context,
+      initialDate: tomorrow,
+      // En erken yarın: bugünün kayıtları yarıda kesilmesin.
+      firstDate: tomorrow,
+      lastDate: tomorrow.add(const Duration(days: 60)),
+    );
+  }
+
   Future<void> _requestPlan() async {
+    final graftFrom = await _pickScope();
+    if (!mounted) return;
     setState(() => _busy = true);
     try {
       // Gönderilecekler ekranındaki seçim burada da geçerli: kapalı
@@ -140,7 +180,11 @@ class _PlanActionsState extends ConsumerState<PlanActions> {
       final sections = await ref.read(contextSectionsProvider.future);
       final markdown = await ref
           .read(contextMdBuilderProvider)
-          .build(today: DateTime.now(), sections: sections);
+          .build(
+            today: DateTime.now(),
+            sections: sections,
+            graftFrom: graftFrom,
+          );
 
       if (!mounted) return;
       await SharePlus.instance.share(

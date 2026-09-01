@@ -2804,6 +2804,42 @@ abstract class AppLocalizations {
   /// **'AI\'a gönderilecekler'**
   String get moreAiSections;
 
+  /// No description provided for @importPlanGraftTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Mevcut planın üstüne aşıla'**
+  String get importPlanGraftTitle;
+
+  /// No description provided for @importPlanGraftBody.
+  ///
+  /// In tr, this message translates to:
+  /// **'{date} öncesi aynen korunur; o tarihten sonrası bu planla değiştirilir. Kayıtlarına dokunulmaz.'**
+  String importPlanGraftBody(String date);
+
+  /// No description provided for @requestScopeTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Plan kapsamı'**
+  String get requestScopeTitle;
+
+  /// No description provided for @requestScopeBody.
+  ///
+  /// In tr, this message translates to:
+  /// **'Aktif bir planın var. Yeni plan nereden başlasın?'**
+  String get requestScopeBody;
+
+  /// No description provided for @requestScopeGraft.
+  ///
+  /// In tr, this message translates to:
+  /// **'Şu tarihten sonrası'**
+  String get requestScopeGraft;
+
+  /// No description provided for @requestScopeFresh.
+  ///
+  /// In tr, this message translates to:
+  /// **'Baştan yeni plan'**
+  String get requestScopeFresh;
+
   /// No description provided for @rhythmMealsSection.
   ///
   /// In tr, this message translates to:

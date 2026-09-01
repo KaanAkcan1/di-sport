@@ -1529,6 +1529,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get moreAiSections => 'What goes to the AI';
 
   @override
+  String get importPlanGraftTitle => 'Graft onto the current plan';
+
+  @override
+  String importPlanGraftBody(String date) {
+    return 'Everything before $date stays untouched; from that date on this plan takes over. Your records are never touched.';
+  }
+
+  @override
+  String get requestScopeTitle => 'Plan scope';
+
+  @override
+  String get requestScopeBody =>
+      'You have an active plan. Where should the new plan start?';
+
+  @override
+  String get requestScopeGraft => 'From a chosen date';
+
+  @override
+  String get requestScopeFresh => 'A fresh plan';
+
+  @override
   String get rhythmMealsSection => 'Meals';
 
   @override

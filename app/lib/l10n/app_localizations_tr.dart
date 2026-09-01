@@ -1526,6 +1526,27 @@ class AppLocalizationsTr extends AppLocalizations {
   String get moreAiSections => 'AI\'a gönderilecekler';
 
   @override
+  String get importPlanGraftTitle => 'Mevcut planın üstüne aşıla';
+
+  @override
+  String importPlanGraftBody(String date) {
+    return '$date öncesi aynen korunur; o tarihten sonrası bu planla değiştirilir. Kayıtlarına dokunulmaz.';
+  }
+
+  @override
+  String get requestScopeTitle => 'Plan kapsamı';
+
+  @override
+  String get requestScopeBody =>
+      'Aktif bir planın var. Yeni plan nereden başlasın?';
+
+  @override
+  String get requestScopeGraft => 'Şu tarihten sonrası';
+
+  @override
+  String get requestScopeFresh => 'Baştan yeni plan';
+
+  @override
   String get rhythmMealsSection => 'Öğünler';
 
   @override

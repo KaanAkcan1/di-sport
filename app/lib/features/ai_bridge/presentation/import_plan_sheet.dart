@@ -29,6 +29,11 @@ class _ImportPlanSheetState extends ConsumerState<ImportPlanSheet> {
   final _acceptedNewIds = <String>{};
   var _busy = false;
 
+  /// Aşılama (v3 §9.1): dönen plan mevcut planın ortasından
+  /// başlıyorsa varsayılan aşılamadır — önceki günler korunur.
+  var _graft = false;
+  var _graftPossible = false;
+
   @override
   void dispose() {
     _controller.dispose();
@@ -40,8 +45,23 @@ class _ImportPlanSheetState extends ConsumerState<ImportPlanSheet> {
     final validator = await ref.read(planValidatorProvider.future);
     final result = validator.validate(_controller.text);
 
+    // Aşılama adaylığı: aktif plan var ve dönen plan onun başlangıcından
+    // sonra başlıyor. Baştan plan (aynı gün ya da öncesi) aşılanmaz —
+    // yenisi eskisini olduğu gibi değiştirir.
+    var graftPossible = false;
+    if (result case Ok(:final value)) {
+      final active = await ref.read(activePlanProvider.future);
+      final incomingStart = DateTime.tryParse(value.plan.meta.startDate);
+      graftPossible =
+          active != null &&
+          incomingStart != null &&
+          incomingStart.isAfter(active.startDate);
+    }
+
     if (!mounted) return;
     setState(() {
+      _graftPossible = graftPossible;
+      _graft = graftPossible;
       _busy = false;
       switch (result) {
         case Ok(:final value):
@@ -67,7 +87,11 @@ class _ImportPlanSheetState extends ConsumerState<ImportPlanSheet> {
     setState(() => _busy = true);
     final result = await ref
         .read(planImporterProvider)
-        .import(validated, acceptedNewExerciseIds: _acceptedNewIds);
+        .import(
+          validated,
+          acceptedNewExerciseIds: _acceptedNewIds,
+          graft: _graftPossible && _graft,
+        );
 
     if (!mounted) return;
     setState(() => _busy = false);
@@ -188,6 +212,19 @@ class _ImportPlanSheetState extends ConsumerState<ImportPlanSheet> {
                 accepted ? _acceptedNewIds.add(id) : _acceptedNewIds.remove(id);
               }),
             ),
+            if (_graftPossible) ...[
+              const SizedBox(height: AppSpacing.sm),
+              SwitchListTile(
+                key: const Key('graft-toggle'),
+                dense: true,
+                title: Text(l10n.importPlanGraftTitle),
+                subtitle: Text(
+                  l10n.importPlanGraftBody(validated.plan.meta.startDate),
+                ),
+                value: _graft,
+                onChanged: (value) => setState(() => _graft = value),
+              ),
+            ],
             const SizedBox(height: AppSpacing.lg),
             FilledButton.icon(
               onPressed: _busy ? null : _import,
