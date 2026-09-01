@@ -1,4 +1,4 @@
-import 'package:disport/features/plan/domain/day_cell_state.dart';
+import 'package:disport/features/nutrition/domain/calorie_tone.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

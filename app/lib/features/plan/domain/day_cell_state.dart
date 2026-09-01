@@ -51,31 +51,5 @@ DayCellFill resolveDayFill({
       : DayCellFill.empty;
 }
 
-/// Bir günün kalori tonu.
-enum DayCalorieTone {
-  /// Bütçenin altında kalınmış.
-  under,
-
-  /// Bütçe aşılmış.
-  over,
-
-  /// Hedef yok ya da o gün hiç yemek girilmemiş.
-  none,
-}
-
-/// Bir günün kalori dengesini tona çevirir.
-///
-/// **Doluluk tonunun yerine geçmiyor, üstüne biniyor:** ikisi ayrı
-/// soruları cevaplıyor — "planı yaptım mı" ve "bütçede kaldım mı".
-/// Tek tona indirmek, planı eksiksiz yapıp fazla yiyen bir günü ya
-/// yeşil ya kırmızı gösterirdi ve ikisi de yanlış olurdu.
-///
-/// [net] `null` ise o gün **hiç kayıt yok** — sıfır kalori yemiş gibi
-/// davranmak, kaydını girmemiş kullanıcıyı "bütçenin altında kaldın"
-/// diye ödüllendirmek olurdu.
-DayCalorieTone resolveCalorieTone({int? goalKcal, double? net}) {
-  if (goalKcal == null || goalKcal <= 0 || net == null) {
-    return DayCalorieTone.none;
-  }
-  return net > goalKcal ? DayCalorieTone.over : DayCalorieTone.under;
-}
+// Kalori tonu v3'te Diyet'e taşındı: `nutrition/domain/calorie_tone.dart`
+// (T15.4). T16.1 takvimden kalori tonlamasını tümüyle söküyor.

@@ -1251,6 +1251,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Nothing forbidden. Add a line; link it to foods if you like.';
 
   @override
+  String get dietHistoryDays => 'Day breakdown';
+
+  @override
   String get rhythmMealsSection => 'Meals';
 
   @override

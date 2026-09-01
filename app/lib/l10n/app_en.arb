@@ -434,6 +434,7 @@
   "@forbiddenLinkedCount": {"placeholders": {"count": {"type": "int"}}},
   "forbiddenNoPlan": "The forbidden list is stored on the plan; you need a plan first.",
   "forbiddenEmpty": "Nothing forbidden. Add a line; link it to foods if you like.",
+  "dietHistoryDays": "Day breakdown",
   "rhythmMealsSection": "Meals",
   "rhythmMealFlexible": "Flexible time",
   "mealBehaviorPlanned": "Plan fills it",

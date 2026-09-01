@@ -434,6 +434,7 @@
   "@forbiddenLinkedCount": {"placeholders": {"count": {"type": "int"}}},
   "forbiddenNoPlan": "Yasaklı listesi plana yazılır; önce bir plan gerekli.",
   "forbiddenEmpty": "Yasaklı yok. Satır ekle; istersen besinlere bağla.",
+  "dietHistoryDays": "Gün dökümü",
   "rhythmMealsSection": "Öğünler",
   "rhythmMealFlexible": "Saat esnek",
   "mealBehaviorPlanned": "Plan doldurur",

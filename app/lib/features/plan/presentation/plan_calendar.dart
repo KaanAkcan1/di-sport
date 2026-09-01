@@ -2,6 +2,7 @@ import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
 import 'package:disport/core/design/app_typography.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
+import 'package:disport/features/nutrition/domain/calorie_tone.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/plan/domain/day_cell_state.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';

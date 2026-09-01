@@ -1248,6 +1248,9 @@ class AppLocalizationsTr extends AppLocalizations {
       'Yasaklı yok. Satır ekle; istersen besinlere bağla.';
 
   @override
+  String get dietHistoryDays => 'Gün dökümü';
+
+  @override
   String get rhythmMealsSection => 'Öğünler';
 
   @override

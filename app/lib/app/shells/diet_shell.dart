@@ -1,8 +1,11 @@
 import 'package:disport/app/shells/shell_header.dart';
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/design/app_semantic_colors.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
+import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/nutrition/application/nutrition_providers.dart';
+import 'package:disport/features/nutrition/domain/calorie_tone.dart';
 import 'package:disport/features/nutrition/domain/food.dart';
 import 'package:disport/features/nutrition/domain/food_sort.dart';
 import 'package:disport/features/nutrition/domain/forbidden_match.dart';
@@ -14,6 +17,12 @@ import 'package:disport/features/nutrition/presentation/portion_sheet.dart';
 import 'package:disport/features/nutrition/presentation/water_row.dart';
 import 'package:disport/features/plan/application/plan_providers.dart'
     show activePlanProvider;
+import 'package:disport/features/plan/data/plan_repository.dart'
+    show PlanRepository;
+import 'package:disport/features/today/application/today_providers.dart'
+    show todayIsoProvider;
+import 'package:disport/features/today/presentation/today_screen.dart'
+    show DayScreen;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -252,12 +261,70 @@ class _FoodRow extends StatelessWidget {
   }
 }
 
-/// Kalori geçmişi — İlerleme'den taşındı.
-class _HistoryTab extends StatelessWidget {
+/// Kalori geçmişi — İlerleme'den taşındı; gün dökümüyle (v3 §5.3).
+class _HistoryTab extends ConsumerWidget {
   const _HistoryTab();
 
   @override
-  Widget build(BuildContext context) => const AppScreenBody(
-    children: [CalorieWeekChart()],
-  );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final semantic = context.semantic;
+    final todayIso = ref.watch(todayIsoProvider);
+    final today = DateTime.parse(todayIso);
+    final from = today.subtract(const Duration(days: 6));
+    final goal = ref.watch(dailyKcalGoalProvider).value;
+    final net =
+        ref
+            .watch(
+              netKcalByDayProvider(
+                PlanRepository.iso(from),
+                PlanRepository.iso(today),
+              ),
+            )
+            .value ??
+        const <String, double>{};
+
+    return AppScreenBody(
+      children: [
+        const CalorieWeekChart(),
+        const SizedBox(height: AppSpacing.xl),
+        AppSectionLabel(context.l10n.dietHistoryDays),
+        for (var back = 0; back <= 6; back++)
+          Builder(
+            builder: (context) {
+              final day = today.subtract(Duration(days: back));
+              final iso = PlanRepository.iso(day);
+              final value = net[iso];
+              final tone = resolveCalorieTone(goalKcal: goal, net: value);
+
+              return ListTile(
+                key: Key('diet-history-$iso'),
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                title: Text(TurkishDate.weekdayAndDay(day)),
+                trailing: Text(
+                  // Kayıtsız gün `—` — sıfır çizmek "hiç yemedin"
+                  // derdi, oysa yalnız girilmedi (spec §5.3).
+                  value == null ? '—' : '${value.round()} kcal',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: switch (tone) {
+                      DayCalorieTone.over => semantic.danger,
+                      DayCalorieTone.under => semantic.success,
+                      DayCalorieTone.none =>
+                        theme.colorScheme.onSurfaceVariant,
+                    },
+                    fontFeatures: const [FontFeature.tabularFigures()],
+                  ),
+                ),
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => DayScreen(dateKey: iso),
+                  ),
+                ),
+              );
+            },
+          ),
+      ],
+    );
+  }
 }

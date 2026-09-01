@@ -2300,6 +2300,12 @@ abstract class AppLocalizations {
   /// **'Yasaklı yok. Satır ekle; istersen besinlere bağla.'**
   String get forbiddenEmpty;
 
+  /// No description provided for @dietHistoryDays.
+  ///
+  /// In tr, this message translates to:
+  /// **'Gün dökümü'**
+  String get dietHistoryDays;
+
   /// No description provided for @rhythmMealsSection.
   ///
   /// In tr, this message translates to:
