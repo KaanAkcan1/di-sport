@@ -1169,6 +1169,41 @@ class AppLocalizationsEn extends AppLocalizations {
   String get planSlotAddItem => 'Add food';
 
   @override
+  String get waterRowTitle => 'Water';
+
+  @override
+  String waterRowAmount(int current, int target) {
+    return '$current / $target ml';
+  }
+
+  @override
+  String get waterRowAddGlass => '+250 ml';
+
+  @override
+  String get waterRowRemoveGlass => 'Take back one glass';
+
+  @override
+  String get dietPlanBadge => 'PLAN';
+
+  @override
+  String get dietPlanCompliantBadge => 'ON PLAN';
+
+  @override
+  String get dietAteAsPlanned => 'I ate as planned';
+
+  @override
+  String get dietAteUsual => 'The usual';
+
+  @override
+  String get dietExternalMeal =>
+      'Canteen/eating out — no plan expected, log freely.';
+
+  @override
+  String dietFixedUnbound(String note) {
+    return 'Fixed meal: $note';
+  }
+
+  @override
   String get rhythmMealsSection => 'Meals';
 
   @override

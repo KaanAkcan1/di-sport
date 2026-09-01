@@ -219,3 +219,14 @@ Stream<Map<String, double>> netKcalByDay(
 @riverpod
 Future<Food?> foodById(Ref ref, String id) =>
     ref.watch(nutritionRepositoryProvider).foodById(id);
+
+/// Su hedefi ml — plan hedefinden (litre), plan yoksa 3 litre.
+///
+/// PDF çizelgenin kuralı 3 litreydi; plansız kullanıcıya hedefsiz bir
+/// su sayacı göstermek "ne kadar kaldı" sorusunu cevapsız bırakırdı.
+@riverpod
+Future<int> waterTargetMl(Ref ref) async {
+  final plan = await ref.watch(activePlanProvider.future);
+  final liters = plan?.goals.waterL;
+  return liters == null ? 3000 : (liters * 1000).round();
+}

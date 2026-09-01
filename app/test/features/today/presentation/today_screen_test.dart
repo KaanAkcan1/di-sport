@@ -81,6 +81,8 @@ void main() {
       dailyKcalGoalProvider.overrideWith((ref) async => kcalGoal),
       dailyProteinGoalProvider.overrideWith((ref) async => null),
       frequentFoodsProvider.overrideWith((ref) => Stream.value(const <Food>[])),
+      // v3: su satırı hedefi plandan okuyor — Drift'e bağlanmasın.
+      waterTargetMlProvider.overrideWith((ref) async => 3000),
       // Takviye dozları da Drift akışı; ekran testi bağlanmamalı.
       todayDosesProvider.overrideWithValue(const <SupplementDose>[]),
       todayIsoProvider.overrideWithValue('2026-08-31'),

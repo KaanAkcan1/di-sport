@@ -295,6 +295,47 @@ void main() {
     });
   });
 
+  group('addResolvedItems (v3 §5.1)', () {
+    test('kalemleri çözer, porsiyonla snapshot yazar', () async {
+      final added = await repo.addResolvedItems(
+        isoDate: '2026-09-01',
+        mealKind: MealKind.aksam,
+        slotId: 'slot-1',
+        items: const [
+          (foodId: 'etli_kuru_fasulye', quantity: 1.5, portionId: 'kase'),
+          (foodId: 'apple_raw', quantity: 2, portionId: null),
+        ],
+      );
+      expect(added, 2);
+
+      final entries = await repo.watchDay('2026-09-01').first;
+      expect(entries, hasLength(2));
+      final beans = entries.singleWhere(
+        (e) => e.foodId == 'etli_kuru_fasulye',
+      );
+      // 1,5 kase × 250 g = 375 g → 108 kcal/100g × 3,75.
+      expect(beans.grams, 375);
+      expect(beans.kcal, closeTo(405, 0.01));
+      expect(beans.slotId, 'slot-1');
+      // Porsiyonsuz kalem 100 g tabanı: 2 × 100 g elma.
+      final apple = entries.singleWhere((e) => e.foodId == 'apple_raw');
+      expect(apple.grams, 200);
+    });
+
+    test('bilinmeyen besin sessizce atlanır, sayıya girmez', () async {
+      final added = await repo.addResolvedItems(
+        isoDate: '2026-09-01',
+        mealKind: MealKind.ogle,
+        items: const [
+          (foodId: 'no_such_food', quantity: 1, portionId: null),
+          (foodId: 'apple_raw', quantity: 1, portionId: null),
+        ],
+      );
+      expect(added, 1);
+      expect(await repo.watchDay('2026-09-01').first, hasLength(1));
+    });
+  });
+
   group('copyMeal', () {
     test('en son o öğünün girildiği günü kopyalar', () async {
       // "Dünü kopyala" değil: kullanıcı dün kahvaltı girmemiş olabilir

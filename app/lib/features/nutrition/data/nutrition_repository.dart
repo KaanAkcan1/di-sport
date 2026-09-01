@@ -276,6 +276,43 @@ class NutritionRepository {
         ),
       );
 
+  /// Kalem listesini besinlere çözüp snapshot'la yazar (v3 §5.1).
+  ///
+  /// "Plandaki gibi yedim" ve "Her zamanki" tek dokunuşları bunu
+  /// kullanıyor. Snapshot **o anki** besin değerinden — plan yazıldığı
+  /// andaki değil; snapshot ilkesi kayıt anına bakar. Bilinmeyen
+  /// `foodId` sessizce atlanır ve dönen sayıya girmez: plan eski bir
+  /// katalogdan geliyor olabilir, tek bozuk kalem tümünü engellememeli.
+  Future<int> addResolvedItems({
+    required String isoDate,
+    required MealKind mealKind,
+    required List<({String foodId, double quantity, String? portionId})>
+    items,
+    String? slotId,
+  }) async {
+    var added = 0;
+    for (final item in items) {
+      final food = await foodById(item.foodId);
+      if (food == null) continue;
+
+      FoodPortion? portion;
+      for (final candidate in food.portions) {
+        if (candidate.id == item.portionId) portion = candidate;
+      }
+
+      await addEntry(
+        food: food,
+        mealKind: mealKind,
+        isoDate: isoDate,
+        quantity: item.quantity,
+        portion: portion,
+        slotId: slotId,
+      );
+      added++;
+    }
+    return added;
+  }
+
   /// Bir öğünü, o öğünde kayıt bulunan **en son günden** kopyalar.
   ///
   /// "Dünü kopyala" değil: kullanıcı dün kahvaltı girmemiş olabilir ve

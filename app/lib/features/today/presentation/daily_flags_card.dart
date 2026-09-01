@@ -1,6 +1,8 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
+import 'package:disport/features/nutrition/application/nutrition_providers.dart'
+    show waterTargetMlProvider;
 import 'package:disport/features/today/application/day_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/daily_rules_repository.dart';
@@ -27,6 +29,7 @@ class DailyFlagsCard extends ConsumerWidget {
     final log = ref.watch(dayLogProvider(iso)).value;
     final repository = ref.watch(todayRepositoryProvider);
     final rules = ref.watch(dailyRulesProvider);
+    final waterTarget = ref.watch(waterTargetMlProvider).value ?? 3000;
 
     return AppAsyncView<List<DailyRule>>(
       value: rules,
@@ -79,8 +82,23 @@ class DailyFlagsCard extends ConsumerWidget {
                             tileKey: Key('flag-${rule.id}'),
                             rule: rule,
                             value: log?.isRuleChecked(rule.id) ?? false,
-                            onChanged: (_) =>
-                                repository.toggleRule(iso, rule.id),
+                            // Su kuralı artık miktara bağlı (v3 §5.1):
+                            // elle işaretlemek miktarı hedefe eşitler,
+                            // kaldırmak bilinmeze döndürür — iki kaynak
+                            // çelişmez.
+                            subtitle:
+                                rule.id == BuiltInRules.water &&
+                                    log?.waterMl != null
+                                ? context.l10n.waterRowAmount(
+                                    log!.waterMl!,
+                                    waterTarget,
+                                  )
+                                : null,
+                            onChanged: (_) => repository.toggleRule(
+                              iso,
+                              rule.id,
+                              waterTargetMl: waterTarget,
+                            ),
                           ),
                       ],
                     ),
@@ -119,12 +137,14 @@ class _RuleTile extends StatelessWidget {
     required this.rule,
     required this.value,
     required this.onChanged,
+    this.subtitle,
   });
 
   final Key tileKey;
   final DailyRule rule;
   final bool value;
   final ValueChanged<bool> onChanged;
+  final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -134,6 +154,7 @@ class _RuleTile extends StatelessWidget {
       onChanged: onChanged,
       secondary: Icon(RuleIcons.resolve(rule.iconKey)),
       title: Text(rule.label),
+      subtitle: subtitle == null ? null : Text(subtitle!),
       dense: true,
     );
   }

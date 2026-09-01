@@ -1,4 +1,5 @@
 import 'package:disport/core/db/app_database.dart';
+import 'package:disport/features/today/data/daily_rule_table.dart';
 import 'package:disport/features/today/data/today_repository.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -99,6 +100,38 @@ void main() {
     await repo.setNote(today, 'not');
 
     expect(await db.select(db.dailyLogs).get(), hasLength(1));
+  });
+
+  group('su miktarı (v3 §5.1)', () {
+    test('yazım kutucuğu miktardan türetir — iki yönde', () async {
+      await repo.setWaterMl(today, 2750, targetMl: 3000);
+      var view = await repo.readDay(today);
+      expect(view.waterMl, 2750);
+      expect(view.waterTargetMet, isFalse);
+
+      await repo.setWaterMl(today, 3000, targetMl: 3000);
+      view = await repo.readDay(today);
+      expect(view.waterTargetMet, isTrue);
+
+      // Geri almak kutucuğu da geri alır — iki kaynak çelişmez.
+      await repo.setWaterMl(today, 2500, targetMl: 3000);
+      view = await repo.readDay(today);
+      expect(view.waterTargetMet, isFalse);
+    });
+
+    test('kutucuğu elle işaretlemek miktarı hedefe eşitler', () async {
+      await repo.toggleRule(today, BuiltInRules.water, waterTargetMl: 3000);
+      var view = await repo.readDay(today);
+      expect(view.waterTargetMet, isTrue);
+      expect(view.waterMl, 3000);
+
+      // Kaldırmak miktarı sıfırlamaz, bilinmeze döndürür: "bugün takip
+      // etmedim" ile "hiç içmedim" aynı şey değil.
+      await repo.toggleRule(today, BuiltInRules.water, waterTargetMl: 3000);
+      view = await repo.readDay(today);
+      expect(view.waterTargetMet, isFalse);
+      expect(view.waterMl, isNull);
+    });
   });
 
   group('rowsBetween', () {

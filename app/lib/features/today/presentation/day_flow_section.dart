@@ -2,6 +2,7 @@ import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
+import 'package:disport/features/nutrition/presentation/water_row.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/supplements/application/supplement_providers.dart';
 import 'package:disport/features/today/application/day_providers.dart';
@@ -105,6 +106,10 @@ class _DayFlowSectionState extends ConsumerState<DayFlowSection> {
           ),
         ],
         if (_expanded) ...[
+          const SizedBox(height: AppSpacing.xl),
+          // Su Ana Sayfa'dan da girilebilmeli (v3 §5.1) — Diyet'e
+          // geçmeden bardak eklemek günün en sık kaydı.
+          const WaterRow(),
           const SizedBox(height: AppSpacing.xl),
           const MeasurementInputs(),
           const SizedBox(height: AppSpacing.xl),

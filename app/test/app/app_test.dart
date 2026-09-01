@@ -15,8 +15,10 @@ import 'package:disport/features/nutrition/domain/food.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/progress/application/progress_providers.dart';
 import 'package:disport/features/progress/domain/transition_criteria.dart';
+import 'package:disport/features/settings/application/meal_behavior_providers.dart';
 import 'package:disport/features/settings/application/settings_providers.dart';
 import 'package:disport/features/settings/application/setup_providers.dart';
+import 'package:disport/features/settings/domain/meal_behavior.dart';
 import 'package:disport/features/settings/domain/setup_progress.dart';
 import 'package:disport/features/supplements/application/supplement_providers.dart';
 import 'package:disport/features/supplements/domain/supplement.dart';
@@ -69,6 +71,11 @@ void main() {
       dailyKcalGoalProvider.overrideWith((ref) async => null),
       dailyProteinGoalProvider.overrideWith((ref) async => null),
       frequentFoodsProvider.overrideWith((ref) => Stream.value(const <Food>[])),
+      // v3: su hedefi ve öğün davranışları da Drift'e bakıyor.
+      waterTargetMlProvider.overrideWith((ref) async => 3000),
+      mealBehaviorsProvider.overrideWith(
+        (ref) => Stream.value(const <MealBehaviorEntry>[]),
+      ),
       netKcalByDayProvider(
         '2026-08-26',
         '2026-09-01',

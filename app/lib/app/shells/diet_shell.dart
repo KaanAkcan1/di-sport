@@ -8,6 +8,7 @@ import 'package:disport/features/nutrition/presentation/calorie_week_chart.dart'
 import 'package:disport/features/nutrition/presentation/day_meals_card.dart';
 import 'package:disport/features/nutrition/presentation/food_labels.dart';
 import 'package:disport/features/nutrition/presentation/portion_sheet.dart';
+import 'package:disport/features/nutrition/presentation/water_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,7 +37,11 @@ class _DailyTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const AppScreenBody(
-    children: [DayMealsCard()],
+    children: [
+      WaterRow(),
+      SizedBox(height: AppSpacing.xl),
+      DayMealsCard(),
+    ],
   );
 }
 

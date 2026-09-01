@@ -68,6 +68,8 @@ void main() {
       dailyKcalGoalProvider.overrideWith((ref) async => null),
       dailyProteinGoalProvider.overrideWith((ref) async => null),
       frequentFoodsProvider.overrideWith((ref) => Stream.value(const <Food>[])),
+      // v3: su satırı hedefi plandan okuyor — Drift'e bağlanmasın.
+      waterTargetMlProvider.overrideWith((ref) async => 3000),
     ],
     child: MaterialApp(
       theme: AppTheme.dark,

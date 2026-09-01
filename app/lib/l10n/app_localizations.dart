@@ -2156,6 +2156,66 @@ abstract class AppLocalizations {
   /// **'Besin ekle'**
   String get planSlotAddItem;
 
+  /// No description provided for @waterRowTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Su'**
+  String get waterRowTitle;
+
+  /// No description provided for @waterRowAmount.
+  ///
+  /// In tr, this message translates to:
+  /// **'{current} / {target} ml'**
+  String waterRowAmount(int current, int target);
+
+  /// No description provided for @waterRowAddGlass.
+  ///
+  /// In tr, this message translates to:
+  /// **'+250 ml'**
+  String get waterRowAddGlass;
+
+  /// No description provided for @waterRowRemoveGlass.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bir bardak geri al'**
+  String get waterRowRemoveGlass;
+
+  /// No description provided for @dietPlanBadge.
+  ///
+  /// In tr, this message translates to:
+  /// **'PLAN'**
+  String get dietPlanBadge;
+
+  /// No description provided for @dietPlanCompliantBadge.
+  ///
+  /// In tr, this message translates to:
+  /// **'PLANA UYGUN'**
+  String get dietPlanCompliantBadge;
+
+  /// No description provided for @dietAteAsPlanned.
+  ///
+  /// In tr, this message translates to:
+  /// **'Plandaki gibi yedim'**
+  String get dietAteAsPlanned;
+
+  /// No description provided for @dietAteUsual.
+  ///
+  /// In tr, this message translates to:
+  /// **'Her zamanki'**
+  String get dietAteUsual;
+
+  /// No description provided for @dietExternalMeal.
+  ///
+  /// In tr, this message translates to:
+  /// **'Dışarıda/yemekhanede — plan beklenmez, yediğini serbest gir.'**
+  String get dietExternalMeal;
+
+  /// No description provided for @dietFixedUnbound.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sabit öğün: {note}'**
+  String dietFixedUnbound(String note);
+
   /// No description provided for @rhythmMealsSection.
   ///
   /// In tr, this message translates to:

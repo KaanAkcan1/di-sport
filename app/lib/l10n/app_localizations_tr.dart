@@ -1166,6 +1166,41 @@ class AppLocalizationsTr extends AppLocalizations {
   String get planSlotAddItem => 'Besin ekle';
 
   @override
+  String get waterRowTitle => 'Su';
+
+  @override
+  String waterRowAmount(int current, int target) {
+    return '$current / $target ml';
+  }
+
+  @override
+  String get waterRowAddGlass => '+250 ml';
+
+  @override
+  String get waterRowRemoveGlass => 'Bir bardak geri al';
+
+  @override
+  String get dietPlanBadge => 'PLAN';
+
+  @override
+  String get dietPlanCompliantBadge => 'PLANA UYGUN';
+
+  @override
+  String get dietAteAsPlanned => 'Plandaki gibi yedim';
+
+  @override
+  String get dietAteUsual => 'Her zamanki';
+
+  @override
+  String get dietExternalMeal =>
+      'Dışarıda/yemekhanede — plan beklenmez, yediğini serbest gir.';
+
+  @override
+  String dietFixedUnbound(String note) {
+    return 'Sabit öğün: $note';
+  }
+
+  @override
   String get rhythmMealsSection => 'Öğünler';
 
   @override

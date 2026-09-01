@@ -17,6 +17,7 @@ class DailyLogView {
     this.workoutDone = false,
     this.waterTargetMet = false,
     this.noAlcoholSugar = false,
+    this.waterMl,
     this.note = '',
   });
 
@@ -29,6 +30,11 @@ class DailyLogView {
   final bool workoutDone;
   final bool waterTargetMet;
   final bool noAlcoholSugar;
+
+  /// İçilen su (v3 §5.1). null = hiç girilmemiş; 0'dan farklı bir şey
+  /// söyler ("bugün takip etmedim" ≠ "hiç içmedim").
+  final int? waterMl;
+
   final String note;
 
   bool isSlotChecked(String slotId) => checkedSlotIds.contains(slotId);
@@ -136,16 +142,48 @@ class TodayRepository {
     );
   }
 
+  /// Suyu miktar olarak yazar; kutucuğu miktardan türetir (v3 §5.1).
+  ///
+  /// `waterTargetMet` sütunu kalıyor — kaçak serisi ve eski okuyucular
+  /// bozulmasın — ama artık her yazımda `waterMl >= hedef`ten
+  /// güncelleniyor. İki kaynak çelişemez.
+  Future<void> setWaterMl(
+    String isoDate,
+    int? ml, {
+    required int targetMl,
+  }) async {
+    await _ensureRow(isoDate);
+    await _write(
+      isoDate,
+      DailyLogsCompanion(
+        waterMl: Value(ml),
+        waterTargetMet: Value(ml != null && ml >= targetMl),
+      ),
+    );
+  }
+
   /// Kural işaretini tersine çevirir — yerleşik ya da özel.
   ///
   /// Çağıran taraf ayrımı bilmiyor: yerleşik kurallar kendi sütununa,
   /// özel kurallar JSON dizisine yazılıyor.
-  Future<void> toggleRule(String isoDate, String ruleId) async {
+  ///
+  /// [waterTargetMl] yalnız su kuralında anlamlı: kutucuk elle
+  /// işaretlenirse miktar hedefe eşitlenir (eski alışkanlık bozulmaz),
+  /// işaret kaldırılırsa miktar sıfırlanmaz, bilinmeze döner.
+  Future<void> toggleRule(
+    String isoDate,
+    String ruleId, {
+    int waterTargetMl = 3000,
+  }) async {
     final row = await _ensureRow(isoDate);
 
     switch (ruleId) {
       case BuiltInRules.water:
-        await setFlags(isoDate, waterTargetMet: !row.waterTargetMet);
+        if (row.waterTargetMet) {
+          await setWaterMl(isoDate, null, targetMl: waterTargetMl);
+        } else {
+          await setWaterMl(isoDate, waterTargetMl, targetMl: waterTargetMl);
+        }
       case BuiltInRules.noAlcoholSugar:
         await setFlags(isoDate, noAlcoholSugar: !row.noAlcoholSugar);
       case BuiltInRules.workout:
@@ -240,6 +278,7 @@ class TodayRepository {
       workoutDone: row.workoutDone,
       waterTargetMet: row.waterTargetMet,
       noAlcoholSugar: row.noAlcoholSugar,
+      waterMl: row.waterMl,
       note: row.note,
     );
   }
