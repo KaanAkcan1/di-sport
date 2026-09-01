@@ -32,3 +32,13 @@ Future<List<SetActual>> lastActuals(Ref ref, String key) {
 /// [lastActualsProvider] için anahtar üretir.
 String lastActualsKey(String exerciseId, String beforeIso) =>
     '$exerciseId@$beforeIso';
+
+/// Günün kimlikli set kayıtları — Planlanan/Yapılan ekranı (v3 §6.2).
+@riverpod
+Stream<List<LoggedSet>> dayWorkoutLogs(Ref ref, String isoDate) =>
+    ref.watch(workoutRepositoryProvider).watchDayLogs(isoDate);
+
+/// Günün seansları, düzenlenebilir hâlleriyle.
+@riverpod
+Stream<List<SessionInfo>> daySessions(Ref ref, String isoDate) =>
+    ref.watch(workoutRepositoryProvider).watchSessions(isoDate);

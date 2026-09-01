@@ -1259,6 +1259,69 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get plannedVsDoneTitle => 'Planned / Done';
+
+  @override
+  String get plannedVsDoneExercises => 'Exercises';
+
+  @override
+  String get plannedVsDoneColumns => 'PLAN · DONE';
+
+  @override
+  String get plannedVsDoneEmptyTitle => 'No workout on this day';
+
+  @override
+  String get plannedVsDoneEmptyBody =>
+      'The plan put no exercises here and nothing was logged.';
+
+  @override
+  String get plannedVsDoneOpenLive => 'Start workout';
+
+  @override
+  String get plannedVsDoneSession => 'Session';
+
+  @override
+  String get plannedVsDoneNoSession =>
+      'No session recorded. For a past day you can enter the time range by hand.';
+
+  @override
+  String plannedVsDoneSessionOpen(String start) {
+    return '$start — in progress';
+  }
+
+  @override
+  String plannedVsDoneMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get plannedVsDoneAddSession => 'Add session';
+
+  @override
+  String get plannedVsDoneSessionEdit => 'Session times';
+
+  @override
+  String get plannedVsDoneStart => 'Start';
+
+  @override
+  String get plannedVsDoneEnd => 'End';
+
+  @override
+  String get plannedVsDoneAdd => '— ADD';
+
+  @override
+  String get plannedVsDoneNoSets => 'No sets logged. Add one below.';
+
+  @override
+  String get plannedVsDoneAddSet => 'Add set';
+
+  @override
+  String get plannedVsDoneReps => 'Reps';
+
+  @override
+  String get plannedVsDoneSeconds => 'Seconds';
+
+  @override
   String get rhythmMealsSection => 'Meals';
 
   @override

@@ -11,7 +11,7 @@ import 'package:disport/features/today/domain/day_flow.dart';
 import 'package:disport/features/today/presentation/daily_flags_card.dart';
 import 'package:disport/features/today/presentation/day_note_field.dart';
 import 'package:disport/features/today/presentation/measurement_inputs.dart';
-import 'package:disport/features/workout/presentation/workout_screen.dart';
+import 'package:disport/features/workout/presentation/planned_vs_done_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -244,13 +244,14 @@ class _FlowRow extends ConsumerWidget {
               takenAt: row.done ? null : DateTime.now(),
             );
       case DayFlowKind.workout:
-        if (day case final planDay?) {
-          Navigator.of(context).push(
-            MaterialPageRoute<void>(
-              builder: (_) => WorkoutScreen(day: planDay),
-            ),
-          );
-        }
+        // v3 §6.2: akıştaki antrenman satırı Planlanan/Yapılan'ı açar;
+        // canlı sayaç oradan bir dokunuş uzakta ve geçmiş gün de aynı
+        // yoldan düzeltilir.
+        Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (_) => PlannedVsDoneScreen(dateKey: date),
+          ),
+        );
       case DayFlowKind.meal:
       case DayFlowKind.slotOther:
         if (row.slotId case final slotId?) {

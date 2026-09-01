@@ -147,4 +147,56 @@ void main() {
       expect(await repo.logsBetween('2026-09-01', '2026-09-05'), isEmpty);
     });
   });
+
+  group('Planlanan/Yapılan (v3 §6.2)', () {
+    test('geçmiş güne set yazılır, düzeltilir ve silinir', () async {
+      await logSet('2026-08-15', 'pushup', 0, reps: 10);
+      await logSet('2026-08-15', 'pushup', 1, reps: 8);
+
+      var logs = await repo.watchDayLogs('2026-08-15').first;
+      expect(logs, hasLength(2));
+
+      await repo.updateSet(logs.first.id, reps: 12, weightKg: 20);
+      logs = await repo.watchDayLogs('2026-08-15').first;
+      expect(logs.first.reps, 12);
+      expect(logs.first.weightKg, 20);
+      // Verilmeyen alanlara dokunulmaz.
+      expect(logs.last.reps, 8);
+
+      await repo.deleteSet(logs.last.id);
+      expect(await repo.watchDayLogs('2026-08-15').first, hasLength(1));
+    });
+
+    test('geçmiş güne elle seans girilir ve düzeltilir', () async {
+      await repo.setSessionTimes(
+        isoDate: '2026-08-15',
+        start: DateTime(2026, 8, 15, 18),
+        end: DateTime(2026, 8, 15, 18, 45),
+      );
+
+      var sessions = await repo.watchSessions('2026-08-15').first;
+      expect(sessions.single.duration, const Duration(minutes: 45));
+
+      await repo.setSessionTimes(
+        isoDate: '2026-08-15',
+        sessionId: sessions.single.id,
+        start: DateTime(2026, 8, 15, 18),
+        end: DateTime(2026, 8, 15, 19),
+      );
+      sessions = await repo.watchSessions('2026-08-15').first;
+      expect(sessions.single.duration, const Duration(hours: 1));
+      // Güncelleme yeni satır açmaz.
+      expect(sessions, hasLength(1));
+    });
+
+    test('elle girilen seans kapalıdır — süre hesabına girer', () async {
+      await repo.setSessionTimes(
+        isoDate: '2026-08-15',
+        start: DateTime(2026, 8, 15, 18),
+        end: DateTime(2026, 8, 15, 18, 30),
+      );
+      final durations = await repo.watchSessionDurations('2026-08-15').first;
+      expect(durations.single, const Duration(minutes: 30));
+    });
+  });
 }

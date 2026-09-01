@@ -24,6 +24,37 @@ class SetActual {
   }
 }
 
+/// Kimlikli set kaydı — Planlanan/Yapılan ekranı düzenleme için
+/// satırın kimliğine muhtaç (v3 §6.2); [SetActual] onu taşımıyor.
+class LoggedSet {
+  const LoggedSet({
+    required this.id,
+    required this.exerciseId,
+    required this.setIndex,
+    this.reps,
+    this.weightKg,
+    this.durationSec,
+  });
+
+  final String id;
+  final String exerciseId;
+  final int setIndex;
+  final int? reps;
+  final double? weightKg;
+  final int? durationSec;
+}
+
+/// Bir seans satırı — süre ve saat aralığı düzenlenebilir.
+class SessionInfo {
+  const SessionInfo({required this.id, required this.startedAt, this.endedAt});
+
+  final String id;
+  final DateTime startedAt;
+  final DateTime? endedAt;
+
+  Duration? get duration => endedAt?.difference(startedAt);
+}
+
 /// Antrenman kayıtlarına erişim.
 class WorkoutRepository {
   WorkoutRepository(this._db);
@@ -309,5 +340,105 @@ class WorkoutRepository {
           ),
         ),
     ];
+  }
+
+  // --- Planlanan/Yapılan (v3 §6.2) ---
+
+  /// Günün kimlikli set kayıtları — düzenleme ekranı akışla okur.
+  Stream<List<LoggedSet>> watchDayLogs(String isoDate) =>
+      (_db.select(_db.exerciseLogs)
+            ..where((t) => t.date.equals(isoDate) & t.deletedAt.isNull())
+            ..orderBy([(t) => OrderingTerm.asc(t.setIndex)]))
+          .watch()
+          .map(
+            (rows) => [
+              for (final row in rows)
+                LoggedSet(
+                  id: row.id,
+                  exerciseId: row.exerciseId,
+                  setIndex: row.setIndex,
+                  reps: row.reps,
+                  weightKg: row.weightKg,
+                  durationSec: row.durationSec,
+                ),
+            ],
+          );
+
+  /// Var olan bir seti düzeltir. Verilmeyen alanlar dokunulmadan kalır.
+  Future<void> updateSet(
+    String id, {
+    int? reps,
+    double? weightKg,
+    int? durationSec,
+  }) =>
+      (_db.update(_db.exerciseLogs)..where((t) => t.id.equals(id))).write(
+        ExerciseLogsCompanion(
+          reps: reps == null ? const Value.absent() : Value(reps),
+          weightKg: weightKg == null ? const Value.absent() : Value(weightKg),
+          durationSec: durationSec == null
+              ? const Value.absent()
+              : Value(durationSec),
+          updatedAt: Value(DateTime.now().millisecondsSinceEpoch),
+        ),
+      );
+
+  /// Seti siler — `undoLastSet` ile aynı sebepten kalıcı: set kaydı
+  /// bir sayaç, geçmiş belge değil.
+  Future<void> deleteSet(String id) =>
+      (_db.delete(_db.exerciseLogs)..where((t) => t.id.equals(id))).go();
+
+  /// Günün seansları, kimlikleriyle — düzenleme için.
+  Stream<List<SessionInfo>> watchSessions(String isoDate) =>
+      (_db.select(_db.workoutSessions)
+            ..where((t) => t.date.equals(isoDate) & t.deletedAt.isNull())
+            ..orderBy([(t) => OrderingTerm.asc(t.startedAt)]))
+          .watch()
+          .map(
+            (rows) => [
+              for (final row in rows)
+                SessionInfo(
+                  id: row.id,
+                  startedAt: row.startedAt,
+                  endedAt: row.endedAt,
+                ),
+            ],
+          );
+
+  /// Seans saatlerini elle yazar (geçmiş gün için seans girişi).
+  ///
+  /// [sessionId] verilirse o satır güncellenir; verilmezse kapalı bir
+  /// seans açılır — geçmiş güne "18:00–18:45 çalıştım" demek için canlı
+  /// sayaç gerekmiyor.
+  Future<void> setSessionTimes({
+    required String isoDate,
+    String? sessionId,
+    required DateTime start,
+    required DateTime end,
+  }) async {
+    final now = DateTime.now().millisecondsSinceEpoch;
+    if (sessionId != null) {
+      await (_db.update(_db.workoutSessions)
+            ..where((t) => t.id.equals(sessionId)))
+          .write(
+            WorkoutSessionsCompanion(
+              startedAt: Value(start),
+              endedAt: Value(end),
+              updatedAt: Value(now),
+            ),
+          );
+      return;
+    }
+
+    await _db
+        .into(_db.workoutSessions)
+        .insert(
+          WorkoutSessionsCompanion.insert(
+            id: const Uuid().v4(),
+            date: isoDate,
+            startedAt: start,
+            endedAt: Value(end),
+            updatedAt: now,
+          ),
+        );
   }
 }

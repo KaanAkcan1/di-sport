@@ -1256,6 +1256,69 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String get plannedVsDoneTitle => 'Planlanan / Yapılan';
+
+  @override
+  String get plannedVsDoneExercises => 'Hareketler';
+
+  @override
+  String get plannedVsDoneColumns => 'PLAN · YAPILAN';
+
+  @override
+  String get plannedVsDoneEmptyTitle => 'Bu günde antrenman yok';
+
+  @override
+  String get plannedVsDoneEmptyBody =>
+      'Plan bu güne hareket koymadı ve kayıt da girilmemiş.';
+
+  @override
+  String get plannedVsDoneOpenLive => 'Antrenmanı başlat';
+
+  @override
+  String get plannedVsDoneSession => 'Seans';
+
+  @override
+  String get plannedVsDoneNoSession =>
+      'Seans kaydı yok. Geçmiş gün için saat aralığını elle girebilirsin.';
+
+  @override
+  String plannedVsDoneSessionOpen(String start) {
+    return '$start — sürüyor';
+  }
+
+  @override
+  String plannedVsDoneMinutes(int minutes) {
+    return '$minutes dk';
+  }
+
+  @override
+  String get plannedVsDoneAddSession => 'Seans ekle';
+
+  @override
+  String get plannedVsDoneSessionEdit => 'Seans saatleri';
+
+  @override
+  String get plannedVsDoneStart => 'Başlangıç';
+
+  @override
+  String get plannedVsDoneEnd => 'Bitiş';
+
+  @override
+  String get plannedVsDoneAdd => '— EKLE';
+
+  @override
+  String get plannedVsDoneNoSets => 'Set kaydı yok. Aşağıdan ekle.';
+
+  @override
+  String get plannedVsDoneAddSet => 'Set ekle';
+
+  @override
+  String get plannedVsDoneReps => 'Tekrar';
+
+  @override
+  String get plannedVsDoneSeconds => 'Saniye';
+
+  @override
   String get rhythmMealsSection => 'Öğünler';
 
   @override

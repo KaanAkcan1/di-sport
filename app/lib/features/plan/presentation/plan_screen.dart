@@ -15,7 +15,7 @@ import 'package:disport/features/plan/presentation/plan_calendar.dart';
 import 'package:disport/features/plan/presentation/plan_settings_screen.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/today_repository.dart';
-import 'package:disport/features/today/presentation/today_screen.dart';
+import 'package:disport/features/workout/presentation/planned_vs_done_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -483,14 +483,15 @@ class _WeekSection extends ConsumerWidget {
             days: days,
             logs: logs,
             today: today,
-            // Takvim artık antrenman ekranını değil **gün ekranını**
-            // açıyor: kullanıcı o güne bakmak ve düzeltmek istiyor,
-            // hareketleri yeniden yapmak değil. Antrenman ekranı gün
-            // ekranındaki slottan bir dokunuş uzakta.
+            // Hücre Planlanan/Yapılan'ı açıyor (v3 §6.1): spor
+            // takvimindeki soru "o günün antrenmanı ne oldu" — genel
+            // gün ekranı değil, antrenman dökümü cevaplıyor. Geçmiş
+            // güne set düzeltme de orada.
             onDayTap: (day) => Navigator.of(context).push(
               MaterialPageRoute<void>(
-                builder: (_) =>
-                    DayScreen(dateKey: PlanRepository.iso(day.date)),
+                builder: (_) => PlannedVsDoneScreen(
+                  dateKey: PlanRepository.iso(day.date),
+                ),
               ),
             ),
           ),

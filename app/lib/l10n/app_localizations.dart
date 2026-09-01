@@ -2312,6 +2312,120 @@ abstract class AppLocalizations {
   /// **'Uyum %{percent} — {done}/{planned} antrenman günü'**
   String planAdherence(int percent, int done, int planned);
 
+  /// No description provided for @plannedVsDoneTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Planlanan / Yapılan'**
+  String get plannedVsDoneTitle;
+
+  /// No description provided for @plannedVsDoneExercises.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hareketler'**
+  String get plannedVsDoneExercises;
+
+  /// No description provided for @plannedVsDoneColumns.
+  ///
+  /// In tr, this message translates to:
+  /// **'PLAN · YAPILAN'**
+  String get plannedVsDoneColumns;
+
+  /// No description provided for @plannedVsDoneEmptyTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu günde antrenman yok'**
+  String get plannedVsDoneEmptyTitle;
+
+  /// No description provided for @plannedVsDoneEmptyBody.
+  ///
+  /// In tr, this message translates to:
+  /// **'Plan bu güne hareket koymadı ve kayıt da girilmemiş.'**
+  String get plannedVsDoneEmptyBody;
+
+  /// No description provided for @plannedVsDoneOpenLive.
+  ///
+  /// In tr, this message translates to:
+  /// **'Antrenmanı başlat'**
+  String get plannedVsDoneOpenLive;
+
+  /// No description provided for @plannedVsDoneSession.
+  ///
+  /// In tr, this message translates to:
+  /// **'Seans'**
+  String get plannedVsDoneSession;
+
+  /// No description provided for @plannedVsDoneNoSession.
+  ///
+  /// In tr, this message translates to:
+  /// **'Seans kaydı yok. Geçmiş gün için saat aralığını elle girebilirsin.'**
+  String get plannedVsDoneNoSession;
+
+  /// No description provided for @plannedVsDoneSessionOpen.
+  ///
+  /// In tr, this message translates to:
+  /// **'{start} — sürüyor'**
+  String plannedVsDoneSessionOpen(String start);
+
+  /// No description provided for @plannedVsDoneMinutes.
+  ///
+  /// In tr, this message translates to:
+  /// **'{minutes} dk'**
+  String plannedVsDoneMinutes(int minutes);
+
+  /// No description provided for @plannedVsDoneAddSession.
+  ///
+  /// In tr, this message translates to:
+  /// **'Seans ekle'**
+  String get plannedVsDoneAddSession;
+
+  /// No description provided for @plannedVsDoneSessionEdit.
+  ///
+  /// In tr, this message translates to:
+  /// **'Seans saatleri'**
+  String get plannedVsDoneSessionEdit;
+
+  /// No description provided for @plannedVsDoneStart.
+  ///
+  /// In tr, this message translates to:
+  /// **'Başlangıç'**
+  String get plannedVsDoneStart;
+
+  /// No description provided for @plannedVsDoneEnd.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bitiş'**
+  String get plannedVsDoneEnd;
+
+  /// No description provided for @plannedVsDoneAdd.
+  ///
+  /// In tr, this message translates to:
+  /// **'— EKLE'**
+  String get plannedVsDoneAdd;
+
+  /// No description provided for @plannedVsDoneNoSets.
+  ///
+  /// In tr, this message translates to:
+  /// **'Set kaydı yok. Aşağıdan ekle.'**
+  String get plannedVsDoneNoSets;
+
+  /// No description provided for @plannedVsDoneAddSet.
+  ///
+  /// In tr, this message translates to:
+  /// **'Set ekle'**
+  String get plannedVsDoneAddSet;
+
+  /// No description provided for @plannedVsDoneReps.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tekrar'**
+  String get plannedVsDoneReps;
+
+  /// No description provided for @plannedVsDoneSeconds.
+  ///
+  /// In tr, this message translates to:
+  /// **'Saniye'**
+  String get plannedVsDoneSeconds;
+
   /// No description provided for @rhythmMealsSection.
   ///
   /// In tr, this message translates to:
