@@ -5,6 +5,8 @@ import 'package:disport/features/catalog/data/catalog_repository.dart';
 import 'package:disport/features/catalog/data/equipment_repository.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:disport/features/health/data/metric_definitions_repository.dart';
+import 'package:disport/features/nutrition/data/activities_repository.dart';
+import 'package:disport/features/nutrition/data/nutrition_repository.dart';
 import 'package:disport/features/reminders/application/reminder_providers.dart';
 import 'package:disport/features/settings/data/profile_repository.dart';
 import 'package:disport/features/today/data/daily_rules_repository.dart';
@@ -29,6 +31,8 @@ Future<void> bootstrap() async {
   await _seedDailyRules(container);
   await _seedMetricDefinitions(container);
   await _seedEquipment(container);
+  await _seedFoods(container);
+  await _seedActivities(container);
 
   // Bildirim penceresi arka planda kaydırılıyor: kurulumu beklemek ilk
   // kareyi geciktirir ve kullanıcı uygulamayı açtığında alarm kurmak
@@ -69,6 +73,54 @@ Future<void> _seedCatalog(ProviderContainer container) async {
     );
   } catch (error, stackTrace) {
     debugPrint('Katalog tohumlaması başarısız: $error');
+    debugPrintStack(stackTrace: stackTrace);
+  }
+}
+
+/// Besin veritabanını yükler ve güncellenmişse yeniden uygular.
+///
+/// Katalogla aynı sürüm damgası deseni: dosyadaki sürüm profil
+/// tablosundaki uygulanmış sürümden büyükse yerleşikler id bazında
+/// tazeleniyor, kullanıcının sildiği geri gelmiyor.
+const _foodsSeedVersionKey = 'foods.seededVersion';
+
+Future<void> _seedFoods(ProviderContainer container) async {
+  try {
+    final json = await rootBundle.loadString('assets/foods.json');
+    final db = container.read(appDatabaseProvider);
+    final profile = ProfileRepository(db);
+
+    await NutritionRepository(db).seedFromJson(
+      json,
+      readVersion: () async =>
+          int.tryParse(await profile.read(_foodsSeedVersionKey) ?? '') ?? 0,
+      writeVersion: (version) => profile.set(_foodsSeedVersionKey, '$version'),
+    );
+  } catch (error, stackTrace) {
+    debugPrint('Besin tohumlaması başarısız: $error');
+    debugPrintStack(stackTrace: stackTrace);
+  }
+}
+
+/// Serbest aktivite listesini yükler.
+const _activitiesSeedVersionKey = 'activities.seededVersion';
+
+Future<void> _seedActivities(ProviderContainer container) async {
+  try {
+    final json = await rootBundle.loadString('assets/activities.json');
+    final db = container.read(appDatabaseProvider);
+    final profile = ProfileRepository(db);
+
+    await ActivitiesRepository(db).seedFromJson(
+      json,
+      readVersion: () async =>
+          int.tryParse(await profile.read(_activitiesSeedVersionKey) ?? '') ??
+          0,
+      writeVersion: (version) =>
+          profile.set(_activitiesSeedVersionKey, '$version'),
+    );
+  } catch (error, stackTrace) {
+    debugPrint('Aktivite tohumlaması başarısız: $error');
     debugPrintStack(stackTrace: stackTrace);
   }
 }
