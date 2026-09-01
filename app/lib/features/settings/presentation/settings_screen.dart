@@ -44,14 +44,13 @@ class _EquipmentEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppSection(
-      title: 'Ekipmanım',
-      description: 'İşaretlediklerin katalog filtresini ve yapay zekâya '
-          'gönderilen bağlamı besliyor.',
+      title: context.l10n.settingsEquipmentTitle,
+      description: context.l10n.settingsEquipmentDescription,
       child: Card(
         child: ListTile(
           key: const Key('open-equipment'),
           leading: const Icon(Icons.inventory_2_outlined),
-          title: const Text('Ekipman listesi'),
+          title: Text(context.l10n.settingsEquipmentTile),
           trailing: const Icon(Icons.chevron_right),
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute<void>(builder: (_) => const EquipmentScreen()),
@@ -69,14 +68,13 @@ class _WeeklyScheduleEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppSection(
-      title: 'Haftalık düzen',
-      description: 'Mesain ve uygun olmadığın saatler. Yapay zekâ planı '
-          'bunlara göre kurar, alarmlar yasaklı saatlerde çalmaz.',
+      title: context.l10n.settingsWeeklyTitle,
+      description: context.l10n.settingsWeeklyDescription,
       child: Card(
         child: ListTile(
           key: const Key('open-weekly-schedule'),
           leading: const Icon(Icons.calendar_view_week_outlined),
-          title: const Text('Mesai ve uygun olmayan saatler'),
+          title: Text(context.l10n.settingsWeeklyTile),
           trailing: const Icon(Icons.chevron_right),
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute<void>(

@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/data/equipment_repository.dart';
@@ -19,20 +20,20 @@ class EquipmentScreen extends ConsumerWidget {
     final inventory = ref.watch(equipmentInventoryProvider);
     final repository = ref.watch(equipmentRepositoryProvider);
     final theme = Theme.of(context);
+    final l10n = context.l10n;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Ekipmanım')),
+      appBar: AppBar(title: Text(l10n.catalogEquipmentTitle)),
       body: AppAsyncView<List<EquipmentItem>>(
         value: inventory,
         onRetry: () => ref.invalidate(equipmentInventoryProvider),
         emptyWhen: (list) => list.isEmpty,
-        empty: const Padding(
-          padding: EdgeInsets.all(AppSpacing.xl2),
+        empty: Padding(
+          padding: const EdgeInsets.all(AppSpacing.xl2),
           child: AppEmptyState(
             icon: Icons.inventory_2_outlined,
-            title: 'Ekipman listesi boş',
-            description: 'Katalog yüklendiğinde liste kendiliğinden dolar. '
-                'Aşağıdaki düğmeden elle de ekleyebilirsin.',
+            title: l10n.catalogEquipmentEmptyTitle,
+            description: l10n.catalogEquipmentEmptyDescription,
           ),
         ),
         data: (list) {
@@ -44,10 +45,8 @@ class EquipmentScreen extends ConsumerWidget {
                 padding: const EdgeInsets.only(bottom: AppSpacing.lg),
                 child: Text(
                   owned == 0
-                      ? 'Hiç ekipman işaretlenmedi. Sadece vücut ağırlığıyla '
-                            'yapılan hareketler her zaman kullanılabilir.'
-                      : '$owned ekipman işaretli. Katalogda "Ekipmanım" '
-                            'filtresi bunlara göre süzüyor.',
+                      ? l10n.catalogEquipmentNoneOwned
+                      : l10n.catalogEquipmentOwnedCount(owned),
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -79,37 +78,38 @@ class EquipmentScreen extends ConsumerWidget {
         key: const Key('add-equipment-fab'),
         onPressed: () => _addEquipment(context, ref),
         icon: const Icon(Icons.add),
-        label: const Text('Ekipman'),
+        label: Text(l10n.catalogEquipmentAddFab),
       ),
     );
   }
 
   Future<void> _addEquipment(BuildContext context, WidgetRef ref) async {
+    final l10n = context.l10n;
     final controller = TextEditingController();
     final label = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Ekipman ekle'),
+        title: Text(l10n.catalogEquipmentAddTitle),
         content: TextField(
           key: const Key('equipment-label'),
           controller: controller,
           autofocus: true,
           textCapitalization: TextCapitalization.sentences,
-          decoration: const InputDecoration(
-            labelText: 'Ekipman',
-            hintText: 'Kettlebell',
+          decoration: InputDecoration(
+            labelText: l10n.catalogEquipmentFieldLabel,
+            hintText: l10n.catalogEquipmentFieldHint,
           ),
           onSubmitted: (value) => Navigator.of(context).pop(value),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Vazgeç'),
+            child: Text(l10n.commonCancel),
           ),
           FilledButton(
             key: const Key('confirm-add-equipment'),
             onPressed: () => Navigator.of(context).pop(controller.text),
-            child: const Text('Ekle'),
+            child: Text(l10n.catalogEquipmentAddAction),
           ),
         ],
       ),

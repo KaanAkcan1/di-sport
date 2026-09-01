@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/health/application/health_providers.dart';
 import 'package:disport/features/health/data/metric_definitions_repository.dart';
@@ -15,17 +16,17 @@ class MetricsEditorScreen extends ConsumerWidget {
     final repository = ref.watch(metricDefinitionsRepositoryProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Ölçüm türleri')),
+      appBar: AppBar(title: Text(context.l10n.healthMetricsEditorTitle)),
       body: AppAsyncView<List<MetricDefinition>>(
         value: definitions,
         onRetry: () => ref.invalidate(metricDefinitionsProvider),
         emptyWhen: (list) => list.isEmpty,
-        empty: const Padding(
-          padding: EdgeInsets.all(AppSpacing.xl2),
+        empty: Padding(
+          padding: const EdgeInsets.all(AppSpacing.xl2),
           child: AppEmptyState(
             icon: Icons.straighten,
-            title: 'Ölçüm türü yok',
-            description: 'Aşağıdaki düğmeden ilk ölçümünü ekle.',
+            title: context.l10n.healthNoMetricsTitle,
+            description: context.l10n.healthMetricsEditorEmptyDescription,
           ),
         ),
         data: (list) => ReorderableListView.builder(
@@ -57,7 +58,7 @@ class MetricsEditorScreen extends ConsumerWidget {
         key: const Key('add-metric-fab'),
         onPressed: () => _openSheet(context),
         icon: const Icon(Icons.add),
-        label: const Text('Ölçüm'),
+        label: Text(context.l10n.healthAddMetricFab),
       ),
     );
   }
@@ -79,22 +80,19 @@ class MetricsEditorScreen extends ConsumerWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('"${definition.label}" kaldırılsın mı?'),
+        title: Text(context.l10n.healthDeleteMetricTitle(definition.label)),
         // Ölçülmüş değerlerin durduğunu söylemek şart: aksi hâlde
         // kullanıcı grafiğini kaybetmekten korkup listeyi düzeltmiyor.
-        content: const Text(
-          'Listeden çıkar. Şimdiye kadar girdiğin değerler silinmez; '
-          'türü geri eklersen yeniden görünür.',
-        ),
+        content: Text(context.l10n.healthDeleteMetricBody),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Vazgeç'),
+            child: Text(context.l10n.commonCancel),
           ),
           FilledButton(
             key: const Key('confirm-delete-metric'),
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Kaldır'),
+            child: Text(context.l10n.healthMetricRemove),
           ),
         ],
       ),
@@ -129,7 +127,7 @@ class _MetricRow extends StatelessWidget {
         title: Text(definition.label),
         subtitle: Text(
           definition.isDaily
-              ? '${definition.unit} · her gün Bugün ekranından'
+              ? context.l10n.healthMetricDailyHint(definition.unit)
               : definition.unit,
           style: theme.textTheme.bodySmall?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
@@ -142,7 +140,7 @@ class _MetricRow extends StatelessWidget {
             IconButton(
               key: Key('delete-metric-${definition.kind}'),
               icon: const Icon(Icons.delete_outline),
-              tooltip: 'Kaldır',
+              tooltip: context.l10n.healthMetricRemove,
               onPressed: onDelete,
             ),
             ReorderableDragStartListener(
@@ -189,7 +187,7 @@ class _MetricSheetState extends ConsumerState<_MetricSheet> {
   Future<void> _save() async {
     final label = _label.text.trim();
     if (label.isEmpty) {
-      setState(() => _error = 'Ölçüm adı gerekli');
+      setState(() => _error = context.l10n.healthMetricLabelRequired);
       return;
     }
 
@@ -216,6 +214,7 @@ class _MetricSheetState extends ConsumerState<_MetricSheet> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final insets = MediaQuery.viewInsetsOf(context).bottom;
+    final l10n = context.l10n;
 
     return Padding(
       padding: EdgeInsets.only(bottom: insets),
@@ -225,7 +224,9 @@ class _MetricSheetState extends ConsumerState<_MetricSheet> {
           padding: const EdgeInsets.all(AppSpacing.screenH),
           children: [
             Text(
-              widget.definition == null ? 'Ölçüm ekle' : 'Ölçümü düzenle',
+              widget.definition == null
+                  ? l10n.healthMetricSheetAddTitle
+                  : l10n.healthMetricSheetEditTitle,
               style: theme.textTheme.titleLarge,
             ),
             const SizedBox(height: AppSpacing.lg),
@@ -236,8 +237,8 @@ class _MetricSheetState extends ConsumerState<_MetricSheet> {
               autofocus: true,
               textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
-                labelText: 'Ölçüm',
-                hintText: 'Kol çevresi',
+                labelText: l10n.healthMetricLabelLabel,
+                hintText: l10n.healthMetricLabelHint,
                 errorText: _error,
               ),
               onChanged: (_) {
@@ -249,20 +250,29 @@ class _MetricSheetState extends ConsumerState<_MetricSheet> {
             TextField(
               key: const Key('metric-unit'),
               controller: _unit,
-              decoration: const InputDecoration(
-                labelText: 'Birim',
-                hintText: 'cm',
+              decoration: InputDecoration(
+                labelText: l10n.healthLabUnitLabel,
+                hintText: l10n.healthMetricUnitHint,
               ),
             ),
             const SizedBox(height: AppSpacing.xl),
 
-            Text('Gösterim', style: theme.textTheme.titleSmall),
+            Text(
+              l10n.healthMetricDisplayTitle,
+              style: theme.textTheme.titleSmall,
+            ),
             const SizedBox(height: AppSpacing.sm),
             SegmentedButton<int>(
               key: const Key('metric-decimals'),
-              segments: const [
-                ButtonSegment(value: 0, label: Text('Tam sayı')),
-                ButtonSegment(value: 1, label: Text('Ondalıklı')),
+              segments: [
+                ButtonSegment(
+                  value: 0,
+                  label: Text(l10n.healthMetricInteger),
+                ),
+                ButtonSegment(
+                  value: 1,
+                  label: Text(l10n.healthMetricDecimal),
+                ),
               ],
               selected: {_decimals},
               onSelectionChanged: (values) =>
@@ -272,7 +282,9 @@ class _MetricSheetState extends ConsumerState<_MetricSheet> {
             Text(
               // Örnek vermek soyut açıklamadan iyi çalışıyor: kullanıcı
               // hangi seçeneğin ne yapacağını görüyor.
-              _decimals == 0 ? 'Örnek: 12' : 'Örnek: 104,5',
+              _decimals == 0
+                  ? l10n.healthMetricExampleInteger
+                  : l10n.healthMetricExampleDecimal,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -282,7 +294,7 @@ class _MetricSheetState extends ConsumerState<_MetricSheet> {
             FilledButton(
               key: const Key('save-metric'),
               onPressed: _save,
-              child: const Text('Kaydet'),
+              child: Text(l10n.commonSave),
             ),
           ],
         ),

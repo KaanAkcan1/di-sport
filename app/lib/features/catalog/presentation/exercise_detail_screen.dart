@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
@@ -36,10 +37,10 @@ class ExerciseDetailScreen extends ConsumerWidget {
       emptyWhen: (value) => value == null,
       empty: Scaffold(
         appBar: AppBar(),
-        body: const AppEmptyState(
+        body: AppEmptyState(
           icon: Icons.help_outline,
-          title: 'Hareket bulunamadı',
-          description: 'Bu hareket katalogdan kaldırılmış olabilir.',
+          title: context.l10n.catalogExerciseNotFound,
+          description: context.l10n.catalogExerciseNotFoundDescription,
         ),
       ),
       error: (error) => Scaffold(
@@ -47,9 +48,9 @@ class ExerciseDetailScreen extends ConsumerWidget {
         body: AppEmptyState(
           icon: Icons.error_outline,
           tone: AppEmptyStateTone.danger,
-          title: 'Hareket açılamadı',
+          title: context.l10n.catalogExerciseLoadError,
           description: '$error',
-          actionLabel: 'Tekrar dene',
+          actionLabel: context.l10n.commonRetry,
           onAction: () => ref.invalidate(exerciseByIdProvider(exerciseId)),
         ),
       ),
@@ -72,17 +73,19 @@ class _Content extends StatelessWidget {
           title: Text(exercise.nameTr),
           // Etiketlerin varsayılan yatay dolgusu dört Türkçe kelimeyi
           // taşırıyor; "Varyantlar" son harfinden kırpılıyordu.
-          bottom: const TabBar(
-            labelPadding: EdgeInsets.symmetric(horizontal: AppSpacing.xs),
+          bottom: TabBar(
+            labelPadding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.xs,
+            ),
             tabs: [
               // Kısa etiketler: spec'teki uzun biçimler ("Nasıl yapılır",
               // "Kolaylaştır / Zorlaştır") telefon genişliğine sığmıyor ve
               // kaydırmalı çubukta son iki sekme ekran dışında kalıyordu.
               // Keşfedilebilirlik kelime zenginliğinden önce gelir.
-              Tab(text: 'Adımlar'),
-              Tab(text: 'Hatalar'),
-              Tab(text: 'Varyantlar'),
-              Tab(text: 'Güvenlik'),
+              Tab(text: context.l10n.catalogTabSteps),
+              Tab(text: context.l10n.catalogTabMistakes),
+              Tab(text: context.l10n.catalogTabVariants),
+              Tab(text: context.l10n.catalogTabSafety),
             ],
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/features/health/application/health_providers.dart';
@@ -83,6 +84,7 @@ class _AddLabSheetState extends ConsumerState<AddLabSheet> {
     // Klavye açıldığında alanların üstüne binmemesi için taban dolgusu
     // klavye yüksekliğini takip ediyor (ui-ux §5).
     final insets = MediaQuery.viewInsetsOf(context).bottom;
+    final l10n = context.l10n;
 
     return Padding(
       padding: EdgeInsets.only(bottom: insets),
@@ -94,7 +96,7 @@ class _AddLabSheetState extends ConsumerState<AddLabSheet> {
             padding: const EdgeInsets.all(AppSpacing.screenH),
             children: [
               Text(
-                'Tahlil ekle',
+                l10n.healthAddLabTitle,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: AppSpacing.lg),
@@ -103,12 +105,12 @@ class _AddLabSheetState extends ConsumerState<AddLabSheet> {
                 key: const Key('lab-marker'),
                 controller: _marker,
                 textCapitalization: TextCapitalization.sentences,
-                decoration: const InputDecoration(
-                  labelText: 'Tahlil adı',
-                  hintText: 'Vitamin D',
+                decoration: InputDecoration(
+                  labelText: l10n.healthLabMarkerLabel,
+                  hintText: l10n.healthLabMarkerHint,
                 ),
                 validator: (value) => (value ?? '').trim().isEmpty
-                    ? 'Tahlil adı gerekli'
+                    ? l10n.healthLabMarkerRequired
                     : null,
               ),
               const SizedBox(height: AppSpacing.lg),
@@ -125,10 +127,12 @@ class _AddLabSheetState extends ConsumerState<AddLabSheet> {
                         decimal: true,
                       ),
                       inputFormatters: [_decimalFormatter],
-                      decoration: const InputDecoration(labelText: 'Değer'),
+                      decoration: InputDecoration(
+                        labelText: l10n.healthLabValueLabel,
+                      ),
                       validator: (value) =>
                           TurkishNumber.tryParse(value ?? '') == null
-                          ? 'Sayı girin'
+                          ? l10n.healthLabValueInvalid
                           : null,
                     ),
                   ),
@@ -138,9 +142,9 @@ class _AddLabSheetState extends ConsumerState<AddLabSheet> {
                     child: TextFormField(
                       key: const Key('lab-unit'),
                       controller: _unit,
-                      decoration: const InputDecoration(
-                        labelText: 'Birim',
-                        hintText: 'ng/mL',
+                      decoration: InputDecoration(
+                        labelText: l10n.healthLabUnitLabel,
+                        hintText: l10n.healthLabUnitHint,
                       ),
                     ),
                   ),
@@ -162,8 +166,8 @@ class _AddLabSheetState extends ConsumerState<AddLabSheet> {
                         decimal: true,
                       ),
                       inputFormatters: [_decimalFormatter],
-                      decoration: const InputDecoration(
-                        labelText: 'Referans alt',
+                      decoration: InputDecoration(
+                        labelText: l10n.healthLabRefLowLabel,
                       ),
                     ),
                   ),
@@ -176,8 +180,8 @@ class _AddLabSheetState extends ConsumerState<AddLabSheet> {
                         decimal: true,
                       ),
                       inputFormatters: [_decimalFormatter],
-                      decoration: const InputDecoration(
-                        labelText: 'Referans üst',
+                      decoration: InputDecoration(
+                        labelText: l10n.healthLabRefHighLabel,
                       ),
                     ),
                   ),
@@ -189,8 +193,7 @@ class _AddLabSheetState extends ConsumerState<AddLabSheet> {
                   left: AppSpacing.md,
                 ),
                 child: Text(
-                  'İsteğe bağlı — girmezsen değer "aralık yok" olarak '
-                  'gösterilir.',
+                  l10n.healthLabRefHelp,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
@@ -201,7 +204,9 @@ class _AddLabSheetState extends ConsumerState<AddLabSheet> {
               DropdownButtonFormField<String>(
                 key: const Key('lab-panel'),
                 initialValue: _panel,
-                decoration: const InputDecoration(labelText: 'Panel'),
+                decoration: InputDecoration(
+                  labelText: l10n.healthLabPanelLabel,
+                ),
                 items: [
                   for (final panel in LabPanels.ordered)
                     DropdownMenuItem(
@@ -217,10 +222,9 @@ class _AddLabSheetState extends ConsumerState<AddLabSheet> {
               TextFormField(
                 key: const Key('lab-name'),
                 controller: _labName,
-                decoration: const InputDecoration(
-                  labelText: 'Laboratuvar',
-                  helperText: 'İsteğe bağlı — aralıklar laboratuvara göre '
-                      'değişir',
+                decoration: InputDecoration(
+                  labelText: l10n.healthLabNameLabel,
+                  helperText: l10n.healthLabNameHelp,
                 ),
               ),
               const SizedBox(height: AppSpacing.lg),
@@ -229,7 +233,7 @@ class _AddLabSheetState extends ConsumerState<AddLabSheet> {
                 key: const Key('lab-date'),
                 contentPadding: EdgeInsets.zero,
                 leading: const Icon(Icons.calendar_today_outlined),
-                title: const Text('Tahlil tarihi'),
+                title: Text(l10n.healthLabDateLabel),
                 subtitle: Text(TurkishDate.dayMonthYear(_date)),
                 trailing: const Icon(Icons.edit_outlined),
                 onTap: _pickDate,
@@ -239,7 +243,7 @@ class _AddLabSheetState extends ConsumerState<AddLabSheet> {
               FilledButton(
                 key: const Key('lab-save'),
                 onPressed: _saving ? null : _save,
-                child: const Text('Kaydet'),
+                child: Text(l10n.commonSave),
               ),
             ],
           ),

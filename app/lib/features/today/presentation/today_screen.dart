@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/core/utils/turkish_text.dart';
@@ -79,7 +80,8 @@ class _Header extends ConsumerWidget {
 
     final eyebrow = [
       TurkishText.upper(TurkishDate.weekdayAndDay(now)),
-      if (day case final d?) TurkishText.upper('${d.weekIndex}. hafta'),
+      if (day case final d?)
+        TurkishText.upper(context.l10n.todayWeekNumber(d.weekIndex)),
     ].join(' · ');
 
     return Column(
@@ -97,7 +99,7 @@ class _Header extends ConsumerWidget {
         Semantics(
           header: true,
           child: Text(
-            'Bugün',
+            context.l10n.todayTitle,
             style: theme.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.w700,
             ),
@@ -162,12 +164,14 @@ class _Hero extends ConsumerWidget {
       children: [
         AppHeroNumber(
           caption: switch (day) {
-            null => 'Plan yok · tartını yine de kaydedebilirsin',
+            null => context.l10n.todayHeroNoPlan,
             // Diyeti boş gün açıkça söyleniyor: aksi hâlde öğünsüz bir
             // gün "plan eksik gelmiş" gibi okunuyor.
-            final d when d.isFullyFree => 'Serbest gün',
-            final d when d.isDietFree => '${d.type.label} · diyet serbest',
-            final d => d.type.label,
+            final d when d.isFullyFree => context.l10n.todayHeroFreeDay,
+            final d when d.isDietFree => context.l10n.todayHeroDietFree(
+              dayTypeLabel(context, d.type),
+            ),
+            final d => dayTypeLabel(context, d.type),
           },
           value: weight == null
               ? null
@@ -177,12 +181,12 @@ class _Hero extends ConsumerWidget {
         const SizedBox(height: AppSpacing.xl),
         AppMetricStrip([
           AppMetric(
-            caption: 'Program',
+            caption: context.l10n.todayMetricProgram,
             value: total == 0 ? null : '$checked',
             unit: total == 0 ? null : '/$total',
           ),
           AppMetric(
-            caption: 'Kurallar',
+            caption: context.l10n.todayMetricRules,
             value: rules.isEmpty ? null : '$rulesMet',
             unit: rules.isEmpty ? null : '/${rules.length}',
           ),
@@ -208,9 +212,9 @@ class _Spine extends ConsumerWidget {
       children: [
         if (next case final slot?) ...[
           AppSpotCard(
-            eyebrow: 'Sırada · ${slot.time}',
+            eyebrow: context.l10n.todayNextEyebrow(slot.time),
             title: slot.label,
-            subtitle: _subtitleFor(slot),
+            subtitle: _subtitleFor(context, slot),
             leading: slotKindIcon(slot.kind),
             onTap: slot.kind == SlotKind.workout
                 ? () => Navigator.of(context).push(
@@ -222,15 +226,15 @@ class _Spine extends ConsumerWidget {
           ),
           const SizedBox(height: AppSpacing.xl2),
         ],
-        const AppSectionLabel('Günün omurgası'),
+        AppSectionLabel(context.l10n.todaySpineLabel),
         SlotList(day: day, now: now, hoistNext: true),
       ],
     );
   }
 
-  String? _subtitleFor(PlanSlot slot) {
+  String? _subtitleFor(BuildContext context, PlanSlot slot) {
     if (slot.kind == SlotKind.workout) {
-      return '${day.exercises.length} hareket';
+      return context.l10n.todayExerciseCount(day.exercises.length);
     }
     return slot.note;
   }
@@ -291,7 +295,7 @@ class _DinnerHint extends StatelessWidget {
           const SizedBox(width: AppSpacing.sm),
           Expanded(
             child: Text(
-              'Akşam önerisi: $text',
+              context.l10n.todayDinnerHint(text),
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -330,13 +334,12 @@ class _NoPlanNotice extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Bugün için plan yok',
+                    context.l10n.todayNoPlanTitle,
                     style: theme.textTheme.titleSmall,
                   ),
                   const SizedBox(height: AppSpacing.xs),
                   Text(
-                    'Plan sekmesinden bir program yükle. Tartı ve günün '
-                    'kutucukları plan olmadan da çalışır.',
+                    context.l10n.todayNoPlanBody,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -351,10 +354,12 @@ class _NoPlanNotice extends StatelessWidget {
   }
 }
 
-extension on PlanDayType {
-  String get label => switch (this) {
-    PlanDayType.gym => 'Salon günü',
-    PlanDayType.home => 'Ev antrenmanı',
-    PlanDayType.rest => 'Dinlenme günü',
-  };
-}
+/// Gün türünün okunur adı.
+///
+/// Genişletme (`extension`) yerine işlev: çeviri [BuildContext] ister,
+/// `this` üzerinden bağlam taşınamıyor.
+String dayTypeLabel(BuildContext context, PlanDayType type) => switch (type) {
+  PlanDayType.gym => context.l10n.todayDayTypeGym,
+  PlanDayType.home => context.l10n.todayDayTypeHome,
+  PlanDayType.rest => context.l10n.todayDayTypeRest,
+};

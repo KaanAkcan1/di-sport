@@ -1,5 +1,8 @@
+import 'dart:ui' show Locale;
+
 import 'package:disport/core/db/app_database.dart';
 import 'package:disport/core/notifications/notification_service.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/features/health/data/lab_repository.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/reminders/application/reminder_scheduler.dart';
@@ -38,6 +41,9 @@ class FakeNotificationService implements NotificationService {
 }
 
 void main() {
+  // Bildirim metinleri artık dile bağlı; test Türkçeyi sabitliyor.
+  final l10n = lookupAppLocalizations(const Locale('tr'));
+
   late AppDatabase db;
   late FakeNotificationService service;
   late ReminderScheduler scheduler;
@@ -70,7 +76,7 @@ void main() {
       await seedPlan();
       await ProfileRepository(db).set(notifKindKey('workout'), 'true');
 
-      final count = await scheduler.reschedule(now);
+      final count = await scheduler.reschedule(now, l10n);
 
       expect(count, 0);
       // Servise hiç dokunulmamalı: izinsiz kurulan bildirim sessizce
@@ -82,7 +88,7 @@ void main() {
       await seedPlan();
       await ProfileRepository(db).set(notifKindKey('workout'), 'true');
 
-      final count = await scheduler.reschedule(now);
+      final count = await scheduler.reschedule(now, l10n);
 
       expect(count, greaterThan(0));
       expect(service.calls, hasLength(1));
@@ -98,7 +104,7 @@ void main() {
     test('kapalı slot türleri kurulmaz', () async {
       await seedPlan();
       // Hiçbir slot türü açılmadı.
-      await scheduler.reschedule(now);
+      await scheduler.reschedule(now, l10n);
 
       expect(
         service.lastCall.where(
@@ -115,7 +121,7 @@ void main() {
       // bittiğini haber vermemek anlamına gelmez — o bildirim
       // olmadan uygulama sessizce boş plana düşer.
       await seedPlan();
-      await scheduler.reschedule(now);
+      await scheduler.reschedule(now, l10n);
 
       final ending = service.lastCall.where(
         (r) => r.payload == ReminderPayloads.plan,
@@ -128,10 +134,10 @@ void main() {
       await seedPlan();
       await ProfileRepository(db).set(notifKindKey('workout'), 'true');
 
-      await scheduler.reschedule(now);
+      await scheduler.reschedule(now, l10n);
       final first = service.lastCall.length;
 
-      await scheduler.reschedule(now);
+      await scheduler.reschedule(now, l10n);
 
       expect(service.calls, hasLength(2));
       expect(service.lastCall, hasLength(first));
@@ -147,7 +153,7 @@ void main() {
     test('uyanma saati tartı bildirimi üretir', () async {
       await ProfileRepository(db).set('wakeTime', '06:30');
 
-      await scheduler.reschedule(now);
+      await scheduler.reschedule(now, l10n);
 
       expect(
         service.lastCall.where((r) => r.title == 'Sabah tartısı'),
@@ -158,7 +164,7 @@ void main() {
     test('vadesi gelen tahlil bildirimi üretir', () async {
       await LabRepository(db).setSchedule('Vitamin D', 3);
 
-      await scheduler.reschedule(now);
+      await scheduler.reschedule(now, l10n);
 
       final lab = service.lastCall.singleWhere(
         (r) => r.payload == ReminderPayloads.health,
@@ -171,12 +177,12 @@ void main() {
       // bağımlı olması bu akışı kırardı.
       await ProfileRepository(db).set('wakeTime', '07:00');
 
-      final count = await scheduler.reschedule(now);
+      final count = await scheduler.reschedule(now, l10n);
       expect(count, 7);
     });
 
     test('hiç kaynak yoksa boş liste kurulur', () async {
-      final count = await scheduler.reschedule(now);
+      final count = await scheduler.reschedule(now, l10n);
 
       expect(count, 0);
       // Yine de çağrılır: önceki kurulumun temizlenmesi gerekiyor.
@@ -196,7 +202,7 @@ void main() {
         kind: WindowKinds.blocked,
       );
 
-      final count = await scheduler.reschedule(now);
+      final count = await scheduler.reschedule(now, l10n);
       expect(count, 0);
     });
 
@@ -209,7 +215,7 @@ void main() {
         kind: WindowKinds.blocked,
       );
 
-      final count = await scheduler.reschedule(now);
+      final count = await scheduler.reschedule(now, l10n);
       expect(count, 7);
     });
 
@@ -224,7 +230,7 @@ void main() {
         kind: WindowKinds.work,
       );
 
-      expect(await scheduler.reschedule(now), 7);
+      expect(await scheduler.reschedule(now, l10n), 7);
     });
   });
 }

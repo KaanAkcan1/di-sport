@@ -1,5 +1,6 @@
 import 'package:disport/app/theme/app_theme.dart';
 import 'package:disport/core/design/app_typography.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -7,6 +8,9 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   Widget wrap(List<Widget> children) => MaterialApp(
     theme: AppTheme.light,
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
+    locale: const Locale('tr'),
     home: Scaffold(body: ListView(children: children)),
   );
 

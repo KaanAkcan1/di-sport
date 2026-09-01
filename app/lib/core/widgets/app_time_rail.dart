@@ -1,5 +1,6 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_typography.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:flutter/material.dart';
 
 /// Rayın bir düğümünün durumu.
@@ -160,7 +161,7 @@ class AppNowMarker extends StatelessWidget {
     final color = theme.colorScheme.primary;
 
     return Semantics(
-      label: 'Şu an saat $label',
+      label: context.l10n.commonNowAt(label),
       excludeSemantics: true,
       child: Padding(
         padding: const EdgeInsets.only(bottom: AppSpacing.md),
@@ -197,7 +198,7 @@ class AppNowMarker extends StatelessWidget {
                 borderRadius: AppRadius.fullAll,
               ),
               child: Text(
-                'ŞİMDİ',
+                context.l10n.commonNowLabel,
                 style: AppTypography.statCaption.copyWith(
                   color: theme.colorScheme.onPrimary,
                 ),

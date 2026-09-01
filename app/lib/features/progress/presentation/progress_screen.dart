@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
@@ -24,11 +25,10 @@ class ProgressScreen extends ConsumerWidget {
       value: view,
       onRetry: () => ref.invalidate(progressViewProvider),
       emptyWhen: (data) => data.isEmpty,
-      empty: const AppEmptyState(
+      empty: AppEmptyState(
         icon: Icons.show_chart,
-        title: 'Henüz gösterecek bir şey yok',
-        description: 'Bugün sekmesinden tartını gir; birkaç gün sonra '
-            'eğilim çizgisi anlamlı olmaya başlar.',
+        title: context.l10n.progressEmptyTitle,
+        description: context.l10n.progressEmptyDescription,
       ),
       data: (data) => AppScreenBody(
         children: [
@@ -37,15 +37,14 @@ class ProgressScreen extends ConsumerWidget {
 
           if (data.weights.isNotEmpty)
             AppSection(
-              title: 'Kilo',
-              description: 'Kalın çizgi 7 günlük ortalama — günlük '
-                  'oynamalar su ve tuzdur, eğilime bak.',
+              title: context.l10n.progressWeightTitle,
+              description: context.l10n.progressWeightDescription,
               child: WeightChart(points: data.weights, trend: data.trend),
             ),
 
           if (data.weeks.isNotEmpty)
             AppSection(
-              title: 'Haftalar',
+              title: context.l10n.progressWeeksTitle,
               child: Column(
                 children: [
                   for (final week in data.weeks) WeekSummaryCard(week: week),
@@ -53,13 +52,12 @@ class ProgressScreen extends ConsumerWidget {
               ),
             )
           else if (!data.hasPlan)
-            const Padding(
-              padding: EdgeInsets.only(bottom: AppSpacing.xl2),
+            Padding(
+              padding: const EdgeInsets.only(bottom: AppSpacing.xl2),
               child: AppEmptyState(
                 icon: Icons.calendar_month_outlined,
-                title: 'Haftalık özet için plan gerekli',
-                description: 'Hangi günün salon, hangisinin ev olduğunu '
-                    'plandan okuyorum. Plan sekmesinden bir program yükle.',
+                title: context.l10n.progressNoPlanTitle,
+                description: context.l10n.progressNoPlanDescription,
               ),
             ),
 
@@ -102,8 +100,8 @@ class _ProgressHero extends StatelessWidget {
       children: [
         AppHeroNumber(
           caption: change == null
-              ? 'İlk tartıdan sonra değişim burada görünecek'
-              : 'kg · ilk tartıdan bugüne',
+              ? context.l10n.progressHeroEmptyCaption
+              : context.l10n.progressHeroCaption,
           // İşaret açıkça yazılıyor: "2,8" tek başına yön taşımıyor,
           // kilo veren de alan da aynı rakamı görürdü.
           value: change == null
@@ -116,20 +114,20 @@ class _ProgressHero extends StatelessWidget {
         const SizedBox(height: AppSpacing.xl),
         AppMetricStrip([
           AppMetric(
-            caption: 'Şu an',
+            caption: context.l10n.progressMetricNow,
             value: latest == null
                 ? null
                 : TurkishNumber.format(latest, fractionDigits: 1),
             unit: 'kg',
           ),
           AppMetric(
-            caption: 'Şınav',
+            caption: context.l10n.progressMetricPushups,
             value: pushups == null
                 ? null
                 : TurkishNumber.format(pushups, fractionDigits: 0),
           ),
           AppMetric(
-            caption: 'Hafta',
+            caption: context.l10n.progressMetricWeeks,
             value: data.weeks.isEmpty ? null : '${data.weeks.length}',
           ),
         ]),

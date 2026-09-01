@@ -1,6 +1,7 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
 import 'package:disport/core/design/app_typography.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:flutter/material.dart';
 
 /// Ekranın kahraman rakamı — M12'nin merkezi öğesi.
@@ -57,8 +58,11 @@ class AppHeroNumber extends StatelessWidget {
 
     return Semantics(
       label: empty
-          ? '$caption: girilmedi'
-          : '$value${unit == null ? '' : ' $unit'} · $caption',
+          ? context.l10n.commonMetricEmptySemantics(caption)
+          : context.l10n.commonHeroValueSemantics(
+              '$value${unit == null ? '' : ' $unit'}',
+              caption,
+            ),
       excludeSemantics: true,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

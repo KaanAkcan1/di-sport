@@ -1,4 +1,5 @@
 import 'package:disport/app/theme/app_theme.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -6,6 +7,9 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   Widget wrap(Widget child, {double width = 360}) => MaterialApp(
     theme: AppTheme.dark,
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
+    locale: const Locale('tr'),
     home: Scaffold(
       body: Center(child: SizedBox(width: width, child: child)),
     ),

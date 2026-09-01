@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/app_empty_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -53,7 +54,7 @@ class AppAsyncView<T> extends StatelessWidget {
     return switch (value) {
       AsyncData(:final value) =>
         (emptyWhen?.call(value) ?? false)
-            ? (empty ?? const AppEmptyState(title: 'Kayıt yok'))
+            ? (empty ?? AppEmptyState(title: context.l10n.commonNoRecords))
             : data(value),
       AsyncError(:final error) =>
         this.error?.call(error) ?? _defaultError(context, error),
@@ -64,12 +65,13 @@ class AppAsyncView<T> extends StatelessWidget {
   Widget _defaultError(BuildContext context, Object err) {
     // Hata mesajı nedeni ve çıkış yolunu birlikte verir
     // (ui-ux §8 `error-clarity`, `error-recovery`).
+    final l10n = context.l10n;
     return AppEmptyState(
       icon: Icons.error_outline,
       tone: AppEmptyStateTone.danger,
-      title: 'Bir şeyler ters gitti',
+      title: l10n.commonErrorTitle,
       description: '$err',
-      actionLabel: onRetry == null ? null : 'Tekrar dene',
+      actionLabel: onRetry == null ? null : l10n.commonRetry,
       onAction: onRetry,
     );
   }

@@ -1,4 +1,3 @@
-import 'package:disport/features/reminders/domain/reminder_planner.dart';
 
 /// Platform bildirim katmanının sözleşmesi.
 ///
@@ -11,6 +10,26 @@ import 'package:disport/features/reminders/domain/reminder_planner.dart';
 ///
 /// Arayüz olmasının nedeni test edilebilirlik: zamanlayıcı gerçek
 /// platform çağrısı yapmadan sınanabiliyor.
+/// Platforma verilecek tek bildirim — metni çözülmüş hâli.
+///
+/// Metin `reminder_texts.dart`'ta kullanıcının dilinde üretiliyor;
+/// buraya geldiğinde artık çeviri kararı kalmıyor.
+class PendingReminder {
+  const PendingReminder({
+    required this.id,
+    required this.fireAt,
+    required this.title,
+    required this.body,
+    required this.payload,
+  });
+
+  final int id;
+  final DateTime fireAt;
+  final String title;
+  final String body;
+  final String payload;
+}
+
 abstract interface class NotificationService {
   /// Bildirim izni ister. Kullanıcı reddederse `false`.
   Future<bool> requestPermissions();

@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/progress/domain/transition_criteria.dart';
@@ -26,30 +27,44 @@ class TransitionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = context.l10n;
 
     return AppSection(
-      title: 'Koşuya geçiş',
+      title: l10n.progressTransitionTitle,
       description: criteria.allMet
-          ? 'Üç ölçüt de sağlandı. Kısa koşu denemelerine başlayabilirsin.'
-          : '${criteria.metCount} / 3 ölçüt sağlandı.',
+          ? l10n.progressTransitionAllMet
+          : l10n.progressTransitionProgress('${criteria.metCount}'),
       child: Card(
         child: Column(
           children: [
             _CriterionRow(
               met: criteria.weightOk,
-              label: 'Kilo ${TurkishNumber.format(transitionWeightMaxKg, fractionDigits: 0)} kg altında',
+              label: l10n.progressCriterionWeight(
+                TurkishNumber.format(
+                  transitionWeightMaxKg,
+                  fractionDigits: 0,
+                ),
+              ),
               detail: latestWeight == null
-                  ? 'henüz tartılmadı'
-                  : 'şu an ${TurkishNumber.format(latestWeight!)} kg',
+                  ? l10n.progressCriterionNotWeighed
+                  : l10n.progressCriterionWeightNow(
+                      TurkishNumber.format(latestWeight!),
+                    ),
             ),
             const Divider(height: 1, indent: AppSpacing.lg),
             _CriterionRow(
               met: criteria.pushupOk,
-              label: 'Kesintisiz $transitionPushupMinReps şınav',
+              label: l10n.progressCriterionPushups(
+                '$transitionPushupMinReps',
+              ),
               detail: latestPushupMax == null
-                  ? 'henüz ölçülmedi'
-                  : 'şu an '
-                        '${TurkishNumber.format(latestPushupMax!, fractionDigits: 0)}',
+                  ? l10n.progressCriterionNotMeasured
+                  : l10n.progressCriterionPushupsNow(
+                      TurkishNumber.format(
+                        latestPushupMax!,
+                        fractionDigits: 0,
+                      ),
+                    ),
             ),
             const Divider(height: 1, indent: AppSpacing.lg),
             SwitchListTile(
@@ -61,9 +76,9 @@ class TransitionCard extends StatelessWidget {
                 color: (criteria.painFreeOk ? AppStatus.good : AppStatus.unknown)
                     .color(context),
               ),
-              title: const Text('Yürüyüş sonrası diz/ayak ağrısı yok'),
+              title: Text(l10n.progressCriterionPainFree),
               subtitle: Text(
-                'Bunu ölçemem, sen bileceksin.',
+                l10n.progressCriterionPainFreeHint,
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),

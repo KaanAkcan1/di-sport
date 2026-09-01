@@ -1,6 +1,7 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
 import 'package:disport/core/design/app_typography.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/plan/domain/day_cell_state.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
@@ -35,7 +36,7 @@ class PlanWeekGrid extends StatelessWidget {
       children: [
         Row(
           children: [
-            for (final label in _weekdayInitials)
+            for (final label in context.l10n.planWeekdayInitials.split(','))
               Expanded(
                 child: Text(
                   label,
@@ -69,8 +70,6 @@ class PlanWeekGrid extends StatelessWidget {
       ],
     );
   }
-
-  static const _weekdayInitials = ['P', 'S', 'Ç', 'P', 'C', 'C', 'P'];
 }
 
 class _DayCell extends StatelessWidget {
@@ -116,7 +115,7 @@ class _DayCell extends StatelessWidget {
     // Alt satır bilgisi: renk tek başına anlam taşımaz kuralının
     // karşılığı. Hücre rengi hızlandırır, rakam söyler.
     final caption = switch (fill) {
-      DayCellFill.free => 'boş',
+      DayCellFill.free => context.l10n.planCellFree,
       DayCellFill.future => '',
       _ => '$checked/$total',
     };
@@ -130,8 +129,10 @@ class _DayCell extends StatelessWidget {
     return Semantics(
       button: onTap != null,
       label:
-          '${day.date.day} ${_monthNames[day.date.month - 1]}'
-          '${isToday ? ', bugün' : ''}, ${_spoken(fill, checked, total)}',
+          '${day.date.day} '
+          '${context.l10n.planMonthNames.split(',')[day.date.month - 1]}'
+          '${isToday ? ', ${context.l10n.planCellToday}' : ''}, '
+          '${_spoken(context, fill, checked, total)}',
       excludeSemantics: true,
       child: Material(
         color: background,
@@ -202,27 +203,16 @@ class _DayCell extends StatelessWidget {
   static bool _sameDay(DateTime a, DateTime b) =>
       a.year == b.year && a.month == b.month && a.day == b.day;
 
-  static String _spoken(DayCellFill fill, int checked, int total) =>
-      switch (fill) {
-        DayCellFill.done => 'tamamlandı',
-        DayCellFill.partial => '$total işten $checked tamam',
-        DayCellFill.empty => 'kayıt yok',
-        DayCellFill.free => 'serbest gün',
-        DayCellFill.future => 'henüz gelmedi',
-      };
-
-  static const _monthNames = [
-    'Ocak',
-    'Şubat',
-    'Mart',
-    'Nisan',
-    'Mayıs',
-    'Haziran',
-    'Temmuz',
-    'Ağustos',
-    'Eylül',
-    'Ekim',
-    'Kasım',
-    'Aralık',
-  ];
+  static String _spoken(
+    BuildContext context,
+    DayCellFill fill,
+    int checked,
+    int total,
+  ) => switch (fill) {
+    DayCellFill.done => context.l10n.planCellDone,
+    DayCellFill.partial => context.l10n.planCellPartial(total, checked),
+    DayCellFill.empty => context.l10n.planCellEmpty,
+    DayCellFill.free => context.l10n.planCellFreeSpoken,
+    DayCellFill.future => context.l10n.planCellFuture,
+  };
 }

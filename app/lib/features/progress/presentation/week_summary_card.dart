@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/progress/domain/weekly_summary.dart';
@@ -13,6 +14,7 @@ class WeekSummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = context.l10n;
 
     return Card(
       key: Key('week-${week.weekIndex}'),
@@ -26,13 +28,13 @@ class WeekSummaryCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'Hafta ${week.weekIndex}',
+                    l10n.progressWeekLabel('${week.weekIndex}'),
                     style: theme.textTheme.titleMedium,
                   ),
                 ),
                 if (week.isPartial)
                   Text(
-                    'sürüyor · ${week.dayCount} gün',
+                    l10n.progressWeekPartial('${week.dayCount}'),
                     style: theme.textTheme.labelSmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -58,7 +60,7 @@ class WeekSummaryCard extends StatelessWidget {
               ],
             ),
             Text(
-              'haftalık ortalama',
+              l10n.progressWeekAverage,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -71,14 +73,14 @@ class WeekSummaryCard extends StatelessWidget {
               children: [
                 if (week.gymTarget > 0)
                   _CountChip(
-                    label: 'Salon',
+                    label: l10n.progressWeekGym,
                     done: week.gymDone,
                     target: week.gymTarget,
                     partial: week.isPartial,
                   ),
                 if (week.homeTarget > 0)
                   _CountChip(
-                    label: 'Ev',
+                    label: l10n.progressWeekHome,
                     done: week.homeDone,
                     target: week.homeTarget,
                     partial: week.isPartial,
@@ -90,8 +92,8 @@ class WeekSummaryCard extends StatelessWidget {
                       ? AppStatus.bad
                       : AppStatus.caution,
                   label: week.slipDays == 0
-                      ? 'Kaçak yok'
-                      : '${week.slipDays} kaçak gün',
+                      ? l10n.progressWeekNoSlips
+                      : l10n.progressWeekSlipDays('${week.slipDays}'),
                   compact: true,
                 ),
               ],
@@ -153,7 +155,11 @@ class _CountChip extends StatelessWidget {
 
     return AppStatusChip(
       status: status,
-      label: '$label $done / $target',
+      label: context.l10n.progressWeekCountChip(
+        label,
+        '$done',
+        '$target',
+      ),
       compact: true,
     );
   }

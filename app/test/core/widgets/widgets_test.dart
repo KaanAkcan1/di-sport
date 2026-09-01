@@ -1,4 +1,5 @@
 import 'package:disport/app/theme/app_theme.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,6 +10,9 @@ import 'package:flutter_test/flutter_test.dart';
 Widget wrap(Widget child, {Brightness brightness = Brightness.light}) {
   return MaterialApp(
     theme: brightness == Brightness.light ? AppTheme.light : AppTheme.dark,
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
+    locale: const Locale('tr'),
     home: Scaffold(body: child),
   );
 }
@@ -94,7 +98,7 @@ void main() {
       expect(find.text('Bir şeyler ters gitti'), findsOneWidget);
       expect(find.textContaining('bağlantı yok'), findsOneWidget);
 
-      await tester.tap(find.text('Tekrar dene'));
+      await tester.tap(find.text('Yeniden dene'));
       expect(retried, isTrue);
     });
 

@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:flutter/material.dart';
 
 /// Setler arası dinlenme geri sayımı.
@@ -37,10 +38,10 @@ class RestTimerBar extends StatelessWidget {
             Expanded(
               child: Semantics(
                 liveRegion: true,
-                label: 'Dinlenme, $remaining saniye kaldı',
+                label: context.l10n.workoutRestSemantics(remaining),
                 excludeSemantics: true,
                 child: Text(
-                  'Dinlenme · $remaining sn',
+                  context.l10n.workoutRestLabel(remaining),
                   style: theme.textTheme.titleMedium?.copyWith(
                     color: theme.colorScheme.onPrimaryContainer,
                   ),
@@ -50,7 +51,7 @@ class RestTimerBar extends StatelessWidget {
             TextButton(
               onPressed: onSkip,
               child: Text(
-                'Geç',
+                context.l10n.workoutRestSkip,
                 style: TextStyle(color: theme.colorScheme.onPrimaryContainer),
               ),
             ),

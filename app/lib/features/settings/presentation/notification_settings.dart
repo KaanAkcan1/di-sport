@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/reminders/application/reminder_providers.dart';
@@ -14,26 +15,37 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class NotificationSettings extends ConsumerWidget {
   const NotificationSettings({super.key});
 
-  /// Slot türlerinin Türkçe karşılıkları ve açıklamaları.
-  static const _labels = <String, (String, String)>{
-    'workout': ('Antrenman', 'Programdaki antrenman saatinde'),
-    'meal': ('Öğün', 'Programdaki öğün saatlerinde'),
-    'walk': ('Yürüyüş', 'Programdaki yürüyüş saatinde'),
-    'supplement': ('Takviye', 'Vitamin ve takviye saatlerinde'),
-  };
+  /// Slot türlerinin ad ve açıklamaları.
+  ///
+  /// Sabit harita olamaz: çeviri `BuildContext` ister. Bilinmeyen bir
+  /// tür gelirse `null` dönüyor, çağrı yeri ham anahtarı gösteriyor.
+  static (String, String)? _labelFor(AppLocalizations l10n, String kind) =>
+      switch (kind) {
+        'workout' => (
+          l10n.settingsNotifWorkout,
+          l10n.settingsNotifWorkoutDescription,
+        ),
+        'meal' => (l10n.settingsNotifMeal, l10n.settingsNotifMealDescription),
+        'walk' => (l10n.settingsNotifWalk, l10n.settingsNotifWalkDescription),
+        'supplement' => (
+          l10n.settingsNotifSupplement,
+          l10n.settingsNotifSupplementDescription,
+        ),
+        _ => null,
+      };
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profile = ref.watch(profileEntriesProvider);
     final theme = Theme.of(context);
+    final l10n = context.l10n;
 
     return AppAsyncView<Map<String, String>>(
       value: profile,
       onRetry: () => ref.invalidate(profileEntriesProvider),
       data: (settings) => AppSection(
-        title: 'Bildirimler',
-        description: 'Sabah tartısı hatırlatması uyanma saatine bağlı; '
-            'profilde uyanma saatini gir.',
+        title: l10n.settingsNotificationsTitle,
+        description: l10n.settingsNotificationsDescription,
         child: Card(
           child: Column(
             children: [
@@ -44,9 +56,9 @@ class NotificationSettings extends ConsumerWidget {
                   key: Key('notif-$kind'),
                   value: settings[notifKindKey(kind)] == 'true',
                   onChanged: (value) => _toggle(ref, kind, value),
-                  title: Text(_labels[kind]?.$1 ?? kind),
+                  title: Text(_labelFor(l10n, kind)?.$1 ?? kind),
                   subtitle: Text(
-                    _labels[kind]?.$2 ?? '',
+                    _labelFor(l10n, kind)?.$2 ?? '',
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -97,13 +109,12 @@ class _ExactAlarmTileState extends ConsumerState<_ExactAlarmTile> {
             ? AppStatus.good.color(context)
             : theme.colorScheme.onSurfaceVariant,
       ),
-      title: const Text('Tam zamanlı alarm izni'),
+      title: Text(context.l10n.settingsExactAlarmTitle),
       subtitle: Text(
         switch (_exact) {
-          true => 'Verildi — bildirimler tam saatinde çalar.',
-          false => 'Verilmedi. Bildirimler yine çalar ama pil tasarrufu '
-              'kipinde birkaç dakika gecikebilir. Vermek için dokun.',
-          null => 'Yükleniyor…',
+          true => context.l10n.settingsExactAlarmGranted,
+          false => context.l10n.settingsExactAlarmDenied,
+          null => context.l10n.settingsExactAlarmLoading,
         },
         style: theme.textTheme.bodySmall?.copyWith(
           color: theme.colorScheme.onSurfaceVariant,

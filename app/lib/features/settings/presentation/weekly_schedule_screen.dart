@@ -1,5 +1,6 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_typography.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/settings/application/settings_providers.dart';
@@ -20,7 +21,7 @@ class WeeklyScheduleScreen extends ConsumerWidget {
     final windows = ref.watch(weeklyWindowsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Haftalık düzen')),
+      appBar: AppBar(title: Text(context.l10n.settingsWeeklyTitle)),
       body: AppAsyncView<List<WeeklyWindow>>(
         value: windows,
         onRetry: () => ref.invalidate(weeklyWindowsProvider),
@@ -47,7 +48,7 @@ class WeeklyScheduleScreen extends ConsumerWidget {
           builder: (_) => const _WindowSheet(),
         ),
         icon: const Icon(Icons.add),
-        label: const Text('Saat aralığı'),
+        label: Text(context.l10n.settingsWeeklyFab),
       ),
     );
   }
@@ -67,17 +68,14 @@ class _Explanation extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'İki tür aralık var',
+              context.l10n.settingsWeeklyExplanationTitle,
               style: theme.textTheme.titleSmall,
             ),
             const SizedBox(height: AppSpacing.sm),
             // Fark açıkça yazılıyor: ikisi de "meşgulüm" gibi
             // görünüyor ama sonuçları farklı.
             Text(
-              '· Mesai: iştesin. Yapay zekâ bu saatlere antrenman '
-              'koymaz ama öğün koyabilir.\n'
-              '· Uygun değil: hiçbir şey planlanmaz ve bu saatlerde '
-              'bildirim çalmaz.',
+              context.l10n.settingsWeeklyExplanationBody,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -121,7 +119,7 @@ class _DayCard extends ConsumerWidget {
               Expanded(
                 child: windows.isEmpty
                     ? Text(
-                        'boş',
+                        context.l10n.settingsWeeklyEmptyDay,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
@@ -217,7 +215,7 @@ class _WindowSheetState extends ConsumerState<_WindowSheet> {
 
   Future<void> _save() async {
     if (_days.isEmpty) {
-      setState(() => _error = 'En az bir gün seç');
+      setState(() => _error = context.l10n.settingsWeeklyPickDayError);
       return;
     }
 
@@ -237,6 +235,7 @@ class _WindowSheetState extends ConsumerState<_WindowSheet> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = context.l10n;
     final insets = MediaQuery.viewInsetsOf(context).bottom;
 
     return Padding(
@@ -246,21 +245,21 @@ class _WindowSheetState extends ConsumerState<_WindowSheet> {
           shrinkWrap: true,
           padding: const EdgeInsets.all(AppSpacing.screenH),
           children: [
-            Text('Saat aralığı ekle', style: theme.textTheme.titleLarge),
+            Text(l10n.settingsWeeklyAddTitle, style: theme.textTheme.titleLarge),
             const SizedBox(height: AppSpacing.lg),
 
             SegmentedButton<String>(
               key: const Key('window-kind'),
-              segments: const [
+              segments: [
                 ButtonSegment(
                   value: WindowKinds.work,
-                  icon: Icon(Icons.work_outline),
-                  label: Text('Mesai'),
+                  icon: const Icon(Icons.work_outline),
+                  label: Text(l10n.settingsWeeklyKindWork),
                 ),
                 ButtonSegment(
                   value: WindowKinds.blocked,
-                  icon: Icon(Icons.block),
-                  label: Text('Uygun değil'),
+                  icon: const Icon(Icons.block),
+                  label: Text(l10n.settingsWeeklyKindBlocked),
                 ),
               ],
               selected: {_kind},
@@ -269,7 +268,7 @@ class _WindowSheetState extends ConsumerState<_WindowSheet> {
             ),
             const SizedBox(height: AppSpacing.xl),
 
-            Text('Günler', style: theme.textTheme.titleSmall),
+            Text(l10n.settingsWeeklyDays, style: theme.textTheme.titleSmall),
             const SizedBox(height: AppSpacing.sm),
             Wrap(
               spacing: AppSpacing.sm,
@@ -306,7 +305,7 @@ class _WindowSheetState extends ConsumerState<_WindowSheet> {
                 Expanded(
                   child: _TimeField(
                     fieldKey: const Key('window-start'),
-                    label: 'Başlangıç',
+                    label: l10n.settingsWeeklyStart,
                     value: _format(_start),
                     onTap: () => _pick(isStart: true),
                   ),
@@ -315,7 +314,7 @@ class _WindowSheetState extends ConsumerState<_WindowSheet> {
                 Expanded(
                   child: _TimeField(
                     fieldKey: const Key('window-end'),
-                    label: 'Bitiş',
+                    label: l10n.settingsWeeklyEnd,
                     value: _format(_end),
                     onTap: () => _pick(isStart: false),
                   ),
@@ -326,7 +325,7 @@ class _WindowSheetState extends ConsumerState<_WindowSheet> {
             Text(
               // Gece yarısını aşan aralık destekleniyor; kullanıcı
               // uyku saatini ikiye bölmek zorunda kalmasın.
-              'Bitiş başlangıçtan küçükse aralık gece yarısını aşar.',
+              l10n.settingsWeeklyOvernightHint,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -337,10 +336,10 @@ class _WindowSheetState extends ConsumerState<_WindowSheet> {
               key: const Key('window-label'),
               controller: _label,
               textCapitalization: TextCapitalization.sentences,
-              decoration: const InputDecoration(
-                labelText: 'Açıklama',
-                hintText: 'Fabrika',
-                helperText: 'İsteğe bağlı',
+              decoration: InputDecoration(
+                labelText: l10n.settingsWeeklyLabel,
+                hintText: l10n.settingsWeeklyLabelHint,
+                helperText: l10n.settingsWeeklyLabelHelper,
               ),
             ),
             const SizedBox(height: AppSpacing.xl),
@@ -348,7 +347,7 @@ class _WindowSheetState extends ConsumerState<_WindowSheet> {
             FilledButton(
               key: const Key('save-window'),
               onPressed: _save,
-              child: const Text('Ekle'),
+              child: Text(l10n.settingsWeeklyAdd),
             ),
           ],
         ),

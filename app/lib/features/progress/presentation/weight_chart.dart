@@ -1,5 +1,6 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/features/progress/domain/weight_trend.dart';
@@ -50,10 +51,11 @@ class WeightChart extends StatelessWidget {
     final axisDigits = axisInterval < 1 ? 1 : 0;
 
     return Semantics(
-      label:
-          'Kilo grafiği. ${points.length} ölçüm. '
-          'İlk ${TurkishNumber.format(points.first.value)} kilogram, '
-          'son ${TurkishNumber.format(points.last.value)} kilogram.',
+      label: context.l10n.progressChartSemantics(
+        '${points.length}',
+        TurkishNumber.format(points.first.value),
+        TurkishNumber.format(points.last.value),
+      ),
       excludeSemantics: true,
       child: SizedBox(
         height: 220,

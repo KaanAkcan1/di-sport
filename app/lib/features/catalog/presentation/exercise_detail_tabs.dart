@@ -1,5 +1,6 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
@@ -30,6 +31,7 @@ class HowToTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = context.l10n;
 
     return ListView(
       padding: _tabPadding,
@@ -43,7 +45,7 @@ class HowToTab extends StatelessWidget {
           children: [
             Chip(
               avatar: Icon(exercise.category.icon, size: 16),
-              label: Text(exercise.category.labelTr),
+              label: Text(exercise.category.label(context)),
             ),
             const SizedBox(width: AppSpacing.sm),
             ExerciseLocationBadge(location: exercise.location),
@@ -58,8 +60,8 @@ class HowToTab extends StatelessWidget {
 
         if (exercise.cues.isNotEmpty) ...[
           AppSection(
-            title: 'Aklında tut',
-            description: 'Antrenman sırasında bunlara bak.',
+            title: l10n.catalogCuesTitle,
+            description: l10n.catalogCuesDescription,
             child: Wrap(
               spacing: AppSpacing.sm,
               runSpacing: AppSpacing.sm,
@@ -71,28 +73,28 @@ class HowToTab extends StatelessWidget {
         ],
 
         AppSection(
-          title: 'Başlangıç',
+          title: l10n.catalogSetupTitle,
           child: _BulletList(items: exercise.setup),
         ),
 
         AppSection(
-          title: 'Hareket',
+          title: l10n.catalogExecutionTitle,
           child: _NumberedList(items: exercise.execution),
         ),
 
         AppSection(
-          title: 'Nefes ve tempo',
+          title: l10n.catalogBreathingTempoTitle,
           child: Column(
             children: [
               _LabeledRow(
                 icon: Icons.air,
-                label: 'Nefes',
+                label: l10n.catalogBreathingLabel,
                 value: exercise.breathing,
               ),
               const SizedBox(height: AppSpacing.md),
               _LabeledRow(
                 icon: Icons.timer_outlined,
-                label: 'Tempo',
+                label: l10n.catalogTempoLabel,
                 value: exercise.tempo,
               ),
             ],
@@ -114,7 +116,7 @@ class MistakesTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (exercise.commonMistakes.isEmpty) {
-      return const AppEmptyState(title: 'Kayıtlı hata yok');
+      return AppEmptyState(title: context.l10n.catalogNoMistakes);
     }
 
     final theme = Theme.of(context);
@@ -146,10 +148,13 @@ class MistakesTab extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: AppSpacing.md),
-                _MistakeLine(label: 'Neden sorun', value: mistake.why),
+                _MistakeLine(
+                  label: context.l10n.catalogMistakeWhy,
+                  value: mistake.why,
+                ),
                 const SizedBox(height: AppSpacing.sm),
                 _MistakeLine(
-                  label: 'Düzeltmesi',
+                  label: context.l10n.catalogMistakeFix,
                   value: mistake.fix,
                   emphasize: true,
                 ),
@@ -173,10 +178,10 @@ class VariantsTab extends ConsumerWidget {
     final ids = [...exercise.regressions, ...exercise.progressions];
 
     if (ids.isEmpty) {
-      return const AppEmptyState(
+      return AppEmptyState(
         icon: Icons.linear_scale,
-        title: 'Varyant tanımlı değil',
-        description: 'Bu hareketin kolay ya da zor bir sürümü kayıtlı değil.',
+        title: context.l10n.catalogNoVariants,
+        description: context.l10n.catalogNoVariantsDescription,
       );
     }
 
@@ -189,8 +194,8 @@ class VariantsTab extends ConsumerWidget {
         padding: _tabPadding,
         children: [
           AppSection(
-            title: 'Kolaylaştır',
-            description: 'Zorlanıyorsan buradan başla.',
+            title: context.l10n.catalogRegressionsTitle,
+            description: context.l10n.catalogRegressionsDescription,
             child: _VariantList(
               ids: exercise.regressions,
               byId: byId,
@@ -198,8 +203,8 @@ class VariantsTab extends ConsumerWidget {
             ),
           ),
           AppSection(
-            title: 'Zorlaştır',
-            description: 'Kolay gelmeye başladığında sıradaki basamak.',
+            title: context.l10n.catalogProgressionsTitle,
+            description: context.l10n.catalogProgressionsDescription,
             child: _VariantList(
               ids: exercise.progressions,
               byId: byId,
@@ -247,9 +252,7 @@ class SafetyTab extends StatelessWidget {
         ),
         const SizedBox(height: AppSpacing.xl2),
         Text(
-          'Bu bilgiler genel niteliktedir ve hekim ya da fizyoterapist '
-          'değerlendirmesinin yerine geçmez. Ağrı hissettiğinde hareketi '
-          'bırak.',
+          context.l10n.catalogSafetyDisclaimer,
           style: theme.textTheme.bodySmall?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),
@@ -272,8 +275,7 @@ class _HeaderImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label:
-          '${exercise.nameTr} hareketinin başlangıç ve bitiş pozisyonu',
+      label: context.l10n.catalogImageSemantics(exercise.nameTr),
       image: true,
       child: ClipRRect(
         borderRadius: AppRadius.lgAll,
@@ -475,7 +477,9 @@ class _VariantList extends StatelessWidget {
               child: ListTile(
                 leading: Icon(icon),
                 title: Text(exercise.nameTr),
-                subtitle: Text('Zorluk ${exercise.difficulty}/5'),
+                subtitle: Text(
+                  context.l10n.catalogDifficultyOutOfFive(exercise.difficulty),
+                ),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () => Navigator.of(context).pushReplacement(
                   MaterialPageRoute<void>(
@@ -501,13 +505,13 @@ class _MetaSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppSection(
-      title: 'Künye',
+      title: context.l10n.catalogMetaTitle,
       padding: EdgeInsets.zero,
       child: Column(
         children: [
           _LabeledRow(
             icon: Icons.sports_gymnastics,
-            label: 'Hedef kaslar',
+            label: context.l10n.catalogTargetMuscles,
             value: [
               ...exercise.primaryMuscles,
               ...exercise.secondaryMuscles,
@@ -516,7 +520,7 @@ class _MetaSection extends StatelessWidget {
           const SizedBox(height: AppSpacing.md),
           _LabeledRow(
             icon: Icons.handyman_outlined,
-            label: 'Ekipman',
+            label: context.l10n.catalogEquipmentLabel,
             value: exercise.equipment.join(', '),
           ),
         ],

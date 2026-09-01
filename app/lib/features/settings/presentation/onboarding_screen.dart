@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/features/settings/presentation/profile_form.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,7 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = context.l10n;
 
     return Scaffold(
       body: SafeArea(
@@ -29,12 +31,13 @@ class OnboardingScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Hoş geldin', style: theme.textTheme.headlineSmall),
+                  Text(
+                    l10n.settingsOnboardingWelcome,
+                    style: theme.textTheme.headlineSmall,
+                  ),
                   const SizedBox(height: AppSpacing.sm),
                   Text(
-                    'Önce seni tanıyalım. Bu bilgiler cihazından çıkmaz; '
-                    'yalnızca sen bir yapay zekâya bağlam dosyası '
-                    'gönderdiğinde kullanılır.',
+                    l10n.settingsOnboardingIntro,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -45,7 +48,7 @@ class OnboardingScreen extends StatelessWidget {
             Expanded(
               child: ProfileForm(
                 onSaved: onDone,
-                saveLabel: 'Kaydet ve başla',
+                saveLabel: l10n.settingsOnboardingSave,
               ),
             ),
           ],

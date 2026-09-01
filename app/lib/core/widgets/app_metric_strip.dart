@@ -1,6 +1,7 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
 import 'package:disport/core/design/app_typography.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_text.dart';
 import 'package:flutter/material.dart';
 
@@ -69,6 +70,7 @@ class _MetricColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final semantic = context.semantic;
+    final l10n = context.l10n;
     final empty = metric.value == null;
 
     // Etiket rengi `onSurfaceVariant`: ham palet sabiti yazmak yasak
@@ -78,10 +80,15 @@ class _MetricColumn extends StatelessWidget {
 
     return Semantics(
       label: empty
-          ? '${metric.caption}: girilmedi'
-          : '${metric.caption}: ${metric.value}'
-                '${metric.unit == null ? '' : ' ${metric.unit}'}'
-                '${metric.delta == null ? '' : ', değişim ${metric.delta}'}',
+          ? l10n.commonMetricEmptySemantics(metric.caption)
+          : l10n.commonMetricValueSemantics(
+                  metric.caption,
+                  '${metric.value}'
+                      '${metric.unit == null ? '' : ' ${metric.unit}'}',
+                ) +
+                (metric.delta == null
+                    ? ''
+                    : l10n.commonMetricChangeSemantics(metric.delta!)),
       excludeSemantics: true,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

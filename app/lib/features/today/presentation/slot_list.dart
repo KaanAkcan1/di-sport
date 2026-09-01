@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/plan/presentation/slot_kind_icon.dart';
@@ -197,7 +198,9 @@ class _CheckDot extends StatelessWidget {
 
     return Semantics(
       checked: checked,
-      label: checked ? 'işaretli' : 'işaretsiz',
+      label: checked
+          ? context.l10n.todayCheckedLabel
+          : context.l10n.todayUncheckedLabel,
       child: AnimatedContainer(
         duration: AppMotion.respectingMotion(context, AppMotion.fast),
         width: 22,
@@ -259,7 +262,7 @@ class _WorkoutRow extends StatelessWidget {
             children: [
               Text(slot.label, style: theme.textTheme.bodyLarge),
               Text(
-                '${day.exercises.length} hareket',
+                context.l10n.todayExerciseCount(day.exercises.length),
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),

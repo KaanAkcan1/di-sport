@@ -1,5 +1,6 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
@@ -77,12 +78,13 @@ class _EmptyPlan extends StatelessWidget {
               color: theme.colorScheme.onSurfaceVariant,
             ),
             const SizedBox(height: AppSpacing.lg),
-            Text('Henüz plan yok', style: theme.textTheme.titleMedium),
+            Text(
+              context.l10n.planEmptyTitle,
+              style: theme.textTheme.titleMedium,
+            ),
             const SizedBox(height: AppSpacing.sm),
             Text(
-              'Yukarıdaki "Yeni plan iste" düğmesiyle bağlam dosyanı üret, '
-              'bir yapay zekâya ver, dönen JSON belgesini "İçeri al" ile '
-              'buraya aktar.',
+              context.l10n.planEmptyBody,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -92,7 +94,7 @@ class _EmptyPlan extends StatelessWidget {
               const SizedBox(height: AppSpacing.xl),
               TextButton(
                 onPressed: onLoadSample,
-                child: const Text('Örnek planı yükle (geliştirme)'),
+                child: Text(context.l10n.planLoadSample),
               ),
             ],
           ],
@@ -127,7 +129,7 @@ class _PlanActionsState extends ConsumerState<PlanActions> {
       await SharePlus.instance.share(
         ShareParams(
           text: markdown,
-          subject: 'di@sport — plan isteği',
+          subject: context.l10n.planShareSubject,
         ),
       );
     } finally {
@@ -162,7 +164,7 @@ class _PlanActionsState extends ConsumerState<PlanActions> {
               key: const Key('request-plan-button'),
               onPressed: _busy ? null : _requestPlan,
               icon: const Icon(Icons.auto_awesome),
-              label: const Text('Yeni plan iste'),
+              label: Text(context.l10n.planRequestButton),
             ),
           ),
           const SizedBox(width: AppSpacing.sm),
@@ -171,7 +173,7 @@ class _PlanActionsState extends ConsumerState<PlanActions> {
               key: const Key('import-plan-button'),
               onPressed: _busy ? null : _openImport,
               icon: const Icon(Icons.file_download_outlined),
-              label: const Text('İçeri al'),
+              label: Text(context.l10n.planImportButton),
             ),
           ),
         ],
@@ -198,7 +200,7 @@ class _PlanOverview extends ConsumerWidget {
         const SizedBox(height: AppSpacing.xs),
         Text(
           '${_formatDate(plan.startDate)} – ${_formatDate(plan.endDate)} · '
-          '${plan.days.length} gün',
+          '${context.l10n.planDayCount(plan.days.length)}',
           style: theme.textTheme.bodySmall?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),
@@ -263,10 +265,21 @@ class _CalendarLegend extends StatelessWidget {
         spacing: AppSpacing.lg,
         runSpacing: AppSpacing.xs,
         children: [
-          item(semantic.successSurface, 'Tamamlandı'),
-          item(theme.colorScheme.surfaceContainerHigh, 'Kısmen'),
-          item(theme.colorScheme.outlineVariant, 'Serbest', outlined: true),
-          item(theme.colorScheme.primary, 'Antrenman ▲', outlined: true),
+          item(semantic.successSurface, context.l10n.planLegendDone),
+          item(
+            theme.colorScheme.surfaceContainerHigh,
+            context.l10n.planLegendPartial,
+          ),
+          item(
+            theme.colorScheme.outlineVariant,
+            context.l10n.planLegendFree,
+            outlined: true,
+          ),
+          item(
+            theme.colorScheme.primary,
+            context.l10n.planLegendWorkout,
+            outlined: true,
+          ),
         ],
       ),
     );
@@ -288,20 +301,25 @@ class _GoalsCard extends StatelessWidget {
           runSpacing: AppSpacing.lg,
           children: [
             _Goal(
-              label: 'Günlük',
+              label: context.l10n.planGoalDaily,
               value: goals.dailyKcal,
               unit: 'kcal',
               digits: 0,
             ),
             _Goal(
-              label: 'Protein',
+              label: context.l10n.planGoalProtein,
               value: goals.proteinG,
               unit: 'g',
               digits: 0,
             ),
-            _Goal(label: 'Su', value: goals.waterL, unit: 'L', digits: 0),
             _Goal(
-              label: 'Hedef',
+              label: context.l10n.planGoalWater,
+              value: goals.waterL,
+              unit: 'L',
+              digits: 0,
+            ),
+            _Goal(
+              label: context.l10n.planGoalTarget,
               value: -goals.targetLossKg,
               unit: 'kg',
               digits: 1,
@@ -375,7 +393,7 @@ class _WeekSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppSectionLabel(
-            'Hafta $weekIndex',
+            context.l10n.planWeekLabel(weekIndex),
             trailing: days.first.headline.isEmpty
                 ? null
                 : Flexible(
@@ -418,19 +436,19 @@ class _RulesCard extends StatelessWidget {
     final semantic = context.semantic;
 
     return AppSection(
-      title: 'Beslenme kuralları',
+      title: context.l10n.planNutritionRules,
       padding: EdgeInsets.zero,
       child: Column(
         children: [
           _RuleList(
-            title: 'Kesinlikle yok',
+            title: context.l10n.planRulesForbidden,
             items: rules.forbidden,
             color: semantic.danger,
             icon: Icons.close,
           ),
           const SizedBox(height: AppSpacing.md),
           _RuleList(
-            title: 'Serbest',
+            title: context.l10n.planRulesFree,
             items: rules.free,
             color: semantic.success,
             icon: Icons.check,

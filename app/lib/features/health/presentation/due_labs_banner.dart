@@ -1,5 +1,6 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/features/health/data/lab_repository.dart';
 import 'package:flutter/material.dart';
@@ -46,8 +47,10 @@ class DueLabsBanner extends StatelessWidget {
                 children: [
                   Text(
                     due.length == 1
-                        ? 'Bir tahlilin vakti geldi'
-                        : '${due.length} tahlilin vakti geldi',
+                        ? context.l10n.healthDueLabsTitleOne
+                        : context.l10n.healthDueLabsTitleMany(
+                            '${due.length}',
+                          ),
                     style: theme.textTheme.titleSmall,
                   ),
                   const SizedBox(height: AppSpacing.xs),
@@ -55,7 +58,7 @@ class DueLabsBanner extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: AppSpacing.xs),
                       child: Text(
-                        _describe(schedule),
+                        _describe(context, schedule),
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
@@ -70,15 +73,19 @@ class DueLabsBanner extends StatelessWidget {
     );
   }
 
-  String _describe(DueSchedule schedule) {
-    final interval = '${schedule.intervalMonths} ayda bir';
+  String _describe(BuildContext context, DueSchedule schedule) {
+    final l10n = context.l10n;
+    final interval = l10n.healthDueInterval('${schedule.intervalMonths}');
 
     // Takvim kurulmuş ama hiç sonuç girilmemişse "gecikti" demek
     // yanlış olur — gecikecek bir tarih hiç oluşmamış.
     if (schedule.nextDue case final next?) {
-      return '${schedule.marker} — $interval, '
-          '${TurkishDate.dayMonthYear(next)} itibarıyla';
+      return l10n.healthDueWithDate(
+        schedule.marker,
+        interval,
+        TurkishDate.dayMonthYear(next),
+      );
     }
-    return '${schedule.marker} — $interval, henüz hiç kaydedilmemiş';
+    return l10n.healthDueNoRecord(schedule.marker, interval);
   }
 }

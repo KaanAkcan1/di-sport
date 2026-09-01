@@ -20,20 +20,46 @@ abstract final class ReminderPayloads {
   };
 }
 
-/// Planlanmış tek bildirim.
-class PendingReminder {
-  const PendingReminder({
+/// Bildirim metninin türü.
+///
+/// Planlayıcı metnin **kendisini** değil türünü üretiyor: metin
+/// kullanıcının diline bağlı ve bu saf katmanın `AppLocalizations`
+/// görmesi doğru olmaz. Çeviri zamanlayıcıda yapılıyor
+/// (`reminder_texts.dart`).
+enum ReminderTextKind {
+  slotWorkout,
+  slotOther,
+  weighIn,
+  missStreak,
+  dueLab,
+  planEnding,
+}
+
+/// Metnin türü ve içine gireceği **veri**.
+///
+/// [label] ve [marker] kullanıcının kendi verisi (slot etiketi, tahlil
+/// adı) — çevrilmez, olduğu gibi geçer.
+class ReminderText {
+  const ReminderText(this.kind, {this.label, this.marker, this.daysLeft});
+
+  final ReminderTextKind kind;
+  final String? label;
+  final String? marker;
+  final int? daysLeft;
+}
+
+/// Planlanmış tek bildirim — metni henüz çözülmemiş hâli.
+class PlannedReminder {
+  const PlannedReminder({
     required this.id,
     required this.fireAt,
-    required this.title,
-    required this.body,
+    required this.text,
     required this.payload,
   });
 
   final int id;
   final DateTime fireAt;
-  final String title;
-  final String body;
+  final ReminderText text;
   final String payload;
 }
 
@@ -59,7 +85,7 @@ typedef SlotFact = ({String date, String time, String kind, String label});
 ///
 /// [maxCount] pencereye sığan bildirim sayısını sınırlar; aşılırsa en
 /// yakın tarihliler kalır — kullanıcı en çok bugünkü alarmına muhtaç.
-List<PendingReminder> planWindow({
+List<PlannedReminder> planWindow({
   required DateTime now,
   required List<SlotFact> slots,
   required Map<String, bool> kindEnabled,
@@ -72,7 +98,7 @@ List<PendingReminder> planWindow({
   int maxCount = 60,
 }) {
   final until = now.add(Duration(days: windowDays));
-  final candidates = <PendingReminder>[
+  final candidates = <PlannedReminder>[
     ..._slotReminders(slots, kindEnabled),
     ..._weighInReminders(now, wakeTime, windowDays),
     ..._missStreakReminder(now, twoDayMissStreak),
@@ -108,7 +134,7 @@ List<PendingReminder> planWindow({
 /// Kapalı türler hiç üretilmez. Anahtarı bulunmayan tür de kapalı
 /// sayılıyor: yeni bir slot türü eklendiğinde kullanıcı hiç açmadığı
 /// bir alarmla uyanmamalı.
-Iterable<PendingReminder> _slotReminders(
+Iterable<PlannedReminder> _slotReminders(
   List<SlotFact> slots,
   Map<String, bool> kindEnabled,
 ) sync* {
@@ -118,14 +144,15 @@ Iterable<PendingReminder> _slotReminders(
     final at = _parseDateTime(slot.date, slot.time);
     if (at == null) continue;
 
-    yield PendingReminder(
+    final isWorkout = slot.kind == 'workout';
+    yield PlannedReminder(
       id: _idFor(at, 'slot:${slot.date}:${slot.time}:${slot.kind}'),
       fireAt: at,
-      title: slot.label,
-      body: slot.kind == 'workout'
-          ? 'Antrenman vakti. Hazırsan başlayalım.'
-          : 'Programdaki sıradaki adım.',
-      payload: slot.kind == 'workout'
+      text: ReminderText(
+        isWorkout ? ReminderTextKind.slotWorkout : ReminderTextKind.slotOther,
+        label: slot.label,
+      ),
+      payload: isWorkout
           ? ReminderPayloads.workout
           : ReminderPayloads.today,
     );
@@ -136,7 +163,7 @@ Iterable<PendingReminder> _slotReminders(
 ///
 /// Gecikme kasıtlı: uyanır uyanmaz değil, tuvalete gidildikten sonra
 /// tartılmak günler arası tutarlılığı artırır.
-Iterable<PendingReminder> _weighInReminders(
+Iterable<PlannedReminder> _weighInReminders(
   DateTime now,
   String? wakeTime,
   int windowDays,
@@ -149,11 +176,10 @@ Iterable<PendingReminder> _weighInReminders(
     final at = day
         .add(Duration(hours: wake.hour, minutes: wake.minute + 15));
 
-    yield PendingReminder(
+    yield PlannedReminder(
       id: _idFor(at, 'weighin'),
       fireAt: at,
-      title: 'Sabah tartısı',
-      body: 'Aç karnına, aynı koşullarda tartıl.',
+      text: const ReminderText(ReminderTextKind.weighIn),
       payload: ReminderPayloads.today,
     );
   }
@@ -163,19 +189,17 @@ Iterable<PendingReminder> _weighInReminders(
 ///
 /// PDF'in "iki gün üst üste kaçırma" kuralı. Akşam 20:00 seçildi:
 /// gün bitmeden hâlâ telafi edilebilecek bir saat.
-Iterable<PendingReminder> _missStreakReminder(
+Iterable<PlannedReminder> _missStreakReminder(
   DateTime now,
   bool twoDayMissStreak,
 ) sync* {
   if (!twoDayMissStreak) return;
 
   final at = _nextOccurrence(now, hour: 20);
-  yield PendingReminder(
+  yield PlannedReminder(
     id: _idFor(at, 'miss'),
     fireAt: at,
-    title: 'Zincir kopuyor',
-    body: 'Antrenmanı iki gün üst üste kaçırdın. Bugün kısa bir şey '
-        'yapmak, hiç yapmamaktan iyi.',
+    text: const ReminderText(ReminderTextKind.missStreak),
     payload: ReminderPayloads.today,
   );
 }
@@ -184,7 +208,7 @@ Iterable<PendingReminder> _missStreakReminder(
 ///
 /// Marker başına **tek** hatırlatma: vadesi geçmiş her tahlil için her
 /// gün bildirim atmak kullanıcıyı bildirimleri tümden kapatmaya iter.
-Iterable<PendingReminder> _dueLabReminders(
+Iterable<PlannedReminder> _dueLabReminders(
   DateTime now,
   List<String> markers,
 ) sync* {
@@ -192,11 +216,10 @@ Iterable<PendingReminder> _dueLabReminders(
   final at = _nextOccurrence(now, hour: 9);
 
   for (final marker in markers) {
-    yield PendingReminder(
+    yield PlannedReminder(
       id: _idFor(at, 'lab:$marker'),
       fireAt: at,
-      title: 'Tahlil zamanı',
-      body: '$marker tahlilinin vakti geldi.',
+      text: ReminderText(ReminderTextKind.dueLab, marker: marker),
       payload: ReminderPayloads.health,
     );
   }
@@ -206,7 +229,7 @@ Iterable<PendingReminder> _dueLabReminders(
 ///
 /// Üç gün, yeni planı AI'dan isteyip gözden geçirmeye yetecek kadar
 /// önceden haber vermek için; plan bittiği gün haber vermek geç olurdu.
-Iterable<PendingReminder> _planEndingReminders(DateTime? planEndDate) sync* {
+Iterable<PlannedReminder> _planEndingReminders(DateTime? planEndDate) sync* {
   if (planEndDate == null) return;
 
   for (var back = 2; back >= 0; back--) {
@@ -217,13 +240,10 @@ Iterable<PendingReminder> _planEndingReminders(DateTime? planEndDate) sync* {
       9,
       30,
     );
-    yield PendingReminder(
+    yield PlannedReminder(
       id: _idFor(day, 'planend'),
       fireAt: day,
-      title: 'Plan bitiyor',
-      body: back == 0
-          ? 'Plan bugün bitiyor. Yeni plan için bağlam dosyasını al.'
-          : 'Plan $back gün sonra bitiyor. Yeni planı hazırlamanın vakti.',
+      text: ReminderText(ReminderTextKind.planEnding, daysLeft: back),
       payload: ReminderPayloads.plan,
     );
   }

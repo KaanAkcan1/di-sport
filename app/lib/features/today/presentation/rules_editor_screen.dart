@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/daily_rules_repository.dart';
@@ -16,17 +17,17 @@ class RulesEditorScreen extends ConsumerWidget {
     final repository = ref.watch(dailyRulesRepositoryProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Günün kuralları')),
+      appBar: AppBar(title: Text(context.l10n.todayRulesTitle)),
       body: AppAsyncView<List<DailyRule>>(
         value: rules,
         onRetry: () => ref.invalidate(dailyRulesProvider),
         emptyWhen: (list) => list.isEmpty,
-        empty: const Padding(
-          padding: EdgeInsets.all(AppSpacing.xl2),
+        empty: Padding(
+          padding: const EdgeInsets.all(AppSpacing.xl2),
           child: AppEmptyState(
             icon: Icons.rule,
-            title: 'Kural yok',
-            description: 'Aşağıdaki düğmeden ilk kuralını ekle.',
+            title: context.l10n.todayNoRulesTitle,
+            description: context.l10n.todayRulesEditorEmptyBody,
           ),
         ),
         data: (list) => ReorderableListView.builder(
@@ -61,7 +62,7 @@ class RulesEditorScreen extends ConsumerWidget {
         key: const Key('add-rule-fab'),
         onPressed: () => _openSheet(context, ref),
         icon: const Icon(Icons.add),
-        label: const Text('Kural'),
+        label: Text(context.l10n.todayRuleFabLabel),
       ),
     );
   }
@@ -84,23 +85,20 @@ class RulesEditorScreen extends ConsumerWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('"${rule.label}" silinsin mi?'),
+        title: Text(context.l10n.todayDeleteRuleTitle(rule.label)),
         // Geçmişin bozulmadığını söylemek önemli: kullanıcı silmenin
         // eski kayıtlarını da sileceğinden çekinip listeyi
         // temizlemekten kaçınıyor.
-        content: const Text(
-          'Bugünden sonra listede görünmez. Geçmiş günlerdeki işaretlerin '
-          'olduğu gibi kalır.',
-        ),
+        content: Text(context.l10n.todayDeleteRuleBody),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Vazgeç'),
+            child: Text(context.l10n.commonCancel),
           ),
           FilledButton(
             key: const Key('confirm-delete-rule'),
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Sil'),
+            child: Text(context.l10n.commonDelete),
           ),
         ],
       ),
@@ -136,7 +134,7 @@ class _RuleRow extends StatelessWidget {
         title: Text(rule.label),
         subtitle: rule.isBuiltIn
             ? Text(
-                'Çizelgeden gelen kural',
+                context.l10n.todayBuiltInRuleNote,
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
@@ -149,7 +147,7 @@ class _RuleRow extends StatelessWidget {
             IconButton(
               key: Key('delete-rule-${rule.id}'),
               icon: const Icon(Icons.delete_outline),
-              tooltip: 'Sil',
+              tooltip: context.l10n.commonDelete,
               onPressed: onDelete,
             ),
             // Sürükleme tutamağı: sürüklemenin tek yol olmaması için
@@ -196,7 +194,7 @@ class _RuleSheetState extends ConsumerState<_RuleSheet> {
   Future<void> _save() async {
     final label = _label.text.trim();
     if (label.isEmpty) {
-      setState(() => _error = 'Kural adı gerekli');
+      setState(() => _error = context.l10n.todayRuleNameRequired);
       return;
     }
 
@@ -223,7 +221,9 @@ class _RuleSheetState extends ConsumerState<_RuleSheet> {
           padding: const EdgeInsets.all(AppSpacing.screenH),
           children: [
             Text(
-              widget.rule == null ? 'Kural ekle' : 'Kuralı düzenle',
+              widget.rule == null
+                  ? context.l10n.todayAddRule
+                  : context.l10n.todayEditRule,
               style: theme.textTheme.titleLarge,
             ),
             const SizedBox(height: AppSpacing.lg),
@@ -234,8 +234,8 @@ class _RuleSheetState extends ConsumerState<_RuleSheet> {
               autofocus: true,
               textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
-                labelText: 'Kural',
-                hintText: 'Kreatin aldım',
+                labelText: context.l10n.todayRuleLabel,
+                hintText: context.l10n.todayRuleHint,
                 errorText: _error,
               ),
               onChanged: (_) {
@@ -245,7 +245,10 @@ class _RuleSheetState extends ConsumerState<_RuleSheet> {
             ),
             const SizedBox(height: AppSpacing.xl),
 
-            Text('İkon', style: theme.textTheme.titleSmall),
+            Text(
+              context.l10n.todayIconLabel,
+              style: theme.textTheme.titleSmall,
+            ),
             const SizedBox(height: AppSpacing.md),
             Wrap(
               spacing: AppSpacing.sm,
@@ -264,7 +267,7 @@ class _RuleSheetState extends ConsumerState<_RuleSheet> {
             FilledButton(
               key: const Key('save-rule'),
               onPressed: _save,
-              child: const Text('Kaydet'),
+              child: Text(context.l10n.commonSave),
             ),
           ],
         ),

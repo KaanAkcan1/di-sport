@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/today/application/today_providers.dart';
@@ -27,9 +28,11 @@ class MeasurementInputs extends ConsumerWidget {
           child: _MetricField(
             fieldKey: const Key('weight-field'),
             icon: Icons.monitor_weight_outlined,
-            label: 'Kilo',
-            unit: 'kg',
+            label: context.l10n.todayWeightLabel,
+            unit: context.l10n.todayWeightUnit,
             value: ref.watch(todayWeightProvider),
+            // Kaydedilen birim arayüz dilinden bağımsız: veri sabit
+            // kalmalı, ekranda görünen etiket çevrilir.
             onSubmitted: (value) => repository.upsert(
               isoDate: iso,
               kind: MetricKinds.weight,
@@ -43,8 +46,8 @@ class MeasurementInputs extends ConsumerWidget {
           child: _MetricField(
             fieldKey: const Key('sleep-field'),
             icon: Icons.bedtime_outlined,
-            label: 'Uyku',
-            unit: 'sa',
+            label: context.l10n.todaySleepLabel,
+            unit: context.l10n.todaySleepUnit,
             value: ref.watch(todaySleepProvider),
             onSubmitted: (value) => repository.upsert(
               isoDate: iso,

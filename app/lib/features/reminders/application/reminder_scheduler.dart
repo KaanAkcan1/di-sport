@@ -1,8 +1,10 @@
 import 'package:disport/core/notifications/notification_service.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/features/ai_bridge/domain/context_md_builder.dart'
     show ProfileKeys;
 import 'package:disport/features/health/data/lab_repository.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
+import 'package:disport/features/reminders/application/reminder_texts.dart';
 import 'package:disport/features/reminders/domain/reminder_planner.dart';
 import 'package:disport/features/settings/data/profile_repository.dart';
 import 'package:disport/features/settings/data/weekly_windows_repository.dart';
@@ -52,7 +54,10 @@ class ReminderScheduler {
   final WeeklyWindowsRepository windows;
 
   /// Pencereyi baştan kurar; kurulan bildirim sayısını döner.
-  Future<int> reschedule(DateTime now) async {
+  ///
+  /// [l10n] bildirim metinlerinin dili. Arka planda `BuildContext` yok;
+  /// çağıran taraf seçili dili çözüp veriyor (`reminder_providers`).
+  Future<int> reschedule(DateTime now, AppLocalizations l10n) async {
     // İzin yoksa hiç uğraşma. Kurulmuş sayılıp sessizce düşen bir
     // bildirim, hiç kurulmamış olandan kötü: kullanıcı alarmına
     // güvenip uyanmayı bekler.
@@ -102,7 +107,9 @@ class ReminderScheduler {
 
     // Boş liste de kuruluyor: önceki kurulumun temizlenmesi gerekiyor.
     // Kullanıcı bildirimleri kapattığında eski alarmlar susmalı.
-    await service.replaceAll(reminders);
+    await service.replaceAll([
+      for (final planned in reminders) localiseReminder(planned, l10n),
+    ]);
     return reminders.length;
   }
 }

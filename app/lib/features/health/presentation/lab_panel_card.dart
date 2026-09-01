@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/core/widgets/widgets.dart';
@@ -95,7 +96,7 @@ class _LabRow extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  _subtitle(),
+                  _subtitle(context),
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -104,7 +105,7 @@ class _LabRow extends StatelessWidget {
               const SizedBox(width: AppSpacing.sm),
               AppStatusChip(
                 status: _appStatus(status),
-                label: _statusLabel(status),
+                label: _statusLabel(context, status),
                 compact: true,
               ),
             ],
@@ -125,13 +126,15 @@ class _LabRow extends StatelessWidget {
         _ => null,
       };
 
-  String _subtitle() {
+  String _subtitle(BuildContext context) {
     final parts = <String>[TurkishDate.isoToDayMonthYear(entry.date)];
 
     if (entry.refLow case final low?) {
       final high = entry.refHigh;
       if (high != null) {
-        parts.add('ref ${_trim(low)}–${_trim(high)}');
+        parts.add(
+          context.l10n.healthLabRefRange(_trim(low), _trim(high)),
+        );
       }
     }
 
@@ -165,10 +168,11 @@ class _LabRow extends StatelessWidget {
     LabStatus.unknown => AppStatus.unknown,
   };
 
-  static String _statusLabel(LabStatus status) => switch (status) {
-    LabStatus.low => 'düşük',
-    LabStatus.high => 'yüksek',
-    LabStatus.normal => 'normal',
-    LabStatus.unknown => 'aralık yok',
-  };
+  static String _statusLabel(BuildContext context, LabStatus status) =>
+      switch (status) {
+        LabStatus.low => context.l10n.healthLabStatusLow,
+        LabStatus.high => context.l10n.healthLabStatusHigh,
+        LabStatus.normal => context.l10n.healthLabStatusNormal,
+        LabStatus.unknown => context.l10n.healthLabStatusNoRange,
+      };
 }

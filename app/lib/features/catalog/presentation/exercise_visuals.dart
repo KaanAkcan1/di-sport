@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
 import 'package:flutter/material.dart';
 
@@ -69,14 +70,18 @@ class ExerciseLocationBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = context.l10n;
     final (icon, label) = switch (location) {
-      ExerciseLocation.home => (Icons.home_outlined, 'Ev'),
-      ExerciseLocation.gym => (Icons.fitness_center, 'Salon'),
-      ExerciseLocation.both => (Icons.all_inclusive, 'Ev / Salon'),
+      ExerciseLocation.home => (Icons.home_outlined, l10n.catalogLocationHome),
+      ExerciseLocation.gym => (Icons.fitness_center, l10n.catalogLocationGym),
+      ExerciseLocation.both => (
+        Icons.all_inclusive,
+        l10n.catalogLocationBoth,
+      ),
     };
 
     return Semantics(
-      label: 'Yapılabildiği yer: $label',
+      label: l10n.catalogLocationSemantics(label),
       excludeSemantics: true,
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -109,7 +114,7 @@ class ExerciseDifficultyBar extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Semantics(
-      label: 'Zorluk $level / 5',
+      label: context.l10n.catalogDifficultySemantics(level),
       excludeSemantics: true,
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -140,10 +145,12 @@ extension ExerciseCategoryPresentation on ExerciseCategory {
     ExerciseCategory.mobility => Icons.accessibility_new,
   };
 
-  String get labelTr => switch (this) {
-    ExerciseCategory.strength => 'Kuvvet',
-    ExerciseCategory.cardio => 'Kardiyo',
-    ExerciseCategory.core => 'Gövde',
-    ExerciseCategory.mobility => 'Hareketlilik',
+  /// Kategori adı çeviriden gelir; `labelTr` yerine `BuildContext` alan
+  /// bir metot, çünkü metin artık dile bağlı.
+  String label(BuildContext context) => switch (this) {
+    ExerciseCategory.strength => context.l10n.catalogCategoryStrength,
+    ExerciseCategory.cardio => context.l10n.catalogCategoryCardio,
+    ExerciseCategory.core => context.l10n.catalogCategoryCore,
+    ExerciseCategory.mobility => context.l10n.catalogCategoryMobility,
   };
 }

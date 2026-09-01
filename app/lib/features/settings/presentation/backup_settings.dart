@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/settings/data/backup_service.dart';
 import 'package:file_picker/file_picker.dart';
@@ -23,10 +24,11 @@ class _BackupSettingsState extends State<BackupSettings> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return AppSection(
-      title: 'Yedekleme',
-      description: 'Tüm veriler yalnız bu cihazda. Telefon değişirse '
-          'yedek almadıysan geri dönüşü yok.',
+      title: l10n.settingsBackupTitle,
+      description: l10n.settingsBackupDescription,
       child: Card(
         child: Column(
           children: [
@@ -34,8 +36,8 @@ class _BackupSettingsState extends State<BackupSettings> {
               key: const Key('export-backup'),
               enabled: !_busy,
               leading: const Icon(Icons.ios_share),
-              title: const Text('Yedek al'),
-              subtitle: const Text('Dosyayı paylaş menüsüyle bir yere kaydet'),
+              title: Text(l10n.settingsBackupExport),
+              subtitle: Text(l10n.settingsBackupExportSubtitle),
               onTap: _busy ? null : _export,
             ),
             const Divider(height: 1, indent: AppSpacing.lg),
@@ -43,8 +45,8 @@ class _BackupSettingsState extends State<BackupSettings> {
               key: const Key('import-backup'),
               enabled: !_busy,
               leading: const Icon(Icons.settings_backup_restore),
-              title: const Text('Yedekten geri yükle'),
-              subtitle: const Text('Mevcut verinin üstüne yazar'),
+              title: Text(l10n.settingsBackupImport),
+              subtitle: Text(l10n.settingsBackupImportSubtitle),
               onTap: _busy ? null : _import,
             ),
           ],
@@ -54,6 +56,9 @@ class _BackupSettingsState extends State<BackupSettings> {
   }
 
   Future<void> _export() async {
+    // Paylaş metni await'ten önce okunuyor: sonrasında `context` artık
+    // güvenli değil.
+    final shareText = context.l10n.settingsBackupShareText;
     setState(() => _busy = true);
     try {
       // Önce uygulamanın geçici dizinine yazılıyor, sonra paylaşılıyor:
@@ -64,7 +69,7 @@ class _BackupSettingsState extends State<BackupSettings> {
       await SharePlus.instance.share(
         ShareParams(
           files: [XFile(file.path)],
-          text: 'di@sport yedeği',
+          text: shareText,
         ),
       );
     } on BackupException catch (error) {
@@ -84,10 +89,8 @@ class _BackupSettingsState extends State<BackupSettings> {
     setState(() => _busy = true);
     try {
       await widget.service.importFrom(File(path));
-      _tell(
-        'Yedek yüklendi. Uygulamayı kapatıp yeniden aç — açık veritabanı '
-        'bağlantısı eski veriyi göstermeye devam ediyor.',
-      );
+      if (!mounted) return;
+      _tell(context.l10n.settingsBackupRestored);
     } on BackupException catch (error) {
       _tell(error.message);
     } finally {
@@ -100,20 +103,17 @@ class _BackupSettingsState extends State<BackupSettings> {
     final answer = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Mevcut verinin üstüne yazılsın mı?'),
-        content: const Text(
-          'Şu anki tüm kayıtların yedekteki hâlle değişecek. Değişmeden '
-          'önceki hâl yine de cihazda saklanıyor.',
-        ),
+        title: Text(context.l10n.settingsBackupConfirmTitle),
+        content: Text(context.l10n.settingsBackupConfirmBody),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Vazgeç'),
+            child: Text(context.l10n.commonCancel),
           ),
           FilledButton(
             key: const Key('confirm-import'),
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Üstüne yaz'),
+            child: Text(context.l10n.settingsBackupConfirmAction),
           ),
         ],
       ),

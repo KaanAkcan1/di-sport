@@ -1,5 +1,6 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,13 +38,12 @@ class MissedStreakBanner extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '$streak gün üst üste antrenman yok',
+                      context.l10n.todayMissedStreakTitle(streak),
                       style: theme.textTheme.titleSmall,
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Text(
-                      'Kural buydu: iki günü üst üste kaçırma. Bugün kısa '
-                      'da olsa bir şey yap.',
+                      context.l10n.todayMissedStreakBody,
                       style: theme.textTheme.bodySmall,
                     ),
                   ],

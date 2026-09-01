@@ -1,4 +1,5 @@
 import 'package:disport/app/theme/app_theme.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_text.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
@@ -89,6 +90,9 @@ void main() {
     ],
     child: MaterialApp(
       theme: AppTheme.light,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: const Locale('tr'),
       home: const Scaffold(body: CatalogScreen()),
     ),
   );

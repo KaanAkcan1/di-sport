@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:disport/core/notifications/notification_service.dart';
-import 'package:disport/features/reminders/domain/reminder_planner.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';

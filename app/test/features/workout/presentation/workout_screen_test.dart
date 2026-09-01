@@ -1,4 +1,5 @@
 import 'package:disport/app/theme/app_theme.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/workout/application/workout_providers.dart';
 import 'package:disport/features/workout/data/workout_repository.dart';
@@ -42,6 +43,9 @@ void main() {
     ],
     child: MaterialApp(
       theme: AppTheme.light,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: const Locale('tr'),
       home: WorkoutScreen(day: day),
     ),
   );

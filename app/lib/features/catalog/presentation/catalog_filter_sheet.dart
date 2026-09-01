@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
@@ -20,6 +21,7 @@ class CatalogFilterSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = context.l10n;
     final filter = ref.watch(catalogFilterProvider);
     final notifier = ref.read(catalogFilterProvider.notifier);
     final count = ref.watch(filteredExercisesProvider).value?.length;
@@ -39,13 +41,16 @@ class CatalogFilterSheet extends ConsumerWidget {
             Row(
               children: [
                 Expanded(
-                  child: Text('Filtreler', style: theme.textTheme.titleMedium),
+                  child: Text(
+                    l10n.catalogFilters,
+                    style: theme.textTheme.titleMedium,
+                  ),
                 ),
                 if (filter.hiddenFilterCount > 0)
                   TextButton(
                     key: const Key('clear-hidden-filters'),
                     onPressed: notifier.clearHidden,
-                    child: const Text('Temizle'),
+                    child: Text(l10n.commonClear),
                   ),
               ],
             ),
@@ -56,23 +61,21 @@ class CatalogFilterSheet extends ConsumerWidget {
               contentPadding: EdgeInsets.zero,
               value: filter.onlyMyEquipment,
               onChanged: (_) => notifier.toggleOnlyMyEquipment(),
-              title: const Text('Ekipmanıma uygun'),
-              subtitle: const Text(
-                'Envanterinde olmayan ekipman isteyenleri gizler.',
-              ),
+              title: Text(l10n.catalogOnlyMyEquipment),
+              subtitle: Text(l10n.catalogOnlyMyEquipmentDescription),
             ),
 
             const SizedBox(height: AppSpacing.lg),
-            const AppSectionLabel('Tür'),
+            AppSectionLabel(l10n.catalogCategorySection),
             Wrap(
               spacing: AppSpacing.sm,
               runSpacing: AppSpacing.sm,
               children: [
-                for (final (category, label) in const [
-                  (ExerciseCategory.strength, 'Kuvvet'),
-                  (ExerciseCategory.core, 'Gövde'),
-                  (ExerciseCategory.cardio, 'Kardiyo'),
-                  (ExerciseCategory.mobility, 'Hareketlilik'),
+                for (final (category, label) in [
+                  (ExerciseCategory.strength, l10n.catalogCategoryStrength),
+                  (ExerciseCategory.core, l10n.catalogCategoryCore),
+                  (ExerciseCategory.cardio, l10n.catalogCategoryCardio),
+                  (ExerciseCategory.mobility, l10n.catalogCategoryMobility),
                 ])
                   FilterChip(
                     label: Text(label),
@@ -83,7 +86,7 @@ class CatalogFilterSheet extends ConsumerWidget {
             ),
 
             const SizedBox(height: AppSpacing.lg),
-            const AppSectionLabel('Zorluk'),
+            AppSectionLabel(l10n.catalogDifficultySection),
             Wrap(
               spacing: AppSpacing.sm,
               runSpacing: AppSpacing.sm,
@@ -102,7 +105,7 @@ class CatalogFilterSheet extends ConsumerWidget {
             // ne kadar daralttığını anında biliyor.
             Center(
               child: Text(
-                count == null ? '' : '$count hareket',
+                count == null ? '' : l10n.catalogResultCount(count),
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),

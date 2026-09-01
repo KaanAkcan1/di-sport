@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/health/data/body_metrics_repository.dart';
@@ -29,28 +30,28 @@ class BodyMeasurementsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = context.l10n;
 
     return AppSection(
-      title: 'Ölçümler',
-      description: 'Ayda bir ölç; geçiş kriteri şınav sayısına bakıyor.',
+      title: l10n.healthMeasurementsTitle,
+      description: l10n.healthMeasurementsDescription,
       action: IconButton(
         key: const Key('manage-metrics-button'),
         icon: const Icon(Icons.tune),
-        tooltip: 'Ölçümleri düzenle',
+        tooltip: l10n.healthManageMetricsTooltip,
         onPressed: onManage,
       ),
       child: definitions.isEmpty
-          ? const Card(
+          ? Card(
               child: Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: AppSpacing.lg,
                   vertical: AppSpacing.xl,
                 ),
                 child: AppEmptyState(
                   icon: Icons.straighten,
-                  title: 'Ölçüm türü yok',
-                  description: 'Takip etmek istediğin ölçüleri ekle — bel, '
-                      'kol çevresi, istirahat nabzı.',
+                  title: l10n.healthNoMetricsTitle,
+                  description: l10n.healthNoMetricsDescription,
                 ),
               ),
             )
@@ -65,7 +66,7 @@ class BodyMeasurementsCard extends StatelessWidget {
                       title: Text(definition.label),
                       subtitle: Text(
                         latest[definition.kind] == null
-                            ? 'henüz ölçülmedi'
+                            ? l10n.healthMetricNeverMeasured
                             : TurkishDate.isoToDayMonthYear(
                                 latest[definition.kind]!.date,
                               ),

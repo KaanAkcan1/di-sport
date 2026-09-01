@@ -1,4 +1,5 @@
 import 'package:disport/app/theme/app_theme.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/today/application/today_providers.dart';
@@ -48,6 +49,9 @@ void main() {
       ],
       child: MaterialApp(
         theme: AppTheme.dark,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: const Locale('tr'),
         home: const Scaffold(body: TodayScreen()),
       ),
     );

@@ -1,6 +1,9 @@
+import 'dart:ui' show Locale, PlatformDispatcher;
+
 import 'package:disport/app/app.dart';
 import 'package:disport/core/notifications/local_notification_service.dart';
 import 'package:disport/core/notifications/notification_service.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/health/application/health_providers.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
@@ -30,13 +33,38 @@ NotificationService notificationService(Ref ref) => LocalNotificationService();
 /// Zamanlayıcıyı doğrudan alıyor, `ref` değil: çağrı yerleri üç farklı
 /// tipte (`Ref`, `WidgetRef`, `ProviderContainer`) ve üçünün de ortak
 /// bir üst tipi yok.
-Future<void> rescheduleQuietly(ReminderScheduler scheduler) async {
+///
+/// Dil parametre değil burada çözülüyor: çağrı yerlerinin hiçbirinde
+/// `BuildContext` yok (bootstrap, ayar anahtarı, profil kaydı) ve her
+/// birine dil taşıtmak gürültü olurdu.
+Future<void> rescheduleQuietly(
+  ReminderScheduler scheduler, {
+  Locale? preferred,
+}) async {
   try {
-    await scheduler.reschedule(DateTime.now());
+    await scheduler.reschedule(DateTime.now(), _localisations(preferred));
   } catch (error, stackTrace) {
     debugPrint('Bildirim kurulumu başarısız: $error');
     debugPrintStack(stackTrace: stackTrace);
   }
+}
+
+/// Seçili dil yoksa cihazın diline düşer; o da desteklenmiyorsa
+/// şablon dil (Türkçe) kullanılır.
+AppLocalizations _localisations(Locale? preferred) {
+  final candidates = [
+    ?preferred,
+    PlatformDispatcher.instance.locale,
+  ];
+
+  for (final locale in candidates) {
+    final supported = AppLocalizations.supportedLocales.any(
+      (s) => s.languageCode == locale.languageCode,
+    );
+    if (supported) return lookupAppLocalizations(Locale(locale.languageCode));
+  }
+
+  return lookupAppLocalizations(AppLocalizations.supportedLocales.first);
 }
 
 @riverpod

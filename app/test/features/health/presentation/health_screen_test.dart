@@ -8,6 +8,7 @@ import 'package:disport/features/health/data/body_metrics_repository.dart';
 import 'package:disport/features/health/data/lab_repository.dart';
 import 'package:disport/features/health/data/metric_definitions_repository.dart';
 import 'package:disport/features/health/presentation/health_screen.dart';
+import 'package:disport/l10n/app_localizations.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -83,6 +84,9 @@ void main() {
     ],
     child: MaterialApp(
       theme: AppTheme.light,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: const Locale('tr'),
       home: const HealthScreen(),
     ),
   );

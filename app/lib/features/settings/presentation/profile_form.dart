@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/ai_bridge/domain/context_md_builder.dart';
 import 'package:disport/features/reminders/application/reminder_providers.dart';
@@ -18,14 +19,16 @@ class ProfileForm extends ConsumerStatefulWidget {
   const ProfileForm({
     super.key,
     this.onSaved,
-    this.saveLabel = 'Kaydet',
+    this.saveLabel,
     this.trailing = const [],
   });
 
   /// Onboarding'de kabuğa geçmek için; Ayarlar'da null.
   final VoidCallback? onSaved;
 
-  final String saveLabel;
+  /// Verilmezse `Kaydet`. Varsayılan yapıcıda sabitlenemez: çeviri
+  /// `BuildContext` ister, o da yapıcıda yok.
+  final String? saveLabel;
 
   /// Formdan sonra aynı kaydırma alanına eklenecek bölümler.
   ///
@@ -59,7 +62,7 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
     final height = _controllerFor(ProfileKeys.heightCm).text.trim();
     if (height.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Boy alanı gerekli.')),
+        SnackBar(content: Text(context.l10n.settingsProfileHeightRequired)),
       );
       return;
     }
@@ -116,9 +119,7 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
                 const SizedBox(width: AppSpacing.md),
                 Expanded(
                   child: Text(
-                    'Bu bilgiler yapay zekâya gönderilen bağlam dosyasına '
-                    'girer. Ne kadar doldurursan plan o kadar sana göre '
-                    'olur; boş bıraktıkların "belirtilmedi" diye geçer.',
+                    context.l10n.settingsProfileContextNote,
                     style: theme.textTheme.bodySmall,
                   ),
                 ),
@@ -149,7 +150,7 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
         FilledButton(
           key: const Key('save-profile-button'),
           onPressed: _saving ? null : _save,
-          child: Text(widget.saveLabel),
+          child: Text(widget.saveLabel ?? context.l10n.commonSave),
         ),
         if (widget.trailing.isNotEmpty) ...[
           const SizedBox(height: AppSpacing.xl3),

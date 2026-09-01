@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
@@ -88,7 +89,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Antrenman'),
+        title: Text(context.l10n.workoutTitle),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(20),
           child: _ProgressLine(day: widget.day, counts: counts.value),
@@ -108,10 +109,10 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
           );
 
           if (widget.day.exercises.isEmpty) {
-            return const AppEmptyState(
+            return AppEmptyState(
               icon: Icons.self_improvement,
-              title: 'Bugün hareket yok',
-              description: 'Bu gün dinlenme günü olarak planlanmış.',
+              title: context.l10n.workoutNoExercisesTitle,
+              description: context.l10n.workoutNoExercisesDescription,
             );
           }
 
@@ -187,21 +188,21 @@ class _SessionHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppHeroNumber(
-          caption: 'dakikadır çalışıyorsun',
+          caption: context.l10n.workoutElapsedCaption,
           // İlk dakikada "0" yazmak sayacın bozuk olduğunu düşündürüyor;
           // bir dakika dolana kadar başlangıç anı gösteriliyor.
-          value: minutes == 0 ? 'yeni' : '$minutes',
-          unit: minutes == 0 ? null : 'dk',
+          value: minutes == 0 ? context.l10n.workoutElapsedNew : '$minutes',
+          unit: minutes == 0 ? null : context.l10n.workoutMinuteUnit,
         ),
         const SizedBox(height: AppSpacing.xl),
         AppMetricStrip([
           AppMetric(
-            caption: 'Set',
+            caption: context.l10n.workoutSetsCaption,
             value: '$doneSets',
             unit: '/$targetSets',
           ),
           AppMetric(
-            caption: 'Hareket',
+            caption: context.l10n.workoutExercisesCaption,
             value: '${day.exercises.length}',
           ),
         ]),
@@ -240,7 +241,7 @@ class _ProgressLine extends StatelessWidget {
         AppSpacing.sm,
       ),
       child: Semantics(
-        label: '$doneSets / $targetSets set tamamlandı',
+        label: context.l10n.workoutSetsDoneSemantics(doneSets, targetSets),
         excludeSemantics: true,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -255,7 +256,7 @@ class _ProgressLine extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.xs),
             Text(
-              '$doneSets / $targetSets set',
+              context.l10n.workoutSetsProgress(doneSets, targetSets),
               style: theme.textTheme.labelSmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),

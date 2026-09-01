@@ -154,6 +154,8 @@ class Exercise {
   /// Ekipman gerektirmiyor mu — filtrede "evde yapılabilir" ayrımı için.
   bool get isBodyweight =>
       equipment.isEmpty ||
+      // l10n-exempt: katalog verisi, arayüz metni değil. M8'de
+      // `EquipmentKind.bodyOnly` karşılaştırmasına dönüyor.
       (equipment.length == 1 && equipment.first == 'vücut ağırlığı');
 
   Map<String, dynamic> toJson() => {
@@ -198,6 +200,7 @@ class Exercise {
     throw ArgumentError.value(
       name,
       field,
+      // l10n-exempt: geliştiriciye giden `ArgumentError` metni.
       'geçersiz değer; beklenen: ${values.map((v) => v.name).join(' | ')}',
     );
   }

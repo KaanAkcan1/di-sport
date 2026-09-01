@@ -1,5 +1,6 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:flutter/material.dart';
 
 /// Uygulamadaki her durum ekseninin ortak dili.
@@ -51,14 +52,19 @@ extension AppStatusPresentation on AppStatus {
     AppStatus.unknown => Icons.remove_circle_outline,
   };
 
-  /// Ekran okuyucuya okunacak karşılık.
-  String get semanticLabel => switch (this) {
-    AppStatus.good => 'iyi',
-    AppStatus.caution => 'dikkat',
-    AppStatus.bad => 'sorunlu',
-    AppStatus.unknown => 'veri yok',
-  };
 }
+
+/// Ekran okuyucuya okunacak karşılık.
+///
+/// Genişletme getirisi (`status.semanticLabel`) olarak duramaz: çeviri
+/// `AppLocalizations` ister, o da `BuildContext` olmadan gelmez. Eşleme
+/// yine tek yerde — aynı durum her ekranda aynı sözcükle okunsun.
+String statusLabel(AppLocalizations l10n, AppStatus status) => switch (status) {
+  AppStatus.good => l10n.commonStatusGood,
+  AppStatus.caution => l10n.commonStatusCaution,
+  AppStatus.bad => l10n.commonStatusBad,
+  AppStatus.unknown => l10n.commonStatusUnknown,
+};
 
 /// Durumu ikon + metin ile gösteren rozet.
 ///
@@ -84,7 +90,7 @@ class AppStatusChip extends StatelessWidget {
     final textStyle = Theme.of(context).textTheme.labelMedium;
 
     return Semantics(
-      label: '$label, ${status.semanticLabel}',
+      label: '$label, ${statusLabel(context.l10n, status)}',
       excludeSemantics: true,
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -127,7 +133,7 @@ class AppStatusDot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: '$semanticsLabel, ${status.semanticLabel}',
+      label: '$semanticsLabel, ${statusLabel(context.l10n, status)}',
       child: Container(
         width: size,
         height: size,

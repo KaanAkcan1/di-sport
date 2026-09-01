@@ -1,6 +1,7 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
 import 'package:disport/core/design/app_typography.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_text.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/presentation/exercise_detail_screen.dart';
@@ -118,7 +119,7 @@ class ExerciseSetCard extends ConsumerWidget {
                 if (doneSets > 0)
                   IconButton(
                     key: Key('undo-${planExercise.exerciseId}'),
-                    tooltip: 'Son seti geri al',
+                    tooltip: context.l10n.workoutUndoLastSet,
                     icon: const Icon(Icons.undo),
                     onPressed: () => ref
                         .read(workoutRepositoryProvider)
@@ -146,7 +147,11 @@ class ExerciseSetCard extends ConsumerWidget {
                             onRest(rest);
                           }
                         },
-                  child: Text(complete ? 'Tamamlandı' : 'Set tamam'),
+                  child: Text(
+                    complete
+                        ? context.l10n.workoutAllSetsDone
+                        : context.l10n.workoutSetDone,
+                  ),
                 ),
               ],
             ),
@@ -192,13 +197,13 @@ class _ReferenceColumns extends ConsumerWidget {
       children: [
         if (actuals.isNotEmpty) ...[
           _RefColumn(
-            caption: 'Geçen',
+            caption: context.l10n.workoutRefLast,
             value: actuals.map((a) => a.shortLabel).join('/'),
           ),
           const SizedBox(width: AppSpacing.xl),
         ],
         _RefColumn(
-          caption: 'Plan',
+          caption: context.l10n.workoutRefPlan,
           value: planExercise.targetLabel,
           note: intensity,
           accent: true,
@@ -286,7 +291,7 @@ class _SetDots extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Semantics(
-      label: '$done / $total set tamamlandı',
+      label: context.l10n.workoutSetsDoneSemantics(done, total),
       excludeSemantics: true,
       child: Row(
         children: [

@@ -1,6 +1,7 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
 import 'package:disport/core/result/result.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/ai_bridge/domain/plan_validator.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
@@ -78,13 +79,18 @@ class _ImportPlanSheetState extends ConsumerState<ImportPlanSheet> {
           ..invalidate(todayPlanDayProvider)
           ..invalidate(missedStreakProvider);
 
+        final l10n = context.l10n;
         final messenger = ScaffoldMessenger.of(context);
         Navigator.of(context).pop();
         messenger.showSnackBar(
           SnackBar(
             content: Text(
-              '${value.dayCount} günlük plan yüklendi'
-              '${value.addedExercises > 0 ? ", ${value.addedExercises} yeni hareket eklendi" : ""}.',
+              value.addedExercises > 0
+                  ? l10n.importPlanLoadedWithExercises(
+                      value.dayCount,
+                      value.addedExercises,
+                    )
+                  : l10n.importPlanLoaded(value.dayCount),
             ),
           ),
         );
@@ -105,6 +111,7 @@ class _ImportPlanSheetState extends ConsumerState<ImportPlanSheet> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = context.l10n;
     final validated = _validated;
 
     return Padding(
@@ -115,10 +122,10 @@ class _ImportPlanSheetState extends ConsumerState<ImportPlanSheet> {
         shrinkWrap: true,
         padding: const EdgeInsets.all(AppSpacing.lg),
         children: [
-          Text('Planı içeri al', style: theme.textTheme.titleLarge),
+          Text(l10n.importPlanTitle, style: theme.textTheme.titleLarge),
           const SizedBox(height: AppSpacing.xs),
           Text(
-            'Yapay zekânın verdiği JSON belgesini buraya yapıştır.',
+            l10n.importPlanDescription,
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -153,7 +160,7 @@ class _ImportPlanSheetState extends ConsumerState<ImportPlanSheet> {
                 child: FilledButton.icon(
                   onPressed: _busy ? null : _validate,
                   icon: const Icon(Icons.fact_check_outlined),
-                  label: const Text('Doğrula'),
+                  label: Text(l10n.importPlanValidate),
                 ),
               ),
               if (_controller.text.isNotEmpty) ...[
@@ -161,7 +168,7 @@ class _ImportPlanSheetState extends ConsumerState<ImportPlanSheet> {
                 IconButton(
                   onPressed: _busy ? null : _reset,
                   icon: const Icon(Icons.clear),
-                  tooltip: 'Temizle',
+                  tooltip: l10n.commonClear,
                 ),
               ],
             ],
@@ -185,7 +192,7 @@ class _ImportPlanSheetState extends ConsumerState<ImportPlanSheet> {
             FilledButton.icon(
               onPressed: _busy ? null : _import,
               icon: const Icon(Icons.download_done),
-              label: const Text('İçeri al'),
+              label: Text(l10n.importPlanImport),
             ),
           ],
 
@@ -206,6 +213,7 @@ class _ErrorCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final semantic = context.semantic;
+    final l10n = context.l10n;
 
     return Card(
       color: semantic.dangerSurface,
@@ -218,15 +226,19 @@ class _ErrorCard extends StatelessWidget {
               children: [
                 Icon(Icons.error_outline, color: semantic.danger),
                 const SizedBox(width: AppSpacing.sm),
-                Text('Plan alınamadı', style: theme.textTheme.titleSmall),
+                Text(
+                  l10n.importPlanFailedTitle,
+                  style: theme.textTheme.titleSmall,
+                ),
               ],
             ),
             const SizedBox(height: AppSpacing.md),
+            // Doğrulayıcının mesajı **çevrilmez**: AI'a olduğu gibi geri
+            // yapıştırılmak üzere yazıldı (spec 7.3).
             SelectableText(message, style: theme.textTheme.bodySmall),
             const SizedBox(height: AppSpacing.md),
             Text(
-              'Bu mesajı olduğu gibi yapay zekâya yapıştır; neyi '
-              'düzelteceğini bilecek.',
+              l10n.importPlanPasteBackHint,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -237,11 +249,11 @@ class _ErrorCard extends StatelessWidget {
                 await Clipboard.setData(ClipboardData(text: message));
                 if (!context.mounted) return;
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Hata mesajı kopyalandı')),
+                  SnackBar(content: Text(context.l10n.importPlanErrorCopied)),
                 );
               },
               icon: const Icon(Icons.copy),
-              label: const Text('Hatayı kopyala'),
+              label: Text(l10n.importPlanCopyError),
             ),
           ],
         ),
@@ -265,6 +277,7 @@ class _PreviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = context.l10n;
     final plan = validated.plan;
 
     return Card(
@@ -276,8 +289,11 @@ class _PreviewCard extends StatelessWidget {
             Text(plan.meta.title, style: theme.textTheme.titleMedium),
             const SizedBox(height: AppSpacing.xs),
             Text(
-              '${plan.meta.startDate} tarihinden itibaren '
-              '${plan.meta.weeks} hafta · ${validated.dayCount} gün',
+              l10n.importPlanSummary(
+                plan.meta.startDate,
+                plan.meta.weeks,
+                validated.dayCount,
+              ),
               style: theme.textTheme.bodySmall,
             ),
             const SizedBox(height: AppSpacing.md),
@@ -288,34 +304,38 @@ class _PreviewCard extends StatelessWidget {
               children: [
                 _Tag(
                   icon: Icons.fitness_center,
-                  label: 'Salon ${validated.daysOfType("gym")}',
+                  label: l10n.importPlanGym(validated.daysOfType('gym')),
                 ),
                 _Tag(
                   icon: Icons.home_outlined,
-                  label: 'Ev ${validated.daysOfType("home")}',
+                  label: l10n.importPlanHome(validated.daysOfType('home')),
                 ),
                 _Tag(
                   icon: Icons.self_improvement,
-                  label: 'Dinlenme ${validated.daysOfType("rest")}',
+                  label: l10n.importPlanRest(validated.daysOfType('rest')),
                 ),
               ],
             ),
             const SizedBox(height: AppSpacing.md),
 
             Text(
-              '${plan.goals.dailyKcal} kcal · ${plan.goals.proteinG} g protein '
-              '· ${plan.goals.waterL} L su · hedef −${plan.goals.targetLossKg} kg',
+              l10n.importPlanGoals(
+                '${plan.goals.dailyKcal}',
+                '${plan.goals.proteinG}',
+                '${plan.goals.waterL}',
+                '${plan.goals.targetLossKg}',
+              ),
               style: theme.textTheme.bodySmall,
             ),
 
             if (validated.newExercises.isNotEmpty) ...[
               const Divider(height: AppSpacing.xl2),
               Text(
-                'Yeni hareket önerileri',
+                l10n.importPlanNewExercisesTitle,
                 style: theme.textTheme.titleSmall,
               ),
               Text(
-                'Onayladıkların kataloğa kalıcı olarak eklenir.',
+                l10n.importPlanNewExercisesDescription,
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),

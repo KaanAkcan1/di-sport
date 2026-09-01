@@ -1,4 +1,5 @@
 import 'package:disport/app/theme/app_theme.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/plan/presentation/plan_calendar.dart';
 import 'package:disport/features/today/data/today_repository.dart';
@@ -24,6 +25,9 @@ void main() {
 
     return MaterialApp(
       theme: AppTheme.dark,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: const Locale('tr'),
       home: Scaffold(
         body: PlanWeekGrid(days: [day], logs: logs, today: today),
       ),

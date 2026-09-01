@@ -20,7 +20,7 @@ List<SlotFact> weekSlots() => [
 
 /// Test çağrılarının ortak iskeleti; her test yalnız ilgilendiği alanı
 /// veriyor, gerisi kapalı.
-List<PendingReminder> plan({
+List<PlannedReminder> plan({
   DateTime? now,
   List<SlotFact> slots = const [],
   Map<String, bool> kindEnabled = const {},
@@ -119,8 +119,8 @@ void main() {
         slots: weekSlots(),
         kindEnabled: {'meal': false, 'workout': true},
       );
-      expect(r.every((p) => p.title != 'Kahvaltı'), isTrue);
-      expect(r.any((p) => p.title == 'Antrenman'), isTrue);
+      expect(r.every((p) => p.text.label != 'Kahvaltı'), isTrue);
+      expect(r.any((p) => p.text.label == 'Antrenman'), isTrue);
     });
 
     test('anahtarı hiç bulunmayan tür kapalı sayılır', () {
@@ -172,7 +172,7 @@ void main() {
       final r = plan(twoDayMissStreak: true);
 
       expect(r.single.fireAt, DateTime(2026, 9, 1, 20));
-      expect(r.single.body, contains('iki gün üst üste'));
+      expect(r.single.text.kind, ReminderTextKind.missStreak);
       expect(r.single.payload, ReminderPayloads.today);
     });
 
@@ -193,7 +193,7 @@ void main() {
       expect(r, hasLength(2));
       expect(r.first.fireAt, DateTime(2026, 9, 1, 9));
       expect(r.first.payload, ReminderPayloads.health);
-      expect(r.map((p) => p.body).join(), contains('Vitamin D'));
+      expect(r.map((p) => p.text.marker).join(), contains('Vitamin D'));
     });
 
     test('09:00 geçmişse yarına kurulur', () {

@@ -7,6 +7,7 @@ import 'package:disport/features/progress/domain/transition_criteria.dart';
 import 'package:disport/features/progress/domain/weekly_summary.dart';
 import 'package:disport/features/progress/domain/weight_trend.dart';
 import 'package:disport/features/progress/presentation/progress_screen.dart';
+import 'package:disport/l10n/app_localizations.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -86,6 +87,9 @@ void main() {
     ],
     child: MaterialApp(
       theme: AppTheme.light,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: const Locale('tr'),
       home: const Scaffold(body: ProgressScreen()),
     ),
   );

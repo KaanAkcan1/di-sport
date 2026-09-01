@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/daily_rules_repository.dart';
@@ -34,7 +35,7 @@ class DailyFlagsCard extends ConsumerWidget {
         final met = log?.metAmong(list.map((r) => r.id)) ?? 0;
 
         return AppSection(
-          title: 'Günün kuralları',
+          title: context.l10n.todayRulesTitle,
           padding: EdgeInsets.zero,
           action: Row(
             mainAxisSize: MainAxisSize.min,
@@ -52,7 +53,7 @@ class DailyFlagsCard extends ConsumerWidget {
               IconButton(
                 key: const Key('edit-rules-button'),
                 icon: const Icon(Icons.tune),
-                tooltip: 'Kuralları düzenle',
+                tooltip: context.l10n.todayEditRulesTooltip,
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute<void>(
                     builder: (_) => const RulesEditorScreen(),
@@ -95,17 +96,16 @@ class _NoRules extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Card(
+    return Card(
       child: Padding(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.lg,
           vertical: AppSpacing.xl,
         ),
         child: AppEmptyState(
           icon: Icons.rule,
-          title: 'Kural yok',
-          description: 'Her gün takip etmek istediğin şeyleri ekle — su, '
-              'takviye, erken yatma. Sağ üstteki ayar düğmesinden.',
+          title: context.l10n.todayNoRulesTitle,
+          description: context.l10n.todayNoRulesBody,
         ),
       ),
     );

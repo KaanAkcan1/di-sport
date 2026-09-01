@@ -1,3 +1,4 @@
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/health/application/health_providers.dart';
@@ -38,12 +39,10 @@ class HealthScreen extends ConsumerWidget {
             _DueBanner(),
             _Measurements(),
             if (byPanel.isEmpty)
-              const AppEmptyState(
+              AppEmptyState(
                 icon: Icons.science_outlined,
-                title: 'Tahlil kaydı yok',
-                description: 'Elindeki tahlil sonuçlarını ekle; referans '
-                    'aralığını da girersen değerin düşük mü yüksek mi '
-                    'olduğunu takip edebilirim.',
+                title: context.l10n.healthNoLabsTitle,
+                description: context.l10n.healthNoLabsDescription,
               )
             else
               // Paneller sabit sırada: kullanıcı aradığı satırı hep aynı
@@ -62,7 +61,7 @@ class HealthScreen extends ConsumerWidget {
           builder: (_) => const AddLabSheet(),
         ),
         icon: const Icon(Icons.add),
-        label: const Text('Tahlil'),
+        label: Text(context.l10n.healthAddLabFab),
       ),
     );
   }
@@ -174,9 +173,12 @@ class _MetricDialogState extends State<_MetricDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Vazgeç'),
+          child: Text(context.l10n.commonCancel),
         ),
-        FilledButton(onPressed: _submit, child: const Text('Kaydet')),
+        FilledButton(
+          onPressed: _submit,
+          child: Text(context.l10n.commonSave),
+        ),
       ],
     );
   }

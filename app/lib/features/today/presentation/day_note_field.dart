@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:flutter/material.dart';
@@ -54,8 +55,8 @@ class _DayNoteFieldState extends ConsumerState<DayNoteField> {
     }
 
     return AppSection(
-      title: 'Not',
-      description: 'Ne yedin, ne zorladı, nasıl geçti.',
+      title: context.l10n.todayNoteTitle,
+      description: context.l10n.todayNoteDescription,
       padding: EdgeInsets.zero,
       child: TextField(
         key: const Key('day-note-field'),
@@ -64,9 +65,9 @@ class _DayNoteFieldState extends ConsumerState<DayNoteField> {
         maxLines: 4,
         minLines: 3,
         textCapitalization: TextCapitalization.sentences,
-        decoration: const InputDecoration(
-          hintText: 'Bugün nasıl geçti?',
-          contentPadding: EdgeInsets.all(AppSpacing.lg),
+        decoration: InputDecoration(
+          hintText: context.l10n.todayNoteHint,
+          contentPadding: const EdgeInsets.all(AppSpacing.lg),
         ),
         onChanged: _onChanged,
         // Odak kaybında beklemeden yaz: kullanıcı sekme değiştirirse

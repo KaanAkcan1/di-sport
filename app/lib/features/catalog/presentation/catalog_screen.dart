@@ -1,4 +1,5 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
@@ -65,7 +66,10 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen>
         // kullanıcıya kırık bir söz verirdi.
         TabBar(
           controller: _tabs,
-          tabs: const [Tab(text: 'Evde'), Tab(text: 'Salonda')],
+          tabs: [
+            Tab(text: context.l10n.catalogTabHome),
+            Tab(text: context.l10n.catalogTabGym),
+          ],
         ),
         const _SearchRow(),
         const _ActiveFilterChips(),
@@ -126,7 +130,7 @@ class _FilterButton extends StatelessWidget {
         IconButton.outlined(
           key: const Key('open-filters'),
           icon: const Icon(Icons.tune),
-          tooltip: 'Filtreler',
+          tooltip: context.l10n.catalogFilters,
           onPressed: () => showModalBottomSheet<void>(
             context: context,
             isScrollControlled: true,
@@ -184,22 +188,24 @@ class _ActiveFilterChips extends ConsumerWidget {
         children: [
           if (filter.onlyMyEquipment)
             _ActiveChip(
-              label: 'Ekipmanıma uygun',
+              label: context.l10n.catalogOnlyMyEquipment,
               onRemove: notifier.toggleOnlyMyEquipment,
             ),
           if (filter.category case final category?)
             _ActiveChip(
               label: switch (category) {
-                ExerciseCategory.strength => 'Kuvvet',
-                ExerciseCategory.core => 'Gövde',
-                ExerciseCategory.cardio => 'Kardiyo',
-                ExerciseCategory.mobility => 'Hareketlilik',
+                ExerciseCategory.strength =>
+                  context.l10n.catalogCategoryStrength,
+                ExerciseCategory.core => context.l10n.catalogCategoryCore,
+                ExerciseCategory.cardio => context.l10n.catalogCategoryCardio,
+                ExerciseCategory.mobility =>
+                  context.l10n.catalogCategoryMobility,
               },
               onRemove: () => notifier.toggleCategory(category),
             ),
           if (filter.difficulty case final level?)
             _ActiveChip(
-              label: 'Zorluk $level',
+              label: context.l10n.catalogDifficultyChip(level),
               onRemove: () => notifier.toggleDifficulty(level),
             ),
         ],
@@ -278,11 +284,11 @@ class _SearchFieldState extends ConsumerState<_SearchField> {
         textInputAction: TextInputAction.search,
         decoration: InputDecoration(
           prefixIcon: const Icon(Icons.search),
-          hintText: 'Hareket veya kas ara…',
+          hintText: context.l10n.catalogSearchHint,
           suffixIcon: hasText
               ? IconButton(
                   icon: const Icon(Icons.clear),
-                  tooltip: 'Aramayı temizle',
+                  tooltip: context.l10n.catalogClearSearch,
                   onPressed: () {
                     _controller.clear();
                     ref.read(catalogFilterProvider.notifier).setQuery('');
@@ -329,7 +335,7 @@ class _ExerciseList extends ConsumerWidget {
       ),
       children: [
         if (recentShown.isNotEmpty) ...[
-          const AppSectionLabel('Son yaptıkların'),
+          AppSectionLabel(context.l10n.catalogRecentSection),
           for (final row in recentShown)
             Padding(
               padding: const EdgeInsets.only(bottom: AppSpacing.sm),
@@ -342,7 +348,9 @@ class _ExerciseList extends ConsumerWidget {
           const SizedBox(height: AppSpacing.lg),
         ],
         AppSectionLabel(
-          recentShown.isEmpty ? 'Hareketler' : 'Tüm hareketler',
+          recentShown.isEmpty
+              ? context.l10n.catalogExercisesSection
+              : context.l10n.catalogAllExercisesSection,
           trailing: Text(
             '${exercises.length}',
             style: Theme.of(context).textTheme.labelMedium?.copyWith(
@@ -378,9 +386,9 @@ class _NoResults extends StatelessWidget {
   @override
   Widget build(BuildContext context) => AppEmptyState(
     icon: Icons.search_off,
-    title: 'Eşleşen hareket yok',
-    description: 'Aramayı değiştir ya da filtreleri kaldır.',
-    actionLabel: 'Filtreleri temizle',
+    title: context.l10n.catalogNoResults,
+    description: context.l10n.catalogNoResultsDescription,
+    actionLabel: context.l10n.catalogClearFilters,
     onAction: onClear,
   );
 }

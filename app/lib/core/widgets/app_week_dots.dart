@@ -1,6 +1,7 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
 import 'package:disport/core/design/app_typography.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:flutter/material.dart';
 
 /// Bir günün hafta şeridindeki durumu.
@@ -40,6 +41,7 @@ class AppWeekDots extends StatelessWidget {
   Widget build(BuildContext context) {
     assert(
       states.length == labels.length,
+      // l10n-exempt: `assert` mesajı, geliştiriciye gider.
       'her nokta kendi gün harfini taşımalı',
     );
 
@@ -82,7 +84,7 @@ class _Dot extends StatelessWidget {
     };
 
     return Semantics(
-      label: '$label: ${_spoken(state)}',
+      label: '$label: ${_spoken(context.l10n, state)}',
       excludeSemantics: true,
       child: Container(
         width: 22,
@@ -110,10 +112,10 @@ class _Dot extends StatelessWidget {
     );
   }
 
-  String _spoken(WeekDotState state) => switch (state) {
-    WeekDotState.done => 'kayıt var',
-    WeekDotState.missed => 'kayıt yok',
-    WeekDotState.today => 'bugün',
-    WeekDotState.future => 'gelecek',
+  String _spoken(AppLocalizations l10n, WeekDotState state) => switch (state) {
+    WeekDotState.done => l10n.commonWeekDotDone,
+    WeekDotState.missed => l10n.commonWeekDotMissed,
+    WeekDotState.today => l10n.commonWeekDotToday,
+    WeekDotState.future => l10n.commonWeekDotFuture,
   };
 }

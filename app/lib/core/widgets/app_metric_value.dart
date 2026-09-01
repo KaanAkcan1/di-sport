@@ -1,5 +1,6 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_typography.dart';
+import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:flutter/material.dart';
 
 /// Sayı gösteriminin boyutu.
@@ -59,7 +60,7 @@ class AppMetricValue extends StatelessWidget {
 
     return Semantics(
       label: value == null
-          ? 'değer girilmedi'
+          ? context.l10n.commonValueMissing
           : '$text${unit == null ? '' : ' $unit'}',
       excludeSemantics: true,
       child: Row(
