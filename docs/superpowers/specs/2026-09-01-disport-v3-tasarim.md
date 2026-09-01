@@ -63,7 +63,15 @@ KATALOG. Bugün sekmesi → Ana Sayfa.
 | Ayarlar → Günlük Düzen | Daha → Günlük düzen (genişledi, bkz. §3.4) |
 | Bugün → öğün bölümü | Diyet → GÜNLÜK (Ana Sayfa akışta gösterir, listelemez) |
 
-Bildirim payload'ındaki `tabIndex` eşlemesi yeni sıraya göre güncellenir.
+Bildirim payload'ındaki `tabIndex` eşlemesi (`reminder_planner.dart` +
+`app.dart`):
+
+| Bildirim | v2 | v3 |
+|---|---|---|
+| tartı, gün özeti | 0 (Bugün) | 0 (Ana Sayfa) |
+| öğün | 0 | 1 (Diyet) |
+| antrenman, plan | 0 / 1 | 2 (Spor) |
+| tahlil vadesi, takviye/ilaç | 3 | 3 (Sağlık) |
 
 ### 1.3 Gezinme kuralları
 
@@ -95,8 +103,11 @@ r2'nin eklediği:
 5. **Ferahlık:** bölüm arası boşluk `xl2`; satır yüksekliği ≥48dp;
    Ana Sayfa en fazla üç bölüm.
 
-Kontrast kuralları ve `contrast_test.dart` aynen geçerli; yeni alan renkleri
-teste eklenir (koyu zeminde ≥3:1 arayüz eşiği).
+Kontrast kuralları ve `contrast_test.dart` aynen geçerli; yeni alan
+renkleri teste **iki modda** eklenir. Açık modda `#CC79A7` ve `#56B4E9`
+fildişi zeminde 3:1 altında kalır — grafiklerdeki çözüm uygulanır: eşik
+düşmez, renk koyulaşır (`healthOnLight`, `sportOnLight` varyantları,
+`chartPinkOnLight` deseni).
 
 ---
 
@@ -145,7 +156,8 @@ iste" tonlu düğmesi.
   (her evde var). Bu iki eşya `EquipmentKind.other`dan ayrışır:
   `chair`, `step` enum değerleri eklenir ve `needsInventory=true` olur.
   Katalogdaki `other` ekipmanlı hareketlerden sandalye/basamak gerektirenler
-  override ile yeni değerlere taşınır. Göç: mevcut kurulumlarda `chair` ve
+  override ile yeni değerlere taşınır (`chair_squat`→chair, `step_up`→step;
+  `wall_sit` `other` kalır — duvar sorulmuyor). Göç: mevcut kurulumlarda `chair` ve
   `step` **işaretli açılır** (v2 "herkeste var" varsayımını koruyarak) —
   yeni kurulumda işaretsiz.
 - SALONDA: "Salona gidiyor musun?" anahtarı; açıksa salon çipleri.
@@ -166,9 +178,16 @@ Yeni tablo `meal_behaviors` (SyncColumns):
 ```
 mealKind TEXT      -- MealKind enum adı
 time     TEXT?     -- HH:mm, boşsa saat esnek
-behavior TEXT      -- planned | fixed | external
-fixedNote TEXT?    -- behavior=fixed ise ne yediği ("menemen + çay")
+behavior TEXT       -- planned | fixed | external
+fixedNote TEXT?     -- behavior=fixed: serbest tarif ("menemen + çay")
+fixedItemsJson TEXT? -- behavior=fixed: [{foodId, quantity, portionId?}]
 ```
+
+`fixed` öğünde kullanıcı isterse tarifi besinlere bağlar
+(`fixedItemsJson`); bağlıysa GÜNLÜK'teki "Her zamanki" düğmesi kalemleri
+snapshot'la `meal_entries`'e yazar. Bağ yoksa düğme **görünmez** — kalorisiz
+kayıt yazılmaz, yalnız serbest giriş kalır. AI belgesine iki durumda da
+`fixedNote` gider (kalori bağı varsa toplam kcal de).
 
 | behavior | Anlamı | AI'a etkisi | Diyet → GÜNLÜK'e etkisi |
 |---|---|---|---|
@@ -193,7 +212,11 @@ note  TEXT?  -- serbest ek ("derin çömelme yok")
 ```
 
 - Ekran: çip tabanlı çok seçim + serbest ekleme; yaygın değerler öneri
-  çipi olarak sunulur (kod sabitinden, çeviri ARB'den).
+  çipi olarak sunulur (kod sabitinden, çeviri ARB'den). Öneri çipleri
+  **makine kimliği** taşır ve `medical_facts`e `conditionId TEXT?` sütunu
+  girer (`insulinResistance`, `type2Diabetes`, `hypertension`, `thyroid`,
+  `kneeIssue`, `backIssue`, `shoulderIssue`…). Serbest eklenen kayıtta
+  id boştur.
 - İlaç listesi bu ekranın **içinde görünür** (Sağlık → İLAÇ verisinin aynası);
   ekleme aynı ilaç giriş sayfasını açar. Tek veri, iki kapı.
 - Gizlilik notu ekranın başında: "telefondan çıkmaz; yalnız sen paylaş
@@ -210,6 +233,25 @@ seçimi; AI belgesinde iki ayrı bölüm.
 
 ## 5. Diyet
 
+### 5.0 Plan öğün kalemleri (yeni)
+
+"Plandaki gibi yedim" ve yasaklı/besin kontrolleri, planın öğünleri **besin
+id'siyle** tanımasını gerektirir. v2'de plan slotu yalnız etiket taşıyordu.
+
+Yeni tablo `plan_meal_items` (SyncColumns):
+
+```
+planSlotId TEXT   -- plan_slots.id
+foodId     TEXT   -- foods.id
+quantity   REAL   -- porsiyon çarpanı
+portionId  TEXT?  -- food_portions.id; null = 100g tabanı
+```
+
+AI JSON sözleşmesi genişler: öğün slotu isteğe bağlı `items` dizisi taşır
+(`[{foodId, quantity, portionId?}]`). AI yalnız belgedeki besin id'lerini
+kullanabilir; bilinmeyen id doğrulamada satır uyarısı üretir. `items`
+olmayan öğün slotu eski davranışta kalır (yalnız etiket) — geriye uyumlu.
+
 ### 5.1 GÜNLÜK — plan ve gerçekleşen
 
 Öğün grupları `MealKind` sırasında. Her grupta:
@@ -225,10 +267,17 @@ seçimi; AI belgesinde iki ayrı bölüm.
   olur ve `fixedNote` kalemlerini yazar.
 - `behavior=external` öğünde plan satırı beklenmez; yalnız serbest giriş.
 
-Su: kutucuk değil **miktar**. `daily_logs.waterMl INTEGER` sütunu eklenir
-(mevcut `waterTargetMet` türetilir hâle gelir: `waterMl >= hedef`; sütun
-kalır, göçte bozulmaz). Bardak dokunuşu +250 ml; hedef plan hedefinden
-(litre). Ana Sayfa metrik şeridi ve Diyet GÜNLÜK aynı veriyi okur.
+Su: kutucuk değil **miktar**. `daily_logs.waterMl INTEGER?` eklenir.
+Bardak dokunuşu +250 ml; hedef plan hedefinden (litre). Ana Sayfa metrik
+şeridi ve Diyet GÜNLÜK aynı veriyi okur. **Kablolama:**
+
+- Yerleşik su kuralının kutucuğu kalkar; kural satırı miktara bağlanır ve
+  `waterTargetMet` her `waterMl` yazımında `waterMl >= hedef`ten güncellenir
+  (sütun kalır — kaçak serisi ve eski okuyucular bozulmaz).
+- Kural kutucuğu elle işaretlenirse (eski alışkanlık) `waterMl` hedefe
+  eşitlenir — iki kaynak çelişmez.
+- `context.md` 6. bölüm su serisini **ml** olarak basar; `water3L` profil
+  anahtarı hedef olarak kalır.
 
 ### 5.2 BESİNLER
 
@@ -256,8 +305,11 @@ Mevcut kalori çubukları + gün dökümü buraya taşınır. Kayıt olmayan gü
    `searchText`'inde çift dilli katlamayla aranır ("hamur işi" → lahmacun
    eşleşmez; bu kabul — eşleşme ancak ad düzeyinde). Ek olarak yasaklı
    satırına **besin id listesi** iliştirilebilir: yasaklı editöründe
-   "besinlere bağla" seçimi (`forbidden` yapısı `{label, foodIds[]}`
-   olarak genişler; JSON gerekçesiyle şema değişmez, `rulesJson` içinde).
+   "besinlere bağla" seçimi. `rulesJson.forbidden` yapısı genişler ve
+   **okuyucu iki biçimi de kabul eder**: `String` eleman
+   `{label: s, foodIds: []}` sayılır; yazma her zaman yeni biçimde.
+   AI JSON sözleşmesinde `forbidden` **string listesi kalır** — AI besin
+   id'si bağlamaz, bağlama kullanıcının işi.
 2. **AI belgesi** — §9.
 3. **Plan içe alma kontrolü** — §9.4.
 
@@ -315,13 +367,17 @@ yok; kahraman seans süresi.
 - Güvenlik satırı, kullanıcının `medical_facts.restriction` kaydıyla
   eşleşiyorsa (anahtar kelime: kayıtta ilişkilendirilen vücut bölgesi)
   amber vurgulanır.
-- **İçerik iki dilli veri olur.** Katalog şemasında metin alanları
-  `xxxTr/xxxEn` çiftine ayrılır: `summary`, `setup`, `execution`, `cues`,
-  `commonMistakes`, `breathing`, `tempo`, `safety`. Arayüz dili hangisiyse
-  o gösterilir; boşsa öteki dile düşer. Bu **ARB işi değil** — içerik veri.
-  Boru hattı: kaynak İngilizce alanları `En`e; `catalog_overrides.json`daki
-  mevcut Türkçe içerik `Tr`ye; eksik çeviriler boş kalır ve `--check`
-  raporlar. Çekirdek listede iki dil de zorunlu (seed test).
+- **İçerik iki dilli veri olur.** `detailJson` anahtarları çifte ayrılır:
+  `summaryTr/summaryEn`, `setupTr/setupEn`, `executionTr/executionEn`,
+  `cuesTr/cuesEn`, `commonMistakesTr/En`, `breathingTr/En`, `tempoTr/En`,
+  `safetyTr/En` (düz sonek, iç içe değil — `catalog_overrides.json` aynı
+  sonekleri kullanır). Arayüz dili hangisiyse o gösterilir; boşsa öteki
+  dile düşer. Bu **ARB işi değil** — içerik veri.
+  Boru hattı: kaynağın İngilizce `instructions` alanı `executionEn`e;
+  mevcut override Türkçe içeriği `Tr` soneklerine taşınır (betikle, elle
+  değil). **Kademeli çıta:** v3 tohum testinde çekirdek için TR zorunlu;
+  eksik EN içerik `--check` raporunda sayılır ama testi kırmaz. EN
+  zorunluluğu içerik yazımı tamamlandığında açılır (ayrı iş).
 
 ---
 
@@ -354,8 +410,11 @@ koşullar}. Kaynaklar spec'e gömülür (kod yorumunda URL):
 | Lipit | 4–6 yıl | sağlıklı |
 | D vitamini + B12 | yıllık | herkese; ≥50 yaşta vurgulu |
 
-Motor: kullanıcının yaşı + `medical_facts` + son `lab_results` tarihleri →
-öneri listesi {tahlil, durum: vakti-geldi/‹N› ay sonra}. TAHLİL sekmesinde
+Motor **yalnız `conditionId` taşıyan** kayıtları koşullarda kullanır —
+serbest metin yorumlanmaz. VKİ koşulu kilo (`body_metrics`) + boy yoksa
+false döner ve rehber başında tek satır "kilo girilirse öneriler netleşir"
+görünür. Motor: kullanıcının yaşı + `medical_facts` + son `lab_results`
+tarihleri → öneri listesi {tahlil, durum: vakti-geldi/‹N› ay sonra}. TAHLİL sekmesinde
 "CHECK-UP REHBERİ" bölümü; "vakti geldi" satırı mevcut vade şeridinin
 (`lab_schedules`) yerine geçmez — kullanıcının kendi vadeleri öncelikli,
 rehber yalnız öneridir ve bir dokunuşla `lab_schedules`'a vade olarak
@@ -414,6 +473,12 @@ silinip (yumuşak) yenileriyle değiştirilir; plan başlığı/hedefleri dönen
 belgeden güncellenir, `sourceRaw`'a yeni belge eklenir. Kayıtlar
 (`meal_entries`, `exercise_logs`…) tarihli olduğundan hiç dokunulmaz.
 
+**Hafta uzlaşması:** `plans.startDate` değişmez; `endDate` dönen belge ile
+korunan günlerin en geç olanından türetilir, `weeks` ondan hesaplanır.
+Tüm `weekIndex` değerleri — korunan ve yeni — `startDate`'e göre tarih
+aritmetiğiyle yeniden atanır; dönen belgedeki hafta numaraları yok
+sayılır. §6.1 uyum yüzdesi planın tamamı üzerinden hesaplanır.
+
 ### 9.2 Gönderilecekler ekranı
 
 Paylaşmadan önce bölüm listesi; her satır kapatılabilir (kapatılan bölüm
@@ -421,8 +486,8 @@ belgeye girmez). Varsayılan hepsi açık. "Önce belgeyi gör" önizleme.
 
 ### 9.3 context.md v2 — bölümler
 
-1. Kim olduğun + hedef (mevcut, ad dahil değil — kimlik AI'a gitmez;
-   yaş/boy/kilo gider)
+1. Kim olduğun + hedef (ad dahil değil — kimlik AI'a gitmez;
+   yaş/cinsiyet/boy/kilo gider)
 2. **Medikal:** kronik durumlar, kısıtlar, alerjiler + tahlil özeti
    (son sonuçlar, hedef aralıklarıyla) + **ilaçlar** (reçeteli ayrı,
    takviye ayrı) + sınır satırı: *"İlaç etkileşimi, doz değişikliği ya da
@@ -454,9 +519,9 @@ Mevcut dört kapıya eklenen kontroller (kapı 3'ün parçası):
 - **Medikal kısıt:** hareketin güvenlik metni / kas grubu kullanıcının
   kısıtıyla eşleşiyorsa uyarı.
 
-Uyarılar **reddettirmez** — önizlemede amber satır; "uyarılı hareketleri
-değiştirerek uygula" ikinci yol sunar (uyarılı hareket, aynı kas grubundan
-kısıtsız muadille değiştirilir; muadil yoksa satır atlanır ve söylenir).
+Uyarılar **reddettirmez** — önizlemede amber satır. Otomatik muadil
+değiştirme v3-sonrası (bkz. §12); v3'te kullanıcı uyarıyı görür ve isterse
+içeri aldıktan sonra editörle değiştirir.
 
 ### 9.5 Tahlil aktarımı (yeni akış)
 
@@ -490,14 +555,11 @@ Tek göç bloğu `if (from < 15)`:
 | yeni | `favorite_sports (activityId, note)` |
 | sütun | `supplements.kind TEXT DEFAULT 'supplement'` |
 | sütun | `daily_logs.waterMl INTEGER?` |
-| sütun | `equipment_items` — göçte `chair`,`step` satırları işaretli eklenir |
-| veri | `exercises` içerik sütunları `xxxTr/xxxEn` çifti (yeni sütunlar `En`; mevcutlar `Tr`ye rename edilmez — mevcut sütun Tr sayılır, yeni `En` sütunları eklenir; boru hattı v3 tohumu üretir, sürüm damgası artar) |
-| anahtar | `profile_entries`: `firstName`, `lastName`, `birthDate` (yyyy-MM-dd); eski `age` okunmaya devam eder, `birthDate` varsa türetilen yaş kazanır |
+| sütun | `equipment_items` — göçte `chair`,`step` satırları `atHome=1, atGym=0` eklenir (v2 varsayımı korunur; yeni kurulumda işaretsiz tohum) |
+| veri | `exercises` içerik alanları `detailJson` blob'unda yaşıyor — **DB göçü yok**; blob anahtarları `xxxTr/xxxEn` çiftine genişler, boru hattı v3 tohumu üretir, `catalog.seededVersion` damgası artar |
+| anahtar | `profile_entries`: `firstName`, `lastName`, `birthDate` (yyyy-MM-dd), `gender` (`male/female/unspecified`); eski `age` okunmaya devam eder, `birthDate` varsa türetilen yaş kazanır. `gender` AI belgesine §9.3-1'de gider (kalori katsayısı) |
 
-Not: katalog içerik alanları Drift'te ayrı sütun değil JSON blob'daysa
-(mevcut durum: `searchText` dışında model JSON'dan) — bu durumda şema
-değişikliği yalnız tohum sürümüyle gelir; göç maddesi uygulanmaz. Plan
-aşamasında mevcut tablo yapısına göre netleşir.
+`plan_meal_items` tablosu da v15'te açılır (bkz. §5.0).
 
 ---
 
@@ -514,3 +576,7 @@ aşamasında mevcut tablo yapısına göre netleşir.
 - Uygulama ikonu + açılış ekranı (ürüne çıkmadan şart, bu spec kapsamı dışı).
 - BYOK doğrudan API çağrısı.
 - Beşinci sekme adı ("Daha" / "Daha fazlası") emülatörde genişliğe göre.
+- §9.4 "uyarılı hareketleri değiştirerek uygula" otomatik muadil seçimi —
+  v3'te yalnız uyarı gösterilir; değiştirmeyi kullanıcı editörle yapar.
+- Katalog EN zenginlik içeriğinin zorunlu kılınması (kademeli çıtanın
+  ikinci basamağı).
