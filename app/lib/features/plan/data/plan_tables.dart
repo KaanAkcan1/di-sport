@@ -37,6 +37,15 @@ class PlanSlots extends Table with SyncColumns {
   TextColumn get planDayId => text().references(PlanDays, #id)();
   TextColumn get time => text()();
   TextColumn get kind => text()();
+
+  /// `MealKind` enum adı — yalnız `kind == meal` slotlarında dolu.
+  ///
+  /// **Neden ayrı sütun:** öğün türü bir kimlik, etiket ise kullanıcının
+  /// metni ("Kahvaltı" ya da "Sabah yemeği" yazabilir). `label`dan
+  /// çıkarmaya çalışmak, dil değişince ya da kullanıcı etiketi
+  /// değiştirince sessizce kopardı.
+  TextColumn get mealKind => text().nullable()();
+
   TextColumn get label => text()();
   TextColumn get note => text().nullable()();
   IntColumn get orderIndex => integer()();

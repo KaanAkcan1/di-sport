@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:disport/core/db/app_database.dart';
+import 'package:disport/features/catalog/domain/exercise.dart' show Effort;
 import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/plan/domain/meal_kind.dart';
 import 'package:drift/drift.dart';
 
 /// Plan verisine erişimin tek kapısı.
@@ -208,6 +210,10 @@ class PlanRepository {
             id: slot.id,
             time: slot.time,
             kind: SlotKind.values.byName(slot.kind),
+            mealKind: switch (slot.mealKind) {
+              final name? => MealKind.fromName(name),
+              null => null,
+            },
             label: slot.label,
             note: slot.note,
           ),
@@ -222,6 +228,12 @@ class PlanRepository {
             durationSec: exercise.durationSec,
             restSec: exercise.restSec,
             intensity: exercise.intensity,
+            speedKmh: exercise.speedKmh,
+            gradePct: exercise.gradePct,
+            effort: switch (exercise.effort) {
+              final name? => Effort.values.byName(name),
+              null => null,
+            },
             note: exercise.note,
           ),
       ],

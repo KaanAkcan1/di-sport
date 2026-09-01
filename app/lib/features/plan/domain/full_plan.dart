@@ -1,3 +1,6 @@
+import 'package:disport/features/catalog/domain/exercise.dart' show Effort;
+import 'package:disport/features/plan/domain/meal_kind.dart';
+
 /// Günün tipi. PDF çizelgesindeki salon / ev ayrımı.
 enum PlanDayType { gym, home, rest }
 
@@ -67,6 +70,7 @@ class PlanSlot {
     required this.time,
     required this.kind,
     required this.label,
+    this.mealKind,
     this.note,
   });
 
@@ -77,6 +81,10 @@ class PlanSlot {
   final String time;
 
   final SlotKind kind;
+
+  /// Öğün slotlarında hangi öğün. Diğer türlerde null.
+  final MealKind? mealKind;
+
   final String label;
   final String? note;
 }
@@ -91,6 +99,9 @@ class PlanExercise {
     this.durationSec,
     this.restSec,
     this.intensity,
+    this.speedKmh,
+    this.gradePct,
+    this.effort,
     this.note,
   });
 
@@ -110,7 +121,18 @@ class PlanExercise {
   final int? restSec;
 
   /// Kardiyoda direnç kademesi ya da bant eğimi — "d6", "%8".
+  ///
+  /// **Serbest metin ve öyle kalıyor:** AI'ın ve kullanıcının yazdığı
+  /// her şeyi bir sayıya çevirmeye çalışmak sessizce yanlış kalori
+  /// üretirdi. Hesap yapılabilir değerler ayrı üç alanda.
   final String? intensity;
+
+  /// Kalori hesabının girdileri (spec §5.5).
+  final double? speedKmh;
+  final double? gradePct;
+
+  /// `Effort` enum adı — bisiklette hız/eğim yerine efor.
+  final Effort? effort;
 
   final String? note;
 
@@ -217,7 +239,7 @@ class FullPlan {
   final PlanRules rules;
   final List<FullPlanDay> days;
 
-  /// AI'ın verdiği ham JSON. Bilinçli fazlalık: import sonrası sorun
+  /// AI'ın verdiği ham JSON. Bilinçli fazlalık: içe alma sonrası sorun
   /// çıkarsa ya da aylar sonra "AI bunu neden böyle demiş" sorusu
   /// doğarsa orijinal elde kalsın (spec 5.2).
   final String sourceRaw;

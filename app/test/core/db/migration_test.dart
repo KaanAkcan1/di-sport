@@ -55,7 +55,7 @@ void main() {
     final db = AppDatabase.forTesting(NativeDatabase.memory());
     addTearDown(db.close);
 
-    expect(db.schemaVersion, greaterThanOrEqualTo(13));
+    expect(db.schemaVersion, greaterThanOrEqualTo(14));
     expect(await db.select(db.supplements).get(), isEmpty);
     expect(await db.select(db.equipmentItems).get(), isEmpty);
   });
@@ -92,6 +92,16 @@ void main() {
     await db.customStatement(
       'SELECT speed_kmh, grade_pct, effort FROM exercise_logs',
     );
+  });
+
+  test('v13 kurulumu v14 seviyesine yükseltilebilir', () async {
+    final db = await openAt(13);
+    addTearDown(db.close);
+
+    await db.customStatement('SELECT 1');
+    // Plan slotunun öğün türü; `meal_entries.mealKind` (v13) ile
+    // karıştırılmamalı — biri planlanan, öteki yenen.
+    await db.customStatement('SELECT meal_kind FROM plan_slots');
   });
 
   test('göç eski verileri korur', () async {

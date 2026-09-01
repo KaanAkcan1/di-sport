@@ -57,7 +57,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 13;
+  int get schemaVersion => 14;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -143,6 +143,11 @@ class AppDatabase extends _$AppDatabase {
         await m.addColumn(exerciseLogs, exerciseLogs.speedKmh);
         await m.addColumn(exerciseLogs, exerciseLogs.gradePct);
         await m.addColumn(exerciseLogs, exerciseLogs.effort);
+      }
+      if (from < 14) {
+        // Plan slotunun öğün türü. `meal_entries.mealKind` (v13) ile
+        // karıştırılmamalı: biri planlanan, öteki yenen.
+        await m.addColumn(planSlots, planSlots.mealKind);
       }
     },
   );
