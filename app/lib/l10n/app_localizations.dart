@@ -2306,6 +2306,12 @@ abstract class AppLocalizations {
   /// **'Gün dökümü'**
   String get dietHistoryDays;
 
+  /// No description provided for @planAdherence.
+  ///
+  /// In tr, this message translates to:
+  /// **'Uyum %{percent} — {done}/{planned} antrenman günü'**
+  String planAdherence(int percent, int done, int planned);
+
   /// No description provided for @rhythmMealsSection.
   ///
   /// In tr, this message translates to:

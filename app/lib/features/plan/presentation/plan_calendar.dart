@@ -2,7 +2,7 @@ import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
 import 'package:disport/core/design/app_typography.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
-import 'package:disport/features/nutrition/domain/calorie_tone.dart';
+import 'package:disport/core/utils/turkish_text.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/plan/domain/day_cell_state.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
@@ -21,20 +21,12 @@ class PlanWeekGrid extends StatelessWidget {
     required this.logs,
     required this.today,
     this.onDayTap,
-    this.netKcalByDay = const {},
-    this.kcalGoal,
   });
 
   final List<FullPlanDay> days;
   final Map<String, DailyLogView> logs;
   final DateTime today;
   final void Function(FullPlanDay day)? onDayTap;
-
-  /// Gün → (yenen − yakılan). Kaydı olmayan gün haritada yok.
-  final Map<String, double> netKcalByDay;
-
-  /// Günlük kalori hedefi; plan yoksa null ve ton hiç çizilmez.
-  final int? kcalGoal;
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +62,6 @@ class PlanWeekGrid extends StatelessWidget {
                     day: day,
                     log: logs[PlanRepository.iso(day.date)],
                     today: today,
-                    net: netKcalByDay[PlanRepository.iso(day.date)],
-                    kcalGoal: kcalGoal,
                     onTap: onDayTap == null ? null : () => onDayTap!(day),
                   ),
                 ),
@@ -89,26 +79,26 @@ class _DayCell extends StatelessWidget {
     required this.log,
     required this.today,
     this.onTap,
-    this.net,
-    this.kcalGoal,
   });
 
   final FullPlanDay day;
   final DailyLogView? log;
   final DateTime today;
   final VoidCallback? onTap;
-  final double? net;
-  final int? kcalGoal;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final semantic = context.semantic;
 
-    final checked = log?.checkedSlotIds.length ?? 0;
-    final total = day.slots.length;
-    final fill = resolveDayFill(day: day, checkedCount: checked, today: today);
-    final tone = resolveCalorieTone(goalKcal: kcalGoal, net: net);
+    // v3 §6.1: hücre yalnız antrenman bilgisini taşıyor — kalori tonu
+    // Diyet'in işi, slot doluluğu gün ekranının.
+    final workoutDone = log?.workoutDone ?? false;
+    final fill = resolveWorkoutFill(
+      day: day,
+      workoutDone: workoutDone,
+      today: today,
+    );
     final isToday = _sameDay(day.date, today);
 
     final (background, border) = switch (fill) {
@@ -128,13 +118,14 @@ class _DayCell extends StatelessWidget {
       DayCellFill.future => (theme.colorScheme.surfaceContainerLow, null),
     };
 
-    // Alt satır bilgisi: renk tek başına anlam taşımaz kuralının
-    // karşılığı. Hücre rengi hızlandırır, rakam söyler.
-    final caption = switch (fill) {
-      DayCellFill.free => context.l10n.planCellFree,
-      DayCellFill.future => '',
-      _ => '$checked/$total',
-    };
+    // Alt satır tip etiketi (SALON/EV/DİNLEN): renk tek başına anlam
+    // taşımaz kuralının karşılığı — hücre rengi hızlandırır, etiket
+    // söyler.
+    final caption = TurkishText.upper(switch (day.type) {
+      PlanDayType.gym => context.l10n.planDayTypeGym,
+      PlanDayType.home => context.l10n.planDayTypeHome,
+      PlanDayType.rest => context.l10n.planDayTypeRest,
+    });
 
     final captionColor = switch (fill) {
       DayCellFill.done => semantic.success,
@@ -148,7 +139,7 @@ class _DayCell extends StatelessWidget {
           '${day.date.day} '
           '${context.l10n.planMonthNames.split(',')[day.date.month - 1]}'
           '${isToday ? ', ${context.l10n.planCellToday}' : ''}, '
-          '${_spoken(context, fill, checked, total)}',
+          '$caption, ${_spoken(context, fill)}',
       excludeSemantics: true,
       child: Material(
         color: background,
@@ -169,41 +160,29 @@ class _DayCell extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                // Antrenman günü işareti — sağ üstte küçük üçgen.
+                // Antrenman işareti sağ üstte: yapıldıysa ✓, geçmişte
+                // kaçırıldıysa ✗, gelecekte küçük üçgen (planlı gün).
                 if (day.hasWorkout)
                   Positioned(
                     top: 3,
                     right: 4,
-                    child: Icon(
-                      Icons.change_history,
-                      size: 8,
-                      color: theme.colorScheme.primary,
-                    ),
-                  ),
-
-                // Kalori farkı sol üstte. **Doluluk tonunun yerine
-                // geçmiyor, yanına giriyor:** "planı yaptım mı" ve
-                // "bütçede kaldım mı" ayrı sorular ve tek renge
-                // indirmek ikisini de yanlış cevaplardı.
-                if (tone != DayCalorieTone.none && net != null)
-                  Positioned(
-                    top: 3,
-                    left: 4,
-                    child: Text(
-                      tone == DayCalorieTone.over
-                          ? context.l10n.calendarOverBy(
-                              (net! - kcalGoal!).round(),
-                            )
-                          : context.l10n.calendarUnderBy(
-                              (kcalGoal! - net!).round(),
-                            ),
-                      style: AppTypography.statCaption.copyWith(
-                        fontSize: 8,
-                        color: tone == DayCalorieTone.over
-                            ? semantic.danger
-                            : semantic.success,
+                    child: switch (fill) {
+                      DayCellFill.done => Icon(
+                        Icons.check,
+                        size: 10,
+                        color: semantic.success,
                       ),
-                    ),
+                      DayCellFill.empty => Icon(
+                        Icons.close,
+                        size: 10,
+                        color: semantic.warning,
+                      ),
+                      _ => Icon(
+                        Icons.change_history,
+                        size: 8,
+                        color: theme.colorScheme.primary,
+                      ),
+                    },
                   ),
                 Center(
                   child: Column(
@@ -244,16 +223,12 @@ class _DayCell extends StatelessWidget {
   static bool _sameDay(DateTime a, DateTime b) =>
       a.year == b.year && a.month == b.month && a.day == b.day;
 
-  static String _spoken(
-    BuildContext context,
-    DayCellFill fill,
-    int checked,
-    int total,
-  ) => switch (fill) {
-    DayCellFill.done => context.l10n.planCellDone,
-    DayCellFill.partial => context.l10n.planCellPartial(total, checked),
-    DayCellFill.empty => context.l10n.planCellEmpty,
-    DayCellFill.free => context.l10n.planCellFreeSpoken,
-    DayCellFill.future => context.l10n.planCellFuture,
-  };
+  static String _spoken(BuildContext context, DayCellFill fill) =>
+      switch (fill) {
+        DayCellFill.done => context.l10n.planCellDone,
+        DayCellFill.partial => context.l10n.planCellToday,
+        DayCellFill.empty => context.l10n.planCellEmpty,
+        DayCellFill.free => context.l10n.planCellFreeSpoken,
+        DayCellFill.future => context.l10n.planCellFuture,
+      };
 }

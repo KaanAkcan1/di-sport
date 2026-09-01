@@ -435,6 +435,8 @@
   "forbiddenNoPlan": "Yasaklı listesi plana yazılır; önce bir plan gerekli.",
   "forbiddenEmpty": "Yasaklı yok. Satır ekle; istersen besinlere bağla.",
   "dietHistoryDays": "Gün dökümü",
+  "planAdherence": "Uyum %{percent} — {done}/{planned} antrenman günü",
+  "@planAdherence": {"placeholders": {"percent": {"type": "int"}, "done": {"type": "int"}, "planned": {"type": "int"}}},
   "rhythmMealsSection": "Öğünler",
   "rhythmMealFlexible": "Saat esnek",
   "mealBehaviorPlanned": "Plan doldurur",

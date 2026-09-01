@@ -5,11 +5,11 @@ import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/ai_bridge/presentation/import_plan_sheet.dart';
-import 'package:disport/features/nutrition/application/nutrition_providers.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/plan/data/sample_plan.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/plan/domain/plan_adherence.dart';
 import 'package:disport/features/plan/presentation/create_plan_sheet.dart';
 import 'package:disport/features/plan/presentation/plan_calendar.dart';
 import 'package:disport/features/plan/presentation/plan_settings_screen.dart';
@@ -249,7 +249,37 @@ class _PlanOverview extends ConsumerWidget {
         const SizedBox(height: AppSpacing.lg),
 
         _GoalsCard(goals: plan.goals),
-        const SizedBox(height: AppSpacing.xl2),
+        const SizedBox(height: AppSpacing.md),
+
+        // Uyum: tamamlanan / geçen planlı antrenman günü (v3 §6.1).
+        Builder(
+          builder: (context) {
+            final adherence = workoutAdherence(
+              days: plan.days,
+              workoutDoneDates: {
+                for (final entry in logs.entries)
+                  if (entry.value.workoutDone) entry.key,
+              },
+              today: today,
+            );
+            if (adherence.planned == 0) return const SizedBox.shrink();
+            final percent =
+                (adherence.done / adherence.planned * 100).round();
+            return Text(
+              context.l10n.planAdherence(
+                percent,
+                adherence.done,
+                adherence.planned,
+              ),
+              key: const Key('plan-adherence'),
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.primary,
+                fontWeight: FontWeight.w600,
+              ),
+            );
+          },
+        ),
+        const SizedBox(height: AppSpacing.xl),
 
         for (var week = 1; week <= plan.weeks; week++)
           _WeekSection(
@@ -428,20 +458,6 @@ class _WeekSection extends ConsumerWidget {
       ..sort((a, b) => a.date.compareTo(b.date));
     if (days.isEmpty) return const SizedBox.shrink();
 
-    // Haftanın tamamı için tek sorgu; gün başına ayrı akış açmak 28
-    // canlı sorgu demek olurdu.
-    final netKcal =
-        ref
-            .watch(
-              netKcalByDayProvider(
-                PlanRepository.iso(days.first.date),
-                PlanRepository.iso(days.last.date),
-              ),
-            )
-            .value ??
-        const <String, double>{};
-    final kcalGoal = plan.goals.dailyKcal;
-
     return Padding(
       padding: const EdgeInsets.only(bottom: AppSpacing.xl2),
       child: Column(
@@ -467,8 +483,6 @@ class _WeekSection extends ConsumerWidget {
             days: days,
             logs: logs,
             today: today,
-            netKcalByDay: netKcal,
-            kcalGoal: kcalGoal,
             // Takvim artık antrenman ekranını değil **gün ekranını**
             // açıyor: kullanıcı o güne bakmak ve düzeltmek istiyor,
             // hareketleri yeniden yapmak değil. Antrenman ekranı gün

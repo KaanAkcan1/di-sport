@@ -1251,6 +1251,11 @@ class AppLocalizationsTr extends AppLocalizations {
   String get dietHistoryDays => 'Gün dökümü';
 
   @override
+  String planAdherence(int percent, int done, int planned) {
+    return 'Uyum %$percent — $done/$planned antrenman günü';
+  }
+
+  @override
   String get rhythmMealsSection => 'Öğünler';
 
   @override

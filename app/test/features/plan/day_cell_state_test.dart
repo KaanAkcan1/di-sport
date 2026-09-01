@@ -4,20 +4,20 @@ import 'package:flutter_test/flutter_test.dart';
 
 FullPlanDay dayWith({
   required DateTime date,
-  int slots = 3,
-  int exercises = 0,
+  PlanDayType type = PlanDayType.home,
+  int exercises = 1,
 }) => FullPlanDay(
   id: 'd',
   date: date,
-  type: exercises > 0 ? PlanDayType.home : PlanDayType.rest,
+  type: type,
   weekIndex: 1,
   slots: [
-    for (var i = 0; i < slots; i++)
-      PlanSlot(
-        id: 's$i',
-        time: '0$i:00',
-        kind: SlotKind.meal,
-        label: 'Öğün $i',
+    if (exercises > 0)
+      const PlanSlot(
+        id: 's-workout',
+        time: '22:00',
+        kind: SlotKind.workout,
+        label: 'Antrenman',
       ),
   ],
   exercises: [
@@ -26,71 +26,65 @@ FullPlanDay dayWith({
   ],
 );
 
+/// v3 §6.1: hücre yalnız antrenman bilgisi taşıyor.
 void main() {
   final today = DateTime(2026, 9, 1);
 
   test('gelecek gün future', () {
     expect(
-      resolveDayFill(
+      resolveWorkoutFill(
         day: dayWith(date: DateTime(2026, 9, 5)),
-        checkedCount: 0,
+        workoutDone: false,
         today: today,
       ),
       DayCellFill.future,
     );
   });
 
-  test('slotu olmayan gün serbest', () {
+  test('dinlenme günü serbest — kaçırılacak antrenman yok', () {
     expect(
-      resolveDayFill(
-        day: dayWith(date: DateTime(2026, 8, 30), slots: 0),
-        checkedCount: 0,
+      resolveWorkoutFill(
+        day: dayWith(
+          date: DateTime(2026, 8, 30),
+          type: PlanDayType.rest,
+          exercises: 0,
+        ),
+        workoutDone: false,
         today: today,
       ),
       DayCellFill.free,
     );
   });
 
-  test('hepsi işaretliyse done', () {
+  test('antrenman yapıldıysa done', () {
     expect(
-      resolveDayFill(
+      resolveWorkoutFill(
         day: dayWith(date: DateTime(2026, 8, 30)),
-        checkedCount: 3,
+        workoutDone: true,
         today: today,
       ),
       DayCellFill.done,
     );
   });
 
-  test('bir kısmı işaretliyse partial', () {
+  test('geçmiş ve yapılmamış gün empty', () {
     expect(
-      resolveDayFill(
+      resolveWorkoutFill(
         day: dayWith(date: DateTime(2026, 8, 30)),
-        checkedCount: 1,
-        today: today,
-      ),
-      DayCellFill.partial,
-    );
-  });
-
-  test('geçmiş ve boş gün empty', () {
-    expect(
-      resolveDayFill(
-        day: dayWith(date: DateTime(2026, 8, 30)),
-        checkedCount: 0,
+        workoutDone: false,
         today: today,
       ),
       DayCellFill.empty,
     );
   });
 
-  test('BUGÜN boşken empty DEĞİL — gün henüz bitmedi', () {
+  test('BUGÜN yapılmamışken empty DEĞİL — gün henüz bitmedi', () {
     // Sabah 09:00'da kırmızı bir hücre yanlış sinyal verirdi: kullanıcı
     // henüz bir şey kaçırmadı, günü yaşamaya başladı.
     expect(
-      resolveDayFill(
+      resolveWorkoutFill(
         day: dayWith(date: today),
-        checkedCount: 0,
+        workoutDone: false,
         today: today,
       ),
       DayCellFill.partial,
@@ -101,9 +95,9 @@ void main() {
     // `today` bir `DateTime.now()` olabilir; gün karşılaştırması
     // saatten bağımsız olmalı.
     expect(
-      resolveDayFill(
+      resolveWorkoutFill(
         day: dayWith(date: DateTime(2026, 9, 1)),
-        checkedCount: 3,
+        workoutDone: true,
         today: DateTime(2026, 9, 1, 23, 47),
       ),
       DayCellFill.done,

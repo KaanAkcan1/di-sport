@@ -1,6 +1,7 @@
 import 'package:disport/app/theme/app_theme.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
+import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/plan/presentation/plan_calendar.dart';
 import 'package:disport/features/today/data/today_repository.dart';
 import 'package:flutter/material.dart';
@@ -8,18 +9,20 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'day_cell_state_test.dart' show dayWith;
 
+/// v3 §6.1: takvim hücresi yalnız antrenman bilgisi taşır — tip
+/// etiketi + yapıldı/yapılmadı işareti. Kalori Diyet'in işi.
 void main() {
   final today = DateTime(2026, 9, 1);
 
   Widget wrap({
     Map<String, DailyLogView> logs = const {},
-    int slots = 3,
-    int exercises = 0,
+    PlanDayType type = PlanDayType.home,
+    int exercises = 1,
     DateTime? date,
   }) {
     final day = dayWith(
       date: date ?? today,
-      slots: slots,
+      type: type,
       exercises: exercises,
     );
 
@@ -34,36 +37,46 @@ void main() {
     );
   }
 
-  testWidgets('hücrede gün rakamı ve sayaç var — renk tek başına değil', (
+  testWidgets('hücrede gün rakamı ve tip etiketi var — renk tek başına değil',
+      (tester) async {
+    await tester.pumpWidget(wrap());
+
+    expect(find.text('1'), findsOneWidget);
+    expect(find.text('EV'), findsOneWidget);
+  });
+
+  testWidgets('dinlenme günü DİNLENME yazar', (tester) async {
+    await tester.pumpWidget(wrap(type: PlanDayType.rest, exercises: 0));
+    expect(find.text('DİNLENME'), findsOneWidget);
+  });
+
+  testWidgets('yapılan antrenman ✓, geçmişte kaçırılan ✗ taşır', (
     tester,
   ) async {
     await tester.pumpWidget(
       wrap(
+        date: DateTime(2026, 8, 30),
         logs: {
-          PlanRepository.iso(today): const DailyLogView(
-            checkedSlotIds: {'s0'},
-          ),
+          '2026-08-30': const DailyLogView(workoutDone: true),
         },
       ),
     );
+    expect(find.byIcon(Icons.check), findsOneWidget);
 
-    expect(find.text('1'), findsOneWidget);
-    expect(find.text('1/3'), findsOneWidget);
+    await tester.pumpWidget(wrap(date: DateTime(2026, 8, 30)));
+    await tester.pumpAndSettle();
+    expect(find.byIcon(Icons.close), findsOneWidget);
   });
 
-  testWidgets('serbest gün "boş" yazar', (tester) async {
-    await tester.pumpWidget(wrap(slots: 0));
-    expect(find.text('boş'), findsOneWidget);
-  });
-
-  testWidgets('antrenman günü üçgen işareti taşır', (tester) async {
-    await tester.pumpWidget(wrap(exercises: 4));
+  testWidgets('gelecek antrenman günü üçgen işareti taşır', (tester) async {
+    await tester.pumpWidget(wrap(date: DateTime(2026, 9, 8)));
     expect(find.byIcon(Icons.change_history), findsOneWidget);
   });
 
-  testWidgets('antrenmansız günde üçgen yok', (tester) async {
-    await tester.pumpWidget(wrap());
+  testWidgets('antrenmansız günde işaret yok', (tester) async {
+    await tester.pumpWidget(wrap(type: PlanDayType.rest, exercises: 0));
     expect(find.byIcon(Icons.change_history), findsNothing);
+    expect(find.byIcon(Icons.check), findsNothing);
   });
 
   testWidgets('bugün vurgulu çerçeve alır', (tester) async {
@@ -81,9 +94,7 @@ void main() {
     await tester.pumpWidget(
       wrap(
         logs: {
-          PlanRepository.iso(today): const DailyLogView(
-            checkedSlotIds: {'s0', 's1', 's2'},
-          ),
+          PlanRepository.iso(today): const DailyLogView(workoutDone: true),
         },
       ),
     );
@@ -91,11 +102,5 @@ void main() {
     final label = tester.getSemantics(find.byType(InkWell).first).label;
     expect(label, contains('bugün'));
     expect(label, contains('tamamlandı'));
-  });
-
-  testWidgets('gelecek gün sayaç göstermez', (tester) async {
-    // Henüz gelmemiş güne "0/3" yazmak kaçırılmış gibi okunur.
-    await tester.pumpWidget(wrap(date: DateTime(2026, 9, 8)));
-    expect(find.text('0/3'), findsNothing);
   });
 }

@@ -1254,6 +1254,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dietHistoryDays => 'Day breakdown';
 
   @override
+  String planAdherence(int percent, int done, int planned) {
+    return 'Adherence $percent% — $done/$planned workout days';
+  }
+
+  @override
   String get rhythmMealsSection => 'Meals';
 
   @override

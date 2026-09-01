@@ -21,35 +21,31 @@ enum DayCellFill {
   future,
 }
 
-/// Bir günün takvimdeki dolgusunu belirler.
+/// Bir günün takvimdeki dolgusunu belirler — yalnız **antrenman**
+/// bilgisiyle (v3 §6.1).
 ///
-/// **Bugün asla `empty` olmaz.** Sabah 09:00'da hiçbir şey
-/// işaretlenmemiş olması bir boşluk değil, günün henüz başlaması. Kırmızı
-/// bir hücre kullanıcıya yanlış sinyal verirdi.
+/// v2'de dolgu slot doluluğuna bakıyordu; v3'te takvim spor sekmesinin
+/// ve öğün/su işaretleri Diyet'e taşındı. Hücrenin tek sorusu kaldı:
+/// "o günün antrenmanı yapıldı mı".
 ///
-/// Kalori dengesi bu eşlemenin **üstüne** biniyor, yerine geçmiyor —
-/// bkz. [resolveCalorieTone].
-DayCellFill resolveDayFill({
+/// **Bugün asla `empty` olmaz.** Sabah 09:00'da antrenmanın yapılmamış
+/// olması bir boşluk değil, günün henüz başlaması.
+DayCellFill resolveWorkoutFill({
   required FullPlanDay day,
-  required int checkedCount,
+  required bool workoutDone,
   required DateTime today,
 }) {
   final date = DateTime(day.date.year, day.date.month, day.date.day);
   final base = DateTime(today.year, today.month, today.day);
 
   if (date.isAfter(base)) return DayCellFill.future;
+  if (day.type == PlanDayType.rest || !day.hasWorkout) return DayCellFill.free;
+  if (workoutDone) return DayCellFill.done;
 
-  final total = day.slots.length;
-  if (total == 0 || day.isFullyFree) return DayCellFill.free;
-
-  if (checkedCount >= total) return DayCellFill.done;
-  if (checkedCount > 0) return DayCellFill.partial;
-
-  // Gün bugünse henüz bitmedi; boşluk saymak erken.
   return date.isAtSameMomentAs(base)
       ? DayCellFill.partial
       : DayCellFill.empty;
 }
 
 // Kalori tonu v3'te Diyet'e taşındı: `nutrition/domain/calorie_tone.dart`
-// (T15.4). T16.1 takvimden kalori tonlamasını tümüyle söküyor.
+// (T15.4); takvim artık kalori çizmiyor (T16.1).
