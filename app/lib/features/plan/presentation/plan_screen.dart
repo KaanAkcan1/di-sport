@@ -5,10 +5,11 @@ import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/ai_bridge/presentation/import_plan_sheet.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
-import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/plan/data/sample_plan.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/plan/presentation/plan_calendar.dart';
 import 'package:disport/features/today/application/today_providers.dart';
+import 'package:disport/features/today/data/today_repository.dart';
 import 'package:disport/features/workout/presentation/workout_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -188,6 +189,8 @@ class _PlanOverview extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final todayIso = ref.watch(todayIsoProvider);
+    final today = DateTime.parse(todayIso);
+    final logs = ref.watch(planRangeLogsProvider).value ?? const {};
 
     return AppScreenBody(
       children: [
@@ -209,9 +212,11 @@ class _PlanOverview extends ConsumerWidget {
           _WeekSection(
             plan: plan,
             weekIndex: week,
-            todayIso: todayIso,
+            today: today,
+            logs: logs,
           ),
 
+        const _CalendarLegend(),
         const SizedBox(height: AppSpacing.lg),
         _RulesCard(rules: plan.rules),
       ],
@@ -219,6 +224,53 @@ class _PlanOverview extends ConsumerWidget {
   }
 
   static String _formatDate(DateTime date) => TurkishDate.dayMonth(date);
+}
+
+/// Takvim göstergesi — renk tek başına anlam taşımaz kuralının parçası.
+class _CalendarLegend extends StatelessWidget {
+  const _CalendarLegend();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final semantic = context.semantic;
+
+    Widget item(Color color, String label, {bool outlined = false}) => Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 9,
+          height: 9,
+          decoration: BoxDecoration(
+            color: outlined ? Colors.transparent : color,
+            borderRadius: BorderRadius.circular(2),
+            border: outlined ? Border.all(color: color) : null,
+          ),
+        ),
+        const SizedBox(width: AppSpacing.xs),
+        Text(
+          label,
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
+      ],
+    );
+
+    return Padding(
+      padding: const EdgeInsets.only(top: AppSpacing.sm),
+      child: Wrap(
+        spacing: AppSpacing.lg,
+        runSpacing: AppSpacing.xs,
+        children: [
+          item(semantic.successSurface, 'Tamamlandı'),
+          item(theme.colorScheme.surfaceContainerHigh, 'Kısmen'),
+          item(theme.colorScheme.outlineVariant, 'Serbest', outlined: true),
+          item(theme.colorScheme.primary, 'Antrenman ▲', outlined: true),
+        ],
+      ),
+    );
+  }
 }
 
 class _GoalsCard extends StatelessWidget {
@@ -302,112 +354,58 @@ class _WeekSection extends StatelessWidget {
   const _WeekSection({
     required this.plan,
     required this.weekIndex,
-    required this.todayIso,
+    required this.today,
+    required this.logs,
   });
 
   final FullPlan plan;
   final int weekIndex;
-  final String todayIso;
+  final DateTime today;
+  final Map<String, DailyLogView> logs;
 
   @override
   Widget build(BuildContext context) {
-    final days = plan.days.where((d) => d.weekIndex == weekIndex).toList();
+    final days = plan.days.where((d) => d.weekIndex == weekIndex).toList()
+      ..sort((a, b) => a.date.compareTo(b.date));
     if (days.isEmpty) return const SizedBox.shrink();
 
-    return AppSection(
-      title: 'Hafta $weekIndex',
-      description: days.first.headline.isEmpty ? null : days.first.headline,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.xl2),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          for (final day in days)
-            _DayTile(day: day, isToday: PlanRepository.iso(day.date) == todayIso),
+          AppSectionLabel(
+            'Hafta $weekIndex',
+            trailing: days.first.headline.isEmpty
+                ? null
+                : Flexible(
+                    child: Text(
+                      days.first.headline,
+                      textAlign: TextAlign.end,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ),
+          ),
+          PlanWeekGrid(
+            days: days,
+            logs: logs,
+            today: today,
+            onDayTap: (day) => day.exercises.isEmpty
+                ? null
+                : Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => WorkoutScreen(day: day),
+                    ),
+                  ),
+          ),
         ],
       ),
     );
   }
-}
-
-class _DayTile extends StatelessWidget {
-  const _DayTile({required this.day, required this.isToday});
-
-  final FullPlanDay day;
-  final bool isToday;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    // Gün tipi bir **kategori**, durum değil — renk taşımıyor.
-    // Önceden salon primary, ev `semantic.info` (mavi), dinlenme gri
-    // idi; marka yeşile taşınınca bu tesadüfen yeşil/mavi bir ayrım
-    // üretti ve "iyi/bilgi" durumu gibi okunmaya başladı. Kategoriyi
-    // ikonun şekli ayırıyor, renk yalnız "bugün" için ayrıldı.
-    final (icon, label) = switch (day.type) {
-      PlanDayType.gym => (Icons.fitness_center, 'Salon'),
-      PlanDayType.home => (Icons.home_outlined, 'Ev'),
-      PlanDayType.rest => (Icons.self_improvement, 'Dinlenme'),
-    };
-
-    return Card(
-      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
-      color: isToday ? theme.colorScheme.primaryContainer : null,
-      child: ListTile(
-        leading: Icon(
-          icon,
-          color: isToday
-              ? theme.colorScheme.onPrimaryContainer
-              : theme.colorScheme.onSurfaceVariant,
-        ),
-        title: Text(
-          '${day.date.day}.${day.date.month.toString().padLeft(2, '0')} · '
-          '${_weekdayNames[day.date.weekday - 1]}',
-          style: theme.textTheme.titleSmall,
-        ),
-        subtitle: Row(
-          children: [
-            Flexible(
-              child: Text(
-                day.exercises.isEmpty
-                    ? label
-                    : '$label · ${day.exercises.length} hareket',
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            // Diyeti boş gün ayrı işaretleniyor: v1'de bu gün
-            // diğerlerinden ayırt edilemiyordu ve kullanıcı "plan eksik
-            // mi geldi" diye düşünüyordu.
-            if (day.isDietFree) ...[
-              const SizedBox(width: AppSpacing.sm),
-              const _FreeDayBadge(),
-            ],
-          ],
-        ),
-        trailing: isToday
-            ? Chip(
-                label: const Text('Bugün'),
-                visualDensity: VisualDensity.compact,
-              )
-            : const Icon(Icons.chevron_right),
-        onTap: day.exercises.isEmpty
-            ? null
-            : () => Navigator.of(context).push(
-                MaterialPageRoute<void>(
-                  builder: (_) => WorkoutScreen(day: day),
-                ),
-              ),
-      ),
-    );
-  }
-
-  static const _weekdayNames = [
-    'Pazartesi',
-    'Salı',
-    'Çarşamba',
-    'Perşembe',
-    'Cuma',
-    'Cumartesi',
-    'Pazar',
-  ];
 }
 
 class _RulesCard extends StatelessWidget {
@@ -483,33 +481,6 @@ class _RuleList extends StatelessWidget {
                 ),
               ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-/// Diyeti boş gün rozeti.
-class _FreeDayBadge extends StatelessWidget {
-  const _FreeDayBadge();
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.sm,
-        vertical: 2,
-      ),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHigh,
-        borderRadius: AppRadius.fullAll,
-      ),
-      child: Text(
-        'Serbest',
-        style: theme.textTheme.labelSmall?.copyWith(
-          color: theme.colorScheme.onSurfaceVariant,
         ),
       ),
     );
