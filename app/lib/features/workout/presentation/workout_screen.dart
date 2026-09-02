@@ -65,6 +65,13 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     setState(() => _restRemaining = 0);
   }
 
+  bool _allSetsDone(Map<String, int> counts) =>
+      widget.day.exercises.isNotEmpty &&
+      widget.day.exercises.every(
+        (exercise) =>
+            (counts[exercise.exerciseId] ?? 0) >= (exercise.sets ?? 1),
+      );
+
   /// Tüm setler tamamlanınca günün antrenman kutucuğunu işaretler.
   ///
   /// Kullanıcının aynı bilgiyi iki kez girmesi gerekmiyor: Bugün
@@ -124,9 +131,8 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
                 // olsaydı ekran söküldüğünde sızma riski doğardı ve
                 // test onu sahte-async bölgesinde kovalamak zorunda
                 // kalırdı.
-                elapsed:
-                    (ref.watch(clockProvider).value ?? _startedAt)
-                        .difference(_startedAt),
+                elapsed: (ref.watch(clockProvider).value ?? _startedAt)
+                    .difference(_startedAt),
                 day: widget.day,
                 counts: value,
               ),
@@ -141,10 +147,122 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
                     onRest: _startRest,
                   ),
                 ),
+              // Değerlendirme (v3.1 §6): tüm setler bitince görünür.
+              // Kaydetmek seansı da yazar — kuvvet kalorisi seans
+              // süresinden hesaplanıyor ve süreyi bu ekran biliyor.
+              if (_allSetsDone(value)) ...[
+                const SizedBox(height: AppSpacing.xl),
+                _DebriefCard(isoDate: iso, startedAt: _startedAt),
+              ],
             ],
           );
         },
       ),
+    );
+  }
+}
+
+/// Seans sonu değerlendirmesi (v3.1 §6): RPE 1-10 + ağrı notu.
+///
+/// Kaydet, seansı da yazar: `startSession` idempotent (açık seans
+/// varsa onu döner), sonra kapatılıp değerlendirme iliştirilir. Bu
+/// aynı zamanda kuvvet kalorisinin ihtiyaç duyduğu seans kaydını
+/// canlı ekrandan üretiyor — M9'dan beri açık duran boşluk.
+class _DebriefCard extends ConsumerStatefulWidget {
+  const _DebriefCard({required this.isoDate, required this.startedAt});
+
+  final String isoDate;
+  final DateTime startedAt;
+
+  @override
+  ConsumerState<_DebriefCard> createState() => _DebriefCardState();
+}
+
+class _DebriefCardState extends ConsumerState<_DebriefCard> {
+  int? _rpe;
+  final _pain = TextEditingController();
+  var _saved = false;
+
+  @override
+  void dispose() {
+    _pain.dispose();
+    super.dispose();
+  }
+
+  Future<void> _save() async {
+    final repository = ref.read(workoutRepositoryProvider);
+    final sessionId = await repository.startSession(
+      widget.isoDate,
+      now: widget.startedAt,
+    );
+    await repository.endSession(widget.isoDate);
+    await repository.setSessionDebrief(
+      sessionId: sessionId,
+      rpe: _rpe,
+      painNote: _pain.text.trim(),
+    );
+    if (!mounted) return;
+    setState(() => _saved = true);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final l10n = context.l10n;
+
+    if (_saved) {
+      return Row(
+        children: [
+          Icon(
+            Icons.check_circle_outline,
+            size: 18,
+            color: theme.colorScheme.primary,
+          ),
+          const SizedBox(width: AppSpacing.sm),
+          Text(l10n.sessionDebriefSaved, style: theme.textTheme.bodyMedium),
+        ],
+      );
+    }
+
+    return Column(
+      key: const Key('debrief-card'),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(l10n.sessionDebriefTitle, style: theme.textTheme.titleSmall),
+        const SizedBox(height: AppSpacing.sm),
+        Text(l10n.sessionRpeLabel, style: theme.textTheme.labelMedium),
+        const SizedBox(height: AppSpacing.xs),
+        Wrap(
+          spacing: AppSpacing.xs,
+          children: [
+            for (var value = 1; value <= 10; value++)
+              ChoiceChip(
+                key: Key('debrief-rpe-$value'),
+                label: Text('$value'),
+                selected: _rpe == value,
+                visualDensity: VisualDensity.compact,
+                onSelected: (_) =>
+                    setState(() => _rpe = _rpe == value ? null : value),
+              ),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        TextField(
+          key: const Key('debrief-pain'),
+          controller: _pain,
+          decoration: InputDecoration(
+            labelText: l10n.sessionPainLabel,
+            hintText: l10n.sessionPainHint,
+            isDense: true,
+          ),
+        ),
+        const SizedBox(height: AppSpacing.md),
+        FilledButton(
+          key: const Key('debrief-save'),
+          onPressed: _save,
+          child: Text(l10n.sessionDebriefSave),
+        ),
+      ],
     );
   }
 }

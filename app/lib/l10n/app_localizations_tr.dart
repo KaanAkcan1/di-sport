@@ -273,6 +273,24 @@ class AppLocalizationsTr extends AppLocalizations {
   String get catalogEquipmentLabel => 'Ekipman';
 
   @override
+  String get sessionRpeLabel => 'Zorlanma (1-10)';
+
+  @override
+  String get sessionPainLabel => 'Ağrı/rahatsızlık notu';
+
+  @override
+  String get sessionPainHint => 'omuz pres rahatsız etti';
+
+  @override
+  String get sessionDebriefTitle => 'Seans nasıldı?';
+
+  @override
+  String get sessionDebriefSave => 'Kaydet';
+
+  @override
+  String get sessionDebriefSaved => 'Değerlendirme kaydedildi';
+
+  @override
   String get workoutTitle => 'Antrenman';
 
   @override

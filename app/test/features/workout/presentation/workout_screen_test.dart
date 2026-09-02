@@ -1,15 +1,31 @@
 import 'package:disport/app/theme/app_theme.dart';
+import 'package:disport/core/db/app_database.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
+import 'package:disport/features/today/application/today_providers.dart';
+import 'package:disport/features/today/data/today_repository.dart';
 import 'package:disport/features/workout/application/workout_providers.dart';
 import 'package:disport/features/workout/data/workout_repository.dart';
 import 'package:disport/features/workout/presentation/workout_screen.dart';
+import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../catalog/exercise_fixtures.dart';
 import '../../plan/plan_fixtures.dart';
+
+/// Tüm setler bitince `_syncWorkoutFlag` günün kaydını okuyor; ekran
+/// testi Drift'e bağlanmasın diye kutucuk zaten işaretliymiş gibi
+/// davranan sahte (yazma yolu repository testinde).
+class _NoopTodayRepository extends TodayRepository {
+  _NoopTodayRepository()
+    : super(AppDatabase.forTesting(NativeDatabase.memory()));
+
+  @override
+  Future<DailyLogView> readDay(String isoDate) async =>
+      const DailyLogView(workoutDone: true);
+}
 
 void main() {
   final day = fixturePlan().days.first;
@@ -40,6 +56,7 @@ void main() {
       lastActualsProvider(
         lastActualsKey('plank', iso),
       ).overrideWith((ref) async => const []),
+      todayRepositoryProvider.overrideWithValue(_NoopTodayRepository()),
     ],
     child: MaterialApp(
       theme: AppTheme.light,
@@ -131,6 +148,31 @@ void main() {
     await tester.pumpWidget(wrap());
     await tester.pumpAndSettle();
     expect(find.text('Karın sıkı'), findsWidgets);
+  });
+
+  testWidgets('tüm setler bitince değerlendirme kartı görünür (v3.1)', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      wrap(counts: const {'incline_pushup': 3, 'plank': 3}),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('debrief-card')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(find.byKey(const Key('debrief-card')), findsOneWidget);
+    expect(find.byKey(const Key('debrief-rpe-8')), findsOneWidget);
+    expect(find.byKey(const Key('debrief-pain')), findsOneWidget);
+  });
+
+  testWidgets('setler bitmeden değerlendirme kartı yok', (tester) async {
+    await tester.pumpWidget(wrap(counts: const {'incline_pushup': 3}));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('debrief-card')), findsNothing);
   });
 
   testWidgets('her hareket PLAN sütunu taşır', (tester) async {

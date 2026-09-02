@@ -46,11 +46,23 @@ class LoggedSet {
 
 /// Bir seans satırı — süre ve saat aralığı düzenlenebilir.
 class SessionInfo {
-  const SessionInfo({required this.id, required this.startedAt, this.endedAt});
+  const SessionInfo({
+    required this.id,
+    required this.startedAt,
+    this.endedAt,
+    this.rpe,
+    this.painNote = '',
+  });
 
   final String id;
   final DateTime startedAt;
   final DateTime? endedAt;
+
+  /// Seans sonu zorlanma 1-10 (v3.1 §6); girilmediyse null.
+  final int? rpe;
+
+  /// "Hangi hareket rahatsız etti" notu; boş = yok.
+  final String painNote;
 
   Duration? get duration => endedAt?.difference(startedAt);
 }
@@ -400,6 +412,8 @@ class WorkoutRepository {
                   id: row.id,
                   startedAt: row.startedAt,
                   endedAt: row.endedAt,
+                  rpe: row.rpe,
+                  painNote: row.painNote,
                 ),
             ],
           );
@@ -448,7 +462,9 @@ class WorkoutRepository {
   /// [sessionId] verilirse o satır güncellenir; verilmezse kapalı bir
   /// seans açılır — geçmiş güne "18:00–18:45 çalıştım" demek için canlı
   /// sayaç gerekmiyor.
-  Future<void> setSessionTimes({
+  /// Seansı yazar, kimliğini döner (yeni açıldıysa da) — değerlendirme
+  /// yazımı kimliğe ihtiyaç duyuyor (v3.1 §6).
+  Future<String> setSessionTimes({
     required String isoDate,
     String? sessionId,
     required DateTime start,
@@ -465,19 +481,38 @@ class WorkoutRepository {
               updatedAt: Value(now),
             ),
           );
-      return;
+      return sessionId;
     }
 
+    final id = const Uuid().v4();
     await _db
         .into(_db.workoutSessions)
         .insert(
           WorkoutSessionsCompanion.insert(
-            id: const Uuid().v4(),
+            id: id,
             date: isoDate,
             startedAt: start,
             endedAt: Value(end),
             updatedAt: now,
           ),
         );
+    return id;
   }
+
+  /// Seans sonu değerlendirmesi (v3.1 §6) — RPE ve ağrı notu.
+  ///
+  /// İkisi de isteğe bağlı; null RPE "girilmedi" demek, silme değil.
+  Future<void> setSessionDebrief({
+    required String sessionId,
+    int? rpe,
+    String? painNote,
+  }) => (_db.update(_db.workoutSessions)
+        ..where((t) => t.id.equals(sessionId)))
+      .write(
+        WorkoutSessionsCompanion(
+          rpe: Value(rpe),
+          painNote: painNote == null ? const Value.absent() : Value(painNote),
+          updatedAt: Value(DateTime.now().millisecondsSinceEpoch),
+        ),
+      );
 }

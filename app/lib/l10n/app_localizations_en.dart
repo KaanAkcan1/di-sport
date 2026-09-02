@@ -274,6 +274,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get catalogEquipmentLabel => 'Equipment';
 
   @override
+  String get sessionRpeLabel => 'Effort (1-10)';
+
+  @override
+  String get sessionPainLabel => 'Pain/discomfort note';
+
+  @override
+  String get sessionPainHint => 'shoulder press felt off';
+
+  @override
+  String get sessionDebriefTitle => 'How was the session?';
+
+  @override
+  String get sessionDebriefSave => 'Save';
+
+  @override
+  String get sessionDebriefSaved => 'Debrief saved';
+
+  @override
   String get workoutTitle => 'Workout';
 
   @override

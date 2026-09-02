@@ -35,8 +35,7 @@ class PlannedVsDoneScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     final planDay = ref.watch(dayPlanDayProvider(dateKey)).value;
     final logs =
-        ref.watch(dayWorkoutLogsProvider(dateKey)).value ??
-        const <LoggedSet>[];
+        ref.watch(dayWorkoutLogsProvider(dateKey)).value ?? const <LoggedSet>[];
     final isToday = dateKey == ref.watch(todayIsoProvider);
 
     final byExercise = <String, List<LoggedSet>>{};
@@ -65,9 +64,7 @@ class PlannedVsDoneScreen extends ConsumerWidget {
           const SizedBox(height: AppSpacing.xl),
           Row(
             children: [
-              Expanded(
-                child: AppSectionLabel(l10n.plannedVsDoneExercises),
-              ),
+              Expanded(child: AppSectionLabel(l10n.plannedVsDoneExercises)),
               Text(
                 l10n.plannedVsDoneColumns,
                 style: theme.textTheme.labelSmall?.copyWith(
@@ -132,8 +129,7 @@ class _SessionSection extends ConsumerWidget {
     final l10n = context.l10n;
     final theme = Theme.of(context);
     final sessions =
-        ref.watch(daySessionsProvider(dateKey)).value ??
-        const <SessionInfo>[];
+        ref.watch(daySessionsProvider(dateKey)).value ?? const <SessionInfo>[];
     final burned = ref.watch(_dayBurnedProvider(dateKey)).value;
 
     String time(DateTime at) =>
@@ -232,6 +228,8 @@ class _SessionSection extends ConsumerWidget {
     var start = session?.startedAt ?? day.add(const Duration(hours: 18));
     var end =
         session?.endedAt ?? day.add(const Duration(hours: 18, minutes: 45));
+    var rpe = session?.rpe;
+    final painController = TextEditingController(text: session?.painNote ?? '');
 
     Future<DateTime?> pick(DateTime initial) async {
       final picked = await showTimePicker(
@@ -248,34 +246,71 @@ class _SessionSection extends ConsumerWidget {
       builder: (dialogContext) => StatefulBuilder(
         builder: (dialogContext, setState) => AlertDialog(
           title: Text(l10n.plannedVsDoneSessionEdit),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                key: const Key('session-start'),
-                dense: true,
-                title: Text(l10n.plannedVsDoneStart),
-                trailing: Text(TimeOfDay.fromDateTime(start).format(
-                  dialogContext,
-                )),
-                onTap: () async {
-                  final picked = await pick(start);
-                  if (picked != null) setState(() => start = picked);
-                },
-              ),
-              ListTile(
-                key: const Key('session-end'),
-                dense: true,
-                title: Text(l10n.plannedVsDoneEnd),
-                trailing: Text(
-                  TimeOfDay.fromDateTime(end).format(dialogContext),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  key: const Key('session-start'),
+                  dense: true,
+                  title: Text(l10n.plannedVsDoneStart),
+                  trailing: Text(
+                    TimeOfDay.fromDateTime(start).format(dialogContext),
+                  ),
+                  onTap: () async {
+                    final picked = await pick(start);
+                    if (picked != null) setState(() => start = picked);
+                  },
                 ),
-                onTap: () async {
-                  final picked = await pick(end);
-                  if (picked != null) setState(() => end = picked);
-                },
-              ),
-            ],
+                ListTile(
+                  key: const Key('session-end'),
+                  dense: true,
+                  title: Text(l10n.plannedVsDoneEnd),
+                  trailing: Text(
+                    TimeOfDay.fromDateTime(end).format(dialogContext),
+                  ),
+                  onTap: () async {
+                    final picked = await pick(end);
+                    if (picked != null) setState(() => end = picked);
+                  },
+                ),
+                const SizedBox(height: AppSpacing.md),
+                // Değerlendirme (v3.1 §6): geçmiş seansa da girilebilir.
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    l10n.sessionRpeLabel,
+                    style: Theme.of(dialogContext).textTheme.labelMedium,
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.xs),
+                Wrap(
+                  spacing: AppSpacing.xs,
+                  children: [
+                    for (var value = 1; value <= 10; value++)
+                      ChoiceChip(
+                        key: Key('rpe-$value'),
+                        label: Text('$value'),
+                        selected: rpe == value,
+                        visualDensity: VisualDensity.compact,
+                        // Seçiliye ikinci dokunuş kaldırır.
+                        onSelected: (_) =>
+                            setState(() => rpe = rpe == value ? null : value),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: AppSpacing.sm),
+                TextField(
+                  key: const Key('session-pain'),
+                  controller: painController,
+                  decoration: InputDecoration(
+                    labelText: l10n.sessionPainLabel,
+                    hintText: l10n.sessionPainHint,
+                    isDense: true,
+                  ),
+                ),
+              ],
+            ),
           ),
           actions: [
             TextButton(
@@ -292,27 +327,40 @@ class _SessionSection extends ConsumerWidget {
       ),
     );
 
-    if (confirmed != true) return;
+    if (confirmed != true) {
+      painController.dispose();
+      return;
+    }
     // Bitiş başlangıçtan önceyse yazmıyoruz: negatif süreli seans
     // kalori hesabını da geçmiş listesini de bozar.
-    if (!end.isAfter(start)) return;
-    await ref
-        .read(workoutRepositoryProvider)
-        .setSessionTimes(
-          isoDate: dateKey,
-          sessionId: session?.id,
-          start: start,
-          end: end,
-        );
+    if (!end.isAfter(start)) {
+      painController.dispose();
+      return;
+    }
+    final repository = ref.read(workoutRepositoryProvider);
+    final sessionId = await repository.setSessionTimes(
+      isoDate: dateKey,
+      sessionId: session?.id,
+      start: start,
+      end: end,
+    );
+    await repository.setSessionDebrief(
+      sessionId: sessionId,
+      rpe: rpe,
+      painNote: painController.text.trim(),
+    );
+    painController.dispose();
   }
 }
 
 /// ≈kcal — `EnergySource` portu üzerinden (yalnız kapalı seanslar).
-final _dayBurnedProvider = StreamProvider.autoDispose
-    .family<double, String>((ref, isoDate) async* {
-      final source = await ref.watch(energySourceProvider.future);
-      yield* source.burnedOn(isoDate);
-    });
+final _dayBurnedProvider = StreamProvider.autoDispose.family<double, String>((
+  ref,
+  isoDate,
+) async* {
+  final source = await ref.watch(energySourceProvider.future);
+  yield* source.burnedOn(isoDate);
+});
 
 class _ExerciseRow extends ConsumerWidget {
   const _ExerciseRow({
@@ -375,9 +423,7 @@ class _ExerciseRow extends ConsumerWidget {
             else
               const SizedBox(width: 16),
             const SizedBox(width: AppSpacing.md),
-            Expanded(
-              child: Text(name, style: theme.textTheme.bodyMedium),
-            ),
+            Expanded(child: Text(name, style: theme.textTheme.bodyMedium)),
             SizedBox(
               width: 64,
               child: Text(
@@ -414,11 +460,8 @@ class _ExerciseRow extends ConsumerWidget {
   ) => showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    builder: (_) => _SetEditorSheet(
-      dateKey: dateKey,
-      exerciseId: exerciseId,
-      title: name,
-    ),
+    builder: (_) =>
+        _SetEditorSheet(dateKey: dateKey, exerciseId: exerciseId, title: name),
   );
 }
 
@@ -511,8 +554,7 @@ class _SetRow extends StatelessWidget {
   });
 
   final LoggedSet log;
-  final void Function(int? reps, double? weightKg, int? durationSec)
-  onChanged;
+  final void Function(int? reps, double? weightKg, int? durationSec) onChanged;
   final VoidCallback onDelete;
 
   @override

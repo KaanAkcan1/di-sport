@@ -584,6 +584,42 @@ abstract class AppLocalizations {
   /// **'Ekipman'**
   String get catalogEquipmentLabel;
 
+  /// No description provided for @sessionRpeLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Zorlanma (1-10)'**
+  String get sessionRpeLabel;
+
+  /// No description provided for @sessionPainLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ağrı/rahatsızlık notu'**
+  String get sessionPainLabel;
+
+  /// No description provided for @sessionPainHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'omuz pres rahatsız etti'**
+  String get sessionPainHint;
+
+  /// No description provided for @sessionDebriefTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Seans nasıldı?'**
+  String get sessionDebriefTitle;
+
+  /// No description provided for @sessionDebriefSave.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kaydet'**
+  String get sessionDebriefSave;
+
+  /// No description provided for @sessionDebriefSaved.
+  ///
+  /// In tr, this message translates to:
+  /// **'Değerlendirme kaydedildi'**
+  String get sessionDebriefSaved;
+
   /// No description provided for @workoutTitle.
   ///
   /// In tr, this message translates to:

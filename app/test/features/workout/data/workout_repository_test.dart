@@ -189,6 +189,39 @@ void main() {
       expect(sessions, hasLength(1));
     });
 
+    test('seans değerlendirmesi yazılır ve okunur (v3.1 §6)', () async {
+      final id = await repo.setSessionTimes(
+        isoDate: '2026-08-15',
+        start: DateTime(2026, 8, 15, 18),
+        end: DateTime(2026, 8, 15, 18, 45),
+      );
+
+      await repo.setSessionDebrief(
+        sessionId: id,
+        rpe: 8,
+        painNote: 'omuz pres rahatsız etti',
+      );
+
+      final session =
+          (await repo.watchSessions('2026-08-15').first).single;
+      expect(session.rpe, 8);
+      expect(session.painNote, 'omuz pres rahatsız etti');
+    });
+
+    test('değerlendirme RPE olmadan da kaydedilir', () async {
+      final id = await repo.setSessionTimes(
+        isoDate: '2026-08-15',
+        start: DateTime(2026, 8, 15, 18),
+        end: DateTime(2026, 8, 15, 18, 45),
+      );
+      await repo.setSessionDebrief(sessionId: id, painNote: 'diz zorladı');
+
+      final session =
+          (await repo.watchSessions('2026-08-15').first).single;
+      expect(session.rpe, isNull);
+      expect(session.painNote, 'diz zorladı');
+    });
+
     test('elle girilen seans kapalıdır — süre hesabına girer', () async {
       await repo.setSessionTimes(
         isoDate: '2026-08-15',
