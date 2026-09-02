@@ -794,7 +794,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsBackupImportSubtitle => 'Overwrites your current data';
 
   @override
-  String get settingsBackupShareText => 'di@sport backup';
+  String get settingsBackupShareText => 'Formality backup';
 
   @override
   String get settingsBackupRestored =>
@@ -865,7 +865,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsOnboardingSave => 'Save and start';
 
   @override
-  String get onboardingWelcomeTitle => 'Welcome to di@sport';
+  String get onboardingWelcomeTitle => 'Welcome to Formality';
 
   @override
   String get onboardingWelcomeBody =>
@@ -1336,7 +1336,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get healthShareLabs => 'Share lab summary';
 
   @override
-  String get healthShareTitle => 'Lab summary — di@sport';
+  String get healthShareTitle => 'Lab summary — Formality';
 
   @override
   String get checkupTitle => 'Check-up guide';
@@ -1812,7 +1812,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get planLoadSample => 'Load sample plan (development)';
 
   @override
-  String get planShareSubject => 'di@sport — plan request';
+  String get planShareSubject => 'Formality — plan request';
 
   @override
   String get planRequestButton => 'Request a new plan';

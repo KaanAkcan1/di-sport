@@ -23,30 +23,30 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 Future<void> bootstrap() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Tohumlama sürerken donuk yerel splash yerine markanın kendini
-  // çizen işareti gösterilir. Gerçek uygulama aşağıdaki ikinci
-  // `runApp` ile devralır — Flutter'da runApp'i yeniden çağırmak
-  // meşru ve ucuzdur, ağaç yerinde değiştirilir.
-  runApp(const BootSplash());
-
   // Riverpod kapsayıcısı elle kuruluyor: arayüz çizilmeden önce
   // veritabanına erişmek gerekiyor. `runApp`tan sonra tohumlamak,
   // ilk karede boş bir katalog göstermek demek olurdu.
   final container = ProviderContainer();
 
-  // Tohumlama ve açılış animasyonu birlikte beklenir: tohumlama hızlı
-  // bitse de işaret çizimini yarıda kesmeyiz (BootSplash.minimumDuration).
-  await Future.wait([
-    () async {
-      await _seedCatalog(container);
-      await _seedDailyRules(container);
-      await _seedMetricDefinitions(container);
-      await _seedEquipment(container);
-      await _seedFoods(container);
-      await _seedActivities(container);
-    }(),
-    Future<void>.delayed(BootSplash.minimumDuration),
-  ]);
+  final seeds = () async {
+    await _seedCatalog(container);
+    await _seedDailyRules(container);
+    await _seedMetricDefinitions(container);
+    await _seedEquipment(container);
+    await _seedFoods(container);
+    await _seedActivities(container);
+  }();
+
+  // Tohumlama sürerken donuk yerel splash yerine markanın kendini
+  // çizen işareti gösterilir. Sabit bekleme yok: BootSplash, iş
+  // bitene dek çizimi döngüde tutar, bitince o anki turu tamamlayıp
+  // haber verir. Gerçek uygulama aşağıdaki ikinci `runApp` ile
+  // devralır — Flutter'da runApp'i yeniden çağırmak meşrudur, ağaç
+  // yerinde değiştirilir.
+  final splashDone = Completer<void>();
+  runApp(BootSplash(ready: seeds, onFinished: splashDone.complete));
+  await seeds;
+  await splashDone.future;
 
   // Bildirim penceresi arka planda kaydırılıyor: kurulumu beklemek ilk
   // kareyi geciktirir ve kullanıcı uygulamayı açtığında alarm kurmak

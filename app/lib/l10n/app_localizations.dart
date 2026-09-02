@@ -1487,7 +1487,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsBackupShareText.
   ///
   /// In tr, this message translates to:
-  /// **'di@sport yedeği'**
+  /// **'Formality yedeği'**
   String get settingsBackupShareText;
 
   /// No description provided for @settingsBackupRestored.
@@ -1613,7 +1613,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingWelcomeTitle.
   ///
   /// In tr, this message translates to:
-  /// **'di@sport\'a hoş geldin'**
+  /// **'Formality\'ye hoş geldin'**
   String get onboardingWelcomeTitle;
 
   /// No description provided for @onboardingWelcomeBody.
@@ -2459,7 +2459,7 @@ abstract class AppLocalizations {
   /// No description provided for @healthShareTitle.
   ///
   /// In tr, this message translates to:
-  /// **'Tahlil özeti — di@sport'**
+  /// **'Tahlil özeti — Formality'**
   String get healthShareTitle;
 
   /// No description provided for @checkupTitle.
@@ -3256,7 +3256,7 @@ abstract class AppLocalizations {
   /// No description provided for @planShareSubject.
   ///
   /// In tr, this message translates to:
-  /// **'di@sport — plan isteği'**
+  /// **'Formality — plan isteği'**
   String get planShareSubject;
 
   /// No description provided for @planRequestButton.

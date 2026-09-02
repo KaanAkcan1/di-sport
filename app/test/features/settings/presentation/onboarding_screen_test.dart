@@ -84,7 +84,7 @@ void main() {
     tester,
   ) async {
     await tester.pumpWidget(wrap());
-    expect(find.text("di@sport'a hoş geldin"), findsOneWidget);
+    expect(find.text("Formality'ye hoş geldin"), findsOneWidget);
     await toIdentity(tester);
     expect(find.text('Seni tanıyalım'), findsOneWidget);
   });

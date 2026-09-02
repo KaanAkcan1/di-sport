@@ -793,7 +793,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsBackupImportSubtitle => 'Mevcut verinin üstüne yazar';
 
   @override
-  String get settingsBackupShareText => 'di@sport yedeği';
+  String get settingsBackupShareText => 'Formality yedeği';
 
   @override
   String get settingsBackupRestored =>
@@ -864,7 +864,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsOnboardingSave => 'Kaydet ve başla';
 
   @override
-  String get onboardingWelcomeTitle => 'di@sport\'a hoş geldin';
+  String get onboardingWelcomeTitle => 'Formality\'ye hoş geldin';
 
   @override
   String get onboardingWelcomeBody =>
@@ -1333,7 +1333,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get healthShareLabs => 'Tahlil özetini paylaş';
 
   @override
-  String get healthShareTitle => 'Tahlil özeti — di@sport';
+  String get healthShareTitle => 'Tahlil özeti — Formality';
 
   @override
   String get checkupTitle => 'Check-up rehberi';
@@ -1808,7 +1808,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get planLoadSample => 'Örnek planı yükle (geliştirme)';
 
   @override
-  String get planShareSubject => 'di@sport — plan isteği';
+  String get planShareSubject => 'Formality — plan isteği';
 
   @override
   String get planRequestButton => 'Yeni plan iste';

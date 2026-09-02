@@ -37,7 +37,7 @@ class DisportApp extends ConsumerWidget {
     final mode = ref.watch(themeModeProvider).value ?? ThemeMode.dark;
 
     return MaterialApp(
-      title: 'di@sport',
+      title: 'Formality',
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: mode,
