@@ -1,8 +1,9 @@
-/// Vücut kitle indeksi (v3 §7.1) — saf.
+/// Vücut kitle indeksi (v3 §7.1, v3.1 §1) — saf.
 ///
-/// Değerlendirme onboarding'den buraya taşındı: yeni kullanıcıya ilk
-/// ekranda "obez" damgası vurmak kötü bir karşılamaydı; Sağlık
-/// sekmesinde ise aynı bilgi bağlamında ve isteyene görünür.
+/// v3 "ilk ekranda obez damgası kötü karşılama" diye değerlendirmeyi
+/// yalnız Sağlık'a koymuştu; kullanıcı kararı ters yönde (v3.1 §1.2):
+/// BMI hem onboarding'de hem Sağlık'ta görünür, yumuşatma damgayı
+/// silerek değil bağlam cümlesiyle yapılır.
 library;
 
 /// VKİ; kilo ya da boy yoksa null — uydurma değer üretilmez.

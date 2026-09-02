@@ -1,11 +1,14 @@
 import 'package:disport/core/design/app_dimens.dart';
+import 'package:disport/core/design/app_semantic_colors.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
+import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
 import 'package:disport/features/ai_bridge/domain/context_md_builder.dart'
     show ProfileKeys;
 import 'package:disport/features/health/data/body_metric_table.dart'
     show MetricKinds;
+import 'package:disport/features/health/domain/bmi.dart';
 import 'package:disport/features/plan/data/plan_repository.dart'
     show PlanRepository;
 import 'package:disport/features/today/application/today_providers.dart'
@@ -519,6 +522,64 @@ class _MeasuresStep extends StatelessWidget {
             labelText: l10n.onboardingTargetWeight,
             suffixText: 'kg',
           ),
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        // Canlı VKİ (v3.1 §1.2): boy ve kilo doluysa değer + sınıf.
+        // v3'ün "damga" çekincesi bağlam cümlesiyle karşılanıyor,
+        // bilgi saklanarak değil.
+        ListenableBuilder(
+          listenable: Listenable.merge([height, weight]),
+          builder: (context, _) {
+            final bmi = bodyMassIndex(
+              heightCm: TurkishNumber.tryParse(height.text),
+              weightKg: TurkishNumber.tryParse(weight.text),
+            );
+            if (bmi == null) return const SizedBox.shrink();
+
+            final semantic = context.semantic;
+            final (color, label) = switch (BmiClass.of(bmi)) {
+              BmiClass.underweight => (semantic.warning, l10n.bmiUnderweight),
+              BmiClass.normal => (semantic.success, l10n.bmiNormal),
+              BmiClass.overweight => (semantic.warning, l10n.bmiOverweight),
+              BmiClass.obese => (semantic.danger, l10n.bmiObese),
+            };
+
+            return Column(
+              key: const Key('onboarding-bmi'),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        l10n.bmiRowTitle,
+                        style: theme.textTheme.titleSmall,
+                      ),
+                    ),
+                    Text(
+                      TurkishNumber.format(bmi, fractionDigits: 1),
+                      style: theme.textTheme.titleSmall,
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    Text(
+                      label,
+                      style: theme.textTheme.labelMedium?.copyWith(
+                        color: color,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppSpacing.xs),
+                Text(
+                  l10n.onboardingBmiContext,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
+            );
+          },
         ),
         const SizedBox(height: AppSpacing.xl2),
         Row(

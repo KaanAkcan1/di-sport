@@ -2360,6 +2360,24 @@ abstract class AppLocalizations {
   /// **'Güvenlik — kısıtınla eşleşiyor'**
   String get catalogSafetyRestricted;
 
+  /// No description provided for @bmiMissingHeight.
+  ///
+  /// In tr, this message translates to:
+  /// **'VKİ için boy gerekli — Profil\'den ekle'**
+  String get bmiMissingHeight;
+
+  /// No description provided for @bmiMissingWeight.
+  ///
+  /// In tr, this message translates to:
+  /// **'VKİ için kilo gerekli — tartıl ya da Profil\'e yaz'**
+  String get bmiMissingWeight;
+
+  /// No description provided for @onboardingBmiContext.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hedefe giden yolda başlangıç noktan — plan buradan kurulacak.'**
+  String get onboardingBmiContext;
+
   /// No description provided for @bmiRowTitle.
   ///
   /// In tr, this message translates to:

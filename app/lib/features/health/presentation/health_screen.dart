@@ -20,6 +20,7 @@ import 'package:disport/features/health/presentation/due_labs_banner.dart';
 import 'package:disport/features/health/presentation/lab_import_screen.dart';
 import 'package:disport/features/health/presentation/lab_panel_card.dart';
 import 'package:disport/features/health/presentation/metrics_editor_screen.dart';
+import 'package:disport/features/settings/presentation/profile_form.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -99,24 +100,64 @@ class HealthScreen extends ConsumerWidget {
   }
 }
 
-/// VKİ satırı (v3 §7.1) — kilo ve boydan canlı türetilir.
+/// VKİ satırı (v3 §7.1, v3.1 §1.1) — kilo ve boydan canlı türetilir.
 ///
-/// Onboarding'den taşınan değerlendirme: yeni kullanıcıya ilk ekranda
-/// "obez" damgası kötü karşılamaydı, burada bağlamında.
+/// Kilo sırayla aranır: son tartı, yoksa profildeki kilo — hiç
+/// tartılmamış kullanıcıda satırın kaybolması v3.1'de düzeltilen
+/// kusurdu. Veri eksikse satır **gizlenmez, yönlendirir**: dokunuş
+/// Profil'i açar. Yalnız ikisi de yokken çizilmez (taze kurulum
+/// Sağlık'ı azarla açmasın).
 class _BmiRow extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final l10n = context.l10n;
+    final profile = ref.watch(profileEntriesProvider).value;
     final weight =
-        ref.watch(latestMetricsProvider).value?[MetricKinds.weight]?.value;
-    final heightRaw =
-        ref.watch(profileEntriesProvider).value?[ProfileKeys.heightCm];
+        ref.watch(latestMetricsProvider).value?[MetricKinds.weight]?.value ??
+        double.tryParse(
+          (profile?[ProfileKeys.currentWeightKg] ?? '').replaceAll(',', '.'),
+        );
+    final heightRaw = profile?[ProfileKeys.heightCm];
     final height = double.tryParse(
       (heightRaw ?? '').replaceAll(',', '.'),
     );
     final bmi = bodyMassIndex(weightKg: weight, heightCm: height);
-    if (bmi == null) return const SizedBox.shrink();
+
+    if (bmi == null) {
+      if (weight == null && height == null) return const SizedBox.shrink();
+      final message = height == null
+          ? l10n.bmiMissingHeight
+          : l10n.bmiMissingWeight;
+      return InkWell(
+        key: const Key('bmi-missing-row'),
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (_) => Scaffold(
+              appBar: AppBar(title: Text(l10n.moreProfile)),
+              body: const ProfileForm(),
+            ),
+          ),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                message,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
+            Icon(
+              Icons.chevron_right,
+              size: 18,
+              color: theme.colorScheme.outline,
+            ),
+          ],
+        ),
+      );
+    }
 
     final bmiClass = BmiClass.of(bmi);
     final (status, label) = switch (bmiClass) {

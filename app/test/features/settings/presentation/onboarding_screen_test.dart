@@ -169,6 +169,26 @@ void main() {
     expect(unit, 'kg');
   });
 
+  testWidgets('boy ve kilo girilince canlı VKİ görünür (v3.1)', (
+    tester,
+  ) async {
+    await tester.pumpWidget(wrap());
+    await toMeasures(tester);
+
+    // Yalnız boy: satır çizilmez.
+    await enter(tester, 'field-heightCm', '178');
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('onboarding-bmi')), findsNothing);
+
+    await enter(tester, 'field-currentWeightKg', '108,9');
+    await tester.pumpAndSettle();
+
+    // 108,9 / 1,78² = 34,4 → sınıf adıyla birlikte.
+    expect(find.byKey(const Key('onboarding-bmi')), findsOneWidget);
+    expect(find.text('34,4'), findsOneWidget);
+    expect(find.text('Obez'), findsOneWidget);
+  });
+
   testWidgets('doğum tarihi boş bırakılabilir', (tester) async {
     await tester.pumpWidget(wrap());
     await toMeasures(tester);

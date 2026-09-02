@@ -58,12 +58,13 @@ void main() {
     Map<String, List<LabEntry>> labs = const {},
     List<DueSchedule> due = const [],
     Map<String, MetricSample> metrics = const {},
+    Map<String, String> profile = const {},
   }) => ProviderScope(
     overrides: [
       appDatabaseProvider.overrideWithValue(db),
       // v3: VKİ satırı boyu profilden okuyor — Drift akışına bağlanmasın.
       profileEntriesProvider.overrideWith(
-        (ref) => Stream.value(const <String, String>{}),
+        (ref) => Stream.value(profile),
       ),
       // Check-up rehberi medikal kayıtları okuyor.
       medicalFactsProvider.overrideWith(
@@ -112,6 +113,58 @@ void main() {
     await tester.tap(find.byKey(const Key('lab-save')));
     await tester.pumpAndSettle();
   }
+
+  group('VKİ satırı (v3.1)', () {
+    MetricSample sample(double value) =>
+        (date: '2026-09-01', value: value);
+
+    testWidgets('tartı yoksa profildeki kilo kullanılır', (tester) async {
+      await tester.pumpWidget(
+        wrap(profile: {'heightCm': '178', 'currentWeightKg': '108,9'}),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Vücut kitle indeksi'), findsOneWidget);
+      // 108,9 / 1,78² = 34,4 → obez rozeti.
+      expect(find.text('34,4'), findsOneWidget);
+      expect(find.text('Obez'), findsOneWidget);
+    });
+
+    testWidgets('tartı varsa profil kilosuna değil ona bakılır', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        wrap(
+          metrics: {MetricKinds.weight: sample(80)},
+          profile: {'heightCm': '178', 'currentWeightKg': '108,9'},
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // 80 / 1,78² = 25,2.
+      expect(find.text('25,2'), findsOneWidget);
+    });
+
+    testWidgets('boy eksikse satır gizlenmez, Profil yönlendirmesi', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        wrap(metrics: {MetricKinds.weight: sample(108.9)}),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('bmi-missing-row')), findsOneWidget);
+      expect(find.textContaining('boy'), findsOneWidget);
+    });
+
+    testWidgets('kilo da boy da yoksa satır çizilmez', (tester) async {
+      await tester.pumpWidget(wrap());
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('bmi-missing-row')), findsNothing);
+      expect(find.text('Vücut kitle indeksi'), findsNothing);
+    });
+  });
 
   group('panel kartları', () {
     testWidgets('panel başlığı ve son değer görünür', (tester) async {

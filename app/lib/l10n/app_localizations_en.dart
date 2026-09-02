@@ -1286,6 +1286,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get catalogSafetyRestricted => 'Safety — matches your restriction';
 
   @override
+  String get bmiMissingHeight => 'BMI needs your height — add it in Profile';
+
+  @override
+  String get bmiMissingWeight =>
+      'BMI needs your weight — weigh in or add it in Profile';
+
+  @override
+  String get onboardingBmiContext =>
+      'Your starting point on the way to the goal — the plan builds from here.';
+
+  @override
   String get bmiRowTitle => 'Body mass index';
 
   @override

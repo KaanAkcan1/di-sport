@@ -1283,6 +1283,17 @@ class AppLocalizationsTr extends AppLocalizations {
   String get catalogSafetyRestricted => 'Güvenlik — kısıtınla eşleşiyor';
 
   @override
+  String get bmiMissingHeight => 'VKİ için boy gerekli — Profil\'den ekle';
+
+  @override
+  String get bmiMissingWeight =>
+      'VKİ için kilo gerekli — tartıl ya da Profil\'e yaz';
+
+  @override
+  String get onboardingBmiContext =>
+      'Hedefe giden yolda başlangıç noktan — plan buradan kurulacak.';
+
+  @override
   String get bmiRowTitle => 'Vücut kitle indeksi';
 
   @override
