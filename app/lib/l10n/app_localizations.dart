@@ -4657,6 +4657,60 @@ abstract class AppLocalizations {
   /// **'adım'**
   String get todayStepsUnit;
 
+  /// No description provided for @dietMealSkippedAction.
+  ///
+  /// In tr, this message translates to:
+  /// **'Atlandı'**
+  String get dietMealSkippedAction;
+
+  /// No description provided for @dietMealSkippedLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Atlandı: {reason}'**
+  String dietMealSkippedLabel(Object reason);
+
+  /// No description provided for @dietSkipUndo.
+  ///
+  /// In tr, this message translates to:
+  /// **'Atlamayı geri al'**
+  String get dietSkipUndo;
+
+  /// No description provided for @dietSkipSheetTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Neden atlandı?'**
+  String get dietSkipSheetTitle;
+
+  /// No description provided for @dietSkipReasonWork.
+  ///
+  /// In tr, this message translates to:
+  /// **'Mesai'**
+  String get dietSkipReasonWork;
+
+  /// No description provided for @dietSkipReasonAppetite.
+  ///
+  /// In tr, this message translates to:
+  /// **'İştahsızlık'**
+  String get dietSkipReasonAppetite;
+
+  /// No description provided for @dietSkipReasonOut.
+  ///
+  /// In tr, this message translates to:
+  /// **'Dışarıdaydım'**
+  String get dietSkipReasonOut;
+
+  /// No description provided for @dietSkipReasonOther.
+  ///
+  /// In tr, this message translates to:
+  /// **'Diğer'**
+  String get dietSkipReasonOther;
+
+  /// No description provided for @dietSkipReasonHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'kısa neden'**
+  String get dietSkipReasonHint;
+
   /// No description provided for @moodBlockTitle.
   ///
   /// In tr, this message translates to:

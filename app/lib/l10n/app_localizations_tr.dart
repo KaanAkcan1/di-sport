@@ -2555,6 +2555,35 @@ class AppLocalizationsTr extends AppLocalizations {
   String get todayStepsUnit => 'adım';
 
   @override
+  String get dietMealSkippedAction => 'Atlandı';
+
+  @override
+  String dietMealSkippedLabel(Object reason) {
+    return 'Atlandı: $reason';
+  }
+
+  @override
+  String get dietSkipUndo => 'Atlamayı geri al';
+
+  @override
+  String get dietSkipSheetTitle => 'Neden atlandı?';
+
+  @override
+  String get dietSkipReasonWork => 'Mesai';
+
+  @override
+  String get dietSkipReasonAppetite => 'İştahsızlık';
+
+  @override
+  String get dietSkipReasonOut => 'Dışarıdaydım';
+
+  @override
+  String get dietSkipReasonOther => 'Diğer';
+
+  @override
+  String get dietSkipReasonHint => 'kısa neden';
+
+  @override
   String get moodBlockTitle => 'Bugün nasıl hissettin?';
 
   @override

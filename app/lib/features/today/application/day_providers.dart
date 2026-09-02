@@ -150,6 +150,29 @@ WellbeingWriter wellbeingWriter(Ref ref) {
   );
 }
 
+/// Öğün atlama yazımı (v3.1 §5).
+///
+/// Sütunun sahibi `today` ama okuyup yazan Diyet akışı: `nutrition`
+/// bu sağlayıcıyı çağırır, repository'yi doğrudan import etmez.
+/// `reason` null = işaret silinir (öğüne kayıt girildi).
+typedef MealSkipWriter =
+    Future<void> Function(
+      String isoDate, {
+      required String mealKindName,
+      String? reason,
+    });
+
+@riverpod
+MealSkipWriter mealSkipWriter(Ref ref) {
+  final repository = ref.watch(todayRepositoryProvider);
+  return (String isoDate, {required String mealKindName, String? reason}) =>
+      repository.setMealSkipped(
+        isoDate,
+        mealKindName: mealKindName,
+        reason: reason,
+      );
+}
+
 /// Uyku yazımlarının **tek** noktası (v3.1 §2.2 — son yazan kazanır).
 ///
 /// İki depo birden güncelleniyor: saatler `daily_logs`'a, türetilen

@@ -334,14 +334,22 @@ class _FlowRow extends ConsumerWidget {
                 mealKind: kind,
                 onCopyLast: () =>
                     repository.copyMeal(mealKind: kind, toIsoDate: date),
-                onPicked: (choice) => repository.addEntry(
-                  food: choice.food,
-                  mealKind: kind,
-                  isoDate: date,
-                  quantity: choice.quantity,
-                  portion: choice.portion,
-                  customGrams: choice.customGrams,
-                ),
+                onPicked: (choice) {
+                  repository.addEntry(
+                    food: choice.food,
+                    mealKind: kind,
+                    isoDate: date,
+                    quantity: choice.quantity,
+                    portion: choice.portion,
+                    customGrams: choice.customGrams,
+                  );
+                  // Kayıt girilen öğün atlanmış olamaz (v3.1 §5).
+                  ref.read(mealSkipWriterProvider)(
+                    date,
+                    mealKindName: kind.name,
+                    reason: null,
+                  );
+                },
               ),
             ),
           );

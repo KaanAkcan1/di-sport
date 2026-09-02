@@ -180,14 +180,22 @@ class DayMealsCard extends ConsumerWidget {
           mealKind: kind,
           onCopyLast: () =>
               repository.copyMeal(mealKind: kind, toIsoDate: isoDate),
-          onPicked: (choice) => repository.addEntry(
-            food: choice.food,
-            mealKind: kind,
-            isoDate: isoDate,
-            quantity: choice.quantity,
-            portion: choice.portion,
-            customGrams: choice.customGrams,
-          ),
+          onPicked: (choice) {
+            repository.addEntry(
+              food: choice.food,
+              mealKind: kind,
+              isoDate: isoDate,
+              quantity: choice.quantity,
+              portion: choice.portion,
+              customGrams: choice.customGrams,
+            );
+            // Kayıt girilen öğün atlanmış olamaz (v3.1 §5).
+            ref.read(mealSkipWriterProvider)(
+              isoDate,
+              mealKindName: kind.name,
+              reason: null,
+            );
+          },
         ),
       ),
     );
@@ -215,6 +223,12 @@ class _MealGroup extends ConsumerWidget {
     final l10n = context.l10n;
     final behaviorKind = behavior?.behavior ?? MealBehavior.planned;
     final total = entries.fold(0.0, (sum, entry) => sum + entry.kcal);
+
+    // Atlama işareti (v3.1 §5): sütun today'in, yazan Diyet akışı.
+    final skippedReason = ref
+        .watch(dayLogProvider(isoDate))
+        .value
+        ?.skippedMeals[kind.name];
 
     // Plan kalemleri: yalnız `planned` davranışta ve kayda dönmemişler.
     final loggedFoodIds = {for (final e in entries) e.foodId};
@@ -294,6 +308,40 @@ class _MealGroup extends ConsumerWidget {
 
         for (final entry in entries) _EntryRow(entry: entry),
 
+        if (skippedReason != null && entries.isEmpty)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.remove_circle_outline,
+                  size: 16,
+                  color: context.semantic.warning,
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                Expanded(
+                  child: Text(
+                    l10n.dietMealSkippedLabel(skippedReason),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  key: Key('skip-undo-${kind.name}'),
+                  icon: const Icon(Icons.undo, size: 16),
+                  tooltip: l10n.dietSkipUndo,
+                  visualDensity: VisualDensity.compact,
+                  onPressed: () => ref.read(mealSkipWriterProvider)(
+                    isoDate,
+                    mealKindName: kind.name,
+                    reason: null,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
         if (behaviorKind == MealBehavior.external && entries.isEmpty)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
@@ -328,21 +376,47 @@ class _MealGroup extends ConsumerWidget {
               key: Key('ate-as-planned-${kind.name}'),
               icon: const Icon(Icons.done_all, size: 18),
               label: Text(l10n.dietAteAsPlanned),
-              onPressed: () => ref
-                  .read(nutritionRepositoryProvider)
-                  .addResolvedItems(
-                    isoDate: isoDate,
-                    mealKind: kind,
-                    slotId: slot?.id,
-                    items: [
-                      for (final item in planItems)
-                        (
-                          foodId: item.foodId,
-                          quantity: item.quantity,
-                          portionId: item.portionId,
-                        ),
-                    ],
-                  ),
+              onPressed: () {
+                ref
+                    .read(nutritionRepositoryProvider)
+                    .addResolvedItems(
+                      isoDate: isoDate,
+                      mealKind: kind,
+                      slotId: slot?.id,
+                      items: [
+                        for (final item in planItems)
+                          (
+                            foodId: item.foodId,
+                            quantity: item.quantity,
+                            portionId: item.portionId,
+                          ),
+                      ],
+                    );
+                ref.read(mealSkipWriterProvider)(
+                  isoDate,
+                  mealKindName: kind.name,
+                  reason: null,
+                );
+              },
+            ),
+          ),
+
+        // Atlandı eylemi (v3.1 §5): planlı ama boş öğünde. Dokunuş neden
+        // çiplerini açar; öğüne kayıt girilirse işaret kendiliğinden
+        // silinir.
+        if (skippedReason == null &&
+            entries.isEmpty &&
+            behaviorKind != MealBehavior.external)
+          Padding(
+            padding: const EdgeInsets.only(top: AppSpacing.xs),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                key: Key('skip-meal-${kind.name}'),
+                icon: const Icon(Icons.remove_circle_outline, size: 16),
+                label: Text(l10n.dietMealSkippedAction),
+                onPressed: () => _askSkipReason(context, ref),
+              ),
             ),
           ),
 
@@ -357,16 +431,89 @@ class _MealGroup extends ConsumerWidget {
               key: Key('ate-usual-${kind.name}'),
               icon: const Icon(Icons.replay, size: 18),
               label: Text(l10n.dietAteUsual),
-              onPressed: () => ref
-                  .read(nutritionRepositoryProvider)
-                  .addResolvedItems(
-                    isoDate: isoDate,
-                    mealKind: kind,
-                    items: fixedItems,
-                  ),
+              onPressed: () {
+                ref
+                    .read(nutritionRepositoryProvider)
+                    .addResolvedItems(
+                      isoDate: isoDate,
+                      mealKind: kind,
+                      items: fixedItems,
+                    );
+                ref.read(mealSkipWriterProvider)(
+                  isoDate,
+                  mealKindName: kind.name,
+                  reason: null,
+                );
+              },
             ),
           ),
       ],
+    );
+  }
+
+  /// Neden çipleri + serbest alan; seçim atlamayı hemen yazar.
+  Future<void> _askSkipReason(BuildContext context, WidgetRef ref) async {
+    final l10n = context.l10n;
+    final reasons = [
+      l10n.dietSkipReasonWork,
+      l10n.dietSkipReasonAppetite,
+      l10n.dietSkipReasonOut,
+    ];
+    final controller = TextEditingController();
+
+    final reason = await showModalBottomSheet<String>(
+      context: context,
+      showDragHandle: true,
+      isScrollControlled: true,
+      builder: (sheetContext) => Padding(
+        padding: EdgeInsets.only(
+          left: AppSpacing.lg,
+          right: AppSpacing.lg,
+          bottom:
+              MediaQuery.viewInsetsOf(sheetContext).bottom + AppSpacing.lg,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.dietSkipSheetTitle,
+              style: Theme.of(sheetContext).textTheme.titleSmall,
+            ),
+            const SizedBox(height: AppSpacing.md),
+            Wrap(
+              spacing: AppSpacing.sm,
+              children: [
+                for (final label in reasons)
+                  ActionChip(
+                    label: Text(label),
+                    onPressed: () => Navigator.of(sheetContext).pop(label),
+                  ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.md),
+            TextField(
+              controller: controller,
+              decoration: InputDecoration(
+                labelText: l10n.dietSkipReasonOther,
+                hintText: l10n.dietSkipReasonHint,
+                isDense: true,
+              ),
+              textCapitalization: TextCapitalization.sentences,
+              onSubmitted: (text) =>
+                  Navigator.of(sheetContext).pop(text.trim()),
+            ),
+          ],
+        ),
+      ),
+    );
+    controller.dispose();
+
+    if (reason == null || reason.isEmpty) return;
+    await ref.read(mealSkipWriterProvider)(
+      isoDate,
+      mealKindName: kind.name,
+      reason: reason,
     );
   }
 

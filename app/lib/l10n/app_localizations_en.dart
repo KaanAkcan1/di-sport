@@ -2560,6 +2560,35 @@ class AppLocalizationsEn extends AppLocalizations {
   String get todayStepsUnit => 'steps';
 
   @override
+  String get dietMealSkippedAction => 'Skipped';
+
+  @override
+  String dietMealSkippedLabel(Object reason) {
+    return 'Skipped: $reason';
+  }
+
+  @override
+  String get dietSkipUndo => 'Undo skip';
+
+  @override
+  String get dietSkipSheetTitle => 'Why was it skipped?';
+
+  @override
+  String get dietSkipReasonWork => 'Work';
+
+  @override
+  String get dietSkipReasonAppetite => 'No appetite';
+
+  @override
+  String get dietSkipReasonOut => 'Ate out';
+
+  @override
+  String get dietSkipReasonOther => 'Other';
+
+  @override
+  String get dietSkipReasonHint => 'short reason';
+
+  @override
   String get moodBlockTitle => 'How did you feel today?';
 
   @override
