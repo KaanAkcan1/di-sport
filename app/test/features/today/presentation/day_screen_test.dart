@@ -1,5 +1,6 @@
 import 'package:disport/app/theme/app_theme.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
+import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart'
     show profileEntriesProvider;
 import 'package:disport/features/nutrition/application/nutrition_providers.dart';
@@ -151,6 +152,43 @@ void main() {
       scrollable: find.byType(Scrollable).first,
     );
     expect(find.text('GÜNÜN AKIŞI'), findsOneWidget);
+  });
+
+  testWidgets('gelecek günde kahraman ve tartı satırı çizilmez', (
+    tester,
+  ) async {
+    // Kullanıcı bildirimi: gelecek gün "BUGÜN YENEN 0" paneli ve
+    // yapılamayacak bir tartı işi gösteriyordu.
+    await tester.pumpWidget(wrap(dateKey: '2026-09-05', planDay: day));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(AppHeroNumber), findsNothing);
+    expect(find.text('Tartı'), findsNothing);
+  });
+
+  testWidgets('gün ekranında geri oku başlık satırında, AppBar yok', (
+    tester,
+  ) async {
+    // Cihazda DayScreen hep push ediliyor; geri oku yalnız pop
+    // edilebilen yığında çizilir. Test de aynı yığını kuruyor.
+    await tester.pumpWidget(wrap(dateKey: '2026-08-30', planDay: day));
+    await tester.pumpAndSettle();
+
+    Navigator.of(tester.element(find.byType(DayBody))).push(
+      MaterialPageRoute<void>(
+        builder: (_) => const DayScreen(dateKey: '2026-08-30'),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    // Mockup B2: boş bir AppBar bandı yok; geri, eylem dizisinin
+    // ilk üyesi.
+    expect(find.byType(AppBar), findsNothing);
+    expect(find.byKey(const Key('day-back')), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('day-back')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('day-back')), findsNothing);
   });
 
   testWidgets('bugün olmayan günde sıradaki iş kartı çizilmez', (

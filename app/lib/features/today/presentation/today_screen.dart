@@ -62,9 +62,11 @@ class DayScreen extends StatelessWidget {
     // yerine geçiyor: gün ekranının her parçası "hangi gün" sorusunu
     // aynı provider'a soruyor.
     overrides: [viewedDateProvider.overrideWithValue(dateKey)],
-    child: Scaffold(
-      appBar: AppBar(),
-      body: const DayBody(),
+    // Bos AppBar mockup'ta yok: yalniz geri oku tasiyan bir bant
+    // ekranin tepesini harciyordu. Geri, baslik satirinin sol ucunda
+    // (mockup B2'nin eylem dizisi).
+    child: const Scaffold(
+      body: SafeArea(child: DayBody()),
     ),
   );
 }
@@ -99,8 +101,13 @@ class DayBody extends ConsumerWidget {
           const SizedBox(height: AppSpacing.xl),
           // Kurulum bitmeden kahraman sayı çizilmiyor: kayıt yokken
           // kahraman anlamsız, panel ise ilk işleri gösteriyor.
-          if (showSetup) SetupPanel(progress: setup) else _Hero(day: day),
-          const SizedBox(height: AppSpacing.xl2),
+          // Gelecek günde de çizilmiyor (mockup'ta gelecek karesi
+          // kahramansız): yenmemiş bir günün "0 kcal"i bilgi değil.
+          if (showSetup)
+            SetupPanel(progress: setup)
+          else if (!isFuture)
+            _Hero(day: day),
+          if (showSetup || !isFuture) const SizedBox(height: AppSpacing.xl2),
           const MissedStreakBanner(),
 
           if (day == null)
@@ -190,6 +197,13 @@ class _Header extends ConsumerWidget {
       children: [
         Row(
           children: [
+            if (Navigator.of(context).canPop())
+              IconButton(
+                key: const Key('day-back'),
+                icon: const Icon(Icons.arrow_back),
+                tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+                onPressed: () => Navigator.of(context).pop(),
+              ),
             Expanded(
               child: Text(
                 eyebrow,
@@ -353,9 +367,14 @@ class _Hero extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppHeroNumber(
-            caption: goal == null
-                ? context.l10n.todayHeroEatenNoPlan
-                : context.l10n.todayHeroRemaining,
+            // Mockup B2: geçmiş günün başlığı "O GÜN ..." — dünün
+            // ekranında "BUGÜN" yazmak yanlış günü işaret eder.
+            caption: switch ((goal, isToday)) {
+              (null, true) => context.l10n.todayHeroEatenNoPlan,
+              (null, false) => context.l10n.dayHeroEatenPast,
+              (_, true) => context.l10n.todayHeroRemaining,
+              (_, false) => context.l10n.dayHeroRemainingPast,
+            },
             value: heroValue,
             unit: 'kcal',
             gaugeFraction: gauge,

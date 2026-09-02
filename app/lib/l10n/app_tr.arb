@@ -962,6 +962,8 @@
   "todayActivitiesTitle": "Hareket",
   "todayAddMeal": "Öğün ekle",
   "todayAddActivity": "Aktivite ekle",
+  "dayHeroRemainingPast": "O GÜN KALAN",
+  "dayHeroEatenPast": "O GÜN YENEN",
   "todayHeroRemaining": "BUGÜN KALAN",
   "todayHeroEatenNoPlan": "BUGÜN YENEN",
   "todayMetricWater": "SU",

@@ -2238,6 +2238,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get todayAddActivity => 'Aktivite ekle';
 
   @override
+  String get dayHeroRemainingPast => 'O GÜN KALAN';
+
+  @override
+  String get dayHeroEatenPast => 'O GÜN YENEN';
+
+  @override
   String get todayHeroRemaining => 'BUGÜN KALAN';
 
   @override

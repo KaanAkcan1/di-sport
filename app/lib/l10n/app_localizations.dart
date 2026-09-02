@@ -4039,6 +4039,18 @@ abstract class AppLocalizations {
   /// **'Aktivite ekle'**
   String get todayAddActivity;
 
+  /// No description provided for @dayHeroRemainingPast.
+  ///
+  /// In tr, this message translates to:
+  /// **'O GÜN KALAN'**
+  String get dayHeroRemainingPast;
+
+  /// No description provided for @dayHeroEatenPast.
+  ///
+  /// In tr, this message translates to:
+  /// **'O GÜN YENEN'**
+  String get dayHeroEatenPast;
+
   /// No description provided for @todayHeroRemaining.
   ///
   /// In tr, this message translates to:

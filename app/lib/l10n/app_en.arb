@@ -962,6 +962,8 @@
   "todayActivitiesTitle": "Activity",
   "todayAddMeal": "Add meal",
   "todayAddActivity": "Add activity",
+  "dayHeroRemainingPast": "LEFT THAT DAY",
+  "dayHeroEatenPast": "EATEN THAT DAY",
   "todayHeroRemaining": "LEFT TODAY",
   "todayHeroEatenNoPlan": "EATEN TODAY",
   "todayMetricWater": "WATER",

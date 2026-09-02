@@ -2243,6 +2243,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get todayAddActivity => 'Add activity';
 
   @override
+  String get dayHeroRemainingPast => 'LEFT THAT DAY';
+
+  @override
+  String get dayHeroEatenPast => 'EATEN THAT DAY';
+
+  @override
   String get todayHeroRemaining => 'LEFT TODAY';
 
   @override

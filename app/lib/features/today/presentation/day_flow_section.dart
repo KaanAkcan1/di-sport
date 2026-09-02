@@ -79,15 +79,21 @@ class _DayFlowSectionState extends ConsumerState<DayFlowSection> {
           : context.l10n.todayExerciseCount(widget.day!.exercises.length),
     );
 
+    // Gelecek günde tartı satırı çizilmez: gelecekte tartılınamaz ve
+    // "0/1" sayacındaki tek iş o satır oluyordu (kullanıcı bildirimi).
+    final shown = widget.readOnly
+        ? rows.where((row) => row.kind != DayFlowKind.weighIn).toList()
+        : rows;
+
     final nowKey =
         '${now.hour.toString().padLeft(2, '0')}:'
         '${now.minute.toString().padLeft(2, '0')}';
-    final next = isToday ? nextFlowRow(rows, nowKey) : null;
-    final (done, total) = flowProgress(rows);
+    final next = isToday ? nextFlowRow(shown, nowKey) : null;
+    final (done, total) = flowProgress(shown);
 
     final visible = _expanded || widget.readOnly
-        ? rows
-        : rows.take(5).toList();
+        ? shown
+        : shown.take(5).toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,7 +148,7 @@ class _DayFlowSectionState extends ConsumerState<DayFlowSection> {
               label: Text(
                 _expanded
                     ? context.l10n.dayFlowCollapse
-                    : context.l10n.dayFlowExpand(rows.length),
+                    : context.l10n.dayFlowExpand(shown.length),
               ),
             ),
           ),
