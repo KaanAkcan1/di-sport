@@ -372,6 +372,7 @@
   },
   "medicalTitle": "Medikal bilgiler",
   "medicalPrivacyNote": "Bu bilgiler cihazından çıkmaz; yalnızca sen yapay zekâ belgesini paylaştığında plana girer.",
+  "medicalKindDiagnosis": "Tanılar",
   "medicalKindCondition": "Durumlar",
   "medicalKindRestriction": "Hareket kısıtları",
   "medicalKindAllergy": "Alerjiler",

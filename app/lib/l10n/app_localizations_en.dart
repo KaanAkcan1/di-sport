@@ -995,6 +995,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'This never leaves your device; it only reaches a plan when you share the AI document yourself.';
 
   @override
+  String get medicalKindDiagnosis => 'Diagnoses';
+
+  @override
   String get medicalKindCondition => 'Conditions';
 
   @override

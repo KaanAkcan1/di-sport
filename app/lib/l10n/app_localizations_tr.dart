@@ -993,6 +993,9 @@ class AppLocalizationsTr extends AppLocalizations {
       'Bu bilgiler cihazından çıkmaz; yalnızca sen yapay zekâ belgesini paylaştığında plana girer.';
 
   @override
+  String get medicalKindDiagnosis => 'Tanılar';
+
+  @override
   String get medicalKindCondition => 'Durumlar';
 
   @override

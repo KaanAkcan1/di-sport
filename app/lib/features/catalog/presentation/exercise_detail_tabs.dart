@@ -47,7 +47,8 @@ class HowToTab extends ConsumerWidget {
         ref.watch(medicalFactsProvider).value ?? const <MedicalFact>[];
     final restricted = matchingRestrictions(exercise, [
       for (final fact in restrictions)
-        if (fact.kind == MedicalFactKind.restriction &&
+        if ((fact.kind == MedicalFactKind.restriction ||
+                fact.kind == MedicalFactKind.diagnosis) &&
             fact.conditionId != null)
           fact.conditionId!,
     ]).isNotEmpty;

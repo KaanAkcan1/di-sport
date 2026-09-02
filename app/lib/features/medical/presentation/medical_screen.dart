@@ -1,5 +1,6 @@
 import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
+import 'package:disport/core/utils/turkish_date.dart';
 import 'package:disport/core/widgets/widgets.dart';
 import 'package:disport/features/medical/application/medical_providers.dart';
 import 'package:disport/features/medical/domain/medical_fact.dart';
@@ -74,6 +75,7 @@ class _MedicalBody extends ConsumerWidget {
           _KindSection(
             kind: kind,
             facts: [for (final f in facts) if (f.kind == kind) f],
+            allFacts: facts,
           ),
           const SizedBox(height: AppSpacing.xl),
         ],
@@ -85,10 +87,18 @@ class _MedicalBody extends ConsumerWidget {
 
 /// Bir türün bölümü: başlık, kayıt çipleri, öneri çipleri, serbest ekleme.
 class _KindSection extends ConsumerWidget {
-  const _KindSection({required this.kind, required this.facts});
+  const _KindSection({
+    required this.kind,
+    required this.facts,
+    required this.allFacts,
+  });
 
   final MedicalFactKind kind;
   final List<MedicalFact> facts;
+
+  /// Teşhis önerileri condition havuzunu kullanıyor (v3.1 §7);
+  /// çift kimlik denetimi tüm kayıtlara bakmak zorunda.
+  final List<MedicalFact> allFacts;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -104,17 +114,30 @@ class _KindSection extends ConsumerWidget {
     };
     final existingLabels = {for (final f in facts) f.label.toLowerCase()};
 
-    final suggestions = kind == MedicalFactKind.bloodType
-        ? [
-            for (final group in _bloodGroups)
-              if (!existingLabels.contains(group.toLowerCase()))
-                (null, group),
-          ]
-        : [
-            for (final (k, id) in conditionSuggestions)
-              if (k == kind && !existingConditionIds.contains(id))
-                (id, _conditionLabel(l10n, id)),
-          ];
+    // Teşhis çipleri condition havuzundan gelir; teşhise dönüşmüş bir
+    // kimlik ikinci kez önerilmez. Condition olarak kayıtlı kimlik
+    // teşhis bölümünde görünmeye devam eder — dokunuş dönüştürür.
+    final diagnosedIds = {
+      for (final f in allFacts)
+        if (f.kind == MedicalFactKind.diagnosis && f.conditionId != null)
+          f.conditionId,
+    };
+    final suggestions = switch (kind) {
+      MedicalFactKind.bloodType => [
+        for (final group in _bloodGroups)
+          if (!existingLabels.contains(group.toLowerCase())) (null, group),
+      ],
+      MedicalFactKind.diagnosis => [
+        for (final (k, id) in conditionSuggestions)
+          if (k == MedicalFactKind.condition && !diagnosedIds.contains(id))
+            (id, _conditionLabel(l10n, id)),
+      ],
+      _ => [
+        for (final (k, id) in conditionSuggestions)
+          if (k == kind && !existingConditionIds.contains(id))
+            (id, _conditionLabel(l10n, id)),
+      ],
+    };
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,7 +161,12 @@ class _KindSection extends ConsumerWidget {
             for (final fact in facts)
               InputChip(
                 key: Key('medical-fact-${fact.id}'),
-                label: Text(fact.label),
+                label: Text(
+                  fact.factDate == null
+                      ? fact.label
+                      : '${fact.label} · '
+                            '${TurkishDate.isoToDayMonthYear(fact.factDate!)}',
+                ),
                 onDeleted: () => _confirmRemove(context, ref, fact),
                 deleteIcon: const Icon(Icons.close, size: 16),
               ),
@@ -146,12 +174,23 @@ class _KindSection extends ConsumerWidget {
               ActionChip(
                 key: conditionId == null
                     ? null
-                    : Key('medical-suggest-$conditionId'),
+                    : Key('medical-suggest-${kind.name}-$conditionId'),
                 avatar: const Icon(Icons.add, size: 16),
                 label: Text(label),
-                onPressed: () => ref
-                    .read(medicalRepositoryProvider)
-                    .add(kind: kind, label: label, conditionId: conditionId),
+                onPressed: () => kind == MedicalFactKind.diagnosis
+                    ? _addDiagnosis(
+                        context,
+                        ref,
+                        label: label,
+                        conditionId: conditionId,
+                      )
+                    : ref
+                          .read(medicalRepositoryProvider)
+                          .add(
+                            kind: kind,
+                            label: label,
+                            conditionId: conditionId,
+                          ),
               ),
             // Kan grubu kapalı bir küme; serbest metin girişi yalnız
             // diğer türlerde.
@@ -200,8 +239,37 @@ class _KindSection extends ConsumerWidget {
     controller.dispose();
 
     final trimmed = label?.trim() ?? '';
-    if (trimmed.isEmpty) return;
+    if (trimmed.isEmpty || !context.mounted) return;
+    if (kind == MedicalFactKind.diagnosis) {
+      await _addDiagnosis(context, ref, label: trimmed, conditionId: null);
+      return;
+    }
     await ref.read(medicalRepositoryProvider).add(kind: kind, label: trimmed);
+  }
+
+  /// Teşhis eklerken tarih sorulur (varsayılan bugün).
+  Future<void> _addDiagnosis(
+    BuildContext context,
+    WidgetRef ref, {
+    required String label,
+    required String? conditionId,
+  }) async {
+    final now = DateTime.now();
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: now,
+      firstDate: DateTime(now.year - 30),
+      lastDate: now,
+    );
+    if (picked == null) return;
+
+    final iso =
+        '${picked.year.toString().padLeft(4, '0')}-'
+        '${picked.month.toString().padLeft(2, '0')}-'
+        '${picked.day.toString().padLeft(2, '0')}';
+    await ref
+        .read(medicalRepositoryProvider)
+        .addDiagnosis(label: label, factDate: iso, conditionId: conditionId);
   }
 
   Future<void> _confirmRemove(
@@ -316,6 +384,7 @@ const _bloodGroups = [
 String _kindTitle(AppLocalizations l10n, MedicalFactKind kind) =>
     switch (kind) {
       MedicalFactKind.condition => l10n.medicalKindCondition,
+      MedicalFactKind.diagnosis => l10n.medicalKindDiagnosis,
       MedicalFactKind.restriction => l10n.medicalKindRestriction,
       MedicalFactKind.allergy => l10n.medicalKindAllergy,
       MedicalFactKind.bloodType => l10n.medicalKindBloodType,

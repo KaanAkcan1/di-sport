@@ -1844,6 +1844,12 @@ abstract class AppLocalizations {
   /// **'Bu bilgiler cihazından çıkmaz; yalnızca sen yapay zekâ belgesini paylaştığında plana girer.'**
   String get medicalPrivacyNote;
 
+  /// No description provided for @medicalKindDiagnosis.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tanılar'**
+  String get medicalKindDiagnosis;
+
   /// No description provided for @medicalKindCondition.
   ///
   /// In tr, this message translates to:

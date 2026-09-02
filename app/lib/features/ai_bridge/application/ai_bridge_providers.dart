@@ -153,7 +153,9 @@ ImportWarningsCollector importWarningsCollector(Ref ref) =>
 
       final restrictionIds = [
         for (final fact in facts)
-          if (fact.kind == MedicalFactKind.restriction &&
+          // Kimlikli teşhis de kısıt eşlemesine girer (v3.1 §7).
+          if ((fact.kind == MedicalFactKind.restriction ||
+                  fact.kind == MedicalFactKind.diagnosis) &&
               fact.conditionId != null)
             fact.conditionId!,
       ];

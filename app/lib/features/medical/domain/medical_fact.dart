@@ -3,6 +3,11 @@ enum MedicalFactKind {
   /// Kronik durum — insülin direnci, hipertansiyon.
   condition,
 
+  /// Tarihli doktor teşhisi (v3.1 §7). Kimlikliyse (`conditionId`)
+  /// check-up ve kısıt motorlarına condition gibi girer; aynı kimlikli
+  /// condition varsa yenisi açılmaz, mevcut kayıt teşhise dönüştürülür.
+  diagnosis,
+
   /// Hareket kısıtı — diz hassasiyeti, bel fıtığı. Plan doğrulaması ve
   /// hareket detayındaki güvenlik vurgusu bunları okur.
   restriction,
@@ -34,6 +39,7 @@ class MedicalFact {
     required this.label,
     this.note,
     this.conditionId,
+    this.factDate,
   });
 
   final String id;
@@ -47,6 +53,9 @@ class MedicalFact {
   /// Öneri çipinden geldiyse makine kimliği; serbest kayıtta null.
   /// Check-up motoru yalnız kimlikli kayıtları koşullarda kullanır.
   final String? conditionId;
+
+  /// `yyyy-MM-dd` — bugün yalnız teşhiste dolu (v3.1 §7).
+  final String? factDate;
 }
 
 /// Öneri çipleri — makine kimlikli yaygın değerler.

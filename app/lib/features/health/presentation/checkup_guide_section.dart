@@ -43,9 +43,12 @@ class CheckupGuideSection extends ConsumerWidget {
     );
     final bmi = bodyMassIndex(weightKg: weight, heightCm: height);
     final age = _age(profile);
+    // Kimlikli teşhis, condition ile aynı yoldan okunur (v3.1 §7).
     final conditionIds = {
       for (final fact in facts)
-        if (fact.kind == MedicalFactKind.condition && fact.conditionId != null)
+        if ((fact.kind == MedicalFactKind.condition ||
+                fact.kind == MedicalFactKind.diagnosis) &&
+            fact.conditionId != null)
           fact.conditionId!,
     };
 

@@ -24,6 +24,7 @@ class MedicalRepository {
                   label: row.label,
                   note: row.note,
                   conditionId: row.conditionId,
+                  factDate: row.factDate,
                 ),
             ],
           );
@@ -53,6 +54,58 @@ class MedicalRepository {
             updatedAt: DateTime.now().millisecondsSinceEpoch,
           ),
         );
+    return id;
+  }
+
+  /// Tarihli teşhis (v3.1 §7).
+  ///
+  /// Aynı `conditionId`'li bir *condition* zaten varsa yeni satır
+  /// açılmaz: mevcut kayıt teşhise dönüştürülür (tür + tarih). Aynı
+  /// gerçek iki satır olamaz ve AI belgesi §3'te çift listelemez.
+  Future<String> addDiagnosis({
+    required String label,
+    required String factDate,
+    String? note,
+    String? conditionId,
+  }) async {
+    if (conditionId != null) {
+      final existing =
+          await (_db.select(_db.medicalFacts)..where(
+                (t) =>
+                    t.conditionId.equals(conditionId) &
+                    t.kind.equals(MedicalFactKind.condition.name) &
+                    t.deletedAt.isNull(),
+              ))
+              .getSingleOrNull();
+      if (existing != null) {
+        await (_db.update(_db.medicalFacts)
+              ..where((t) => t.id.equals(existing.id)))
+            .write(
+              MedicalFactsCompanion(
+                kind: Value(MedicalFactKind.diagnosis.name),
+                factDate: Value(factDate),
+                note: note == null
+                    ? const Value.absent()
+                    : Value(note.trim()),
+                updatedAt: Value(DateTime.now().millisecondsSinceEpoch),
+              ),
+            );
+        return existing.id;
+      }
+    }
+
+    final id = await add(
+      kind: MedicalFactKind.diagnosis,
+      label: label,
+      note: note,
+      conditionId: conditionId,
+    );
+    await (_db.update(_db.medicalFacts)..where((t) => t.id.equals(id))).write(
+      MedicalFactsCompanion(
+        factDate: Value(factDate),
+        updatedAt: Value(DateTime.now().millisecondsSinceEpoch),
+      ),
+    );
     return id;
   }
 

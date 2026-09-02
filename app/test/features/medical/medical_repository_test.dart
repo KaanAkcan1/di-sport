@@ -61,4 +61,52 @@ void main() {
   test('bilinmeyen tür adı okuma sırasında hata verir — sessiz düşüş yok', () {
     expect(() => MedicalFactKind.fromName('surgery'), throwsArgumentError);
   });
+
+  group('tarihli teşhis (v3.1 §7)', () {
+    test('teşhis tarihle yazılır ve okunur', () async {
+      await repo.addDiagnosis(
+        label: 'İnsülin direnci tanısı',
+        factDate: '2026-03-12',
+        conditionId: 'insulinResistance',
+      );
+
+      final fact = (await repo.watchAll().first).single;
+      expect(fact.kind, MedicalFactKind.diagnosis);
+      expect(fact.factDate, '2026-03-12');
+      expect(fact.conditionId, 'insulinResistance');
+    });
+
+    test('aynı kimlikli condition varsa dönüştürülür, ikinci satır açılmaz',
+        () async {
+      await repo.add(
+        kind: MedicalFactKind.condition,
+        label: 'İnsülin direnci',
+        conditionId: 'insulinResistance',
+      );
+
+      await repo.addDiagnosis(
+        label: 'İnsülin direnci tanısı',
+        factDate: '2026-03-12',
+        conditionId: 'insulinResistance',
+      );
+
+      final facts = await repo.watchAll().first;
+      expect(facts, hasLength(1));
+      expect(facts.single.kind, MedicalFactKind.diagnosis);
+      expect(facts.single.factDate, '2026-03-12');
+      // Etiket korunur — kullanıcının yazdığı ad kaybolmaz.
+      expect(facts.single.label, 'İnsülin direnci');
+    });
+
+    test('serbest metinli teşhiste kimlik boş kalır', () async {
+      await repo.addDiagnosis(
+        label: 'Demir eksikliği',
+        factDate: '2026-01-05',
+      );
+
+      final fact = (await repo.watchAll().first).single;
+      expect(fact.conditionId, isNull);
+      expect(fact.kind, MedicalFactKind.diagnosis);
+    });
+  });
 }
