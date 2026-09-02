@@ -2549,6 +2549,38 @@ class AppLocalizationsTr extends AppLocalizations {
   String get moreBackup => 'Yedekleme';
 
   @override
+  String get sleepBlockTitle => 'Uyku';
+
+  @override
+  String get sleepBedLabel => 'Yatış';
+
+  @override
+  String get sleepWakeLabel => 'Kalkış';
+
+  @override
+  String get sleepNapLabel => 'Kestirme';
+
+  @override
+  String get sleepNapUnit => 'dk';
+
+  @override
+  String get sleepHoursOnlyLabel => 'Yalnız süre';
+
+  @override
+  String get sleepHoursUnit => 'sa';
+
+  @override
+  String sleepTotal(Object hours, Object minutes) {
+    return '$hours sa $minutes dk uyku';
+  }
+
+  @override
+  String get sleepPickTime => 'Saat seç';
+
+  @override
+  String get sleepClear => 'Saatleri temizle';
+
+  @override
   String get dayFlowEnterMeal => '+ GİR';
 
   @override

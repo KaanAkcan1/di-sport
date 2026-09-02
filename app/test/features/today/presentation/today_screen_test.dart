@@ -243,13 +243,20 @@ void main() {
       expect(field.controller?.text, '');
     });
 
-    testWidgets('uyku alanı ayrı', (tester) async {
+    testWidgets('uyku bloğu kayıtlı süreyi gösterir', (tester) async {
+      // v3.1: tek alan yerine uyku bloğu; yalnız-süre alanı eski
+      // davranışın devamı.
       await tester.pumpWidget(wrap(sleep: 6.5));
       await tester.pumpAndSettle();
       await expandFlow(tester);
 
+      await tester.scrollUntilVisible(
+        find.byKey(const Key('sleep-hours-only')),
+        300,
+        scrollable: find.byType(Scrollable).first,
+      );
       final field = tester.widget<TextField>(
-        find.byKey(const Key('sleep-field')),
+        find.byKey(const Key('sleep-hours-only')),
       );
       expect(field.controller?.text, '6,5');
     });

@@ -2554,6 +2554,38 @@ class AppLocalizationsEn extends AppLocalizations {
   String get moreBackup => 'Backup';
 
   @override
+  String get sleepBlockTitle => 'Sleep';
+
+  @override
+  String get sleepBedLabel => 'Bed';
+
+  @override
+  String get sleepWakeLabel => 'Wake';
+
+  @override
+  String get sleepNapLabel => 'Nap';
+
+  @override
+  String get sleepNapUnit => 'min';
+
+  @override
+  String get sleepHoursOnlyLabel => 'Duration only';
+
+  @override
+  String get sleepHoursUnit => 'h';
+
+  @override
+  String sleepTotal(Object hours, Object minutes) {
+    return '$hours h $minutes min of sleep';
+  }
+
+  @override
+  String get sleepPickTime => 'Pick time';
+
+  @override
+  String get sleepClear => 'Clear times';
+
+  @override
   String get dayFlowEnterMeal => '+ LOG';
 
   @override

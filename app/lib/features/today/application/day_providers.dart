@@ -11,11 +11,13 @@
 library;
 
 import 'package:disport/features/health/data/body_metric_table.dart';
+import 'package:disport/features/health/data/body_metrics_repository.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/plan/data/plan_repository.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/data/today_repository.dart';
+import 'package:disport/features/today/domain/sleep_duration.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'day_providers.g.dart';
@@ -110,3 +112,74 @@ DayPosition positionOf(String dateKey, String todayKey) {
 @riverpod
 DayPosition dayPosition(Ref ref, String dateKey) =>
     positionOf(dateKey, ref.watch(todayIsoProvider));
+
+/// Uyku yazımlarının **tek** noktası (v3.1 §2.2 — son yazan kazanır).
+///
+/// İki depo birden güncelleniyor: saatler `daily_logs`'a, türetilen
+/// süre `body_metrics.sleepHours`'a. İki ekran ayrı ayrı yazsaydı
+/// yarış doğar, iki ekran farklı süre gösterirdi. Widget testleri
+/// bunu sahtesiyle değiştirir — Drift'e bağlanmaz.
+@riverpod
+SleepWriter sleepWriter(Ref ref) => SleepWriter(
+  today: ref.watch(todayRepositoryProvider),
+  metrics: ref.watch(bodyMetricsRepositoryProvider),
+);
+
+class SleepWriter {
+  const SleepWriter({required this.today, required this.metrics});
+
+  final TodayRepository today;
+  final BodyMetricsRepository metrics;
+
+  /// Saat girişi: saatler yazılır, süre türetilip ölçüme geçirilir.
+  ///
+  /// İki saat de silindiyse türetilmiş `sleepHours` kaydı da silinir
+  /// (spec §2.2). Kısmi giriş (yalnız yatış) mevcut ölçüme dokunmaz —
+  /// kullanıcı henüz yazmayı bitirmedi.
+  Future<void> saveTimes(
+    String isoDate, {
+    required String? bedTime,
+    required String? wakeTime,
+    required int? napMinutes,
+  }) async {
+    await today.setSleepTimes(
+      isoDate,
+      bedTime: bedTime,
+      wakeTimeActual: wakeTime,
+      napMinutes: napMinutes,
+    );
+
+    final derived = sleepHoursFrom(
+      bedTime: bedTime,
+      wakeTime: wakeTime,
+      napMinutes: napMinutes,
+    );
+    if (derived != null) {
+      await metrics.upsert(
+        isoDate: isoDate,
+        kind: MetricKinds.sleepHours,
+        value: derived,
+        unit: 'sa',
+      );
+    } else if (bedTime == null && wakeTime == null) {
+      await metrics.delete(isoDate, MetricKinds.sleepHours);
+    }
+  }
+
+  /// Yalnız süre girişi (eski davranış): saatler temizlenir — saatle
+  /// çelişen bir süre iki yerde iki gerçek yaratırdı.
+  Future<void> saveHoursOnly(String isoDate, double hours) async {
+    await today.setSleepTimes(
+      isoDate,
+      bedTime: null,
+      wakeTimeActual: null,
+      napMinutes: null,
+    );
+    await metrics.upsert(
+      isoDate: isoDate,
+      kind: MetricKinds.sleepHours,
+      value: hours,
+      unit: 'sa',
+    );
+  }
+}

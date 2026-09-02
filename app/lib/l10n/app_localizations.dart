@@ -4645,6 +4645,66 @@ abstract class AppLocalizations {
   /// **'Yedekleme'**
   String get moreBackup;
 
+  /// No description provided for @sleepBlockTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Uyku'**
+  String get sleepBlockTitle;
+
+  /// No description provided for @sleepBedLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yatış'**
+  String get sleepBedLabel;
+
+  /// No description provided for @sleepWakeLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kalkış'**
+  String get sleepWakeLabel;
+
+  /// No description provided for @sleepNapLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kestirme'**
+  String get sleepNapLabel;
+
+  /// No description provided for @sleepNapUnit.
+  ///
+  /// In tr, this message translates to:
+  /// **'dk'**
+  String get sleepNapUnit;
+
+  /// No description provided for @sleepHoursOnlyLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yalnız süre'**
+  String get sleepHoursOnlyLabel;
+
+  /// No description provided for @sleepHoursUnit.
+  ///
+  /// In tr, this message translates to:
+  /// **'sa'**
+  String get sleepHoursUnit;
+
+  /// No description provided for @sleepTotal.
+  ///
+  /// In tr, this message translates to:
+  /// **'{hours} sa {minutes} dk uyku'**
+  String sleepTotal(Object hours, Object minutes);
+
+  /// No description provided for @sleepPickTime.
+  ///
+  /// In tr, this message translates to:
+  /// **'Saat seç'**
+  String get sleepPickTime;
+
+  /// No description provided for @sleepClear.
+  ///
+  /// In tr, this message translates to:
+  /// **'Saatleri temizle'**
+  String get sleepClear;
+
   /// No description provided for @dayFlowEnterMeal.
   ///
   /// In tr, this message translates to:

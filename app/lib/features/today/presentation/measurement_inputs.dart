@@ -4,16 +4,18 @@ import 'package:disport/core/utils/turkish_number.dart';
 import 'package:disport/features/health/data/body_metric_table.dart';
 import 'package:disport/features/today/application/day_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
+import 'package:disport/features/today/presentation/sleep_block.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Sabah tartısı ve uyku süresi.
+/// Sabah tartısı ve uyku bloğu.
 ///
 /// Ekranın en üstünde: PDF'in "her sabah tuvaletten sonra, aç karnına
 /// tart" talimatı günün ilk işi ve uygulamanın en sık dokunulan yeri.
 ///
-/// İkisi de `body_metrics`'e yazılır, `daily_logs`'a değil (spec 6).
+/// v3.1: uyku tek "saat" alanından [SleepBlock]'a çıktı — yatış/kalkış
+/// gerçeği ve kestirme de giriliyor (spec v3.1 §2).
 class MeasurementInputs extends ConsumerWidget {
   const MeasurementInputs({super.key});
 
@@ -22,42 +24,26 @@ class MeasurementInputs extends ConsumerWidget {
     final iso = ref.watch(viewedDateProvider);
     final repository = ref.watch(bodyMetricsRepositoryProvider);
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Expanded(
-          child: _MetricField(
-            fieldKey: const Key('weight-field'),
-            icon: Icons.monitor_weight_outlined,
-            label: context.l10n.todayWeightLabel,
-            unit: context.l10n.todayWeightUnit,
-            value: ref.watch(dayWeightProvider(iso)),
-            // Kaydedilen birim arayüz dilinden bağımsız: veri sabit
-            // kalmalı, ekranda görünen etiket çevrilir.
-            onSubmitted: (value) => repository.upsert(
-              isoDate: iso,
-              kind: MetricKinds.weight,
-              value: value,
-              unit: 'kg',
-            ),
+        _MetricField(
+          fieldKey: const Key('weight-field'),
+          icon: Icons.monitor_weight_outlined,
+          label: context.l10n.todayWeightLabel,
+          unit: context.l10n.todayWeightUnit,
+          value: ref.watch(dayWeightProvider(iso)),
+          // Kaydedilen birim arayüz dilinden bağımsız: veri sabit
+          // kalmalı, ekranda görünen etiket çevrilir.
+          onSubmitted: (value) => repository.upsert(
+            isoDate: iso,
+            kind: MetricKinds.weight,
+            value: value,
+            unit: 'kg',
           ),
         ),
-        const SizedBox(width: AppSpacing.md),
-        Expanded(
-          child: _MetricField(
-            fieldKey: const Key('sleep-field'),
-            icon: Icons.bedtime_outlined,
-            label: context.l10n.todaySleepLabel,
-            unit: context.l10n.todaySleepUnit,
-            value: ref.watch(daySleepProvider(iso)),
-            onSubmitted: (value) => repository.upsert(
-              isoDate: iso,
-              kind: MetricKinds.sleepHours,
-              value: value,
-              unit: 'sa',
-            ),
-          ),
-        ),
+        const SizedBox(height: AppSpacing.xl),
+        const SleepBlock(),
       ],
     );
   }
