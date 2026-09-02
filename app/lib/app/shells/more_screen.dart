@@ -49,8 +49,12 @@ class MoreScreen extends StatelessWidget {
                 icon: LucideIcons.user,
                 area: AppArea.neutral,
                 title: l10n.moreProfile,
+                // ProfileForm kendi ListView'ini kuruyor; _SectionPage'in
+                // SingleChildScrollView'ine sarılırsa yüksekliği sınırsız
+                // kalır ve ekran hiç çizilmez (boş ekran, geri yok).
                 screen: (context) => _SectionPage(
                   title: l10n.moreProfile,
+                  scrollable: false,
                   child: const ProfileForm(),
                 ),
               ),
@@ -175,17 +179,31 @@ class _MoreRow extends StatelessWidget {
 /// Bildirim, görünüm ve yedek bölümleri eskiden Ayarlar listesinin
 /// içindeydi; ayrı ekrana taşınınca sayfa iskeletine ihtiyaç duydular.
 class _SectionPage extends StatelessWidget {
-  const _SectionPage({required this.title, required this.child});
+  const _SectionPage({
+    required this.title,
+    required this.child,
+    this.scrollable = true,
+  });
 
   final String title;
   final Widget child;
 
+  /// Çocuk kendi kaydırmasını kuruyorsa (ör. `ProfileForm`'un
+  /// `ListView`'i) false geç: kaydırılabilir bir widget'ı
+  /// `SingleChildScrollView`'e sarmak sınırsız yükseklik hatasıyla
+  /// ekranı boş bırakır.
+  final bool scrollable;
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(title: Text(title)),
-    body: SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenH),
-      child: child,
-    ),
+    body: scrollable
+        ? SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.screenH,
+            ),
+            child: child,
+          )
+        : child,
   );
 }

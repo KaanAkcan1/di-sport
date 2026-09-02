@@ -59,6 +59,7 @@ class RulesEditorScreen extends ConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'fab-rules',
         key: const Key('add-rule-fab'),
         onPressed: () => _openSheet(context, ref),
         icon: const Icon(Icons.add),

@@ -60,6 +60,7 @@ class WeeklyScheduleScreen extends ConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'fab-windows',
         key: const Key('add-window-fab'),
         onPressed: () => showModalBottomSheet<void>(
           context: context,

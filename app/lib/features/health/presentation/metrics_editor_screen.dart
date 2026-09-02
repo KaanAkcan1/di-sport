@@ -55,6 +55,7 @@ class MetricsEditorScreen extends ConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'fab-metrics',
         key: const Key('add-metric-fab'),
         onPressed: () => _openSheet(context),
         icon: const Icon(Icons.add),

@@ -50,7 +50,7 @@ class LocalNotificationService implements NotificationService {
     tz.setLocalLocation(tz.getLocation(zone.identifier));
 
     await _plugin.initialize(
-      const InitializationSettings(
+      settings: const InitializationSettings(
         android: AndroidInitializationSettings('@mipmap/ic_launcher'),
         iOS: DarwinInitializationSettings(
           // İzin ayrı isteniyor (`requestPermissions`); açılışta sormak
@@ -131,11 +131,11 @@ class LocalNotificationService implements NotificationService {
 
     for (final reminder in reminders) {
       await _plugin.zonedSchedule(
-        reminder.id,
-        reminder.title,
-        reminder.body,
-        tz.TZDateTime.from(reminder.fireAt, tz.local),
-        _details,
+        id: reminder.id,
+        title: reminder.title,
+        body: reminder.body,
+        scheduledDate: tz.TZDateTime.from(reminder.fireAt, tz.local),
+        notificationDetails: _details,
         androidScheduleMode: mode,
         payload: reminder.payload,
       );

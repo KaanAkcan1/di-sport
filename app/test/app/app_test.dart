@@ -237,6 +237,28 @@ void main() {
     expect(find.text('KATALOG'), findsOneWidget);
   });
 
+  testWidgets('Daha > Profil açılır ve geri dönülür', (tester) async {
+    await tester.pumpWidget(wrap());
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Daha'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Profil'));
+    await tester.pumpAndSettle();
+
+    // Cihazda yakalanan iki kusur: (1) ProfileForm'un ListView'i
+    // SingleChildScrollView'e sarılınca ekran hiç çizilmiyordu;
+    // (2) kabuğun canlı ekranlarındaki FAB'lar varsayılan Hero
+    // etiketini paylaşınca sayfa geçişi patlıyordu. İkisi de boş
+    // ekran + geri dönememe olarak görünüyordu.
+    expect(tester.takeException(), isNull);
+    expect(find.byKey(const Key('field-age')), findsOneWidget);
+
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+    expect(find.text('Ekipmanların'), findsOneWidget);
+  });
+
   testWidgets('IndexedStack keeps all five screens alive', (tester) async {
     await tester.pumpWidget(wrap());
     await tester.pumpAndSettle();

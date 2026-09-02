@@ -35,6 +35,7 @@ class SupplementsScreen extends ConsumerWidget {
       backgroundColor: embedded ? Colors.transparent : null,
       appBar: embedded ? null : AppBar(title: Text(l10n.supplementsTitle)),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'fab-supplements',
         key: const Key('add-supplement-fab'),
         onPressed: () => showSupplementForm(context, ref),
         icon: const Icon(Icons.add),

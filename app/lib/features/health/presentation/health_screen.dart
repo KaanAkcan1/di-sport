@@ -85,6 +85,7 @@ class HealthScreen extends ConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'fab-labs',
         key: const Key('add-lab-fab'),
         onPressed: () => showModalBottomSheet<void>(
           context: context,

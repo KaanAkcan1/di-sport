@@ -49,6 +49,7 @@ class _EquipmentScreenState extends ConsumerState<EquipmentScreen> {
       floatingActionButton: _segment == 2
           ? null
           : FloatingActionButton.extended(
+              heroTag: 'fab-equipment',
               key: const Key('add-equipment-fab'),
               onPressed: () => _addEquipment(context, ref),
               icon: const Icon(Icons.add),
