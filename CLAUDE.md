@@ -615,8 +615,14 @@ Kurallar, ölçüm türleri ve ekipman aynı desende:
 
 ### Bilinen boşluklar
 
-- **Uygulama ikonu ve açılış ekranı hâlâ Flutter varsayılanı.** Planlarda
-  yoktu; ürüne çıkmadan eklenmeli.
+- **Uygulama ikonu ve açılış ekranı hâlâ Flutter varsayılanı.** Marka
+  artık hazır: **Formality** (V2a "nabız onayı" ikonu + Palet A "Gece
+  Grafiti"), varlıklar `docs/brand/assets/` içinde (adaptif ikon
+  katmanları, Play Store 512, splash). Android/iOS entegrasyonu ayrı
+  bir iş olarak bekliyor. Marka belgeleri:
+  `docs/superpowers/specs/2026-09-02-marka-formality.md` (karar) ·
+  `...-formality-marka-stratejisi.md` (strateji) ·
+  `...-formality-gorsel-kimlik.md` (kimlik).
 - **BYOK (M5 Task 8) yapılmadı** — isteğe bağlı işaretliydi. Kopyala-yapıştır
   yolu çalışıyor; doğrudan Gemini çağrısı eklenirse mevcut doğrulama
   akışına girmeli, ayrı yol açılmamalı. Onay kapısı şart (spec 7.5).

@@ -1,6 +1,7 @@
 # FORMALITY — Görsel Kimlik Brifi
 
-**Tarih:** 2026-09-02 · **Durum:** Onaylandı (palet B; A yedekte) ·
+**Tarih:** 2026-09-02 · **Durum:** Onaylandı (palet A "Gece Grafiti";
+B yedekte · logo **V2a**) ·
 **Bağlantı:** [Marka stratejisi](2026-09-02-formality-marka-stratejisi.md)
 
 **Taşıyıcı karar:** Marka ekrana uymaz, ekran markaya uyar. Tek sabit
@@ -26,7 +27,7 @@ konumlanır.
 yaşar.
 
 **Konsept — "Onay damgası aslında nabız":** Yuvarlatılmış kare, koyu
-mürekkep zemin (`#141F1B`); üzerinde Vue yeşili tek fırça hattı —
+zemin (`#0F1B16`); üzerinde Vue yeşili tek fırça hattı —
 soldan **onay işareti (✓)** olarak başlar, sağa doğru **grafik/nabız
 çizgisine** uzar. Damga estetiği: hafif dokulu baskı hissi
 düşünülebilir (aşırıya kaçmadan). İki anlam tek harekette: "onaylandı"
@@ -46,30 +47,39 @@ disiplini).
 
 ---
 
-## 03 — Renk: Palet B "Form Kâğıdı" (seçildi)
+## 03 — Renk: Palet A "Gece Grafiti" (seçildi)
 
 | Rol | Renk | Hex |
 |---|---|---|
 | Marka / damga | Vue yeşili **(sabit)** | `#42B883` |
-| Mürekkep (metin/koyu vurgu) | Yeşilimsi kara mürekkep | `#1C2B26` |
-| Zemin (açık tema) | Form kâğıdı kremi | `#F4EFE6` |
-| Zemin (koyu tema) | Mürekkep karası | `#141F1B` |
-| Kıl çizgi / ayraç | Kâğıt grisi | `#D8D2C4` |
+| Zemin (koyu tema, varsayılan) | Yeşil alttonlu is-siyahı | `#0F1B16` |
+| Yüzey katmanı (koyu) | Bir ton açığı | `#16241E` |
+| Metin (koyu zeminde) | Kırık beyaz | `#EDF2EF` |
+| Zemin (açık tema) | Soğuk kırık beyaz | `#F2F5F3` |
+| Kıl çizgi / ayraç (açık) | Soğuk gri | `#D3DBD6` |
+| İkincil metin (açık) | Yeşilimsi gri | `#5E6E66` |
 
-Konsept: krem "form kâğıdı" + koyu "mürekkep" + yeşil "ONAYLANDI
-damgası". Sağlık kategorisinde sahibi olmayan bir estetik; hikâye,
-renk ve espri tek sistemde.
+Yeşil, kendi ailesinden bir siyahın üstünde en sert parlar —
+koyu-öncelikli, stüdyo özgüveni. Damga/onay hikâyesi logoda yaşamaya
+devam eder; kâğıt dokusu palete taşınmaz. Bilinen risk: yeşil+siyah
+Spotify çağrışımı — ton farkı ve damga konseptiyle yönetilir.
 
 **Sinyal renkleri:** Amber (eksik) ve kızıl (aşım) markanın değil
 arayüzün renkleridir; yalnız anlam taşır, marka yüzeylerinde
 kullanılmaz. Kontrast eşikleri (metin 4.5:1, arayüz 3:1) palet
 uygulamaya taşınırken `contrast_test.dart` ile doğrulanacak.
 
-### Yedek: Palet A "Gece Grafiti" (cepte)
+### Yedek: Palet B "Form Kâğıdı" (cepte)
 
-Zemin `#0F1B16` (yeşil alttonlu is-siyahı), yüzey `#16241E`, metin
-`#EDF2EF`, açık zemin `#F2F5F3`. B sahada beklenen etkiyi vermezse
-dönülecek yön; riski Spotify çağrışımı (yeşil+siyah).
+Krem `#F4EFE6` + mürekkep `#1C2B26` + kâğıt grisi `#D8D2C4` — "form
+kâğıdı + damga" dünyası. Açık temaya sıcaklık istenirse dönülecek yön;
+karşılaştırma: `docs/brand/2026-09-02-palet-karsilastirma.png`.
+
+### Logo: V2a (seçildi)
+
+"Nabız onayı" — EKG hattının derin vuruşu onay işaretinin kendisi;
+30 birimlik kalın çizgi, vuruş ortada. Varyasyonlar:
+`docs/brand/2026-09-02-v2-varyasyonlar-paletA.png`.
 
 ---
 
@@ -89,7 +99,7 @@ dönülecek yön; riski Spotify çağrışımı (yeşil+siyah).
 
 Duotone boru hattı (kırp + iki ton + başlangıç/bitiş karesi) markanın
 görsel imzası; tanıtım görselleri de aynı işlemden geçer. Duotone
-renkleri yeni palete güncellenir: mürekkep `#1C2B26` + yeşil.
+renkleri yeni palete güncellenir: is-siyahı `#0F1B16` + yeşil.
 Fotoğraf belgesel ve gerçekçi; kusursuz vücut, stüdyo teri, motivasyon
 klişesi yok. Konular: ürün ekranları, çizelge/veri motifleri, gündelik
 nesneler (tartı, defter, su şişesi).
@@ -134,14 +144,15 @@ metin vardır.
 
 ## 08 — Marka Yüzeyleri
 
-- **Uygulama ikonu:** `#141F1B` zemin + yeşil onay-nabız damgası;
-  temadan bağımsız tek ikon.
-- **Açılış ekranı:** Düz mürekkep zemin, ortada damga, altında Barlow
+- **Uygulama ikonu:** `#0F1B16` zemin + yeşil onay-nabız damgası
+  (V2a); temadan bağımsız tek ikon.
+- **Açılış ekranı:** Düz is-siyahı zemin, ortada damga, altında Barlow
   "Formality"; animasyon yoksa da olur, varsa tek yumuşak belirme.
 - **Mağaza vitrini:** Ekran görüntüleri + her karede tek kahraman
-  rakam + tek satır espri ("Forma girmek? Formalite."); form kâğıdı
+  rakam + tek satır espri ("Forma girmek? Formalite."); koyu stüdyo
   çerçeve dili.
-- **Sosyal medya:** Krem ya da mürekkep kartlar, büyük Barlow rakam,
+- **Sosyal medya:** İs-siyahı ya da soğuk beyaz kartlar, büyük Barlow
+  rakam,
   Inter alt metin; kampanya sesi: "Sağlık ciddi iş. Biz değiliz."
 - **README / web:** Mürekkep zemin, tek yeşil vurgu, ekran görüntüsü
   öncelikli; başlıkta mimari dürüstlük (çevrimdışı, veri sende).
