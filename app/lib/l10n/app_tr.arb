@@ -731,6 +731,7 @@
   "mealBehaviorTimeClear": "Saati kaldır",
   "mealBehaviorWhy": "Bu bilgi yapay zekâ planına gider: sabit öğün değiştirilmez, dışarıda yenen öğün planlanmaz.",
   "settingsProfileHeightRequired": "Boy alanı gerekli.",
+  "settingsProfileMovedNote": "İş düzeni ve saatler Günlük Düzen'de, ekipman Ekipmanların'da, sağlık kısıtları Medikal'de düzenlenir — hepsi Daha sekmesinde.",
   "settingsProfileContextNote": "Bu bilgiler yapay zekâya gönderilen bağlam dosyasına girer. Ne kadar doldurursan plan o kadar sana göre olur; boş bıraktıkların \"belirtilmedi\" diye geçer.",
   "importPlanTitle": "Planı içeri al",
   "importPlanDescription": "Yapay zekânın verdiği JSON belgesini buraya yapıştır.",

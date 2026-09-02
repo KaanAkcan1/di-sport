@@ -1604,6 +1604,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsProfileHeightRequired => 'Height is required.';
 
   @override
+  String get settingsProfileMovedNote =>
+      'Work schedule and hours live in Daily Rhythm, equipment in Your Equipment, health constraints in Medical — all under the More tab.';
+
+  @override
   String get settingsProfileContextNote =>
       'This information goes into the context file sent to the AI. The more you fill in, the more the plan fits you; whatever you leave blank is reported as \"not specified\".';
 

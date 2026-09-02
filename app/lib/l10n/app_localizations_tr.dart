@@ -1601,6 +1601,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsProfileHeightRequired => 'Boy alanı gerekli.';
 
   @override
+  String get settingsProfileMovedNote =>
+      'İş düzeni ve saatler Günlük Düzen\'de, ekipman Ekipmanların\'da, sağlık kısıtları Medikal\'de düzenlenir — hepsi Daha sekmesinde.';
+
+  @override
   String get settingsProfileContextNote =>
       'Bu bilgiler yapay zekâya gönderilen bağlam dosyasına girer. Ne kadar doldurursan plan o kadar sana göre olur; boş bıraktıkların \"belirtilmedi\" diye geçer.';
 

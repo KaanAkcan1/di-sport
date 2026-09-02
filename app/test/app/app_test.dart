@@ -250,7 +250,7 @@ void main() {
     // etiketini paylaşınca sayfa geçişi patlıyordu. İkisi de boş
     // ekran + geri dönememe olarak görünüyordu.
     expect(tester.takeException(), isNull);
-    expect(find.byKey(const Key('field-age')), findsOneWidget);
+    expect(find.byKey(const Key('field-heightCm')), findsOneWidget);
 
     await tester.tap(find.byType(BackButton));
     await tester.pumpAndSettle();

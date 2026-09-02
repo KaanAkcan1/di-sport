@@ -28,45 +28,27 @@ abstract final class ProfileKeys {
   static const equipmentAtHome = 'equipmentAtHome';
   static const healthConstraints = 'healthConstraints';
 
-  /// Onboarding formundaki sıra ve etiketler.
-  /// **Onboarding** formu — ilk açılışta sorulanlar.
+  /// **Ayarlar** formu — yalnız ölçüler.
   ///
-  /// Uyanma ve uyku saati burada **kalıyor**: girilmezse sabah tartı
-  /// alarmı sessizce kurulmuyor ve kullanıcı bunu asla fark etmiyor.
-  /// İlk açılışta bir kez sormak, sonradan hiç sormamaktan iyi.
-  /// Kalıcı düzenleme yeri Günlük Düzen ekranı.
-  static const onboardingForm = <(String, String, String)>[
-    (age, 'Yaş', ''),
-    (heightCm, 'Boy', 'cm'),
-    (currentWeightKg, 'Şu anki kilo', 'kg'),
-    (targetWeightKg, 'Hedef kilo', 'kg'),
-    (wakeTime, 'Uyanma saati', 'örn. 06:11'),
-    (sleepTime, 'Uyku saati', 'örn. 23:45'),
-    (workSchedule, 'İş düzeni', 'örn. Fabrika, 07:30-17:30'),
-    (equipmentAtHome, 'Evdeki ekipman', 'örn. direnç bandı, sandalye'),
-    (healthConstraints, 'Sağlık kısıtları', 'örn. diz hassasiyeti'),
-  ];
-
-  /// **Ayarlar** formu — yalnız kimlik ve ölçü.
+  /// Kalanların hepsinin v3'te kendi evi var ve form oradan taşınanı
+  /// ikinci kez sormaz (kullanıcı bildirimi, v3.1 sonrası temizlik):
   ///
-  /// Saatler Günlük Düzen'e taşındı: kalkış, uyku, mesai ve uygun
-  /// olunmayan saatler tek bir sorunun parçaları ("haftan nasıl
-  /// geçiyor") ve dördünü iki ayrı ekrana bölmek aynı bilgiyi iki
-  /// yerden girdirirdi.
+  /// - **Yaş** doğum tarihinden türetilir (sihirbaz soruyor); elle
+  ///   girilen yaş her yıl bayatlar. Eski `age` anahtarı yalnız yedek.
+  /// - **İş düzeni ve saatler** → Günlük Düzen (mesai/yasaklı pencere).
+  /// - **Evdeki ekipman** → Ekipmanların (tipli envanter; serbest metin
+  ///   `canPerform` süzgecine giremiyordu).
+  /// - **Sağlık kısıtları** → Medikal (kimlikli kısıtlar; motorlar
+  ///   serbest metni okuyamıyor).
+  /// - **Aile yemeği saati** M10'da kaldırılmıştı.
   ///
-  /// **Aile yemeği saati kaldırıldı.** Serbest metindi, hiçbir hesaba
-  /// girmiyordu ve `context.md` onu olduğu gibi AI'a yapıştırıyordu;
-  /// bir alanın tek işlevi "AI belki dikkate alır" ise o alan
-  /// kullanıcının vaktini alıyor demektir. Veri `profile_entries`'te
-  /// duruyor — eski kurulumlarda kayıp yok, yalnız yeni girilemiyor.
+  /// Eski anahtarların verisi `profile_entries`'te duruyor — eski
+  /// kurulumlarda kayıp yok, yalnız yeni girilemiyor; `context.md`
+  /// doluysa basmaya devam ediyor.
   static const form = <(String, String, String)>[
-    (age, 'Yaş', ''),
     (heightCm, 'Boy', 'cm'),
     (currentWeightKg, 'Şu anki kilo', 'kg'),
     (targetWeightKg, 'Hedef kilo', 'kg'),
-    (workSchedule, 'İş düzeni', 'örn. Fabrika, 07:30-17:30'),
-    (equipmentAtHome, 'Evdeki ekipman', 'örn. direnç bandı, sandalye'),
-    (healthConstraints, 'Sağlık kısıtları', 'örn. diz hassasiyeti'),
   ];
 }
 
@@ -242,9 +224,13 @@ class ContextMdBuilder {
         '- Uyanma: ${value(ProfileKeys.wakeTime)} · '
         'Uyku: ${value(ProfileKeys.sleepTime)}',
       )
-      ..writeln('- İş düzeni: ${value(ProfileKeys.workSchedule)}')
-      ..writeln('- Salona erişim: ${value(ProfileKeys.gymAccessHours)}')
-      ..writeln();
+      ..writeln('- Salona erişim: ${value(ProfileKeys.gymAccessHours)}');
+    // Eski serbest alan: formdan kalktı (gerçek kaynak §5'teki
+    // pencereler); eski kurulumda değer varsa basılmaya devam eder.
+    if (data[ProfileKeys.workSchedule]?.trim().isNotEmpty ?? false) {
+      buffer.writeln('- İş düzeni: ${data[ProfileKeys.workSchedule]}');
+    }
+    buffer.writeln();
   }
 
   /// Medikal bölüm (v3 §9.3/2): durumlar + tahliller + ilaçlar, sınır

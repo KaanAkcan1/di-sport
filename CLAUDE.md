@@ -629,7 +629,11 @@ Kurallar, ölçüm türleri ve ekipman aynı desende:
 - **Uyku çift kaynağı `SleepWriter`'dan geçer.** Saatler `daily_logs`'ta,
   türetilen süre `body_metrics.sleepHours`'ta; son yazan kazanır. Yeni
   bir uyku yazma yolu açma — koordinatör `day_providers.dart`'ta.
-- **`profile_entries.familyDinnerTime` yazılamıyor.** Alan formdan
-  kalktı ama veri duruyor; `context.md` onu hâlâ basıyor. Eski
-  kurulumlarda değer varsa AI görmeye devam eder, yeni kurulumda hiç
-  dolmaz.
+- **Profil formu yalnız ölçüler** (v3.1 sonrası temizlik, kullanıcı
+  bildirimi): yaş doğum tarihinden türetilir; iş düzeni → Günlük
+  Düzen, evdeki ekipman → Ekipmanların, sağlık kısıtları → Medikal.
+  Eski anahtarlar (`age`, `workSchedule`, `equipmentAtHome`,
+  `healthConstraints`, `familyDinnerTime`) `profile_entries`'te
+  duruyor ve `context.md` doluysa basmaya devam ediyor — yeni
+  kurulumda hiç dolmazlar. Forma alan geri ekleme; yeni bilgi kendi
+  feature'ına gider.

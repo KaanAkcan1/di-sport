@@ -6,15 +6,13 @@ import 'package:disport/features/reminders/application/reminder_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Profil ve yaşam tarzı formu.
+/// Profil formu — yalnız ölçüler (v3.1 sonrası temizlik).
 ///
-/// Hem ilk açılışta (onboarding) hem Ayarlar'da aynı form kullanılıyor:
-/// alanların sırası ve etiketleri [ProfileKeys.form]'da tanımlı, iki
-/// ekranın ayrışması mümkün değil.
-///
-/// Bu alanlar `context.md`'nin birinci ve üçüncü bölümünü besliyor;
-/// eksik doldurulmuş bir profil AI'a "belirtilmedi" olarak gidiyor ve
-/// plan jenerikleşiyor. O yüzden form neden sorulduğunu açıklıyor.
+/// İş düzeni, ekipman ve sağlık kısıtları buradan taşındı: gerçek
+/// evleri Günlük Düzen, Ekipmanların ve Medikal. Aynı bilgiyi iki
+/// yerden sormak iki gerçek üretiyordu ve serbest metin sürümleri
+/// hiçbir motora giremiyordu. Formun altındaki not kullanıcıyı yeni
+/// adreslere yönlendiriyor.
 class ProfileForm extends ConsumerStatefulWidget {
   const ProfileForm({
     super.key,
@@ -24,12 +22,7 @@ class ProfileForm extends ConsumerStatefulWidget {
     this.fields = ProfileKeys.form,
   });
 
-  /// Hangi alanlar sorulacak.
-  ///
-  /// Onboarding tam listeyi ([ProfileKeys.onboardingForm]), Ayarlar
-  /// sade listeyi kullanıyor — saatler Günlük Düzen'e taşındı ama ilk
-  /// açılışta bir kez sorulmaları gerekiyor (girilmezse sabah alarmı
-  /// sessizce kurulmuyor).
+  /// Hangi alanlar sorulacak — varsayılan [ProfileKeys.form].
   final List<(String, String, String)> fields;
 
   /// Onboarding'de kabuğa geçmek için; Ayarlar'da null.
@@ -146,7 +139,6 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
               controller: _controllerFor(key),
               keyboardType: _keyboardFor(key),
               textCapitalization: TextCapitalization.sentences,
-              maxLines: key == ProfileKeys.healthConstraints ? 2 : 1,
               decoration: InputDecoration(
                 labelText: key == ProfileKeys.heightCm ? '$label *' : label,
                 hintText: hint.isEmpty ? null : hint,
@@ -155,6 +147,15 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
             ),
           ),
 
+        Padding(
+          padding: const EdgeInsets.only(bottom: AppSpacing.lg),
+          child: Text(
+            context.l10n.settingsProfileMovedNote,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ),
         const SizedBox(height: AppSpacing.sm),
         FilledButton(
           key: const Key('save-profile-button'),
@@ -171,7 +172,6 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
   }
 
   TextInputType _keyboardFor(String key) => switch (key) {
-    ProfileKeys.age ||
     ProfileKeys.heightCm => TextInputType.number,
     ProfileKeys.currentWeightKg ||
     ProfileKeys.targetWeightKg => const TextInputType.numberWithOptions(

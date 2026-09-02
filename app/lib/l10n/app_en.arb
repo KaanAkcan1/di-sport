@@ -731,6 +731,7 @@
   "mealBehaviorTimeClear": "Clear time",
   "mealBehaviorWhy": "This goes into the AI plan: a fixed meal is left untouched, an external meal is never planned.",
   "settingsProfileHeightRequired": "Height is required.",
+  "settingsProfileMovedNote": "Work schedule and hours live in Daily Rhythm, equipment in Your Equipment, health constraints in Medical — all under the More tab.",
   "settingsProfileContextNote": "This information goes into the context file sent to the AI. The more you fill in, the more the plan fits you; whatever you leave blank is reported as \"not specified\".",
   "importPlanTitle": "Import plan",
   "importPlanDescription": "Paste the JSON document the AI gave you here.",

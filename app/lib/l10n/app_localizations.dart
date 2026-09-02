@@ -2918,6 +2918,12 @@ abstract class AppLocalizations {
   /// **'Boy alanı gerekli.'**
   String get settingsProfileHeightRequired;
 
+  /// No description provided for @settingsProfileMovedNote.
+  ///
+  /// In tr, this message translates to:
+  /// **'İş düzeni ve saatler Günlük Düzen\'de, ekipman Ekipmanların\'da, sağlık kısıtları Medikal\'de düzenlenir — hepsi Daha sekmesinde.'**
+  String get settingsProfileMovedNote;
+
   /// No description provided for @settingsProfileContextNote.
   ///
   /// In tr, this message translates to:
