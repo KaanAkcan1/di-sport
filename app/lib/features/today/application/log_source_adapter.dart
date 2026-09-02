@@ -79,6 +79,45 @@ class LogSourceAdapter implements LogSource {
   }
 
   @override
+  Future<List<DayRealityDump>> reality({required int lastDays}) async {
+    final range = _range(lastDays);
+    final logs = await today.rowsBetween(range.from, range.to);
+
+    final dates = logs.keys.toList()..sort();
+    return [
+      for (final date in dates)
+        () {
+          final log = logs[date]!;
+          return DayRealityDump(
+            date: date,
+            bedTime: log.bedTime,
+            wakeTime: log.wakeTimeActual,
+            napMinutes: log.napMinutes,
+            moodScore: log.moodScore,
+            symptoms: log.symptoms.trim(),
+            stressedDay: log.stressedDay,
+            skippedMeals: log.skippedMeals,
+          );
+        }(),
+    ].where((dump) => !dump.isEmpty).toList();
+  }
+
+  @override
+  Future<List<SessionDump>> sessions({required int lastDays}) async {
+    final range = _range(lastDays);
+    final rows = await workout.listSessionsBetween(range.from, range.to);
+    return [
+      for (final row in rows)
+        SessionDump(
+          date: row.date,
+          minutes: row.minutes,
+          rpe: row.rpe,
+          painNote: row.painNote,
+        ),
+    ];
+  }
+
+  @override
   Future<List<SetActualDump>> actuals({required int lastDays}) async {
     final range = _range(lastDays);
     final logs = await workout.logsBetween(range.from, range.to);

@@ -54,6 +54,58 @@ class SetActualDump {
   final int? durationSec;
 }
 
+/// Bir günün gerçeklik dökümü (v3.1 §8) — uyku saatleri, his,
+/// belirti, stres, atlanan öğünler. `sleepHours` burada değil:
+/// o bir `body_metrics` serisi ve `HealthSource` zaten taşıyor.
+class DayRealityDump {
+  const DayRealityDump({
+    required this.date,
+    this.bedTime,
+    this.wakeTime,
+    this.napMinutes,
+    this.moodScore,
+    this.symptoms = '',
+    this.stressedDay = false,
+    this.skippedMeals = const {},
+  });
+
+  final String date;
+  final String? bedTime;
+  final String? wakeTime;
+  final int? napMinutes;
+  final int? moodScore;
+  final String symptoms;
+  final bool stressedDay;
+
+  /// `MealKind.name` → neden.
+  final Map<String, String> skippedMeals;
+
+  /// Belgeye girecek bir şey var mı — tamamen boş gün yazılmaz.
+  bool get isEmpty =>
+      bedTime == null &&
+      wakeTime == null &&
+      napMinutes == null &&
+      moodScore == null &&
+      symptoms.isEmpty &&
+      !stressedDay &&
+      skippedMeals.isEmpty;
+}
+
+/// Kapanmış bir antrenman seansı (v3.1 §8) — süre + değerlendirme.
+class SessionDump {
+  const SessionDump({
+    required this.date,
+    required this.minutes,
+    this.rpe,
+    this.painNote = '',
+  });
+
+  final String date;
+  final int minutes;
+  final int? rpe;
+  final String painNote;
+}
+
 /// Günlük kayıtlar ve antrenman gerçekleşmeleri.
 abstract interface class LogSource {
   Future<List<DayCompliance>> compliance({required int lastDays});
@@ -67,6 +119,13 @@ abstract interface class LogSource {
   });
 
   Future<List<SetActualDump>> actuals({required int lastDays});
+
+  /// Gün gün gerçeklik (v3.1 §8) — yalnız dolu günler.
+  Future<List<DayRealityDump>> reality({required int lastDays});
+
+  /// Kapanmış seanslar RPE ve ağrı notuyla (v3.1 §8) — seans kavramı
+  /// başka hiçbir portta yok.
+  Future<List<SessionDump>> sessions({required int lastDays});
 }
 
 /// Tarihli sayısal ölçüm.
@@ -199,12 +258,20 @@ abstract interface class AvailabilitySource {
 
 /// Medikal gerçek dökümü.
 class MedicalFactDump {
-  const MedicalFactDump({required this.kind, required this.label, this.note});
+  const MedicalFactDump({
+    required this.kind,
+    required this.label,
+    this.note,
+    this.factDate,
+  });
 
-  /// `condition` | `restriction` | `allergy` | `bloodType`.
+  /// `condition` | `diagnosis` | `restriction` | `allergy` | `bloodType`.
   final String kind;
   final String label;
   final String? note;
+
+  /// Teşhis tarihi (v3.1 §7); diğer türlerde null.
+  final String? factDate;
 }
 
 abstract interface class MedicalSource {

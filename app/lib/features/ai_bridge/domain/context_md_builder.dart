@@ -84,7 +84,7 @@ enum ContextSection {
   foods,
 }
 
-/// Yedi bölümlü `context.md` üretir (spec 7.1).
+/// Dokuz bölümlü `context.md` üretir (v3 §9.3, v3.1 §8).
 ///
 /// Sağlayıcı bağımsız: çıktı herhangi bir AI sohbetine yapıştırılabilir.
 /// Uygulama hangi AI'ın kullanıldığını bilmez.
@@ -138,6 +138,8 @@ class ContextMdBuilder {
     final compliance = await logs.compliance(lastDays: lookbackDays);
     final notes = await logs.userNotes(lastDays: lookbackDays);
     final actuals = await logs.actuals(lastDays: lookbackDays);
+    final reality = await logs.reality(lastDays: lookbackDays);
+    final sessions = await logs.sessions(lastDays: lookbackDays);
     final metrics = await health.bodyMetrics(lastDays: lookbackDays);
     final labs = await health.recentLabs();
     final exercises = await catalog.all();
@@ -183,7 +185,15 @@ class ContextMdBuilder {
       _writeForbidden(buffer, forbidden);
     }
     if (sections.contains(ContextSection.recent)) {
-      _writeLastPeriod(buffer, compliance, metrics, actuals, intake);
+      _writeLastPeriod(
+        buffer,
+        compliance,
+        metrics,
+        actuals,
+        intake,
+        reality,
+        sessions,
+      );
     }
     if (sections.contains(ContextSection.notes)) {
       _writeNotes(buffer, notes);
@@ -249,7 +259,18 @@ class ContextMdBuilder {
       ..writeln('## 3. Medikal')
       ..writeln();
 
-    if (facts.isEmpty) {
+    // Teşhisler tarihli alt listeye ayrılıyor (v3.1 §8) — ana liste
+    // durum/kısıt/alerji/kan grubu.
+    final diagnoses = [
+      for (final fact in facts)
+        if (fact.kind == 'diagnosis') fact,
+    ];
+    final others = [
+      for (final fact in facts)
+        if (fact.kind != 'diagnosis') fact,
+    ];
+
+    if (others.isEmpty) {
       buffer.writeln('- Bilinen durum/kısıt/alerji kaydı yok.');
     } else {
       String label(String kind) => switch (kind) {
@@ -259,9 +280,23 @@ class ContextMdBuilder {
         'bloodType' => 'Kan grubu',
         _ => kind,
       };
-      for (final fact in facts) {
+      for (final fact in others) {
         buffer.writeln(
           '- ${label(fact.kind)}: ${fact.label}'
+          '${fact.note == null ? '' : ' (${fact.note})'}',
+        );
+      }
+    }
+
+    if (diagnoses.isNotEmpty) {
+      buffer
+        ..writeln()
+        ..writeln('### Tanılar')
+        ..writeln();
+      for (final fact in diagnoses) {
+        buffer.writeln(
+          '- ${fact.label}'
+          '${fact.factDate == null ? '' : ' — ${fact.factDate}'}'
           '${fact.note == null ? '' : ' (${fact.note})'}',
         );
       }
@@ -482,6 +517,8 @@ class ContextMdBuilder {
     List<MetricPoint> metrics,
     List<SetActualDump> actuals,
     List<DayIntakeDump> intake,
+    List<DayRealityDump> reality,
+    List<SessionDump> sessions,
   ) {
     buffer
       ..writeln('## 7. Geçen dönem')
@@ -529,6 +566,33 @@ class ContextMdBuilder {
                 if (actual.reps != null) 'reps': actual.reps,
                 if (actual.durationSec != null)
                   'durationSec': actual.durationSec,
+              },
+          ],
+          // v3.1 §8: günlük gerçeklik — uyku saatleri, his, belirti,
+          // stres, atlanan öğünler. Boş alan yazılmaz.
+          'dailyReality': [
+            for (final day in reality)
+              {
+                'date': day.date,
+                if (day.bedTime != null) 'bedTime': day.bedTime,
+                if (day.wakeTime != null) 'wakeTime': day.wakeTime,
+                if (day.napMinutes != null) 'napMinutes': day.napMinutes,
+                if (day.moodScore != null) 'mood1to5': day.moodScore,
+                if (day.symptoms.isNotEmpty) 'symptoms': day.symptoms,
+                if (day.stressedDay) 'stressfulDay': true,
+                if (day.skippedMeals.isNotEmpty)
+                  'skippedMeals': day.skippedMeals,
+              },
+          ],
+          // v3.1 §8: seanslar süre + RPE + ağrı notuyla.
+          'workoutSessions': [
+            for (final session in sessions)
+              {
+                'date': session.date,
+                'minutes': session.minutes,
+                if (session.rpe != null) 'rpe': session.rpe,
+                if (session.painNote.isNotEmpty)
+                  'painNote': session.painNote,
               },
           ],
           // v3: su ml ve ilaç uyumu da paylaşılıyor — kullanıcı kararı
@@ -641,6 +705,12 @@ class ContextMdBuilder {
         'listesindeki id\'lerle `items` dizisi ekle: '
         '`[{"foodId": "...", "quantity": 1.5, "portionId": "..."}]`. '
         'Listede olmayan besin id\'si kullanma.',
+      )
+      ..writeln(
+        '8. Bölüm 7\'deki `workoutSessions` verisini yük ilerletmesinde '
+        'dikkate al: RPE 8 ve üzeri seanslardan sonra yükü artırma, '
+        '`painNote` geçen hareketleri değiştirilmiş ya da azaltılmış '
+        'varyantla planla.',
       )
       ..writeln()
       ..writeln('### Kullanılabilir katalog')

@@ -14,11 +14,19 @@ class _FakeProfile implements ProfileSource {
 }
 
 class _FakeLogs implements LogSource {
-  _FakeLogs({this.days = const [], this.notes = const [], this.sets = const []});
+  _FakeLogs({
+    this.days = const [],
+    this.notes = const [],
+    this.sets = const [],
+    this.realityDays = const [],
+    this.sessionList = const [],
+  });
 
   final List<DayCompliance> days;
   final List<({String date, String text})> notes;
   final List<SetActualDump> sets;
+  final List<DayRealityDump> realityDays;
+  final List<SessionDump> sessionList;
 
   @override
   Future<List<DayCompliance>> compliance({required int lastDays}) async => days;
@@ -30,6 +38,14 @@ class _FakeLogs implements LogSource {
 
   @override
   Future<List<SetActualDump>> actuals({required int lastDays}) async => sets;
+
+  @override
+  Future<List<DayRealityDump>> reality({required int lastDays}) async =>
+      realityDays;
+
+  @override
+  Future<List<SessionDump>> sessions({required int lastDays}) async =>
+      sessionList;
 }
 
 class _FakeHealth implements HealthSource {
@@ -161,9 +177,17 @@ void main() {
     List<FoodDump> foods = const [],
     List<DayIntakeDump> intake = const [],
     List<String> forbidden = const [],
+    List<DayRealityDump> reality = const [],
+    List<SessionDump> sessions = const [],
   }) => ContextMdBuilder(
     profile: _FakeProfile(profile),
-    logs: _FakeLogs(days: days, notes: notes, sets: sets),
+    logs: _FakeLogs(
+      days: days,
+      notes: notes,
+      sets: sets,
+      realityDays: reality,
+      sessionList: sessions,
+    ),
     health: _FakeHealth(metrics: metrics, labs: labs),
     catalog: _FakeCatalog(catalog),
     plan: _FakePlan(plan),
@@ -193,6 +217,95 @@ void main() {
     ProfileKeys.equipmentAtHome: 'direnç bandı, sandalye',
     ProfileKeys.healthConstraints: 'karaciğer yağlanması; diz hassasiyeti',
   };
+
+  group('v2.1 — günlük gerçeklik (v3.1 §8)', () {
+    test('dailyReality ve workoutSessions §7 JSON bloğuna girer', () async {
+      final md = await builder(
+        days: [
+          const DayCompliance(
+            date: '2026-09-01',
+            dayType: 'home',
+            workoutDone: true,
+            waterTargetMet: true,
+            noAlcoholSugar: true,
+            checkedSlots: 3,
+            totalSlots: 4,
+          ),
+        ],
+        reality: [
+          const DayRealityDump(
+            date: '2026-09-01',
+            bedTime: '23:45',
+            wakeTime: '06:11',
+            napMinutes: 30,
+            moodScore: 2,
+            symptoms: 'baş ağrısı',
+            stressedDay: true,
+            skippedMeals: {'ogle': 'mesai'},
+          ),
+        ],
+        sessions: [
+          const SessionDump(
+            date: '2026-09-01',
+            minutes: 52,
+            rpe: 8,
+            painNote: 'omuz pres rahatsız etti',
+          ),
+        ],
+      ).build(today: today);
+
+      final block = _jsonBlock(md);
+      expect(block, contains('"bedTime": "23:45"'));
+      expect(block, contains('"wakeTime": "06:11"'));
+      expect(block, contains('"napMinutes": 30'));
+      expect(block, contains('"mood1to5": 2'));
+      expect(block, contains('"symptoms": "baş ağrısı"'));
+      expect(block, contains('"stressfulDay": true'));
+      expect(block, contains('"ogle": "mesai"'));
+      expect(block, contains('"minutes": 52'));
+      expect(block, contains('"rpe": 8'));
+      expect(block, contains('"painNote": "omuz pres rahatsız etti"'));
+    });
+
+    test('boş alanlar JSON bloğuna yazılmaz', () async {
+      final md = await builder(
+        reality: [
+          const DayRealityDump(date: '2026-09-01', moodScore: 4),
+        ],
+        sessions: [const SessionDump(date: '2026-09-01', minutes: 40)],
+      ).build(today: today);
+
+      final block = _jsonBlock(md);
+      expect(block, isNot(contains('bedTime')));
+      expect(block, isNot(contains('symptoms')));
+      expect(block, isNot(contains('"rpe"')));
+      expect(block, isNot(contains('painNote')));
+    });
+
+    test('tanılar §3 altında tarihli alt liste', () async {
+      final md = await builder(
+        facts: const [
+          MedicalFactDump(kind: 'condition', label: 'Hipertansiyon'),
+          MedicalFactDump(
+            kind: 'diagnosis',
+            label: 'İnsülin direnci',
+            factDate: '2026-03-12',
+          ),
+        ],
+      ).build(today: today);
+
+      expect(md, contains('### Tanılar'));
+      expect(md, contains('- İnsülin direnci — 2026-03-12'));
+      // Teşhis ana listeye ikinci kez yazılmaz.
+      expect(md, isNot(contains('diagnosis: İnsülin direnci')));
+    });
+
+    test('görev bölümü RPE kuralını taşır', () async {
+      final md = await builder().build(today: today);
+      expect(md, contains('RPE 8 ve üzeri'));
+      expect(md, contains('painNote'));
+    });
+  });
 
   test('v2 bölümlerinin hepsi var', () async {
     final md = await builder().build(today: today);

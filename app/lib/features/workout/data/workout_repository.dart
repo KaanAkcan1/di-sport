@@ -172,6 +172,33 @@ class WorkoutRepository {
             ],
           );
 
+  /// Aralıktaki kapalı seanslar, değerlendirmeleriyle (v3.1 §8).
+  ///
+  /// AI belgesinin seans satırları buradan: süre + RPE + ağrı notu.
+  Future<List<({String date, int minutes, int? rpe, String painNote})>>
+  listSessionsBetween(String fromIso, String toIso) async {
+    final rows =
+        await (_db.select(_db.workoutSessions)
+              ..where(
+                (t) =>
+                    t.date.isBiggerOrEqualValue(fromIso) &
+                    t.date.isSmallerOrEqualValue(toIso) &
+                    t.endedAt.isNotNull() &
+                    t.deletedAt.isNull(),
+              )
+              ..orderBy([(t) => OrderingTerm.asc(t.startedAt)]))
+            .get();
+    return [
+      for (final row in rows)
+        (
+          date: row.date,
+          minutes: row.endedAt!.difference(row.startedAt).inMinutes,
+          rpe: row.rpe,
+          painNote: row.painNote,
+        ),
+    ];
+  }
+
   Stream<Map<String, Duration>> sessionsBetween(
     String fromIso,
     String toIso,

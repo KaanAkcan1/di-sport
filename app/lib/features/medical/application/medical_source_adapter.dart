@@ -16,6 +16,7 @@ class MedicalSourceAdapter implements MedicalSource {
           kind: fact.kind.name,
           label: fact.label,
           note: fact.note,
+          factDate: fact.factDate,
         ),
     ];
   }
