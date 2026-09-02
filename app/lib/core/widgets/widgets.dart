@@ -21,3 +21,4 @@ export 'app_segmented.dart';
 export 'app_spot_card.dart';
 export 'app_status_indicator.dart';
 export 'app_time_rail.dart';
+export 'formality_mark.dart';

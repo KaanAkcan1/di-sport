@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Marka renkleri: Palet A "Gece Grafiti"
+     (docs/superpowers/specs/2026-09-02-formality-gorsel-kimlik.md). -->
+<resources>
+    <color name="ic_launcher_background">#0F1B16</color>
+    <color name="launch_background">#0F1B16</color>
+</resources>

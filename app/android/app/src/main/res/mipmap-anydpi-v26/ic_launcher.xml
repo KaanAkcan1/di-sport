@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Formality adaptif ikonu: düz koyu zemin + V2a "nabız onayı" işareti.
+     PNG katmanları tools/build_brand_assets.py ile üretilir; elle düzenleme. -->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/ic_launcher_background" />
+    <foreground android:drawable="@mipmap/ic_launcher_foreground" />
+</adaptive-icon>

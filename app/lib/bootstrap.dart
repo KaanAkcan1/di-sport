@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:disport/app/app.dart';
+import 'package:disport/app/boot_splash.dart';
 import 'package:disport/features/catalog/data/catalog_repository.dart';
 import 'package:disport/features/catalog/data/equipment_repository.dart';
 import 'package:disport/features/catalog/domain/exercise.dart';
@@ -22,17 +23,30 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 Future<void> bootstrap() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Tohumlama sürerken donuk yerel splash yerine markanın kendini
+  // çizen işareti gösterilir. Gerçek uygulama aşağıdaki ikinci
+  // `runApp` ile devralır — Flutter'da runApp'i yeniden çağırmak
+  // meşru ve ucuzdur, ağaç yerinde değiştirilir.
+  runApp(const BootSplash());
+
   // Riverpod kapsayıcısı elle kuruluyor: arayüz çizilmeden önce
   // veritabanına erişmek gerekiyor. `runApp`tan sonra tohumlamak,
   // ilk karede boş bir katalog göstermek demek olurdu.
   final container = ProviderContainer();
 
-  await _seedCatalog(container);
-  await _seedDailyRules(container);
-  await _seedMetricDefinitions(container);
-  await _seedEquipment(container);
-  await _seedFoods(container);
-  await _seedActivities(container);
+  // Tohumlama ve açılış animasyonu birlikte beklenir: tohumlama hızlı
+  // bitse de işaret çizimini yarıda kesmeyiz (BootSplash.minimumDuration).
+  await Future.wait([
+    () async {
+      await _seedCatalog(container);
+      await _seedDailyRules(container);
+      await _seedMetricDefinitions(container);
+      await _seedEquipment(container);
+      await _seedFoods(container);
+      await _seedActivities(container);
+    }(),
+    Future<void>.delayed(BootSplash.minimumDuration),
+  ]);
 
   // Bildirim penceresi arka planda kaydırılıyor: kurulumu beklemek ilk
   // kareyi geciktirir ve kullanıcı uygulamayı açtığında alarm kurmak
