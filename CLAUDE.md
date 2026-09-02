@@ -25,6 +25,8 @@ mağaza yok. Mimari bunları sonradan almaya açık (bkz. `SyncColumns`).
 |---|---|
 | [v3 tasarımı (spec)](docs/superpowers/specs/2026-09-01-disport-v3-tasarim.md) | **Tek doğruluk kaynağı.** Bilgi mimarisi (5 sekme), onboarding, medikal, diyet/spor sekmeleri, AI sözleşmesi v2. Kod bununla çelişiyorsa kod yanlıştır. |
 | [v1 tasarımı](docs/superpowers/specs/2026-08-28-disport-tasarim.md) | Veri modeli ve v3'ün değiştirmediği her şey için hâlâ geçerli temel. |
+| [v3.1 tasarımı](docs/superpowers/specs/2026-09-02-disport-v31-tasarim.md) | Günlük gerçeklik katmanı: BMI görünürlüğü, uyku/his/adım/atlama/RPE/teşhis, context.md v2.1. |
+| [v3.1 planı](docs/superpowers/plans/2026-09-02-v31-m19-m20.md) | M19-M20 — **tamamlandı** |
 | [v3 planı](docs/superpowers/plans/2026-09-01-v3-m13-m18.md) | M13-M18 — **tamamlandı** |
 | M1-M12 planları (`docs/superpowers/plans/`) | v1 (M1-M6) ve v2 (M7-M12) — **tamamlandı** |
 
@@ -71,16 +73,16 @@ bildirim, yedekleme, AI köprüsü girişleri).
 
 | Feature | Sorumluluk |
 |---|---|
-| `today` | Ana Sayfa: üç bölümlü gün akışı, karşılama sihirbazı + kurulum kartları, tartı/uyku/su, **kullanıcı tanımlı kurallar**, not |
+| `today` | Ana Sayfa (mockup B1/B2): panelli kahraman + SIRADA + GÜNÜN AKIŞI (öğün satırı kayıt açar), karşılama sihirbazı + kurulum kartları, tartı/adım, **uyku bloğu** (yatış/kalkış/kestirme), **his/belirti/stres**, kurallar, not |
 | `plan` | Program, spor takvimi (yalnız spor hücreleri + uyum yüzdesi), plan editörü, plan öğün kalemleri |
 | `progress` | Kilo grafiği (7g hareketli ortalama), haftalık kartlar, geçiş kriteri |
 | `health` | Tahlil panelleri + aralık çubukları, BMI, **kullanıcı tanımlı ölçüm türleri**, çekap rehberi, vade şeridi |
-| `medical` | **v3 yeni.** Tıbbi durumlar/ameliyatlar/reçeteli ilaçlar, hareket kısıtı eşlemesi (`restriction_match`), ilaç uyum şeridi |
+| `medical` | Tıbbi durum/kısıt/alerji/kan grubu + **tarihli teşhis** (aynı kimlikli durum teşhise dönüştürülür), kısıt eşlemesi, ilaç uyum şeridi |
 | `catalog` | 161 hareket (iki dilli), arama/filtre, detay, **ekipman envanteri + spor dalları + etki paneli** |
-| `workout` | Antrenman akışı: set sayacı, dinlenme, geri alma; planlanan-yapılan ekranı (**geçmiş güne set düzeltme**), geçmiş sekmesi |
-| `ai_bridge` | context.md v2 (9 bölüm, bölüm anahtarları), dört kapılı doğrulama + amber uyarılar, aşılama (graft) içe alma, **tahlil-aktar.md** akışı |
+| `workout` | Antrenman akışı: set sayacı, dinlenme, geri alma, **seans sonu RPE + ağrı notu** (kaydetmek seansı da yazar); planlanan-yapılan (geçmiş güne set/seans düzeltme), geçmiş |
+| `ai_bridge` | context.md **v2.1** (9 bölüm + günlük gerçeklik/seans dökümü), dört kapılı doğrulama + amber uyarılar, aşılama içe alma, tahlil-aktar.md akışı |
 | `reminders` | Saf `planWindow` + platform katmanı, 7 günlük kaydırmalı pencere, öğün saatleri |
-| `nutrition` | Diyet sekmesi: plan-gerçek karşılaştırmalı günlük, besin listesi (sıralama + yasaklı rozetleri), geçmiş, kalori bütçesi, serbest aktiviteler, **öğün davranışları** |
+| `nutrition` | Diyet sekmesi: plan-gerçek günlük + **öğün atlama nedenleri**, besin listesi (sıralama + yasaklı rozetleri), geçmiş, kalori bütçesi, serbest aktiviteler, öğün davranışları |
 | `settings` | "Daha" dizini: profil, **Günlük Düzen** (kalkış/uyku/mesai/yasaklı saat + öğün saatleri), bildirimler, yedekleme, görünüm ve dil |
 | `supplements` | Takviye tanımı (**tür ayrımı: vitamin/ilaç reçetesizi**), günlük alım işareti, saatli hatırlatma |
 
@@ -484,7 +486,7 @@ slotsuz. Varsayılan slot koymak silinecek satırlar üretmek olurdu.
 
 ## Durum
 
-**v1 tamamlandı (M1-M6). v2 tamamlandı (M7-M12). v3 tamamlandı (M13-M18).**
+**v1-v3 tamamlandı (M1-M18). v3.1 tamamlandı (M19-M20).**
 Tüm testler yeşil, analiz temiz.
 
 | | |
@@ -497,6 +499,8 @@ Tüm testler yeşil, analiz temiz.
 | M16 | Spor sekmesi — spor takvimi + uyum, planlanan-yapılan + geçmiş güne set düzeltme, antrenman geçmişi, iki dilli katalog |
 | M17 | Sağlık sekmesi — aralık çubukları, BMI, çekap rehberi, ilaç uyum şeridi, AI destekli tahlil aktarımı |
 | M18 | AI köprüsü v2 — context.md v2 (9 bölüm + anahtarlar), aşılama içe alma, amber içe alma uyarıları, süpürme |
+| M19 (v3.1) | Ana Sayfa mockup uyumu (kullanıcı bildirimi) · şema v16 · uyku bloğu · his/belirti/stres · adım ölçümü · öğün atlama · BMI görünürlüğü (onboarding + Sağlık) |
+| M20 (v3.1) | seans RPE + ağrı notu · tarihli teşhis · context.md v2.1 (dailyReality + workoutSessions + Tanılar + RPE kuralı) · süpürme |
 
 **Döngü kapandı:** onboarding → "Yeni plan iste" → `context.md` paylaş →
 herhangi bir AI → dönen JSON → "İçeri al" → doğrula (+uyarılar) →
@@ -522,6 +526,7 @@ ikinci kopyası Sağlık'ta.
 | v13 | `foods`, `food_portions`, `meal_entries`, `activities`, `activity_logs`, `workout_sessions` + `plan_exercises`/`exercise_logs` şiddet sütunları |
 | v14 | `plan_slots.mealKind` |
 | v15 | `medical_facts`, `meal_behaviors`, `favorite_sports`, `plan_meal_items` + `supplements.kind` + `daily_logs.waterMl` |
+| v16 | `daily_logs` uyku/his/atlama sütunları (`bedTime`, `wakeTimeActual`, `napMinutes`, `moodScore`, `symptoms`, `stressedDay`, `skippedMealsJson`) + `workout_sessions.rpe/painNote` + `medical_facts.factDate` |
 
 Tablo eklerken `schemaVersion`'ı artır ve `onUpgrade`'e **yeni bir**
 `if (from < N)` bloğu ekle; eskileri değiştirme.
@@ -534,7 +539,7 @@ Tablo eklerken `schemaVersion`'ı artır ve `onUpgrade`'e **yeni bir**
 | `domain/json_reader.dart` | Alan yolunu izleyen okuyucu. Hata mesajı AI'a geri yapıştırılabilir olmalı. |
 | `domain/plan_validator.dart` | Kapı 1-3. **İlk hatada durmaz**, hepsini tek mesajda toplar. |
 | `domain/plan_importer.dart` | Depo tiplerini değil fonksiyon imzalarını alır. **Aşılama (graft):** gelen `startDate` kesim çizgisi — öncesi aynen kalır, sonrası yeni plandan gelir; `sourceRaw`'a aşılama bölümü eklenir. |
-| `domain/context_md_builder.dart` | **v2: dokuz numaralı bölüm** + isteğe bağlı besin listesi eki. Bölümler `ContextSection` ile kapatılabilir (`ctx.off.*` profil anahtarları, Ayarlar → bölüm seçimi). Medikal bölüm sınır cümlesi taşır (ilaç önerisi yasak). `ProfileKeys.form` onboarding formunun **ve** alarm zamanlayıcısının uyanma saati anahtarının kaynağı. |
+| `domain/context_md_builder.dart` | **v2.1: dokuz bölüm** + §7'de `dailyReality` (uyku/his/belirti/stres/atlama) ve `workoutSessions` (süre+RPE+ağrı) dizileri, §3'te tarihli "### Tanılar", §9'da RPE yük kuralı; isteğe bağlı besin listesi eki. Bölümler `ContextSection` ile kapatılabilir (`ctx.off.*` profil anahtarları, Ayarlar → bölüm seçimi). Medikal bölüm sınır cümlesi taşır (ilaç önerisi yasak). `ProfileKeys.form` onboarding formunun **ve** alarm zamanlayıcısının uyanma saati anahtarının kaynağı. |
 | `domain/import_warnings.dart` | **Amber uyarılar — asla engellemez.** Altı denetim: bilinmeyen/yasaklı besin, yapılamayan hareket (ekipman envanteri), dışarıda yenen/sabit öğün davranışı, tıbbi kısıt eşleşmesi. Veri toplama `importWarningsCollectorProvider`'da (fonksiyon tipli — testte tek satırla override edilir). |
 | `presentation/import_plan_sheet.dart` | Kapı 4: önizleme ve onay. Onaysız hiçbir şey yazılmaz. Aktif plan varsa aşılama anahtarı görünür. |
 
@@ -621,6 +626,9 @@ Kurallar, ölçüm türleri ve ekipman aynı desende:
 - **Geri yükleme sonrası uygulama yeniden başlatılmalı** — açık Drift
   bağlantısı eski veriyi göstermeye devam ediyor. Kullanıcıya snackbar ile
   söyleniyor; otomatik yeniden başlatma yok.
+- **Uyku çift kaynağı `SleepWriter`'dan geçer.** Saatler `daily_logs`'ta,
+  türetilen süre `body_metrics.sleepHours`'ta; son yazan kazanır. Yeni
+  bir uyku yazma yolu açma — koordinatör `day_providers.dart`'ta.
 - **`profile_entries.familyDinnerTime` yazılamıyor.** Alan formdan
   kalktı ama veri duruyor; `context.md` onu hâlâ basıyor. Eski
   kurulumlarda değer varsa AI görmeye devam eder, yeni kurulumda hiç

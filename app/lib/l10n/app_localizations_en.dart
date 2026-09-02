@@ -1681,9 +1681,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'The ones you approve are added to the catalogue permanently.';
 
   @override
-  String get todayTitle => 'Today';
-
-  @override
   String todayWeekNumber(Object week) {
     return 'week $week';
   }
@@ -1698,12 +1695,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get todayDayTypeRest => 'Rest day';
 
   @override
-  String get todayMetricProgram => 'Program';
-
-  @override
-  String get todayMetricRules => 'Rules';
-
-  @override
   String todayNextEyebrow(Object time) {
     return 'Next · $time';
   }
@@ -1712,9 +1703,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String todayExerciseCount(Object count) {
     return '$count exercises';
   }
-
-  @override
-  String get todaySpineLabel => 'Backbone of the day';
 
   @override
   String todayDinnerHint(Object text) {
@@ -1799,12 +1787,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get todayWeightUnit => 'kg';
-
-  @override
-  String get todaySleepLabel => 'Sleep';
-
-  @override
-  String get todaySleepUnit => 'h';
 
   @override
   String todayMissedStreakTitle(Object count) {
@@ -2020,19 +2002,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get supplementDeleteBody =>
       'Removed from the list and from reminders. Your past records stay — nothing is lost.';
-
-  @override
-  String supplementTakenSemantics(Object name, Object time) {
-    return '$name at $time, taken';
-  }
-
-  @override
-  String supplementNotTakenSemantics(Object name, Object time) {
-    return '$name at $time, not taken';
-  }
-
-  @override
-  String get supplementSectionLabel => 'Supplements';
 
   @override
   String get reminderSupplementBody => 'Time to take it.';

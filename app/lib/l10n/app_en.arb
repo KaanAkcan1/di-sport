@@ -770,16 +770,12 @@
   },
   "importPlanNewExercisesTitle": "Suggested new exercises",
   "importPlanNewExercisesDescription": "The ones you approve are added to the catalogue permanently.",
-  "todayTitle": "Today",
   "todayWeekNumber": "week {week}",
   "todayDayTypeGym": "Gym day",
   "todayDayTypeHome": "Home workout",
   "todayDayTypeRest": "Rest day",
-  "todayMetricProgram": "Program",
-  "todayMetricRules": "Rules",
   "todayNextEyebrow": "Next · {time}",
   "todayExerciseCount": "{count} exercises",
-  "todaySpineLabel": "Backbone of the day",
   "todayDinnerHint": "Dinner suggestion: {text}",
   "todayNoPlanTitle": "No plan for today",
   "todayNoPlanBody": "Load a program from the Plan tab. The scale and the daily checkboxes work without a plan too.",
@@ -805,8 +801,6 @@
   "todayNoteHint": "How did today go?",
   "todayWeightLabel": "Weight",
   "todayWeightUnit": "kg",
-  "todaySleepLabel": "Sleep",
-  "todaySleepUnit": "h",
   "todayMissedStreakTitle": "{count} days in a row without a workout",
   "todayMissedStreakBody": "That was the rule: never miss two days in a row. Do something today, even if it is short.",
   "planEmptyTitle": "No plan yet",
@@ -871,21 +865,6 @@
   "supplementEveryDay": "Every day",
   "supplementDeleteTitle": "Delete \"{name}\"?",
   "supplementDeleteBody": "Removed from the list and from reminders. Your past records stay — nothing is lost.",
-  "supplementTakenSemantics": "{name} at {time}, taken",
-  "@supplementTakenSemantics": {
-    "placeholders": {
-      "name": {},
-      "time": {}
-    }
-  },
-  "supplementNotTakenSemantics": "{name} at {time}, not taken",
-  "@supplementNotTakenSemantics": {
-    "placeholders": {
-      "name": {},
-      "time": {}
-    }
-  },
-  "supplementSectionLabel": "Supplements",
   "reminderSupplementBody": "Time to take it.",
   "reminderSupplementBodyWithDose": "{dose} — time to take it.",
   "equipmentBodyOnly": "Body only",
@@ -1113,7 +1092,11 @@
   "dietSkipReasonOut": "Ate out",
   "dietSkipReasonOther": "Other",
   "dietSkipReasonHint": "short reason",
-  "@dietMealSkippedLabel": {"placeholders": {"reason": {}}},
+  "@dietMealSkippedLabel": {
+    "placeholders": {
+      "reason": {}
+    }
+  },
   "moodBlockTitle": "How did you feel today?",
   "moodLevel1": "Awful",
   "moodLevel2": "Bad",
@@ -1133,7 +1116,12 @@
   "sleepTotal": "{hours} h {minutes} min of sleep",
   "sleepPickTime": "Pick time",
   "sleepClear": "Clear times",
-  "@sleepTotal": {"placeholders": {"hours": {}, "minutes": {}}},
+  "@sleepTotal": {
+    "placeholders": {
+      "hours": {},
+      "minutes": {}
+    }
+  },
   "dayFlowEnterMeal": "+ LOG",
   "dayFlowTitle": "Day flow",
   "dayFlowWeighIn": "Weigh-in",

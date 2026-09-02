@@ -27,7 +27,6 @@ void main() {
     DailyLogView log = const DailyLogView(),
     double? weight,
     DateTime? now,
-    List<({DateTime day, bool filled})>? week,
     DayEnergy energy = const DayEnergy(),
     int? kcalGoal,
   }) {
@@ -61,18 +60,6 @@ void main() {
       dayStepsProvider('2026-08-31').overrideWith((ref) => Stream.value(null)),
         missedStreakProvider.overrideWith((ref) async => 0),
         dailyRulesProvider.overrideWith((ref) => Stream.value(const [])),
-        dayWeekFillProvider('2026-08-31').overrideWith(
-          (ref) => Stream.value(
-            week ??
-                [
-                  for (var back = 6; back >= 0; back--)
-                    (
-                      day: DateTime(2026, 8, 31 - back),
-                      filled: back.isEven,
-                    ),
-                ],
-          ),
-        ),
       ],
       child: MaterialApp(
         theme: AppTheme.dark,

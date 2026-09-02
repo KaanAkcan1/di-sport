@@ -64,47 +64,6 @@ Stream<double?> daySteps(Ref ref, String dateKey) => ref
     .watch(bodyMetricsRepositoryProvider)
     .watchValue(dateKey, MetricKinds.steps);
 
-/// Seçili günün etrafındaki yedi günün doluluğu.
-///
-/// Bugün ekranında son yedi gün; geçmiş bir günde o günü **merkez**
-/// alan pencere. Kullanıcı düne baktığında hafta şeridinin hâlâ bugünü
-/// merkez alması, baktığı yerle şeridin ilgisiz görünmesine yol açardı.
-@riverpod
-Stream<List<({DateTime day, bool filled})>> dayWeekFill(
-  Ref ref,
-  String dateKey,
-) {
-  final anchor = DateTime.parse(dateKey);
-  final todayKey = ref.watch(todayIsoProvider);
-  final isToday = dateKey == todayKey;
-
-  // Bugünde geriye yedi gün (gelecek boş olurdu); geçmişte üç önce,
-  // üç sonra.
-  final days = isToday
-      ? [
-          for (var back = 6; back >= 0; back--)
-            DateTime(anchor.year, anchor.month, anchor.day - back),
-        ]
-      : [
-          for (var offset = -3; offset <= 3; offset++)
-            DateTime(anchor.year, anchor.month, anchor.day + offset),
-        ];
-
-  return ref
-      .watch(todayRepositoryProvider)
-      .watchBetween(dateKeyOf(days.first), dateKeyOf(days.last))
-      .map(
-        (logs) => [
-          for (final day in days)
-            (
-              day: day,
-              filled:
-                  !(logs[dateKeyOf(day)] ?? const DailyLogView()).isEmpty,
-            ),
-        ],
-      );
-}
-
 /// Seçili gün bugüne göre nerede duruyor.
 enum DayPosition { past, today, future }
 

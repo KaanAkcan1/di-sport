@@ -770,16 +770,12 @@
   },
   "importPlanNewExercisesTitle": "Yeni hareket önerileri",
   "importPlanNewExercisesDescription": "Onayladıkların kataloğa kalıcı olarak eklenir.",
-  "todayTitle": "Bugün",
   "todayWeekNumber": "{week}. hafta",
   "todayDayTypeGym": "Salon günü",
   "todayDayTypeHome": "Ev antrenmanı",
   "todayDayTypeRest": "Dinlenme günü",
-  "todayMetricProgram": "Program",
-  "todayMetricRules": "Kurallar",
   "todayNextEyebrow": "Sırada · {time}",
   "todayExerciseCount": "{count} hareket",
-  "todaySpineLabel": "Günün omurgası",
   "todayDinnerHint": "Akşam önerisi: {text}",
   "todayNoPlanTitle": "Bugün için plan yok",
   "todayNoPlanBody": "Plan sekmesinden bir program yükle. Tartı ve günün kutucukları plan olmadan da çalışır.",
@@ -805,8 +801,6 @@
   "todayNoteHint": "Bugün nasıl geçti?",
   "todayWeightLabel": "Kilo",
   "todayWeightUnit": "kg",
-  "todaySleepLabel": "Uyku",
-  "todaySleepUnit": "sa",
   "todayMissedStreakTitle": "{count} gün üst üste antrenman yok",
   "todayMissedStreakBody": "Kural buydu: iki günü üst üste kaçırma. Bugün kısa da olsa bir şey yap.",
   "planEmptyTitle": "Henüz plan yok",
@@ -871,21 +865,6 @@
   "supplementEveryDay": "Her gün",
   "supplementDeleteTitle": "\"{name}\" silinsin mi?",
   "supplementDeleteBody": "Listeden ve hatırlatmalardan kalkar. Geçmiş kayıtların durur — hiçbir şey kaybolmaz.",
-  "supplementTakenSemantics": "{name}, {time}, alındı",
-  "@supplementTakenSemantics": {
-    "placeholders": {
-      "name": {},
-      "time": {}
-    }
-  },
-  "supplementNotTakenSemantics": "{name}, {time}, alınmadı",
-  "@supplementNotTakenSemantics": {
-    "placeholders": {
-      "name": {},
-      "time": {}
-    }
-  },
-  "supplementSectionLabel": "Takviye",
   "reminderSupplementBody": "Alma vakti geldi.",
   "reminderSupplementBodyWithDose": "{dose} — alma vakti geldi.",
   "equipmentBodyOnly": "Vücut ağırlığı",
@@ -1113,7 +1092,11 @@
   "dietSkipReasonOut": "Dışarıdaydım",
   "dietSkipReasonOther": "Diğer",
   "dietSkipReasonHint": "kısa neden",
-  "@dietMealSkippedLabel": {"placeholders": {"reason": {}}},
+  "@dietMealSkippedLabel": {
+    "placeholders": {
+      "reason": {}
+    }
+  },
   "moodBlockTitle": "Bugün nasıl hissettin?",
   "moodLevel1": "Çok kötü",
   "moodLevel2": "Kötü",
@@ -1133,7 +1116,12 @@
   "sleepTotal": "{hours} sa {minutes} dk uyku",
   "sleepPickTime": "Saat seç",
   "sleepClear": "Saatleri temizle",
-  "@sleepTotal": {"placeholders": {"hours": {}, "minutes": {}}},
+  "@sleepTotal": {
+    "placeholders": {
+      "hours": {},
+      "minutes": {}
+    }
+  },
   "dayFlowEnterMeal": "+ GİR",
   "dayFlowTitle": "Günün akışı",
   "dayFlowWeighIn": "Tartı",

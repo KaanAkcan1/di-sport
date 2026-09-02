@@ -3031,12 +3031,6 @@ abstract class AppLocalizations {
   /// **'Onayladıkların kataloğa kalıcı olarak eklenir.'**
   String get importPlanNewExercisesDescription;
 
-  /// No description provided for @todayTitle.
-  ///
-  /// In tr, this message translates to:
-  /// **'Bugün'**
-  String get todayTitle;
-
   /// No description provided for @todayWeekNumber.
   ///
   /// In tr, this message translates to:
@@ -3061,18 +3055,6 @@ abstract class AppLocalizations {
   /// **'Dinlenme günü'**
   String get todayDayTypeRest;
 
-  /// No description provided for @todayMetricProgram.
-  ///
-  /// In tr, this message translates to:
-  /// **'Program'**
-  String get todayMetricProgram;
-
-  /// No description provided for @todayMetricRules.
-  ///
-  /// In tr, this message translates to:
-  /// **'Kurallar'**
-  String get todayMetricRules;
-
   /// No description provided for @todayNextEyebrow.
   ///
   /// In tr, this message translates to:
@@ -3084,12 +3066,6 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'{count} hareket'**
   String todayExerciseCount(Object count);
-
-  /// No description provided for @todaySpineLabel.
-  ///
-  /// In tr, this message translates to:
-  /// **'Günün omurgası'**
-  String get todaySpineLabel;
 
   /// No description provided for @todayDinnerHint.
   ///
@@ -3240,18 +3216,6 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'kg'**
   String get todayWeightUnit;
-
-  /// No description provided for @todaySleepLabel.
-  ///
-  /// In tr, this message translates to:
-  /// **'Uyku'**
-  String get todaySleepLabel;
-
-  /// No description provided for @todaySleepUnit.
-  ///
-  /// In tr, this message translates to:
-  /// **'sa'**
-  String get todaySleepUnit;
 
   /// No description provided for @todayMissedStreakTitle.
   ///
@@ -3636,24 +3600,6 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'Listeden ve hatırlatmalardan kalkar. Geçmiş kayıtların durur — hiçbir şey kaybolmaz.'**
   String get supplementDeleteBody;
-
-  /// No description provided for @supplementTakenSemantics.
-  ///
-  /// In tr, this message translates to:
-  /// **'{name}, {time}, alındı'**
-  String supplementTakenSemantics(Object name, Object time);
-
-  /// No description provided for @supplementNotTakenSemantics.
-  ///
-  /// In tr, this message translates to:
-  /// **'{name}, {time}, alınmadı'**
-  String supplementNotTakenSemantics(Object name, Object time);
-
-  /// No description provided for @supplementSectionLabel.
-  ///
-  /// In tr, this message translates to:
-  /// **'Takviye'**
-  String get supplementSectionLabel;
 
   /// No description provided for @reminderSupplementBody.
   ///

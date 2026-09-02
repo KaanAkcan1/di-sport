@@ -52,9 +52,6 @@ void main() {
       dayWeightProvider(dateKey).overrideWith((ref) => Stream.value(null)),
       daySleepProvider(dateKey).overrideWith((ref) => Stream.value(null)),
       dayStepsProvider(dateKey).overrideWith((ref) => Stream.value(null)),
-      dayWeekFillProvider(dateKey).overrideWith(
-        (ref) => Stream.value(const <({DateTime day, bool filled})>[]),
-      ),
       dailyRulesProvider.overrideWith((ref) => Stream.value(const [])),
       missedStreakProvider.overrideWith((ref) async => 0),
       dayEnergyProvider(

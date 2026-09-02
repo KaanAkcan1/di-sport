@@ -151,12 +151,9 @@ void main() {
       themeModeProvider.overrideWith((ref) => Stream.value(ThemeMode.dark)),
       // M7: dil ayarı da Drift akışı; aynı sebeple sabitleniyor.
       appLocaleProvider.overrideWith((ref) => Stream.value(const Locale('tr'))),
-      // Hafta şeridi de günlük kayıtları akışla okuyor.
+
       // Takviye dozları da Drift akışı; ekran testi bağlanmamalı.
       todayDosesProvider.overrideWithValue(const <SupplementDose>[]),
-      dayWeekFillProvider('2026-09-01').overrideWith(
-        (ref) => Stream.value(const <({DateTime day, bool filled})>[]),
-      ),
       // Plan ekranı da veritabanına bağlı.
       activePlanProvider.overrideWith((ref) async => null),
       // Sağlık sekmesi de öyle. `IndexedStack` beş ekranı birden

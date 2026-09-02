@@ -1678,9 +1678,6 @@ class AppLocalizationsTr extends AppLocalizations {
       'Onayladıkların kataloğa kalıcı olarak eklenir.';
 
   @override
-  String get todayTitle => 'Bugün';
-
-  @override
   String todayWeekNumber(Object week) {
     return '$week. hafta';
   }
@@ -1695,12 +1692,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get todayDayTypeRest => 'Dinlenme günü';
 
   @override
-  String get todayMetricProgram => 'Program';
-
-  @override
-  String get todayMetricRules => 'Kurallar';
-
-  @override
   String todayNextEyebrow(Object time) {
     return 'Sırada · $time';
   }
@@ -1709,9 +1700,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String todayExerciseCount(Object count) {
     return '$count hareket';
   }
-
-  @override
-  String get todaySpineLabel => 'Günün omurgası';
 
   @override
   String todayDinnerHint(Object text) {
@@ -1795,12 +1783,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get todayWeightUnit => 'kg';
-
-  @override
-  String get todaySleepLabel => 'Uyku';
-
-  @override
-  String get todaySleepUnit => 'sa';
 
   @override
   String todayMissedStreakTitle(Object count) {
@@ -2013,19 +1995,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get supplementDeleteBody =>
       'Listeden ve hatırlatmalardan kalkar. Geçmiş kayıtların durur — hiçbir şey kaybolmaz.';
-
-  @override
-  String supplementTakenSemantics(Object name, Object time) {
-    return '$name, $time, alındı';
-  }
-
-  @override
-  String supplementNotTakenSemantics(Object name, Object time) {
-    return '$name, $time, alınmadı';
-  }
-
-  @override
-  String get supplementSectionLabel => 'Takviye';
 
   @override
   String get reminderSupplementBody => 'Alma vakti geldi.';
