@@ -17,4 +17,12 @@ class WorkoutSessions extends Table with SyncColumns {
 
   /// Açık seans — uygulama kapanmış ya da antrenman bitirilmemiş.
   DateTimeColumn get endedAt => dateTime().nullable()();
+
+  /// Seans sonu zorlanma, 1-10 (Borg CR10 yaklaşımı; v3.1 §6).
+  /// İsteğe bağlı — kapatılırsa null kalır.
+  IntColumn get rpe => integer().nullable()();
+
+  /// "Hangi hareket rahatsız etti" serbest notu. AI belgesinin yük
+  /// ilerletme bölümüne gider.
+  TextColumn get painNote => text().withDefault(const Constant(''))();
 }

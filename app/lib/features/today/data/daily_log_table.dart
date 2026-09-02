@@ -44,4 +44,31 @@ class DailyLogs extends Table with SyncColumns {
   /// sütunu kalıyor — kaçak serisi ve eski okuyucular bozulmasın —
   /// ama artık her `waterMl` yazımında `waterMl >= hedef`ten türetiliyor.
   IntColumn get waterMl => integer().nullable()();
+
+  /// *Önceki gece* yatış saati, `HH:mm` (v3.1 §2).
+  ///
+  /// Kayıt sabahın gününe ait — kullanıcıya "hangi geceydi" sorulmaz,
+  /// pazartesi satırındaki yatış pazar gecesinindir.
+  TextColumn get bedTime => text().nullable()();
+
+  /// O sabah kalkış, `HH:mm`. Profildeki `wakeTime` şablon, bu gerçek.
+  TextColumn get wakeTimeActual => text().nullable()();
+
+  /// Gün içi kestirme, dakika.
+  IntColumn get napMinutes => integer().nullable()();
+
+  /// Günün hissi 1-5 (1 çok kötü, 5 çok iyi). null = sorulmadı.
+  IntColumn get moodScore => integer().nullable()();
+
+  /// Serbest belirti notu — "baş ağrısı, halsizlik".
+  TextColumn get symptoms => text().withDefault(const Constant(''))();
+
+  /// Yoğun/stresli gün işareti.
+  BoolColumn get stressedDay => boolean().withDefault(const Constant(false))();
+
+  /// Atlanan öğünler: `{"kahvalti": "mesai"}` — anahtar `MealKind.name`,
+  /// değer serbest kısa neden. Sahibi `today` ama okuyup yazan
+  /// `nutrition` (v3.1 §5): atlama öğün-bazlı bir gerçek.
+  TextColumn get skippedMealsJson =>
+      text().withDefault(const Constant('{}'))();
 }

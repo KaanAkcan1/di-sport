@@ -25,6 +25,10 @@ class MedicalFacts extends Table with SyncColumns {
   /// serbest metni yorumlamaya kalkmak "IR" yazan kullanıcıda sessizce
   /// yanlış sonuç üretirdi. Serbest eklenen kayıtta boş.
   TextColumn get conditionId => text().nullable()();
+
+  /// Gerçeğin tarihi, `yyyy-MM-dd` (v3.1 §7). Bugün yalnız teşhiste
+  /// anlamlı; sütun genel — ameliyat tarihi gibi ileriye açık.
+  TextColumn get factDate => text().nullable()();
 }
 
 /// Öğün davranışları (spec v3 §3.4).

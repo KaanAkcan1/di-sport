@@ -194,4 +194,77 @@ void main() {
       );
     });
   });
+
+  group('uyku saatleri (v3.1)', () {
+    test('üç alan yazılır ve okunur', () async {
+      await repo.setSleepTimes(
+        today,
+        bedTime: '23:45',
+        wakeTimeActual: '06:11',
+        napMinutes: 30,
+      );
+
+      final view = await repo.readDay(today);
+      expect(view.bedTime, '23:45');
+      expect(view.wakeTimeActual, '06:11');
+      expect(view.napMinutes, 30);
+    });
+
+    test('null yazmak alanları temizler — son yazan kazanır', () async {
+      await repo.setSleepTimes(
+        today,
+        bedTime: '23:45',
+        wakeTimeActual: '06:11',
+        napMinutes: null,
+      );
+      await repo.setSleepTimes(
+        today,
+        bedTime: null,
+        wakeTimeActual: null,
+        napMinutes: null,
+      );
+
+      final view = await repo.readDay(today);
+      expect(view.bedTime, isNull);
+      expect(view.wakeTimeActual, isNull);
+    });
+  });
+
+  group('his bloğu (v3.1)', () {
+    test('his, belirti ve stres ayrı ayrı güncellenir', () async {
+      await repo.setWellbeing(today, moodScore: 2);
+      await repo.setWellbeing(today, symptoms: 'baş ağrısı');
+      await repo.setWellbeing(today, stressedDay: true);
+
+      final view = await repo.readDay(today);
+      expect(view.moodScore, 2);
+      expect(view.symptoms, 'baş ağrısı');
+      expect(view.stressedDay, isTrue);
+    });
+
+    test('clearMood hissi bilinmeze döndürür', () async {
+      await repo.setWellbeing(today, moodScore: 4);
+      await repo.setWellbeing(today, clearMood: true);
+
+      expect((await repo.readDay(today)).moodScore, isNull);
+    });
+  });
+
+  group('öğün atlama (v3.1)', () {
+    test('neden yazılır, null silme demektir', () async {
+      await repo.setMealSkipped(
+        today,
+        mealKindName: 'kahvalti',
+        reason: 'mesai',
+      );
+      await repo.setMealSkipped(today, mealKindName: 'ogle', reason: 'dışarıdaydım');
+
+      var view = await repo.readDay(today);
+      expect(view.skippedMeals, {'kahvalti': 'mesai', 'ogle': 'dışarıdaydım'});
+
+      await repo.setMealSkipped(today, mealKindName: 'kahvalti', reason: null);
+      view = await repo.readDay(today);
+      expect(view.skippedMeals, {'ogle': 'dışarıdaydım'});
+    });
+  });
 }

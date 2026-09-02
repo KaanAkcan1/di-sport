@@ -184,6 +184,20 @@ class AppDatabase extends _$AppDatabase {
           );
         }
       }
+      if (from < 16) {
+        // v3.1 "günlük gerçeklik" sütunları — hepsi tekrarlı çalışmaya
+        // dayanıklı (yarım kalan yükseltme yeniden denenebilmeli).
+        await _addColumnIfAbsent(m, dailyLogs, dailyLogs.bedTime);
+        await _addColumnIfAbsent(m, dailyLogs, dailyLogs.wakeTimeActual);
+        await _addColumnIfAbsent(m, dailyLogs, dailyLogs.napMinutes);
+        await _addColumnIfAbsent(m, dailyLogs, dailyLogs.moodScore);
+        await _addColumnIfAbsent(m, dailyLogs, dailyLogs.symptoms);
+        await _addColumnIfAbsent(m, dailyLogs, dailyLogs.stressedDay);
+        await _addColumnIfAbsent(m, dailyLogs, dailyLogs.skippedMealsJson);
+        await _addColumnIfAbsent(m, workoutSessions, workoutSessions.rpe);
+        await _addColumnIfAbsent(m, workoutSessions, workoutSessions.painNote);
+        await _addColumnIfAbsent(m, medicalFacts, medicalFacts.factDate);
+      }
     },
   );
 

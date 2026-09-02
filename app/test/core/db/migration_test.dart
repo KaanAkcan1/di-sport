@@ -130,6 +130,32 @@ void main() {
     expect(equipment.any((row) => row.id == 'step'), isTrue);
   });
 
+  test('v15 kurulumu v16 seviyesine yükseltilebilir', () async {
+    final db = AppDatabase.forTesting(NativeDatabase.memory());
+    addTearDown(db.close);
+
+    await db.migration.onUpgrade(db.createMigrator(), 15, 16);
+
+    // v3.1 günlük gerçeklik sütunları.
+    await db.customStatement(
+      'SELECT bed_time, wake_time_actual, nap_minutes, mood_score, '
+      'symptoms, stressed_day, skipped_meals_json FROM daily_logs',
+    );
+    await db.customStatement('SELECT rpe, pain_note FROM workout_sessions');
+    await db.customStatement('SELECT fact_date FROM medical_facts');
+  });
+
+  test('v16 göçü tekrar çalıştırılabilir — yarım yükseltme senaryosu', () async {
+    final db = AppDatabase.forTesting(NativeDatabase.memory());
+    addTearDown(db.close);
+
+    await db.migration.onUpgrade(db.createMigrator(), 15, 16);
+    // İkinci çalıştırma "duplicate column" ile düşmemeli.
+    await db.migration.onUpgrade(db.createMigrator(), 15, 16);
+
+    await db.customStatement('SELECT bed_time FROM daily_logs');
+  });
+
   test('göç eski verileri korur', () async {
     // Asıl korku bu: yeni tablo eklerken eskilerin silinmesi.
     final db = AppDatabase.forTesting(NativeDatabase.memory());

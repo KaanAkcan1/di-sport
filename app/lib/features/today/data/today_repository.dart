@@ -19,6 +19,13 @@ class DailyLogView {
     this.noAlcoholSugar = false,
     this.waterMl,
     this.note = '',
+    this.bedTime,
+    this.wakeTimeActual,
+    this.napMinutes,
+    this.moodScore,
+    this.symptoms = '',
+    this.stressedDay = false,
+    this.skippedMeals = const {},
   });
 
   final Set<String> checkedSlotIds;
@@ -36,6 +43,19 @@ class DailyLogView {
   final int? waterMl;
 
   final String note;
+
+  /// Uyku gerçeği (v3.1 §2): önceki gece yatış, sabah kalkış, kestirme.
+  final String? bedTime;
+  final String? wakeTimeActual;
+  final int? napMinutes;
+
+  /// His bloğu (v3.1 §3): 1-5 his, belirti notu, yoğun gün işareti.
+  final int? moodScore;
+  final String symptoms;
+  final bool stressedDay;
+
+  /// Atlanan öğünler: `MealKind.name` → neden (v3.1 §5).
+  final Map<String, String> skippedMeals;
 
   bool isSlotChecked(String slotId) => checkedSlotIds.contains(slotId);
 
@@ -230,6 +250,78 @@ class TodayRepository {
     await _write(isoDate, DailyLogsCompanion(note: Value(note)));
   }
 
+  /// Uyku saatlerini yazar — üçü birden, kısmi değil.
+  ///
+  /// "Son yazan kazanır" kuralının (spec v3.1 §2.2) yazım yarısı:
+  /// çağıran taraf alanların son hâlini verir, silme null ile yazılır.
+  /// Türetilmiş `sleepHours` kaydını `body_metrics`'e yazmak çağıranın
+  /// (uygulama katmanındaki tek koordinatörün) işi — iki depo tek
+  /// metottan güncellenirse `today`, `health`'in data katmanına bağlanır.
+  Future<void> setSleepTimes(
+    String isoDate, {
+    required String? bedTime,
+    required String? wakeTimeActual,
+    required int? napMinutes,
+  }) async {
+    await _ensureRow(isoDate);
+    await _write(
+      isoDate,
+      DailyLogsCompanion(
+        bedTime: Value(bedTime),
+        wakeTimeActual: Value(wakeTimeActual),
+        napMinutes: Value(napMinutes),
+      ),
+    );
+  }
+
+  /// His bloğu — yalnız verilen alanlar güncellenir ([setFlags] kalıbı).
+  Future<void> setWellbeing(
+    String isoDate, {
+    int? moodScore,
+    bool clearMood = false,
+    String? symptoms,
+    bool? stressedDay,
+  }) async {
+    await _ensureRow(isoDate);
+    await _write(
+      isoDate,
+      DailyLogsCompanion(
+        moodScore: clearMood
+            ? const Value(null)
+            : (moodScore == null ? const Value.absent() : Value(moodScore)),
+        symptoms: symptoms == null ? const Value.absent() : Value(symptoms),
+        stressedDay: stressedDay == null
+            ? const Value.absent()
+            : Value(stressedDay),
+      ),
+    );
+  }
+
+  /// Öğün atlama işareti — [reason] null ise işaret silinir.
+  ///
+  /// Sahibi `today` ama çağıranı `nutrition` (v3.1 §5): atlamayı koyan
+  /// da kaldıran da öğün akışı.
+  Future<void> setMealSkipped(
+    String isoDate, {
+    required String mealKindName,
+    required String? reason,
+  }) async {
+    final row = await _ensureRow(isoDate);
+    final skipped = (jsonDecode(row.skippedMealsJson) as Map)
+        .cast<String, String>();
+
+    if (reason == null) {
+      skipped.remove(mealKindName);
+    } else {
+      skipped[mealKindName] = reason;
+    }
+
+    await _write(
+      isoDate,
+      DailyLogsCompanion(skippedMealsJson: Value(jsonEncode(skipped))),
+    );
+  }
+
   /// Antrenman kaçırılan ardışık gün sayısı.
   ///
   /// PDF'in "iki gün üst üste kaçırma — kural bu" satırının karşılığı.
@@ -280,6 +372,14 @@ class TodayRepository {
       noAlcoholSugar: row.noAlcoholSugar,
       waterMl: row.waterMl,
       note: row.note,
+      bedTime: row.bedTime,
+      wakeTimeActual: row.wakeTimeActual,
+      napMinutes: row.napMinutes,
+      moodScore: row.moodScore,
+      symptoms: row.symptoms,
+      stressedDay: row.stressedDay,
+      skippedMeals: (jsonDecode(row.skippedMealsJson) as Map)
+          .cast<String, String>(),
     );
   }
 
