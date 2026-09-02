@@ -10,6 +10,37 @@
 
 **Spec:** `docs/superpowers/specs/2026-08-28-disport-tasarim.md` (özellikle 5.2, 5.3, 5.4-body_metrics, 6-Bugün/Antrenman/Plan)
 
+
+## M2 Sonrası Senkron Notu
+
+Bu plan M2 yürütülmeden önce yazıldı. Yürütmeden önce güncellenen noktalar:
+
+**Şema sürümleri kaydı.** M2 `Exercises` tablosunu ekleyip `schemaVersion`'ı
+2'ye çıkardı. Bu planda: plan tabloları **v3**, `daily_logs` + `body_metrics`
+**v4**, `exercise_logs` **v5**.
+
+**Widget testleri Drift'e dokunmaz.** Drift'in `watch()` akışı gerçek async
+I/O ile gelir, `testWidgets` sahte-async bölgesinde çalışır; `pumpAndSettle`
+asılı kalır. Ekran testlerinde ilgili provider `overrideWith` ile bellekteki
+veriyle değiştirilir. Repository davranışı ayrı, gerçek veritabanıyla test
+edilir.
+
+**Riverpod aile argümanı `List` olamaz.** Riverpod argümanları `==` ile,
+Dart listeleri kimlikle karşılaştırır; her `build` yeni örnek üretir ve
+sorgu sonsuza dek yeniden başlar. Argüman `String`/`int` gibi değer eşitliği
+olan bir tip olmalı.
+
+**Hazır bileşenler kullanılacak, yenisi yazılmayacak:**
+`AppAsyncView`, `AppEmptyState`, `AppScreenBody`, `AppSection`,
+`AppMetricValue`, `AppStatusChip`/`AppStatusDot`, `ExerciseListTile`
+(`trailing` alanı set × tekrar için ayrıldı), `ExerciseDetailScreen`,
+`catalogRepositoryProvider`.
+
+**Provider'lar `@riverpod` ile üretilir** (M2'de kuruldu). `custom_lint`
+kurulamıyor (analyzer sürüm çakışması), bağımlılık kuralları yazılı kural.
+
+---
+
 ## Global Constraints
 
 - M1/M2 Global Constraints geçerli
@@ -112,7 +143,7 @@ import 'package:disport/features/plan/data/plan_tables.dart';
   @override
   MigrationStrategy get migration => MigrationStrategy(
         onUpgrade: (m, from, to) async {
-          if (from < 2) {
+          if (from < 3) {
             await m.createTable(plans);
             await m.createTable(planDays);
             await m.createTable(planSlots);
@@ -910,7 +941,7 @@ git commit -m "feat: sample 4-week plan seed and plan screen listing"
 - Create: `app/lib/features/today/data/today_repository.dart`
 - Create: `app/lib/features/health/data/body_metric_table.dart`
 - Create: `app/lib/features/health/data/body_metrics_repository.dart`
-- Modify: `app/lib/core/db/app_database.dart` (schema v3)
+- Modify: `app/lib/core/db/app_database.dart` (schema v4)
 - Test: `app/test/features/today/data/today_repository_test.dart`
 - Test: `app/test/features/health/data/body_metrics_repository_test.dart`
 
@@ -1551,7 +1582,7 @@ git commit -m "feat: today screen with slots, flags, weight/sleep entry"
 - Create: `app/lib/features/workout/data/exercise_log_table.dart`
 - Create: `app/lib/features/workout/data/workout_repository.dart`
 - Create: `app/lib/features/workout/presentation/workout_screen.dart`
-- Modify: `app/lib/core/db/app_database.dart` (schema v4)
+- Modify: `app/lib/core/db/app_database.dart` (schema v5)
 - Test: `app/test/features/workout/data/workout_repository_test.dart`
 - Test: `app/test/features/workout/presentation/workout_screen_test.dart`
 
@@ -1587,7 +1618,7 @@ class ExerciseLogs extends Table with SyncColumns {
 }
 ```
 
-`app_database.dart`: tabloyu ekle, `schemaVersion => 4`, `if (from < 4)` göçü. build_runner.
+`app_database.dart`: tabloyu ekle, `schemaVersion => 5`, `if (from < 5)` göçü. build_runner.
 
 - [ ] **Step 2: Failing repository testi**
 

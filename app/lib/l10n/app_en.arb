@@ -1,0 +1,1139 @@
+{
+  "@@locale": "en",
+  "tabToday": "Today",
+  "tabProgress": "Progress",
+  "tabHealth": "Health",
+  "tabHealthHint": "Lab results and measurements",
+  "settingsTitle": "Settings",
+  "commonSave": "Save",
+  "commonCancel": "Cancel",
+  "commonDelete": "Delete",
+  "commonClear": "Clear",
+  "commonRetry": "Try again",
+  "appearanceTitle": "Appearance",
+  "appearanceDescription": "Dark is how the app is meant to look — readable in the gym and before sunrise.",
+  "appearanceSystem": "System",
+  "appearanceDark": "Dark",
+  "appearanceLight": "Light",
+  "languageTitle": "Language",
+  "languageDescription": "Interface language. Exercise and food names stay searchable in both.",
+  "languageSystem": "System",
+  "languageTurkish": "Türkçe",
+  "languageEnglish": "English",
+  "catalogTabHome": "At home",
+  "catalogTabGym": "At the gym",
+  "catalogFilters": "Filters",
+  "catalogSearchHint": "Search exercise or muscle…",
+  "catalogClearSearch": "Clear search",
+  "catalogClearFilters": "Clear filters",
+  "catalogRecentSection": "Recently done",
+  "catalogExercisesSection": "Exercises",
+  "catalogAllExercisesSection": "All exercises",
+  "catalogNoResults": "No matching exercise",
+  "catalogNoResultsDescription": "Change your search or remove the filters.",
+  "catalogOnlyMyEquipment": "Fits my equipment",
+  "catalogOnlyMyEquipmentDescription": "Hides exercises that need equipment you do not own.",
+  "catalogCategorySection": "Type",
+  "catalogCategoryStrength": "Strength",
+  "catalogCategoryCore": "Core",
+  "catalogCategoryCardio": "Cardio",
+  "catalogCategoryMobility": "Mobility",
+  "catalogDifficultySection": "Difficulty",
+  "catalogDifficultyChip": "Difficulty {level}",
+  "catalogDifficultyOutOfFive": "Difficulty {level}/5",
+  "catalogDifficultySemantics": "Difficulty {level} out of 5",
+  "catalogResultCount": "{count} exercises",
+  "catalogLocationHome": "Home",
+  "catalogLocationGym": "Gym",
+  "catalogLocationBoth": "Home / Gym",
+  "catalogLocationSemantics": "Can be done at: {place}",
+  "catalogEquipmentTitle": "My equipment",
+  "catalogEquipmentAddFab": "Equipment",
+  "catalogEquipmentAddTitle": "Add equipment",
+  "catalogEquipmentFieldLabel": "Equipment",
+  "catalogEquipmentFieldHint": "Kettlebell",
+  "catalogEquipmentAddAction": "Add",
+  "catalogExerciseNotFound": "Exercise not found",
+  "catalogExerciseNotFoundDescription": "This exercise may have been removed from the catalogue.",
+  "catalogExerciseLoadError": "Could not open the exercise",
+  "catalogTabSteps": "Steps",
+  "catalogTabMistakes": "Mistakes",
+  "catalogTabVariants": "Variants",
+  "catalogTabSafety": "Safety",
+  "catalogCuesTitle": "Keep in mind",
+  "catalogCuesDescription": "Check these while you train.",
+  "catalogSetupTitle": "Setup",
+  "catalogExecutionTitle": "Execution",
+  "catalogBreathingTempoTitle": "Breathing and tempo",
+  "catalogBreathingLabel": "Breathing",
+  "catalogTempoLabel": "Tempo",
+  "catalogNoMistakes": "No mistakes recorded",
+  "catalogMistakeWhy": "Why it matters",
+  "catalogMistakeFix": "The fix",
+  "catalogNoVariants": "No variants defined",
+  "catalogNoVariantsDescription": "No easier or harder version of this exercise is recorded.",
+  "catalogRegressionsTitle": "Make it easier",
+  "catalogRegressionsDescription": "Start here if it feels too hard.",
+  "catalogProgressionsTitle": "Make it harder",
+  "catalogProgressionsDescription": "The next step once it starts feeling easy.",
+  "catalogSafetyDisclaimer": "This information is general and does not replace assessment by a physician or physiotherapist. Stop the movement if you feel pain.",
+  "catalogImageSemantics": "Start and end position of {name}",
+  "catalogMetaTitle": "Details",
+  "catalogTargetMuscles": "Target muscles",
+  "catalogEquipmentLabel": "Equipment",
+  "sessionRpeLabel": "Effort (1-10)",
+  "sessionPainLabel": "Pain/discomfort note",
+  "sessionPainHint": "shoulder press felt off",
+  "sessionDebriefTitle": "How was the session?",
+  "sessionDebriefSave": "Save",
+  "sessionDebriefSaved": "Debrief saved",
+  "workoutTitle": "Workout",
+  "workoutNoExercisesTitle": "No exercises today",
+  "workoutNoExercisesDescription": "This day is planned as a rest day.",
+  "workoutElapsedCaption": "minutes into your session",
+  "workoutElapsedNew": "new",
+  "workoutMinuteUnit": "min",
+  "workoutSetsCaption": "Sets",
+  "workoutExercisesCaption": "Exercises",
+  "workoutSetsProgress": "{done} / {total} sets",
+  "@workoutSetsProgress": {
+    "placeholders": {
+      "done": {},
+      "total": {}
+    }
+  },
+  "workoutSetsDoneSemantics": "{done} of {total} sets completed",
+  "@workoutSetsDoneSemantics": {
+    "placeholders": {
+      "done": {},
+      "total": {}
+    }
+  },
+  "workoutUndoLastSet": "Undo last set",
+  "workoutAllSetsDone": "Completed",
+  "workoutSetDone": "Set done",
+  "workoutRefLast": "Last",
+  "workoutRefPlan": "Plan",
+  "workoutRestLabel": "Rest · {seconds} s",
+  "workoutRestSemantics": "Rest, {seconds} seconds left",
+  "workoutRestSkip": "Skip",
+  "healthNoLabsTitle": "No lab results yet",
+  "healthNoLabsDescription": "Add the lab results you have; if you enter the reference range too, I can track whether a value is low or high.",
+  "healthAddLabFab": "Lab result",
+  "healthAddLabTitle": "Add lab result",
+  "healthLabMarkerLabel": "Marker name",
+  "healthLabMarkerHint": "Vitamin D",
+  "healthLabMarkerRequired": "Marker name is required",
+  "healthLabValueLabel": "Value",
+  "healthLabValueInvalid": "Enter a number",
+  "healthLabUnitLabel": "Unit",
+  "healthLabUnitHint": "ng/mL",
+  "healthLabRefLowLabel": "Reference low",
+  "healthLabRefHighLabel": "Reference high",
+  "healthLabRefHelp": "Optional — without it the value is shown as \"no range\".",
+  "healthLabPanelLabel": "Panel",
+  "healthLabNameLabel": "Laboratory",
+  "healthLabNameHelp": "Optional — ranges differ from lab to lab",
+  "healthLabDateLabel": "Test date",
+  "healthMeasurementsTitle": "Measurements",
+  "healthMeasurementsDescription": "Measure once a month; the transition criteria look at your push-up count.",
+  "healthManageMetricsTooltip": "Manage measurements",
+  "healthNoMetricsTitle": "No measurement types",
+  "healthNoMetricsDescription": "Add the measurements you want to track — waist, arm circumference, resting heart rate.",
+  "healthMetricNeverMeasured": "not measured yet",
+  "healthDueLabsTitleOne": "One lab test is due",
+  "healthDueLabsTitleMany": "{count} lab tests are due",
+  "healthDueInterval": "every {months} months",
+  "healthDueWithDate": "{marker} — {interval}, as of {date}",
+  "@healthDueWithDate": {
+    "placeholders": {
+      "marker": {},
+      "interval": {},
+      "date": {}
+    }
+  },
+  "healthDueNoRecord": "{marker} — {interval}, never recorded",
+  "@healthDueNoRecord": {
+    "placeholders": {
+      "marker": {},
+      "interval": {}
+    }
+  },
+  "healthLabRefRange": "ref {low}–{high}",
+  "@healthLabRefRange": {
+    "placeholders": {
+      "low": {},
+      "high": {}
+    }
+  },
+  "healthLabStatusLow": "low",
+  "healthLabStatusHigh": "high",
+  "healthLabStatusNormal": "normal",
+  "healthLabStatusNoRange": "no range",
+  "healthMetricsEditorTitle": "Measurement types",
+  "healthMetricsEditorEmptyDescription": "Add your first measurement with the button below.",
+  "healthAddMetricFab": "Measurement",
+  "healthDeleteMetricTitle": "Remove \"{label}\"?",
+  "healthDeleteMetricBody": "Removes it from the list. The values you have entered are kept; add the type back and they reappear.",
+  "healthMetricRemove": "Remove",
+  "healthMetricDailyHint": "{unit} · daily, from the Today screen",
+  "healthMetricSheetAddTitle": "Add measurement",
+  "healthMetricSheetEditTitle": "Edit measurement",
+  "healthMetricLabelRequired": "Measurement name is required",
+  "healthMetricLabelLabel": "Measurement",
+  "healthMetricLabelHint": "Arm circumference",
+  "healthMetricUnitHint": "cm",
+  "healthMetricDisplayTitle": "Display",
+  "healthMetricInteger": "Whole number",
+  "healthMetricDecimal": "Decimal",
+  "healthMetricExampleInteger": "Example: 12",
+  "healthMetricExampleDecimal": "Example: 104.5",
+  "progressEmptyTitle": "Nothing to show yet",
+  "progressEmptyDescription": "Log your weight from the Today tab; after a few days the trend line starts to mean something.",
+  "progressWeightTitle": "Weight",
+  "progressWeightDescription": "The thick line is the 7-day average — daily swings are water and salt, watch the trend.",
+  "progressWeeksTitle": "Weeks",
+  "progressNoPlanTitle": "A plan is needed for the weekly summary",
+  "progressNoPlanDescription": "I read which days are gym and which are home from the plan. Load a program from the Plan tab.",
+  "progressHeroEmptyCaption": "The change will show up here after your first weigh-in",
+  "progressHeroCaption": "kg · since your first weigh-in",
+  "progressMetricNow": "Now",
+  "progressMetricPushups": "Push-ups",
+  "progressMetricWeeks": "Weeks",
+  "progressTransitionTitle": "Transition to running",
+  "progressTransitionAllMet": "All three criteria are met. You can start short running attempts.",
+  "progressTransitionProgress": "{met} of 3 criteria met.",
+  "progressCriterionWeight": "Weight below {limit} kg",
+  "progressCriterionNotWeighed": "not weighed yet",
+  "progressCriterionWeightNow": "now {value} kg",
+  "progressCriterionPushups": "{count} push-ups without stopping",
+  "progressCriterionNotMeasured": "not measured yet",
+  "progressCriterionPushupsNow": "now {value}",
+  "progressCriterionPainFree": "No knee or foot pain after walking",
+  "progressCriterionPainFreeHint": "I cannot measure this — only you know.",
+  "progressWeekLabel": "Week {index}",
+  "progressWeekPartial": "in progress · {days} days",
+  "progressWeekAverage": "weekly average",
+  "progressWeekGym": "Gym",
+  "progressWeekHome": "Home",
+  "progressWeekNoSlips": "No slips",
+  "progressWeekSlipDays": "{count} slip days",
+  "progressWeekCountChip": "{label} {done} / {target}",
+  "@progressWeekCountChip": {
+    "placeholders": {
+      "label": {},
+      "done": {},
+      "target": {}
+    }
+  },
+  "progressChartSemantics": "Weight chart. {count} measurements. First {first} kilograms, last {last} kilograms.",
+  "@progressChartSemantics": {
+    "placeholders": {
+      "count": {},
+      "first": {},
+      "last": {}
+    }
+  },
+  "commonNoRecords": "No records",
+  "commonErrorTitle": "Something went wrong",
+  "commonStatusGood": "good",
+  "commonStatusCaution": "caution",
+  "commonStatusBad": "problem",
+  "commonStatusUnknown": "no data",
+  "commonValueMissing": "no value entered",
+  "commonMetricEmptySemantics": "{caption}: not entered",
+  "commonMetricValueSemantics": "{caption}: {value}",
+  "@commonMetricValueSemantics": {
+    "placeholders": {
+      "caption": {},
+      "value": {}
+    }
+  },
+  "commonMetricChangeSemantics": ", change {delta}",
+  "commonHeroValueSemantics": "{value} · {caption}",
+  "@commonHeroValueSemantics": {
+    "placeholders": {
+      "value": {},
+      "caption": {}
+    }
+  },
+  "commonNowAt": "The time is now {time}",
+  "commonNowLabel": "NOW",
+  "commonWeekDotDone": "logged",
+  "commonWeekDotMissed": "not logged",
+  "commonWeekDotToday": "today",
+  "commonWeekDotFuture": "upcoming",
+  "settingsEquipmentTitle": "My equipment",
+  "settingsEquipmentDescription": "What you check here feeds the catalogue filter and the context sent to the AI.",
+  "settingsEquipmentTile": "Equipment list",
+  "settingsWeeklyFab": "Time range",
+  "settingsWeeklyExplanationTitle": "There are two kinds of range",
+  "settingsWeeklyExplanationBody": "· Work: you are on the job. The AI will not schedule training then, but it may schedule meals.\n· Unavailable: nothing is scheduled and no reminder fires.",
+  "settingsWeeklyEmptyDay": "empty",
+  "settingsWeeklyAddTitle": "Add a time range",
+  "settingsWeeklyKindWork": "Work",
+  "settingsWeeklyKindBlocked": "Unavailable",
+  "settingsWeeklyDays": "Days",
+  "settingsWeeklyPickDayError": "Pick at least one day",
+  "settingsWeeklyStart": "Start",
+  "settingsWeeklyEnd": "End",
+  "settingsWeeklyOvernightHint": "If the end is earlier than the start, the range crosses midnight.",
+  "settingsWeeklyLabel": "Description",
+  "settingsWeeklyLabelHint": "Factory",
+  "settingsWeeklyLabelHelper": "Optional",
+  "settingsWeeklyAdd": "Add",
+  "settingsBackupTitle": "Backup",
+  "settingsBackupDescription": "All data lives on this device only. If you change phones without a backup, there is no way back.",
+  "settingsBackupExport": "Create backup",
+  "settingsBackupExportSubtitle": "Save the file somewhere with the share sheet",
+  "settingsBackupImport": "Restore from backup",
+  "settingsBackupImportSubtitle": "Overwrites your current data",
+  "settingsBackupShareText": "di@sport backup",
+  "settingsBackupRestored": "Backup restored. Close and reopen the app — the open database connection still shows the old data.",
+  "settingsBackupConfirmTitle": "Overwrite your current data?",
+  "settingsBackupConfirmBody": "All of your current records will be replaced by the ones in the backup. The previous state is still kept on the device.",
+  "settingsBackupConfirmAction": "Overwrite",
+  "settingsNotificationsTitle": "Notifications",
+  "settingsNotificationsDescription": "The morning weigh-in reminder follows your wake-up time; set it in your profile.",
+  "settingsNotifWorkout": "Workout",
+  "settingsNotifWorkoutDescription": "At the workout time in your plan",
+  "settingsNotifMeal": "Meal",
+  "settingsNotifMealDescription": "At the meal times in your plan",
+  "settingsNotifWalk": "Walk",
+  "settingsNotifWalkDescription": "At the walk time in your plan",
+  "settingsNotifSupplement": "Supplement",
+  "settingsNotifSupplementDescription": "At vitamin and supplement times",
+  "settingsExactAlarmTitle": "Exact alarm permission",
+  "settingsExactAlarmGranted": "Granted — reminders fire exactly on time.",
+  "settingsExactAlarmDenied": "Not granted. Reminders still fire but may be a few minutes late in battery saver. Tap to grant.",
+  "settingsExactAlarmLoading": "Loading…",
+  "settingsOnboardingIntro": "Let's get to know you first. This information never leaves your device; it is only used when you send a context file to an AI yourself.",
+  "settingsOnboardingSave": "Save and start",
+  "onboardingWelcomeTitle": "Welcome to di@sport",
+  "onboardingWelcomeBody": "Track your diet, workouts, health values and medication in one place.",
+  "onboardingAreaDiet": "Diet — meals, calorie budget, water",
+  "onboardingAreaSport": "Sport — plan, workouts, exercise catalog",
+  "onboardingAreaHealth": "Health — labs, measurements, progress",
+  "onboardingAreaMed": "Medication & supplements — reminders and tracking",
+  "onboardingStart": "Let's start",
+  "onboardingIdentityTitle": "About you",
+  "onboardingFirstName": "First name",
+  "onboardingLastName": "Last name",
+  "onboardingFirstNameRequired": "We need your first name to continue.",
+  "onboardingBirthDate": "Birth date",
+  "onboardingBirthDay": "Day",
+  "onboardingBirthMonth": "Month",
+  "onboardingBirthYear": "Year",
+  "onboardingBirthDateInvalid": "Birth date must be a valid day.",
+  "onboardingGender": "Gender",
+  "onboardingMale": "Male",
+  "onboardingFemale": "Female",
+  "onboardingGenderUnspecified": "Prefer not to say",
+  "onboardingGenderWhy": "Used for calorie estimates; an average factor is used if unspecified.",
+  "onboardingMeasuresTitle": "Your measurements",
+  "onboardingMeasuresBody": "Your weight also becomes your first weigh-in — your Progress chart starts today.",
+  "onboardingHeight": "Height",
+  "onboardingWeight": "Current weight",
+  "onboardingTargetWeight": "Target weight",
+  "commonBack": "Back",
+  "commonNext": "Next",
+  "setupPanelTitle": "Setup",
+  "setupPanelProgress": "{done}/{total} done",
+  "@setupPanelProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "setupPanelBody": "A few short steps left. These feed your plan too — the fuller they are, the better the plan.",
+  "setupCardEquipment": "Pick your equipment",
+  "setupCardMedical": "Your medical info",
+  "setupCardRhythm": "Your daily rhythm",
+  "setupCardMinutes": "{minutes} min",
+  "@setupCardMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "setupCardSkip": "Skip",
+  "todayBirthday": "Happy birthday, {name}! 🎉",
+  "@todayBirthday": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "medicalTitle": "Medical info",
+  "medicalPrivacyNote": "This never leaves your device; it only reaches a plan when you share the AI document yourself.",
+  "medicalKindDiagnosis": "Diagnoses",
+  "medicalKindCondition": "Conditions",
+  "medicalKindRestriction": "Movement restrictions",
+  "medicalKindAllergy": "Allergies",
+  "medicalKindBloodType": "Blood type",
+  "medicalKindEmpty": "No records.",
+  "medicalAddCustom": "Add another",
+  "medicalCustomHint": "e.g. knee sensitivity",
+  "medicalRemoveTitle": "Remove {label}?",
+  "@medicalRemoveTitle": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "medicalRemoveBody": "The record leaves the list; your history stays intact.",
+  "medicalMedsTitle": "Medication",
+  "medicalMedsEmpty": "No medication defined. Medication lives in the Medication & Supplements screen for reminders and tracking.",
+  "medicalMedsManage": "Manage medication and supplements",
+  "medicalCondInsulinResistance": "Insulin resistance",
+  "medicalCondType2Diabetes": "Type 2 diabetes",
+  "medicalCondHypertension": "Hypertension",
+  "medicalCondThyroid": "Thyroid",
+  "medicalCondKneeIssue": "Knee issue",
+  "medicalCondBackIssue": "Back issue",
+  "medicalCondShoulderIssue": "Shoulder issue",
+  "medicalCondLactose": "Lactose",
+  "medicalCondGluten": "Gluten",
+  "medicalCondNuts": "Nuts",
+  "supplementKindSupplement": "Supplement",
+  "supplementKindMedication": "Medication",
+  "equipmentTabHome": "At home",
+  "equipmentTabGym": "At the gym",
+  "equipmentTabSports": "Sports",
+  "equipmentImpactHome": "With these checks you can do {count} exercises at home.",
+  "@equipmentImpactHome": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "equipmentImpactGym": "With these checks you can do {count} exercises at the gym.",
+  "@equipmentImpactGym": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "equipmentUnlocks": "unlocks +{count}",
+  "@equipmentUnlocks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "equipmentGymToggle": "Do you go to a gym?",
+  "equipmentGymOffBody": "If you don't go to a gym there's nothing to do here — plans are built only from what's doable at home and outdoors. Flip the switch if that changes.",
+  "sportsIntro": "Pick the sports you love; the AI builds the plan around them. Add a frequency note if you like.",
+  "sportsChosen": "Your picks",
+  "sportsSearchHint": "Search sports — running, basketball, swimming…",
+  "sportsNoteTooltip": "Frequency note",
+  "sportsNoteTitle": "How often?",
+  "sportsNoteHint": "e.g. once a week, Sunday morning",
+  "reminderMealBody": "Meal time. Log what you eat from Diet.",
+  "planSlotItems": "Meal items",
+  "planSlotAddItem": "Add food",
+  "waterRowTitle": "Water",
+  "waterRowAmount": "{current} / {target} ml",
+  "@waterRowAmount": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "waterRowAddGlass": "+250 ml",
+  "waterRowRemoveGlass": "Take back one glass",
+  "dietPlanBadge": "PLAN",
+  "dietPlanCompliantBadge": "ON PLAN",
+  "dietAteAsPlanned": "I ate as planned",
+  "dietAteUsual": "The usual",
+  "dietExternalMeal": "Canteen/eating out — no plan expected, log freely.",
+  "dietFixedUnbound": "Fixed meal: {note}",
+  "@dietFixedUnbound": {
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
+  "foodSortAz": "A–Z",
+  "foodSortKcalAsc": "Calories ↑",
+  "foodSortKcalDesc": "Calories ↓",
+  "foodSortProteinDesc": "Protein ↓",
+  "foodSortFrequent": "Often eaten",
+  "foodForbiddenBadge": "FORBIDDEN",
+  "forbiddenTitle": "Forbidden foods",
+  "forbiddenIntro": "This list goes into the AI plan (never suggested) and matching foods carry a badge. Logging is never blocked — your call.",
+  "forbiddenAddHint": "e.g. sugar, pastry, alcohol",
+  "forbiddenAdd": "Add",
+  "forbiddenLinkFoods": "Link to foods",
+  "forbiddenLinkedCount": "{count} foods linked",
+  "@forbiddenLinkedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "forbiddenNoPlan": "The forbidden list is stored on the plan; you need a plan first.",
+  "forbiddenEmpty": "Nothing forbidden. Add a line; link it to foods if you like.",
+  "dietHistoryDays": "Day breakdown",
+  "planAdherence": "Adherence {percent}% — {done}/{planned} workout days",
+  "@planAdherence": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      },
+      "planned": {
+        "type": "int"
+      }
+    }
+  },
+  "plannedVsDoneTitle": "Planned / Done",
+  "plannedVsDoneExercises": "Exercises",
+  "plannedVsDoneColumns": "PLAN · DONE",
+  "plannedVsDoneEmptyTitle": "No workout on this day",
+  "plannedVsDoneEmptyBody": "The plan put no exercises here and nothing was logged.",
+  "plannedVsDoneOpenLive": "Start workout",
+  "plannedVsDoneSession": "Session",
+  "plannedVsDoneNoSession": "No session recorded. For a past day you can enter the time range by hand.",
+  "plannedVsDoneSessionOpen": "{start} — in progress",
+  "@plannedVsDoneSessionOpen": {
+    "placeholders": {
+      "start": {
+        "type": "String"
+      }
+    }
+  },
+  "plannedVsDoneMinutes": "{minutes} min",
+  "@plannedVsDoneMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "plannedVsDoneAddSession": "Add session",
+  "plannedVsDoneSessionEdit": "Session times",
+  "plannedVsDoneStart": "Start",
+  "plannedVsDoneEnd": "End",
+  "plannedVsDoneAdd": "— ADD",
+  "plannedVsDoneNoSets": "No sets logged. Add one below.",
+  "plannedVsDoneAddSet": "Add set",
+  "plannedVsDoneReps": "Reps",
+  "plannedVsDoneSeconds": "Seconds",
+  "sportWorkoutTodayTitle": "Today's workout",
+  "sportWorkoutTodayBody": "The plan scheduled a workout today.",
+  "sportWorkoutHistory": "History",
+  "sportWorkoutExerciseCount": "{count} exercises",
+  "@sportWorkoutExerciseCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "catalogSafetyLabel": "Safety",
+  "catalogSafetyRestricted": "Safety — matches your restriction",
+  "bmiMissingHeight": "BMI needs your height — add it in Profile",
+  "bmiMissingWeight": "BMI needs your weight — weigh in or add it in Profile",
+  "onboardingBmiContext": "Your starting point on the way to the goal — the plan builds from here.",
+  "bmiRowTitle": "Body mass index",
+  "bmiUnderweight": "Underweight",
+  "bmiNormal": "Normal",
+  "bmiOverweight": "Overweight",
+  "bmiObese": "Obese",
+  "healthShareLabs": "Share lab summary",
+  "healthShareTitle": "Lab summary — di@sport",
+  "checkupTitle": "Check-up guide",
+  "checkupDisclaimer": "General screening suggestions — not medical advice, ask your doctor.",
+  "checkupNeedsWeight": "Enter your weight to sharpen the suggestions.",
+  "checkupDue": "Due now",
+  "checkupInMonths": "in {months} months",
+  "@checkupInMonths": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "checkupScheduled": "{test} added to your lab schedule.",
+  "@checkupScheduled": {
+    "placeholders": {
+      "test": {
+        "type": "String"
+      }
+    }
+  },
+  "checkupFullPanel": "Full panel (CBC, CMP, lipid, HbA1c, TSH)",
+  "checkupHba1c": "HbA1c",
+  "checkupLipid": "Lipid panel",
+  "checkupVitaminDB12": "Vitamin D + B12",
+  "supplementsTodayTitle": "Today's doses",
+  "supplementsAdherenceTitle": "Last 7 days adherence",
+  "labImportTitle": "Import labs with AI",
+  "labImportStep1": "Copy the transfer document.",
+  "labImportCopyDoc": "Copy document",
+  "labImportShareDoc": "Share",
+  "labImportCopied": "Document copied to clipboard.",
+  "labImportStep2": "Give the document and your lab PDF to any AI chat. The PDF never enters the app.",
+  "labImportStep3": "Paste the returned JSON here.",
+  "labImportPasteHint": "Paste the JSON document here",
+  "labImportParse": "Parse",
+  "labImportPreview": "Preview",
+  "labImportUnknownMarker": "Marker not in the dictionary",
+  "labImportUnexpectedUnit": "Unit differs from expected",
+  "labImportImplausible": "Value outside the plausible range",
+  "labImportEditTitle": "Fix row",
+  "labImportSave": "Save {save} values · skip {skip}",
+  "@labImportSave": {
+    "placeholders": {
+      "save": {
+        "type": "int"
+      },
+      "skip": {
+        "type": "int"
+      }
+    }
+  },
+  "labImportSaved": "{count} lab values saved.",
+  "@labImportSaved": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "healthImportWithAi": "Import from PDF with AI",
+  "ctxSectionsTitle": "What goes to the AI",
+  "ctxSectionsIntro": "You choose which sections enter the plan request document. A disabled section is never written. Who/goal/task always go — no plan can be requested without them.",
+  "ctxPreviewButton": "See the document first",
+  "ctxPreviewTitle": "Document preview",
+  "ctxCopy": "Copy",
+  "ctxShare": "Share",
+  "ctxSectionMedical": "Medical",
+  "ctxSectionMedicalHint": "Conditions, restrictions, labs and medication",
+  "ctxSectionEnvironment": "Environment",
+  "ctxSectionEnvironmentHint": "Equipment inventory and favourite sports",
+  "ctxSectionRoutine": "Meal behaviours",
+  "ctxSectionRoutineHint": "Meal times and canteen/fixed meal info",
+  "ctxSectionForbidden": "Forbidden foods",
+  "ctxSectionForbiddenHint": "The AI never suggests these",
+  "ctxSectionRecent": "Last 14 days",
+  "ctxSectionRecentHint": "Meals, water (ml), medication adherence, workouts, weight",
+  "ctxSectionNotes": "Your own words",
+  "ctxSectionNotesHint": "Your day notes, verbatim",
+  "ctxSectionFoods": "Food list",
+  "ctxSectionFoodsHint": "368 foods — so the AI can write meals with food ids",
+  "moreAiSections": "What goes to the AI",
+  "importPlanGraftTitle": "Graft onto the current plan",
+  "importPlanGraftBody": "Everything before {date} stays untouched; from that date on this plan takes over. Your records are never touched.",
+  "@importPlanGraftBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "requestScopeTitle": "Plan scope",
+  "requestScopeBody": "You have an active plan. Where should the new plan start?",
+  "requestScopeGraft": "From a chosen date",
+  "requestScopeFresh": "A fresh plan",
+  "importWarningsTitle": "{count} warnings",
+  "@importWarningsTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importWarningsFootnote": "Warnings never block the import; fix them later in the editor if you like.",
+  "importWarnForbidden": "Forbidden food in the plan: {id}",
+  "@importWarnForbidden": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "importWarnUnknownFood": "Not in the food list: {id}",
+  "@importWarnUnknownFood": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "importWarnCannotPerform": "Not doable with your equipment: {id}",
+  "@importWarnCannotPerform": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "importWarnExternalMeal": "Plan written for an external meal: {meal}",
+  "@importWarnExternalMeal": {
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
+  "importWarnFixedMeal": "Fixed meal differs in the plan: {meal}",
+  "@importWarnFixedMeal": {
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
+  "importWarnRestriction": "Matches your movement restriction: {id}",
+  "@importWarnRestriction": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "rhythmMealsSection": "Meals",
+  "rhythmMealFlexible": "Flexible time",
+  "mealBehaviorPlanned": "Plan fills it",
+  "mealBehaviorFixed": "Always the same",
+  "mealBehaviorExternal": "Canteen/eating out",
+  "mealBehaviorFixedNoteLabel": "What do you eat?",
+  "mealBehaviorFixedNoteHint": "e.g. menemen + tea",
+  "mealBehaviorSheetTitle": "{meal} routine",
+  "@mealBehaviorSheetTitle": {
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
+  "mealBehaviorTimeLabel": "Time",
+  "mealBehaviorTimeClear": "Clear time",
+  "mealBehaviorWhy": "This goes into the AI plan: a fixed meal is left untouched, an external meal is never planned.",
+  "settingsProfileHeightRequired": "Height is required.",
+  "settingsProfileContextNote": "This information goes into the context file sent to the AI. The more you fill in, the more the plan fits you; whatever you leave blank is reported as \"not specified\".",
+  "importPlanTitle": "Import plan",
+  "importPlanDescription": "Paste the JSON document the AI gave you here.",
+  "importPlanValidate": "Validate",
+  "importPlanImport": "Import",
+  "importPlanFailedTitle": "Plan could not be imported",
+  "importPlanPasteBackHint": "Paste this message back to the AI as is; it will know what to fix.",
+  "importPlanCopyError": "Copy error",
+  "importPlanErrorCopied": "Error message copied",
+  "importPlanLoaded": "Loaded a {days}-day plan.",
+  "importPlanLoadedWithExercises": "Loaded a {days}-day plan and added {count} new exercises.",
+  "@importPlanLoadedWithExercises": {
+    "placeholders": {
+      "days": {},
+      "count": {}
+    }
+  },
+  "importPlanSummary": "{weeks} weeks · {days} days, starting {startDate}",
+  "@importPlanSummary": {
+    "placeholders": {
+      "weeks": {},
+      "days": {},
+      "startDate": {}
+    }
+  },
+  "importPlanGym": "Gym {count}",
+  "importPlanHome": "Home {count}",
+  "importPlanRest": "Rest {count}",
+  "importPlanGoals": "{kcal} kcal · {protein} g protein · {water} L water · target −{loss} kg",
+  "@importPlanGoals": {
+    "placeholders": {
+      "kcal": {},
+      "protein": {},
+      "water": {},
+      "loss": {}
+    }
+  },
+  "importPlanNewExercisesTitle": "Suggested new exercises",
+  "importPlanNewExercisesDescription": "The ones you approve are added to the catalogue permanently.",
+  "todayWeekNumber": "week {week}",
+  "todayDayTypeGym": "Gym day",
+  "todayDayTypeHome": "Home workout",
+  "todayDayTypeRest": "Rest day",
+  "todayNextEyebrow": "Next · {time}",
+  "todayExerciseCount": "{count} exercises",
+  "todayDinnerHint": "Dinner suggestion: {text}",
+  "todayNoPlanTitle": "No plan for today",
+  "todayNoPlanBody": "Load a program from the Plan tab. The scale and the daily checkboxes work without a plan too.",
+  "todayCheckedLabel": "checked",
+  "todayUncheckedLabel": "unchecked",
+  "todayRulesTitle": "Rules of the day",
+  "todayEditRulesTooltip": "Edit rules",
+  "todayNoRulesTitle": "No rules",
+  "todayNoRulesBody": "Add the things you want to track every day — water, supplements, early bedtime. Use the settings button at the top right.",
+  "todayRulesEditorEmptyBody": "Add your first rule with the button below.",
+  "todayRuleFabLabel": "Rule",
+  "todayDeleteRuleTitle": "Delete \"{label}\"?",
+  "todayDeleteRuleBody": "It will no longer appear in the list from today on. Your marks on past days stay untouched.",
+  "todayBuiltInRuleNote": "Rule from the chart",
+  "todayRuleNameRequired": "Rule name is required",
+  "todayAddRule": "Add rule",
+  "todayEditRule": "Edit rule",
+  "todayRuleLabel": "Rule",
+  "todayRuleHint": "Took creatine",
+  "todayIconLabel": "Icon",
+  "todayNoteTitle": "Note",
+  "todayNoteDescription": "What you ate, what was hard, how it went.",
+  "todayNoteHint": "How did today go?",
+  "todayWeightLabel": "Weight",
+  "todayWeightUnit": "kg",
+  "todayMissedStreakTitle": "{count} days in a row without a workout",
+  "todayMissedStreakBody": "That was the rule: never miss two days in a row. Do something today, even if it is short.",
+  "planEmptyTitle": "No plan yet",
+  "planEmptyBody": "Use the \"Request a new plan\" button above to generate your context file, hand it to any AI, then bring the returned JSON document back here with \"Import\".",
+  "planLoadSample": "Load sample plan (development)",
+  "planShareSubject": "di@sport — plan request",
+  "planRequestButton": "Request a new plan",
+  "planImportButton": "Import",
+  "planDayCount": "{count} days",
+  "planWeekLabel": "Week {week}",
+  "planLegendDone": "Completed",
+  "planLegendPartial": "Partial",
+  "planLegendFree": "Free",
+  "planLegendWorkout": "Workout ▲",
+  "planGoalDaily": "Daily",
+  "planGoalProtein": "Protein",
+  "planGoalWater": "Water",
+  "planGoalTarget": "Target",
+  "planNutritionRules": "Nutrition rules",
+  "planRulesForbidden": "Absolutely not",
+  "planRulesFree": "Allowed",
+  "planWeekdayInitials": "M,T,W,T,F,S,S",
+  "planMonthNames": "January,February,March,April,May,June,July,August,September,October,November,December",
+  "planCellToday": "today",
+  "planCellDone": "completed",
+  "planCellEmpty": "no record",
+  "planCellFuture": "not here yet",
+  "planCellFreeSpoken": "free day",
+  "reminderSlotFallbackTitle": "A step in your plan",
+  "reminderSlotWorkoutBody": "Training time. Let's go when you're ready.",
+  "reminderSlotOtherBody": "The next step in your plan.",
+  "reminderWeighInTitle": "Morning weigh-in",
+  "reminderWeighInBody": "On an empty stomach, same conditions every day.",
+  "reminderMissStreakTitle": "The streak is breaking",
+  "reminderMissStreakBody": "You've missed two days in a row. Something short today beats nothing.",
+  "reminderDueLabTitle": "Lab test due",
+  "reminderDueLabBody": "{marker} is due for a retest.",
+  "reminderPlanEndingTitle": "Plan is ending",
+  "reminderPlanEndingToday": "Your plan ends today. Grab the context file for a new one.",
+  "reminderPlanEndingIn": "Your plan ends in {days} days. Time to prepare the next one.",
+  "supplementsTitle": "Supplements and medication",
+  "supplementsDescription": "Vitamins, supplements, medication — set the times and tick them off on Today.",
+  "supplementsOpen": "Supplement list",
+  "supplementsEmptyTitle": "No supplements yet",
+  "supplementsEmptyDescription": "Add whatever you take. Give it a time and you'll get a reminder too.",
+  "supplementAddFab": "Supplement",
+  "supplementAddTitle": "Add supplement",
+  "supplementEditTitle": "Edit supplement",
+  "supplementNameLabel": "Name",
+  "supplementNameHint": "Vitamin D",
+  "supplementNameRequired": "Name is required",
+  "supplementDoseLabel": "Dose",
+  "supplementDoseHint": "1000",
+  "supplementUnitLabel": "Unit",
+  "supplementUnitHint": "IU",
+  "supplementNoteLabel": "Note",
+  "supplementNoteHint": "With food",
+  "supplementTimesSection": "Times",
+  "supplementTimesEmpty": "No times set — no reminder will be scheduled.",
+  "supplementAddTime": "Add time",
+  "supplementDaysSection": "Days",
+  "supplementEveryDay": "Every day",
+  "supplementDeleteTitle": "Delete \"{name}\"?",
+  "supplementDeleteBody": "Removed from the list and from reminders. Your past records stay — nothing is lost.",
+  "reminderSupplementBody": "Time to take it.",
+  "reminderSupplementBodyWithDose": "{dose} — time to take it.",
+  "equipmentBodyOnly": "Body only",
+  "equipmentBarbell": "Barbell",
+  "equipmentDumbbell": "Dumbbell",
+  "equipmentKettlebell": "Kettlebell",
+  "equipmentCable": "Cable",
+  "equipmentMachine": "Machine",
+  "equipmentBands": "Resistance bands",
+  "equipmentMedicineBall": "Medicine ball",
+  "equipmentExerciseBall": "Exercise ball",
+  "equipmentFoamRoll": "Foam roller",
+  "equipmentEzCurlBar": "E-Z curl bar",
+  "equipmentOther": "Household item",
+  "equipmentNone": "No equipment",
+  "equipmentPullUpBar": "Pull-up bar",
+  "equipmentDipBars": "Dip bars",
+  "equipmentBench": "Bench",
+  "equipmentJumpRope": "Jump rope",
+  "catalogEquipmentMissingHome": "Needs {equipment} (not at home)",
+  "catalogEquipmentMissingGym": "Needs {equipment} (not at the gym)",
+  "foodSearchHint": "Search foods",
+  "foodSearchEmptyTitle": "Nothing found",
+  "foodSearchEmptyMessage": "Try a shorter word, or search in the other language.",
+  "foodStartTitle": "Nothing logged yet",
+  "foodStartMessage": "Search for a food, or pick a category above.",
+  "foodFrequentTitle": "You eat these often",
+  "foodCopyLastMeal": "Copy this meal from last time",
+  "foodCopyDone": "{count, plural, one{Copied 1 item} other{Copied {count} items}}",
+  "@foodCopyDone": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "foodCopyNothingToCopy": "No earlier entry for this meal",
+  "foodPer100g": "{kcal} kcal per 100 g",
+  "@foodPer100g": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "foodPerPortion": "{portion} - {kcal} kcal",
+  "@foodPerPortion": {
+    "placeholders": {
+      "portion": {
+        "type": "String"
+      },
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "foodCategoryYemek": "Dishes",
+  "foodCategoryCorba": "Soups",
+  "foodCategoryKahvaltilik": "Breakfast",
+  "foodCategoryMeyve": "Fruit",
+  "foodCategorySebze": "Vegetables",
+  "foodCategoryKuruyemis": "Nuts",
+  "foodCategoryIcecek": "Drinks",
+  "foodCategoryTahil": "Grains",
+  "foodCategoryEtBalik": "Meat and fish",
+  "foodCategorySutUrunu": "Dairy",
+  "foodCategoryAtistirmalik": "Snacks",
+  "foodCategoryDiger": "Other",
+  "mealKahvalti": "Breakfast",
+  "mealAraOgun": "Morning snack",
+  "mealOgle": "Lunch",
+  "mealIkindi": "Afternoon snack",
+  "mealAksam": "Dinner",
+  "mealGece": "Late snack",
+  "portionUnitGrams100": "100 g",
+  "portionCustomGramsLabel": "Weighed it?",
+  "portionCustomGramsHelper": "Enter grams to override the portion",
+  "portionGrams": "AMOUNT",
+  "portionKcal": "CALORIES",
+  "portionProtein": "PROTEIN",
+  "portionAddToMeal": "Add to meal",
+  "portionDecrease": "One less",
+  "portionIncrease": "One more",
+  "activityLogTitle": "Log activity",
+  "activitySearchHint": "Search activities",
+  "activityMinutesLabel": "Minutes",
+  "activityAdd": "Add",
+  "activityEmptyTitle": "No activities match",
+  "activityEmptyMessage": "Try another word, or add your own below.",
+  "effortLight": "Light",
+  "effortModerate": "Moderate",
+  "effortVigorous": "Hard",
+  "todayMealsTitle": "Meals",
+  "todayActivitiesTitle": "Activity",
+  "todayAddMeal": "Add meal",
+  "todayAddActivity": "Add activity",
+  "todayHeroRemaining": "LEFT TODAY",
+  "todayHeroEatenNoPlan": "EATEN TODAY",
+  "todayMetricWater": "WATER",
+  "todayMetricMeds": "MEDS",
+  "todayMetricProtein": "PROTEIN",
+  "todayMetricBurned": "BURNED",
+  "mealEntryRemoved": "Removed",
+  "progressCaloriesTitle": "Calories this week",
+  "progressCaloriesGoalLine": "Goal",
+  "progressDayBreakdown": "{date} breakdown",
+  "@progressDayBreakdown": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "catalogTabOutside": "Outside",
+  "dayBadgePast": "PAST DAY",
+  "dayBadgeFuture": "PLANNED DAY",
+  "dayBackToToday": "Back to today",
+  "dayPrevious": "Previous day",
+  "dayNext": "Next day",
+  "dayPickDate": "Pick a date",
+  "dayFutureNoEntry": "You can look at the plan, but entries start on the day itself.",
+  "planSettingsTitle": "Plan settings",
+  "planSettingsName": "Plan name",
+  "planSettingsNameRequired": "Give the plan a name",
+  "planSettingsGoals": "Goals",
+  "planGoalKcal": "Daily calories",
+  "planGoalWeeklyGym": "Gym days per week",
+  "planGoalWeeklyHome": "Home days per week",
+  "planGoalTargetLoss": "Target loss (kg)",
+  "planGoalRange": "Enter a value between {min} and {max}",
+  "@planGoalRange": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "planRuleAdd": "Add item",
+  "commonRemove": "Remove",
+  "commonAdd": "Add",
+  "planEditDay": "Edit day",
+  "planDayType": "Day type",
+  "planDayTypeGym": "Gym",
+  "planDayTypeHome": "Home",
+  "planDayTypeRest": "Rest",
+  "planDayHeadline": "Headline",
+  "planDayDinner": "Dinner suggestion",
+  "planSlotNew": "New slot",
+  "planSlotEdit": "Edit slot",
+  "planSlotTime": "Time",
+  "planSlotKind": "Kind",
+  "planSlotLabel": "Label",
+  "planSlotNote": "Note",
+  "planSlotMealKind": "Which meal",
+  "planSlotMealKindRequired": "Pick which meal this is",
+  "planSlotLabelRequired": "Give the slot a label",
+  "planExerciseNew": "Add exercise",
+  "planExerciseEdit": "Edit exercise",
+  "planExercisePick": "Pick from catalogue",
+  "planExerciseSets": "Sets",
+  "planExerciseReps": "Reps",
+  "planExerciseDuration": "Duration (min)",
+  "planExerciseRest": "Rest (sec)",
+  "planExerciseSpeed": "Speed (km/h)",
+  "planExerciseGrade": "Incline (%)",
+  "planExerciseEffort": "Effort",
+  "planExerciseRequired": "Pick an exercise first",
+  "planOriginAiEdited": "From an AI plan, edited",
+  "planOriginManual": "Built by hand",
+  "planCreateEmpty": "Build an empty plan",
+  "planCreateTitle": "New plan",
+  "planCreateWeeks": "Weeks",
+  "planCreateStart": "Start date",
+  "planCreateDone": "Create",
+  "dailyRhythmTitle": "Daily rhythm",
+  "dailyRhythmDescription": "When you get up, when you sleep, and when you cannot be reached.",
+  "dailyRhythmWake": "Wake up",
+  "dailyRhythmSleep": "Sleep",
+  "slotKindMeal": "Meal",
+  "slotKindWorkout": "Workout",
+  "slotKindSleep": "Sleep",
+  "slotKindMeasurement": "Measurement",
+  "slotKindLab": "Lab test",
+  "slotKindOther": "Other",
+  "tabHome": "Home",
+  "tabDiet": "Diet",
+  "tabSport": "Sport",
+  "tabMore": "More",
+  "tabHomeHint": "Today's summary and flow",
+  "tabDietHint": "Meals, foods, calorie history",
+  "tabSportHint": "Plan, workouts, exercise catalogue",
+  "tabMoreHint": "Your data and app settings",
+  "dietTabDaily": "Daily",
+  "dietTabFoods": "Foods",
+  "dietTabHistory": "History",
+  "sportTabPlan": "Plan",
+  "sportTabWorkout": "Workout",
+  "sportTabCatalog": "Catalogue",
+  "healthTabLabs": "Labs",
+  "healthTabMeasure": "Measures",
+  "healthTabMeds": "Meds",
+  "sportWorkoutEmptyTitle": "No sessions yet",
+  "sportWorkoutEmptyMessage": "Start a workout from the plan; finished sessions appear here.",
+  "moreYourData": "Shapes your plan",
+  "moreYourDataHint": "Goes to the AI",
+  "moreApp": "App",
+  "moreProfile": "Profile",
+  "moreEquipment": "Your equipment",
+  "moreRhythm": "Daily rhythm",
+  "moreRules": "Daily rules",
+  "moreNotifications": "Notifications",
+  "moreAppearance": "Appearance and language",
+  "moreBackup": "Backup",
+  "todayStepsLabel": "Steps",
+  "todayStepsUnit": "steps",
+  "dietMealSkippedAction": "Skipped",
+  "dietMealSkippedLabel": "Skipped: {reason}",
+  "dietSkipUndo": "Undo skip",
+  "dietSkipSheetTitle": "Why was it skipped?",
+  "dietSkipReasonWork": "Work",
+  "dietSkipReasonAppetite": "No appetite",
+  "dietSkipReasonOut": "Ate out",
+  "dietSkipReasonOther": "Other",
+  "dietSkipReasonHint": "short reason",
+  "@dietMealSkippedLabel": {
+    "placeholders": {
+      "reason": {}
+    }
+  },
+  "moodBlockTitle": "How did you feel today?",
+  "moodLevel1": "Awful",
+  "moodLevel2": "Bad",
+  "moodLevel3": "Okay",
+  "moodLevel4": "Good",
+  "moodLevel5": "Great",
+  "moodSymptomsLabel": "Symptoms",
+  "moodSymptomsHint": "headache, fatigue",
+  "moodStressedLabel": "Busy/stressful day",
+  "sleepBlockTitle": "Sleep",
+  "sleepBedLabel": "Bed",
+  "sleepWakeLabel": "Wake",
+  "sleepNapLabel": "Nap",
+  "sleepNapUnit": "min",
+  "sleepHoursOnlyLabel": "Duration only",
+  "sleepHoursUnit": "h",
+  "sleepTotal": "{hours} h {minutes} min of sleep",
+  "sleepPickTime": "Pick time",
+  "sleepClear": "Clear times",
+  "@sleepTotal": {
+    "placeholders": {
+      "hours": {},
+      "minutes": {}
+    }
+  },
+  "dayFlowEnterMeal": "+ LOG",
+  "dayFlowTitle": "Day flow",
+  "dayFlowWeighIn": "Weigh-in",
+  "dayFlowCollapse": "Show less",
+  "dayFlowExpand": "All of the day ({count})",
+  "@dayFlowExpand": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "equipmentChair": "Chair",
+  "equipmentStep": "Step / stairs"
+}

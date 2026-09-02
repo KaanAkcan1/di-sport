@@ -1,0 +1,267 @@
+# USDA SR Legacy secimi — `fdcId | slug | Turkce ad`.
+#
+# Bu dosya tools/_gen_usda_selection.py ile uretiliyor ama elle de
+# duzenlenebilir: id somut oldugu icin kaynak surumu degisse bile
+# ayni kayit gelir. Turkce ad bos birakilabilir — karsiligi
+# olmayan bir besine ad uydurmak, markette aranamayacak bir
+# sozcuk uretmek olurdu.
+
+171688 | elma | Elma   # Apples, raw, with skin (Includes foods for USDA's Food Distribution Program)
+173944 | muz | Muz   # Bananas, raw
+169097 | portakal | Portakal   # Oranges, raw, all commercial varieties
+169105 | mandalina | Mandalina   # Tangerines, (mandarin oranges), raw
+167746 | limon | Limon   # Lemons, raw, without peel
+174683 | uzum | Uzum   # Grapes, red or green (European type, such as Thompson seedless), raw
+167762 | cilek | Cilek   # Strawberries, raw
+167765 | karpuz | Karpuz   # Watermelon, raw
+169092 | kavun | Kavun   # Melons, cantaloupe, raw
+169928 | seftali | Seftali   # Peaches, yellow, raw
+169118 | armut | Armut   # Pears, raw
+171697 | kayisi | Kayisi   # Apricots, raw
+171719 | kiraz | Kiraz   # Cherries, sweet, raw
+169949 | erik | Erik   # Plums, raw
+168153 | kivi | Kivi   # Kiwifruit, green, raw
+169124 | ananas | Ananas   # Pineapple, raw, all varieties
+169134 | nar | Nar   # Pomegranates, raw
+173021 | incir | Incir   # Figs, raw
+168191 | hurma | Hurma   # Dates, medjool
+168165 | kuru_uzum | Kuru Uzum   # Raisins, dark, seedless (Includes foods for USDA's Food Distribution Program)
+171711 | yaban_mersini | Yaban Mersini   # Blueberries, raw
+171705 | avokado | Avokado   # Avocados, raw, all commercial varieties
+169910 | mango | Mango   # Mangos, raw
+174673 | greyfurt | Greyfurt   # Grapefruit, raw, pink and red, all areas
+169941 | trabzon_hurmasi | Trabzon Hurmasi   # Persimmons, japanese, raw
+173941 | kuru_kayisi | Kuru Kayisi   # Apricots, dried, sulfured, uncooked
+170457 | domates | Domates   # Tomatoes, red, ripe, raw, year round average
+168409 | salatalik | Salatalik   # Cucumber, with peel, raw
+169247 | marul | Marul   # Lettuce, cos or romaine, raw
+170000 | sogan | Sogan   # Onions, raw
+170427 | yesil_biber | Yesil Biber   # Peppers, sweet, green, raw
+170108 | kirmizi_biber | Kirmizi Biber   # Peppers, sweet, red, raw
+170393 | havuc | Havuc   # Carrots, raw
+170379 | brokoli | Brokoli   # Broccoli, raw
+169986 | karnabahar | Karnabahar   # Cauliflower, raw
+168462 | ispanak | Ispanak   # Spinach, raw
+169291 | kabak | Kabak   # Squash, summer, zucchini, includes skin, raw
+169228 | patlican | Patlican   # Eggplant, raw
+169975 | lahana | Lahana   # Cabbage, raw
+169251 | mantar | Mantar   # Mushrooms, white, raw
+169230 | sarimsak | Sarimsak   # Garlic, raw
+169988 | kereviz_sapi | Kereviz Sapi   # Celery, raw
+170440 | haslanmis_patates | Haslanmis Patates   # Potatoes, boiled, cooked without skin, flesh, without salt
+168484 | tatli_patates | Tatli Patates   # Sweet potato, cooked, boiled, without skin
+169998 | misir | Misir   # Corn, sweet, yellow, raw
+169961 | taze_fasulye | Taze Fasulye   # Beans, snap, green, raw
+170419 | bezelye | Bezelye   # Peas, green, raw
+169145 | pancar | Pancar   # Beets, raw
+168448 | bal_kabagi | Bal Kabagi   # Pumpkin, raw
+169276 | turp | Turp   # Radishes, raw
+169387 | roka | Roka   # Arugula, raw
+168389 | kuskonmaz | Kuskonmaz   # Asparagus, raw
+170416 | maydanoz | Maydanoz   # Parsley, fresh
+169246 | pirasa | Pirasa   # Leeks, (bulb and lower leaf-portion), raw
+169205 | enginar | Enginar   # Artichokes, (globe or french), raw
+169260 | bamya | Bamya   # Okra, raw
+170465 | salgam | Salgam   # Turnips, raw
+170489 | kis_kabagi | Kis Kabagi   # Squash, winter, all varieties, raw
+170158 | badem | Badem   # Nuts, almonds, dry roasted, without salt added
+170187 | ceviz | Ceviz   # Nuts, walnuts, english
+170581 | findik | Findik   # Nuts, hazelnuts or filberts
+170184 | antep_fistigi | Antep Fistigi   # Nuts, pistachio nuts, raw
+172430 | yer_fistigi | Yer Fistigi   # Peanuts, all types, raw
+170162 | kaju | Kaju   # Nuts, cashew nuts, raw
+170562 | ay_cekirdegi | Ay Cekirdegi   # Seeds, sunflower seed kernels, dried
+170556 | kabak_cekirdegi | Kabak Cekirdegi   # Seeds, pumpkin and squash seed kernels, dried
+170554 | chia_tohumu | Chia Tohumu   # Seeds, chia seeds, dried
+169414 | keten_tohumu | Keten Tohumu   # Seeds, flaxseed
+170150 | susam | Susam   # Seeds, sesame seeds, whole, dried
+170169 | hindistan_cevizi | Hindistan Cevizi   # Nuts, coconut meat, raw
+172470 | fistik_ezmesi | Fistik Ezmesi   # Peanut butter, smooth style, without salt
+169753 | pirinc_haslanmis | Haslanmis Pirinc   # Rice, white, long-grain, regular, cooked, enriched, with salt
+169704 | esmer_pirinc | Esmer Pirinc   # Rice, brown, long-grain, cooked (Includes foods for USDA's Food Distribution Program)
+168917 | kinoa | Kinoa   # Quinoa, cooked
+170686 | karabugday | Karabugday   # Buckwheat groats, roasted, cooked
+169700 | kuskus | Kuskus   # Couscous, cooked
+170287 | bulgur_haslanmis | Haslanmis Bulgur   # Bulgur, cooked
+173905 | yulaf_lapasi | Yulaf Lapasi   # Cereals, oats, regular and quick, unenriched, cooked with water (includes boiling and microwaving), without salt
+168894 | bugday_unu | Bugday Unu   # Wheat flour, white, all-purpose, enriched, bleached
+169737 | makarna_haslanmis | Haslanmis Makarna (sade)   # Pasta, cooked, enriched, without added salt
+167959 | patlamis_misir | Patlamis Misir   # Snacks, popcorn, air-popped
+175194 | barbunya_haslanmis | Haslanmis Barbunya   # Beans, kidney, red, mature seeds, cooked, boiled, without salt
+173757 | nohut_haslanmis | Haslanmis Nohut   # Chickpeas (garbanzo beans, bengal gram), mature seeds, cooked, boiled, without salt
+172421 | mercimek_haslanmis | Haslanmis Mercimek   # Lentils, mature seeds, cooked, boiled, without salt
+173735 | siyah_fasulye | Siyah Fasulye   # Beans, black, mature seeds, cooked, boiled, without salt
+174271 | soya_fasulyesi | Soya Fasulyesi   # Soybeans, mature cooked, boiled, without salt
+171796 | kiyma_85 | Dana Kiyma (%15 yagli)   # Beef, ground, 85% lean meat / 15% fat, raw (Includes foods for USDA's Food Distribution Program)
+174030 | kiyma_90 | Dana Kiyma (%10 yagli)   # Beef, ground, 90% lean meat / 10% fat, raw
+171477 | tavuk_gogsu_pismis | Pismis Tavuk Gogsu   # Chicken, broilers or fryers, breast, meat only, cooked, roasted
+172388 | tavuk_but_pismis | Pismis Tavuk But   # Chicken, broilers or fryers, thigh, meat only, cooked, roasted
+171490 | hindi_eti | Hindi Eti   # Turkey, whole, light meat, raw
+175167 | somon | Somon   # Fish, salmon, Atlantic, farmed, raw
+171986 | ton_baligi | Ton Baligi (konserve)   # Fish, tuna, light, canned in water, without salt, drained solids
+175142 | levrek | Levrek   # Fish, sea bass, mixed species, raw
+174182 | hamsi | Hamsi   # Fish, anchovy, european, raw
+175139 | sardalya | Sardalya   # Fish, sardine, Atlantic, canned in oil, drained solids with bone
+174210 | karides | Karides   # Crustaceans, shrimp, mixed species, raw (may contain additives to retain moisture)
+171287 | yumurta | Yumurta   # Egg, whole, raw, fresh
+172183 | yumurta_beyazi | Yumurta Beyazi   # Egg, white, raw, fresh
+172184 | yumurta_sarisi | Yumurta Sarisi   # Egg, yolk, raw, fresh
+170845 | mozzarella | Mozzarella   # Cheese, mozzarella, whole milk
+170899 | cheddar | Cheddar   # Cheese, cheddar, sharp, sliced
+172182 | cottage_peyniri | Cottage Peyniri   # Cheese, cottage, lowfat, 2% milkfat
+173420 | feta_peyniri | Feta Peyniri   # Cheese, feta
+173418 | krem_peynir | Krem Peynir   # Cheese, cream
+171247 | parmesan | Parmesan   # Cheese, parmesan, grated
+170859 | krema | Krema   # Cream, fluid, heavy whipping
+171413 | zeytinyagi | Zeytinyagi   # Oil, olive, salad or cooking
+171025 | aycicek_yagi | Aycicek Yagi   # Oil, sunflower, linoleic, (approx. 65%)
+172347 | margarin | Margarin   # Margarine, regular, 80% fat, composite, tub, with salt
+169655 | toz_seker | Toz Seker   # Sugars, granulated
+171258 | eggnog |    # Eggnog
+172175 | cheese_blue |    # Cheese, blue
+172177 | cheese_brie |    # Cheese, brie
+173419 | cheese_edam |    # Cheese, edam
+171241 | cheese_gouda |    # Cheese, gouda
+171251 | cheese_swiss |    # Cheese, swiss
+172176 | cheese_brick |    # Cheese, brick
+173416 | cheese_colby |    # Cheese, colby
+170852 | cheese_tilsit |    # Cheese, tilsit
+171249 | cheese_romano |    # Cheese, romano
+173410 | butter_salted |    # Butter, salted
+173461 | dulce_de_leche |    # Dulce de Leche
+170843 | cheese_fontina |    # Cheese, fontina
+171240 | cheese_gjetost |    # Cheese, gjetost
+172832 | emu_ground_raw |    # Emu, ground, raw
+172838 | emu_oyster_raw |    # Emu, oyster, raw
+172415 | goose_liver_raw |    # Goose, liver, raw
+174483 | ostrich_fan_raw |    # Ostrich, fan, raw
+171505 | turkey_ground_raw |    # Turkey, Ground, raw
+172844 | ostrich_round_raw |    # Ostrich, round, raw
+174479 | emu_full_rump_raw |    # Emu, full rump, raw
+171116 | chicken_ground_raw |    # Chicken, ground, raw
+174476 | emu_fan_fillet_raw |    # Emu, fan fillet, raw
+174481 | ostrich_ground_raw |    # Ostrich, ground, raw
+174487 | ostrich_oyster_raw |    # Ostrich, oyster, raw
+171119 | chicken_feet_boiled |    # Chicken, feet, boiled
+167783 | rowal_raw |    # Rowal, raw
+168155 | limes_raw |    # Limes, raw
+167780 | prune_puree |    # Prune puree
+168151 | jujube_raw |    # Jujube, raw
+168176 | feijoa_raw |    # Feijoa, raw
+167754 | pummelo_raw |    # Pummelo, raw
+167758 | rhubarb_raw |    # Rhubarb, raw
+167761 | soursop_raw |    # Soursop, raw
+167782 | abiyuch_raw |    # Abiyuch, raw
+168163 | quinces_raw |    # Quinces, raw
+168170 | roselle_raw |    # Roselle, raw
+169086 | litchis_raw |    # Litchis, raw
+169089 | longans_raw |    # Longans, raw
+169908 | loquats_raw |    # Loquats, raw
+169926 | papayas_raw |    # Papayas, raw
+167781 | candied_fruit |    # Candied fruit
+167806 | baobab_powder |    # Baobab powder
+168154 | kumquats_raw |    # Kumquats, raw
+167759 | sapodilla_raw |    # Sapodilla, raw
+167763 | tamarinds_raw |    # Tamarinds, raw
+169087 | litchis_dried |    # Litchis, dried
+169907 | longans_dried |    # Longans, dried
+170431 | poi |    # Poi
+168556 | catsup |    # Catsup
+170071 | yam_raw |    # Yam, raw
+168421 | kale_raw |    # Kale, raw
+169308 | taro_raw |    # Taro, raw
+170076 | dock_raw |    # Dock, raw
+170078 | eppaw_raw |    # Eppaw, raw
+168412 | endive_raw |    # Endive, raw
+169994 | chives_raw |    # Chives, raw
+170481 | borage_raw |    # Borage, raw
+168446 | potato_flour |    # Potato flour
+168571 | nopales_raw |    # Nopales, raw
+169398 | epazote_raw |    # Epazote, raw
+169981 | cardoon_raw |    # Cardoon, raw
+169985 | cassava_raw |    # Cassava, raw
+169990 | celtuce_raw |    # Celtuce, raw
+168418 | pepeao_dried |    # Pepeao, dried
+168424 | kohlrabi_raw |    # Kohlrabi, raw
+169274 | purslane_raw |    # Purslane, raw
+170400 | celeriac_raw |    # Celeriac, raw
+170406 | collards_raw |    # Collards, raw
+170417 | parsnips_raw |    # Parsnips, raw
+170461 | tomato_powder |    # Tomato powder
+170499 | shallots_raw |    # Shallots, raw
+168454 | rutabagas_raw |    # Rutabagas, raw
+168490 | arrowroot_raw |    # Arrowroot, raw
+168564 | radicchio_raw |    # Radicchio, raw
+169203 | arrowhead_raw |    # Arrowhead, raw
+169219 | cornsalad_raw |    # Cornsalad, raw
+168566 | tomatillos_raw |    # Tomatillos, raw
+170182 | nuts_pecans |    # Nuts, pecans
+170567 | nuts_almonds |    # Nuts, almonds
+170157 | nuts_acorns_raw |    # Nuts, acorns, raw
+170160 | nuts_almond_paste |    # Nuts, almond paste
+170565 | nuts_acorns_dried |    # Nuts, acorns, dried
+170590 | nuts_pilinuts_dried |    # Nuts, pilinuts, dried
+170593 | nuts_walnuts_glazed |    # Nuts, walnuts, glazed
+170161 | nuts_beechnuts_dried |    # Nuts, beechnuts, dried
+170584 | nuts_ginkgo_nuts_raw |    # Nuts, ginkgo nuts, raw
+170591 | nuts_pine_nuts_dried |    # Nuts, pine nuts, dried
+168608 | beef_grass_fed_ground_raw |    # Beef, grass-fed, ground, raw
+168605 | beef_retail_cuts_separable_fat_raw |    # Beef, retail cuts, separable fat, raw
+170198 | beef_cured_breakfast_strips_cooked |    # Beef, cured, breakfast strips, cooked
+170199 | beef_cured_corned_beef_brisket_raw |    # Beef, cured, corned beef, brisket, raw
+168606 | beef_retail_cuts_separable_fat_cooked |    # Beef, retail cuts, separable fat, cooked
+174726 | beef_new_zealand_imported_inside_raw |    # Beef, New Zealand, imported, inside, raw
+170200 | beef_cured_corned_beef_brisket_cooked |    # Beef, cured, corned beef, brisket, cooked
+171790 | beef_ground_95_lean_meat_5_fat_raw |    # Beef, ground, 95% lean meat / 5% fat, raw
+173110 | beef_ground_93_lean_meat_7_fat_raw |    # Beef, ground, 93% lean meat / 7% fat, raw
+173111 | beef_ground_97_lean_meat_3_fat_raw |    # Beef, ground, 97% lean meat / 3% fat, raw
+168652 | beef_ground_70_lean_meat_30_fat_raw |    # Beef, ground, 70% lean meat / 30% fat, raw
+174036 | beef_ground_80_lean_meat_20_fat_raw |    # Beef, ground, 80% lean meat / 20% fat, raw
+173702 | fish_surimi |    # Fish, surimi
+168148 | frog_legs_raw |    # Frog legs, raw
+171952 | fish_carp_raw |    # Fish, carp, raw
+171958 | fish_cusk_raw |    # Fish, cusk, raw
+173670 | fish_ling_raw |    # Fish, ling, raw
+173700 | fish_spot_raw |    # Fish, spot, raw
+175141 | fish_scup_raw |    # Fish, scup, raw
+171953 | fish_cisco_raw |    # Fish, cisco, raw
+175160 | fish_tuna_salad |    # Fish, tuna salad
+171950 | fish_burbot_raw |    # Fish, burbot, raw
+167745 | turtle_green_raw |    # Turtle, green, raw
+171964 | fish_haddock_raw |    # Fish, haddock, raw
+173671 | fish_lingcod_raw |    # Fish, lingcod, raw
+175176 | fish_tilapia_raw |    # Fish, tilapia, raw
+171949 | fish_bluefish_raw |    # Fish, bluefish, raw
+171954 | fish_cisco_smoked |    # Fish, cisco, smoked
+172442 | miso |    # Miso
+168106 | papad |    # Papad
+172443 | natto |    # Natto
+172452 | okara |    # Okara
+174272 | tempeh |    # Tempeh
+167722 | tofu_yogurt |    # Tofu yogurt
+172451 | tofu_fried |    # Tofu, fried
+173755 | carob_flour |    # Carob flour
+172420 | lentils_raw |    # Lentils, raw
+174268 | meat_extender |    # Meat extender
+172467 | tempeh_cooked |    # Tempeh, cooked
+172439 | bacon_meatless |    # Bacon, meatless
+168884 | rye_grain |    # Rye grain
+169718 | triticale |    # Triticale
+170286 | buckwheat |    # Buckwheat
+169698 | cornstarch |    # Cornstarch
+169702 | millet_raw |    # Millet, raw
+170688 | bulgur_dry |    # Bulgur, dry
+168918 | teff_cooked |    # Teff, cooked
+169721 | wheat_durum |    # Wheat, durum
+172023 | millet_flour |    # Millet flour
+168872 | oat_bran_raw |    # Oat bran, raw
+169699 | couscous_dry |    # Couscous, dry
+169716 | sorghum_grain |    # Sorghum grain
+173161 | rice_crackers |    # Rice crackers
+169064 | pretzels_soft |    # Pretzels, soft
+168857 | snacks_corn_cakes |    # Snacks, corn cakes
+168865 | snacks_taro_chips |    # Snacks, taro chips
+174650 | milk_and_cereal_bar |    # Milk and cereal bar
+168849 | snacks_banana_chips |    # Snacks, banana chips
+168854 | snacks_potato_sticks |    # Snacks, potato sticks
+167550 | snacks_popcorn_cakes |    # Snacks, popcorn, cakes

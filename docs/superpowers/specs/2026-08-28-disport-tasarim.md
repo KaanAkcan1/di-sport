@@ -143,9 +143,13 @@ ve `lib/` içine konan test dosyaları derlemeye dahil olur.
 - **Drift** — veritabanı katmanı için zorunlu
 - **riverpod_generator** (`@riverpod`) — şablon kodu azaltır, her feature'ın
   `application/` katmanında
-- **freezed + json_serializable** — **yalnızca `ai_bridge`'de.** `plan.json`
-  ayrıştırmasını elle yazmak hataya açıktır. Başka yerde kullanılmaz; gereksiz
-  dolaylılık katar.
+- **freezed + json_serializable kullanılmıyor.** Başlangıçta `ai_bridge`
+  için öngörülmüştü; yürütmede vazgeçildi. Gerekçe: bu ayrıştırıcının hata
+  mesajları AI'a geri yapıştırılıyor (7.3), `json_serializable` ise bozuk
+  girdide yalnızca `type 'Null' is not a subtype of type 'String'` diyor —
+  hangi günün hangi alanının eksik olduğunu söylemiyor. Yerine alan yolunu
+  izleyen küçük bir okuyucu yazıldı; `days[2].exercises[0].exerciseId`
+  biçiminde Türkçe mesaj üretiyor ve ek bağımlılık gerektirmiyor.
 
 Üçü de `dart run build_runner watch` ile çalışır.
 
@@ -267,8 +271,14 @@ kartı: üç koşuldan kaçı sağlandı.
 **Sağlık** — Tahliller panel başlığına göre gruplu kartlarda. Her değer referans
 aralığına göre renkli, trend oku ile. Yaklaşan tahlil uyarısı üstte.
 
-**Katalog** — Arama ve filtre (ev/salon, kas grubu, ekipman). Detay sayfası
-sekmeli: `Nasıl yapılır` · `Sık hatalar` · `Kolaylaştır / Zorlaştır` · `Güvenlik`.
+**Katalog** — Arama ve filtre (ev/salon, kategori). Arama Türkçe adda,
+İngilizce adda ve kas adında çalışır; aksan duyarsızdır ("sinav" → "Şınav").
+Detay sayfası dört sekmeli: `Adımlar` · `Hatalar` · `Varyantlar` · `Güvenlik`.
+
+Sekme etiketleri bilinçli olarak kısa. Uzun biçimleri ("Nasıl yapılır",
+"Kolaylaştır / Zorlaştır") telefon genişliğine sığmıyor ve kaydırmalı
+çubukta son iki sekme ekran dışında kalıyordu; kullanıcı güvenlik notunun
+varlığını göremiyordu. Keşfedilebilirlik kelime zenginliğinden önce gelir.
 
 **İlk açılış** — Plan yoksa: profil ve yaşam tarzı sorulur, ardından
 "İlk planını al" adımı `context.md` üretir. Boş ekran gösterilmez.

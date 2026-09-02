@@ -1,0 +1,107 @@
+{
+  "catalogTabHome": {"tr": "Evde", "en": "At home"},
+  "catalogTabGym": {"tr": "Salonda", "en": "At the gym"},
+
+  "catalogFilters": {"tr": "Filtreler", "en": "Filters"},
+  "catalogSearchHint": {"tr": "Hareket veya kas ara…", "en": "Search exercise or muscle…"},
+  "catalogClearSearch": {"tr": "Aramayı temizle", "en": "Clear search"},
+  "catalogClearFilters": {"tr": "Filtreleri temizle", "en": "Clear filters"},
+
+  "catalogRecentSection": {"tr": "Son yaptıkların", "en": "Recently done"},
+  "catalogExercisesSection": {"tr": "Hareketler", "en": "Exercises"},
+  "catalogAllExercisesSection": {"tr": "Tüm hareketler", "en": "All exercises"},
+
+  "catalogNoResults": {"tr": "Eşleşen hareket yok", "en": "No matching exercise"},
+  "catalogNoResultsDescription": {"tr": "Aramayı değiştir ya da filtreleri kaldır.", "en": "Change your search or remove the filters."},
+
+  "catalogOnlyMyEquipment": {"tr": "Ekipmanıma uygun", "en": "Fits my equipment"},
+  "catalogOnlyMyEquipmentDescription": {"tr": "Envanterinde olmayan ekipman isteyenleri gizler.", "en": "Hides exercises that need equipment you do not own."},
+
+  "catalogCategorySection": {"tr": "Tür", "en": "Type"},
+  "catalogCategoryStrength": {"tr": "Kuvvet", "en": "Strength"},
+  "catalogCategoryCore": {"tr": "Gövde", "en": "Core"},
+  "catalogCategoryCardio": {"tr": "Kardiyo", "en": "Cardio"},
+  "catalogCategoryMobility": {"tr": "Hareketlilik", "en": "Mobility"},
+
+  "catalogDifficultySection": {"tr": "Zorluk", "en": "Difficulty"},
+  "catalogDifficultyChip": {"tr": "Zorluk {level}", "en": "Difficulty {level}"},
+  "catalogDifficultyOutOfFive": {"tr": "Zorluk {level}/5", "en": "Difficulty {level}/5"},
+  "catalogDifficultySemantics": {"tr": "Zorluk {level} / 5", "en": "Difficulty {level} out of 5"},
+
+  "catalogResultCount": {"tr": "{count} hareket", "en": "{count} exercises"},
+
+  "catalogLocationHome": {"tr": "Ev", "en": "Home"},
+  "catalogLocationGym": {"tr": "Salon", "en": "Gym"},
+  "catalogLocationBoth": {"tr": "Ev / Salon", "en": "Home / Gym"},
+  "catalogLocationSemantics": {"tr": "Yapılabildiği yer: {place}", "en": "Can be done at: {place}"},
+
+  "catalogEquipmentTitle": {"tr": "Ekipmanım", "en": "My equipment"},
+  "catalogEquipmentEmptyTitle": {"tr": "Ekipman listesi boş", "en": "Equipment list is empty"},
+  "catalogEquipmentEmptyDescription": {"tr": "Katalog yüklendiğinde liste kendiliğinden dolar. Aşağıdaki düğmeden elle de ekleyebilirsin.", "en": "The list fills itself once the catalogue loads. You can also add items by hand with the button below."},
+  "catalogEquipmentNoneOwned": {"tr": "Hiç ekipman işaretlenmedi. Sadece vücut ağırlığıyla yapılan hareketler her zaman kullanılabilir.", "en": "No equipment marked. Bodyweight-only exercises are always available."},
+  "catalogEquipmentOwnedCount": {"tr": "{count} ekipman işaretli. Katalogda \"Ekipmanım\" filtresi bunlara göre süzüyor.", "en": "{count} item(s) marked. The \"My equipment\" filter in the catalogue uses these."},
+  "catalogEquipmentAddFab": {"tr": "Ekipman", "en": "Equipment"},
+  "catalogEquipmentAddTitle": {"tr": "Ekipman ekle", "en": "Add equipment"},
+  "catalogEquipmentFieldLabel": {"tr": "Ekipman", "en": "Equipment"},
+  "catalogEquipmentFieldHint": {"tr": "Kettlebell", "en": "Kettlebell"},
+  "catalogEquipmentAddAction": {"tr": "Ekle", "en": "Add"},
+
+  "catalogExerciseNotFound": {"tr": "Hareket bulunamadı", "en": "Exercise not found"},
+  "catalogExerciseNotFoundDescription": {"tr": "Bu hareket katalogdan kaldırılmış olabilir.", "en": "This exercise may have been removed from the catalogue."},
+  "catalogExerciseLoadError": {"tr": "Hareket açılamadı", "en": "Could not open the exercise"},
+
+  "catalogTabSteps": {"tr": "Adımlar", "en": "Steps"},
+  "catalogTabMistakes": {"tr": "Hatalar", "en": "Mistakes"},
+  "catalogTabVariants": {"tr": "Varyantlar", "en": "Variants"},
+  "catalogTabSafety": {"tr": "Güvenlik", "en": "Safety"},
+
+  "catalogCuesTitle": {"tr": "Aklında tut", "en": "Keep in mind"},
+  "catalogCuesDescription": {"tr": "Antrenman sırasında bunlara bak.", "en": "Check these while you train."},
+  "catalogSetupTitle": {"tr": "Başlangıç", "en": "Setup"},
+  "catalogExecutionTitle": {"tr": "Hareket", "en": "Execution"},
+  "catalogBreathingTempoTitle": {"tr": "Nefes ve tempo", "en": "Breathing and tempo"},
+  "catalogBreathingLabel": {"tr": "Nefes", "en": "Breathing"},
+  "catalogTempoLabel": {"tr": "Tempo", "en": "Tempo"},
+
+  "catalogNoMistakes": {"tr": "Kayıtlı hata yok", "en": "No mistakes recorded"},
+  "catalogMistakeWhy": {"tr": "Neden sorun", "en": "Why it matters"},
+  "catalogMistakeFix": {"tr": "Düzeltmesi", "en": "The fix"},
+
+  "catalogNoVariants": {"tr": "Varyant tanımlı değil", "en": "No variants defined"},
+  "catalogNoVariantsDescription": {"tr": "Bu hareketin kolay ya da zor bir sürümü kayıtlı değil.", "en": "No easier or harder version of this exercise is recorded."},
+  "catalogRegressionsTitle": {"tr": "Kolaylaştır", "en": "Make it easier"},
+  "catalogRegressionsDescription": {"tr": "Zorlanıyorsan buradan başla.", "en": "Start here if it feels too hard."},
+  "catalogProgressionsTitle": {"tr": "Zorlaştır", "en": "Make it harder"},
+  "catalogProgressionsDescription": {"tr": "Kolay gelmeye başladığında sıradaki basamak.", "en": "The next step once it starts feeling easy."},
+
+  "catalogSafetyDisclaimer": {"tr": "Bu bilgiler genel niteliktedir ve hekim ya da fizyoterapist değerlendirmesinin yerine geçmez. Ağrı hissettiğinde hareketi bırak.", "en": "This information is general and does not replace assessment by a physician or physiotherapist. Stop the movement if you feel pain."},
+  "catalogImageSemantics": {"tr": "{name} hareketinin başlangıç ve bitiş pozisyonu", "en": "Start and end position of {name}"},
+
+  "catalogMetaTitle": {"tr": "Künye", "en": "Details"},
+  "catalogTargetMuscles": {"tr": "Hedef kaslar", "en": "Target muscles"},
+  "catalogEquipmentLabel": {"tr": "Ekipman", "en": "Equipment"},
+
+  "workoutTitle": {"tr": "Antrenman", "en": "Workout"},
+  "workoutNoExercisesTitle": {"tr": "Bugün hareket yok", "en": "No exercises today"},
+  "workoutNoExercisesDescription": {"tr": "Bu gün dinlenme günü olarak planlanmış.", "en": "This day is planned as a rest day."},
+
+  "workoutElapsedCaption": {"tr": "dakikadır çalışıyorsun", "en": "minutes into your session"},
+  "workoutElapsedNew": {"tr": "yeni", "en": "new"},
+  "workoutMinuteUnit": {"tr": "dk", "en": "min"},
+  "workoutSetsCaption": {"tr": "Set", "en": "Sets"},
+  "workoutExercisesCaption": {"tr": "Hareket", "en": "Exercises"},
+
+  "workoutSetsProgress": {"tr": "{done} / {total} set", "en": "{done} / {total} sets"},
+  "workoutSetsDoneSemantics": {"tr": "{done} / {total} set tamamlandı", "en": "{done} of {total} sets completed"},
+
+  "workoutUndoLastSet": {"tr": "Son seti geri al", "en": "Undo last set"},
+  "workoutAllSetsDone": {"tr": "Tamamlandı", "en": "Completed"},
+  "workoutSetDone": {"tr": "Set tamam", "en": "Set done"},
+
+  "workoutRefLast": {"tr": "Geçen", "en": "Last"},
+  "workoutRefPlan": {"tr": "Plan", "en": "Plan"},
+
+  "workoutRestLabel": {"tr": "Dinlenme · {seconds} sn", "en": "Rest · {seconds} s"},
+  "workoutRestSemantics": {"tr": "Dinlenme, {seconds} saniye kaldı", "en": "Rest, {seconds} seconds left"},
+  "workoutRestSkip": {"tr": "Geç", "en": "Skip"}
+}

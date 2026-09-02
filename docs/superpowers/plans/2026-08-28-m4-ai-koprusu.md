@@ -10,6 +10,40 @@
 
 **Spec:** `docs/superpowers/specs/2026-08-28-disport-tasarim.md` (özellikle 7, 6-İlk açılış, 10)
 
+
+## M3 Sonrası Senkron Notu
+
+Bu plan M2 ve M3 yürütülmeden önce yazıldı. Yürütmeden önce değişenler:
+
+**Planın "eklenecek" dediği yöntemler zaten var.** Task 3 adım 5,
+`TodayRepository.rowsBetween` ve `WorkoutRepository.logsBetween`
+eklenmesini istiyordu; ikisi de M3'te yazıldı ve testli. Ayrıca hazır:
+`PlanRepository.insertFullPlan` (transaction'lı), `FullPlan` ailesi,
+`BodyMetricsRepository.series` / `latestPerKind`,
+`CatalogRepository.upsertUserDefined` ve `getByIds`.
+
+**freezed kullanılmayacak.** Spec 4.6 `ai_bridge`'de freezed +
+json_serializable öngörüyordu. Gerekçe "elle JSON ayrıştırmak hataya
+açık"tı; bu genelde doğru ama burada tam tersi geçerli:
+
+> Bu ayrıştırıcının hata mesajları **AI'a geri yapıştırılacak**
+> (spec 7.3). `json_serializable` bozuk girdide
+> `type 'Null' is not a subtype of type 'String'` der; hangi günün
+> hangi alanının eksik olduğunu söylemez. Kullanıcı bu mesajı AI'a
+> yapıştırdığında AI da neyi düzelteceğini bilemez ve döngü tıkanır.
+
+Bunun yerine alan yolunu izleyen küçük bir okuyucu (`JsonReader`)
+yazılıyor: `days[2].exercises[0].exerciseId` gibi yollarla Türkçe
+mesaj üretiyor. Ek bağımlılık da gerekmiyor.
+
+Spec 4.6 buna göre güncellendi.
+
+**Bağımlılık kuralı hatırlatması.** `ai_bridge` feature'ların yalnız
+`domain/` katmanını import eder. `PlanRepository`, `TodayRepository` gibi
+`data/` sınıflarına doğrudan dokunmaz — port arayüzleri üstünden erişir.
+
+---
+
 ## Global Constraints
 
 - M1-M3 Global Constraints geçerli

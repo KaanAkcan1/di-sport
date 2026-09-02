@@ -1,0 +1,1838 @@
+<title>di@sport v3 — ekran künyesi (r2)</title>
+
+<style>
+  /* ─────────────────────────────────────────────────────────────
+     TOKENS — core/design/app_palette.dart değerleri.
+     r2'de eklenen: alan renkleri (Okabe-Ito'dan) ve duotone ikon
+     kutuları. Alan rengi dekor değil kimlik: Diyet yeşil, Spor gök,
+     Sağlık pembe — beş sekmenin beşi de kendi rengini taşıyor ve
+     ikon + etiket her zaman birlikte (renk tek başına anlam taşımaz).
+     ───────────────────────────────────────────────────────────── */
+  :root {
+    --ink950:#0E1621; --ink900:#121D28; --ink850:#16232F; --ink800:#1A2938;
+    --ink750:#1D2F41; --ink700:#24384D; --ink600:#2C4157; --ink500:#3D5164;
+    --brand:#42B883; --brand-dim:#2A855C; --brand-surface:#183626;
+    --mist100:#F2F6F9; --mist200:#DFE8EF; --mist400:#8DA2B5; --mist500:#68809A;
+    --warn:#E8A33D; --warn-surface:#3A3020;
+    --danger:#E06C5F; --danger-surface:#3A2622;
+
+    /* Alan renkleri — Okabe-Ito, grafiklerle aynı aile */
+    --c-diet:#42B883;  --c-diet-bg:#183626;
+    --c-sport:#56B4E9; --c-sport-bg:#16303F;
+    --c-health:#CC79A7;--c-health-bg:#33222E;
+    --c-med:#B39DDB;   --c-med-bg:#2A2438;
+    --c-energy:#E69F00;--c-energy-bg:#382E18;
+
+    --page-bg:#0B1017; --page-panel:#101822; --page-line:#1C2836;
+    --page-text:#D6E0EA; --page-dim:#7D91A6;
+
+    --narrow:"Arial Narrow","Roboto Condensed",system-ui,sans-serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --mono:ui-monospace,"Cascadia Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: light) {
+    :root { --page-bg:#F4F6F8; --page-panel:#FFF; --page-line:#DFE5EB; --page-text:#1B2733; --page-dim:#5A6B7C; }
+  }
+  :root[data-theme="light"] { --page-bg:#F4F6F8; --page-panel:#FFF; --page-line:#DFE5EB; --page-text:#1B2733; --page-dim:#5A6B7C; }
+  :root[data-theme="dark"]  { --page-bg:#0B1017; --page-panel:#101822; --page-line:#1C2836; --page-text:#D6E0EA; --page-dim:#7D91A6; }
+
+  * { box-sizing:border-box }
+  body { margin:0; background:var(--page-bg); color:var(--page-text); font-family:var(--body); font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased }
+
+  .doc-head { max-width:1180px; margin:0 auto; padding:56px 24px 24px }
+  .doc-eyebrow { font-family:var(--narrow); font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:var(--brand); margin:0 0 8px }
+  .doc-head h1 { font-family:var(--narrow); font-size:clamp(38px,7vw,64px); line-height:.98; margin:0 0 16px; text-wrap:balance }
+  .doc-lede { max-width:64ch; color:var(--page-dim); margin:0 0 28px }
+  .mottos { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:1px; background:var(--page-line); border:1px solid var(--page-line); border-radius:10px; overflow:hidden }
+  .motto { background:var(--page-panel); padding:14px 16px }
+  .motto dt { font-family:var(--narrow); font-size:12px; letter-spacing:.14em; text-transform:uppercase; display:flex; align-items:center; gap:7px }
+  .motto dd { margin:4px 0 0; font-weight:600; font-size:14.5px }
+  .motto small { display:block; font-weight:400; color:var(--page-dim); font-size:12.5px; margin-top:2px }
+  .dot { width:9px; height:9px; border-radius:3px; display:inline-block }
+
+  .doc-nav { position:sticky; top:0; z-index:20; background:color-mix(in srgb,var(--page-bg) 92%,transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--page-line); padding:10px 0; margin-bottom:8px }
+  .doc-nav ol { max-width:1180px; margin:0 auto; padding:0 24px; display:flex; gap:6px; list-style:none; overflow-x:auto }
+  .doc-nav a { display:block; white-space:nowrap; font-family:var(--narrow); font-size:14px; letter-spacing:.08em; text-transform:uppercase; color:var(--page-dim); text-decoration:none; padding:6px 12px; border-radius:999px; border:1px solid transparent }
+  .doc-nav a:hover,.doc-nav a:focus-visible { color:var(--brand); border-color:var(--page-line); outline:none }
+  .doc-nav a:focus-visible { outline:2px solid var(--brand); outline-offset:2px }
+
+  .flow { max-width:1180px; margin:0 auto; padding:44px 24px 12px; scroll-margin-top:64px }
+  .flow-head { border-top:1px solid var(--page-line); padding-top:20px; margin-bottom:8px }
+  .flow-head h2 { font-family:var(--narrow); font-size:30px; margin:0 0 4px; display:flex; align-items:center; gap:10px }
+  .flow-head .motto-line { font-family:var(--narrow); font-size:14px; letter-spacing:.1em; text-transform:uppercase; padding:3px 10px; border-radius:6px }
+  .flow-head p { margin:0; color:var(--page-dim); max-width:70ch }
+
+  .frames { display:grid; grid-template-columns:repeat(auto-fill,minmax(390px,390px)); gap:44px 32px; justify-content:start; padding:24px 0 8px }
+  figure.frame { margin:0; width:390px }
+  figure.frame figcaption { margin-top:12px }
+  .cap-title { font-family:var(--narrow); font-size:17px; letter-spacing:.06em; text-transform:uppercase }
+  .cap-step { color:var(--brand); margin-right:8px }
+  .cap-why { margin:6px 0 0; padding-left:12px; border-left:2px solid var(--page-line); font-size:13.5px; line-height:1.55; color:var(--page-dim) }
+  .cap-why b { color:var(--page-text); font-weight:600 }
+
+  /* ── CİHAZ ──────────────────────────────────────────────────── */
+  .phone { width:390px; height:844px; background:var(--ink900); color:var(--mist200); border:1px solid var(--ink700); border-radius:28px; overflow:hidden; display:flex; flex-direction:column; font-size:15px; line-height:1.45; position:relative }
+  .status { height:32px; flex:0 0 32px; display:flex; align-items:center; justify-content:space-between; padding:0 22px; font-family:var(--narrow); font-size:12.5px; color:var(--mist500) }
+
+  /* r2 başlığı: sol büyük başlık + sağ eylemler. "Ana Sayfa" gibi
+     sekme adı tekrarı yok — alt çubuk zaten söylüyor. */
+  .head { flex:0 0 auto; display:flex; align-items:flex-start; gap:12px; padding:10px 20px 14px }
+  .head .titles { flex:1; min-width:0 }
+  .head .over { font-family:var(--narrow); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--mist500) }
+  .head h3 { margin:1px 0 0; font-size:24px; font-weight:700; color:var(--mist100); letter-spacing:-.01em }
+  .head .acts { display:flex; gap:8px; padding-top:4px }
+  .abtn { width:40px; height:40px; border-radius:12px; background:var(--ink800); border:1px solid var(--ink750); display:flex; align-items:center; justify-content:center; color:var(--mist400) }
+  .head.compact h3 { font-size:19px }
+  .head .backb { width:36px; height:36px; border-radius:11px; background:var(--ink800); border:1px solid var(--ink750); display:flex; align-items:center; justify-content:center; color:var(--mist400); margin-top:2px }
+
+  /* Segment kontrol — alt sekmelerin r2 hâli */
+  .seg { flex:0 0 auto; display:flex; margin:0 20px 4px; background:var(--ink850); border:1px solid var(--ink750); border-radius:12px; padding:3px }
+  .seg span { flex:1; text-align:center; font-family:var(--narrow); font-size:14px; letter-spacing:.06em; text-transform:uppercase; color:var(--mist500); padding:8px 4px; border-radius:9px }
+  .seg span.on { background:var(--ink700); color:var(--mist100); font-weight:700 }
+
+  .body { flex:1 1 auto; overflow:hidden; padding:14px 20px 8px; display:flex; flex-direction:column; gap:14px }
+  .body.roomy { gap:20px; padding-top:20px }
+
+  /* Panel — ton + kıl çizgi (M12), ama r2'de tutarlı tek bileşen */
+  .panel { background:var(--ink850); border:1px solid var(--ink750); border-radius:16px; padding:16px }
+  .panel.pad-lg { padding:20px }
+  .panel.accent { border-color:var(--brand-dim); background:linear-gradient(180deg, var(--brand-surface), var(--ink850) 70%) }
+  .panel.warn-p { border-color:var(--warn); background:linear-gradient(180deg, var(--warn-surface), var(--ink850) 75%) }
+
+  /* Duotone ikon kutusu — alan renginde */
+  .tile { width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex:0 0 auto }
+  .tile.sm { width:34px; height:34px; border-radius:10px }
+  .t-diet  { background:var(--c-diet-bg);  color:var(--c-diet) }
+  .t-sport { background:var(--c-sport-bg); color:var(--c-sport) }
+  .t-health{ background:var(--c-health-bg);color:var(--c-health) }
+  .t-med   { background:var(--c-med-bg);   color:var(--c-med) }
+  .t-energy{ background:var(--c-energy-bg);color:var(--c-energy) }
+  .t-dim   { background:var(--ink800);     color:var(--mist400) }
+  .t-danger{ background:var(--danger-surface); color:var(--danger) }
+
+  .eyebrow { font-family:var(--narrow); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--brand); font-weight:600 }
+  .hero-cap { font-family:var(--narrow); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--mist500) }
+  .hero-num { font-family:var(--narrow); font-size:58px; line-height:.92; font-weight:700; color:var(--mist100); font-variant-numeric:tabular-nums }
+  .hero-num.over { color:var(--danger) }
+  .hero-unit { font-family:var(--narrow); font-size:19px; color:var(--mist400); margin-left:6px }
+  .gauge { height:4px; background:var(--ink700); border-radius:2px; margin-top:12px; overflow:hidden }
+  .gauge i { display:block; height:100%; background:var(--brand); border-radius:2px }
+  .gauge i.over { background:var(--danger) }
+
+  .strip { display:flex; gap:0; padding:0; margin:14px 0 0 }
+  .strip > div { flex:1; min-width:0; padding:0 12px; border-left:1px solid var(--ink750) }
+  .strip > div:first-child { padding-left:0; border-left:none }
+  .strip dt { font-family:var(--narrow); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--mist500) }
+  .strip dd { margin:1px 0 0; font-family:var(--narrow); font-size:21px; font-weight:700; color:var(--mist100); font-variant-numeric:tabular-nums }
+  .strip dd small { font-size:13px; color:var(--mist400); font-weight:400 }
+  .strip dd.good { color:var(--brand) } .strip dd.warn { color:var(--warn) }
+
+  .sec { display:flex; align-items:center; gap:10px; font-family:var(--narrow); font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--mist500) }
+  .sec b { color:var(--mist200); font-weight:700 }
+  .sec .fill { flex:1; height:1px; background:var(--ink750) }
+  .sec .act { color:var(--brand); display:flex; align-items:center; gap:4px; letter-spacing:.06em }
+
+  .rows { display:flex; flex-direction:column }
+  .row { display:flex; align-items:center; gap:12px; padding:12px 0; min-height:52px; border-bottom:1px solid var(--ink750) }
+  .row:last-child { border-bottom:none }
+  .row-main { flex:1; min-width:0 }
+  .row-main strong { display:block; font-weight:600; color:var(--mist200); font-size:15px }
+  .row-main span { font-size:12.5px; color:var(--mist500) }
+  .row-val { font-family:var(--narrow); font-size:17px; color:var(--mist200); font-variant-numeric:tabular-nums; white-space:nowrap }
+  .row-val.dim { color:var(--mist500) } .row-val.good { color:var(--brand) }
+  .row .chev { color:var(--ink500); flex:0 0 auto }
+
+  .chip { display:inline-flex; align-items:center; gap:6px; padding:7px 13px; border-radius:999px; border:1px solid var(--ink600); color:var(--mist400); font-size:13.5px; white-space:nowrap; background:var(--ink850) }
+  .chip.on { background:var(--brand-surface); border-color:var(--brand-dim); color:var(--brand); font-weight:600 }
+  .chip.sporton { background:var(--c-sport-bg); border-color:var(--c-sport); color:var(--c-sport); font-weight:600 }
+  .chips { display:flex; gap:8px; flex-wrap:wrap }
+
+  .badge { font-family:var(--narrow); font-size:11px; letter-spacing:.1em; text-transform:uppercase; padding:3px 8px; border-radius:5px; white-space:nowrap }
+  .badge.warnb { background:var(--warn-surface); color:var(--warn) }
+  .badge.dangerb { background:var(--danger-surface); color:var(--danger) }
+  .badge.goodb { background:var(--brand-surface); color:var(--brand) }
+  .badge.dimb { background:var(--ink800); color:var(--mist500) }
+  .badge.sportb { background:var(--c-sport-bg); color:var(--c-sport) }
+
+  .field { border-bottom:1px solid var(--ink600); padding:9px 0 8px }
+  .field label { display:block; font-size:12px; color:var(--mist500); font-family:var(--narrow); letter-spacing:.1em; text-transform:uppercase }
+  .field .val { font-size:17px; color:var(--mist100); padding-top:3px }
+  .field .val.ph { color:var(--ink500) }
+  .field.focus { border-bottom-color:var(--brand) }
+
+  .btn { display:flex; align-items:center; justify-content:center; gap:8px; height:52px; border-radius:14px; font-size:16px; font-weight:700; background:var(--brand); color:var(--ink950) }
+  .btn.ghost { background:var(--ink850); border:1px solid var(--ink600); color:var(--mist200); font-weight:600 }
+  .btn.tonal { background:var(--brand-surface); color:var(--brand); border:1px solid var(--brand-dim); font-weight:600 }
+  .btn.sm { height:44px; font-size:15px }
+  .textlink { text-align:center; color:var(--mist500); font-size:14px }
+
+  .progress { display:flex; gap:6px }
+  .progress i { flex:1; height:3px; border-radius:2px; background:var(--ink700) }
+  .progress i.on { background:var(--brand) }
+
+  .tabbar { flex:0 0 auto; display:flex; background:var(--ink950); border-top:1px solid var(--ink750); padding:8px 4px 14px }
+  .tabbar a { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--mist500); text-decoration:none; font-family:var(--narrow); font-size:11.5px; letter-spacing:.05em }
+  .tabbar .ticon { width:44px; height:28px; border-radius:999px; display:flex; align-items:center; justify-content:center }
+  .tabbar a.on.home  { color:var(--brand) }   .tabbar a.on.home .ticon  { background:var(--brand-surface) }
+  .tabbar a.on.diet  { color:var(--c-diet) }  .tabbar a.on.diet .ticon  { background:var(--c-diet-bg) }
+  .tabbar a.on.sport { color:var(--c-sport) } .tabbar a.on.sport .ticon { background:var(--c-sport-bg) }
+  .tabbar a.on.health{ color:var(--c-health)} .tabbar a.on.health .ticon{ background:var(--c-health-bg) }
+  .tabbar a.on.more  { color:var(--mist200) } .tabbar a.on.more .ticon  { background:var(--ink700) }
+
+  .sheet { position:absolute; left:0; right:0; bottom:0; background:var(--ink850); border-top:1px solid var(--ink600); border-radius:20px 20px 0 0; padding:12px 20px 22px; display:flex; flex-direction:column; gap:14px }
+  .sheet::before { content:""; width:34px; height:4px; border-radius:2px; background:var(--ink600); margin:0 auto 2px }
+  .scrim { position:absolute; inset:0; background:rgba(6,11,17,.66) }
+
+  .bars { display:flex; align-items:flex-end; gap:9px; height:110px }
+  .bars div { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px }
+  .bars i { width:100%; border-radius:4px 4px 0 0; background:var(--brand); display:block }
+  .bars i.over { background:var(--danger) }
+  .bars span { font-family:var(--narrow); font-size:12px; color:var(--mist500) }
+  .goal-line { position:relative }
+  .goal-line::after { content:""; position:absolute; left:0; right:0; top:34px; border-top:1px dashed var(--mist500); opacity:.6 }
+  .spark { width:100%; height:88px; display:block }
+
+  .cal { display:grid; grid-template-columns:repeat(7,1fr); gap:5px }
+  .cal .hd { font-family:var(--narrow); font-size:11px; color:var(--mist500); text-align:center; letter-spacing:.1em }
+  .cell { aspect-ratio:1/1.1; border-radius:9px; background:var(--ink800); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; position:relative; border:1px solid transparent }
+  .cell b { font-family:var(--narrow); font-size:15px; color:var(--mist200); font-variant-numeric:tabular-nums }
+  .cell span { font-family:var(--narrow); font-size:9.5px; color:var(--mist500); letter-spacing:.04em }
+  .cell.done { background:var(--c-sport-bg); border-color:transparent } .cell.done span { color:var(--c-sport) }
+  .cell.miss span { color:var(--warn) }
+  .cell.free { background:transparent; border-color:var(--ink750) }
+  .cell.future b { color:var(--mist500) }
+  .cell.today { border-color:var(--c-sport); border-width:2px }
+
+  .daystrip { display:flex; height:38px; border-radius:9px; overflow:hidden; border:1px solid var(--ink700) }
+  .daystrip i { display:block; height:100%; position:relative }
+  .strip-key { display:flex; gap:12px; font-size:12px; color:var(--mist500); flex-wrap:wrap }
+  .strip-key i { width:10px; height:10px; border-radius:3px; display:inline-block; margin-right:5px }
+
+  .code { font-family:var(--mono); font-size:11.5px; line-height:1.55; background:var(--ink950); border:1px solid var(--ink700); border-radius:12px; padding:12px; color:var(--mist400); overflow:hidden; white-space:pre }
+  .code b { color:var(--brand); font-weight:600 } .code i { color:var(--mist200); font-style:normal }
+
+  .note { font-size:12.5px; color:var(--mist500); line-height:1.5; border-left:2px solid var(--ink700); padding-left:12px }
+  .note b { color:var(--mist400) }
+
+  .stepnum { width:26px; height:26px; border-radius:8px; background:var(--ink700); color:var(--mist200); font-family:var(--narrow); font-size:14px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:0 0 auto }
+
+  .icon { width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; display:block }
+  .icon.sm { width:18px; height:18px } .icon.lg { width:26px; height:26px }
+  .icon .duo { fill:currentColor; opacity:.18; stroke:none }
+
+  .foot { max-width:1180px; margin:0 auto; padding:40px 24px 80px; border-top:1px solid var(--page-line); color:var(--page-dim); font-size:14px }
+  .foot h2 { font-family:var(--narrow); font-size:24px; color:var(--page-text); margin:0 0 10px }
+  .foot ul { margin:0; padding-left:18px } .foot li { margin-bottom:7px }
+  .foot code { font-family:var(--mono); font-size:12.5px; color:var(--brand) }
+
+  @media (max-width:480px){ .frames{grid-template-columns:1fr} figure.frame,.phone{width:100%;max-width:390px} }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-home" viewBox="0 0 24 24"><path class="duo" d="M5 9.5 12 4l7 5.5V20H5z"/><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></symbol>
+  <symbol id="i-food" viewBox="0 0 24 24"><path class="duo" d="M15 9c0-2 .5-4 2-6 1.5 2 2 4 2 6 0 1.7-.8 3-2 3s-2-1.3-2-3z"/><path d="M5 3v8a3 3 0 0 0 6 0V3"/><path d="M8 11v10"/><path d="M17 3c-1.5 2-2 4-2 6 0 1.7.8 3 2 3s2-1.3 2-3c0-2-.5-4-2-6z"/><path d="M17 12v9"/></symbol>
+  <symbol id="i-dumbbell" viewBox="0 0 24 24"><rect class="duo" x="6" y="7" width="2" height="10"/><rect class="duo" x="16" y="7" width="2" height="10"/><path d="M4 9v6M7 7v10M17 7v10M20 9v6M7 12h10"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path class="duo" d="M12 20s-7-4.4-7-9.5A4 4 0 0 1 12 8a4 4 0 0 1 7 2.5C19 15.6 12 20 12 20z"/><path d="M12 20s-7-4.4-7-9.5A4 4 0 0 1 12 8a4 4 0 0 1 7 2.5C19 15.6 12 20 12 20z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle class="duo" cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-pill" viewBox="0 0 24 24"><rect class="duo" x="3" y="8" width="18" height="8" rx="4"/><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M12 8v8"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path class="duo" d="M10 9l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9z"/><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><rect class="duo" x="3" y="4" width="18" height="16" rx="3"/><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 9.5a3 3 0 0 1 6 0"/><path d="M12 9.5V13"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></symbol>
+  <symbol id="i-sort" viewBox="0 0 24 24"><path d="M7 4v13M7 17l-3-3M7 17l3-3M17 20V7M17 7l-3 3M17 7l3 3"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path class="duo" d="M5 17L16 6l3 3L8 20H5z"/><path d="M4 20h4L19 9a2.1 2.1 0 0 0-3-3L5 17v3z"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect class="duo" x="3.5" y="5" width="17" height="16" rx="2.5"/><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 3v13"/><path d="M8 7l4-4 4 4"/><path d="M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></symbol>
+  <symbol id="i-import" viewBox="0 0 24 24"><path d="M12 16V3"/><path d="M8 12l4 4 4-4"/><path d="M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></symbol>
+  <symbol id="i-run" viewBox="0 0 24 24"><circle class="duo" cx="15" cy="4.5" r="2"/><circle cx="15" cy="4.5" r="2"/><path d="M12 21l2-6-3.5-3 1-5 3 3 3 1"/><path d="M8.5 12l-2 3"/></symbol>
+  <symbol id="i-water" viewBox="0 0 24 24"><path class="duo" d="M12 3s6 6.6 6 10.5a6 6 0 0 1-12 0C6 9.6 12 3 12 3z"/><path d="M12 3s6 6.6 6 10.5a6 6 0 0 1-12 0C6 9.6 12 3 12 3z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle class="duo" cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path class="duo" d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle class="duo" cx="12" cy="8" r="3.5"/><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></symbol>
+  <symbol id="i-tools" viewBox="0 0 24 24"><path class="duo" d="M14.5 5.5a3.5 3.5 0 0 0 4.8 4.6L21 12l-9 9-3-3 9-9z"/><path d="M14.5 5.5a3.5 3.5 0 0 0 4.8 4.6L21 12l-9 9-3-3 9-9-1.9-1.7z"/><path d="M6 6l3 3"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path class="duo" d="M12 3l7 3v6c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V6z"/><path d="M12 3l7 3v6c0 4.4-3 7.9-7 9-4-1.1-7-4.6-7-9V6z"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path class="duo" d="M12 4l9 16H3z"/><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle class="duo" cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="8.5"/><path d="M6.5 6.5l11 11"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path class="duo" d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 15.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path class="duo" d="M7 4.5l12 7.5-12 7.5z"/><path d="M7 4.5l12 7.5-12 7.5z"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M4 9h11a5 5 0 0 1 0 10h-4"/><path d="M8 5L4 9l4 4"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect class="duo" x="4" y="10" width="16" height="10" rx="1.5"/><rect x="4" y="10" width="16" height="10" rx="1.5"/><path d="M3 7h18v3H3zM12 7v13"/><path d="M12 7c-2 0-4-.7-4-2.5S10.5 2 12 4c1.5-2 4-1.3 4 .5S14 7 12 7z"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path class="duo" d="M6 3h9l4 4v14H6z"/><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h6M9 16h4"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect class="duo" x="8" y="8" width="12" height="12" rx="2"/><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/></symbol>
+  <symbol id="i-ball" viewBox="0 0 24 24"><circle class="duo" cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17M3.5 12h17M6 6c3 2.5 9 2.5 12 0M6 18c3-2.5 9-2.5 12 0"/></symbol>
+  <symbol id="i-swim" viewBox="0 0 24 24"><circle cx="16" cy="7" r="2"/><path d="M3 12l5-4 4 3 3-2"/><path d="M2 18c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0"/></symbol>
+  <symbol id="i-bike" viewBox="0 0 24 24"><circle cx="6" cy="16" r="3.5"/><circle cx="18" cy="16" r="3.5"/><path d="M6 16l4-8h5l3 8M10 8h4"/></symbol>
+</defs></svg>
+
+<div class="doc-head">
+  <p class="doc-eyebrow">di@sport · v3 künye · revizyon 2</p>
+  <h1>Beş alan, beş renk,<br>tek disiplin</h1>
+  <p class="doc-lede">
+    İlk revizyonun geri bildirimi işlendi: ikonlar duotone ve alan renkli,
+    başlıklar sekme adını tekrarlamıyor, her sekmenin araştırmadan türetilmiş
+    bir mottosu var ve eksik ekranların hepsi çizildi — doğum günü, ilaç girişi,
+    AI ile tahlil aktarma, öğün davranışı, planlanan/gerçekleşen.
+  </p>
+  <dl class="mottos">
+    <div class="motto"><dt><i class="dot" style="background:var(--brand)"></i>ANA SAYFA</dt>
+      <dd>Bir bakışta gün<small>Apple Health: özet üstte, detay sekmesinde</small></dd></div>
+    <div class="motto"><dt><i class="dot" style="background:var(--c-diet)"></i>DİYET</dt>
+      <dd>Kayıt üç dokunuş<small>MyFitnessPal: en hızlı kayıt kazanır</small></dd></div>
+    <div class="motto"><dt><i class="dot" style="background:var(--c-sport)"></i>SPOR</dt>
+      <dd>Plan solda, gerçek sağda<small>Hevy: hedef ve yapılan hep yan yana</small></dd></div>
+    <div class="motto"><dt><i class="dot" style="background:var(--c-health)"></i>SAĞLIK</dt>
+      <dd>Sayı değil, anlam<small>Guava: her değer hedef aralığıyla</small></dd></div>
+    <div class="motto"><dt><i class="dot" style="background:var(--mist500)"></i>DAHA</dt>
+      <dd>Veri senin<small>çevrimdışı ürünün dürüst sözleşmesi</small></dd></div>
+  </dl>
+</div>
+
+<nav class="doc-nav" aria-label="Akışlar">
+  <ol>
+    <li><a href="#kurulum">Kurulum</a></li>
+    <li><a href="#anasayfa">Ana Sayfa</a></li>
+    <li><a href="#diyet">Diyet</a></li>
+    <li><a href="#spor">Spor</a></li>
+    <li><a href="#saglik">Sağlık</a></li>
+    <li><a href="#daha">Daha</a></li>
+    <li><a href="#ai">AI köprüsü</a></li>
+    <li><a href="#kararlar">Notlar</a></li>
+  </ol>
+</nav>
+
+
+<!-- ════════════════ KURULUM ════════════════ -->
+<section class="flow" id="kurulum">
+  <div class="flow-head">
+    <h2>Kurulum</h2>
+    <p>Üç zorunlu adım; ekipman, medikal ve düzen sonradan, Ana Sayfa'daki kartlardan.
+       Her tamamlama kartının artık bir <b>Geç</b> yolu var.</p>
+  </div>
+  <div class="frames">
+
+    <!-- 01 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>09:41</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="body roomy" style="justify-content:center; padding:32px 28px">
+          <div>
+            <div class="eyebrow" style="margin-bottom:10px">HOŞ GELDİN</div>
+            <div style="font-family:var(--narrow); font-size:52px; line-height:.95; font-weight:700; color:var(--mist100)">di@sport</div>
+            <p style="color:var(--mist400); margin:14px 0 0; font-size:16px; max-width:30ch">
+              İlacın, diyetin, antrenmanın ve tahlillerin tek yerde.
+              Hesap yok, bulut yok — her şey bu telefonda kalır.
+            </p>
+          </div>
+          <div class="rows">
+            <div class="row"><span class="tile t-med"><svg class="icon"><use href="#i-pill"/></svg></span>
+              <div class="row-main"><strong>İlaç ve takviye</strong><span>Saatinde hatırlat, alındığını işaretle</span></div></div>
+            <div class="row"><span class="tile t-diet"><svg class="icon"><use href="#i-food"/></svg></span>
+              <div class="row-main"><strong>Diyet</strong><span>368 besin, ev ölçüsüyle porsiyon</span></div></div>
+            <div class="row"><span class="tile t-sport"><svg class="icon"><use href="#i-dumbbell"/></svg></span>
+              <div class="row-main"><strong>Antrenman</strong><span>161 hareket, plan ve seans kaydı</span></div></div>
+            <div class="row"><span class="tile t-health"><svg class="icon"><use href="#i-flask"/></svg></span>
+              <div class="row-main"><strong>Sağlık değerleri</strong><span>Tahlil, ölçüm, check-up takibi</span></div></div>
+          </div>
+          <div class="btn">Başlayalım</div>
+        </div>
+      </div>
+      <figcaption>
+        <div class="cap-title"><span class="cap-step">01</span>Hoş geldin</div>
+        <p class="cap-why">Dört alan dört renkte tanışıyor — alt çubuktaki renklerin aynısı.
+        Renk burada dekor değil <b>harita</b>: kullanıcı daha girmeden hangi rengin ne olduğunu öğreniyor.</p>
+      </figcaption>
+    </figure>
+
+    <!-- 02 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>09:41</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head compact">
+          <span class="backb"><svg class="icon sm"><use href="#i-back"/></svg></span>
+          <div class="titles"><span class="over">ADIM 1 / 3</span><h3>Sen kimsin?</h3></div>
+        </div>
+        <div class="body roomy">
+          <div class="progress"><i class="on"></i><i></i><i></i></div>
+          <div class="panel pad-lg">
+            <div class="field focus"><label>Ad</label><div class="val">Kaan</div></div>
+            <div class="field"><label>Soyad</label><div class="val">Akcan</div></div>
+            <div class="field"><label>Doğum tarihi</label>
+              <div class="val" style="display:flex; gap:18px">
+                <span>14</span><span style="color:var(--mist400)">Mart</span><span>1992</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label style="display:block; font-family:var(--narrow); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--mist500); margin-bottom:9px">Cinsiyet — kalori hesabı için</label>
+            <div class="chips">
+              <span class="chip on"><svg class="icon sm"><use href="#i-check"/></svg>Erkek</span>
+              <span class="chip">Kadın</span>
+              <span class="chip">Belirtmek istemiyorum</span>
+            </div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="btn">Devam</div>
+        </div>
+      </div>
+      <figcaption>
+        <div class="cap-title"><span class="cap-step">02</span>Kimlik — tam doğum tarihi</div>
+        <p class="cap-why">Gün + ay + yıl — yaş türetiliyor, her yıl elle
+        güncellenmiyor. Doğum gününde Ana Sayfa başlığında kısa bir kutlama
+        görünür; başka bir davranış değişmez.</p>
+      </figcaption>
+    </figure>
+
+    <!-- 03 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>09:42</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head compact">
+          <span class="backb"><svg class="icon sm"><use href="#i-back"/></svg></span>
+          <div class="titles"><span class="over">ADIM 2 / 3</span><h3>Ölçülerin</h3></div>
+        </div>
+        <div class="body roomy">
+          <div class="progress"><i class="on"></i><i class="on"></i><i></i></div>
+          <div class="panel pad-lg">
+            <div class="field"><label>Boy</label><div class="val">184 cm</div></div>
+            <div class="field focus"><label>Şu anki kilo</label><div class="val">108,9 kg</div></div>
+            <div class="field"><label>Hedef kilo</label><div class="val">92 kg</div></div>
+          </div>
+          <div class="panel" style="display:flex; gap:12px; align-items:center">
+            <span class="tile t-diet"><svg class="icon"><use href="#i-check"/></svg></span>
+            <p style="margin:0; font-size:13px; color:var(--mist400)">
+              Hedefin: <b style="color:var(--mist200)">16,9 kg</b>. Vücut analizi
+              ve VKİ takibin Sağlık sekmesinde.
+            </p>
+          </div>
+          <div style="flex:1"></div>
+          <div class="btn">Kurulumu bitir</div>
+        </div>
+      </div>
+      <figcaption>
+        <div class="cap-title"><span class="cap-step">03</span>Ölçüler</div>
+        <p class="cap-why">VKİ değerlendirmesi buradan <b>Sağlık → Ölçüm'e taşındı</b> —
+        yeni kullanıcıya ilk ekranda "obez" damgası vurmak kötü bir karşılamaydı.
+        Buradaki kilo ilk ölçüm kaydı oluyor.</p>
+      </figcaption>
+    </figure>
+
+    <!-- 04 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>09:43</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head">
+          <div class="titles"><span class="over">1 EYLÜL</span><h3>Pazartesi</h3></div>
+          <div class="acts"><span class="abtn"><svg class="icon sm"><use href="#i-cal"/></svg></span></div>
+        </div>
+        <div class="body roomy">
+          <div class="panel accent pad-lg">
+            <div style="display:flex; align-items:center; gap:14px">
+              <span class="tile t-diet" style="width:48px;height:48px"><svg class="icon lg"><use href="#i-sparkle"/></svg></span>
+              <div style="flex:1">
+                <div class="hero-cap" style="color:var(--brand)">HOŞ GELDİN KAAN</div>
+                <div style="font-size:17px; font-weight:700; color:var(--mist100)">Kurulumun 1/4 tamam</div>
+              </div>
+            </div>
+            <div class="gauge"><i style="width:25%"></i></div>
+          </div>
+
+          <div>
+            <div class="sec"><b>SIRADAKİ ADIMLAR</b><span class="fill"></span><span style="color:var(--mist500)">Geç ↷</span></div>
+            <div class="rows" style="margin-top:4px">
+              <div class="row"><span class="tile t-sport"><svg class="icon"><use href="#i-tools"/></svg></span>
+                <div class="row-main"><strong>Ekipmanlarını seç</strong><span>Katalog sana göre süzülür · 2 dk</span></div>
+                <span class="badge dimb">GEÇ</span><svg class="icon sm chev"><use href="#i-chev"/></svg></div>
+              <div class="row"><span class="tile t-health"><svg class="icon"><use href="#i-shield"/></svg></span>
+                <div class="row-main"><strong>Medikal bilgilerin</strong><span>Plan sana göre gelir · 3 dk</span></div>
+                <span class="badge dimb">GEÇ</span><svg class="icon sm chev"><use href="#i-chev"/></svg></div>
+              <div class="row"><span class="tile t-energy"><svg class="icon"><use href="#i-clock"/></svg></span>
+                <div class="row-main"><strong>Günlük düzenin</strong><span>Alarmlar doğru saatte · 1 dk</span></div>
+                <span class="badge dimb">GEÇ</span><svg class="icon sm chev"><use href="#i-chev"/></svg></div>
+            </div>
+          </div>
+
+          <div class="btn tonal"><svg class="icon sm"><use href="#i-sparkle"/></svg>İlk planını iste</div>
+          <p class="textlink">Planı sonra da isteyebilirsin — Spor sekmesinden</p>
+        </div>
+        <nav class="tabbar">
+          <a class="on home"><span class="ticon"><svg class="icon"><use href="#i-home"/></svg></span>Ana Sayfa</a>
+          <a class="diet"><span class="ticon"><svg class="icon"><use href="#i-food"/></svg></span>Diyet</a>
+          <a class="sport"><span class="ticon"><svg class="icon"><use href="#i-dumbbell"/></svg></span>Spor</a>
+          <a class="health"><span class="ticon"><svg class="icon"><use href="#i-heart"/></svg></span>Sağlık</a>
+          <a class="more"><span class="ticon"><svg class="icon"><use href="#i-menu"/></svg></span>Daha</a>
+        </nav>
+      </div>
+      <figcaption>
+        <div class="cap-title"><span class="cap-step">04</span>İlk açılış — kalori yok</div>
+        <p class="cap-why">İlk gün kahraman sayı <b>çizilmiyor</b> — hiç kayıt yokken "bugün yenen —"
+        göstermek anlamsızdı. Kahramanın yeri kurulum kartında; her adımın <b>Geç</b>'i var
+        ve geçilen adım karttan düşüyor, "Daha"dan her zaman erişilebilir.</p>
+      </figcaption>
+    </figure>
+
+    <!-- 05 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>09:45</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head compact">
+          <span class="backb"><svg class="icon sm"><use href="#i-back"/></svg></span>
+          <div class="titles"><h3>Ekipmanların</h3></div>
+        </div>
+        <div class="seg"><span class="on">EVDE</span><span>SALONDA</span><span>SEVDİĞİN SPORLAR</span></div>
+        <div class="body">
+          <p style="color:var(--mist400); font-size:13.5px; margin:2px 0 0">
+            Evde ne varsa işaretle — katalog buna göre süzülür.
+          </p>
+          <div class="chips">
+            <span class="chip on"><svg class="icon sm"><use href="#i-check"/></svg>Dambıl</span>
+            <span class="chip on"><svg class="icon sm"><use href="#i-check"/></svg>Direnç bandı</span>
+            <span class="chip on"><svg class="icon sm"><use href="#i-check"/></svg>Barfiks demiri</span>
+            <span class="chip">Kettlebell</span><span class="chip">Sehpa</span>
+            <span class="chip">Paralel bar</span><span class="chip">Atlama ipi</span>
+            <span class="chip">Pilates topu</span><span class="chip">Sağlık topu</span>
+            <span class="chip">Köpük rulo</span><span class="chip">Barbell</span>
+          </div>
+
+          <div class="sec"><b>EV EŞYASI</b><span class="fill"></span></div>
+          <div class="chips">
+            <span class="chip on"><svg class="icon sm"><use href="#i-check"/></svg>Sandalye</span>
+            <span class="chip">Basamak / merdiven</span>
+          </div>
+          <p class="note">Duvar her evde var, sorulmuyor. Sandalye ve basamak
+            <b>seçilebilir</b> — işaretli değilse o hareketler önerilmez.</p>
+
+          <div class="panel" style="display:flex; gap:12px; align-items:center">
+            <span class="tile t-sport"><svg class="icon"><use href="#i-dumbbell"/></svg></span>
+            <div style="flex:1">
+              <strong style="font-size:15px; color:var(--mist200)">Salona gidiyor musun?</strong>
+              <div style="font-size:12.5px; color:var(--mist500)">Açarsan salon ekipmanı da sorulur</div>
+            </div>
+            <span style="width:46px; height:27px; border-radius:999px; background:var(--brand); position:relative; flex:0 0 auto">
+              <span style="position:absolute; right:3px; top:3px; width:21px; height:21px; border-radius:50%; background:var(--ink950)"></span>
+            </span>
+          </div>
+          <div style="flex:1"></div>
+          <div class="btn">Kaydet ve devam</div>
+        </div>
+      </div>
+      <figcaption>
+        <div class="cap-title"><span class="cap-step">05</span>Ekipman — varsayım yok</div>
+        <p class="cap-why">Sandalye ve basamak artık <b>soruluyor</b>, varsayılmıyor — "herkeste var"
+        varsayımı yanlıştı. Üçüncü sekme yeni: <b>sevdiğin sporlar</b> (ekran 05b).</p>
+      </figcaption>
+    </figure>
+
+    <!-- 05b -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>09:46</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head compact">
+          <span class="backb"><svg class="icon sm"><use href="#i-back"/></svg></span>
+          <div class="titles"><h3>Ekipmanların</h3></div>
+        </div>
+        <div class="seg"><span>EVDE</span><span>SALONDA</span><span class="on">SEVDİĞİN SPORLAR</span></div>
+        <div class="body">
+          <p style="color:var(--mist400); font-size:13.5px; margin:2px 0 0">
+            Dışarıda yapmayı sevdiklerin. Plan isteğine girer — yapay zekâ
+            haftana sevdiğin sporu koyabilir.
+          </p>
+          <div class="rows">
+            <div class="row"><span class="tile t-sport"><svg class="icon"><use href="#i-ball"/></svg></span>
+              <div class="row-main"><strong>Basketbol</strong><span>Haftada 1 · pazar sabahı</span></div>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+            <div class="row"><span class="tile t-sport"><svg class="icon"><use href="#i-run"/></svg></span>
+              <div class="row-main"><strong>Koşu</strong><span>Ara sıra</span></div>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+            <div class="row"><span class="tile t-dim"><svg class="icon"><use href="#i-swim"/></svg></span>
+              <div class="row-main"><strong>Yüzme</strong></div>
+              <span style="width:22px; height:22px; border-radius:6px; border:1.5px solid var(--ink600)"></span></div>
+            <div class="row"><span class="tile t-dim"><svg class="icon"><use href="#i-bike"/></svg></span>
+              <div class="row-main"><strong>Bisiklet</strong></div>
+              <span style="width:22px; height:22px; border-radius:6px; border:1.5px solid var(--ink600)"></span></div>
+            <div class="row"><span class="tile t-dim"><svg class="icon"><use href="#i-ball"/></svg></span>
+              <div class="row-main"><strong>Futbol / halı saha</strong></div>
+              <span style="width:22px; height:22px; border-radius:6px; border:1.5px solid var(--ink600)"></span></div>
+          </div>
+          <div class="btn ghost sm"><svg class="icon sm"><use href="#i-plus"/></svg>Listede olmayan spor ekle</div>
+          <div style="flex:1"></div>
+          <div class="btn">Kaydet</div>
+        </div>
+      </div>
+      <figcaption>
+        <div class="cap-title"><span class="cap-step">05b</span>Sevdiğin sporlar <span class="badge goodb" style="margin-left:6px">YENİ</span></div>
+        <p class="cap-why">72 aktivitelik listeden seçim + sıklık. AI belgesine
+        "sevdiği sporlar" bölümü olarak giriyor — plan basketbolu <b>pazar sabahına</b> koyabiliyor.</p>
+      </figcaption>
+    </figure>
+
+    <!-- 06 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>09:48</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head compact">
+          <span class="backb"><svg class="icon sm"><use href="#i-back"/></svg></span>
+          <div class="titles"><h3>Medikal bilgilerin</h3></div>
+        </div>
+        <div class="body">
+          <div class="panel" style="display:flex; gap:10px; align-items:flex-start">
+            <span class="tile sm t-health"><svg class="icon sm"><use href="#i-shield"/></svg></span>
+            <p style="margin:0; font-size:12.5px; color:var(--mist400)">
+              Telefondan çıkmaz. Yapay zekâya yalnız sen <b style="color:var(--mist200)">paylaş</b> dediğinde gider.
+            </p>
+          </div>
+          <div class="sec"><b>KRONİK DURUM</b><span class="fill"></span></div>
+          <div class="chips">
+            <span class="chip on"><svg class="icon sm"><use href="#i-check"/></svg>İnsülin direnci</span>
+            <span class="chip">Tip 2 diyabet</span><span class="chip">Hipertansiyon</span>
+            <span class="chip">Tiroid</span><span class="chip"><svg class="icon sm"><use href="#i-plus"/></svg></span>
+          </div>
+          <div class="sec"><b>SAKATLIK / KISIT</b><span class="fill"></span></div>
+          <div class="chips">
+            <span class="chip on"><svg class="icon sm"><use href="#i-check"/></svg>Diz hassasiyeti</span>
+            <span class="chip">Bel</span><span class="chip">Omuz</span>
+            <span class="chip"><svg class="icon sm"><use href="#i-plus"/></svg></span>
+          </div>
+          <div class="sec"><b>ALERJİ</b><span class="fill"></span></div>
+          <div class="chips">
+            <span class="chip">Laktoz</span><span class="chip">Gluten</span>
+            <span class="chip">Kuruyemiş</span><span class="chip"><svg class="icon sm"><use href="#i-plus"/></svg></span>
+          </div>
+          <div class="sec"><b>KULLANDIĞIN İLAÇLAR</b><span class="fill"></span><span class="act"><svg class="icon sm"><use href="#i-plus"/></svg>EKLE</span></div>
+          <div class="rows">
+            <div class="row"><span class="tile sm t-med"><svg class="icon sm"><use href="#i-pill"/></svg></span>
+              <div class="row-main"><strong>Metformin</strong><span>1000 mg · sabah + akşam</span></div>
+              <svg class="icon sm chev"><use href="#i-chev"/></svg></div>
+            <div class="row"><span class="tile sm t-med"><svg class="icon sm"><use href="#i-pill"/></svg></span>
+              <div class="row-main"><strong>D vitamini</strong><span>2000 IU · sabah</span></div>
+              <svg class="icon sm chev"><use href="#i-chev"/></svg></div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="btn">Kaydet</div>
+        </div>
+      </div>
+      <figcaption>
+        <div class="cap-title"><span class="cap-step">06</span>Medikal — ilaçlar içeride</div>
+        <p class="cap-why">İlaç listesi artık bu ekranın <b>içinde</b>, EKLE ekran 06b'yi açıyor.
+        Kurulumda eklenen ilaç Sağlık → İlaç'ta aynen görünür — tek veri, iki giriş kapısı.</p>
+      </figcaption>
+    </figure>
+
+    <!-- 06b -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>09:49</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head compact"><div class="titles"><h3 style="opacity:.4">Medikal bilgilerin</h3></div></div>
+        <div class="body" style="opacity:.3"></div>
+        <div class="scrim"></div>
+        <div class="sheet">
+          <div style="display:flex; align-items:center; gap:12px">
+            <span class="tile t-med"><svg class="icon"><use href="#i-pill"/></svg></span>
+            <h4 style="flex:1; margin:0; font-size:19px; color:var(--mist100); font-weight:700">İlaç ekle</h4>
+          </div>
+          <div class="field focus"><label>Adı</label><div class="val">Metformin</div></div>
+          <div style="display:flex; gap:16px">
+            <div class="field" style="flex:1"><label>Doz</label><div class="val">1000</div></div>
+            <div class="field" style="flex:1"><label>Birim</label><div class="val">mg</div></div>
+          </div>
+          <div>
+            <label style="display:block; font-family:var(--narrow); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--mist500); margin-bottom:8px">Tür</label>
+            <div class="chips">
+              <span class="chip on"><svg class="icon sm"><use href="#i-check"/></svg>Reçeteli ilaç</span>
+              <span class="chip">Takviye</span>
+            </div>
+          </div>
+          <div>
+            <label style="display:block; font-family:var(--narrow); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--mist500); margin-bottom:8px">Saatler</label>
+            <div class="chips">
+              <span class="chip on">08:30</span><span class="chip on">20:30</span>
+              <span class="chip"><svg class="icon sm"><use href="#i-plus"/></svg>Saat</span>
+            </div>
+          </div>
+          <div>
+            <label style="display:block; font-family:var(--narrow); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--mist500); margin-bottom:8px">Günler</label>
+            <div class="chips">
+              <span class="chip on">Her gün</span><span class="chip">Pzt</span><span class="chip">Çar</span><span class="chip">Cum</span>
+            </div>
+          </div>
+          <div class="btn">Ekle — hatırlatma kurulur</div>
+        </div>
+      </div>
+      <figcaption>
+        <div class="cap-title"><span class="cap-step">06b</span>İlaç girişi <span class="badge goodb" style="margin-left:6px">YENİ</span></div>
+        <p class="cap-why">Eksik olan ekran. <b>Reçeteli / takviye</b> ayrımı girişte yapılıyor —
+        AI belgesine ayrı bölümler olarak gidiyorlar. Düğme sonucunu söylüyor: "hatırlatma kurulur".</p>
+      </figcaption>
+    </figure>
+
+    <!-- 07 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>09:51</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head compact">
+          <span class="backb"><svg class="icon sm"><use href="#i-back"/></svg></span>
+          <div class="titles"><h3>Günlük düzenin</h3></div>
+        </div>
+        <div class="body">
+          <div>
+            <div class="daystrip">
+              <i style="width:27%; background:var(--ink700)"></i>
+              <i style="width:5%; background:var(--brand-surface)"></i>
+              <i style="width:42%; background:var(--ink600)"></i>
+              <i style="width:18%; background:var(--brand-surface)"></i>
+              <i style="width:8%; background:var(--danger-surface)"></i>
+            </div>
+            <div class="strip-key" style="margin-top:8px">
+              <span><i style="background:var(--ink700)"></i>Uyku</span>
+              <span><i style="background:var(--ink600)"></i>Mesai</span>
+              <span><i style="background:var(--brand-surface)"></i>Serbest</span>
+              <span><i style="background:var(--danger-surface)"></i>Uygun değil</span>
+            </div>
+          </div>
+          <div class="rows">
+            <div class="row"><span class="tile sm t-energy"><svg class="icon sm"><use href="#i-sun"/></svg></span>
+              <div class="row-main"><strong>Kalkış</strong></div><span class="row-val">06:30</span></div>
+            <div class="row"><span class="tile sm t-dim"><svg class="icon sm"><use href="#i-moon"/></svg></span>
+              <div class="row-main"><strong>Uyku</strong></div><span class="row-val">23:30</span></div>
+            <div class="row"><span class="tile sm t-dim"><svg class="icon sm"><use href="#i-clock"/></svg></span>
+              <div class="row-main"><strong>Mesai</strong><span>Pzt–Cum</span></div><span class="row-val">07:30–17:30</span></div>
+          </div>
+
+          <div class="sec"><b>ÖĞÜN SAATLERİ VE DAVRANIŞI</b><span class="fill"></span></div>
+          <div class="rows">
+            <div class="row"><span class="row-val dim" style="width:44px">08:00</span>
+              <div class="row-main"><strong>Kahvaltı</strong><span>Hep aynı: menemen + çay</span></div>
+              <span class="badge dimb">HEP AYNI</span></div>
+            <div class="row"><span class="row-val dim" style="width:44px">13:00</span>
+              <div class="row-main"><strong>Öğle</strong><span>Yemekhane — ne çıkarsa</span></div>
+              <span class="badge warnb">PLANLANMAZ</span></div>
+            <div class="row"><span class="row-val dim" style="width:44px">16:00</span>
+              <div class="row-main"><strong>İkindi</strong></div>
+              <span class="badge goodb">PLANLANIR</span></div>
+            <div class="row"><span class="row-val dim" style="width:44px">20:00</span>
+              <div class="row-main"><strong>Akşam</strong></div>
+              <span class="badge goodb">PLANLANIR</span></div>
+          </div>
+          <p class="note">Bu tablo AI'a gider: yemekhanede yiyen kullanıcıya
+            öğle önerilmez, <b>kalan öğünler dengelenir</b>.</p>
+          <div style="flex:1"></div>
+          <div class="btn">Kaydet</div>
+        </div>
+      </div>
+      <figcaption>
+        <div class="cap-title"><span class="cap-step">07</span>Günlük Düzen — öğün davranışı <span class="badge goodb" style="margin-left:6px">YENİ</span></div>
+        <p class="cap-why">Her öğünün saati + davranışı: <b>planlanır</b> / <b>hep aynı</b> (ne yediğini yaz) /
+        <b>planlanmaz</b> (yemekhane). Senin "ben işçiyim, yemekhanede ne varsa onu yiyorum" durumun —
+        AI kalan öğünleri buna göre kuruyor.</p>
+      </figcaption>
+    </figure>
+
+  </div>
+</section>
+
+
+<!-- ════════════════ ANA SAYFA ════════════════ -->
+<section class="flow" id="anasayfa">
+  <div class="flow-head">
+    <h2>Ana Sayfa <span class="motto-line" style="background:var(--brand-surface); color:var(--brand)">BİR BAKIŞTA GÜN</span></h2>
+    <p>Başlık artık günün kendisi, sağında tarih seçici. Akıştaki her satır
+       <b>dokunulabilir</b> — su, öğün, ilaç oradan işlenip düzeltiliyor.</p>
+  </div>
+  <div class="frames">
+
+    <!-- B1 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>10:15</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head">
+          <div class="titles"><span class="over">1 EYLÜL · HAFTA 2</span><h3>Pazartesi</h3></div>
+          <div class="acts">
+            <span class="abtn"><svg class="icon sm"><use href="#i-back"/></svg></span>
+            <span class="abtn"><svg class="icon sm"><use href="#i-cal"/></svg></span>
+            <span class="abtn"><svg class="icon sm"><use href="#i-chev"/></svg></span>
+          </div>
+        </div>
+        <div class="body">
+          <div class="panel pad-lg">
+            <div class="hero-cap">BUGÜN KALAN</div>
+            <div style="display:flex; align-items:baseline">
+              <span class="hero-num">1.240</span><span class="hero-unit">kcal</span>
+            </div>
+            <div class="gauge"><i style="width:44%"></i></div>
+            <dl class="strip">
+              <div><dt>Protein</dt><dd>82<small>/150</small></dd></div>
+              <div><dt>Yakılan</dt><dd class="good">≈310</dd></div>
+              <div><dt>Su</dt><dd>1,6<small>/3 L</small></dd></div>
+              <div><dt>İlaç</dt><dd>3<small>/5</small></dd></div>
+            </dl>
+          </div>
+
+          <div class="panel" style="display:flex; gap:13px; align-items:center; border-color:var(--c-sport)">
+            <span class="tile t-sport"><svg class="icon"><use href="#i-dumbbell"/></svg></span>
+            <div style="flex:1">
+              <span class="eyebrow" style="color:var(--c-sport)">SIRADA · 18:30</span>
+              <div style="font-size:16px; font-weight:700; color:var(--mist100)">Salon antrenmanı</div>
+              <div style="font-size:12.5px; color:var(--mist500)">6 hareket · ≈52 dk</div>
+            </div>
+            <svg class="icon lg" style="color:var(--c-sport)"><use href="#i-play"/></svg>
+          </div>
+
+          <div>
+            <div class="sec"><b>GÜNÜN AKIŞI</b> · 3/7<span class="fill"></span><span class="act">TAMAMI</span></div>
+            <div class="rows" style="margin-top:2px">
+              <div class="row" style="min-height:48px; padding:9px 0">
+                <span class="row-val dim" style="width:40px; font-size:14px">06:30</span>
+                <span class="tile sm t-health"><svg class="icon sm"><use href="#i-scale"/></svg></span>
+                <div class="row-main"><strong style="color:var(--mist500)">Tartı — 108,9 kg</strong></div>
+                <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+              <div class="row" style="min-height:48px; padding:9px 0">
+                <span class="row-val dim" style="width:40px; font-size:14px">08:00</span>
+                <span class="tile sm t-diet"><svg class="icon sm"><use href="#i-food"/></svg></span>
+                <div class="row-main"><strong style="color:var(--mist500)">Kahvaltı — 486 kcal</strong></div>
+                <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+              <div class="row" style="min-height:48px; padding:9px 0">
+                <span class="row-val dim" style="width:40px; font-size:14px">08:30</span>
+                <span class="tile sm t-med"><svg class="icon sm"><use href="#i-pill"/></svg></span>
+                <div class="row-main"><strong style="color:var(--mist500)">D vitamini + Metformin</strong></div>
+                <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+              <div class="row" style="min-height:48px; padding:9px 0; border-left:2px solid var(--brand); padding-left:8px; margin-left:-10px">
+                <span class="row-val" style="width:40px; font-size:14px">13:00</span>
+                <span class="tile sm t-diet"><svg class="icon sm"><use href="#i-food"/></svg></span>
+                <div class="row-main"><strong>Öğle</strong><span>Planda: etli kuru fasulye</span></div>
+                <span class="badge goodb">+ GİR</span></div>
+              <div class="row" style="min-height:48px; padding:9px 0">
+                <span class="row-val" style="width:40px; font-size:14px">16:00</span>
+                <span class="tile sm t-diet"><svg class="icon sm"><use href="#i-food"/></svg></span>
+                <div class="row-main"><strong>İkindi</strong></div>
+                <svg class="icon sm chev"><use href="#i-chev"/></svg></div>
+            </div>
+          </div>
+        </div>
+        <nav class="tabbar">
+          <a class="on home"><span class="ticon"><svg class="icon"><use href="#i-home"/></svg></span>Ana Sayfa</a>
+          <a class="diet"><span class="ticon"><svg class="icon"><use href="#i-food"/></svg></span>Diyet</a>
+          <a class="sport"><span class="ticon"><svg class="icon"><use href="#i-dumbbell"/></svg></span>Spor</a>
+          <a class="health"><span class="ticon"><svg class="icon"><use href="#i-heart"/></svg></span>Sağlık</a>
+          <a class="more"><span class="ticon"><svg class="icon"><use href="#i-menu"/></svg></span>Daha</a>
+        </nav>
+      </div>
+      <figcaption>
+        <div class="cap-title">Ana Sayfa — dolu gün</div>
+        <p class="cap-why">Başlık <b>günün adı</b>, sağında ‹ takvim › — "Ana Sayfa" yazısı gitti, alt çubuk
+        zaten söylüyor. Metrik şeridine <b>su ve ilaç</b> girdi; akıştaki her satır dokununca
+        kendi işlem sayfasını açıyor (öğün → seçici, ilaç → işaretle, tartı → düzelt).
+        Sıradaki satır sol kenar çizgisiyle vurgulu.</p>
+      </figcaption>
+    </figure>
+
+    <!-- B2 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>10:16</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head">
+          <div class="titles"><span class="over" style="color:var(--warn)">GEÇMİŞ GÜN · 29 AĞUSTOS</span><h3>Cuma</h3></div>
+          <div class="acts">
+            <span class="abtn"><svg class="icon sm"><use href="#i-back"/></svg></span>
+            <span class="abtn" style="color:var(--brand); border-color:var(--brand-dim)"><svg class="icon sm"><use href="#i-undo"/></svg></span>
+            <span class="abtn"><svg class="icon sm"><use href="#i-chev"/></svg></span>
+          </div>
+        </div>
+        <div class="body">
+          <div class="panel pad-lg">
+            <div class="hero-cap">O GÜN KALAN</div>
+            <div style="display:flex; align-items:baseline">
+              <span class="hero-num over">−320</span><span class="hero-unit">kcal</span>
+            </div>
+            <div class="gauge"><i class="over" style="width:100%"></i></div>
+            <dl class="strip">
+              <div><dt>Protein</dt><dd>141<small>/150</small></dd></div>
+              <div><dt>Yakılan</dt><dd class="good">≈470</dd></div>
+              <div><dt>Kilo</dt><dd>109,4</dd></div>
+            </dl>
+          </div>
+          <div>
+            <div class="sec"><b>O GÜNÜN AKIŞI</b> · 6/7<span class="fill"></span></div>
+            <div class="rows" style="margin-top:2px">
+              <div class="row" style="min-height:48px; padding:9px 0">
+                <span class="row-val dim" style="width:40px; font-size:14px">06:30</span>
+                <span class="tile sm t-health"><svg class="icon sm"><use href="#i-scale"/></svg></span>
+                <div class="row-main"><strong style="color:var(--mist500)">Tartı — 109,4 kg</strong></div>
+                <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+              <div class="row" style="min-height:48px; padding:9px 0">
+                <span class="row-val dim" style="width:40px; font-size:14px">18:30</span>
+                <span class="tile sm t-sport"><svg class="icon sm"><use href="#i-dumbbell"/></svg></span>
+                <div class="row-main"><strong style="color:var(--mist500)">Salon — 52 dk · ≈470 kcal</strong></div>
+                <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+              <div class="row" style="min-height:48px; padding:9px 0">
+                <span class="row-val" style="width:40px; font-size:14px">20:00</span>
+                <span class="tile sm t-diet"><svg class="icon sm"><use href="#i-food"/></svg></span>
+                <div class="row-main"><strong>Akşam</strong><span>Girilmedi</span></div>
+                <span class="badge goodb">+ GİR</span></div>
+            </div>
+          </div>
+          <p class="note">"Şimdi" işareti ve SIRADA kartı geçmişte çizilmez —
+            dünün listesine bugünün saati uygulanmaz.</p>
+        </div>
+        <nav class="tabbar">
+          <a class="on home"><span class="ticon"><svg class="icon"><use href="#i-home"/></svg></span>Ana Sayfa</a>
+          <a class="diet"><span class="ticon"><svg class="icon"><use href="#i-food"/></svg></span>Diyet</a>
+          <a class="sport"><span class="ticon"><svg class="icon"><use href="#i-dumbbell"/></svg></span>Spor</a>
+          <a class="health"><span class="ticon"><svg class="icon"><use href="#i-heart"/></svg></span>Sağlık</a>
+          <a class="more"><span class="ticon"><svg class="icon"><use href="#i-menu"/></svg></span>Daha</a>
+        </nav>
+      </div>
+      <figcaption>
+        <div class="cap-title">Geçmiş gün</div>
+        <p class="cap-why">Eyebrow amber "GEÇMİŞ GÜN", ortadaki eylem <b>bugüne dön</b>.
+        Eksik akşam yemeği geçmişe girilebiliyor — geçmiş gün tam yetkili.</p>
+      </figcaption>
+    </figure>
+
+  </div>
+</section>
+
+
+<!-- ════════════════ DİYET ════════════════ -->
+<section class="flow" id="diyet">
+  <div class="flow-head">
+    <h2>Diyet <span class="motto-line" style="background:var(--c-diet-bg); color:var(--c-diet)">KAYIT ÜÇ DOKUNUŞ</span></h2>
+    <p>Günlük'te <b>plan ve gerçekleşen aynı satırda</b>: planda ne vardı soluk,
+       ne yendi dolu. Besinler sıralanabilir, yasaklılar rozetli.</p>
+  </div>
+  <div class="frames">
+
+    <!-- C1 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>13:05</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head">
+          <div class="titles"><span class="over">1 EYLÜL</span><h3>Diyet</h3></div>
+          <div class="acts"><span class="abtn"><svg class="icon sm"><use href="#i-cal"/></svg></span></div>
+        </div>
+        <div class="seg"><span class="on">GÜNLÜK</span><span>BESİNLER</span><span>GEÇMİŞ</span></div>
+        <div class="body">
+          <div class="panel">
+            <div style="display:flex; align-items:center; gap:14px">
+              <div style="flex:1">
+                <div class="hero-cap">YENEN / HEDEF</div>
+                <div style="display:flex; align-items:baseline">
+                  <span class="hero-num" style="font-size:40px">960</span>
+                  <span class="hero-unit">/ 2.200</span>
+                </div>
+              </div>
+              <div style="text-align:right">
+                <div class="hero-cap">SU</div>
+                <div style="display:flex; gap:3px; margin-top:6px">
+                  <i style="width:14px;height:22px;border-radius:3px;background:var(--c-sport)"></i>
+                  <i style="width:14px;height:22px;border-radius:3px;background:var(--c-sport)"></i>
+                  <i style="width:14px;height:22px;border-radius:3px;background:var(--c-sport)"></i>
+                  <i style="width:14px;height:22px;border-radius:3px;background:var(--c-sport)"></i>
+                  <i style="width:14px;height:22px;border-radius:3px;background:var(--ink700)"></i>
+                  <i style="width:14px;height:22px;border-radius:3px;background:var(--ink700); display:flex;align-items:center;justify-content:center"><svg class="icon sm" style="width:12px;height:12px;color:var(--mist400)"><use href="#i-plus"/></svg></i>
+                </div>
+              </div>
+            </div>
+            <div class="gauge"><i style="width:44%"></i></div>
+          </div>
+
+          <div>
+            <div class="sec"><span class="tile sm t-diet" style="width:26px;height:26px"><svg class="icon sm" style="width:14px;height:14px"><use href="#i-sun"/></svg></span>
+              <b>KAHVALTI</b> · 486 kcal<span class="fill"></span>
+              <span class="badge goodb">PLANA UYGUN</span></div>
+            <div class="rows">
+              <div class="row" style="min-height:44px; padding:8px 0">
+                <div class="row-main"><strong>Beyaz Peynir</strong><span>60 g</span></div><span class="row-val">158</span></div>
+              <div class="row" style="min-height:44px; padding:8px 0">
+                <div class="row-main"><strong>Haşlanmış Yumurta</strong><span>2 adet</span></div><span class="row-val">171</span></div>
+              <div class="row" style="min-height:44px; padding:8px 0">
+                <div class="row-main"><strong>Tam Buğday Ekmeği</strong><span>2 dilim</span></div><span class="row-val">148</span></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="sec"><span class="tile sm t-diet" style="width:26px;height:26px"><svg class="icon sm" style="width:14px;height:14px"><use href="#i-food"/></svg></span>
+              <b>ÖĞLE</b><span class="fill"></span><span class="act"><svg class="icon sm"><use href="#i-plus"/></svg>GİR</span></div>
+            <div class="rows">
+              <div class="row" style="min-height:44px; padding:8px 0; opacity:.55">
+                <div class="row-main"><strong style="font-weight:400; font-style:italic">Planda: Etli Kuru Fasulye</strong><span>1 kase · 298 kcal</span></div>
+                <span class="badge dimb">PLAN</span></div>
+              <div class="row" style="min-height:44px; padding:8px 0; opacity:.55">
+                <div class="row-main"><strong style="font-weight:400; font-style:italic">Planda: Pirinç Pilavı</strong><span>0,5 porsiyon</span></div>
+                <span class="badge dimb">PLAN</span></div>
+            </div>
+            <div class="btn tonal sm" style="margin-top:6px"><svg class="icon sm"><use href="#i-check"/></svg>Plandaki gibi yedim</div>
+          </div>
+
+          <div>
+            <div class="sec"><span class="tile sm t-diet" style="width:26px;height:26px"><svg class="icon sm" style="width:14px;height:14px"><use href="#i-moon"/></svg></span>
+              <b>AKŞAM</b><span class="fill"></span><span class="act"><svg class="icon sm"><use href="#i-plus"/></svg>GİR</span></div>
+            <p style="color:var(--mist500); font-size:13px; margin:4px 0 0; font-style:italic">Planda: ızgara tavuk + salata</p>
+          </div>
+        </div>
+        <nav class="tabbar">
+          <a class="home"><span class="ticon"><svg class="icon"><use href="#i-home"/></svg></span>Ana Sayfa</a>
+          <a class="on diet"><span class="ticon"><svg class="icon"><use href="#i-food"/></svg></span>Diyet</a>
+          <a class="sport"><span class="ticon"><svg class="icon"><use href="#i-dumbbell"/></svg></span>Spor</a>
+          <a class="health"><span class="ticon"><svg class="icon"><use href="#i-heart"/></svg></span>Sağlık</a>
+          <a class="more"><span class="ticon"><svg class="icon"><use href="#i-menu"/></svg></span>Daha</a>
+        </nav>
+      </div>
+      <figcaption>
+        <div class="cap-title">Diyet → Günlük — plan / gerçekleşen</div>
+        <p class="cap-why">Sorduğun ayrım burada: <b>plan satırları soluk ve italik</b>, yenenler dolu.
+        Girilen öğün "PLANA UYGUN" rozeti alıyor. <b>"Plandaki gibi yedim"</b> tek dokunuşta
+        plan satırlarını kayda çeviriyor — en sık senaryo en ucuz yol.</p>
+      </figcaption>
+    </figure>
+
+    <!-- C2 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>13:07</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head"><div class="titles"><h3>Besinler</h3></div>
+          <div class="acts"><span class="abtn"><svg class="icon sm"><use href="#i-sort"/></svg></span></div></div>
+        <div class="seg"><span>GÜNLÜK</span><span class="on">BESİNLER</span><span>GEÇMİŞ</span></div>
+        <div class="body">
+          <div class="panel" style="padding:11px 14px; display:flex; align-items:center; gap:10px">
+            <svg class="icon sm" style="color:var(--mist500)"><use href="#i-search"/></svg>
+            <span style="color:var(--ink500); font-size:15px">368 besinde ara</span>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center">
+            <div class="chips" style="flex:1; flex-wrap:nowrap; overflow:hidden">
+              <span class="chip on">Yemek</span><span class="chip">Çorba</span>
+              <span class="chip">Kahvaltılık</span><span class="chip">Meyve</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; font-size:12.5px; color:var(--mist500); align-items:center">
+            <svg class="icon sm" style="width:14px;height:14px"><use href="#i-sort"/></svg>
+            <span style="color:var(--brand); font-weight:600">A–Z</span> · Kalori ↑ · Kalori ↓ · Protein ↓ · Sık yenen
+          </div>
+          <div class="rows">
+            <div class="row" style="min-height:48px; padding:9px 0">
+              <div class="row-main"><strong>Adana Kebap</strong><span>1 şiş = 180 g · 495 kcal</span></div>
+              <span class="badge dangerb">YASAKLI</span></div>
+            <div class="row" style="min-height:48px; padding:9px 0">
+              <div class="row-main"><strong>Balık Izgara</strong><span>1 porsiyon = 180 g · 266 kcal</span></div>
+              <span class="row-val dim">148<small>/100</small></span></div>
+            <div class="row" style="min-height:48px; padding:9px 0">
+              <div class="row-main"><strong>Bulgur Pilavı</strong><span>1 porsiyon = 180 g · 230 kcal</span></div>
+              <span class="row-val dim">128<small>/100</small></span></div>
+            <div class="row" style="min-height:48px; padding:9px 0">
+              <div class="row-main"><strong>Etli Biber Dolması</strong><span>2 dolma = 240 g · 307 kcal</span></div>
+              <span class="row-val dim">128<small>/100</small></span></div>
+            <div class="row" style="min-height:48px; padding:9px 0">
+              <div class="row-main"><strong>Etli Kuru Fasulye</strong><span>1 kase = 250 g · 298 kcal</span></div>
+              <span class="row-val dim">119<small>/100</small></span></div>
+            <div class="row" style="min-height:48px; padding:9px 0">
+              <div class="row-main"><strong>Izgara Köfte</strong><span>3 köfte = 150 g · 323 kcal</span></div>
+              <span class="row-val dim">215<small>/100</small></span></div>
+            <div class="row" style="min-height:48px; padding:9px 0">
+              <div class="row-main"><strong>Izgara Tavuk Göğsü</strong><span>1 göğüs = 150 g · 248 kcal</span></div>
+              <span class="row-val dim">165<small>/100</small></span></div>
+          </div>
+        </div>
+        <nav class="tabbar">
+          <a class="home"><span class="ticon"><svg class="icon"><use href="#i-home"/></svg></span>Ana Sayfa</a>
+          <a class="on diet"><span class="ticon"><svg class="icon"><use href="#i-food"/></svg></span>Diyet</a>
+          <a class="sport"><span class="ticon"><svg class="icon"><use href="#i-dumbbell"/></svg></span>Spor</a>
+          <a class="health"><span class="ticon"><svg class="icon"><use href="#i-heart"/></svg></span>Sağlık</a>
+          <a class="more"><span class="ticon"><svg class="icon"><use href="#i-menu"/></svg></span>Daha</a>
+        </nav>
+      </div>
+      <figcaption>
+        <div class="cap-title">Diyet → Besinler — sıralama</div>
+        <p class="cap-why">Beş sıralama: <b>A–Z · kalori ↑↓ · protein ↓ · sık yenen</b>.
+        Satırda hem porsiyon kalorisi hem 100 g değeri — porsiyon karşılaştırması aldatıcı
+        olabildiği için ikisi birden.</p>
+      </figcaption>
+    </figure>
+
+    <!-- C4 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>13:10</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head"><div class="titles"><h3>Geçmiş</h3></div></div>
+        <div class="seg"><span>GÜNLÜK</span><span>BESİNLER</span><span class="on">GEÇMİŞ</span></div>
+        <div class="body roomy">
+          <div class="panel pad-lg">
+            <div class="hero-cap">SON 7 GÜN ORTALAMA</div>
+            <div style="display:flex; align-items:baseline">
+              <span class="hero-num" style="font-size:44px">2.080</span><span class="hero-unit">kcal</span>
+            </div>
+            <p style="color:var(--brand); font-size:13px; margin:6px 0 0">Hedefin 120 kcal altında</p>
+          </div>
+          <div>
+            <div class="sec"><b>GÜNLÜK NET</b><span class="fill"></span><span style="color:var(--mist500)">hedef ---</span></div>
+            <div class="bars goal-line" style="margin-top:12px">
+              <div><i style="height:60px"></i><span>P</span></div>
+              <div><i style="height:68px"></i><span>S</span></div>
+              <div><i style="height:26px"></i><span>Ç</span></div>
+              <div><i style="height:54px"></i><span>P</span></div>
+              <div><i class="over" style="height:92px"></i><span>C</span></div>
+              <div><i style="height:40px"></i><span>C</span></div>
+              <div><i style="height:48px"></i><span>P</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="sec"><b>GÜN DÖKÜMÜ</b><span class="fill"></span></div>
+            <div class="rows">
+              <div class="row"><div class="row-main"><strong>Cuma 29</strong><span>4 öğün · 1 antrenman</span></div>
+                <span class="row-val" style="color:var(--danger)">+320</span><svg class="icon sm chev"><use href="#i-chev"/></svg></div>
+              <div class="row"><div class="row-main"><strong>Perşembe 28</strong><span>5 öğün</span></div>
+                <span class="row-val good">−260</span><svg class="icon sm chev"><use href="#i-chev"/></svg></div>
+              <div class="row"><div class="row-main"><strong>Çarşamba 27</strong><span>Kayıt yok</span></div>
+                <span class="row-val dim">—</span></div>
+            </div>
+          </div>
+        </div>
+        <nav class="tabbar">
+          <a class="home"><span class="ticon"><svg class="icon"><use href="#i-home"/></svg></span>Ana Sayfa</a>
+          <a class="on diet"><span class="ticon"><svg class="icon"><use href="#i-food"/></svg></span>Diyet</a>
+          <a class="sport"><span class="ticon"><svg class="icon"><use href="#i-dumbbell"/></svg></span>Spor</a>
+          <a class="health"><span class="ticon"><svg class="icon"><use href="#i-heart"/></svg></span>Sağlık</a>
+          <a class="more"><span class="ticon"><svg class="icon"><use href="#i-menu"/></svg></span>Daha</a>
+        </nav>
+      </div>
+      <figcaption>
+        <div class="cap-title">Diyet → Geçmiş</div>
+        <p class="cap-why">Kayıt olmayan gün "—" — sıfır saymak kayıt girmemeyi ödüllendirir.
+        Gün satırı dokununca o günün Ana Sayfa'sını açıyor.</p>
+      </figcaption>
+    </figure>
+
+  </div>
+</section>
+
+
+<!-- ════════════════ SPOR ════════════════ -->
+<section class="flow" id="spor">
+  <div class="flow-head">
+    <h2>Spor <span class="motto-line" style="background:var(--c-sport-bg); color:var(--c-sport)">PLAN SOLDA, GERÇEK SAĞDA</span></h2>
+    <p>Takvim hücreleri yalnız <b>antrenman doluluğu</b> gösteriyor — kalori farkı
+       Diyet'in işi, buradan çıkarıldı. Gün detayında hedef ve yapılan yan yana.</p>
+  </div>
+  <div class="frames">
+
+    <!-- D1 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>18:20</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head">
+          <div class="titles"><span class="over">AI PLANI · DÜZENLENDİ</span><h3>Eylül Kütlesi</h3></div>
+          <div class="acts"><span class="abtn"><svg class="icon sm"><use href="#i-edit"/></svg></span>
+            <span class="abtn"><svg class="icon sm"><use href="#i-sparkle"/></svg></span></div>
+        </div>
+        <div class="seg"><span class="on">PLAN</span><span>ANTRENMAN</span><span>KATALOG</span></div>
+        <div class="body roomy">
+          <div class="panel">
+            <dl class="strip" style="margin:0">
+              <div><dt>Hafta</dt><dd>2<small>/4</small></dd></div>
+              <div><dt>Salon</dt><dd>3<small>/hf</small></dd></div>
+              <div><dt>Ev</dt><dd>2<small>/hf</small></dd></div>
+              <div><dt>Uyum</dt><dd class="good">%86</dd></div>
+            </dl>
+          </div>
+          <div>
+            <div class="sec"><b>HAFTA 1</b> · Alışma<span class="fill"></span><span class="badge sportb">5/5 ANTRENMAN</span></div>
+            <div class="cal" style="margin-top:10px">
+              <span class="hd">P</span><span class="hd">S</span><span class="hd">Ç</span><span class="hd">P</span><span class="hd">C</span><span class="hd">C</span><span class="hd">P</span>
+              <div class="cell done"><b>25</b><span>SALON ✓</span></div>
+              <div class="cell done"><b>26</b><span>EV ✓</span></div>
+              <div class="cell miss"><b>27</b><span>SALON ✗</span></div>
+              <div class="cell done"><b>28</b><span>EV ✓</span></div>
+              <div class="cell done"><b>29</b><span>SALON ✓</span></div>
+              <div class="cell free"><b>30</b><span>DİNLEN</span></div>
+              <div class="cell free"><b>31</b><span>DİNLEN</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="sec"><b>HAFTA 2</b> · Yük artışı<span class="fill"></span></div>
+            <div class="cal" style="margin-top:10px">
+              <span class="hd">P</span><span class="hd">S</span><span class="hd">Ç</span><span class="hd">P</span><span class="hd">C</span><span class="hd">C</span><span class="hd">P</span>
+              <div class="cell today"><b>1</b><span>SALON</span></div>
+              <div class="cell future"><b>2</b><span>EV</span></div>
+              <div class="cell future"><b>3</b><span>DİNLEN</span></div>
+              <div class="cell future"><b>4</b><span>SALON</span></div>
+              <div class="cell future"><b>5</b><span>EV</span></div>
+              <div class="cell future"><b>6</b><span>DİNLEN</span></div>
+              <div class="cell future"><b>7</b><span>SALON</span></div>
+            </div>
+          </div>
+          <div class="btn tonal sm"><svg class="icon sm"><use href="#i-sparkle"/></svg>Bu tarihten sonrası için yeni plan iste</div>
+        </div>
+        <nav class="tabbar">
+          <a class="home"><span class="ticon"><svg class="icon"><use href="#i-home"/></svg></span>Ana Sayfa</a>
+          <a class="diet"><span class="ticon"><svg class="icon"><use href="#i-food"/></svg></span>Diyet</a>
+          <a class="on sport"><span class="ticon"><svg class="icon"><use href="#i-dumbbell"/></svg></span>Spor</a>
+          <a class="health"><span class="ticon"><svg class="icon"><use href="#i-heart"/></svg></span>Sağlık</a>
+          <a class="more"><span class="ticon"><svg class="icon"><use href="#i-menu"/></svg></span>Daha</a>
+        </nav>
+      </div>
+      <figcaption>
+        <div class="cap-title">Spor → Plan — yalnız spor</div>
+        <p class="cap-why">Kalori sayıları hücrelerden <b>çıktı</b> — haklıydın, yemek düzeni
+        Spor'a ait değil. Hücre artık günün antrenman tipini ve ✓/✗ durumunu söylüyor.
+        <b>Uyum %86</b> metrik şeridinde: planlanan / gerçekleşenin özeti.</p>
+      </figcaption>
+    </figure>
+
+    <!-- D2 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>18:22</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head compact">
+          <span class="backb"><svg class="icon sm"><use href="#i-back"/></svg></span>
+          <div class="titles"><span class="over">CUMA 29 AĞUSTOS · SALON</span><h3>Planlanan / Yapılan</h3></div>
+        </div>
+        <div class="body">
+          <div style="display:flex; font-family:var(--narrow); font-size:12px; letter-spacing:.14em; color:var(--mist500); padding:0 2px">
+            <span style="flex:1">HAREKET</span>
+            <span style="width:76px; text-align:right">PLAN</span>
+            <span style="width:86px; text-align:right; color:var(--c-sport)">YAPILAN</span>
+          </div>
+          <div class="rows">
+            <div class="row" style="min-height:50px">
+              <div class="row-main"><strong>Goblet Squat</strong></div>
+              <span class="row-val dim" style="width:76px; text-align:right">3×12</span>
+              <span class="row-val good" style="width:86px; text-align:right">3×12 ✓</span></div>
+            <div class="row" style="min-height:50px">
+              <div class="row-main"><strong>Dumbbell Row</strong></div>
+              <span class="row-val dim" style="width:76px; text-align:right">3×10</span>
+              <span class="row-val good" style="width:86px; text-align:right">3×10 ✓</span></div>
+            <div class="row" style="min-height:50px">
+              <div class="row-main"><strong>Bench Press</strong><span>hedefin altında</span></div>
+              <span class="row-val dim" style="width:76px; text-align:right">3×10</span>
+              <span class="row-val" style="width:86px; text-align:right; color:var(--warn)">2×8</span></div>
+            <div class="row" style="min-height:50px">
+              <div class="row-main"><strong>Plank</strong></div>
+              <span class="row-val dim" style="width:76px; text-align:right">3×45sn</span>
+              <span class="row-val good" style="width:86px; text-align:right">3×45 ✓</span></div>
+            <div class="row" style="min-height:50px">
+              <div class="row-main"><strong>Treadmill Yürüyüş</strong><span>%8 eğim</span></div>
+              <span class="row-val dim" style="width:76px; text-align:right">20 dk</span>
+              <span class="row-val" style="width:86px; text-align:right; color:var(--mist500)">— <span class="badge dimb">EKLE</span></span></div>
+          </div>
+          <div class="panel" style="display:flex; gap:12px; align-items:center">
+            <span class="tile t-sport"><svg class="icon"><use href="#i-clock"/></svg></span>
+            <div style="flex:1">
+              <strong style="font-size:15px; color:var(--mist200)">Seans: 52 dk</strong>
+              <div style="font-size:12.5px; color:var(--mist500)">18:30 – 19:22 · ≈470 kcal</div>
+            </div>
+            <svg class="icon sm" style="color:var(--mist400)"><use href="#i-edit"/></svg>
+          </div>
+          <p class="note">Geçmiş günün seti buradan <b>düzeltilebilir</b> — v2'nin açık boşluğu
+            kapanıyor. Satıra dokun: tekrar/kilo düzelt, set ekle-sil.</p>
+        </div>
+      </div>
+      <figcaption>
+        <div class="cap-title">Planlanan / Yapılan <span class="badge goodb" style="margin-left:6px">YENİ</span></div>
+        <p class="cap-why">İstediğin ekran: <b>plan solda, gerçek sağda</b>, satır satır.
+        Eksik kalan hareket "EKLE" ile geçmişe yazılabiliyor. Takvim hücresinden ve
+        Ana Sayfa akışından açılıyor.</p>
+      </figcaption>
+    </figure>
+
+    <!-- D5 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>19:42</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head compact">
+          <span class="backb"><svg class="icon sm"><use href="#i-back"/></svg></span>
+          <div class="titles"><span class="over">KUVVET · DAMBIL · ZORLUK 2/5</span><h3>Goblet Squat</h3></div>
+        </div>
+        <div class="body">
+          <div style="height:130px; background:var(--ink850); border:1px solid var(--ink750); border-radius:14px; display:flex; align-items:center; justify-content:center; gap:8px">
+            <span style="width:104px; height:104px; border-radius:10px; background:var(--ink800); display:flex; align-items:center; justify-content:center; font-family:var(--narrow); color:var(--mist500); font-size:12px">1 · BAŞLANGIÇ</span>
+            <span style="width:104px; height:104px; border-radius:10px; background:var(--ink800); display:flex; align-items:center; justify-content:center; font-family:var(--narrow); color:var(--mist500); font-size:12px">2 · BİTİŞ</span>
+          </div>
+          <div class="chips">
+            <span class="chip on"><svg class="icon sm"><use href="#i-check"/></svg>Evde var</span>
+            <span class="chip">quadriceps, glutes</span>
+          </div>
+          <div class="seg" style="margin:0">
+            <span class="on">NASIL</span><span>İPUCU</span><span>HATA</span><span>VARYANT</span>
+          </div>
+          <div style="overflow:hidden">
+            <p style="margin:0 0 10px; font-size:13.5px; color:var(--mist400)">
+              <b style="color:var(--mist200)">Hazırlık:</b> Dambılı dikey tut, üst ucunu iki avucunla kavra.
+              Ayaklar omuz genişliğinde, uçlar hafif dışa dönük.</p>
+            <div class="rows">
+              <div class="row" style="min-height:40px; padding:7px 0; align-items:flex-start">
+                <span class="stepnum">1</span>
+                <div class="row-main"><strong style="font-weight:400; font-size:14px">Göğsünü dik tutarak kalçanı geriye ve aşağı gönder.</strong></div></div>
+              <div class="row" style="min-height:40px; padding:7px 0; align-items:flex-start">
+                <span class="stepnum">2</span>
+                <div class="row-main"><strong style="font-weight:400; font-size:14px">Dirseklerin dizlerinin içinden geçene kadar in.</strong></div></div>
+              <div class="row" style="min-height:40px; padding:7px 0; align-items:flex-start">
+                <span class="stepnum">3</span>
+                <div class="row-main"><strong style="font-weight:400; font-size:14px">Topuklardan iterek başlangıca dön.</strong></div></div>
+            </div>
+            <div class="rows" style="border-top:1px solid var(--ink750); margin-top:4px">
+              <div class="row" style="min-height:40px; padding:8px 0">
+                <span class="tile sm t-sport"><svg class="icon sm"><use href="#i-water"/></svg></span>
+                <div class="row-main"><strong style="font-size:13.5px">Nefes</strong><span>İnerken al, kalkarken ver</span></div></div>
+              <div class="row" style="min-height:40px; padding:8px 0">
+                <span class="tile sm t-sport"><svg class="icon sm"><use href="#i-clock"/></svg></span>
+                <div class="row-main"><strong style="font-size:13.5px">Tempo</strong><span>2-1-2 · inişte kontrol</span></div></div>
+              <div class="row" style="min-height:40px; padding:8px 0">
+                <span class="tile sm t-danger"><svg class="icon sm"><use href="#i-warn"/></svg></span>
+                <div class="row-main"><strong style="font-size:13.5px">Güvenlik</strong><span>Diz hassasiyetinde derinliği azalt</span></div></div>
+            </div>
+          </div>
+          <div class="btn tonal sm"><svg class="icon sm"><use href="#i-plus"/></svg>Bugünkü antrenmana ekle</div>
+        </div>
+      </div>
+      <figcaption>
+        <div class="cap-title">Hareket detayı — tam içerik</div>
+        <p class="cap-why">Önceki alanların hepsi geri geldi: hazırlık, adımlar, <b>nefes, tempo,
+        güvenlik</b>; ipucu/hata/varyant kendi sekmelerinde. İçerik dili: katalog verisi
+        <b>iki dilli alana</b> dönüyor (<code style="color:var(--brand)">executionTr/executionEn</code>) —
+        bunlar ARB'ye değil veriye ait, arayüz dili hangisiyse o gösteriliyor. Güvenlik satırı
+        kullanıcının <b>kendi kısıtıyla</b> eşleşince vurgulanıyor.</p>
+      </figcaption>
+    </figure>
+
+  </div>
+</section>
+
+
+<!-- ════════════════ SAĞLIK ════════════════ -->
+<section class="flow" id="saglik">
+  <div class="flow-head">
+    <h2>Sağlık <span class="motto-line" style="background:var(--c-health-bg); color:var(--c-health)">SAYI DEĞİL, ANLAM</span></h2>
+    <p>Tahlil artık iki yolla giriyor: elle ya da <b>yapay zekâ ile PDF'ten</b>.
+       Check-up rehberi yaş ve duruma göre "sırada ne var" diyor.</p>
+  </div>
+  <div class="frames">
+
+    <!-- E1 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>21:05</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head">
+          <div class="titles"><span class="over">SON TAHLİL · 12 AĞUSTOS</span><h3>Sağlık</h3></div>
+          <div class="acts"><span class="abtn"><svg class="icon sm"><use href="#i-share"/></svg></span>
+            <span class="abtn" style="color:var(--brand); border-color:var(--brand-dim)"><svg class="icon sm"><use href="#i-plus"/></svg></span></div>
+        </div>
+        <div class="seg"><span class="on">TAHLİL</span><span>ÖLÇÜM</span><span>İLAÇ</span></div>
+        <div class="body">
+          <div class="panel">
+            <div style="display:flex; align-items:center; gap:12px; padding-bottom:10px; margin-bottom:10px; border-bottom:1px solid var(--ink750)">
+              <span class="tile sm t-health"><svg class="icon sm"><use href="#i-scale"/></svg></span>
+              <div style="flex:1"><strong style="font-size:14px; color:var(--mist200)">VKİ 32,2</strong>
+                <div style="font-size:12px; color:var(--mist500)">Hedefinde 27,2 · fazla kilolu alt ucu</div></div>
+              <span class="badge warnb">OBEZ</span>
+            </div>
+            <div style="display:flex; gap:8px">
+              <span class="chip on"><svg class="icon sm"><use href="#i-check"/></svg>7 normal</span>
+              <span class="chip" style="background:var(--warn-surface); border-color:var(--warn); color:var(--warn)">2 sınırda</span>
+              <span class="chip" style="background:var(--danger-surface); border-color:var(--danger); color:var(--danger)">1 yüksek</span>
+            </div>
+          </div>
+          <div>
+            <div class="sec"><b>ŞEKER PANELİ</b><span class="fill"></span></div>
+            <div class="rows">
+              <div class="row" style="min-height:56px">
+                <div class="row-main"><strong>HbA1c</strong>
+                  <div style="height:5px; background:var(--ink700); border-radius:3px; margin-top:6px; position:relative; max-width:170px">
+                    <i style="position:absolute; left:0; width:62%; height:100%; border-radius:3px; background:linear-gradient(90deg,var(--brand),var(--warn),var(--danger))"></i>
+                    <i style="position:absolute; left:70%; top:-3px; width:3px; height:11px; background:var(--mist100); border-radius:2px"></i>
+                  </div></div>
+                <span class="row-val" style="color:var(--danger); font-size:20px">6,1<small style="color:var(--mist500)"> %</small></span></div>
+              <div class="row" style="min-height:56px">
+                <div class="row-main"><strong>Açlık glukozu</strong>
+                  <div style="height:5px; background:var(--ink700); border-radius:3px; margin-top:6px; position:relative; max-width:170px">
+                    <i style="position:absolute; left:0; width:62%; height:100%; border-radius:3px; background:linear-gradient(90deg,var(--brand),var(--warn),var(--danger))"></i>
+                    <i style="position:absolute; left:58%; top:-3px; width:3px; height:11px; background:var(--mist100); border-radius:2px"></i>
+                  </div></div>
+                <span class="row-val" style="color:var(--warn); font-size:20px">104</span></div>
+              <div class="row" style="min-height:56px">
+                <div class="row-main"><strong>HOMA-IR</strong><span>hesaplanan</span></div>
+                <span class="row-val" style="color:var(--danger); font-size:20px">4,68</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="sec"><b>CHECK-UP REHBERİ</b><span class="fill"></span><span class="act">TÜMÜ</span></div>
+            <div class="rows">
+              <div class="row"><span class="tile sm t-health"><svg class="icon sm"><use href="#i-flask"/></svg></span>
+                <div class="row-main"><strong>D vitamini + B12</strong><span>Son ölçüm 6 ay önce · yıllık önerilir</span></div>
+                <span class="badge warnb">VAKTİ GELDİ</span></div>
+              <div class="row"><span class="tile sm t-health"><svg class="icon sm"><use href="#i-heart"/></svg></span>
+                <div class="row-main"><strong>Lipit paneli</strong><span>Sınırda değer vardı · yıllık takip</span></div>
+                <span class="badge dimb">2 AY SONRA</span></div>
+              <div class="row"><span class="tile sm t-health"><svg class="icon sm"><use href="#i-flask"/></svg></span>
+                <div class="row-main"><strong>HbA1c</strong><span>İnsülin direnci → yılda 2 kez</span></div>
+                <span class="badge dimb">3 AY SONRA</span></div>
+            </div>
+          </div>
+        </div>
+        <nav class="tabbar">
+          <a class="home"><span class="ticon"><svg class="icon"><use href="#i-home"/></svg></span>Ana Sayfa</a>
+          <a class="diet"><span class="ticon"><svg class="icon"><use href="#i-food"/></svg></span>Diyet</a>
+          <a class="sport"><span class="ticon"><svg class="icon"><use href="#i-dumbbell"/></svg></span>Spor</a>
+          <a class="on health"><span class="ticon"><svg class="icon"><use href="#i-heart"/></svg></span>Sağlık</a>
+          <a class="more"><span class="ticon"><svg class="icon"><use href="#i-menu"/></svg></span>Daha</a>
+        </nav>
+      </div>
+      <figcaption>
+        <div class="cap-title">Sağlık → Tahlil + check-up rehberi</div>
+        <p class="cap-why">Her değer <b>aralık çubuğu</b> üstünde — nokta rengi yerine değerin
+        nerede durduğu görünüyor. Check-up rehberi araştırmadan geliyor: 40 yaş altı sağlıklı
+        2–3 yılda bir tam panel; <b>risk faktörü varsa HbA1c yıllık+</b>, sınırda lipit yıllık,
+        D vitamini yıllık (kış sonu ideal). Kullanıcının yaşı ve kronik durumu kuralları seçiyor.</p>
+      </figcaption>
+    </figure>
+
+    <!-- E5 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>21:07</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head compact">
+          <span class="backb"><svg class="icon sm"><use href="#i-back"/></svg></span>
+          <div class="titles"><h3>Tahlil ekle</h3></div>
+        </div>
+        <div class="body roomy">
+          <div class="panel accent pad-lg" style="display:flex; flex-direction:column; gap:12px">
+            <div style="display:flex; gap:12px; align-items:center">
+              <span class="tile t-diet"><svg class="icon"><use href="#i-sparkle"/></svg></span>
+              <div>
+                <strong style="font-size:16px; color:var(--mist100)">Yapay zekâ ile PDF'ten</strong>
+                <div style="font-size:12.5px; color:var(--mist500)">3 adım · ~2 dakika</div>
+              </div>
+            </div>
+            <div class="rows">
+              <div class="row" style="min-height:44px; padding:8px 0">
+                <span class="stepnum">1</span>
+                <div class="row-main"><strong style="font-size:14px">Aktarma belgesini kopyala</strong>
+                  <span>Hangi biçimde döneceğini AI'a anlatır</span></div>
+                <svg class="icon sm" style="color:var(--brand)"><use href="#i-copy"/></svg></div>
+              <div class="row" style="min-height:44px; padding:8px 0">
+                <span class="stepnum">2</span>
+                <div class="row-main"><strong style="font-size:14px">Belge + tahlil PDF'ini sohbete at</strong>
+                  <span>ChatGPT, Claude, Gemini — fark etmez</span></div></div>
+              <div class="row" style="min-height:44px; padding:8px 0">
+                <span class="stepnum">3</span>
+                <div class="row-main"><strong style="font-size:14px">Dönen cevabı buraya yapıştır</strong>
+                  <span>Değerler önizlemeyle onaylanır</span></div></div>
+            </div>
+            <div class="btn"><svg class="icon sm" style="stroke:var(--ink950)"><use href="#i-copy"/></svg>Belgeyi kopyala</div>
+          </div>
+          <div class="sec"><span class="fill"></span>YA DA<span class="fill"></span></div>
+          <div class="btn ghost"><svg class="icon sm"><use href="#i-edit"/></svg>Elle gir</div>
+          <p class="note">PDF uygulamaya <b>girmiyor</b> — sen sohbete atıyorsun, dönen yapılandırılmış
+            metni uygulama okuyor. Plan köprüsüyle aynı desen: dört kapılı doğrulama, onaysız yazım yok.</p>
+        </div>
+      </div>
+      <figcaption>
+        <div class="cap-title">AI ile tahlil aktar <span class="badge goodb" style="margin-left:6px">YENİ</span></div>
+        <p class="cap-why">İstediğin akış: <code style="color:var(--brand)">tahlil-aktar.md</code> +
+        PDF → AI → dönen JSON yapıştır → önizle → kaydet. Belge; tarih, birim ve bizim
+        tahlil id'lerimizi zorunlu kılıyor, uydurma değer önizleme kapısından geçemiyor.</p>
+      </figcaption>
+    </figure>
+
+    <!-- E5b -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>21:12</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head compact">
+          <span class="backb"><svg class="icon sm"><use href="#i-back"/></svg></span>
+          <div class="titles"><h3>Aktarım önizleme</h3></div>
+        </div>
+        <div class="body">
+          <div class="panel" style="border-color:var(--brand-dim)">
+            <div style="display:flex; gap:10px; align-items:center">
+              <span class="tile sm t-diet"><svg class="icon sm"><use href="#i-check"/></svg></span>
+              <div><strong style="color:var(--mist100)">12 değer okundu</strong>
+                <div style="font-size:12.5px; color:var(--mist500)">Acıbadem Lab · 12 Ağustos 2026</div></div>
+            </div>
+          </div>
+          <div class="rows">
+            <div class="row" style="min-height:46px; padding:8px 0">
+              <div class="row-main"><strong>HbA1c</strong><span>%</span></div>
+              <span class="row-val">6,1</span>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+            <div class="row" style="min-height:46px; padding:8px 0">
+              <div class="row-main"><strong>Açlık glukozu</strong><span>mg/dL</span></div>
+              <span class="row-val">104</span>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+            <div class="row" style="min-height:46px; padding:8px 0">
+              <div class="row-main"><strong>İnsülin</strong><span>µIU/mL</span></div>
+              <span class="row-val">18,2</span>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+            <div class="row" style="min-height:46px; padding:8px 0; background:var(--warn-surface); margin:0 -20px; padding-left:20px; padding-right:20px; border-radius:8px">
+              <div class="row-main"><strong>Ferritin</strong><span style="color:var(--warn)">Birim belirsiz — kontrol et</span></div>
+              <span class="row-val" style="color:var(--warn)">88 ?</span>
+              <svg class="icon sm" style="color:var(--warn)"><use href="#i-edit"/></svg></div>
+            <div class="row" style="min-height:46px; padding:8px 0">
+              <div class="row-main"><strong>TSH</strong><span>mIU/L</span></div>
+              <span class="row-val">2,4</span>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+          </div>
+          <p class="note">Şüpheli satır <b>amber</b> ve dokununca düzeltiliyor. AI'ın verdiği
+            hiçbir sayı onaysız veritabanına yazılmaz.</p>
+          <div style="flex:1"></div>
+          <div class="btn">11 değeri kaydet · 1'i atla</div>
+        </div>
+      </div>
+      <figcaption>
+        <div class="cap-title">Aktarım önizleme</div>
+        <p class="cap-why">Plan içe almanın ikizi: önizle → düzelt → onayla. Düğme
+        <b>ne yapacağını sayıyla</b> söylüyor.</p>
+      </figcaption>
+    </figure>
+
+    <!-- E3 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>21:15</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head">
+          <div class="titles"><span class="over">3 / 5 ALINDI</span><h3>İlaç ve Takviye</h3></div>
+          <div class="acts"><span class="abtn" style="color:var(--brand); border-color:var(--brand-dim)"><svg class="icon sm"><use href="#i-plus"/></svg></span></div>
+        </div>
+        <div class="seg"><span>TAHLİL</span><span>ÖLÇÜM</span><span class="on">İLAÇ</span></div>
+        <div class="body">
+          <div>
+            <div class="sec"><b>BUGÜN</b><span class="fill"></span></div>
+            <div class="rows">
+              <div class="row" style="min-height:50px">
+                <span class="row-val dim" style="width:44px">08:30</span>
+                <span class="tile sm t-med"><svg class="icon sm"><use href="#i-pill"/></svg></span>
+                <div class="row-main"><strong style="color:var(--mist500)">Metformin 1000 mg</strong></div>
+                <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+              <div class="row" style="min-height:50px">
+                <span class="row-val dim" style="width:44px">08:30</span>
+                <span class="tile sm t-med"><svg class="icon sm"><use href="#i-pill"/></svg></span>
+                <div class="row-main"><strong style="color:var(--mist500)">D vitamini 2000 IU</strong></div>
+                <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+              <div class="row" style="min-height:50px">
+                <span class="row-val dim" style="width:44px">13:00</span>
+                <span class="tile sm t-med"><svg class="icon sm"><use href="#i-pill"/></svg></span>
+                <div class="row-main"><strong style="color:var(--mist500)">Omega-3</strong></div>
+                <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+              <div class="row" style="min-height:50px; border-left:2px solid var(--c-med); padding-left:8px; margin-left:-10px">
+                <span class="row-val" style="width:44px">20:30</span>
+                <span class="tile sm t-med"><svg class="icon sm"><use href="#i-pill"/></svg></span>
+                <div class="row-main"><strong>Metformin 1000 mg</strong></div>
+                <span style="width:26px; height:26px; border-radius:8px; border:1.5px solid var(--ink600)"></span></div>
+              <div class="row" style="min-height:50px">
+                <span class="row-val" style="width:44px">22:00</span>
+                <span class="tile sm t-med"><svg class="icon sm"><use href="#i-pill"/></svg></span>
+                <div class="row-main"><strong>Magnezyum 400 mg</strong></div>
+                <span style="width:26px; height:26px; border-radius:8px; border:1.5px solid var(--ink600)"></span></div>
+            </div>
+          </div>
+          <div>
+            <div class="sec"><b>SON 7 GÜN UYUM</b><span class="fill"></span></div>
+            <div style="display:flex; gap:6px; margin-top:8px">
+              <div style="flex:1; text-align:center"><div style="height:34px; border-radius:7px; background:var(--brand-surface); display:flex; align-items:center; justify-content:center; color:var(--brand); font-family:var(--narrow); font-size:13px">5/5</div><span style="font-family:var(--narrow); font-size:11px; color:var(--mist500)">P</span></div>
+              <div style="flex:1; text-align:center"><div style="height:34px; border-radius:7px; background:var(--brand-surface); display:flex; align-items:center; justify-content:center; color:var(--brand); font-family:var(--narrow); font-size:13px">5/5</div><span style="font-family:var(--narrow); font-size:11px; color:var(--mist500)">S</span></div>
+              <div style="flex:1; text-align:center"><div style="height:34px; border-radius:7px; background:var(--warn-surface); display:flex; align-items:center; justify-content:center; color:var(--warn); font-family:var(--narrow); font-size:13px">3/5</div><span style="font-family:var(--narrow); font-size:11px; color:var(--mist500)">Ç</span></div>
+              <div style="flex:1; text-align:center"><div style="height:34px; border-radius:7px; background:var(--brand-surface); display:flex; align-items:center; justify-content:center; color:var(--brand); font-family:var(--narrow); font-size:13px">5/5</div><span style="font-family:var(--narrow); font-size:11px; color:var(--mist500)">P</span></div>
+              <div style="flex:1; text-align:center"><div style="height:34px; border-radius:7px; background:var(--brand-surface); display:flex; align-items:center; justify-content:center; color:var(--brand); font-family:var(--narrow); font-size:13px">5/5</div><span style="font-family:var(--narrow); font-size:11px; color:var(--mist500)">C</span></div>
+              <div style="flex:1; text-align:center"><div style="height:34px; border-radius:7px; background:var(--brand-surface); display:flex; align-items:center; justify-content:center; color:var(--brand); font-family:var(--narrow); font-size:13px">4/4</div><span style="font-family:var(--narrow); font-size:11px; color:var(--mist500)">C</span></div>
+              <div style="flex:1; text-align:center"><div style="height:34px; border-radius:7px; background:var(--ink800); display:flex; align-items:center; justify-content:center; color:var(--mist400); font-family:var(--narrow); font-size:13px">3/5</div><span style="font-family:var(--narrow); font-size:11px; color:var(--mist500)">P</span></div>
+            </div>
+          </div>
+          <p class="note">İlaç hatırlatması <b>yasaklı saate takılmaz</b>. + düğmesi 06b'deki
+            girişi açıyor — kurulumla aynı ekran.</p>
+        </div>
+        <nav class="tabbar">
+          <a class="home"><span class="ticon"><svg class="icon"><use href="#i-home"/></svg></span>Ana Sayfa</a>
+          <a class="diet"><span class="ticon"><svg class="icon"><use href="#i-food"/></svg></span>Diyet</a>
+          <a class="sport"><span class="ticon"><svg class="icon"><use href="#i-dumbbell"/></svg></span>Spor</a>
+          <a class="on health"><span class="ticon"><svg class="icon"><use href="#i-heart"/></svg></span>Sağlık</a>
+          <a class="more"><span class="ticon"><svg class="icon"><use href="#i-menu"/></svg></span>Daha</a>
+        </nav>
+      </div>
+      <figcaption>
+        <div class="cap-title">Sağlık → İlaç — uyum şeridi</div>
+        <p class="cap-why">Sıradaki doz sol kenar çizgisiyle vurgulu (Ana Sayfa'daki dille aynı).
+        Haftalık uyum şeridi yeni: ilaç uyumu <b>görünmezse düşer</b> — kronik ilaç
+        uygulamalarının en tekrarlanan bulgusu.</p>
+      </figcaption>
+    </figure>
+
+  </div>
+</section>
+
+
+<!-- ════════════════ DAHA ════════════════ -->
+<section class="flow" id="daha">
+  <div class="flow-head">
+    <h2>Daha <span class="motto-line" style="background:var(--ink700); color:var(--mist200)">VERİ SENİN</span></h2>
+    <p>İki grup: AI'a giden veriler ve uygulama davranışı. Ekipman ekranı
+       zenginleşti — işaretlemenin karşılığı sayıyla görünüyor.</p>
+  </div>
+  <div class="frames">
+
+    <!-- F1 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>22:30</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head"><div class="titles"><h3>Daha</h3></div></div>
+        <div class="body">
+          <div class="panel" style="display:flex; gap:14px; align-items:center">
+            <span class="tile" style="width:52px; height:52px; border-radius:50%; background:var(--brand-surface); color:var(--brand)"><svg class="icon lg"><use href="#i-user"/></svg></span>
+            <div style="flex:1">
+              <strong style="font-size:17px; color:var(--mist100)">Kaan Akcan</strong>
+              <div style="font-size:12.5px; color:var(--mist500)">34 · 184 cm · hedef 92 kg</div>
+            </div>
+            <svg class="icon sm chev"><use href="#i-chev"/></svg>
+          </div>
+          <div>
+            <div class="sec"><b>PLANINI ETKİLEYENLER</b><span class="fill"></span><span style="color:var(--mist500)">AI'a gider</span></div>
+            <div class="rows">
+              <div class="row"><span class="tile sm t-health"><svg class="icon sm"><use href="#i-shield"/></svg></span>
+                <div class="row-main"><strong>Medikal bilgiler</strong><span>1 durum · 1 kısıt · 2 ilaç</span></div>
+                <svg class="icon sm chev"><use href="#i-chev"/></svg></div>
+              <div class="row"><span class="tile sm t-sport"><svg class="icon sm"><use href="#i-tools"/></svg></span>
+                <div class="row-main"><strong>Ekipman ve sporların</strong><span>Ev 3 · salon 9 · 2 spor</span></div>
+                <svg class="icon sm chev"><use href="#i-chev"/></svg></div>
+              <div class="row"><span class="tile sm t-energy"><svg class="icon sm"><use href="#i-clock"/></svg></span>
+                <div class="row-main"><strong>Günlük düzen</strong><span>06:30–23:30 · öğle yemekhane</span></div>
+                <svg class="icon sm chev"><use href="#i-chev"/></svg></div>
+              <div class="row"><span class="tile sm t-danger"><svg class="icon sm"><use href="#i-ban"/></svg></span>
+                <div class="row-main"><strong>Yasaklı yiyecekler</strong><span>6 satır</span></div>
+                <svg class="icon sm chev"><use href="#i-chev"/></svg></div>
+              <div class="row"><span class="tile sm t-dim"><svg class="icon sm"><use href="#i-check"/></svg></span>
+                <div class="row-main"><strong>Günlük kurallar</strong><span>3 kural</span></div>
+                <svg class="icon sm chev"><use href="#i-chev"/></svg></div>
+            </div>
+          </div>
+          <div>
+            <div class="sec"><b>UYGULAMA</b><span class="fill"></span></div>
+            <div class="rows">
+              <div class="row"><div class="row-main"><strong>Bildirimler</strong><span>5 tür açık</span></div><svg class="icon sm chev"><use href="#i-chev"/></svg></div>
+              <div class="row"><div class="row-main"><strong>Görünüm ve dil</strong><span>Koyu · Türkçe</span></div><svg class="icon sm chev"><use href="#i-chev"/></svg></div>
+              <div class="row"><div class="row-main"><strong>Yedekleme</strong><span style="color:var(--warn)">4 gündür alınmadı</span></div><svg class="icon sm chev"><use href="#i-chev"/></svg></div>
+            </div>
+          </div>
+        </div>
+        <nav class="tabbar">
+          <a class="home"><span class="ticon"><svg class="icon"><use href="#i-home"/></svg></span>Ana Sayfa</a>
+          <a class="diet"><span class="ticon"><svg class="icon"><use href="#i-food"/></svg></span>Diyet</a>
+          <a class="sport"><span class="ticon"><svg class="icon"><use href="#i-dumbbell"/></svg></span>Spor</a>
+          <a class="health"><span class="ticon"><svg class="icon"><use href="#i-heart"/></svg></span>Sağlık</a>
+          <a class="on more"><span class="ticon"><svg class="icon"><use href="#i-menu"/></svg></span>Daha</a>
+        </nav>
+      </div>
+      <figcaption>
+        <div class="cap-title">Daha — dizin</div>
+        <p class="cap-why">İlk grubun adı artık işlevi: <b>"planını etkileyenler — AI'a gider"</b>.
+        Yedek uyarısı satırda amber. God ekran bitti: burada hiçbir şey düzenlenmiyor,
+        her satır kendi ekranına götürüyor.</p>
+      </figcaption>
+    </figure>
+
+    <!-- F3 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>22:34</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head compact">
+          <span class="backb"><svg class="icon sm"><use href="#i-back"/></svg></span>
+          <div class="titles"><h3>Ekipman ve sporların</h3></div>
+        </div>
+        <div class="seg"><span>EVDE</span><span class="on">SALONDA</span><span>SPORLAR</span></div>
+        <div class="body">
+          <div class="panel accent">
+            <dl class="strip" style="margin:0">
+              <div><dt>Salonda</dt><dd class="good">128<small>/161</small></dd></div>
+              <div><dt>Evde</dt><dd>64<small>/161</small></dd></div>
+              <div><dt>İşaretli</dt><dd>9</dd></div>
+            </dl>
+          </div>
+          <div class="rows">
+            <div class="row" style="min-height:50px"><span class="tile sm t-sport"><svg class="icon sm"><use href="#i-dumbbell"/></svg></span>
+              <div class="row-main"><strong>Barbell</strong><span>42 hareket açar</span></div>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+            <div class="row" style="min-height:50px"><span class="tile sm t-sport"><svg class="icon sm"><use href="#i-dumbbell"/></svg></span>
+              <div class="row-main"><strong>Dambıl</strong><span>38 hareket açar</span></div>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+            <div class="row" style="min-height:50px"><span class="tile sm t-sport"><svg class="icon sm"><use href="#i-tools"/></svg></span>
+              <div class="row-main"><strong>Kablo makinesi</strong><span>21 hareket açar</span></div>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+            <div class="row" style="min-height:50px"><span class="tile sm t-sport"><svg class="icon sm"><use href="#i-tools"/></svg></span>
+              <div class="row-main"><strong>Makine</strong><span>17 hareket açar</span></div>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+            <div class="row" style="min-height:50px"><span class="tile sm t-dim"><svg class="icon sm"><use href="#i-ball"/></svg></span>
+              <div class="row-main"><strong style="color:var(--mist400)">Sağlık topu</strong><span>4 hareket açar</span></div>
+              <span style="width:22px; height:22px; border-radius:6px; border:1.5px solid var(--ink600)"></span></div>
+            <div class="row" style="min-height:50px"><span class="tile sm t-dim"><svg class="icon sm"><use href="#i-ball"/></svg></span>
+              <div class="row-main"><strong style="color:var(--mist400)">Pilates topu</strong><span>3 hareket açar</span></div>
+              <span style="width:22px; height:22px; border-radius:6px; border:1.5px solid var(--ink600)"></span></div>
+          </div>
+          <div class="btn ghost sm"><svg class="icon sm"><use href="#i-plus"/></svg>Listede olmayan ekipman ekle</div>
+        </div>
+      </div>
+      <figcaption>
+        <div class="cap-title">Ekipman — satır başına karşılık</div>
+        <p class="cap-why">Boşluk hissi giderildi: çip yığını yerine liste ve her satırda
+        <b>"N hareket açar"</b>. İşaretlemenin ne kazandırdığı satırın kendisinde —
+        envanter doldurmak karşılıksız iş olmaktan çıkıyor.</p>
+      </figcaption>
+    </figure>
+
+  </div>
+</section>
+
+
+<!-- ════════════════ AI ════════════════ -->
+<section class="flow" id="ai">
+  <div class="flow-head">
+    <h2>Yapay zekâ köprüsü</h2>
+    <p>İki belge: plan isteme (<code>context.md</code>) ve tahlil aktarma
+       (<code>tahlil-aktar.md</code>). İkisi de aynı sözleşmeyle: uygulamadan çıkan
+       belge, dönen yapılandırılmış cevap, onay kapısı.</p>
+  </div>
+  <div class="frames">
+
+    <!-- G1 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>22:40</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head compact">
+          <span class="backb"><svg class="icon sm"><use href="#i-back"/></svg></span>
+          <div class="titles"><h3>Yeni plan iste</h3></div>
+        </div>
+        <div class="body">
+          <div class="sec"><b>KAPSAM</b><span class="fill"></span></div>
+          <div class="rows">
+            <div class="row">
+              <span style="width:22px; height:22px; border-radius:50%; border:6px solid var(--brand); background:var(--ink900); flex:0 0 auto"></span>
+              <div class="row-main"><strong>Şu tarihten sonrası</strong><span>Öncesi olduğu gibi kalır</span></div>
+              <span class="chip on" style="padding:5px 11px">3 Eylül ›</span></div>
+            <div class="row">
+              <span style="width:22px; height:22px; border-radius:50%; border:1.5px solid var(--ink600); flex:0 0 auto"></span>
+              <div class="row-main"><strong>Baştan yeni plan</strong><span>Mevcut pasifleşir, kayıtlar durur</span></div></div>
+          </div>
+          <div class="sec"><b>BELGEYE GİRECEKLER</b><span class="fill"></span><span style="color:var(--mist500)">satırı kapatabilirsin</span></div>
+          <div class="rows">
+            <div class="row" style="min-height:42px; padding:8px 0"><span class="tile sm t-dim" style="width:28px;height:28px"><svg class="icon sm" style="width:14px;height:14px"><use href="#i-user"/></svg></span>
+              <div class="row-main"><strong style="font-size:14px">Kim olduğun + hedefin</strong></div>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+            <div class="row" style="min-height:42px; padding:8px 0"><span class="tile sm t-health" style="width:28px;height:28px"><svg class="icon sm" style="width:14px;height:14px"><use href="#i-shield"/></svg></span>
+              <div class="row-main"><strong style="font-size:14px">Medikal + tahliller + ilaçlar</strong><span>10 değer · 2 reçeteli · 3 takviye</span></div>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+            <div class="row" style="min-height:42px; padding:8px 0"><span class="tile sm t-sport" style="width:28px;height:28px"><svg class="icon sm" style="width:14px;height:14px"><use href="#i-tools"/></svg></span>
+              <div class="row-main"><strong style="font-size:14px">Ekipman + sevdiğin sporlar</strong></div>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+            <div class="row" style="min-height:42px; padding:8px 0"><span class="tile sm t-energy" style="width:28px;height:28px"><svg class="icon sm" style="width:14px;height:14px"><use href="#i-clock"/></svg></span>
+              <div class="row-main"><strong style="font-size:14px">Günlük düzen + öğün davranışı</strong><span>öğle: yemekhane, planlanmaz</span></div>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+            <div class="row" style="min-height:42px; padding:8px 0"><span class="tile sm t-danger" style="width:28px;height:28px"><svg class="icon sm" style="width:14px;height:14px"><use href="#i-ban"/></svg></span>
+              <div class="row-main"><strong style="font-size:14px">Yasaklılar + son 14 gün kayıtların</strong><span>öğün, su, ilaç uyumu, antrenman</span></div>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+            <div class="row" style="min-height:42px; padding:8px 0"><span class="tile sm t-diet" style="width:28px;height:28px"><svg class="icon sm" style="width:14px;height:14px"><use href="#i-doc"/></svg></span>
+              <div class="row-main"><strong style="font-size:14px">Katalog + besin listesi</strong><span>161 hareket · 368 besin · id'li</span></div>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="btn"><svg class="icon sm" style="stroke:var(--ink950)"><use href="#i-share"/></svg>Belgeyi paylaş</div>
+          <p class="textlink">Önce belgeyi gör</p>
+        </div>
+      </div>
+      <figcaption>
+        <div class="cap-title">Plan isteği — kapsam + içerik</div>
+        <p class="cap-why">Belgeye <b>öğün davranışı ve sevdiğin sporlar</b> da girdi.
+        Belge "ilaç etkileşimi ya da doz önerme; ilaçları yalnız zamanlama bağlamı olarak
+        kullan" satırını taşıyor — üçüncü sorunun cevabı.</p>
+      </figcaption>
+    </figure>
+
+    <!-- G3 -->
+    <figure class="frame">
+      <div class="phone">
+        <div class="status"><span>22:52</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="head compact">
+          <span class="backb"><svg class="icon sm"><use href="#i-back"/></svg></span>
+          <div class="titles"><h3>Planı içeri al</h3></div>
+        </div>
+        <div class="body">
+          <div class="panel" style="border-color:var(--brand-dim)">
+            <div style="display:flex; gap:10px; align-items:center">
+              <span class="tile sm t-diet"><svg class="icon sm"><use href="#i-check"/></svg></span>
+              <div><strong style="color:var(--mist100)">Plan geçerli — 4/4 kapı</strong>
+                <div style="font-size:12.5px; color:var(--mist500)">26 gün · 18 slot · 24 hareket</div></div>
+            </div>
+          </div>
+          <div class="rows">
+            <div class="row" style="min-height:46px; padding:8px 0">
+              <div class="row-main"><strong>Yasaklı kontrolü</strong><span>41 besinin hiçbiri listende değil</span></div>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+            <div class="row" style="min-height:46px; padding:8px 0">
+              <div class="row-main"><strong>Ekipman kontrolü</strong><span>24 hareketin hepsi yapılabilir</span></div>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+            <div class="row" style="min-height:46px; padding:8px 0">
+              <div class="row-main"><strong>Öğün davranışı</strong><span>Öğle boş bırakılmış — doğru</span></div>
+              <svg class="icon sm" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+            <div class="row" style="min-height:46px; padding:8px 0">
+              <div class="row-main"><strong>Kısıt kontrolü</strong><span style="color:var(--warn)">2 derin çömelme var — diz kısıtın</span></div>
+              <svg class="icon sm" style="color:var(--warn)"><use href="#i-warn"/></svg></div>
+          </div>
+          <div>
+            <div class="sec"><b>ÖNİZLEME</b><span class="fill"></span></div>
+            <div class="rows">
+              <div class="row" style="min-height:44px; padding:8px 0">
+                <div class="row-main"><strong>3–28 Eylül</strong><span>26 yeni gün</span></div>
+                <span class="badge goodb">YENİ</span></div>
+              <div class="row" style="min-height:44px; padding:8px 0">
+                <div class="row-main"><strong>1–2 Eylül</strong><span>Mevcut plandan korunuyor</span></div>
+                <span class="badge dimb">DEĞİŞMEZ</span></div>
+            </div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="btn">Planı uygula</div>
+          <p class="textlink">Uyarılı 2 hareketi değiştirerek uygula</p>
+        </div>
+      </div>
+      <figcaption>
+        <div class="cap-title">İçeri alma — dört kontrol</div>
+        <p class="cap-why">Yasaklı, ekipman, <b>öğün davranışı</b> ve <b>medikal kısıt</b> kontrolleri.
+        Kısıt ihlali planı reddettirmiyor — uyarıyor ve tek dokunuşla değiştirme öneriyor;
+        karar hep kullanıcının.</p>
+      </figcaption>
+    </figure>
+
+  </div>
+</section>
+
+
+<!-- ════════════════ NOTLAR ════════════════ -->
+<section class="flow" id="kararlar">
+  <div class="foot" style="padding-left:0; padding-right:0; max-width:none">
+    <h2>r2'de işlenen geri bildirim</h2>
+    <ul>
+      <li><b>02</b> — doğum tarihi gün/ay/yıl, doğum günü jesti eklendi.</li>
+      <li><b>04</b> — ilk açılışta kalori kahramanı yok; her kurulum adımına Geç.</li>
+      <li><b>05</b> — sandalye/basamak seçilebilir; sevdiğin sporlar sekmesi (05b) yeni.</li>
+      <li><b>06</b> — ilaç listesi medikal ekranın içinde, giriş sayfası (06b) çizildi.</li>
+      <li><b>07</b> — öğün saatleri + davranışı (planlanır / hep aynı / yemekhane) eklendi, AI'a gidiyor.</li>
+      <li><b>Ana Sayfa</b> — başlık günün adı + tarih gezinme sağda; akış satırları dokunulur; su ve ilaç metrik şeridinde.</li>
+      <li><b>Diyet</b> — plan satırları soluk/italik, "plandaki gibi yedim" tek dokunuş; besinlerde 5 sıralama.</li>
+      <li><b>Spor</b> — kalori takvimden çıktı; Planlanan/Yapılan ekranı (D2) yeni ve geçmişe yazıyor; hareket detayı tam içerikle geri geldi.</li>
+      <li><b>Sağlık</b> — aralık çubuklu değerler; check-up rehberi (yaş+durum kurallı); AI ile tahlil aktarma (E5, E5b); ilaç uyum şeridi.</li>
+      <li><b>Ekipman</b> — çip yığını yerine "N hareket açar" listesi.</li>
+      <li><b>Genel</b> — duotone alan renkli ikonlar, segment sekmeler, başlıkta sekme adı tekrarı yok, her sekmeye motto.</li>
+    </ul>
+
+    <h2 style="margin-top:28px">Uygulamaya inecek teknik notlar</h2>
+    <ul>
+      <li>Katalog içeriği <b>iki dilli veri alanına</b> dönüyor: <code>executionTr/En</code>, <code>cuesTr/En</code>… — ARB değil, çünkü içerik veri. Boru hattına çeviri katmanı gerekecek.</li>
+      <li>Check-up kuralları: 40 yaş altı sağlıklı 2–3 yılda tam panel; 40+ yıllık; risk faktörüyle HbA1c yıllık+; sınırda lipit yıllık; D vitamini/B12 yıllık (kış sonu). Kaynaklar aşağıda.</li>
+      <li>İkonlar: Flutter'da <a href="https://allsvgicons.com/compare/phosphor-vs-lucide/" style="color:var(--brand)">Phosphor</a> (6 ağırlık, duotone) — bu mockup'taki dil onun duotone ağırlığı. Alternatif <a href="https://mockflow.com/blog/best-open-source-icon-libraries" style="color:var(--brand)">Lucide</a> (Flutter paketi resmî).</li>
+      <li>Yeni şema ihtiyaçları: <code>meal_behaviors</code> (öğün davranışı), <code>favorite_sports</code>, medikal alanlar, <code>checkup_rules</code>, ekipmanda ev eşyası seçimi.</li>
+    </ul>
+
+    <p style="margin-top:20px">Kaynaklar:
+      <a href="https://www.smarterblood.org/blood-test-frequency-guide" style="color:var(--brand)">tahlil sıklık rehberi</a> ·
+      <a href="https://careand.ca/blog/how-often-blood-work-done-age-guide" style="color:var(--brand)">yaşa göre kan tahlili</a> ·
+      <a href="https://justlabs.health/blog/annual-blood-work-checklist" style="color:var(--brand)">yıllık panel listesi</a> ·
+      <a href="https://allsvgicons.com/compare/phosphor-vs-lucide/" style="color:var(--brand)">Phosphor vs Lucide</a>
+    </p>
+  </div>
+</section>

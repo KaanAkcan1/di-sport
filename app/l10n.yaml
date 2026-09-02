@@ -1,0 +1,6 @@
+# Şablon Türkçe: metinler önce Türkçe yazıldı, anahtar adları ve çoğul
+# kuralları oradan çıkıyor. İngilizce çeviri app_en.arb'de.
+arb-dir: lib/l10n
+template-arb-file: app_tr.arb
+output-localization-file: app_localizations.dart
+nullable-getter: false

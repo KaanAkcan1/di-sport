@@ -1,0 +1,225 @@
+{
+  "commonNoRecords": {"tr": "Kayıt yok", "en": "No records"},
+  "commonErrorTitle": {"tr": "Bir şeyler ters gitti", "en": "Something went wrong"},
+
+  "commonStatusGood": {"tr": "iyi", "en": "good"},
+  "commonStatusCaution": {"tr": "dikkat", "en": "caution"},
+  "commonStatusBad": {"tr": "sorunlu", "en": "problem"},
+  "commonStatusUnknown": {"tr": "veri yok", "en": "no data"},
+
+  "commonValueMissing": {"tr": "değer girilmedi", "en": "no value entered"},
+  "commonMetricEmptySemantics": {
+    "tr": "{caption}: girilmedi",
+    "en": "{caption}: not entered",
+    "placeholders": {"caption": {"type": "String"}}
+  },
+  "commonMetricValueSemantics": {
+    "tr": "{caption}: {value}",
+    "en": "{caption}: {value}",
+    "placeholders": {"caption": {"type": "String"}, "value": {"type": "String"}}
+  },
+  "commonMetricChangeSemantics": {
+    "tr": ", değişim {delta}",
+    "en": ", change {delta}",
+    "placeholders": {"delta": {"type": "String"}}
+  },
+  "commonHeroValueSemantics": {
+    "tr": "{value} · {caption}",
+    "en": "{value} · {caption}",
+    "placeholders": {"value": {"type": "String"}, "caption": {"type": "String"}}
+  },
+
+  "commonNowAt": {
+    "tr": "Şu an saat {time}",
+    "en": "The time is now {time}",
+    "placeholders": {"time": {"type": "String"}}
+  },
+  "commonNowLabel": {"tr": "ŞİMDİ", "en": "NOW"},
+
+  "commonWeekDotDone": {"tr": "kayıt var", "en": "logged"},
+  "commonWeekDotMissed": {"tr": "kayıt yok", "en": "not logged"},
+  "commonWeekDotToday": {"tr": "bugün", "en": "today"},
+  "commonWeekDotFuture": {"tr": "gelecek", "en": "upcoming"},
+
+  "settingsEquipmentTitle": {"tr": "Ekipmanım", "en": "My equipment"},
+  "settingsEquipmentDescription": {
+    "tr": "İşaretlediklerin katalog filtresini ve yapay zekâya gönderilen bağlamı besliyor.",
+    "en": "What you check here feeds the catalogue filter and the context sent to the AI."
+  },
+  "settingsEquipmentTile": {"tr": "Ekipman listesi", "en": "Equipment list"},
+
+  "settingsWeeklyTitle": {"tr": "Haftalık düzen", "en": "Weekly schedule"},
+  "settingsWeeklyDescription": {
+    "tr": "Mesain ve uygun olmadığın saatler. Yapay zekâ planı bunlara göre kurar, alarmlar yasaklı saatlerde çalmaz.",
+    "en": "Your working hours and the times you are unavailable. The AI builds the plan around them and reminders stay silent during blocked hours."
+  },
+  "settingsWeeklyTile": {
+    "tr": "Mesai ve uygun olmayan saatler",
+    "en": "Working and unavailable hours"
+  },
+  "settingsWeeklyFab": {"tr": "Saat aralığı", "en": "Time range"},
+  "settingsWeeklyExplanationTitle": {"tr": "İki tür aralık var", "en": "There are two kinds of range"},
+  "settingsWeeklyExplanationBody": {
+    "tr": "· Mesai: iştesin. Yapay zekâ bu saatlere antrenman koymaz ama öğün koyabilir.\n· Uygun değil: hiçbir şey planlanmaz ve bu saatlerde bildirim çalmaz.",
+    "en": "· Work: you are on the job. The AI will not schedule training then, but it may schedule meals.\n· Unavailable: nothing is scheduled and no reminder fires."
+  },
+  "settingsWeeklyEmptyDay": {"tr": "boş", "en": "empty"},
+  "settingsWeeklyAddTitle": {"tr": "Saat aralığı ekle", "en": "Add a time range"},
+  "settingsWeeklyKindWork": {"tr": "Mesai", "en": "Work"},
+  "settingsWeeklyKindBlocked": {"tr": "Uygun değil", "en": "Unavailable"},
+  "settingsWeeklyDays": {"tr": "Günler", "en": "Days"},
+  "settingsWeeklyPickDayError": {"tr": "En az bir gün seç", "en": "Pick at least one day"},
+  "settingsWeeklyStart": {"tr": "Başlangıç", "en": "Start"},
+  "settingsWeeklyEnd": {"tr": "Bitiş", "en": "End"},
+  "settingsWeeklyOvernightHint": {
+    "tr": "Bitiş başlangıçtan küçükse aralık gece yarısını aşar.",
+    "en": "If the end is earlier than the start, the range crosses midnight."
+  },
+  "settingsWeeklyLabel": {"tr": "Açıklama", "en": "Description"},
+  "settingsWeeklyLabelHint": {"tr": "Fabrika", "en": "Factory"},
+  "settingsWeeklyLabelHelper": {"tr": "İsteğe bağlı", "en": "Optional"},
+  "settingsWeeklyAdd": {"tr": "Ekle", "en": "Add"},
+
+  "settingsBackupTitle": {"tr": "Yedekleme", "en": "Backup"},
+  "settingsBackupDescription": {
+    "tr": "Tüm veriler yalnız bu cihazda. Telefon değişirse yedek almadıysan geri dönüşü yok.",
+    "en": "All data lives on this device only. If you change phones without a backup, there is no way back."
+  },
+  "settingsBackupExport": {"tr": "Yedek al", "en": "Create backup"},
+  "settingsBackupExportSubtitle": {
+    "tr": "Dosyayı paylaş menüsüyle bir yere kaydet",
+    "en": "Save the file somewhere with the share sheet"
+  },
+  "settingsBackupImport": {"tr": "Yedekten geri yükle", "en": "Restore from backup"},
+  "settingsBackupImportSubtitle": {
+    "tr": "Mevcut verinin üstüne yazar",
+    "en": "Overwrites your current data"
+  },
+  "settingsBackupShareText": {"tr": "di@sport yedeği", "en": "di@sport backup"},
+  "settingsBackupRestored": {
+    "tr": "Yedek yüklendi. Uygulamayı kapatıp yeniden aç — açık veritabanı bağlantısı eski veriyi göstermeye devam ediyor.",
+    "en": "Backup restored. Close and reopen the app — the open database connection still shows the old data."
+  },
+  "settingsBackupConfirmTitle": {
+    "tr": "Mevcut verinin üstüne yazılsın mı?",
+    "en": "Overwrite your current data?"
+  },
+  "settingsBackupConfirmBody": {
+    "tr": "Şu anki tüm kayıtların yedekteki hâlle değişecek. Değişmeden önceki hâl yine de cihazda saklanıyor.",
+    "en": "All of your current records will be replaced by the ones in the backup. The previous state is still kept on the device."
+  },
+  "settingsBackupConfirmAction": {"tr": "Üstüne yaz", "en": "Overwrite"},
+
+  "settingsNotificationsTitle": {"tr": "Bildirimler", "en": "Notifications"},
+  "settingsNotificationsDescription": {
+    "tr": "Sabah tartısı hatırlatması uyanma saatine bağlı; profilde uyanma saatini gir.",
+    "en": "The morning weigh-in reminder follows your wake-up time; set it in your profile."
+  },
+  "settingsNotifWorkout": {"tr": "Antrenman", "en": "Workout"},
+  "settingsNotifWorkoutDescription": {
+    "tr": "Programdaki antrenman saatinde",
+    "en": "At the workout time in your plan"
+  },
+  "settingsNotifMeal": {"tr": "Öğün", "en": "Meal"},
+  "settingsNotifMealDescription": {
+    "tr": "Programdaki öğün saatlerinde",
+    "en": "At the meal times in your plan"
+  },
+  "settingsNotifWalk": {"tr": "Yürüyüş", "en": "Walk"},
+  "settingsNotifWalkDescription": {
+    "tr": "Programdaki yürüyüş saatinde",
+    "en": "At the walk time in your plan"
+  },
+  "settingsNotifSupplement": {"tr": "Takviye", "en": "Supplement"},
+  "settingsNotifSupplementDescription": {
+    "tr": "Vitamin ve takviye saatlerinde",
+    "en": "At vitamin and supplement times"
+  },
+  "settingsExactAlarmTitle": {"tr": "Tam zamanlı alarm izni", "en": "Exact alarm permission"},
+  "settingsExactAlarmGranted": {
+    "tr": "Verildi — bildirimler tam saatinde çalar.",
+    "en": "Granted — reminders fire exactly on time."
+  },
+  "settingsExactAlarmDenied": {
+    "tr": "Verilmedi. Bildirimler yine çalar ama pil tasarrufu kipinde birkaç dakika gecikebilir. Vermek için dokun.",
+    "en": "Not granted. Reminders still fire but may be a few minutes late in battery saver. Tap to grant."
+  },
+  "settingsExactAlarmLoading": {"tr": "Yükleniyor…", "en": "Loading…"},
+
+  "settingsOnboardingWelcome": {"tr": "Hoş geldin", "en": "Welcome"},
+  "settingsOnboardingIntro": {
+    "tr": "Önce seni tanıyalım. Bu bilgiler cihazından çıkmaz; yalnızca sen bir yapay zekâya bağlam dosyası gönderdiğinde kullanılır.",
+    "en": "Let's get to know you first. This information never leaves your device; it is only used when you send a context file to an AI yourself."
+  },
+  "settingsOnboardingSave": {"tr": "Kaydet ve başla", "en": "Save and start"},
+
+  "settingsProfileHeightRequired": {"tr": "Boy alanı gerekli.", "en": "Height is required."},
+  "settingsProfileContextNote": {
+    "tr": "Bu bilgiler yapay zekâya gönderilen bağlam dosyasına girer. Ne kadar doldurursan plan o kadar sana göre olur; boş bıraktıkların \"belirtilmedi\" diye geçer.",
+    "en": "This information goes into the context file sent to the AI. The more you fill in, the more the plan fits you; whatever you leave blank is reported as \"not specified\"."
+  },
+
+  "importPlanTitle": {"tr": "Planı içeri al", "en": "Import plan"},
+  "importPlanDescription": {
+    "tr": "Yapay zekânın verdiği JSON belgesini buraya yapıştır.",
+    "en": "Paste the JSON document the AI gave you here."
+  },
+  "importPlanValidate": {"tr": "Doğrula", "en": "Validate"},
+  "importPlanImport": {"tr": "İçeri al", "en": "Import"},
+  "importPlanFailedTitle": {"tr": "Plan alınamadı", "en": "Plan could not be imported"},
+  "importPlanPasteBackHint": {
+    "tr": "Bu mesajı olduğu gibi yapay zekâya yapıştır; neyi düzelteceğini bilecek.",
+    "en": "Paste this message back to the AI as is; it will know what to fix."
+  },
+  "importPlanCopyError": {"tr": "Hatayı kopyala", "en": "Copy error"},
+  "importPlanErrorCopied": {"tr": "Hata mesajı kopyalandı", "en": "Error message copied"},
+  "importPlanLoaded": {
+    "tr": "{days} günlük plan yüklendi.",
+    "en": "Loaded a {days}-day plan.",
+    "placeholders": {"days": {"type": "int"}}
+  },
+  "importPlanLoadedWithExercises": {
+    "tr": "{days} günlük plan yüklendi, {count} yeni hareket eklendi.",
+    "en": "Loaded a {days}-day plan and added {count} new exercises.",
+    "placeholders": {"days": {"type": "int"}, "count": {"type": "int"}}
+  },
+  "importPlanSummary": {
+    "tr": "{startDate} tarihinden itibaren {weeks} hafta · {days} gün",
+    "en": "{weeks} weeks · {days} days, starting {startDate}",
+    "placeholders": {
+      "startDate": {"type": "String"},
+      "weeks": {"type": "int"},
+      "days": {"type": "int"}
+    }
+  },
+  "importPlanGym": {
+    "tr": "Salon {count}",
+    "en": "Gym {count}",
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "importPlanHome": {
+    "tr": "Ev {count}",
+    "en": "Home {count}",
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "importPlanRest": {
+    "tr": "Dinlenme {count}",
+    "en": "Rest {count}",
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "importPlanGoals": {
+    "tr": "{kcal} kcal · {protein} g protein · {water} L su · hedef −{loss} kg",
+    "en": "{kcal} kcal · {protein} g protein · {water} L water · target −{loss} kg",
+    "placeholders": {
+      "kcal": {"type": "String"},
+      "protein": {"type": "String"},
+      "water": {"type": "String"},
+      "loss": {"type": "String"}
+    }
+  },
+  "importPlanNewExercisesTitle": {"tr": "Yeni hareket önerileri", "en": "Suggested new exercises"},
+  "importPlanNewExercisesDescription": {
+    "tr": "Onayladıkların kataloğa kalıcı olarak eklenir.",
+    "en": "The ones you approve are added to the catalogue permanently."
+  }
+}

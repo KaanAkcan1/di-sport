@@ -1,0 +1,18 @@
+{
+  "equipmentBodyOnly": {"tr": "Vücut ağırlığı", "en": "Body only"},
+  "equipmentBarbell": {"tr": "Halter", "en": "Barbell"},
+  "equipmentDumbbell": {"tr": "Dambıl", "en": "Dumbbell"},
+  "equipmentKettlebell": {"tr": "Kettlebell", "en": "Kettlebell"},
+  "equipmentCable": {"tr": "Kablo makinesi", "en": "Cable"},
+  "equipmentMachine": {"tr": "Makine", "en": "Machine"},
+  "equipmentBands": {"tr": "Direnç bandı", "en": "Resistance bands"},
+  "equipmentMedicineBall": {"tr": "Sağlık topu", "en": "Medicine ball"},
+  "equipmentExerciseBall": {"tr": "Pilates topu", "en": "Exercise ball"},
+  "equipmentFoamRoll": {"tr": "Köpük rulo", "en": "Foam roller"},
+  "equipmentEzCurlBar": {"tr": "Z bar", "en": "E-Z curl bar"},
+  "equipmentOther": {"tr": "Ev eşyası", "en": "Household item"},
+  "equipmentNone": {"tr": "Ekipman gerekmiyor", "en": "No equipment"},
+  "catalogEquipmentMissingHome": {"tr": "{equipment} gerekiyor (evinde yok)", "en": "Needs {equipment} (not at home)"},
+  "catalogEquipmentMissingGym": {"tr": "{equipment} gerekiyor (salonunda yok)", "en": "Needs {equipment} (not at the gym)"},
+  "catalogEquipmentCheck": {"tr": "{equipment} — kontrol et", "en": "{equipment} — check"}
+}

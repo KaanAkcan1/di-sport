@@ -1,0 +1,14 @@
+{
+  "reminderSlotFallbackTitle": {"tr": "Programda bir adım", "en": "A step in your plan"},
+  "reminderSlotWorkoutBody": {"tr": "Antrenman vakti. Hazırsan başlayalım.", "en": "Training time. Let's go when you're ready."},
+  "reminderSlotOtherBody": {"tr": "Programdaki sıradaki adım.", "en": "The next step in your plan."},
+  "reminderWeighInTitle": {"tr": "Sabah tartısı", "en": "Morning weigh-in"},
+  "reminderWeighInBody": {"tr": "Aç karnına, aynı koşullarda tartıl.", "en": "On an empty stomach, same conditions every day."},
+  "reminderMissStreakTitle": {"tr": "Zincir kopuyor", "en": "The streak is breaking"},
+  "reminderMissStreakBody": {"tr": "Antrenmanı iki gün üst üste kaçırdın. Bugün kısa bir şey yapmak, hiç yapmamaktan iyi.", "en": "You've missed two days in a row. Something short today beats nothing."},
+  "reminderDueLabTitle": {"tr": "Tahlil zamanı", "en": "Lab test due"},
+  "reminderDueLabBody": {"tr": "{marker} tahlilinin vakti geldi.", "en": "{marker} is due for a retest."},
+  "reminderPlanEndingTitle": {"tr": "Plan bitiyor", "en": "Plan is ending"},
+  "reminderPlanEndingToday": {"tr": "Plan bugün bitiyor. Yeni plan için bağlam dosyasını al.", "en": "Your plan ends today. Grab the context file for a new one."},
+  "reminderPlanEndingIn": {"tr": "Plan {days} gün sonra bitiyor. Yeni planı hazırlamanın vakti.", "en": "Your plan ends in {days} days. Time to prepare the next one."}
+}

@@ -1,0 +1,89 @@
+{
+  "todayTitle": {"tr": "Bugün", "en": "Today"},
+  "todayWeekNumber": {"tr": "{week}. hafta", "en": "week {week}"},
+
+  "todayHeroNoPlan": {"tr": "Plan yok · tartını yine de kaydedebilirsin", "en": "No plan · you can still log your weight"},
+  "todayHeroFreeDay": {"tr": "Serbest gün", "en": "Free day"},
+  "todayHeroDietFree": {"tr": "{type} · diyet serbest", "en": "{type} · diet free"},
+
+  "todayDayTypeGym": {"tr": "Salon günü", "en": "Gym day"},
+  "todayDayTypeHome": {"tr": "Ev antrenmanı", "en": "Home workout"},
+  "todayDayTypeRest": {"tr": "Dinlenme günü", "en": "Rest day"},
+
+  "todayMetricProgram": {"tr": "Program", "en": "Program"},
+  "todayMetricRules": {"tr": "Kurallar", "en": "Rules"},
+
+  "todayNextEyebrow": {"tr": "Sırada · {time}", "en": "Next · {time}"},
+  "todayExerciseCount": {"tr": "{count} hareket", "en": "{count} exercises"},
+  "todaySpineLabel": {"tr": "Günün omurgası", "en": "Backbone of the day"},
+  "todayDinnerHint": {"tr": "Akşam önerisi: {text}", "en": "Dinner suggestion: {text}"},
+
+  "todayNoPlanTitle": {"tr": "Bugün için plan yok", "en": "No plan for today"},
+  "todayNoPlanBody": {"tr": "Plan sekmesinden bir program yükle. Tartı ve günün kutucukları plan olmadan da çalışır.", "en": "Load a program from the Plan tab. The scale and the daily checkboxes work without a plan too."},
+
+  "todayCheckedLabel": {"tr": "işaretli", "en": "checked"},
+  "todayUncheckedLabel": {"tr": "işaretsiz", "en": "unchecked"},
+
+  "todayRulesTitle": {"tr": "Günün kuralları", "en": "Rules of the day"},
+  "todayEditRulesTooltip": {"tr": "Kuralları düzenle", "en": "Edit rules"},
+  "todayNoRulesTitle": {"tr": "Kural yok", "en": "No rules"},
+  "todayNoRulesBody": {"tr": "Her gün takip etmek istediğin şeyleri ekle — su, takviye, erken yatma. Sağ üstteki ayar düğmesinden.", "en": "Add the things you want to track every day — water, supplements, early bedtime. Use the settings button at the top right."},
+  "todayRulesEditorEmptyBody": {"tr": "Aşağıdaki düğmeden ilk kuralını ekle.", "en": "Add your first rule with the button below."},
+  "todayRuleFabLabel": {"tr": "Kural", "en": "Rule"},
+  "todayDeleteRuleTitle": {"tr": "\"{label}\" silinsin mi?", "en": "Delete \"{label}\"?"},
+  "todayDeleteRuleBody": {"tr": "Bugünden sonra listede görünmez. Geçmiş günlerdeki işaretlerin olduğu gibi kalır.", "en": "It will no longer appear in the list from today on. Your marks on past days stay untouched."},
+  "todayBuiltInRuleNote": {"tr": "Çizelgeden gelen kural", "en": "Rule from the chart"},
+  "todayRuleNameRequired": {"tr": "Kural adı gerekli", "en": "Rule name is required"},
+  "todayAddRule": {"tr": "Kural ekle", "en": "Add rule"},
+  "todayEditRule": {"tr": "Kuralı düzenle", "en": "Edit rule"},
+  "todayRuleLabel": {"tr": "Kural", "en": "Rule"},
+  "todayRuleHint": {"tr": "Kreatin aldım", "en": "Took creatine"},
+  "todayIconLabel": {"tr": "İkon", "en": "Icon"},
+
+  "todayNoteTitle": {"tr": "Not", "en": "Note"},
+  "todayNoteDescription": {"tr": "Ne yedin, ne zorladı, nasıl geçti.", "en": "What you ate, what was hard, how it went."},
+  "todayNoteHint": {"tr": "Bugün nasıl geçti?", "en": "How did today go?"},
+
+  "todayWeightLabel": {"tr": "Kilo", "en": "Weight"},
+  "todayWeightUnit": {"tr": "kg", "en": "kg"},
+  "todaySleepLabel": {"tr": "Uyku", "en": "Sleep"},
+  "todaySleepUnit": {"tr": "sa", "en": "h"},
+
+  "todayMissedStreakTitle": {"tr": "{count} gün üst üste antrenman yok", "en": "{count} days in a row without a workout"},
+  "todayMissedStreakBody": {"tr": "Kural buydu: iki günü üst üste kaçırma. Bugün kısa da olsa bir şey yap.", "en": "That was the rule: never miss two days in a row. Do something today, even if it is short."},
+
+  "planEmptyTitle": {"tr": "Henüz plan yok", "en": "No plan yet"},
+  "planEmptyBody": {"tr": "Yukarıdaki \"Yeni plan iste\" düğmesiyle bağlam dosyanı üret, bir yapay zekâya ver, dönen JSON belgesini \"İçeri al\" ile buraya aktar.", "en": "Use the \"Request a new plan\" button above to generate your context file, hand it to any AI, then bring the returned JSON document back here with \"Import\"."},
+  "planLoadSample": {"tr": "Örnek planı yükle (geliştirme)", "en": "Load sample plan (development)"},
+  "planShareSubject": {"tr": "di@sport — plan isteği", "en": "di@sport — plan request"},
+  "planRequestButton": {"tr": "Yeni plan iste", "en": "Request a new plan"},
+  "planImportButton": {"tr": "İçeri al", "en": "Import"},
+
+  "planDayCount": {"tr": "{count} gün", "en": "{count} days"},
+  "planWeekLabel": {"tr": "Hafta {week}", "en": "Week {week}"},
+
+  "planLegendDone": {"tr": "Tamamlandı", "en": "Completed"},
+  "planLegendPartial": {"tr": "Kısmen", "en": "Partial"},
+  "planLegendFree": {"tr": "Serbest", "en": "Free"},
+  "planLegendWorkout": {"tr": "Antrenman ▲", "en": "Workout ▲"},
+
+  "planGoalDaily": {"tr": "Günlük", "en": "Daily"},
+  "planGoalProtein": {"tr": "Protein", "en": "Protein"},
+  "planGoalWater": {"tr": "Su", "en": "Water"},
+  "planGoalTarget": {"tr": "Hedef", "en": "Target"},
+
+  "planNutritionRules": {"tr": "Beslenme kuralları", "en": "Nutrition rules"},
+  "planRulesForbidden": {"tr": "Kesinlikle yok", "en": "Absolutely not"},
+  "planRulesFree": {"tr": "Serbest", "en": "Allowed"},
+
+  "planWeekdayInitials": {"tr": "P,S,Ç,P,C,C,P", "en": "M,T,W,T,F,S,S"},
+  "planMonthNames": {"tr": "Ocak,Şubat,Mart,Nisan,Mayıs,Haziran,Temmuz,Ağustos,Eylül,Ekim,Kasım,Aralık", "en": "January,February,March,April,May,June,July,August,September,October,November,December"},
+
+  "planCellFree": {"tr": "boş", "en": "empty"},
+  "planCellToday": {"tr": "bugün", "en": "today"},
+  "planCellDone": {"tr": "tamamlandı", "en": "completed"},
+  "planCellPartial": {"tr": "{total} işten {checked} tamam", "en": "{checked} of {total} done"},
+  "planCellEmpty": {"tr": "kayıt yok", "en": "no record"},
+  "planCellFuture": {"tr": "henüz gelmedi", "en": "not here yet"},
+  "planCellFreeSpoken": {"tr": "serbest gün", "en": "free day"}
+}

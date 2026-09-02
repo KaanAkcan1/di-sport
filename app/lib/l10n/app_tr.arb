@@ -1,0 +1,1139 @@
+{
+  "@@locale": "tr",
+  "tabToday": "Bugün",
+  "tabProgress": "İlerleme",
+  "tabHealth": "Sağlık",
+  "tabHealthHint": "Tahliller ve ölçümler",
+  "settingsTitle": "Ayarlar",
+  "commonSave": "Kaydet",
+  "commonCancel": "Vazgeç",
+  "commonDelete": "Sil",
+  "commonClear": "Temizle",
+  "commonRetry": "Yeniden dene",
+  "appearanceTitle": "Görünüm",
+  "appearanceDescription": "Koyu tema uygulamanın asıl hâli; salonda ve sabahın köründe de okunur.",
+  "appearanceSystem": "Sistem",
+  "appearanceDark": "Koyu",
+  "appearanceLight": "Açık",
+  "languageTitle": "Dil",
+  "languageDescription": "Arayüz dili. Hareket ve besin adları her iki dilde de aranabilir.",
+  "languageSystem": "Sistem",
+  "languageTurkish": "Türkçe",
+  "languageEnglish": "English",
+  "catalogTabHome": "Evde",
+  "catalogTabGym": "Salonda",
+  "catalogFilters": "Filtreler",
+  "catalogSearchHint": "Hareket veya kas ara…",
+  "catalogClearSearch": "Aramayı temizle",
+  "catalogClearFilters": "Filtreleri temizle",
+  "catalogRecentSection": "Son yaptıkların",
+  "catalogExercisesSection": "Hareketler",
+  "catalogAllExercisesSection": "Tüm hareketler",
+  "catalogNoResults": "Eşleşen hareket yok",
+  "catalogNoResultsDescription": "Aramayı değiştir ya da filtreleri kaldır.",
+  "catalogOnlyMyEquipment": "Ekipmanıma uygun",
+  "catalogOnlyMyEquipmentDescription": "Envanterinde olmayan ekipman isteyenleri gizler.",
+  "catalogCategorySection": "Tür",
+  "catalogCategoryStrength": "Kuvvet",
+  "catalogCategoryCore": "Gövde",
+  "catalogCategoryCardio": "Kardiyo",
+  "catalogCategoryMobility": "Hareketlilik",
+  "catalogDifficultySection": "Zorluk",
+  "catalogDifficultyChip": "Zorluk {level}",
+  "catalogDifficultyOutOfFive": "Zorluk {level}/5",
+  "catalogDifficultySemantics": "Zorluk {level} / 5",
+  "catalogResultCount": "{count} hareket",
+  "catalogLocationHome": "Ev",
+  "catalogLocationGym": "Salon",
+  "catalogLocationBoth": "Ev / Salon",
+  "catalogLocationSemantics": "Yapılabildiği yer: {place}",
+  "catalogEquipmentTitle": "Ekipmanım",
+  "catalogEquipmentAddFab": "Ekipman",
+  "catalogEquipmentAddTitle": "Ekipman ekle",
+  "catalogEquipmentFieldLabel": "Ekipman",
+  "catalogEquipmentFieldHint": "Kettlebell",
+  "catalogEquipmentAddAction": "Ekle",
+  "catalogExerciseNotFound": "Hareket bulunamadı",
+  "catalogExerciseNotFoundDescription": "Bu hareket katalogdan kaldırılmış olabilir.",
+  "catalogExerciseLoadError": "Hareket açılamadı",
+  "catalogTabSteps": "Adımlar",
+  "catalogTabMistakes": "Hatalar",
+  "catalogTabVariants": "Varyantlar",
+  "catalogTabSafety": "Güvenlik",
+  "catalogCuesTitle": "Aklında tut",
+  "catalogCuesDescription": "Antrenman sırasında bunlara bak.",
+  "catalogSetupTitle": "Başlangıç",
+  "catalogExecutionTitle": "Hareket",
+  "catalogBreathingTempoTitle": "Nefes ve tempo",
+  "catalogBreathingLabel": "Nefes",
+  "catalogTempoLabel": "Tempo",
+  "catalogNoMistakes": "Kayıtlı hata yok",
+  "catalogMistakeWhy": "Neden sorun",
+  "catalogMistakeFix": "Düzeltmesi",
+  "catalogNoVariants": "Varyant tanımlı değil",
+  "catalogNoVariantsDescription": "Bu hareketin kolay ya da zor bir sürümü kayıtlı değil.",
+  "catalogRegressionsTitle": "Kolaylaştır",
+  "catalogRegressionsDescription": "Zorlanıyorsan buradan başla.",
+  "catalogProgressionsTitle": "Zorlaştır",
+  "catalogProgressionsDescription": "Kolay gelmeye başladığında sıradaki basamak.",
+  "catalogSafetyDisclaimer": "Bu bilgiler genel niteliktedir ve hekim ya da fizyoterapist değerlendirmesinin yerine geçmez. Ağrı hissettiğinde hareketi bırak.",
+  "catalogImageSemantics": "{name} hareketinin başlangıç ve bitiş pozisyonu",
+  "catalogMetaTitle": "Künye",
+  "catalogTargetMuscles": "Hedef kaslar",
+  "catalogEquipmentLabel": "Ekipman",
+  "sessionRpeLabel": "Zorlanma (1-10)",
+  "sessionPainLabel": "Ağrı/rahatsızlık notu",
+  "sessionPainHint": "omuz pres rahatsız etti",
+  "sessionDebriefTitle": "Seans nasıldı?",
+  "sessionDebriefSave": "Kaydet",
+  "sessionDebriefSaved": "Değerlendirme kaydedildi",
+  "workoutTitle": "Antrenman",
+  "workoutNoExercisesTitle": "Bugün hareket yok",
+  "workoutNoExercisesDescription": "Bu gün dinlenme günü olarak planlanmış.",
+  "workoutElapsedCaption": "dakikadır çalışıyorsun",
+  "workoutElapsedNew": "yeni",
+  "workoutMinuteUnit": "dk",
+  "workoutSetsCaption": "Set",
+  "workoutExercisesCaption": "Hareket",
+  "workoutSetsProgress": "{done} / {total} set",
+  "@workoutSetsProgress": {
+    "placeholders": {
+      "done": {},
+      "total": {}
+    }
+  },
+  "workoutSetsDoneSemantics": "{done} / {total} set tamamlandı",
+  "@workoutSetsDoneSemantics": {
+    "placeholders": {
+      "done": {},
+      "total": {}
+    }
+  },
+  "workoutUndoLastSet": "Son seti geri al",
+  "workoutAllSetsDone": "Tamamlandı",
+  "workoutSetDone": "Set tamam",
+  "workoutRefLast": "Geçen",
+  "workoutRefPlan": "Plan",
+  "workoutRestLabel": "Dinlenme · {seconds} sn",
+  "workoutRestSemantics": "Dinlenme, {seconds} saniye kaldı",
+  "workoutRestSkip": "Geç",
+  "healthNoLabsTitle": "Tahlil kaydı yok",
+  "healthNoLabsDescription": "Elindeki tahlil sonuçlarını ekle; referans aralığını da girersen değerin düşük mü yüksek mi olduğunu takip edebilirim.",
+  "healthAddLabFab": "Tahlil",
+  "healthAddLabTitle": "Tahlil ekle",
+  "healthLabMarkerLabel": "Tahlil adı",
+  "healthLabMarkerHint": "Vitamin D",
+  "healthLabMarkerRequired": "Tahlil adı gerekli",
+  "healthLabValueLabel": "Değer",
+  "healthLabValueInvalid": "Sayı girin",
+  "healthLabUnitLabel": "Birim",
+  "healthLabUnitHint": "ng/mL",
+  "healthLabRefLowLabel": "Referans alt",
+  "healthLabRefHighLabel": "Referans üst",
+  "healthLabRefHelp": "İsteğe bağlı — girmezsen değer \"aralık yok\" olarak gösterilir.",
+  "healthLabPanelLabel": "Panel",
+  "healthLabNameLabel": "Laboratuvar",
+  "healthLabNameHelp": "İsteğe bağlı — aralıklar laboratuvara göre değişir",
+  "healthLabDateLabel": "Tahlil tarihi",
+  "healthMeasurementsTitle": "Ölçümler",
+  "healthMeasurementsDescription": "Ayda bir ölç; geçiş kriteri şınav sayısına bakıyor.",
+  "healthManageMetricsTooltip": "Ölçümleri düzenle",
+  "healthNoMetricsTitle": "Ölçüm türü yok",
+  "healthNoMetricsDescription": "Takip etmek istediğin ölçüleri ekle — bel, kol çevresi, istirahat nabzı.",
+  "healthMetricNeverMeasured": "henüz ölçülmedi",
+  "healthDueLabsTitleOne": "Bir tahlilin vakti geldi",
+  "healthDueLabsTitleMany": "{count} tahlilin vakti geldi",
+  "healthDueInterval": "{months} ayda bir",
+  "healthDueWithDate": "{marker} — {interval}, {date} itibarıyla",
+  "@healthDueWithDate": {
+    "placeholders": {
+      "marker": {},
+      "interval": {},
+      "date": {}
+    }
+  },
+  "healthDueNoRecord": "{marker} — {interval}, henüz hiç kaydedilmemiş",
+  "@healthDueNoRecord": {
+    "placeholders": {
+      "marker": {},
+      "interval": {}
+    }
+  },
+  "healthLabRefRange": "ref {low}–{high}",
+  "@healthLabRefRange": {
+    "placeholders": {
+      "low": {},
+      "high": {}
+    }
+  },
+  "healthLabStatusLow": "düşük",
+  "healthLabStatusHigh": "yüksek",
+  "healthLabStatusNormal": "normal",
+  "healthLabStatusNoRange": "aralık yok",
+  "healthMetricsEditorTitle": "Ölçüm türleri",
+  "healthMetricsEditorEmptyDescription": "Aşağıdaki düğmeden ilk ölçümünü ekle.",
+  "healthAddMetricFab": "Ölçüm",
+  "healthDeleteMetricTitle": "\"{label}\" kaldırılsın mı?",
+  "healthDeleteMetricBody": "Listeden çıkar. Şimdiye kadar girdiğin değerler silinmez; türü geri eklersen yeniden görünür.",
+  "healthMetricRemove": "Kaldır",
+  "healthMetricDailyHint": "{unit} · her gün Bugün ekranından",
+  "healthMetricSheetAddTitle": "Ölçüm ekle",
+  "healthMetricSheetEditTitle": "Ölçümü düzenle",
+  "healthMetricLabelRequired": "Ölçüm adı gerekli",
+  "healthMetricLabelLabel": "Ölçüm",
+  "healthMetricLabelHint": "Kol çevresi",
+  "healthMetricUnitHint": "cm",
+  "healthMetricDisplayTitle": "Gösterim",
+  "healthMetricInteger": "Tam sayı",
+  "healthMetricDecimal": "Ondalıklı",
+  "healthMetricExampleInteger": "Örnek: 12",
+  "healthMetricExampleDecimal": "Örnek: 104,5",
+  "progressEmptyTitle": "Henüz gösterecek bir şey yok",
+  "progressEmptyDescription": "Bugün sekmesinden tartını gir; birkaç gün sonra eğilim çizgisi anlamlı olmaya başlar.",
+  "progressWeightTitle": "Kilo",
+  "progressWeightDescription": "Kalın çizgi 7 günlük ortalama — günlük oynamalar su ve tuzdur, eğilime bak.",
+  "progressWeeksTitle": "Haftalar",
+  "progressNoPlanTitle": "Haftalık özet için plan gerekli",
+  "progressNoPlanDescription": "Hangi günün salon, hangisinin ev olduğunu plandan okuyorum. Plan sekmesinden bir program yükle.",
+  "progressHeroEmptyCaption": "İlk tartıdan sonra değişim burada görünecek",
+  "progressHeroCaption": "kg · ilk tartıdan bugüne",
+  "progressMetricNow": "Şu an",
+  "progressMetricPushups": "Şınav",
+  "progressMetricWeeks": "Hafta",
+  "progressTransitionTitle": "Koşuya geçiş",
+  "progressTransitionAllMet": "Üç ölçüt de sağlandı. Kısa koşu denemelerine başlayabilirsin.",
+  "progressTransitionProgress": "{met} / 3 ölçüt sağlandı.",
+  "progressCriterionWeight": "Kilo {limit} kg altında",
+  "progressCriterionNotWeighed": "henüz tartılmadı",
+  "progressCriterionWeightNow": "şu an {value} kg",
+  "progressCriterionPushups": "Kesintisiz {count} şınav",
+  "progressCriterionNotMeasured": "henüz ölçülmedi",
+  "progressCriterionPushupsNow": "şu an {value}",
+  "progressCriterionPainFree": "Yürüyüş sonrası diz/ayak ağrısı yok",
+  "progressCriterionPainFreeHint": "Bunu ölçemem, sen bileceksin.",
+  "progressWeekLabel": "Hafta {index}",
+  "progressWeekPartial": "sürüyor · {days} gün",
+  "progressWeekAverage": "haftalık ortalama",
+  "progressWeekGym": "Salon",
+  "progressWeekHome": "Ev",
+  "progressWeekNoSlips": "Kaçak yok",
+  "progressWeekSlipDays": "{count} kaçak gün",
+  "progressWeekCountChip": "{label} {done} / {target}",
+  "@progressWeekCountChip": {
+    "placeholders": {
+      "label": {},
+      "done": {},
+      "target": {}
+    }
+  },
+  "progressChartSemantics": "Kilo grafiği. {count} ölçüm. İlk {first} kilogram, son {last} kilogram.",
+  "@progressChartSemantics": {
+    "placeholders": {
+      "count": {},
+      "first": {},
+      "last": {}
+    }
+  },
+  "commonNoRecords": "Kayıt yok",
+  "commonErrorTitle": "Bir şeyler ters gitti",
+  "commonStatusGood": "iyi",
+  "commonStatusCaution": "dikkat",
+  "commonStatusBad": "sorunlu",
+  "commonStatusUnknown": "veri yok",
+  "commonValueMissing": "değer girilmedi",
+  "commonMetricEmptySemantics": "{caption}: girilmedi",
+  "commonMetricValueSemantics": "{caption}: {value}",
+  "@commonMetricValueSemantics": {
+    "placeholders": {
+      "caption": {},
+      "value": {}
+    }
+  },
+  "commonMetricChangeSemantics": ", değişim {delta}",
+  "commonHeroValueSemantics": "{value} · {caption}",
+  "@commonHeroValueSemantics": {
+    "placeholders": {
+      "value": {},
+      "caption": {}
+    }
+  },
+  "commonNowAt": "Şu an saat {time}",
+  "commonNowLabel": "ŞİMDİ",
+  "commonWeekDotDone": "kayıt var",
+  "commonWeekDotMissed": "kayıt yok",
+  "commonWeekDotToday": "bugün",
+  "commonWeekDotFuture": "gelecek",
+  "settingsEquipmentTitle": "Ekipmanım",
+  "settingsEquipmentDescription": "İşaretlediklerin katalog filtresini ve yapay zekâya gönderilen bağlamı besliyor.",
+  "settingsEquipmentTile": "Ekipman listesi",
+  "settingsWeeklyFab": "Saat aralığı",
+  "settingsWeeklyExplanationTitle": "İki tür aralık var",
+  "settingsWeeklyExplanationBody": "· Mesai: iştesin. Yapay zekâ bu saatlere antrenman koymaz ama öğün koyabilir.\n· Uygun değil: hiçbir şey planlanmaz ve bu saatlerde bildirim çalmaz.",
+  "settingsWeeklyEmptyDay": "boş",
+  "settingsWeeklyAddTitle": "Saat aralığı ekle",
+  "settingsWeeklyKindWork": "Mesai",
+  "settingsWeeklyKindBlocked": "Uygun değil",
+  "settingsWeeklyDays": "Günler",
+  "settingsWeeklyPickDayError": "En az bir gün seç",
+  "settingsWeeklyStart": "Başlangıç",
+  "settingsWeeklyEnd": "Bitiş",
+  "settingsWeeklyOvernightHint": "Bitiş başlangıçtan küçükse aralık gece yarısını aşar.",
+  "settingsWeeklyLabel": "Açıklama",
+  "settingsWeeklyLabelHint": "Fabrika",
+  "settingsWeeklyLabelHelper": "İsteğe bağlı",
+  "settingsWeeklyAdd": "Ekle",
+  "settingsBackupTitle": "Yedekleme",
+  "settingsBackupDescription": "Tüm veriler yalnız bu cihazda. Telefon değişirse yedek almadıysan geri dönüşü yok.",
+  "settingsBackupExport": "Yedek al",
+  "settingsBackupExportSubtitle": "Dosyayı paylaş menüsüyle bir yere kaydet",
+  "settingsBackupImport": "Yedekten geri yükle",
+  "settingsBackupImportSubtitle": "Mevcut verinin üstüne yazar",
+  "settingsBackupShareText": "di@sport yedeği",
+  "settingsBackupRestored": "Yedek yüklendi. Uygulamayı kapatıp yeniden aç — açık veritabanı bağlantısı eski veriyi göstermeye devam ediyor.",
+  "settingsBackupConfirmTitle": "Mevcut verinin üstüne yazılsın mı?",
+  "settingsBackupConfirmBody": "Şu anki tüm kayıtların yedekteki hâlle değişecek. Değişmeden önceki hâl yine de cihazda saklanıyor.",
+  "settingsBackupConfirmAction": "Üstüne yaz",
+  "settingsNotificationsTitle": "Bildirimler",
+  "settingsNotificationsDescription": "Sabah tartısı hatırlatması uyanma saatine bağlı; profilde uyanma saatini gir.",
+  "settingsNotifWorkout": "Antrenman",
+  "settingsNotifWorkoutDescription": "Programdaki antrenman saatinde",
+  "settingsNotifMeal": "Öğün",
+  "settingsNotifMealDescription": "Programdaki öğün saatlerinde",
+  "settingsNotifWalk": "Yürüyüş",
+  "settingsNotifWalkDescription": "Programdaki yürüyüş saatinde",
+  "settingsNotifSupplement": "Takviye",
+  "settingsNotifSupplementDescription": "Vitamin ve takviye saatlerinde",
+  "settingsExactAlarmTitle": "Tam zamanlı alarm izni",
+  "settingsExactAlarmGranted": "Verildi — bildirimler tam saatinde çalar.",
+  "settingsExactAlarmDenied": "Verilmedi. Bildirimler yine çalar ama pil tasarrufu kipinde birkaç dakika gecikebilir. Vermek için dokun.",
+  "settingsExactAlarmLoading": "Yükleniyor…",
+  "settingsOnboardingIntro": "Önce seni tanıyalım. Bu bilgiler cihazından çıkmaz; yalnızca sen bir yapay zekâya bağlam dosyası gönderdiğinde kullanılır.",
+  "settingsOnboardingSave": "Kaydet ve başla",
+  "onboardingWelcomeTitle": "di@sport'a hoş geldin",
+  "onboardingWelcomeBody": "Diyetini, sporunu, sağlık değerlerini ve ilaçlarını tek yerden takip et.",
+  "onboardingAreaDiet": "Diyet — öğünler, kalori bütçesi, su",
+  "onboardingAreaSport": "Spor — plan, antrenman, hareket kataloğu",
+  "onboardingAreaHealth": "Sağlık — tahliller, ölçümler, ilerleme",
+  "onboardingAreaMed": "İlaç ve takviye — hatırlatma ve takip",
+  "onboardingStart": "Başlayalım",
+  "onboardingIdentityTitle": "Seni tanıyalım",
+  "onboardingFirstName": "Ad",
+  "onboardingLastName": "Soyad",
+  "onboardingFirstNameRequired": "Adını yazmadan geçemeyiz.",
+  "onboardingBirthDate": "Doğum tarihi",
+  "onboardingBirthDay": "Gün",
+  "onboardingBirthMonth": "Ay",
+  "onboardingBirthYear": "Yıl",
+  "onboardingBirthDateInvalid": "Doğum tarihi geçerli bir gün olmalı.",
+  "onboardingGender": "Cinsiyet",
+  "onboardingMale": "Erkek",
+  "onboardingFemale": "Kadın",
+  "onboardingGenderUnspecified": "Belirtmek istemiyorum",
+  "onboardingGenderWhy": "Kalori hesabında kullanılır; belirtmezsen ortalama katsayı alınır.",
+  "onboardingMeasuresTitle": "Ölçülerin",
+  "onboardingMeasuresBody": "Kilo ilk tartı kaydın olarak da işlenir — İlerleme grafiğin bugünden başlar.",
+  "onboardingHeight": "Boy",
+  "onboardingWeight": "Şu anki kilo",
+  "onboardingTargetWeight": "Hedef kilo",
+  "commonBack": "Geri",
+  "commonNext": "Devam",
+  "setupPanelTitle": "Kurulum",
+  "setupPanelProgress": "{done}/{total} tamam",
+  "@setupPanelProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "setupPanelBody": "Birkaç kısa adım kaldı. Bunlar plana da gider — ne kadar dolu, plan o kadar isabetli.",
+  "setupCardEquipment": "Ekipmanlarını seç",
+  "setupCardMedical": "Medikal bilgilerin",
+  "setupCardRhythm": "Günlük düzenin",
+  "setupCardMinutes": "{minutes} dk",
+  "@setupCardMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "setupCardSkip": "Geç",
+  "todayBirthday": "İyi ki doğdun {name}! 🎉",
+  "@todayBirthday": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "medicalTitle": "Medikal bilgiler",
+  "medicalPrivacyNote": "Bu bilgiler cihazından çıkmaz; yalnızca sen yapay zekâ belgesini paylaştığında plana girer.",
+  "medicalKindDiagnosis": "Tanılar",
+  "medicalKindCondition": "Durumlar",
+  "medicalKindRestriction": "Hareket kısıtları",
+  "medicalKindAllergy": "Alerjiler",
+  "medicalKindBloodType": "Kan grubu",
+  "medicalKindEmpty": "Kayıt yok.",
+  "medicalAddCustom": "Başka ekle",
+  "medicalCustomHint": "örn. diz hassasiyeti",
+  "medicalRemoveTitle": "{label} silinsin mi?",
+  "@medicalRemoveTitle": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "medicalRemoveBody": "Kayıt listeden kalkar; geçmiş verilerin bozulmaz.",
+  "medicalMedsTitle": "İlaçlar",
+  "medicalMedsEmpty": "Tanımlı ilaç yok. İlaçlar hatırlatma ve takip için İlaç & Takviye ekranında tutulur.",
+  "medicalMedsManage": "İlaç ve takviyeleri yönet",
+  "medicalCondInsulinResistance": "İnsülin direnci",
+  "medicalCondType2Diabetes": "Tip 2 diyabet",
+  "medicalCondHypertension": "Hipertansiyon",
+  "medicalCondThyroid": "Tiroid",
+  "medicalCondKneeIssue": "Diz sorunu",
+  "medicalCondBackIssue": "Bel sorunu",
+  "medicalCondShoulderIssue": "Omuz sorunu",
+  "medicalCondLactose": "Laktoz",
+  "medicalCondGluten": "Gluten",
+  "medicalCondNuts": "Kuruyemiş",
+  "supplementKindSupplement": "Takviye",
+  "supplementKindMedication": "İlaç",
+  "equipmentTabHome": "Evde",
+  "equipmentTabGym": "Salonda",
+  "equipmentTabSports": "Sporlar",
+  "equipmentImpactHome": "Bu işaretlerle evde {count} hareket yapılabilir.",
+  "@equipmentImpactHome": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "equipmentImpactGym": "Bu işaretlerle salonda {count} hareket yapılabilir.",
+  "@equipmentImpactGym": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "equipmentUnlocks": "+{count} hareket açar",
+  "@equipmentUnlocks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "equipmentGymToggle": "Salona gidiyor musun?",
+  "equipmentGymOffBody": "Salona gitmiyorsan burada iş yok — plan yalnız evde ve dışarıda yapılabilenlerden kurulur. Fikrin değişirse anahtarı aç.",
+  "sportsIntro": "Sevdiğin sporları seç; yapay zekâ planı onların etrafına kurar. İstersen sıklık notu ekle.",
+  "sportsChosen": "Seçtiklerin",
+  "sportsSearchHint": "Spor ara — koşu, basketbol, yüzme…",
+  "sportsNoteTooltip": "Sıklık notu",
+  "sportsNoteTitle": "Ne sıklıkla?",
+  "sportsNoteHint": "örn. haftada 1, pazar sabahı",
+  "reminderMealBody": "Öğün saati. Yediklerini Diyet'ten kaydet.",
+  "planSlotItems": "Öğün kalemleri",
+  "planSlotAddItem": "Besin ekle",
+  "waterRowTitle": "Su",
+  "waterRowAmount": "{current} / {target} ml",
+  "@waterRowAmount": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "waterRowAddGlass": "+250 ml",
+  "waterRowRemoveGlass": "Bir bardak geri al",
+  "dietPlanBadge": "PLAN",
+  "dietPlanCompliantBadge": "PLANA UYGUN",
+  "dietAteAsPlanned": "Plandaki gibi yedim",
+  "dietAteUsual": "Her zamanki",
+  "dietExternalMeal": "Dışarıda/yemekhanede — plan beklenmez, yediğini serbest gir.",
+  "dietFixedUnbound": "Sabit öğün: {note}",
+  "@dietFixedUnbound": {
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
+  "foodSortAz": "A–Z",
+  "foodSortKcalAsc": "Kalori ↑",
+  "foodSortKcalDesc": "Kalori ↓",
+  "foodSortProteinDesc": "Protein ↓",
+  "foodSortFrequent": "Sık yenen",
+  "foodForbiddenBadge": "YASAKLI",
+  "forbiddenTitle": "Yasaklı yiyecekler",
+  "forbiddenIntro": "Bu liste yapay zekâ planına gider (önerilmez) ve eşleşen besinler listede rozet taşır. Kayıt engellenmez — karar senin.",
+  "forbiddenAddHint": "örn. şeker, hamur işi, alkol",
+  "forbiddenAdd": "Ekle",
+  "forbiddenLinkFoods": "Besinlere bağla",
+  "forbiddenLinkedCount": "{count} besin bağlı",
+  "@forbiddenLinkedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "forbiddenNoPlan": "Yasaklı listesi plana yazılır; önce bir plan gerekli.",
+  "forbiddenEmpty": "Yasaklı yok. Satır ekle; istersen besinlere bağla.",
+  "dietHistoryDays": "Gün dökümü",
+  "planAdherence": "Uyum %{percent} — {done}/{planned} antrenman günü",
+  "@planAdherence": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      },
+      "planned": {
+        "type": "int"
+      }
+    }
+  },
+  "plannedVsDoneTitle": "Planlanan / Yapılan",
+  "plannedVsDoneExercises": "Hareketler",
+  "plannedVsDoneColumns": "PLAN · YAPILAN",
+  "plannedVsDoneEmptyTitle": "Bu günde antrenman yok",
+  "plannedVsDoneEmptyBody": "Plan bu güne hareket koymadı ve kayıt da girilmemiş.",
+  "plannedVsDoneOpenLive": "Antrenmanı başlat",
+  "plannedVsDoneSession": "Seans",
+  "plannedVsDoneNoSession": "Seans kaydı yok. Geçmiş gün için saat aralığını elle girebilirsin.",
+  "plannedVsDoneSessionOpen": "{start} — sürüyor",
+  "@plannedVsDoneSessionOpen": {
+    "placeholders": {
+      "start": {
+        "type": "String"
+      }
+    }
+  },
+  "plannedVsDoneMinutes": "{minutes} dk",
+  "@plannedVsDoneMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "plannedVsDoneAddSession": "Seans ekle",
+  "plannedVsDoneSessionEdit": "Seans saatleri",
+  "plannedVsDoneStart": "Başlangıç",
+  "plannedVsDoneEnd": "Bitiş",
+  "plannedVsDoneAdd": "— EKLE",
+  "plannedVsDoneNoSets": "Set kaydı yok. Aşağıdan ekle.",
+  "plannedVsDoneAddSet": "Set ekle",
+  "plannedVsDoneReps": "Tekrar",
+  "plannedVsDoneSeconds": "Saniye",
+  "sportWorkoutTodayTitle": "Bugünün antrenmanı",
+  "sportWorkoutTodayBody": "Plan bugüne antrenman koydu.",
+  "sportWorkoutHistory": "Geçmiş",
+  "sportWorkoutExerciseCount": "{count} hareket",
+  "@sportWorkoutExerciseCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "catalogSafetyLabel": "Güvenlik",
+  "catalogSafetyRestricted": "Güvenlik — kısıtınla eşleşiyor",
+  "bmiMissingHeight": "VKİ için boy gerekli — Profil'den ekle",
+  "bmiMissingWeight": "VKİ için kilo gerekli — tartıl ya da Profil'e yaz",
+  "onboardingBmiContext": "Hedefe giden yolda başlangıç noktan — plan buradan kurulacak.",
+  "bmiRowTitle": "Vücut kitle indeksi",
+  "bmiUnderweight": "Zayıf",
+  "bmiNormal": "Normal",
+  "bmiOverweight": "Fazla kilolu",
+  "bmiObese": "Obez",
+  "healthShareLabs": "Tahlil özetini paylaş",
+  "healthShareTitle": "Tahlil özeti — di@sport",
+  "checkupTitle": "Check-up rehberi",
+  "checkupDisclaimer": "Genel tarama önerileri — tıbbi tavsiye değildir, doktoruna danış.",
+  "checkupNeedsWeight": "Kilo girilirse öneriler netleşir.",
+  "checkupDue": "Vakti geldi",
+  "checkupInMonths": "{months} ay sonra",
+  "@checkupInMonths": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "checkupScheduled": "{test} vadesi takvime eklendi.",
+  "@checkupScheduled": {
+    "placeholders": {
+      "test": {
+        "type": "String"
+      }
+    }
+  },
+  "checkupFullPanel": "Tam panel (CBC, CMP, lipit, HbA1c, TSH)",
+  "checkupHba1c": "HbA1c",
+  "checkupLipid": "Lipit paneli",
+  "checkupVitaminDB12": "D vitamini + B12",
+  "supplementsTodayTitle": "Bugünün dozları",
+  "supplementsAdherenceTitle": "Son 7 gün uyum",
+  "labImportTitle": "Yapay zekâ ile tahlil aktar",
+  "labImportStep1": "Aktarım belgesini kopyala.",
+  "labImportCopyDoc": "Belgeyi kopyala",
+  "labImportShareDoc": "Paylaş",
+  "labImportCopied": "Belge panoya kopyalandı.",
+  "labImportStep2": "Belgeyi ve tahlil PDF'ini herhangi bir yapay zekâ sohbetine ver. PDF uygulamaya girmez.",
+  "labImportStep3": "Dönen JSON'u buraya yapıştır.",
+  "labImportPasteHint": "JSON belgesini buraya yapıştır",
+  "labImportParse": "Ayrıştır",
+  "labImportPreview": "Önizleme",
+  "labImportUnknownMarker": "Tahlil sözlükte yok",
+  "labImportUnexpectedUnit": "Birim beklenenden farklı",
+  "labImportImplausible": "Değer akla yatkın aralığın dışında",
+  "labImportEditTitle": "Satırı düzelt",
+  "labImportSave": "{save} değeri kaydet · {skip} atla",
+  "@labImportSave": {
+    "placeholders": {
+      "save": {
+        "type": "int"
+      },
+      "skip": {
+        "type": "int"
+      }
+    }
+  },
+  "labImportSaved": "{count} tahlil değeri kaydedildi.",
+  "@labImportSaved": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "healthImportWithAi": "Yapay zekâ ile PDF'ten aktar",
+  "ctxSectionsTitle": "AI'a gönderilecekler",
+  "ctxSectionsIntro": "Plan isteği belgesine hangi bölümlerin gireceğini sen seçersin. Kapalı bölüm belgeye hiç yazılmaz. Kim/hedef/görev her zaman girer — onlarsız plan istenemez.",
+  "ctxPreviewButton": "Önce belgeyi gör",
+  "ctxPreviewTitle": "Belge önizleme",
+  "ctxCopy": "Kopyala",
+  "ctxShare": "Paylaş",
+  "ctxSectionMedical": "Medikal",
+  "ctxSectionMedicalHint": "Durumlar, kısıtlar, tahliller ve ilaçlar",
+  "ctxSectionEnvironment": "Ortam",
+  "ctxSectionEnvironmentHint": "Ekipman envanteri ve sevdiğin sporlar",
+  "ctxSectionRoutine": "Öğün davranışları",
+  "ctxSectionRoutineHint": "Öğün saatleri ve yemekhane/sabit öğün bilgisi",
+  "ctxSectionForbidden": "Yasaklı yiyecekler",
+  "ctxSectionForbiddenHint": "AI bu listeyi asla önermez",
+  "ctxSectionRecent": "Son 14 gün",
+  "ctxSectionRecentHint": "Öğünler, su (ml), ilaç uyumu, antrenman, kilo",
+  "ctxSectionNotes": "Kendi sözlerin",
+  "ctxSectionNotesHint": "Gün notların olduğu gibi",
+  "ctxSectionFoods": "Besin listesi",
+  "ctxSectionFoodsHint": "368 besin — AI öğünleri besin id'siyle yazabilsin",
+  "moreAiSections": "AI'a gönderilecekler",
+  "importPlanGraftTitle": "Mevcut planın üstüne aşıla",
+  "importPlanGraftBody": "{date} öncesi aynen korunur; o tarihten sonrası bu planla değiştirilir. Kayıtlarına dokunulmaz.",
+  "@importPlanGraftBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "requestScopeTitle": "Plan kapsamı",
+  "requestScopeBody": "Aktif bir planın var. Yeni plan nereden başlasın?",
+  "requestScopeGraft": "Şu tarihten sonrası",
+  "requestScopeFresh": "Baştan yeni plan",
+  "importWarningsTitle": "{count} uyarı",
+  "@importWarningsTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importWarningsFootnote": "Uyarılar içeri almayı engellemez; istersen sonra editörle düzelt.",
+  "importWarnForbidden": "Yasaklı besin planda: {id}",
+  "@importWarnForbidden": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "importWarnUnknownFood": "Besin listesinde yok: {id}",
+  "@importWarnUnknownFood": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "importWarnCannotPerform": "Ekipmanınla yapılamıyor: {id}",
+  "@importWarnCannotPerform": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "importWarnExternalMeal": "Dışarıda yenen öğüne plan yazılmış: {meal}",
+  "@importWarnExternalMeal": {
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
+  "importWarnFixedMeal": "Sabit öğün planda farklı: {meal}",
+  "@importWarnFixedMeal": {
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
+  "importWarnRestriction": "Hareket kısıtınla eşleşiyor: {id}",
+  "@importWarnRestriction": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "rhythmMealsSection": "Öğünler",
+  "rhythmMealFlexible": "Saat esnek",
+  "mealBehaviorPlanned": "Plan doldurur",
+  "mealBehaviorFixed": "Hep aynı",
+  "mealBehaviorExternal": "Yemekhane/dışarıda",
+  "mealBehaviorFixedNoteLabel": "Ne yenir?",
+  "mealBehaviorFixedNoteHint": "örn. menemen + çay",
+  "mealBehaviorSheetTitle": "{meal} düzeni",
+  "@mealBehaviorSheetTitle": {
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
+  "mealBehaviorTimeLabel": "Saat",
+  "mealBehaviorTimeClear": "Saati kaldır",
+  "mealBehaviorWhy": "Bu bilgi yapay zekâ planına gider: sabit öğün değiştirilmez, dışarıda yenen öğün planlanmaz.",
+  "settingsProfileHeightRequired": "Boy alanı gerekli.",
+  "settingsProfileContextNote": "Bu bilgiler yapay zekâya gönderilen bağlam dosyasına girer. Ne kadar doldurursan plan o kadar sana göre olur; boş bıraktıkların \"belirtilmedi\" diye geçer.",
+  "importPlanTitle": "Planı içeri al",
+  "importPlanDescription": "Yapay zekânın verdiği JSON belgesini buraya yapıştır.",
+  "importPlanValidate": "Doğrula",
+  "importPlanImport": "İçeri al",
+  "importPlanFailedTitle": "Plan alınamadı",
+  "importPlanPasteBackHint": "Bu mesajı olduğu gibi yapay zekâya yapıştır; neyi düzelteceğini bilecek.",
+  "importPlanCopyError": "Hatayı kopyala",
+  "importPlanErrorCopied": "Hata mesajı kopyalandı",
+  "importPlanLoaded": "{days} günlük plan yüklendi.",
+  "importPlanLoadedWithExercises": "{days} günlük plan yüklendi, {count} yeni hareket eklendi.",
+  "@importPlanLoadedWithExercises": {
+    "placeholders": {
+      "days": {},
+      "count": {}
+    }
+  },
+  "importPlanSummary": "{startDate} tarihinden itibaren {weeks} hafta · {days} gün",
+  "@importPlanSummary": {
+    "placeholders": {
+      "startDate": {},
+      "weeks": {},
+      "days": {}
+    }
+  },
+  "importPlanGym": "Salon {count}",
+  "importPlanHome": "Ev {count}",
+  "importPlanRest": "Dinlenme {count}",
+  "importPlanGoals": "{kcal} kcal · {protein} g protein · {water} L su · hedef −{loss} kg",
+  "@importPlanGoals": {
+    "placeholders": {
+      "kcal": {},
+      "protein": {},
+      "water": {},
+      "loss": {}
+    }
+  },
+  "importPlanNewExercisesTitle": "Yeni hareket önerileri",
+  "importPlanNewExercisesDescription": "Onayladıkların kataloğa kalıcı olarak eklenir.",
+  "todayWeekNumber": "{week}. hafta",
+  "todayDayTypeGym": "Salon günü",
+  "todayDayTypeHome": "Ev antrenmanı",
+  "todayDayTypeRest": "Dinlenme günü",
+  "todayNextEyebrow": "Sırada · {time}",
+  "todayExerciseCount": "{count} hareket",
+  "todayDinnerHint": "Akşam önerisi: {text}",
+  "todayNoPlanTitle": "Bugün için plan yok",
+  "todayNoPlanBody": "Plan sekmesinden bir program yükle. Tartı ve günün kutucukları plan olmadan da çalışır.",
+  "todayCheckedLabel": "işaretli",
+  "todayUncheckedLabel": "işaretsiz",
+  "todayRulesTitle": "Günün kuralları",
+  "todayEditRulesTooltip": "Kuralları düzenle",
+  "todayNoRulesTitle": "Kural yok",
+  "todayNoRulesBody": "Her gün takip etmek istediğin şeyleri ekle — su, takviye, erken yatma. Sağ üstteki ayar düğmesinden.",
+  "todayRulesEditorEmptyBody": "Aşağıdaki düğmeden ilk kuralını ekle.",
+  "todayRuleFabLabel": "Kural",
+  "todayDeleteRuleTitle": "\"{label}\" silinsin mi?",
+  "todayDeleteRuleBody": "Bugünden sonra listede görünmez. Geçmiş günlerdeki işaretlerin olduğu gibi kalır.",
+  "todayBuiltInRuleNote": "Çizelgeden gelen kural",
+  "todayRuleNameRequired": "Kural adı gerekli",
+  "todayAddRule": "Kural ekle",
+  "todayEditRule": "Kuralı düzenle",
+  "todayRuleLabel": "Kural",
+  "todayRuleHint": "Kreatin aldım",
+  "todayIconLabel": "İkon",
+  "todayNoteTitle": "Not",
+  "todayNoteDescription": "Ne yedin, ne zorladı, nasıl geçti.",
+  "todayNoteHint": "Bugün nasıl geçti?",
+  "todayWeightLabel": "Kilo",
+  "todayWeightUnit": "kg",
+  "todayMissedStreakTitle": "{count} gün üst üste antrenman yok",
+  "todayMissedStreakBody": "Kural buydu: iki günü üst üste kaçırma. Bugün kısa da olsa bir şey yap.",
+  "planEmptyTitle": "Henüz plan yok",
+  "planEmptyBody": "Yukarıdaki \"Yeni plan iste\" düğmesiyle bağlam dosyanı üret, bir yapay zekâya ver, dönen JSON belgesini \"İçeri al\" ile buraya aktar.",
+  "planLoadSample": "Örnek planı yükle (geliştirme)",
+  "planShareSubject": "di@sport — plan isteği",
+  "planRequestButton": "Yeni plan iste",
+  "planImportButton": "İçeri al",
+  "planDayCount": "{count} gün",
+  "planWeekLabel": "Hafta {week}",
+  "planLegendDone": "Tamamlandı",
+  "planLegendPartial": "Kısmen",
+  "planLegendFree": "Serbest",
+  "planLegendWorkout": "Antrenman ▲",
+  "planGoalDaily": "Günlük",
+  "planGoalProtein": "Protein",
+  "planGoalWater": "Su",
+  "planGoalTarget": "Hedef",
+  "planNutritionRules": "Beslenme kuralları",
+  "planRulesForbidden": "Kesinlikle yok",
+  "planRulesFree": "Serbest",
+  "planWeekdayInitials": "P,S,Ç,P,C,C,P",
+  "planMonthNames": "Ocak,Şubat,Mart,Nisan,Mayıs,Haziran,Temmuz,Ağustos,Eylül,Ekim,Kasım,Aralık",
+  "planCellToday": "bugün",
+  "planCellDone": "tamamlandı",
+  "planCellEmpty": "kayıt yok",
+  "planCellFuture": "henüz gelmedi",
+  "planCellFreeSpoken": "serbest gün",
+  "reminderSlotFallbackTitle": "Programda bir adım",
+  "reminderSlotWorkoutBody": "Antrenman vakti. Hazırsan başlayalım.",
+  "reminderSlotOtherBody": "Programdaki sıradaki adım.",
+  "reminderWeighInTitle": "Sabah tartısı",
+  "reminderWeighInBody": "Aç karnına, aynı koşullarda tartıl.",
+  "reminderMissStreakTitle": "Zincir kopuyor",
+  "reminderMissStreakBody": "Antrenmanı iki gün üst üste kaçırdın. Bugün kısa bir şey yapmak, hiç yapmamaktan iyi.",
+  "reminderDueLabTitle": "Tahlil zamanı",
+  "reminderDueLabBody": "{marker} tahlilinin vakti geldi.",
+  "reminderPlanEndingTitle": "Plan bitiyor",
+  "reminderPlanEndingToday": "Plan bugün bitiyor. Yeni plan için bağlam dosyasını al.",
+  "reminderPlanEndingIn": "Plan {days} gün sonra bitiyor. Yeni planı hazırlamanın vakti.",
+  "supplementsTitle": "Takviye ve ilaçlar",
+  "supplementsDescription": "Vitamin, takviye, ilaç — saatini gir, Bugün ekranında işaretle.",
+  "supplementsOpen": "Takviye listesi",
+  "supplementsEmptyTitle": "Takviye eklenmemiş",
+  "supplementsEmptyDescription": "Vitamin, ilaç, ne alıyorsan ekle. Saatini girersen hatırlatma da kurulur.",
+  "supplementAddFab": "Takviye",
+  "supplementAddTitle": "Takviye ekle",
+  "supplementEditTitle": "Takviyeyi düzenle",
+  "supplementNameLabel": "Ad",
+  "supplementNameHint": "D Vitamini",
+  "supplementNameRequired": "Ad gerekli",
+  "supplementDoseLabel": "Doz",
+  "supplementDoseHint": "1000",
+  "supplementUnitLabel": "Birim",
+  "supplementUnitHint": "IU",
+  "supplementNoteLabel": "Not",
+  "supplementNoteHint": "Yemekle birlikte",
+  "supplementTimesSection": "Saatler",
+  "supplementTimesEmpty": "Saat eklenmedi — hatırlatma kurulmaz.",
+  "supplementAddTime": "Saat ekle",
+  "supplementDaysSection": "Günler",
+  "supplementEveryDay": "Her gün",
+  "supplementDeleteTitle": "\"{name}\" silinsin mi?",
+  "supplementDeleteBody": "Listeden ve hatırlatmalardan kalkar. Geçmiş kayıtların durur — hiçbir şey kaybolmaz.",
+  "reminderSupplementBody": "Alma vakti geldi.",
+  "reminderSupplementBodyWithDose": "{dose} — alma vakti geldi.",
+  "equipmentBodyOnly": "Vücut ağırlığı",
+  "equipmentBarbell": "Halter",
+  "equipmentDumbbell": "Dambıl",
+  "equipmentKettlebell": "Kettlebell",
+  "equipmentCable": "Kablo makinesi",
+  "equipmentMachine": "Makine",
+  "equipmentBands": "Direnç bandı",
+  "equipmentMedicineBall": "Sağlık topu",
+  "equipmentExerciseBall": "Pilates topu",
+  "equipmentFoamRoll": "Köpük rulo",
+  "equipmentEzCurlBar": "Z bar",
+  "equipmentOther": "Ev eşyası",
+  "equipmentNone": "Ekipman gerekmiyor",
+  "equipmentPullUpBar": "Barfiks demiri",
+  "equipmentDipBars": "Paralel bar",
+  "equipmentBench": "Sehpa",
+  "equipmentJumpRope": "Atlama ipi",
+  "catalogEquipmentMissingHome": "{equipment} gerekiyor (evinde yok)",
+  "catalogEquipmentMissingGym": "{equipment} gerekiyor (salonunda yok)",
+  "foodSearchHint": "Besin ara",
+  "foodSearchEmptyTitle": "Bulunamadı",
+  "foodSearchEmptyMessage": "Daha kısa bir sözcük dene ya da diğer dilde ara.",
+  "foodStartTitle": "Henüz kayıt yok",
+  "foodStartMessage": "Bir besin ara ya da yukarıdan tür seç.",
+  "foodFrequentTitle": "Sık yediklerin",
+  "foodCopyLastMeal": "Bu öğünü son seferkinden kopyala",
+  "foodCopyDone": "{count, plural, one{1 kalem kopyalandı} other{{count} kalem kopyalandı}}",
+  "@foodCopyDone": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "foodCopyNothingToCopy": "Bu öğünde daha önce kayıt yok",
+  "foodPer100g": "100 g'da {kcal} kcal",
+  "@foodPer100g": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "foodPerPortion": "{portion} — {kcal} kcal",
+  "@foodPerPortion": {
+    "placeholders": {
+      "portion": {
+        "type": "String"
+      },
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "foodCategoryYemek": "Yemek",
+  "foodCategoryCorba": "Çorba",
+  "foodCategoryKahvaltilik": "Kahvaltılık",
+  "foodCategoryMeyve": "Meyve",
+  "foodCategorySebze": "Sebze",
+  "foodCategoryKuruyemis": "Kuruyemiş",
+  "foodCategoryIcecek": "İçecek",
+  "foodCategoryTahil": "Tahıl",
+  "foodCategoryEtBalik": "Et ve balık",
+  "foodCategorySutUrunu": "Süt ürünü",
+  "foodCategoryAtistirmalik": "Atıştırmalık",
+  "foodCategoryDiger": "Diğer",
+  "mealKahvalti": "Kahvaltı",
+  "mealAraOgun": "Kuşluk",
+  "mealOgle": "Öğle",
+  "mealIkindi": "İkindi",
+  "mealAksam": "Akşam",
+  "mealGece": "Gece",
+  "portionUnitGrams100": "100 g",
+  "portionCustomGramsLabel": "Tarttın mı?",
+  "portionCustomGramsHelper": "Gram girersen porsiyonun yerine geçer",
+  "portionGrams": "MİKTAR",
+  "portionKcal": "KALORİ",
+  "portionProtein": "PROTEİN",
+  "portionAddToMeal": "Öğüne ekle",
+  "portionDecrease": "Bir azalt",
+  "portionIncrease": "Bir artır",
+  "activityLogTitle": "Aktivite ekle",
+  "activitySearchHint": "Aktivite ara",
+  "activityMinutesLabel": "Dakika",
+  "activityAdd": "Ekle",
+  "activityEmptyTitle": "Eşleşen aktivite yok",
+  "activityEmptyMessage": "Başka bir sözcük dene ya da aşağıdan kendin ekle.",
+  "effortLight": "Hafif",
+  "effortModerate": "Orta",
+  "effortVigorous": "Zorlu",
+  "todayMealsTitle": "Öğünler",
+  "todayActivitiesTitle": "Hareket",
+  "todayAddMeal": "Öğün ekle",
+  "todayAddActivity": "Aktivite ekle",
+  "todayHeroRemaining": "BUGÜN KALAN",
+  "todayHeroEatenNoPlan": "BUGÜN YENEN",
+  "todayMetricWater": "SU",
+  "todayMetricMeds": "İLAÇ",
+  "todayMetricProtein": "PROTEİN",
+  "todayMetricBurned": "YAKILAN",
+  "mealEntryRemoved": "Kaldırıldı",
+  "progressCaloriesTitle": "Bu haftanın kalorisi",
+  "progressCaloriesGoalLine": "Hedef",
+  "progressDayBreakdown": "{date} dökümü",
+  "@progressDayBreakdown": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "catalogTabOutside": "Dışarıda",
+  "dayBadgePast": "GEÇMİŞ GÜN",
+  "dayBadgeFuture": "PLANLANAN GÜN",
+  "dayBackToToday": "Bugüne dön",
+  "dayPrevious": "Önceki gün",
+  "dayNext": "Sonraki gün",
+  "dayPickDate": "Tarih seç",
+  "dayFutureNoEntry": "Planı görebilirsin ama kayıt günü gelince girilir.",
+  "planSettingsTitle": "Plan ayarları",
+  "planSettingsName": "Plan adı",
+  "planSettingsNameRequired": "Plana bir ad ver",
+  "planSettingsGoals": "Hedefler",
+  "planGoalKcal": "Günlük kalori",
+  "planGoalWeeklyGym": "Haftada salon günü",
+  "planGoalWeeklyHome": "Haftada ev günü",
+  "planGoalTargetLoss": "Hedef kayıp (kg)",
+  "planGoalRange": "{min} ile {max} arasında bir değer gir",
+  "@planGoalRange": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "planRuleAdd": "Satır ekle",
+  "commonRemove": "Kaldır",
+  "commonAdd": "Ekle",
+  "planEditDay": "Günü düzenle",
+  "planDayType": "Gün tipi",
+  "planDayTypeGym": "Salon",
+  "planDayTypeHome": "Ev",
+  "planDayTypeRest": "Dinlenme",
+  "planDayHeadline": "Başlık",
+  "planDayDinner": "Akşam önerisi",
+  "planSlotNew": "Yeni slot",
+  "planSlotEdit": "Slotu düzenle",
+  "planSlotTime": "Saat",
+  "planSlotKind": "Tür",
+  "planSlotLabel": "Etiket",
+  "planSlotNote": "Not",
+  "planSlotMealKind": "Hangi öğün",
+  "planSlotMealKindRequired": "Hangi öğün olduğunu seç",
+  "planSlotLabelRequired": "Slota bir etiket ver",
+  "planExerciseNew": "Hareket ekle",
+  "planExerciseEdit": "Hareketi düzenle",
+  "planExercisePick": "Katalogdan seç",
+  "planExerciseSets": "Set",
+  "planExerciseReps": "Tekrar",
+  "planExerciseDuration": "Süre (dk)",
+  "planExerciseRest": "Dinlenme (sn)",
+  "planExerciseSpeed": "Hız (km/sa)",
+  "planExerciseGrade": "Eğim (%)",
+  "planExerciseEffort": "Efor",
+  "planExerciseRequired": "Önce bir hareket seç",
+  "planOriginAiEdited": "AI planı · düzenlendi",
+  "planOriginManual": "Elle kuruldu",
+  "planCreateEmpty": "Boş plan kur",
+  "planCreateTitle": "Yeni plan",
+  "planCreateWeeks": "Hafta",
+  "planCreateStart": "Başlangıç tarihi",
+  "planCreateDone": "Kur",
+  "dailyRhythmTitle": "Günlük Düzen",
+  "dailyRhythmDescription": "Ne zaman kalkıyorsun, ne zaman yatıyorsun, ne zaman ulaşılamıyorsun.",
+  "dailyRhythmWake": "Kalkış",
+  "dailyRhythmSleep": "Uyku",
+  "slotKindMeal": "Öğün",
+  "slotKindWorkout": "Antrenman",
+  "slotKindSleep": "Uyku",
+  "slotKindMeasurement": "Ölçüm",
+  "slotKindLab": "Tahlil",
+  "slotKindOther": "Diğer",
+  "tabHome": "Ana Sayfa",
+  "tabDiet": "Diyet",
+  "tabSport": "Spor",
+  "tabMore": "Daha",
+  "tabHomeHint": "Günün özeti ve akışı",
+  "tabDietHint": "Öğünler, besinler, kalori geçmişi",
+  "tabSportHint": "Plan, antrenman, hareket kataloğu",
+  "tabMoreHint": "Verilerin ve uygulama ayarları",
+  "dietTabDaily": "Günlük",
+  "dietTabFoods": "Besinler",
+  "dietTabHistory": "Geçmiş",
+  "sportTabPlan": "Plan",
+  "sportTabWorkout": "Antrenman",
+  "sportTabCatalog": "Katalog",
+  "healthTabLabs": "Tahlil",
+  "healthTabMeasure": "Ölçüm",
+  "healthTabMeds": "İlaç",
+  "sportWorkoutEmptyTitle": "Henüz seans yok",
+  "sportWorkoutEmptyMessage": "Antrenmanı plandan başlat; biten seanslar burada görünür.",
+  "moreYourData": "Planını etkileyenler",
+  "moreYourDataHint": "AI'a gider",
+  "moreApp": "Uygulama",
+  "moreProfile": "Profil",
+  "moreEquipment": "Ekipmanların",
+  "moreRhythm": "Günlük düzen",
+  "moreRules": "Günlük kurallar",
+  "moreNotifications": "Bildirimler",
+  "moreAppearance": "Görünüm ve dil",
+  "moreBackup": "Yedekleme",
+  "todayStepsLabel": "Adım",
+  "todayStepsUnit": "adım",
+  "dietMealSkippedAction": "Atlandı",
+  "dietMealSkippedLabel": "Atlandı: {reason}",
+  "dietSkipUndo": "Atlamayı geri al",
+  "dietSkipSheetTitle": "Neden atlandı?",
+  "dietSkipReasonWork": "Mesai",
+  "dietSkipReasonAppetite": "İştahsızlık",
+  "dietSkipReasonOut": "Dışarıdaydım",
+  "dietSkipReasonOther": "Diğer",
+  "dietSkipReasonHint": "kısa neden",
+  "@dietMealSkippedLabel": {
+    "placeholders": {
+      "reason": {}
+    }
+  },
+  "moodBlockTitle": "Bugün nasıl hissettin?",
+  "moodLevel1": "Çok kötü",
+  "moodLevel2": "Kötü",
+  "moodLevel3": "İdaresi",
+  "moodLevel4": "İyi",
+  "moodLevel5": "Çok iyi",
+  "moodSymptomsLabel": "Belirti",
+  "moodSymptomsHint": "baş ağrısı, halsizlik",
+  "moodStressedLabel": "Yoğun/stresli gündü",
+  "sleepBlockTitle": "Uyku",
+  "sleepBedLabel": "Yatış",
+  "sleepWakeLabel": "Kalkış",
+  "sleepNapLabel": "Kestirme",
+  "sleepNapUnit": "dk",
+  "sleepHoursOnlyLabel": "Yalnız süre",
+  "sleepHoursUnit": "sa",
+  "sleepTotal": "{hours} sa {minutes} dk uyku",
+  "sleepPickTime": "Saat seç",
+  "sleepClear": "Saatleri temizle",
+  "@sleepTotal": {
+    "placeholders": {
+      "hours": {},
+      "minutes": {}
+    }
+  },
+  "dayFlowEnterMeal": "+ GİR",
+  "dayFlowTitle": "Günün akışı",
+  "dayFlowWeighIn": "Tartı",
+  "dayFlowCollapse": "Daha az göster",
+  "dayFlowExpand": "Günün tamamı ({count})",
+  "@dayFlowExpand": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "equipmentChair": "Sandalye",
+  "equipmentStep": "Basamak / merdiven"
+}

@@ -1,0 +1,581 @@
+{
+  "version": 1,
+  "activities": [
+    {
+      "id": "badminton",
+      "nameEn": "Badminton, social",
+      "nameTr": "Badminton",
+      "category": "sports",
+      "met": 4.5,
+      "source": "compendium"
+    },
+    {
+      "id": "basketball_casual",
+      "nameEn": "Basketball, shooting baskets",
+      "nameTr": "Basketbol (serbest)",
+      "category": "sports",
+      "met": 4.5,
+      "source": "compendium"
+    },
+    {
+      "id": "basketball_game",
+      "nameEn": "Basketball, game",
+      "nameTr": "Basketbol (mac)",
+      "category": "sports",
+      "met": 8.0,
+      "source": "compendium"
+    },
+    {
+      "id": "boxing_bag",
+      "nameEn": "Boxing, punching bag",
+      "nameTr": "Boks (kum torbasi)",
+      "category": "combat",
+      "met": 5.5,
+      "source": "compendium"
+    },
+    {
+      "id": "boxing_ring",
+      "nameEn": "Boxing, in ring",
+      "nameTr": "Boks (ring)",
+      "category": "combat",
+      "met": 12.8,
+      "source": "compendium"
+    },
+    {
+      "id": "calisthenics_light",
+      "nameEn": "Calisthenics, light effort",
+      "nameTr": "Kalistenik (hafif)",
+      "category": "gym",
+      "met": 3.5,
+      "source": "compendium"
+    },
+    {
+      "id": "calisthenics_vigorous",
+      "nameEn": "Calisthenics, vigorous effort",
+      "nameTr": "Kalistenik (yogun)",
+      "category": "gym",
+      "met": 8.0,
+      "source": "compendium"
+    },
+    {
+      "id": "carrying_groceries",
+      "nameEn": "Carrying groceries upstairs",
+      "nameTr": "Alisveris Tasima",
+      "category": "home",
+      "met": 7.5,
+      "source": "compendium"
+    },
+    {
+      "id": "child_care",
+      "nameEn": "Child care, active",
+      "nameTr": "Cocuk Bakimi",
+      "category": "home",
+      "met": 3.5,
+      "source": "compendium"
+    },
+    {
+      "id": "circuit_training",
+      "nameEn": "Circuit training",
+      "nameTr": "Circuit Antrenman",
+      "category": "gym",
+      "met": 7.2,
+      "source": "compendium"
+    },
+    {
+      "id": "cleaning_heavy",
+      "nameEn": "Cleaning, heavy effort",
+      "nameTr": "Ev Temizligi (agir)",
+      "category": "home",
+      "met": 3.5,
+      "source": "compendium"
+    },
+    {
+      "id": "cleaning_light",
+      "nameEn": "Cleaning, light effort",
+      "nameTr": "Ev Temizligi (hafif)",
+      "category": "home",
+      "met": 2.3,
+      "source": "compendium"
+    },
+    {
+      "id": "climbing",
+      "nameEn": "Rock climbing, ascending",
+      "nameTr": "Tirmanis",
+      "category": "outdoor",
+      "met": 8.0,
+      "source": "compendium"
+    },
+    {
+      "id": "construction_work",
+      "nameEn": "Construction, general",
+      "nameTr": "Insaat Isi",
+      "category": "work",
+      "met": 5.5,
+      "source": "compendium"
+    },
+    {
+      "id": "cooking",
+      "nameEn": "Cooking, standing",
+      "nameTr": "Yemek Yapma",
+      "category": "home",
+      "met": 2.0,
+      "source": "compendium"
+    },
+    {
+      "id": "cycling_leisure",
+      "nameEn": "Cycling, leisure (16 km/h)",
+      "nameTr": "Bisiklet (gezinti)",
+      "category": "cycling",
+      "met": 5.8,
+      "source": "compendium"
+    },
+    {
+      "id": "cycling_moderate",
+      "nameEn": "Cycling, moderate (19-22 km/h)",
+      "nameTr": "Bisiklet (orta tempo)",
+      "category": "cycling",
+      "met": 8.0,
+      "source": "compendium"
+    },
+    {
+      "id": "cycling_mountain",
+      "nameEn": "Mountain biking",
+      "nameTr": "Daglik Bisiklet",
+      "category": "cycling",
+      "met": 8.5,
+      "source": "compendium"
+    },
+    {
+      "id": "cycling_vigorous",
+      "nameEn": "Cycling, vigorous (23-25 km/h)",
+      "nameTr": "Bisiklet (hizli)",
+      "category": "cycling",
+      "met": 10.0,
+      "source": "compendium"
+    },
+    {
+      "id": "dancing_general",
+      "nameEn": "Dancing, general",
+      "nameTr": "Dans",
+      "category": "dance",
+      "met": 5.0,
+      "source": "compendium"
+    },
+    {
+      "id": "desk_work",
+      "nameEn": "Sitting, office work",
+      "nameTr": "Masa Basi Calisma",
+      "category": "work",
+      "met": 1.5,
+      "source": "compendium"
+    },
+    {
+      "id": "driving",
+      "nameEn": "Driving a car",
+      "nameTr": "Arac Kullanma",
+      "category": "work",
+      "met": 2.5,
+      "source": "compendium"
+    },
+    {
+      "id": "elliptical",
+      "nameEn": "Elliptical trainer, moderate",
+      "nameTr": "Eliptik",
+      "category": "gym",
+      "met": 5.0,
+      "source": "compendium"
+    },
+    {
+      "id": "fishing",
+      "nameEn": "Fishing, standing",
+      "nameTr": "Balik Tutma",
+      "category": "outdoor",
+      "met": 3.5,
+      "source": "compendium"
+    },
+    {
+      "id": "football_casual",
+      "nameEn": "Soccer, casual",
+      "nameTr": "Futbol (serbest)",
+      "category": "sports",
+      "met": 7.0,
+      "source": "compendium"
+    },
+    {
+      "id": "football_game",
+      "nameEn": "Soccer, competitive",
+      "nameTr": "Futbol (mac)",
+      "category": "sports",
+      "met": 10.0,
+      "source": "compendium"
+    },
+    {
+      "id": "gardening",
+      "nameEn": "Gardening, general",
+      "nameTr": "Bahce Isi",
+      "category": "home",
+      "met": 3.8,
+      "source": "compendium"
+    },
+    {
+      "id": "golf",
+      "nameEn": "Golf, walking, carrying clubs",
+      "nameTr": "Golf",
+      "category": "outdoor",
+      "met": 4.8,
+      "source": "compendium"
+    },
+    {
+      "id": "handball",
+      "nameEn": "Handball, general",
+      "nameTr": "Hentbol",
+      "category": "sports",
+      "met": 12.0,
+      "source": "compendium"
+    },
+    {
+      "id": "hiit",
+      "nameEn": "High intensity interval training",
+      "nameTr": "HIIT",
+      "category": "gym",
+      "met": 8.0,
+      "source": "compendium"
+    },
+    {
+      "id": "hiking",
+      "nameEn": "Hiking, cross country",
+      "nameTr": "Doga Yuruyusu",
+      "category": "walking",
+      "met": 5.3,
+      "source": "compendium"
+    },
+    {
+      "id": "horseback_riding",
+      "nameEn": "Horseback riding, general",
+      "nameTr": "Binicilik",
+      "category": "outdoor",
+      "met": 5.5,
+      "source": "compendium"
+    },
+    {
+      "id": "ice_skating",
+      "nameEn": "Ice skating, general",
+      "nameTr": "Buz Pateni",
+      "category": "outdoor",
+      "met": 7.0,
+      "source": "compendium"
+    },
+    {
+      "id": "jogging_general",
+      "nameEn": "Jogging, general",
+      "nameTr": "Hafif Kosu",
+      "category": "running",
+      "met": 7.0,
+      "source": "compendium"
+    },
+    {
+      "id": "martial_arts",
+      "nameEn": "Martial arts, moderate pace",
+      "nameTr": "Dovus Sanatlari",
+      "category": "combat",
+      "met": 10.3,
+      "source": "compendium"
+    },
+    {
+      "id": "moving_furniture",
+      "nameEn": "Moving furniture, household",
+      "nameTr": "Esya Tasima",
+      "category": "home",
+      "met": 5.8,
+      "source": "compendium"
+    },
+    {
+      "id": "mowing_lawn",
+      "nameEn": "Mowing lawn, walking mower",
+      "nameTr": "Cim Bicme",
+      "category": "home",
+      "met": 5.0,
+      "source": "compendium"
+    },
+    {
+      "id": "padel",
+      "nameEn": "Padel",
+      "nameTr": "Padel",
+      "category": "sports",
+      "met": 6.0,
+      "source": "compendium"
+    },
+    {
+      "id": "pilates",
+      "nameEn": "Pilates, general",
+      "nameTr": "Pilates",
+      "category": "gym",
+      "met": 3.0,
+      "source": "compendium"
+    },
+    {
+      "id": "rollerblading",
+      "nameEn": "Rollerblading, moderate",
+      "nameTr": "Paten",
+      "category": "outdoor",
+      "met": 9.8,
+      "source": "compendium"
+    },
+    {
+      "id": "rope_jumping",
+      "nameEn": "Rope jumping, moderate",
+      "nameTr": "Ip Atlama",
+      "category": "gym",
+      "met": 11.8,
+      "source": "compendium"
+    },
+    {
+      "id": "rowing_machine",
+      "nameEn": "Rowing machine, moderate",
+      "nameTr": "Kurek Makinesi",
+      "category": "gym",
+      "met": 7.0,
+      "source": "compendium"
+    },
+    {
+      "id": "rowing_moderate",
+      "nameEn": "Rowing, moderate",
+      "nameTr": "Kurek",
+      "category": "water",
+      "met": 7.0,
+      "source": "compendium"
+    },
+    {
+      "id": "running_10",
+      "nameEn": "Running, 10 km/h",
+      "nameTr": "Kosu (10 km/h)",
+      "category": "running",
+      "met": 9.8,
+      "source": "compendium"
+    },
+    {
+      "id": "running_12",
+      "nameEn": "Running, 12 km/h",
+      "nameTr": "Kosu (12 km/h)",
+      "category": "running",
+      "met": 11.8,
+      "source": "compendium"
+    },
+    {
+      "id": "running_8",
+      "nameEn": "Running, 8 km/h",
+      "nameTr": "Kosu (8 km/h)",
+      "category": "running",
+      "met": 8.3,
+      "source": "compendium"
+    },
+    {
+      "id": "shopping",
+      "nameEn": "Shopping, walking",
+      "nameTr": "Alisveris",
+      "category": "home",
+      "met": 2.3,
+      "source": "compendium"
+    },
+    {
+      "id": "shoveling_snow",
+      "nameEn": "Shoveling snow, by hand",
+      "nameTr": "Kar Kureme",
+      "category": "home",
+      "met": 5.3,
+      "source": "compendium"
+    },
+    {
+      "id": "skiing_downhill",
+      "nameEn": "Skiing, downhill, moderate",
+      "nameTr": "Kayak",
+      "category": "outdoor",
+      "met": 5.3,
+      "source": "compendium"
+    },
+    {
+      "id": "spinning",
+      "nameEn": "Spinning class",
+      "nameTr": "Spinning",
+      "category": "cycling",
+      "met": 8.5,
+      "source": "compendium"
+    },
+    {
+      "id": "stair_climbing",
+      "nameEn": "Stair climbing",
+      "nameTr": "Merdiven Cikma",
+      "category": "walking",
+      "met": 8.8,
+      "source": "compendium"
+    },
+    {
+      "id": "stair_machine",
+      "nameEn": "Stair-treadmill ergometer",
+      "nameTr": "Merdiven Makinesi",
+      "category": "gym",
+      "met": 9.0,
+      "source": "compendium"
+    },
+    {
+      "id": "standing_work",
+      "nameEn": "Standing, light work",
+      "nameTr": "Ayakta Calisma",
+      "category": "work",
+      "met": 2.0,
+      "source": "compendium"
+    },
+    {
+      "id": "stretching",
+      "nameEn": "Stretching, mild",
+      "nameTr": "Esneme",
+      "category": "gym",
+      "met": 2.3,
+      "source": "compendium"
+    },
+    {
+      "id": "surfing",
+      "nameEn": "Surfing, body or board",
+      "nameTr": "Sorf",
+      "category": "water",
+      "met": 3.0,
+      "source": "compendium"
+    },
+    {
+      "id": "swimming_freestyle",
+      "nameEn": "Swimming, freestyle, moderate",
+      "nameTr": "Yuzme (kulvar)",
+      "category": "water",
+      "met": 8.3,
+      "source": "compendium"
+    },
+    {
+      "id": "swimming_leisure",
+      "nameEn": "Swimming, leisurely",
+      "nameTr": "Yuzme (serbest)",
+      "category": "water",
+      "met": 6.0,
+      "source": "compendium"
+    },
+    {
+      "id": "table_tennis",
+      "nameEn": "Table tennis",
+      "nameTr": "Masa Tenisi",
+      "category": "sports",
+      "met": 4.0,
+      "source": "compendium"
+    },
+    {
+      "id": "tennis_doubles",
+      "nameEn": "Tennis, doubles",
+      "nameTr": "Tenis (ciftler)",
+      "category": "sports",
+      "met": 6.0,
+      "source": "compendium"
+    },
+    {
+      "id": "tennis_singles",
+      "nameEn": "Tennis, singles",
+      "nameTr": "Tenis (tekler)",
+      "category": "sports",
+      "met": 7.3,
+      "source": "compendium"
+    },
+    {
+      "id": "volleyball",
+      "nameEn": "Volleyball, non-competitive",
+      "nameTr": "Voleybol",
+      "category": "sports",
+      "met": 3.0,
+      "source": "compendium"
+    },
+    {
+      "id": "walking_brisk",
+      "nameEn": "Walking, brisk (6.4 km/h)",
+      "nameTr": "Hizli Yuruyus",
+      "category": "walking",
+      "met": 5.0,
+      "source": "compendium"
+    },
+    {
+      "id": "walking_moderate",
+      "nameEn": "Walking, moderate (5 km/h)",
+      "nameTr": "Tempolu Yuruyus",
+      "category": "walking",
+      "met": 3.5,
+      "source": "compendium"
+    },
+    {
+      "id": "walking_slow",
+      "nameEn": "Walking, slow (3 km/h)",
+      "nameTr": "Yavas Yuruyus",
+      "category": "walking",
+      "met": 2.8,
+      "source": "compendium"
+    },
+    {
+      "id": "walking_uphill",
+      "nameEn": "Walking uphill",
+      "nameTr": "Yokus Yukari Yuruyus",
+      "category": "walking",
+      "met": 6.3,
+      "source": "compendium"
+    },
+    {
+      "id": "water_aerobics",
+      "nameEn": "Water aerobics",
+      "nameTr": "Su Aerobigi",
+      "category": "water",
+      "met": 5.5,
+      "source": "compendium"
+    },
+    {
+      "id": "weight_training_light",
+      "nameEn": "Weight training, light effort",
+      "nameTr": "Agirlik (hafif)",
+      "category": "gym",
+      "met": 3.5,
+      "source": "compendium"
+    },
+    {
+      "id": "weight_training_vigorous",
+      "nameEn": "Weight training, vigorous effort",
+      "nameTr": "Agirlik (yogun)",
+      "category": "gym",
+      "met": 5.0,
+      "source": "compendium"
+    },
+    {
+      "id": "wrestling",
+      "nameEn": "Wrestling",
+      "nameTr": "Gures",
+      "category": "combat",
+      "met": 6.0,
+      "source": "compendium"
+    },
+    {
+      "id": "yoga_hatha",
+      "nameEn": "Yoga, hatha",
+      "nameTr": "Yoga (hatha)",
+      "category": "gym",
+      "met": 2.5,
+      "source": "compendium"
+    },
+    {
+      "id": "yoga_power",
+      "nameEn": "Yoga, power",
+      "nameTr": "Yoga (power)",
+      "category": "gym",
+      "met": 4.0,
+      "source": "compendium"
+    },
+    {
+      "id": "zumba",
+      "nameEn": "Aerobic dance, high impact",
+      "nameTr": "Zumba",
+      "category": "dance",
+      "met": 7.3,
+      "source": "compendium"
+    }
+  ]
+}

@@ -24,6 +24,56 @@
 
 ---
 
+## Senkron Notu (M4 sonrası, yürütmeden önce)
+
+Bu plan M1-M4 kodu yazılmadan önce yazıldı. Yürütmeden önce gerçek kodla
+karşılaştırıldı; beş fark bulundu.
+
+**1. Şema sürümü v5 değil v6.** `exercise_logs` M3'te v5'i aldı
+(`app_database.dart:37`). Tahlil tabloları **v6** olacak, göç bloğu
+`if (from < 6)`.
+
+**2. `MetricPoint` adı `health`'te yok.** M4'te `ai_bridge`'in port tipiyle
+çakıştığı için depodaki typedef `MetricSample` oldu
+(`body_metrics_repository.dart:9`). Task 3-4 bu adı kullanacak.
+
+**3. Task 5'in iki testi birbiriyle çelişiyor.** Pencere tanımı belirsiz
+kalmış:
+
+- `only next 7 days` testi her bildirimin `2026-09-08 00:00`'dan önce
+  olmasını bekliyor (takvim günü penceresi).
+- `morning weigh-in` testi `hasLength(7)` bekliyor ve yorumu "2-8 Eylül"
+  diyor — 8 Eylül 06:26 dahil (anlık pencere).
+
+İkisi aynı anda doğru olamaz. **Anlık pencere seçildi**
+(`now < fireAt < now + windowDays`), çünkü kaydırmalı pencerenin amacı
+bu: uygulama her açılışta yeniden kurduğu için "önümüzdeki 7×24 saat"
+takvim gününe hizalamaktan daha doğru davranır — akşam 23:00'te açılan
+uygulama ertesi haftanın tamamını kapsar. `only next 7 days` testinin
+sınırı `DateTime(2026, 9, 8, 8)` olarak düzeltildi.
+
+**4. "Plan bitiyor" kuralı da çelişiyor.** Metin "`planEndDate - 3
+gün`den itibaren" diyor ama test `[2, 3, 4]` bekliyor (bitiş 4 Eylül).
+**Test doğru kabul edildi:** planın son üç günü, bitiş günü dahil
+(`endDate - 2 … endDate`). Metin buna göre okunmalı.
+
+**5. Hazır gelen API'ler — yeniden yazılmayacak.** M3/M4 bu planın
+varsaydığı yardımcıları zaten üretti:
+
+| İhtiyaç | Hazır API |
+|---|---|
+| Task 3 kilo serisi | `BodyMetricsRepository.series(kind)` |
+| Task 4 son ölçümler | `BodyMetricsRepository.latestPerKind()` |
+| Task 4 günlük kayıtlar | `TodayRepository.rowsBetween(from, to)` |
+| Task 5 kaçak serisi | `TodayRepository.missedStreak(...)` — dinlenme gününü zaten eliyor |
+| Task 4/6 profil | `ProfileRepository.read/set` |
+| Task 2/4 iskelet | `AppScreenBody`, `AppSection`, `AppAsyncView`, `AppStatusChip`, `AppMetricValue`, `AppEmptyState` |
+
+Task 6'nın `payload → sekme` eşlemesi kabuktaki gerçek sırayla uyuşuyor:
+`today=0, plan=1, progress=2, health=3` (`app.dart:106`).
+
+---
+
 ### Task 1: lab_results + lab_schedules tabloları ve repository
 
 **Files:**

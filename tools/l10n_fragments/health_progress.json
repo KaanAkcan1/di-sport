@@ -1,0 +1,347 @@
+{
+  "healthNoLabsTitle": {
+    "tr": "Tahlil kaydı yok",
+    "en": "No lab results yet"
+  },
+  "healthNoLabsDescription": {
+    "tr": "Elindeki tahlil sonuçlarını ekle; referans aralığını da girersen değerin düşük mü yüksek mi olduğunu takip edebilirim.",
+    "en": "Add the lab results you have; if you enter the reference range too, I can track whether a value is low or high."
+  },
+  "healthAddLabFab": {
+    "tr": "Tahlil",
+    "en": "Lab result"
+  },
+
+  "healthAddLabTitle": {
+    "tr": "Tahlil ekle",
+    "en": "Add lab result"
+  },
+  "healthLabMarkerLabel": {
+    "tr": "Tahlil adı",
+    "en": "Marker name"
+  },
+  "healthLabMarkerHint": {
+    "tr": "Vitamin D",
+    "en": "Vitamin D"
+  },
+  "healthLabMarkerRequired": {
+    "tr": "Tahlil adı gerekli",
+    "en": "Marker name is required"
+  },
+  "healthLabValueLabel": {
+    "tr": "Değer",
+    "en": "Value"
+  },
+  "healthLabValueInvalid": {
+    "tr": "Sayı girin",
+    "en": "Enter a number"
+  },
+  "healthLabUnitLabel": {
+    "tr": "Birim",
+    "en": "Unit"
+  },
+  "healthLabUnitHint": {
+    "tr": "ng/mL",
+    "en": "ng/mL"
+  },
+  "healthLabRefLowLabel": {
+    "tr": "Referans alt",
+    "en": "Reference low"
+  },
+  "healthLabRefHighLabel": {
+    "tr": "Referans üst",
+    "en": "Reference high"
+  },
+  "healthLabRefHelp": {
+    "tr": "İsteğe bağlı — girmezsen değer \"aralık yok\" olarak gösterilir.",
+    "en": "Optional — without it the value is shown as \"no range\"."
+  },
+  "healthLabPanelLabel": {
+    "tr": "Panel",
+    "en": "Panel"
+  },
+  "healthLabNameLabel": {
+    "tr": "Laboratuvar",
+    "en": "Laboratory"
+  },
+  "healthLabNameHelp": {
+    "tr": "İsteğe bağlı — aralıklar laboratuvara göre değişir",
+    "en": "Optional — ranges differ from lab to lab"
+  },
+  "healthLabDateLabel": {
+    "tr": "Tahlil tarihi",
+    "en": "Test date"
+  },
+
+  "healthMeasurementsTitle": {
+    "tr": "Ölçümler",
+    "en": "Measurements"
+  },
+  "healthMeasurementsDescription": {
+    "tr": "Ayda bir ölç; geçiş kriteri şınav sayısına bakıyor.",
+    "en": "Measure once a month; the transition criteria look at your push-up count."
+  },
+  "healthManageMetricsTooltip": {
+    "tr": "Ölçümleri düzenle",
+    "en": "Manage measurements"
+  },
+  "healthNoMetricsTitle": {
+    "tr": "Ölçüm türü yok",
+    "en": "No measurement types"
+  },
+  "healthNoMetricsDescription": {
+    "tr": "Takip etmek istediğin ölçüleri ekle — bel, kol çevresi, istirahat nabzı.",
+    "en": "Add the measurements you want to track — waist, arm circumference, resting heart rate."
+  },
+  "healthMetricNeverMeasured": {
+    "tr": "henüz ölçülmedi",
+    "en": "not measured yet"
+  },
+
+  "healthDueLabsTitleOne": {
+    "tr": "Bir tahlilin vakti geldi",
+    "en": "One lab test is due"
+  },
+  "healthDueLabsTitleMany": {
+    "tr": "{count} tahlilin vakti geldi",
+    "en": "{count} lab tests are due"
+  },
+  "healthDueInterval": {
+    "tr": "{months} ayda bir",
+    "en": "every {months} months"
+  },
+  "healthDueWithDate": {
+    "tr": "{marker} — {interval}, {date} itibarıyla",
+    "en": "{marker} — {interval}, as of {date}"
+  },
+  "healthDueNoRecord": {
+    "tr": "{marker} — {interval}, henüz hiç kaydedilmemiş",
+    "en": "{marker} — {interval}, never recorded"
+  },
+
+  "healthLabRefRange": {
+    "tr": "ref {low}–{high}",
+    "en": "ref {low}–{high}"
+  },
+  "healthLabStatusLow": {
+    "tr": "düşük",
+    "en": "low"
+  },
+  "healthLabStatusHigh": {
+    "tr": "yüksek",
+    "en": "high"
+  },
+  "healthLabStatusNormal": {
+    "tr": "normal",
+    "en": "normal"
+  },
+  "healthLabStatusNoRange": {
+    "tr": "aralık yok",
+    "en": "no range"
+  },
+
+  "healthMetricsEditorTitle": {
+    "tr": "Ölçüm türleri",
+    "en": "Measurement types"
+  },
+  "healthMetricsEditorEmptyDescription": {
+    "tr": "Aşağıdaki düğmeden ilk ölçümünü ekle.",
+    "en": "Add your first measurement with the button below."
+  },
+  "healthAddMetricFab": {
+    "tr": "Ölçüm",
+    "en": "Measurement"
+  },
+  "healthDeleteMetricTitle": {
+    "tr": "\"{label}\" kaldırılsın mı?",
+    "en": "Remove \"{label}\"?"
+  },
+  "healthDeleteMetricBody": {
+    "tr": "Listeden çıkar. Şimdiye kadar girdiğin değerler silinmez; türü geri eklersen yeniden görünür.",
+    "en": "Removes it from the list. The values you have entered are kept; add the type back and they reappear."
+  },
+  "healthMetricRemove": {
+    "tr": "Kaldır",
+    "en": "Remove"
+  },
+  "healthMetricDailyHint": {
+    "tr": "{unit} · her gün Bugün ekranından",
+    "en": "{unit} · daily, from the Today screen"
+  },
+  "healthMetricSheetAddTitle": {
+    "tr": "Ölçüm ekle",
+    "en": "Add measurement"
+  },
+  "healthMetricSheetEditTitle": {
+    "tr": "Ölçümü düzenle",
+    "en": "Edit measurement"
+  },
+  "healthMetricLabelRequired": {
+    "tr": "Ölçüm adı gerekli",
+    "en": "Measurement name is required"
+  },
+  "healthMetricLabelLabel": {
+    "tr": "Ölçüm",
+    "en": "Measurement"
+  },
+  "healthMetricLabelHint": {
+    "tr": "Kol çevresi",
+    "en": "Arm circumference"
+  },
+  "healthMetricUnitHint": {
+    "tr": "cm",
+    "en": "cm"
+  },
+  "healthMetricDisplayTitle": {
+    "tr": "Gösterim",
+    "en": "Display"
+  },
+  "healthMetricInteger": {
+    "tr": "Tam sayı",
+    "en": "Whole number"
+  },
+  "healthMetricDecimal": {
+    "tr": "Ondalıklı",
+    "en": "Decimal"
+  },
+  "healthMetricExampleInteger": {
+    "tr": "Örnek: 12",
+    "en": "Example: 12"
+  },
+  "healthMetricExampleDecimal": {
+    "tr": "Örnek: 104,5",
+    "en": "Example: 104.5"
+  },
+
+  "progressEmptyTitle": {
+    "tr": "Henüz gösterecek bir şey yok",
+    "en": "Nothing to show yet"
+  },
+  "progressEmptyDescription": {
+    "tr": "Bugün sekmesinden tartını gir; birkaç gün sonra eğilim çizgisi anlamlı olmaya başlar.",
+    "en": "Log your weight from the Today tab; after a few days the trend line starts to mean something."
+  },
+  "progressWeightTitle": {
+    "tr": "Kilo",
+    "en": "Weight"
+  },
+  "progressWeightDescription": {
+    "tr": "Kalın çizgi 7 günlük ortalama — günlük oynamalar su ve tuzdur, eğilime bak.",
+    "en": "The thick line is the 7-day average — daily swings are water and salt, watch the trend."
+  },
+  "progressWeeksTitle": {
+    "tr": "Haftalar",
+    "en": "Weeks"
+  },
+  "progressNoPlanTitle": {
+    "tr": "Haftalık özet için plan gerekli",
+    "en": "A plan is needed for the weekly summary"
+  },
+  "progressNoPlanDescription": {
+    "tr": "Hangi günün salon, hangisinin ev olduğunu plandan okuyorum. Plan sekmesinden bir program yükle.",
+    "en": "I read which days are gym and which are home from the plan. Load a program from the Plan tab."
+  },
+  "progressHeroEmptyCaption": {
+    "tr": "İlk tartıdan sonra değişim burada görünecek",
+    "en": "The change will show up here after your first weigh-in"
+  },
+  "progressHeroCaption": {
+    "tr": "kg · ilk tartıdan bugüne",
+    "en": "kg · since your first weigh-in"
+  },
+  "progressMetricNow": {
+    "tr": "Şu an",
+    "en": "Now"
+  },
+  "progressMetricPushups": {
+    "tr": "Şınav",
+    "en": "Push-ups"
+  },
+  "progressMetricWeeks": {
+    "tr": "Hafta",
+    "en": "Weeks"
+  },
+
+  "progressTransitionTitle": {
+    "tr": "Koşuya geçiş",
+    "en": "Transition to running"
+  },
+  "progressTransitionAllMet": {
+    "tr": "Üç ölçüt de sağlandı. Kısa koşu denemelerine başlayabilirsin.",
+    "en": "All three criteria are met. You can start short running attempts."
+  },
+  "progressTransitionProgress": {
+    "tr": "{met} / 3 ölçüt sağlandı.",
+    "en": "{met} of 3 criteria met."
+  },
+  "progressCriterionWeight": {
+    "tr": "Kilo {limit} kg altında",
+    "en": "Weight below {limit} kg"
+  },
+  "progressCriterionNotWeighed": {
+    "tr": "henüz tartılmadı",
+    "en": "not weighed yet"
+  },
+  "progressCriterionWeightNow": {
+    "tr": "şu an {value} kg",
+    "en": "now {value} kg"
+  },
+  "progressCriterionPushups": {
+    "tr": "Kesintisiz {count} şınav",
+    "en": "{count} push-ups without stopping"
+  },
+  "progressCriterionNotMeasured": {
+    "tr": "henüz ölçülmedi",
+    "en": "not measured yet"
+  },
+  "progressCriterionPushupsNow": {
+    "tr": "şu an {value}",
+    "en": "now {value}"
+  },
+  "progressCriterionPainFree": {
+    "tr": "Yürüyüş sonrası diz/ayak ağrısı yok",
+    "en": "No knee or foot pain after walking"
+  },
+  "progressCriterionPainFreeHint": {
+    "tr": "Bunu ölçemem, sen bileceksin.",
+    "en": "I cannot measure this — only you know."
+  },
+
+  "progressWeekLabel": {
+    "tr": "Hafta {index}",
+    "en": "Week {index}"
+  },
+  "progressWeekPartial": {
+    "tr": "sürüyor · {days} gün",
+    "en": "in progress · {days} days"
+  },
+  "progressWeekAverage": {
+    "tr": "haftalık ortalama",
+    "en": "weekly average"
+  },
+  "progressWeekGym": {
+    "tr": "Salon",
+    "en": "Gym"
+  },
+  "progressWeekHome": {
+    "tr": "Ev",
+    "en": "Home"
+  },
+  "progressWeekNoSlips": {
+    "tr": "Kaçak yok",
+    "en": "No slips"
+  },
+  "progressWeekSlipDays": {
+    "tr": "{count} kaçak gün",
+    "en": "{count} slip days"
+  },
+  "progressWeekCountChip": {
+    "tr": "{label} {done} / {target}",
+    "en": "{label} {done} / {target}"
+  },
+
+  "progressChartSemantics": {
+    "tr": "Kilo grafiği. {count} ölçüm. İlk {first} kilogram, son {last} kilogram.",
+    "en": "Weight chart. {count} measurements. First {first} kilograms, last {last} kilograms."
+  }
+}
