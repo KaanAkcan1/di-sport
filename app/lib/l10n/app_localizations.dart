@@ -104,12 +104,6 @@ abstract class AppLocalizations {
   /// **'Bugün'**
   String get tabToday;
 
-  /// No description provided for @tabPlan.
-  ///
-  /// In tr, this message translates to:
-  /// **'Plan'**
-  String get tabPlan;
-
   /// No description provided for @tabProgress.
   ///
   /// In tr, this message translates to:
@@ -122,53 +116,17 @@ abstract class AppLocalizations {
   /// **'Sağlık'**
   String get tabHealth;
 
-  /// No description provided for @tabCatalog.
-  ///
-  /// In tr, this message translates to:
-  /// **'Katalog'**
-  String get tabCatalog;
-
-  /// No description provided for @tabTodayHint.
-  ///
-  /// In tr, this message translates to:
-  /// **'Günün programı ve kayıtları'**
-  String get tabTodayHint;
-
-  /// No description provided for @tabPlanHint.
-  ///
-  /// In tr, this message translates to:
-  /// **'Dört haftalık program'**
-  String get tabPlanHint;
-
-  /// No description provided for @tabProgressHint.
-  ///
-  /// In tr, this message translates to:
-  /// **'Kilo trendi ve haftalık özet'**
-  String get tabProgressHint;
-
   /// No description provided for @tabHealthHint.
   ///
   /// In tr, this message translates to:
   /// **'Tahliller ve ölçümler'**
   String get tabHealthHint;
 
-  /// No description provided for @tabCatalogHint.
-  ///
-  /// In tr, this message translates to:
-  /// **'Egzersiz kütüphanesi'**
-  String get tabCatalogHint;
-
   /// No description provided for @settingsTitle.
   ///
   /// In tr, this message translates to:
   /// **'Ayarlar'**
   String get settingsTitle;
-
-  /// No description provided for @settingsTooltip.
-  ///
-  /// In tr, this message translates to:
-  /// **'Profil ve yaşam tarzı'**
-  String get settingsTooltip;
 
   /// No description provided for @commonSave.
   ///
@@ -187,12 +145,6 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'Sil'**
   String get commonDelete;
-
-  /// No description provided for @commonEdit.
-  ///
-  /// In tr, this message translates to:
-  /// **'Düzenle'**
-  String get commonEdit;
 
   /// No description provided for @commonClear.
   ///
@@ -433,30 +385,6 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'Ekipmanım'**
   String get catalogEquipmentTitle;
-
-  /// No description provided for @catalogEquipmentEmptyTitle.
-  ///
-  /// In tr, this message translates to:
-  /// **'Ekipman listesi boş'**
-  String get catalogEquipmentEmptyTitle;
-
-  /// No description provided for @catalogEquipmentEmptyDescription.
-  ///
-  /// In tr, this message translates to:
-  /// **'Katalog yüklendiğinde liste kendiliğinden dolar. Aşağıdaki düğmeden elle de ekleyebilirsin.'**
-  String get catalogEquipmentEmptyDescription;
-
-  /// No description provided for @catalogEquipmentNoneOwned.
-  ///
-  /// In tr, this message translates to:
-  /// **'Hiç ekipman işaretlenmedi. Sadece vücut ağırlığıyla yapılan hareketler her zaman kullanılabilir.'**
-  String get catalogEquipmentNoneOwned;
-
-  /// No description provided for @catalogEquipmentOwnedCount.
-  ///
-  /// In tr, this message translates to:
-  /// **'{count} ekipman işaretli. Katalogda \"Ekipmanım\" filtresi bunlara göre süzüyor.'**
-  String catalogEquipmentOwnedCount(Object count);
 
   /// No description provided for @catalogEquipmentAddFab.
   ///
@@ -1388,24 +1316,6 @@ abstract class AppLocalizations {
   /// **'Ekipman listesi'**
   String get settingsEquipmentTile;
 
-  /// No description provided for @settingsWeeklyTitle.
-  ///
-  /// In tr, this message translates to:
-  /// **'Haftalık düzen'**
-  String get settingsWeeklyTitle;
-
-  /// No description provided for @settingsWeeklyDescription.
-  ///
-  /// In tr, this message translates to:
-  /// **'Mesain ve uygun olmadığın saatler. Yapay zekâ planı bunlara göre kurar, alarmlar yasaklı saatlerde çalmaz.'**
-  String get settingsWeeklyDescription;
-
-  /// No description provided for @settingsWeeklyTile.
-  ///
-  /// In tr, this message translates to:
-  /// **'Mesai ve uygun olmayan saatler'**
-  String get settingsWeeklyTile;
-
   /// No description provided for @settingsWeeklyFab.
   ///
   /// In tr, this message translates to:
@@ -1652,12 +1562,6 @@ abstract class AppLocalizations {
   /// **'Yükleniyor…'**
   String get settingsExactAlarmLoading;
 
-  /// No description provided for @settingsOnboardingWelcome.
-  ///
-  /// In tr, this message translates to:
-  /// **'Hoş geldin'**
-  String get settingsOnboardingWelcome;
-
   /// No description provided for @settingsOnboardingIntro.
   ///
   /// In tr, this message translates to:
@@ -1885,12 +1789,6 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'Geç'**
   String get setupCardSkip;
-
-  /// No description provided for @setupRequestPlan.
-  ///
-  /// In tr, this message translates to:
-  /// **'İlk planını iste'**
-  String get setupRequestPlan;
 
   /// No description provided for @todayBirthday.
   ///
@@ -3085,24 +2983,6 @@ abstract class AppLocalizations {
   /// **'{week}. hafta'**
   String todayWeekNumber(Object week);
 
-  /// No description provided for @todayHeroNoPlan.
-  ///
-  /// In tr, this message translates to:
-  /// **'Plan yok · tartını yine de kaydedebilirsin'**
-  String get todayHeroNoPlan;
-
-  /// No description provided for @todayHeroFreeDay.
-  ///
-  /// In tr, this message translates to:
-  /// **'Serbest gün'**
-  String get todayHeroFreeDay;
-
-  /// No description provided for @todayHeroDietFree.
-  ///
-  /// In tr, this message translates to:
-  /// **'{type} · diyet serbest'**
-  String todayHeroDietFree(Object type);
-
   /// No description provided for @todayDayTypeGym.
   ///
   /// In tr, this message translates to:
@@ -3451,12 +3331,6 @@ abstract class AppLocalizations {
   /// **'Ocak,Şubat,Mart,Nisan,Mayıs,Haziran,Temmuz,Ağustos,Eylül,Ekim,Kasım,Aralık'**
   String get planMonthNames;
 
-  /// No description provided for @planCellFree.
-  ///
-  /// In tr, this message translates to:
-  /// **'boş'**
-  String get planCellFree;
-
   /// No description provided for @planCellToday.
   ///
   /// In tr, this message translates to:
@@ -3468,12 +3342,6 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'tamamlandı'**
   String get planCellDone;
-
-  /// No description provided for @planCellPartial.
-  ///
-  /// In tr, this message translates to:
-  /// **'{total} işten {checked} tamam'**
-  String planCellPartial(Object total, Object checked);
 
   /// No description provided for @planCellEmpty.
   ///
@@ -3685,12 +3553,6 @@ abstract class AppLocalizations {
   /// **'Saat ekle'**
   String get supplementAddTime;
 
-  /// No description provided for @supplementRemoveTime.
-  ///
-  /// In tr, this message translates to:
-  /// **'Saati kaldır'**
-  String get supplementRemoveTime;
-
   /// No description provided for @supplementDaysSection.
   ///
   /// In tr, this message translates to:
@@ -3726,12 +3588,6 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'{name}, {time}, alınmadı'**
   String supplementNotTakenSemantics(Object name, Object time);
-
-  /// No description provided for @supplementDoseCount.
-  ///
-  /// In tr, this message translates to:
-  /// **'{count} kalem'**
-  String supplementDoseCount(Object count);
 
   /// No description provided for @supplementSectionLabel.
   ///
@@ -3864,12 +3720,6 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'{equipment} gerekiyor (salonunda yok)'**
   String catalogEquipmentMissingGym(Object equipment);
-
-  /// No description provided for @catalogEquipmentCheck.
-  ///
-  /// In tr, this message translates to:
-  /// **'{equipment} — kontrol et'**
-  String catalogEquipmentCheck(Object equipment);
 
   /// No description provided for @foodSearchHint.
   ///
@@ -4117,12 +3967,6 @@ abstract class AppLocalizations {
   /// **'Dakika'**
   String get activityMinutesLabel;
 
-  /// No description provided for @activityEstimate.
-  ///
-  /// In tr, this message translates to:
-  /// **'≈{kcal} kcal'**
-  String activityEstimate(int kcal);
-
   /// No description provided for @activityAdd.
   ///
   /// In tr, this message translates to:
@@ -4140,24 +3984,6 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'Başka bir sözcük dene ya da aşağıdan kendin ekle.'**
   String get activityEmptyMessage;
-
-  /// No description provided for @activityCustomTitle.
-  ///
-  /// In tr, this message translates to:
-  /// **'Kendin ekle'**
-  String get activityCustomTitle;
-
-  /// No description provided for @activityCustomNameLabel.
-  ///
-  /// In tr, this message translates to:
-  /// **'Aktivite adı'**
-  String get activityCustomNameLabel;
-
-  /// No description provided for @activityCustomEffortLabel.
-  ///
-  /// In tr, this message translates to:
-  /// **'Ne kadar zorladı?'**
-  String get activityCustomEffortLabel;
 
   /// No description provided for @effortLight.
   ///
@@ -4231,12 +4057,6 @@ abstract class AppLocalizations {
   /// **'Kaldırıldı'**
   String get mealEntryRemoved;
 
-  /// No description provided for @mealEntryUndo.
-  ///
-  /// In tr, this message translates to:
-  /// **'Geri al'**
-  String get mealEntryUndo;
-
   /// No description provided for @progressCaloriesTitle.
   ///
   /// In tr, this message translates to:
@@ -4254,18 +4074,6 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'{date} dökümü'**
   String progressDayBreakdown(String date);
-
-  /// No description provided for @calendarOverBy.
-  ///
-  /// In tr, this message translates to:
-  /// **'+{kcal}'**
-  String calendarOverBy(int kcal);
-
-  /// No description provided for @calendarUnderBy.
-  ///
-  /// In tr, this message translates to:
-  /// **'−{kcal}'**
-  String calendarUnderBy(int kcal);
 
   /// No description provided for @catalogTabOutside.
   ///
@@ -4549,12 +4357,6 @@ abstract class AppLocalizations {
   /// **'Önce bir hareket seç'**
   String get planExerciseRequired;
 
-  /// No description provided for @planOriginAi.
-  ///
-  /// In tr, this message translates to:
-  /// **'AI planı'**
-  String get planOriginAi;
-
   /// No description provided for @planOriginAiEdited.
   ///
   /// In tr, this message translates to:
@@ -4830,12 +4632,6 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'Yedekleme'**
   String get moreBackup;
-
-  /// No description provided for @moreBackupStale.
-  ///
-  /// In tr, this message translates to:
-  /// **'{days} gündür yedek alınmadı'**
-  String moreBackupStale(int days);
 
   /// No description provided for @dayFlowTitle.
   ///

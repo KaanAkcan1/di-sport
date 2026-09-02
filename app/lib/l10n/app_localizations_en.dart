@@ -13,37 +13,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tabToday => 'Today';
 
   @override
-  String get tabPlan => 'Plan';
-
-  @override
   String get tabProgress => 'Progress';
 
   @override
   String get tabHealth => 'Health';
 
   @override
-  String get tabCatalog => 'Catalog';
-
-  @override
-  String get tabTodayHint => 'Today\'s schedule and entries';
-
-  @override
-  String get tabPlanHint => 'Four-week programme';
-
-  @override
-  String get tabProgressHint => 'Weight trend and weekly summary';
-
-  @override
   String get tabHealthHint => 'Lab results and measurements';
 
   @override
-  String get tabCatalogHint => 'Exercise library';
-
-  @override
   String get settingsTitle => 'Settings';
-
-  @override
-  String get settingsTooltip => 'Profile and lifestyle';
 
   @override
   String get commonSave => 'Save';
@@ -53,9 +32,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get commonDelete => 'Delete';
-
-  @override
-  String get commonEdit => 'Edit';
 
   @override
   String get commonClear => 'Clear';
@@ -190,22 +166,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get catalogEquipmentTitle => 'My equipment';
-
-  @override
-  String get catalogEquipmentEmptyTitle => 'Equipment list is empty';
-
-  @override
-  String get catalogEquipmentEmptyDescription =>
-      'The list fills itself once the catalogue loads. You can also add items by hand with the button below.';
-
-  @override
-  String get catalogEquipmentNoneOwned =>
-      'No equipment marked. Bodyweight-only exercises are always available.';
-
-  @override
-  String catalogEquipmentOwnedCount(Object count) {
-    return '$count item(s) marked. The \"My equipment\" filter in the catalogue uses these.';
-  }
 
   @override
   String get catalogEquipmentAddFab => 'Equipment';
@@ -746,16 +706,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsEquipmentTile => 'Equipment list';
 
   @override
-  String get settingsWeeklyTitle => 'Weekly schedule';
-
-  @override
-  String get settingsWeeklyDescription =>
-      'Your working hours and the times you are unavailable. The AI builds the plan around them and reminders stay silent during blocked hours.';
-
-  @override
-  String get settingsWeeklyTile => 'Working and unavailable hours';
-
-  @override
   String get settingsWeeklyFab => 'Time range';
 
   @override
@@ -890,9 +840,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsExactAlarmLoading => 'Loading…';
 
   @override
-  String get settingsOnboardingWelcome => 'Welcome';
-
-  @override
   String get settingsOnboardingIntro =>
       'Let\'s get to know you first. This information never leaves your device; it is only used when you send a context file to an AI yourself.';
 
@@ -1016,9 +963,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get setupCardSkip => 'Skip';
-
-  @override
-  String get setupRequestPlan => 'Request your first plan';
 
   @override
   String todayBirthday(String name) {
@@ -1713,17 +1657,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get todayHeroNoPlan => 'No plan · you can still log your weight';
-
-  @override
-  String get todayHeroFreeDay => 'Free day';
-
-  @override
-  String todayHeroDietFree(Object type) {
-    return '$type · diet free';
-  }
-
-  @override
   String get todayDayTypeGym => 'Gym day';
 
   @override
@@ -1920,18 +1853,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'January,February,March,April,May,June,July,August,September,October,November,December';
 
   @override
-  String get planCellFree => 'empty';
-
-  @override
   String get planCellToday => 'today';
 
   @override
   String get planCellDone => 'completed';
-
-  @override
-  String planCellPartial(Object total, Object checked) {
-    return '$checked of $total done';
-  }
 
   @override
   String get planCellEmpty => 'no record';
@@ -2050,9 +1975,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get supplementAddTime => 'Add time';
 
   @override
-  String get supplementRemoveTime => 'Remove time';
-
-  @override
   String get supplementDaysSection => 'Days';
 
   @override
@@ -2075,11 +1997,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String supplementNotTakenSemantics(Object name, Object time) {
     return '$name at $time, not taken';
-  }
-
-  @override
-  String supplementDoseCount(Object count) {
-    return '$count item(s)';
   }
 
   @override
@@ -2152,11 +2069,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String catalogEquipmentMissingGym(Object equipment) {
     return 'Needs $equipment (not at the gym)';
-  }
-
-  @override
-  String catalogEquipmentCheck(Object equipment) {
-    return '$equipment — check';
   }
 
   @override
@@ -2296,11 +2208,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get activityMinutesLabel => 'Minutes';
 
   @override
-  String activityEstimate(int kcal) {
-    return '~$kcal kcal';
-  }
-
-  @override
   String get activityAdd => 'Add';
 
   @override
@@ -2308,15 +2215,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get activityEmptyMessage => 'Try another word, or add your own below.';
-
-  @override
-  String get activityCustomTitle => 'Add your own';
-
-  @override
-  String get activityCustomNameLabel => 'Activity name';
-
-  @override
-  String get activityCustomEffortLabel => 'How hard was it?';
 
   @override
   String get effortLight => 'Light';
@@ -2355,9 +2253,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mealEntryRemoved => 'Removed';
 
   @override
-  String get mealEntryUndo => 'Undo';
-
-  @override
   String get progressCaloriesTitle => 'Calories this week';
 
   @override
@@ -2366,16 +2261,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String progressDayBreakdown(String date) {
     return '$date breakdown';
-  }
-
-  @override
-  String calendarOverBy(int kcal) {
-    return '+$kcal';
-  }
-
-  @override
-  String calendarUnderBy(int kcal) {
-    return '-$kcal';
   }
 
   @override
@@ -2523,9 +2408,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get planExerciseRequired => 'Pick an exercise first';
 
   @override
-  String get planOriginAi => 'From an AI plan';
-
-  @override
   String get planOriginAiEdited => 'From an AI plan, edited';
 
   @override
@@ -2664,11 +2546,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get moreBackup => 'Backup';
-
-  @override
-  String moreBackupStale(int days) {
-    return 'No backup for $days days';
-  }
 
   @override
   String get dayFlowTitle => 'Day flow';

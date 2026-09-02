@@ -13,37 +13,16 @@ class AppLocalizationsTr extends AppLocalizations {
   String get tabToday => 'Bugün';
 
   @override
-  String get tabPlan => 'Plan';
-
-  @override
   String get tabProgress => 'İlerleme';
 
   @override
   String get tabHealth => 'Sağlık';
 
   @override
-  String get tabCatalog => 'Katalog';
-
-  @override
-  String get tabTodayHint => 'Günün programı ve kayıtları';
-
-  @override
-  String get tabPlanHint => 'Dört haftalık program';
-
-  @override
-  String get tabProgressHint => 'Kilo trendi ve haftalık özet';
-
-  @override
   String get tabHealthHint => 'Tahliller ve ölçümler';
 
   @override
-  String get tabCatalogHint => 'Egzersiz kütüphanesi';
-
-  @override
   String get settingsTitle => 'Ayarlar';
-
-  @override
-  String get settingsTooltip => 'Profil ve yaşam tarzı';
 
   @override
   String get commonSave => 'Kaydet';
@@ -53,9 +32,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get commonDelete => 'Sil';
-
-  @override
-  String get commonEdit => 'Düzenle';
 
   @override
   String get commonClear => 'Temizle';
@@ -190,22 +166,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get catalogEquipmentTitle => 'Ekipmanım';
-
-  @override
-  String get catalogEquipmentEmptyTitle => 'Ekipman listesi boş';
-
-  @override
-  String get catalogEquipmentEmptyDescription =>
-      'Katalog yüklendiğinde liste kendiliğinden dolar. Aşağıdaki düğmeden elle de ekleyebilirsin.';
-
-  @override
-  String get catalogEquipmentNoneOwned =>
-      'Hiç ekipman işaretlenmedi. Sadece vücut ağırlığıyla yapılan hareketler her zaman kullanılabilir.';
-
-  @override
-  String catalogEquipmentOwnedCount(Object count) {
-    return '$count ekipman işaretli. Katalogda \"Ekipmanım\" filtresi bunlara göre süzüyor.';
-  }
 
   @override
   String get catalogEquipmentAddFab => 'Ekipman';
@@ -745,16 +705,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsEquipmentTile => 'Ekipman listesi';
 
   @override
-  String get settingsWeeklyTitle => 'Haftalık düzen';
-
-  @override
-  String get settingsWeeklyDescription =>
-      'Mesain ve uygun olmadığın saatler. Yapay zekâ planı bunlara göre kurar, alarmlar yasaklı saatlerde çalmaz.';
-
-  @override
-  String get settingsWeeklyTile => 'Mesai ve uygun olmayan saatler';
-
-  @override
   String get settingsWeeklyFab => 'Saat aralığı';
 
   @override
@@ -889,9 +839,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsExactAlarmLoading => 'Yükleniyor…';
 
   @override
-  String get settingsOnboardingWelcome => 'Hoş geldin';
-
-  @override
   String get settingsOnboardingIntro =>
       'Önce seni tanıyalım. Bu bilgiler cihazından çıkmaz; yalnızca sen bir yapay zekâya bağlam dosyası gönderdiğinde kullanılır.';
 
@@ -1014,9 +961,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get setupCardSkip => 'Geç';
-
-  @override
-  String get setupRequestPlan => 'İlk planını iste';
 
   @override
   String todayBirthday(String name) {
@@ -1710,17 +1654,6 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get todayHeroNoPlan => 'Plan yok · tartını yine de kaydedebilirsin';
-
-  @override
-  String get todayHeroFreeDay => 'Serbest gün';
-
-  @override
-  String todayHeroDietFree(Object type) {
-    return '$type · diyet serbest';
-  }
-
-  @override
   String get todayDayTypeGym => 'Salon günü';
 
   @override
@@ -1916,18 +1849,10 @@ class AppLocalizationsTr extends AppLocalizations {
       'Ocak,Şubat,Mart,Nisan,Mayıs,Haziran,Temmuz,Ağustos,Eylül,Ekim,Kasım,Aralık';
 
   @override
-  String get planCellFree => 'boş';
-
-  @override
   String get planCellToday => 'bugün';
 
   @override
   String get planCellDone => 'tamamlandı';
-
-  @override
-  String planCellPartial(Object total, Object checked) {
-    return '$total işten $checked tamam';
-  }
 
   @override
   String get planCellEmpty => 'kayıt yok';
@@ -2043,9 +1968,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get supplementAddTime => 'Saat ekle';
 
   @override
-  String get supplementRemoveTime => 'Saati kaldır';
-
-  @override
   String get supplementDaysSection => 'Günler';
 
   @override
@@ -2068,11 +1990,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String supplementNotTakenSemantics(Object name, Object time) {
     return '$name, $time, alınmadı';
-  }
-
-  @override
-  String supplementDoseCount(Object count) {
-    return '$count kalem';
   }
 
   @override
@@ -2145,11 +2062,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String catalogEquipmentMissingGym(Object equipment) {
     return '$equipment gerekiyor (salonunda yok)';
-  }
-
-  @override
-  String catalogEquipmentCheck(Object equipment) {
-    return '$equipment — kontrol et';
   }
 
   @override
@@ -2290,11 +2202,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get activityMinutesLabel => 'Dakika';
 
   @override
-  String activityEstimate(int kcal) {
-    return '≈$kcal kcal';
-  }
-
-  @override
   String get activityAdd => 'Ekle';
 
   @override
@@ -2303,15 +2210,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get activityEmptyMessage =>
       'Başka bir sözcük dene ya da aşağıdan kendin ekle.';
-
-  @override
-  String get activityCustomTitle => 'Kendin ekle';
-
-  @override
-  String get activityCustomNameLabel => 'Aktivite adı';
-
-  @override
-  String get activityCustomEffortLabel => 'Ne kadar zorladı?';
 
   @override
   String get effortLight => 'Hafif';
@@ -2350,9 +2248,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get mealEntryRemoved => 'Kaldırıldı';
 
   @override
-  String get mealEntryUndo => 'Geri al';
-
-  @override
   String get progressCaloriesTitle => 'Bu haftanın kalorisi';
 
   @override
@@ -2361,16 +2256,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String progressDayBreakdown(String date) {
     return '$date dökümü';
-  }
-
-  @override
-  String calendarOverBy(int kcal) {
-    return '+$kcal';
-  }
-
-  @override
-  String calendarUnderBy(int kcal) {
-    return '−$kcal';
   }
 
   @override
@@ -2518,9 +2403,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get planExerciseRequired => 'Önce bir hareket seç';
 
   @override
-  String get planOriginAi => 'AI planı';
-
-  @override
   String get planOriginAiEdited => 'AI planı · düzenlendi';
 
   @override
@@ -2659,11 +2541,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get moreBackup => 'Yedekleme';
-
-  @override
-  String moreBackupStale(int days) {
-    return '$days gündür yedek alınmadı';
-  }
 
   @override
   String get dayFlowTitle => 'Günün akışı';

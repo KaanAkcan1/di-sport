@@ -1,21 +1,13 @@
 {
   "@@locale": "tr",
   "tabToday": "Bugün",
-  "tabPlan": "Plan",
   "tabProgress": "İlerleme",
   "tabHealth": "Sağlık",
-  "tabCatalog": "Katalog",
-  "tabTodayHint": "Günün programı ve kayıtları",
-  "tabPlanHint": "Dört haftalık program",
-  "tabProgressHint": "Kilo trendi ve haftalık özet",
   "tabHealthHint": "Tahliller ve ölçümler",
-  "tabCatalogHint": "Egzersiz kütüphanesi",
   "settingsTitle": "Ayarlar",
-  "settingsTooltip": "Profil ve yaşam tarzı",
   "commonSave": "Kaydet",
   "commonCancel": "Vazgeç",
   "commonDelete": "Sil",
-  "commonEdit": "Düzenle",
   "commonClear": "Temizle",
   "commonRetry": "Yeniden dene",
   "appearanceTitle": "Görünüm",
@@ -56,10 +48,6 @@
   "catalogLocationBoth": "Ev / Salon",
   "catalogLocationSemantics": "Yapılabildiği yer: {place}",
   "catalogEquipmentTitle": "Ekipmanım",
-  "catalogEquipmentEmptyTitle": "Ekipman listesi boş",
-  "catalogEquipmentEmptyDescription": "Katalog yüklendiğinde liste kendiliğinden dolar. Aşağıdaki düğmeden elle de ekleyebilirsin.",
-  "catalogEquipmentNoneOwned": "Hiç ekipman işaretlenmedi. Sadece vücut ağırlığıyla yapılan hareketler her zaman kullanılabilir.",
-  "catalogEquipmentOwnedCount": "{count} ekipman işaretli. Katalogda \"Ekipmanım\" filtresi bunlara göre süzüyor.",
   "catalogEquipmentAddFab": "Ekipman",
   "catalogEquipmentAddTitle": "Ekipman ekle",
   "catalogEquipmentFieldLabel": "Ekipman",
@@ -272,9 +260,6 @@
   "settingsEquipmentTitle": "Ekipmanım",
   "settingsEquipmentDescription": "İşaretlediklerin katalog filtresini ve yapay zekâya gönderilen bağlamı besliyor.",
   "settingsEquipmentTile": "Ekipman listesi",
-  "settingsWeeklyTitle": "Haftalık düzen",
-  "settingsWeeklyDescription": "Mesain ve uygun olmadığın saatler. Yapay zekâ planı bunlara göre kurar, alarmlar yasaklı saatlerde çalmaz.",
-  "settingsWeeklyTile": "Mesai ve uygun olmayan saatler",
   "settingsWeeklyFab": "Saat aralığı",
   "settingsWeeklyExplanationTitle": "İki tür aralık var",
   "settingsWeeklyExplanationBody": "· Mesai: iştesin. Yapay zekâ bu saatlere antrenman koymaz ama öğün koyabilir.\n· Uygun değil: hiçbir şey planlanmaz ve bu saatlerde bildirim çalmaz.",
@@ -316,7 +301,6 @@
   "settingsExactAlarmGranted": "Verildi — bildirimler tam saatinde çalar.",
   "settingsExactAlarmDenied": "Verilmedi. Bildirimler yine çalar ama pil tasarrufu kipinde birkaç dakika gecikebilir. Vermek için dokun.",
   "settingsExactAlarmLoading": "Yükleniyor…",
-  "settingsOnboardingWelcome": "Hoş geldin",
   "settingsOnboardingIntro": "Önce seni tanıyalım. Bu bilgiler cihazından çıkmaz; yalnızca sen bir yapay zekâya bağlam dosyası gönderdiğinde kullanılır.",
   "settingsOnboardingSave": "Kaydet ve başla",
   "onboardingWelcomeTitle": "di@sport'a hoş geldin",
@@ -349,17 +333,37 @@
   "commonNext": "Devam",
   "setupPanelTitle": "Kurulum",
   "setupPanelProgress": "{done}/{total} tamam",
-  "@setupPanelProgress": {"placeholders": {"done": {"type": "int"}, "total": {"type": "int"}}},
+  "@setupPanelProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "setupPanelBody": "Birkaç kısa adım kaldı. Bunlar plana da gider — ne kadar dolu, plan o kadar isabetli.",
   "setupCardEquipment": "Ekipmanlarını seç",
   "setupCardMedical": "Medikal bilgilerin",
   "setupCardRhythm": "Günlük düzenin",
   "setupCardMinutes": "{minutes} dk",
-  "@setupCardMinutes": {"placeholders": {"minutes": {"type": "int"}}},
+  "@setupCardMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "setupCardSkip": "Geç",
-  "setupRequestPlan": "İlk planını iste",
   "todayBirthday": "İyi ki doğdun {name}! 🎉",
-  "@todayBirthday": {"placeholders": {"name": {"type": "String"}}},
+  "@todayBirthday": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "medicalTitle": "Medikal bilgiler",
   "medicalPrivacyNote": "Bu bilgiler cihazından çıkmaz; yalnızca sen yapay zekâ belgesini paylaştığında plana girer.",
   "medicalKindCondition": "Durumlar",
@@ -370,7 +374,13 @@
   "medicalAddCustom": "Başka ekle",
   "medicalCustomHint": "örn. diz hassasiyeti",
   "medicalRemoveTitle": "{label} silinsin mi?",
-  "@medicalRemoveTitle": {"placeholders": {"label": {"type": "String"}}},
+  "@medicalRemoveTitle": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
   "medicalRemoveBody": "Kayıt listeden kalkar; geçmiş verilerin bozulmaz.",
   "medicalMedsTitle": "İlaçlar",
   "medicalMedsEmpty": "Tanımlı ilaç yok. İlaçlar hatırlatma ve takip için İlaç & Takviye ekranında tutulur.",
@@ -391,11 +401,29 @@
   "equipmentTabGym": "Salonda",
   "equipmentTabSports": "Sporlar",
   "equipmentImpactHome": "Bu işaretlerle evde {count} hareket yapılabilir.",
-  "@equipmentImpactHome": {"placeholders": {"count": {"type": "int"}}},
+  "@equipmentImpactHome": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "equipmentImpactGym": "Bu işaretlerle salonda {count} hareket yapılabilir.",
-  "@equipmentImpactGym": {"placeholders": {"count": {"type": "int"}}},
+  "@equipmentImpactGym": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "equipmentUnlocks": "+{count} hareket açar",
-  "@equipmentUnlocks": {"placeholders": {"count": {"type": "int"}}},
+  "@equipmentUnlocks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "equipmentGymToggle": "Salona gidiyor musun?",
   "equipmentGymOffBody": "Salona gitmiyorsan burada iş yok — plan yalnız evde ve dışarıda yapılabilenlerden kurulur. Fikrin değişirse anahtarı aç.",
   "sportsIntro": "Sevdiğin sporları seç; yapay zekâ planı onların etrafına kurar. İstersen sıklık notu ekle.",
@@ -409,7 +437,16 @@
   "planSlotAddItem": "Besin ekle",
   "waterRowTitle": "Su",
   "waterRowAmount": "{current} / {target} ml",
-  "@waterRowAmount": {"placeholders": {"current": {"type": "int"}, "target": {"type": "int"}}},
+  "@waterRowAmount": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
   "waterRowAddGlass": "+250 ml",
   "waterRowRemoveGlass": "Bir bardak geri al",
   "dietPlanBadge": "PLAN",
@@ -418,7 +455,13 @@
   "dietAteUsual": "Her zamanki",
   "dietExternalMeal": "Dışarıda/yemekhanede — plan beklenmez, yediğini serbest gir.",
   "dietFixedUnbound": "Sabit öğün: {note}",
-  "@dietFixedUnbound": {"placeholders": {"note": {"type": "String"}}},
+  "@dietFixedUnbound": {
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
   "foodSortAz": "A–Z",
   "foodSortKcalAsc": "Kalori ↑",
   "foodSortKcalDesc": "Kalori ↓",
@@ -431,12 +474,30 @@
   "forbiddenAdd": "Ekle",
   "forbiddenLinkFoods": "Besinlere bağla",
   "forbiddenLinkedCount": "{count} besin bağlı",
-  "@forbiddenLinkedCount": {"placeholders": {"count": {"type": "int"}}},
+  "@forbiddenLinkedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "forbiddenNoPlan": "Yasaklı listesi plana yazılır; önce bir plan gerekli.",
   "forbiddenEmpty": "Yasaklı yok. Satır ekle; istersen besinlere bağla.",
   "dietHistoryDays": "Gün dökümü",
   "planAdherence": "Uyum %{percent} — {done}/{planned} antrenman günü",
-  "@planAdherence": {"placeholders": {"percent": {"type": "int"}, "done": {"type": "int"}, "planned": {"type": "int"}}},
+  "@planAdherence": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      },
+      "planned": {
+        "type": "int"
+      }
+    }
+  },
   "plannedVsDoneTitle": "Planlanan / Yapılan",
   "plannedVsDoneExercises": "Hareketler",
   "plannedVsDoneColumns": "PLAN · YAPILAN",
@@ -446,9 +507,21 @@
   "plannedVsDoneSession": "Seans",
   "plannedVsDoneNoSession": "Seans kaydı yok. Geçmiş gün için saat aralığını elle girebilirsin.",
   "plannedVsDoneSessionOpen": "{start} — sürüyor",
-  "@plannedVsDoneSessionOpen": {"placeholders": {"start": {"type": "String"}}},
+  "@plannedVsDoneSessionOpen": {
+    "placeholders": {
+      "start": {
+        "type": "String"
+      }
+    }
+  },
   "plannedVsDoneMinutes": "{minutes} dk",
-  "@plannedVsDoneMinutes": {"placeholders": {"minutes": {"type": "int"}}},
+  "@plannedVsDoneMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "plannedVsDoneAddSession": "Seans ekle",
   "plannedVsDoneSessionEdit": "Seans saatleri",
   "plannedVsDoneStart": "Başlangıç",
@@ -462,7 +535,13 @@
   "sportWorkoutTodayBody": "Plan bugüne antrenman koydu.",
   "sportWorkoutHistory": "Geçmiş",
   "sportWorkoutExerciseCount": "{count} hareket",
-  "@sportWorkoutExerciseCount": {"placeholders": {"count": {"type": "int"}}},
+  "@sportWorkoutExerciseCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "catalogSafetyLabel": "Güvenlik",
   "catalogSafetyRestricted": "Güvenlik — kısıtınla eşleşiyor",
   "bmiRowTitle": "Vücut kitle indeksi",
@@ -477,9 +556,21 @@
   "checkupNeedsWeight": "Kilo girilirse öneriler netleşir.",
   "checkupDue": "Vakti geldi",
   "checkupInMonths": "{months} ay sonra",
-  "@checkupInMonths": {"placeholders": {"months": {"type": "int"}}},
+  "@checkupInMonths": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
   "checkupScheduled": "{test} vadesi takvime eklendi.",
-  "@checkupScheduled": {"placeholders": {"test": {"type": "String"}}},
+  "@checkupScheduled": {
+    "placeholders": {
+      "test": {
+        "type": "String"
+      }
+    }
+  },
   "checkupFullPanel": "Tam panel (CBC, CMP, lipit, HbA1c, TSH)",
   "checkupHba1c": "HbA1c",
   "checkupLipid": "Lipit paneli",
@@ -501,9 +592,24 @@
   "labImportImplausible": "Değer akla yatkın aralığın dışında",
   "labImportEditTitle": "Satırı düzelt",
   "labImportSave": "{save} değeri kaydet · {skip} atla",
-  "@labImportSave": {"placeholders": {"save": {"type": "int"}, "skip": {"type": "int"}}},
+  "@labImportSave": {
+    "placeholders": {
+      "save": {
+        "type": "int"
+      },
+      "skip": {
+        "type": "int"
+      }
+    }
+  },
   "labImportSaved": "{count} tahlil değeri kaydedildi.",
-  "@labImportSaved": {"placeholders": {"count": {"type": "int"}}},
+  "@labImportSaved": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "healthImportWithAi": "Yapay zekâ ile PDF'ten aktar",
   "ctxSectionsTitle": "AI'a gönderilecekler",
   "ctxSectionsIntro": "Plan isteği belgesine hangi bölümlerin gireceğini sen seçersin. Kapalı bölüm belgeye hiç yazılmaz. Kim/hedef/görev her zaman girer — onlarsız plan istenemez.",
@@ -528,26 +634,74 @@
   "moreAiSections": "AI'a gönderilecekler",
   "importPlanGraftTitle": "Mevcut planın üstüne aşıla",
   "importPlanGraftBody": "{date} öncesi aynen korunur; o tarihten sonrası bu planla değiştirilir. Kayıtlarına dokunulmaz.",
-  "@importPlanGraftBody": {"placeholders": {"date": {"type": "String"}}},
+  "@importPlanGraftBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "requestScopeTitle": "Plan kapsamı",
   "requestScopeBody": "Aktif bir planın var. Yeni plan nereden başlasın?",
   "requestScopeGraft": "Şu tarihten sonrası",
   "requestScopeFresh": "Baştan yeni plan",
   "importWarningsTitle": "{count} uyarı",
-  "@importWarningsTitle": {"placeholders": {"count": {"type": "int"}}},
+  "@importWarningsTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "importWarningsFootnote": "Uyarılar içeri almayı engellemez; istersen sonra editörle düzelt.",
   "importWarnForbidden": "Yasaklı besin planda: {id}",
-  "@importWarnForbidden": {"placeholders": {"id": {"type": "String"}}},
+  "@importWarnForbidden": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
   "importWarnUnknownFood": "Besin listesinde yok: {id}",
-  "@importWarnUnknownFood": {"placeholders": {"id": {"type": "String"}}},
+  "@importWarnUnknownFood": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
   "importWarnCannotPerform": "Ekipmanınla yapılamıyor: {id}",
-  "@importWarnCannotPerform": {"placeholders": {"id": {"type": "String"}}},
+  "@importWarnCannotPerform": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
   "importWarnExternalMeal": "Dışarıda yenen öğüne plan yazılmış: {meal}",
-  "@importWarnExternalMeal": {"placeholders": {"meal": {"type": "String"}}},
+  "@importWarnExternalMeal": {
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
   "importWarnFixedMeal": "Sabit öğün planda farklı: {meal}",
-  "@importWarnFixedMeal": {"placeholders": {"meal": {"type": "String"}}},
+  "@importWarnFixedMeal": {
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
   "importWarnRestriction": "Hareket kısıtınla eşleşiyor: {id}",
-  "@importWarnRestriction": {"placeholders": {"id": {"type": "String"}}},
+  "@importWarnRestriction": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
   "rhythmMealsSection": "Öğünler",
   "rhythmMealFlexible": "Saat esnek",
   "mealBehaviorPlanned": "Plan doldurur",
@@ -556,7 +710,13 @@
   "mealBehaviorFixedNoteLabel": "Ne yenir?",
   "mealBehaviorFixedNoteHint": "örn. menemen + çay",
   "mealBehaviorSheetTitle": "{meal} düzeni",
-  "@mealBehaviorSheetTitle": {"placeholders": {"meal": {"type": "String"}}},
+  "@mealBehaviorSheetTitle": {
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
   "mealBehaviorTimeLabel": "Saat",
   "mealBehaviorTimeClear": "Saati kaldır",
   "mealBehaviorWhy": "Bu bilgi yapay zekâ planına gider: sabit öğün değiştirilmez, dışarıda yenen öğün planlanmaz.",
@@ -602,9 +762,6 @@
   "importPlanNewExercisesDescription": "Onayladıkların kataloğa kalıcı olarak eklenir.",
   "todayTitle": "Bugün",
   "todayWeekNumber": "{week}. hafta",
-  "todayHeroNoPlan": "Plan yok · tartını yine de kaydedebilirsin",
-  "todayHeroFreeDay": "Serbest gün",
-  "todayHeroDietFree": "{type} · diyet serbest",
   "todayDayTypeGym": "Salon günü",
   "todayDayTypeHome": "Ev antrenmanı",
   "todayDayTypeRest": "Dinlenme günü",
@@ -663,16 +820,8 @@
   "planRulesFree": "Serbest",
   "planWeekdayInitials": "P,S,Ç,P,C,C,P",
   "planMonthNames": "Ocak,Şubat,Mart,Nisan,Mayıs,Haziran,Temmuz,Ağustos,Eylül,Ekim,Kasım,Aralık",
-  "planCellFree": "boş",
   "planCellToday": "bugün",
   "planCellDone": "tamamlandı",
-  "planCellPartial": "{total} işten {checked} tamam",
-  "@planCellPartial": {
-    "placeholders": {
-      "total": {},
-      "checked": {}
-    }
-  },
   "planCellEmpty": "kayıt yok",
   "planCellFuture": "henüz gelmedi",
   "planCellFreeSpoken": "serbest gün",
@@ -708,7 +857,6 @@
   "supplementTimesSection": "Saatler",
   "supplementTimesEmpty": "Saat eklenmedi — hatırlatma kurulmaz.",
   "supplementAddTime": "Saat ekle",
-  "supplementRemoveTime": "Saati kaldır",
   "supplementDaysSection": "Günler",
   "supplementEveryDay": "Her gün",
   "supplementDeleteTitle": "\"{name}\" silinsin mi?",
@@ -727,7 +875,6 @@
       "time": {}
     }
   },
-  "supplementDoseCount": "{count} kalem",
   "supplementSectionLabel": "Takviye",
   "reminderSupplementBody": "Alma vakti geldi.",
   "reminderSupplementBodyWithDose": "{dose} — alma vakti geldi.",
@@ -750,7 +897,6 @@
   "equipmentJumpRope": "Atlama ipi",
   "catalogEquipmentMissingHome": "{equipment} gerekiyor (evinde yok)",
   "catalogEquipmentMissingGym": "{equipment} gerekiyor (salonunda yok)",
-  "catalogEquipmentCheck": "{equipment} — kontrol et",
   "foodSearchHint": "Besin ara",
   "foodSearchEmptyTitle": "Bulunamadı",
   "foodSearchEmptyMessage": "Daha kısa bir sözcük dene ya da diğer dilde ara.",
@@ -816,20 +962,9 @@
   "activityLogTitle": "Aktivite ekle",
   "activitySearchHint": "Aktivite ara",
   "activityMinutesLabel": "Dakika",
-  "activityEstimate": "≈{kcal} kcal",
-  "@activityEstimate": {
-    "placeholders": {
-      "kcal": {
-        "type": "int"
-      }
-    }
-  },
   "activityAdd": "Ekle",
   "activityEmptyTitle": "Eşleşen aktivite yok",
   "activityEmptyMessage": "Başka bir sözcük dene ya da aşağıdan kendin ekle.",
-  "activityCustomTitle": "Kendin ekle",
-  "activityCustomNameLabel": "Aktivite adı",
-  "activityCustomEffortLabel": "Ne kadar zorladı?",
   "effortLight": "Hafif",
   "effortModerate": "Orta",
   "effortVigorous": "Zorlu",
@@ -842,7 +977,6 @@
   "todayMetricProtein": "PROTEİN",
   "todayMetricBurned": "YAKILAN",
   "mealEntryRemoved": "Kaldırıldı",
-  "mealEntryUndo": "Geri al",
   "progressCaloriesTitle": "Bu haftanın kalorisi",
   "progressCaloriesGoalLine": "Hedef",
   "progressDayBreakdown": "{date} dökümü",
@@ -850,22 +984,6 @@
     "placeholders": {
       "date": {
         "type": "String"
-      }
-    }
-  },
-  "calendarOverBy": "+{kcal}",
-  "@calendarOverBy": {
-    "placeholders": {
-      "kcal": {
-        "type": "int"
-      }
-    }
-  },
-  "calendarUnderBy": "−{kcal}",
-  "@calendarUnderBy": {
-    "placeholders": {
-      "kcal": {
-        "type": "int"
       }
     }
   },
@@ -926,7 +1044,6 @@
   "planExerciseGrade": "Eğim (%)",
   "planExerciseEffort": "Efor",
   "planExerciseRequired": "Önce bir hareket seç",
-  "planOriginAi": "AI planı",
   "planOriginAiEdited": "AI planı · düzenlendi",
   "planOriginManual": "Elle kuruldu",
   "planCreateEmpty": "Boş plan kur",
@@ -973,14 +1090,6 @@
   "moreNotifications": "Bildirimler",
   "moreAppearance": "Görünüm ve dil",
   "moreBackup": "Yedekleme",
-  "moreBackupStale": "{days} gündür yedek alınmadı",
-  "@moreBackupStale": {
-    "placeholders": {
-      "days": {
-        "type": "int"
-      }
-    }
-  },
   "dayFlowTitle": "Günün akışı",
   "dayFlowWeighIn": "Tartı",
   "dayFlowCollapse": "Daha az göster",

@@ -23,13 +23,10 @@ mağaza yok. Mimari bunları sonradan almaya açık (bkz. `SyncColumns`).
 
 | Dosya | İçerik |
 |---|---|
-| [Tasarım (spec)](docs/superpowers/specs/2026-08-28-disport-tasarim.md) | **Tek doğruluk kaynağı.** Veri modeli, ekranlar, AI sözleşmesi, alarmlar. Kod bununla çelişiyorsa kod yanlıştır. |
-| [M1 planı](docs/superpowers/plans/2026-08-28-m1-iskelet.md) | İskelet — **tamamlandı** |
-| [M2 planı](docs/superpowers/plans/2026-08-28-m2-katalog.md) | Egzersiz kataloğu — **tamamlandı** |
-| [M3 planı](docs/superpowers/plans/2026-08-28-m3-plan-ve-gunluk.md) | Plan, günlük kayıt, Bugün + Antrenman — **tamamlandı** |
-| [M4 planı](docs/superpowers/plans/2026-08-28-m4-ai-koprusu.md) | AI köprüsü — **tamamlandı** |
-| [M5 planı](docs/superpowers/plans/2026-08-28-m5-saglik-ilerleme-alarm.md) | Tahlil, grafik, alarm, yedek, BYOK — **tamamlandı** (BYOK hariç) |
-| [M6 planı](docs/superpowers/plans/2026-08-31-m6-ozellestirme-ve-gorsel-refactor.md) | Görsel refactor + özelleştirme — **sürüyor** |
+| [v3 tasarımı (spec)](docs/superpowers/specs/2026-09-01-disport-v3-tasarim.md) | **Tek doğruluk kaynağı.** Bilgi mimarisi (5 sekme), onboarding, medikal, diyet/spor sekmeleri, AI sözleşmesi v2. Kod bununla çelişiyorsa kod yanlıştır. |
+| [v1 tasarımı](docs/superpowers/specs/2026-08-28-disport-tasarim.md) | Veri modeli ve v3'ün değiştirmediği her şey için hâlâ geçerli temel. |
+| [v3 planı](docs/superpowers/plans/2026-09-01-v3-m13-m18.md) | M13-M18 — **tamamlandı** |
+| M1-M12 planları (`docs/superpowers/plans/`) | v1 (M1-M6) ve v2 (M7-M12) — **tamamlandı** |
 
 Planlar sırayla yürütülür. Bir kilometre taşı bitince **sonraki planı
 gözden geçir ve senkronize et** — öğrenilenler planı eskitir.
@@ -49,7 +46,7 @@ di@sport/
     │   ├── main.dart         tek satır → bootstrap()
     │   ├── bootstrap.dart    açılış işleri (katalog tohumu, alarm penceresi)
     │   ├── app/
-    │   │   ├── app.dart      DisportApp + _Shell (5 sekme) + appDatabaseProvider
+    │   │   ├── app.dart      DisportApp + _Shell (5 sekme: Ana Sayfa · Diyet · Spor · Sağlık · Daha) + appDatabaseProvider
     │   │   └── theme/        app_theme (birleştirici) · app_color_schemes · app_component_themes
     │   ├── core/
     │   │   ├── db/           AppDatabase (toplayıcı) · SyncColumns mixin
@@ -61,21 +58,31 @@ di@sport/
     └── test/                 lib/ ağacını aynalar
 ```
 
-### Feature listesi ve durumu
+### Sekmeler (v3 bilgi mimarisi)
 
-| Feature | Durum | Sorumluluk |
-|---|---|---|
-| `today` | **tamam** | Zaman omurgası, tartı/uyku girişi, **kullanıcı tanımlı kurallar**, not |
-| `plan` | **tamam** | 28 günlük program, takvim görünümü, örnek plan yükleme |
-| `progress` | tam | Kilo grafiği (7g hareketli ortalama), haftalık kartlar, geçiş kriteri |
-| `health` | tam | Tahlil panelleri, **kullanıcı tanımlı ölçüm türleri**, vade şeridi |
-| `catalog` | **tamam** | 26 hareket, arama/filtre, dört sekmeli detay, **ekipman envanteri ve filtresi** |
-| `workout` | **tamam** | Antrenman akışı: set sayacı, dinlenme, geri alma |
-| `ai_bridge` | **tamam** | context.md üretimi, dört kapılı doğrulama, plan.json içe alma |
-| `reminders` | tam | Saf `planWindow` + platform katmanı, 7 günlük kaydırmalı pencere |
-| `nutrition` | **tamam** | Besin veritabanı, porsiyonlu öğün kaydı, kalori bütçesi, serbest aktiviteler |
-| `settings` | tam | Profil formu (kimlik + ölçü), **Günlük Düzen** (kalkış/uyku/mesai/yasaklı saat), bildirimler, yedekleme, **haftalık mesai/yasaklı saat pencereleri**, görünüm ve dil |
-| `supplements` | **tamam** | Vitamin/ilaç tanımı, günlük alım işareti, saatli hatırlatma |
+Kabuk beş sekme: **Ana Sayfa · Diyet · Spor · Sağlık · Daha**
+(`lib/app/app.dart` + `lib/app/shells/`). Diyet/Spor/Sağlık kendi
+içinde bölümlü (`AppSegmentBar`): Diyet = Günlük · Besinler · Geçmiş;
+Spor = Plan · Antrenman · Katalog; Sağlık = Tahliller · Ölçümler ·
+İlaçlar. Eski Ayarlar "Daha" dizinine dönüştü (profil, düzen,
+bildirim, yedekleme, AI köprüsü girişleri).
+
+### Feature listesi
+
+| Feature | Sorumluluk |
+|---|---|
+| `today` | Ana Sayfa: üç bölümlü gün akışı, karşılama sihirbazı + kurulum kartları, tartı/uyku/su, **kullanıcı tanımlı kurallar**, not |
+| `plan` | Program, spor takvimi (yalnız spor hücreleri + uyum yüzdesi), plan editörü, plan öğün kalemleri |
+| `progress` | Kilo grafiği (7g hareketli ortalama), haftalık kartlar, geçiş kriteri |
+| `health` | Tahlil panelleri + aralık çubukları, BMI, **kullanıcı tanımlı ölçüm türleri**, çekap rehberi, vade şeridi |
+| `medical` | **v3 yeni.** Tıbbi durumlar/ameliyatlar/reçeteli ilaçlar, hareket kısıtı eşlemesi (`restriction_match`), ilaç uyum şeridi |
+| `catalog` | 161 hareket (iki dilli), arama/filtre, detay, **ekipman envanteri + spor dalları + etki paneli** |
+| `workout` | Antrenman akışı: set sayacı, dinlenme, geri alma; planlanan-yapılan ekranı (**geçmiş güne set düzeltme**), geçmiş sekmesi |
+| `ai_bridge` | context.md v2 (9 bölüm, bölüm anahtarları), dört kapılı doğrulama + amber uyarılar, aşılama (graft) içe alma, **tahlil-aktar.md** akışı |
+| `reminders` | Saf `planWindow` + platform katmanı, 7 günlük kaydırmalı pencere, öğün saatleri |
+| `nutrition` | Diyet sekmesi: plan-gerçek karşılaştırmalı günlük, besin listesi (sıralama + yasaklı rozetleri), geçmiş, kalori bütçesi, serbest aktiviteler, **öğün davranışları** |
+| `settings` | "Daha" dizini: profil, **Günlük Düzen** (kalkış/uyku/mesai/yasaklı saat + öğün saatleri), bildirimler, yedekleme, görünüm ve dil |
+| `supplements` | Takviye tanımı (**tür ayrımı: vitamin/ilaç reçetesizi**), günlük alım işareti, saatli hatırlatma |
 
 ---
 
@@ -116,6 +123,19 @@ Hâlâ geçerli olan: marka **amber ve kırmızıdan** uzak durmalı, ve renk
 tek başına anlam taşımaz (ikon + metin her zaman eşlik eder). İkisini de
 `contrast_test.dart` koruyor; ayrı bir test birleştirmeyi sabitliyor ki
 sessizce geri kaymasın.
+
+### v3 katmanı (M13) — alan renkleri ve bileşenler
+
+Mürekkep dilinin üstüne v3 üç şey ekledi:
+
+1. **Alan renkleri.** Alanların kendi vurgu tonu var
+   (`context.semantic.area*` — diet, sport, health, energy, med;
+   açık zemin varyantlarıyla). Segment çubukları ve panel başlıkları
+   alan tonunu taşır; anlam renkleri (success/warning/danger) değişmedi.
+2. **Panel/segment/tile bileşenleri** (`AppPanel`, `AppSegmented` +
+   `AppSegmentedShell`, `AppIconTile`, `AppAccentRow`) — bölümlü
+   sekmelerin ortak iskeleti.
+3. **İkonlar Lucide** (`lucide_icons_flutter`), Material ikonları değil.
 
 ### Mürekkep dili (M12) — güncel görsel dil
 
@@ -209,6 +229,7 @@ drift **2.34** + drift_flutter · uuid
 riverpod_annotation + riverpod_generator (codegen) · uuid
 
 share_plus (context.md paylaşımı ve yedek) · fl_chart (kilo grafiği) ·
+lucide_icons_flutter (ikon seti) ·
 flutter_local_notifications + timezone + flutter_timezone (alarmlar) ·
 path_provider + path + file_picker (yedekleme)
 
@@ -463,26 +484,24 @@ slotsuz. Varsayılan slot koymak silinecek satırlar üretmek olurdu.
 
 ## Durum
 
-**v1 tamamlandı (M1-M6). v2 tamamlandı (M7-M12).** 755 test yeşil, analiz temiz.
+**v1 tamamlandı (M1-M6). v2 tamamlandı (M7-M12). v3 tamamlandı (M13-M18).**
+Tüm testler yeşil, analiz temiz.
 
 | | |
 |---|---|
-| M1 | iskelet, Drift şeması, tasarım sistemi, 5 sekmeli kabuk |
-| M2 | egzersiz kataloğu (arama/filtre, dört sekmeli detay) |
-| M3 | plan, günlük kayıt, Bugün ve Antrenman ekranları |
-| M4 | AI köprüsü, onboarding, profil formu |
-| M5 | tahlil takibi, İlerleme ve Sağlık ekranları, alarmlar, yedekleme |
-| M6 | görsel refactor (Vue yeşili) + özelleştirme: kurallar, ölçümler, ekipman, haftalık düzen |
-| M7 | dil altyapısı — TR/EN, ARB, `hardcoded_text_test` nöbetçisi |
-| M8 | katalog 2.0 — 161 hareket, boru hattı, tipli ekipman, İngilizce-öncelikli adlar |
-| M11 | takviye ve ilaç takibi |
-| M12 | mürekkep tasarım dili — koyu yüzey, kartsız, ekran başına bir kahraman sayı |
-| M9 | besin ve kalori — 368 besin, 72 aktivite, kalori bütçesi |
-| M10 | düzenlenebilirlik — tarihli gün ekranı, plan editörü, Günlük Düzen |
+| M1-M6 (v1) | iskelet · katalog · plan/günlük · AI köprüsü · sağlık/alarm/yedek · Vue yeşili + özelleştirme |
+| M7-M12 (v2) | TR/EN dil altyapısı · katalog 2.0 (161 hareket) · besin/kalori · düzenlenebilirlik · takviye · mürekkep tasarım dili |
+| M13 | v3 gezinme iskeleti — 5 sekme (Ana Sayfa · Diyet · Spor · Sağlık · Daha), alan renkleri, panel/segment/tile bileşenleri, Lucide ikonlar |
+| M14 | şema v15, karşılama sihirbazı + kurulum kartları, medikal feature, sporlar, öğün davranışları, takviye tür ayrımı |
+| M15 | Diyet sekmesi — plan-gerçek günlük, su (ml), besin listesi + yasaklı rozetleri, geçmiş |
+| M16 | Spor sekmesi — spor takvimi + uyum, planlanan-yapılan + geçmiş güne set düzeltme, antrenman geçmişi, iki dilli katalog |
+| M17 | Sağlık sekmesi — aralık çubukları, BMI, çekap rehberi, ilaç uyum şeridi, AI destekli tahlil aktarımı |
+| M18 | AI köprüsü v2 — context.md v2 (9 bölüm + anahtarlar), aşılama içe alma, amber içe alma uyarıları, süpürme |
 
 **Döngü kapandı:** onboarding → "Yeni plan iste" → `context.md` paylaş →
-herhangi bir AI → dönen JSON → "İçeri al" → doğrula → önizle → onayla →
-plan Bugün ekranında.
+herhangi bir AI → dönen JSON → "İçeri al" → doğrula (+uyarılar) →
+önizle → onayla → plan Ana Sayfa'da. Tahlil için aynı döngünün
+ikinci kopyası Sağlık'ta.
 
 ### Veritabanı şeması
 
@@ -502,6 +521,7 @@ plan Bugün ekranında.
 | v12 | `equipment_items.atHome/atGym`, tipli `equipment` |
 | v13 | `foods`, `food_portions`, `meal_entries`, `activities`, `activity_logs`, `workout_sessions` + `plan_exercises`/`exercise_logs` şiddet sütunları |
 | v14 | `plan_slots.mealKind` |
+| v15 | `medical_facts`, `meal_behaviors`, `favorite_sports`, `plan_meal_items` + `supplements.kind` + `daily_logs.waterMl` |
 
 Tablo eklerken `schemaVersion`'ı artır ve `onUpgrade`'e **yeni bir**
 `if (from < N)` bloğu ekle; eskileri değiştirme.
@@ -513,9 +533,16 @@ Tablo eklerken `schemaVersion`'ı artır ve `onUpgrade`'e **yeni bir**
 | `ai_bridge/domain/ports.dart` | Feature'ların uygulayacağı arayüzler. `ai_bridge` hiçbir feature'ın `data/` katmanını import etmez. |
 | `domain/json_reader.dart` | Alan yolunu izleyen okuyucu. Hata mesajı AI'a geri yapıştırılabilir olmalı. |
 | `domain/plan_validator.dart` | Kapı 1-3. **İlk hatada durmaz**, hepsini tek mesajda toplar. |
-| `domain/plan_importer.dart` | Depo tiplerini değil fonksiyon imzalarını alır. |
-| `domain/context_md_builder.dart` | Yedi bölümlü belge. `ProfileKeys.form` onboarding formunun **ve** alarm zamanlayıcısının uyanma saati anahtarının kaynağı. |
-| `presentation/import_plan_sheet.dart` | Kapı 4: önizleme ve onay. Onaysız hiçbir şey yazılmaz. |
+| `domain/plan_importer.dart` | Depo tiplerini değil fonksiyon imzalarını alır. **Aşılama (graft):** gelen `startDate` kesim çizgisi — öncesi aynen kalır, sonrası yeni plandan gelir; `sourceRaw`'a aşılama bölümü eklenir. |
+| `domain/context_md_builder.dart` | **v2: dokuz numaralı bölüm** + isteğe bağlı besin listesi eki. Bölümler `ContextSection` ile kapatılabilir (`ctx.off.*` profil anahtarları, Ayarlar → bölüm seçimi). Medikal bölüm sınır cümlesi taşır (ilaç önerisi yasak). `ProfileKeys.form` onboarding formunun **ve** alarm zamanlayıcısının uyanma saati anahtarının kaynağı. |
+| `domain/import_warnings.dart` | **Amber uyarılar — asla engellemez.** Altı denetim: bilinmeyen/yasaklı besin, yapılamayan hareket (ekipman envanteri), dışarıda yenen/sabit öğün davranışı, tıbbi kısıt eşleşmesi. Veri toplama `importWarningsCollectorProvider`'da (fonksiyon tipli — testte tek satırla override edilir). |
+| `presentation/import_plan_sheet.dart` | Kapı 4: önizleme ve onay. Onaysız hiçbir şey yazılmaz. Aktif plan varsa aşılama anahtarı görünür. |
+
+**İkinci köprü — tahlil aktarımı** (`health/domain/lab_import.dart` +
+`lab_import_screen.dart`): uygulama `tahlil-aktar.md` üretir, kullanıcı
+tahlil fotoğrafıyla birlikte AI'a verir, dönen JSON aynı dört kapılı
+düzenle doğrulanıp önizlemeyle içeri alınır. Belirteç sözlüğü
+(`LabMarkerSpec`) tıbbi terim olduğu için `l10n-exempt`.
 
 Yeni bir adaptör eklerken: portu `ports.dart`'a yaz, uygulamasını ilgili
 feature'ın `application/` klasörüne koy, `ai_bridge_providers.dart`'ta bağla.
@@ -594,10 +621,6 @@ Kurallar, ölçüm türleri ve ekipman aynı desende:
 - **Geri yükleme sonrası uygulama yeniden başlatılmalı** — açık Drift
   bağlantısı eski veriyi göstermeye devam ediyor. Kullanıcıya snackbar ile
   söyleniyor; otomatik yeniden başlatma yok.
-- **Geçmiş günde antrenman seti düzenlenemiyor.** Gün ekranı tartıyı,
-  öğünü, kuralları ve notu geçmişe yazıyor ama `exercise_logs` satırları
-  yalnız antrenman ekranından ve yalnız o gün giriliyor. M10 gözden
-  geçirmesinde istenmişti; kapsam dışı bırakıldı ve açık kalıyor.
 - **`profile_entries.familyDinnerTime` yazılamıyor.** Alan formdan
   kalktı ama veri duruyor; `context.md` onu hâlâ basıyor. Eski
   kurulumlarda değer varsa AI görmeye devam eder, yeni kurulumda hiç

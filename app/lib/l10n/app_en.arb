@@ -1,21 +1,13 @@
 {
   "@@locale": "en",
   "tabToday": "Today",
-  "tabPlan": "Plan",
   "tabProgress": "Progress",
   "tabHealth": "Health",
-  "tabCatalog": "Catalog",
-  "tabTodayHint": "Today's schedule and entries",
-  "tabPlanHint": "Four-week programme",
-  "tabProgressHint": "Weight trend and weekly summary",
   "tabHealthHint": "Lab results and measurements",
-  "tabCatalogHint": "Exercise library",
   "settingsTitle": "Settings",
-  "settingsTooltip": "Profile and lifestyle",
   "commonSave": "Save",
   "commonCancel": "Cancel",
   "commonDelete": "Delete",
-  "commonEdit": "Edit",
   "commonClear": "Clear",
   "commonRetry": "Try again",
   "appearanceTitle": "Appearance",
@@ -56,10 +48,6 @@
   "catalogLocationBoth": "Home / Gym",
   "catalogLocationSemantics": "Can be done at: {place}",
   "catalogEquipmentTitle": "My equipment",
-  "catalogEquipmentEmptyTitle": "Equipment list is empty",
-  "catalogEquipmentEmptyDescription": "The list fills itself once the catalogue loads. You can also add items by hand with the button below.",
-  "catalogEquipmentNoneOwned": "No equipment marked. Bodyweight-only exercises are always available.",
-  "catalogEquipmentOwnedCount": "{count} item(s) marked. The \"My equipment\" filter in the catalogue uses these.",
   "catalogEquipmentAddFab": "Equipment",
   "catalogEquipmentAddTitle": "Add equipment",
   "catalogEquipmentFieldLabel": "Equipment",
@@ -272,9 +260,6 @@
   "settingsEquipmentTitle": "My equipment",
   "settingsEquipmentDescription": "What you check here feeds the catalogue filter and the context sent to the AI.",
   "settingsEquipmentTile": "Equipment list",
-  "settingsWeeklyTitle": "Weekly schedule",
-  "settingsWeeklyDescription": "Your working hours and the times you are unavailable. The AI builds the plan around them and reminders stay silent during blocked hours.",
-  "settingsWeeklyTile": "Working and unavailable hours",
   "settingsWeeklyFab": "Time range",
   "settingsWeeklyExplanationTitle": "There are two kinds of range",
   "settingsWeeklyExplanationBody": "· Work: you are on the job. The AI will not schedule training then, but it may schedule meals.\n· Unavailable: nothing is scheduled and no reminder fires.",
@@ -316,7 +301,6 @@
   "settingsExactAlarmGranted": "Granted — reminders fire exactly on time.",
   "settingsExactAlarmDenied": "Not granted. Reminders still fire but may be a few minutes late in battery saver. Tap to grant.",
   "settingsExactAlarmLoading": "Loading…",
-  "settingsOnboardingWelcome": "Welcome",
   "settingsOnboardingIntro": "Let's get to know you first. This information never leaves your device; it is only used when you send a context file to an AI yourself.",
   "settingsOnboardingSave": "Save and start",
   "onboardingWelcomeTitle": "Welcome to di@sport",
@@ -349,17 +333,37 @@
   "commonNext": "Next",
   "setupPanelTitle": "Setup",
   "setupPanelProgress": "{done}/{total} done",
-  "@setupPanelProgress": {"placeholders": {"done": {"type": "int"}, "total": {"type": "int"}}},
+  "@setupPanelProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "setupPanelBody": "A few short steps left. These feed your plan too — the fuller they are, the better the plan.",
   "setupCardEquipment": "Pick your equipment",
   "setupCardMedical": "Your medical info",
   "setupCardRhythm": "Your daily rhythm",
   "setupCardMinutes": "{minutes} min",
-  "@setupCardMinutes": {"placeholders": {"minutes": {"type": "int"}}},
+  "@setupCardMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "setupCardSkip": "Skip",
-  "setupRequestPlan": "Request your first plan",
   "todayBirthday": "Happy birthday, {name}! 🎉",
-  "@todayBirthday": {"placeholders": {"name": {"type": "String"}}},
+  "@todayBirthday": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "medicalTitle": "Medical info",
   "medicalPrivacyNote": "This never leaves your device; it only reaches a plan when you share the AI document yourself.",
   "medicalKindCondition": "Conditions",
@@ -370,7 +374,13 @@
   "medicalAddCustom": "Add another",
   "medicalCustomHint": "e.g. knee sensitivity",
   "medicalRemoveTitle": "Remove {label}?",
-  "@medicalRemoveTitle": {"placeholders": {"label": {"type": "String"}}},
+  "@medicalRemoveTitle": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
   "medicalRemoveBody": "The record leaves the list; your history stays intact.",
   "medicalMedsTitle": "Medication",
   "medicalMedsEmpty": "No medication defined. Medication lives in the Medication & Supplements screen for reminders and tracking.",
@@ -391,11 +401,29 @@
   "equipmentTabGym": "At the gym",
   "equipmentTabSports": "Sports",
   "equipmentImpactHome": "With these checks you can do {count} exercises at home.",
-  "@equipmentImpactHome": {"placeholders": {"count": {"type": "int"}}},
+  "@equipmentImpactHome": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "equipmentImpactGym": "With these checks you can do {count} exercises at the gym.",
-  "@equipmentImpactGym": {"placeholders": {"count": {"type": "int"}}},
+  "@equipmentImpactGym": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "equipmentUnlocks": "unlocks +{count}",
-  "@equipmentUnlocks": {"placeholders": {"count": {"type": "int"}}},
+  "@equipmentUnlocks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "equipmentGymToggle": "Do you go to a gym?",
   "equipmentGymOffBody": "If you don't go to a gym there's nothing to do here — plans are built only from what's doable at home and outdoors. Flip the switch if that changes.",
   "sportsIntro": "Pick the sports you love; the AI builds the plan around them. Add a frequency note if you like.",
@@ -409,7 +437,16 @@
   "planSlotAddItem": "Add food",
   "waterRowTitle": "Water",
   "waterRowAmount": "{current} / {target} ml",
-  "@waterRowAmount": {"placeholders": {"current": {"type": "int"}, "target": {"type": "int"}}},
+  "@waterRowAmount": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
   "waterRowAddGlass": "+250 ml",
   "waterRowRemoveGlass": "Take back one glass",
   "dietPlanBadge": "PLAN",
@@ -418,7 +455,13 @@
   "dietAteUsual": "The usual",
   "dietExternalMeal": "Canteen/eating out — no plan expected, log freely.",
   "dietFixedUnbound": "Fixed meal: {note}",
-  "@dietFixedUnbound": {"placeholders": {"note": {"type": "String"}}},
+  "@dietFixedUnbound": {
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
   "foodSortAz": "A–Z",
   "foodSortKcalAsc": "Calories ↑",
   "foodSortKcalDesc": "Calories ↓",
@@ -431,12 +474,30 @@
   "forbiddenAdd": "Add",
   "forbiddenLinkFoods": "Link to foods",
   "forbiddenLinkedCount": "{count} foods linked",
-  "@forbiddenLinkedCount": {"placeholders": {"count": {"type": "int"}}},
+  "@forbiddenLinkedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "forbiddenNoPlan": "The forbidden list is stored on the plan; you need a plan first.",
   "forbiddenEmpty": "Nothing forbidden. Add a line; link it to foods if you like.",
   "dietHistoryDays": "Day breakdown",
   "planAdherence": "Adherence {percent}% — {done}/{planned} workout days",
-  "@planAdherence": {"placeholders": {"percent": {"type": "int"}, "done": {"type": "int"}, "planned": {"type": "int"}}},
+  "@planAdherence": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      },
+      "done": {
+        "type": "int"
+      },
+      "planned": {
+        "type": "int"
+      }
+    }
+  },
   "plannedVsDoneTitle": "Planned / Done",
   "plannedVsDoneExercises": "Exercises",
   "plannedVsDoneColumns": "PLAN · DONE",
@@ -446,9 +507,21 @@
   "plannedVsDoneSession": "Session",
   "plannedVsDoneNoSession": "No session recorded. For a past day you can enter the time range by hand.",
   "plannedVsDoneSessionOpen": "{start} — in progress",
-  "@plannedVsDoneSessionOpen": {"placeholders": {"start": {"type": "String"}}},
+  "@plannedVsDoneSessionOpen": {
+    "placeholders": {
+      "start": {
+        "type": "String"
+      }
+    }
+  },
   "plannedVsDoneMinutes": "{minutes} min",
-  "@plannedVsDoneMinutes": {"placeholders": {"minutes": {"type": "int"}}},
+  "@plannedVsDoneMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "plannedVsDoneAddSession": "Add session",
   "plannedVsDoneSessionEdit": "Session times",
   "plannedVsDoneStart": "Start",
@@ -462,7 +535,13 @@
   "sportWorkoutTodayBody": "The plan scheduled a workout today.",
   "sportWorkoutHistory": "History",
   "sportWorkoutExerciseCount": "{count} exercises",
-  "@sportWorkoutExerciseCount": {"placeholders": {"count": {"type": "int"}}},
+  "@sportWorkoutExerciseCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "catalogSafetyLabel": "Safety",
   "catalogSafetyRestricted": "Safety — matches your restriction",
   "bmiRowTitle": "Body mass index",
@@ -477,9 +556,21 @@
   "checkupNeedsWeight": "Enter your weight to sharpen the suggestions.",
   "checkupDue": "Due now",
   "checkupInMonths": "in {months} months",
-  "@checkupInMonths": {"placeholders": {"months": {"type": "int"}}},
+  "@checkupInMonths": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
   "checkupScheduled": "{test} added to your lab schedule.",
-  "@checkupScheduled": {"placeholders": {"test": {"type": "String"}}},
+  "@checkupScheduled": {
+    "placeholders": {
+      "test": {
+        "type": "String"
+      }
+    }
+  },
   "checkupFullPanel": "Full panel (CBC, CMP, lipid, HbA1c, TSH)",
   "checkupHba1c": "HbA1c",
   "checkupLipid": "Lipid panel",
@@ -501,9 +592,24 @@
   "labImportImplausible": "Value outside the plausible range",
   "labImportEditTitle": "Fix row",
   "labImportSave": "Save {save} values · skip {skip}",
-  "@labImportSave": {"placeholders": {"save": {"type": "int"}, "skip": {"type": "int"}}},
+  "@labImportSave": {
+    "placeholders": {
+      "save": {
+        "type": "int"
+      },
+      "skip": {
+        "type": "int"
+      }
+    }
+  },
   "labImportSaved": "{count} lab values saved.",
-  "@labImportSaved": {"placeholders": {"count": {"type": "int"}}},
+  "@labImportSaved": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "healthImportWithAi": "Import from PDF with AI",
   "ctxSectionsTitle": "What goes to the AI",
   "ctxSectionsIntro": "You choose which sections enter the plan request document. A disabled section is never written. Who/goal/task always go — no plan can be requested without them.",
@@ -528,26 +634,74 @@
   "moreAiSections": "What goes to the AI",
   "importPlanGraftTitle": "Graft onto the current plan",
   "importPlanGraftBody": "Everything before {date} stays untouched; from that date on this plan takes over. Your records are never touched.",
-  "@importPlanGraftBody": {"placeholders": {"date": {"type": "String"}}},
+  "@importPlanGraftBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "requestScopeTitle": "Plan scope",
   "requestScopeBody": "You have an active plan. Where should the new plan start?",
   "requestScopeGraft": "From a chosen date",
   "requestScopeFresh": "A fresh plan",
   "importWarningsTitle": "{count} warnings",
-  "@importWarningsTitle": {"placeholders": {"count": {"type": "int"}}},
+  "@importWarningsTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "importWarningsFootnote": "Warnings never block the import; fix them later in the editor if you like.",
   "importWarnForbidden": "Forbidden food in the plan: {id}",
-  "@importWarnForbidden": {"placeholders": {"id": {"type": "String"}}},
+  "@importWarnForbidden": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
   "importWarnUnknownFood": "Not in the food list: {id}",
-  "@importWarnUnknownFood": {"placeholders": {"id": {"type": "String"}}},
+  "@importWarnUnknownFood": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
   "importWarnCannotPerform": "Not doable with your equipment: {id}",
-  "@importWarnCannotPerform": {"placeholders": {"id": {"type": "String"}}},
+  "@importWarnCannotPerform": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
   "importWarnExternalMeal": "Plan written for an external meal: {meal}",
-  "@importWarnExternalMeal": {"placeholders": {"meal": {"type": "String"}}},
+  "@importWarnExternalMeal": {
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
   "importWarnFixedMeal": "Fixed meal differs in the plan: {meal}",
-  "@importWarnFixedMeal": {"placeholders": {"meal": {"type": "String"}}},
+  "@importWarnFixedMeal": {
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
   "importWarnRestriction": "Matches your movement restriction: {id}",
-  "@importWarnRestriction": {"placeholders": {"id": {"type": "String"}}},
+  "@importWarnRestriction": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
   "rhythmMealsSection": "Meals",
   "rhythmMealFlexible": "Flexible time",
   "mealBehaviorPlanned": "Plan fills it",
@@ -556,7 +710,13 @@
   "mealBehaviorFixedNoteLabel": "What do you eat?",
   "mealBehaviorFixedNoteHint": "e.g. menemen + tea",
   "mealBehaviorSheetTitle": "{meal} routine",
-  "@mealBehaviorSheetTitle": {"placeholders": {"meal": {"type": "String"}}},
+  "@mealBehaviorSheetTitle": {
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
   "mealBehaviorTimeLabel": "Time",
   "mealBehaviorTimeClear": "Clear time",
   "mealBehaviorWhy": "This goes into the AI plan: a fixed meal is left untouched, an external meal is never planned.",
@@ -602,9 +762,6 @@
   "importPlanNewExercisesDescription": "The ones you approve are added to the catalogue permanently.",
   "todayTitle": "Today",
   "todayWeekNumber": "week {week}",
-  "todayHeroNoPlan": "No plan · you can still log your weight",
-  "todayHeroFreeDay": "Free day",
-  "todayHeroDietFree": "{type} · diet free",
   "todayDayTypeGym": "Gym day",
   "todayDayTypeHome": "Home workout",
   "todayDayTypeRest": "Rest day",
@@ -663,16 +820,8 @@
   "planRulesFree": "Allowed",
   "planWeekdayInitials": "M,T,W,T,F,S,S",
   "planMonthNames": "January,February,March,April,May,June,July,August,September,October,November,December",
-  "planCellFree": "empty",
   "planCellToday": "today",
   "planCellDone": "completed",
-  "planCellPartial": "{checked} of {total} done",
-  "@planCellPartial": {
-    "placeholders": {
-      "checked": {},
-      "total": {}
-    }
-  },
   "planCellEmpty": "no record",
   "planCellFuture": "not here yet",
   "planCellFreeSpoken": "free day",
@@ -708,7 +857,6 @@
   "supplementTimesSection": "Times",
   "supplementTimesEmpty": "No times set — no reminder will be scheduled.",
   "supplementAddTime": "Add time",
-  "supplementRemoveTime": "Remove time",
   "supplementDaysSection": "Days",
   "supplementEveryDay": "Every day",
   "supplementDeleteTitle": "Delete \"{name}\"?",
@@ -727,7 +875,6 @@
       "time": {}
     }
   },
-  "supplementDoseCount": "{count} item(s)",
   "supplementSectionLabel": "Supplements",
   "reminderSupplementBody": "Time to take it.",
   "reminderSupplementBodyWithDose": "{dose} — time to take it.",
@@ -750,7 +897,6 @@
   "equipmentJumpRope": "Jump rope",
   "catalogEquipmentMissingHome": "Needs {equipment} (not at home)",
   "catalogEquipmentMissingGym": "Needs {equipment} (not at the gym)",
-  "catalogEquipmentCheck": "{equipment} — check",
   "foodSearchHint": "Search foods",
   "foodSearchEmptyTitle": "Nothing found",
   "foodSearchEmptyMessage": "Try a shorter word, or search in the other language.",
@@ -816,20 +962,9 @@
   "activityLogTitle": "Log activity",
   "activitySearchHint": "Search activities",
   "activityMinutesLabel": "Minutes",
-  "activityEstimate": "~{kcal} kcal",
-  "@activityEstimate": {
-    "placeholders": {
-      "kcal": {
-        "type": "int"
-      }
-    }
-  },
   "activityAdd": "Add",
   "activityEmptyTitle": "No activities match",
   "activityEmptyMessage": "Try another word, or add your own below.",
-  "activityCustomTitle": "Add your own",
-  "activityCustomNameLabel": "Activity name",
-  "activityCustomEffortLabel": "How hard was it?",
   "effortLight": "Light",
   "effortModerate": "Moderate",
   "effortVigorous": "Hard",
@@ -842,7 +977,6 @@
   "todayMetricProtein": "PROTEIN",
   "todayMetricBurned": "BURNED",
   "mealEntryRemoved": "Removed",
-  "mealEntryUndo": "Undo",
   "progressCaloriesTitle": "Calories this week",
   "progressCaloriesGoalLine": "Goal",
   "progressDayBreakdown": "{date} breakdown",
@@ -850,22 +984,6 @@
     "placeholders": {
       "date": {
         "type": "String"
-      }
-    }
-  },
-  "calendarOverBy": "+{kcal}",
-  "@calendarOverBy": {
-    "placeholders": {
-      "kcal": {
-        "type": "int"
-      }
-    }
-  },
-  "calendarUnderBy": "-{kcal}",
-  "@calendarUnderBy": {
-    "placeholders": {
-      "kcal": {
-        "type": "int"
       }
     }
   },
@@ -926,7 +1044,6 @@
   "planExerciseGrade": "Incline (%)",
   "planExerciseEffort": "Effort",
   "planExerciseRequired": "Pick an exercise first",
-  "planOriginAi": "From an AI plan",
   "planOriginAiEdited": "From an AI plan, edited",
   "planOriginManual": "Built by hand",
   "planCreateEmpty": "Build an empty plan",
@@ -973,14 +1090,6 @@
   "moreNotifications": "Notifications",
   "moreAppearance": "Appearance and language",
   "moreBackup": "Backup",
-  "moreBackupStale": "No backup for {days} days",
-  "@moreBackupStale": {
-    "placeholders": {
-      "days": {
-        "type": "int"
-      }
-    }
-  },
   "dayFlowTitle": "Day flow",
   "dayFlowWeighIn": "Weigh-in",
   "dayFlowCollapse": "Show less",
