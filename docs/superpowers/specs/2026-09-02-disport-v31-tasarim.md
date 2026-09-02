@@ -125,11 +125,10 @@ olan geri tohumlanmaz).
 
 **Sahiplik:** sütun `today`'in tablosunda ama okuma-yazma **nutrition
 üstlenir** — atlama öğün-bazlı bir gerçek ve girişi Diyet ekranında.
-Çapraz erişim mevcut kalıpla çözülür: `today` repository'si atlama
-alanı için okuma/yazma metodu açar, `nutrition` bunları kendi
-provider'ından çağırır (feature'lar birbirinin *data* katmanını değil
-*application* katmanını kullanır; `EnergySource` örneğindeki yön
-buradaki gibi tek taraflı kalır). "Öğüne kayıt girilirse atlama
+Çapraz erişim mevcut kalıpla çözülür: `today`, atlama alanı için
+**application katmanında** okuma/yazma sağlayıcıları açar, `nutrition`
+bunları çağırır — repository doğrudan import edilmez ve
+`EnergySource` örneğindeki yön buradaki gibi tek taraflı kalır. "Öğüne kayıt girilirse atlama
 silinir" kuralını `nutrition`'ın öğün ekleme akışı uygular — atlama
 işaretini koyan da kaldıran da aynı feature olur.
 
