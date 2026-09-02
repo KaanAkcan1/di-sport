@@ -51,6 +51,7 @@ void main() {
       ).overrideWith((ref) => Stream.value(const DailyLogView())),
       dayWeightProvider(dateKey).overrideWith((ref) => Stream.value(null)),
       daySleepProvider(dateKey).overrideWith((ref) => Stream.value(null)),
+      dayStepsProvider(dateKey).overrideWith((ref) => Stream.value(null)),
       dayWeekFillProvider(dateKey).overrideWith(
         (ref) => Stream.value(const <({DateTime day, bool filled})>[]),
       ),

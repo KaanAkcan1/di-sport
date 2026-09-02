@@ -40,6 +40,7 @@ abstract final class MetricKinds {
   static const pushupMax = 'pushupMax';
   static const plankSec = 'plankSec';
   static const treadmillIncline = 'treadmillIncline';
+  static const steps = 'steps';
 
   /// Ekranlarda gösterilecek Türkçe karşılıkları ve birimleri.
   static const labels = <String, (String, String)>{
@@ -50,6 +51,7 @@ abstract final class MetricKinds {
     pushupMax: ('Şınav', 'tekrar'),
     plankSec: ('Plank', 'sn'),
     treadmillIncline: ('Bant eğimi', '%'),
+    steps: ('Adım', 'adım'),
   };
 
   static String labelOf(String kind) => labels[kind]?.$1 ?? kind;

@@ -93,6 +93,7 @@ void main() {
       dayLogProvider('2026-09-01').overrideWith((ref) => Stream.value(const DailyLogView())),
       dayWeightProvider('2026-09-01').overrideWith((ref) => Stream.value(null)),
       daySleepProvider('2026-09-01').overrideWith((ref) => Stream.value(null)),
+      dayStepsProvider('2026-09-01').overrideWith((ref) => Stream.value(null)),
       missedStreakProvider.overrideWith((ref) async => 0),
       // Kurallar artık veritabanından geliyor; ekran testi Drift
       // akışına bağlanmamalı (asılır). Yerleşik üçü sabitle veriliyor.

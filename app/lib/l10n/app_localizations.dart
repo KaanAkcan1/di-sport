@@ -4645,6 +4645,18 @@ abstract class AppLocalizations {
   /// **'Yedekleme'**
   String get moreBackup;
 
+  /// No description provided for @todayStepsLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Adım'**
+  String get todayStepsLabel;
+
+  /// No description provided for @todayStepsUnit.
+  ///
+  /// In tr, this message translates to:
+  /// **'adım'**
+  String get todayStepsUnit;
+
   /// No description provided for @moodBlockTitle.
   ///
   /// In tr, this message translates to:

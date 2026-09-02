@@ -33,12 +33,17 @@ class MetricDefinitionsRepository {
 
   /// Günlük girilen türler — Sağlık ekranının ölçüm kartında
   /// tekrarlanmasınlar diye işaretli.
-  static const _dailyKinds = {MetricKinds.weight, MetricKinds.sleepHours};
+  static const _dailyKinds = {
+    MetricKinds.weight,
+    MetricKinds.sleepHours,
+    MetricKinds.steps,
+  };
 
   /// Tam sayı gösterilecek yerleşik türler.
   static const _wholeNumberKinds = {
     MetricKinds.pushupMax,
     MetricKinds.plankSec,
+    MetricKinds.steps,
   };
 
   /// `MetricKinds`'teki yerleşik türleri bir kez ekler.

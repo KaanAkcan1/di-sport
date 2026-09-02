@@ -70,6 +70,16 @@ void main() {
       );
     });
 
+    test('adım günlük ve tam sayı gelir (v3.1)', () async {
+      await repo.seedBuiltIns();
+      final all = await repo.watchAll().first;
+
+      final steps = all.firstWhere((d) => d.kind == MetricKinds.steps);
+      expect(steps.isDaily, isTrue);
+      expect(steps.decimals, 0);
+      expect(steps.isBuiltIn, isTrue);
+    });
+
     test('dönemsel liste günlükleri dışarıda bırakır', () async {
       // Sağlık ekranının ölçüm kartı bunları göstermiyor: kilo ve uyku
       // Bugün ekranından her gün giriliyor, iki yerde tekrar etmeleri

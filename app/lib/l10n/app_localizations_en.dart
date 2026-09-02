@@ -2554,6 +2554,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get moreBackup => 'Backup';
 
   @override
+  String get todayStepsLabel => 'Steps';
+
+  @override
+  String get todayStepsUnit => 'steps';
+
+  @override
   String get moodBlockTitle => 'How did you feel today?';
 
   @override

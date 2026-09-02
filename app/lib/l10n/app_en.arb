@@ -1092,6 +1092,8 @@
   "moreNotifications": "Notifications",
   "moreAppearance": "Appearance and language",
   "moreBackup": "Backup",
+  "todayStepsLabel": "Steps",
+  "todayStepsUnit": "steps",
   "moodBlockTitle": "How did you feel today?",
   "moodLevel1": "Awful",
   "moodLevel2": "Bad",

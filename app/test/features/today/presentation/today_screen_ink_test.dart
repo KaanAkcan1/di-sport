@@ -58,6 +58,7 @@ void main() {
         dayLogProvider('2026-08-31').overrideWith((ref) => Stream.value(log)),
         dayWeightProvider('2026-08-31').overrideWith((ref) => Stream.value(weight)),
         daySleepProvider('2026-08-31').overrideWith((ref) => Stream.value(null)),
+      dayStepsProvider('2026-08-31').overrideWith((ref) => Stream.value(null)),
         missedStreakProvider.overrideWith((ref) async => 0),
         dailyRulesProvider.overrideWith((ref) => Stream.value(const [])),
         dayWeekFillProvider('2026-08-31').overrideWith(

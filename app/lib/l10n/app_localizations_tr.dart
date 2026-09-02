@@ -2549,6 +2549,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get moreBackup => 'Yedekleme';
 
   @override
+  String get todayStepsLabel => 'Adım';
+
+  @override
+  String get todayStepsUnit => 'adım';
+
+  @override
   String get moodBlockTitle => 'Bugün nasıl hissettin?';
 
   @override

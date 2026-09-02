@@ -1092,6 +1092,8 @@
   "moreNotifications": "Bildirimler",
   "moreAppearance": "Görünüm ve dil",
   "moreBackup": "Yedekleme",
+  "todayStepsLabel": "Adım",
+  "todayStepsUnit": "adım",
   "moodBlockTitle": "Bugün nasıl hissettin?",
   "moodLevel1": "Çok kötü",
   "moodLevel2": "Kötü",

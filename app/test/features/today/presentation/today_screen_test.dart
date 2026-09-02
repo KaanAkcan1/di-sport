@@ -62,6 +62,7 @@ void main() {
     DailyLogView log = const DailyLogView(),
     double? weight,
     double? sleep,
+    double? steps,
     int missedStreak = 0,
     DayEnergy energy = const DayEnergy(),
     int? kcalGoal,
@@ -103,6 +104,7 @@ void main() {
       dayLogProvider('2026-08-31').overrideWith((ref) => Stream.value(log)),
       dayWeightProvider('2026-08-31').overrideWith((ref) => Stream.value(weight)),
       daySleepProvider('2026-08-31').overrideWith((ref) => Stream.value(sleep)),
+      dayStepsProvider('2026-08-31').overrideWith((ref) => Stream.value(steps)),
       missedStreakProvider.overrideWith((ref) async => missedStreak),
       // Kurallar artık veritabanından geliyor; ekran testi Drift
       // akışına bağlanmamalı (asılır). Yerleşik üçü sabitle veriliyor.
@@ -241,6 +243,17 @@ void main() {
         find.byKey(const Key('weight-field')),
       );
       expect(field.controller?.text, '');
+    });
+
+    testWidgets('adım alanı tam sayı gösterir (v3.1)', (tester) async {
+      await tester.pumpWidget(wrap(steps: 8250));
+      await tester.pumpAndSettle();
+      await expandFlow(tester);
+
+      final field = tester.widget<TextField>(
+        find.byKey(const Key('steps-field')),
+      );
+      expect(field.controller?.text, '8250');
     });
 
     testWidgets('uyku bloğu kayıtlı süreyi gösterir', (tester) async {

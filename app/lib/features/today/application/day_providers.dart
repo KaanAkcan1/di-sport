@@ -58,6 +58,12 @@ Stream<double?> daySleep(Ref ref, String dateKey) => ref
     .watch(bodyMetricsRepositoryProvider)
     .watchValue(dateKey, MetricKinds.sleepHours);
 
+/// O günün adım sayısı (v3.1 §4) — elle girilen NEAT göstergesi.
+@riverpod
+Stream<double?> daySteps(Ref ref, String dateKey) => ref
+    .watch(bodyMetricsRepositoryProvider)
+    .watchValue(dateKey, MetricKinds.steps);
+
 /// Seçili günün etrafındaki yedi günün doluluğu.
 ///
 /// Bugün ekranında son yedi gün; geçmiş bir günde o günü **merkez**

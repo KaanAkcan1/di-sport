@@ -27,20 +27,46 @@ class MeasurementInputs extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _MetricField(
-          fieldKey: const Key('weight-field'),
-          icon: Icons.monitor_weight_outlined,
-          label: context.l10n.todayWeightLabel,
-          unit: context.l10n.todayWeightUnit,
-          value: ref.watch(dayWeightProvider(iso)),
-          // Kaydedilen birim arayüz dilinden bağımsız: veri sabit
-          // kalmalı, ekranda görünen etiket çevrilir.
-          onSubmitted: (value) => repository.upsert(
-            isoDate: iso,
-            kind: MetricKinds.weight,
-            value: value,
-            unit: 'kg',
-          ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: _MetricField(
+                fieldKey: const Key('weight-field'),
+                icon: Icons.monitor_weight_outlined,
+                label: context.l10n.todayWeightLabel,
+                unit: context.l10n.todayWeightUnit,
+                value: ref.watch(dayWeightProvider(iso)),
+                // Kaydedilen birim arayüz dilinden bağımsız: veri sabit
+                // kalmalı, ekranda görünen etiket çevrilir.
+                onSubmitted: (value) => repository.upsert(
+                  isoDate: iso,
+                  kind: MetricKinds.weight,
+                  value: value,
+                  unit: 'kg',
+                ),
+              ),
+            ),
+            const SizedBox(width: AppSpacing.md),
+            // Adım (v3.1 §4): antrenman dışı harcamanın en ucuz göstergesi.
+            Expanded(
+              child: _MetricField(
+                fieldKey: const Key('steps-field'),
+                icon: Icons.directions_walk,
+                label: context.l10n.todayStepsLabel,
+                unit: context.l10n.todayStepsUnit,
+                value: ref.watch(dayStepsProvider(iso)),
+                wholeNumber: true,
+                onSubmitted: (value) => repository.upsert(
+                  isoDate: iso,
+                  kind: MetricKinds.steps,
+                  value: value,
+                  // l10n-exempt: veritabanı birimi, arayüz metni değil.
+                  unit: 'adım',
+                ),
+              ),
+            ),
+          ],
         ),
         const SizedBox(height: AppSpacing.xl),
         const SleepBlock(),
@@ -57,6 +83,7 @@ class _MetricField extends StatefulWidget {
     required this.unit,
     required this.value,
     required this.onSubmitted,
+    this.wholeNumber = false,
   });
 
   /// Anahtar sarmalayıcıya değil `TextField`'a veriliyor: testler
@@ -68,6 +95,9 @@ class _MetricField extends StatefulWidget {
   final String unit;
   final AsyncValue<double?> value;
   final void Function(double value) onSubmitted;
+
+  /// Adım gibi tam sayı türlerinde ondalık ayırıcı da klavyeden düşer.
+  final bool wholeNumber;
 
   @override
   State<_MetricField> createState() => _MetricFieldState();
@@ -107,6 +137,8 @@ class _MetricFieldState extends State<_MetricField> {
     if (!_focusNode.hasFocus) {
       final text = stored == null
           ? ''
+          : widget.wholeNumber
+          ? stored.round().toString()
           : TurkishNumber.format(stored);
       if (_controller.text != text) _controller.text = text;
     }
@@ -115,10 +147,14 @@ class _MetricFieldState extends State<_MetricField> {
       key: widget.fieldKey,
       controller: _controller,
       focusNode: _focusNode,
-      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      keyboardType: TextInputType.numberWithOptions(
+        decimal: !widget.wholeNumber,
+      ),
       textInputAction: TextInputAction.done,
       inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]')),
+        FilteringTextInputFormatter.allow(
+          widget.wholeNumber ? RegExp(r'[0-9]') : RegExp(r'[0-9.,]'),
+        ),
       ],
       decoration: InputDecoration(
         labelText: widget.label,
