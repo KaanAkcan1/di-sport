@@ -2840,6 +2840,54 @@ abstract class AppLocalizations {
   /// **'Baştan yeni plan'**
   String get requestScopeFresh;
 
+  /// No description provided for @importWarningsTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'{count} uyarı'**
+  String importWarningsTitle(int count);
+
+  /// No description provided for @importWarningsFootnote.
+  ///
+  /// In tr, this message translates to:
+  /// **'Uyarılar içeri almayı engellemez; istersen sonra editörle düzelt.'**
+  String get importWarningsFootnote;
+
+  /// No description provided for @importWarnForbidden.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yasaklı besin planda: {id}'**
+  String importWarnForbidden(String id);
+
+  /// No description provided for @importWarnUnknownFood.
+  ///
+  /// In tr, this message translates to:
+  /// **'Besin listesinde yok: {id}'**
+  String importWarnUnknownFood(String id);
+
+  /// No description provided for @importWarnCannotPerform.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ekipmanınla yapılamıyor: {id}'**
+  String importWarnCannotPerform(String id);
+
+  /// No description provided for @importWarnExternalMeal.
+  ///
+  /// In tr, this message translates to:
+  /// **'Dışarıda yenen öğüne plan yazılmış: {meal}'**
+  String importWarnExternalMeal(String meal);
+
+  /// No description provided for @importWarnFixedMeal.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sabit öğün planda farklı: {meal}'**
+  String importWarnFixedMeal(String meal);
+
+  /// No description provided for @importWarnRestriction.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hareket kısıtınla eşleşiyor: {id}'**
+  String importWarnRestriction(String id);
+
   /// No description provided for @rhythmMealsSection.
   ///
   /// In tr, this message translates to:

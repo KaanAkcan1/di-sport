@@ -1,5 +1,6 @@
 import 'package:disport/app/app.dart';
 import 'package:disport/features/ai_bridge/domain/context_md_builder.dart';
+import 'package:disport/features/ai_bridge/domain/import_warnings.dart';
 import 'package:disport/features/ai_bridge/domain/plan_importer.dart';
 import 'package:disport/features/ai_bridge/domain/plan_validator.dart';
 import 'package:disport/features/catalog/application/catalog_providers.dart';
@@ -7,10 +8,12 @@ import 'package:disport/features/catalog/application/catalog_source_adapter.dart
 import 'package:disport/features/catalog/application/environment_source_adapter.dart';
 import 'package:disport/features/catalog/data/equipment_repository.dart';
 import 'package:disport/features/catalog/data/favorite_sports_repository.dart';
+import 'package:disport/features/catalog/domain/restriction_match.dart';
 import 'package:disport/features/health/application/health_providers.dart';
 import 'package:disport/features/health/application/health_source_adapter.dart';
 import 'package:disport/features/medical/application/medical_source_adapter.dart';
 import 'package:disport/features/medical/data/medical_repository.dart';
+import 'package:disport/features/medical/domain/medical_fact.dart';
 import 'package:disport/features/nutrition/application/nutrition_source_adapter.dart';
 import 'package:disport/features/nutrition/data/activities_repository.dart';
 import 'package:disport/features/nutrition/data/nutrition_repository.dart';
@@ -123,3 +126,59 @@ Future<Set<ContextSection>> contextSections(Ref ref) async {
       if (entries[contextSectionOffKey(section)] != '1') section,
   };
 }
+
+/// Uyarı toplayıcının imzası — sheet çağırır, test override eder.
+typedef ImportWarningsCollector =
+    Future<List<ImportWarning>> Function(ValidatedPlan validated);
+
+/// İçe alma uyarıları (v3 §9.4): kaynaklar burada toplanır, hesap saf
+/// katmanda (`collectImportWarnings`). Provider bir **fonksiyon**
+/// döner ki widget testi tek satırla sahteleyebilsin — altı deponun
+/// akışına bağlanmak zorunda kalmadan.
+@riverpod
+ImportWarningsCollector importWarningsCollector(Ref ref) =>
+    (validated) async {
+      final db = ref.read(appDatabaseProvider);
+      final active = await ref.read(planRepositoryProvider).activePlan();
+      final foods = await NutritionRepository(db).watchFoods().first;
+      final exercises = await ref
+          .read(catalogRepositoryProvider)
+          .watchFiltered()
+          .first;
+      final inventory = await EquipmentRepository(db)
+          .watchInventory()
+          .first;
+      final behaviors = await MealBehaviorsRepository(db).watchAll().first;
+      final facts = await MedicalRepository(db).watchAll().first;
+
+      final restrictionIds = [
+        for (final fact in facts)
+          if (fact.kind == MedicalFactKind.restriction &&
+              fact.conditionId != null)
+            fact.conditionId!,
+      ];
+
+      return collectImportWarnings(
+        plan: validated.plan,
+        knownFoodIds: {for (final food in foods) food.id},
+        forbiddenFoodIds: active?.rules.forbiddenFoodIds ?? const {},
+        exerciseFacts: {
+          for (final exercise in exercises)
+            exercise.id: (
+              equipment: [for (final kind in exercise.equipment) kind.name],
+              location: exercise.location.name,
+            ),
+        },
+        homeEquipment: {for (final kind in inventory.atHome) kind.name},
+        gymEquipment: {for (final kind in inventory.atGym) kind.name},
+        mealBehaviorByKind: {
+          for (final behavior in behaviors)
+            behavior.meal.name: behavior.behavior.name,
+        },
+        restrictedExerciseIds: {
+          for (final exercise in exercises)
+            if (matchingRestrictions(exercise, restrictionIds).isNotEmpty)
+              exercise.id,
+        },
+      );
+    };

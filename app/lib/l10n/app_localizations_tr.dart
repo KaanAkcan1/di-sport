@@ -1547,6 +1547,45 @@ class AppLocalizationsTr extends AppLocalizations {
   String get requestScopeFresh => 'Baştan yeni plan';
 
   @override
+  String importWarningsTitle(int count) {
+    return '$count uyarı';
+  }
+
+  @override
+  String get importWarningsFootnote =>
+      'Uyarılar içeri almayı engellemez; istersen sonra editörle düzelt.';
+
+  @override
+  String importWarnForbidden(String id) {
+    return 'Yasaklı besin planda: $id';
+  }
+
+  @override
+  String importWarnUnknownFood(String id) {
+    return 'Besin listesinde yok: $id';
+  }
+
+  @override
+  String importWarnCannotPerform(String id) {
+    return 'Ekipmanınla yapılamıyor: $id';
+  }
+
+  @override
+  String importWarnExternalMeal(String meal) {
+    return 'Dışarıda yenen öğüne plan yazılmış: $meal';
+  }
+
+  @override
+  String importWarnFixedMeal(String meal) {
+    return 'Sabit öğün planda farklı: $meal';
+  }
+
+  @override
+  String importWarnRestriction(String id) {
+    return 'Hareket kısıtınla eşleşiyor: $id';
+  }
+
+  @override
   String get rhythmMealsSection => 'Öğünler';
 
   @override

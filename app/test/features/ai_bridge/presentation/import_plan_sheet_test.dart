@@ -29,6 +29,10 @@ void main() {
       planValidatorProvider.overrideWith((ref) async => fixtureValidator()),
       // v3: aşılama adaylığı aktif plana bakıyor — Drift'e bağlanmasın.
       activePlanProvider.overrideWith((ref) async => null),
+      // Uyarı toplayıcı altı depoya bakıyor; ekran testi bağlanmasın.
+      importWarningsCollectorProvider.overrideWithValue(
+        (validated) async => const [],
+      ),
       planImporterProvider.overrideWithValue(
         PlanImporter(
           insertPlan: (plan) async => insertedPlans.add(plan),

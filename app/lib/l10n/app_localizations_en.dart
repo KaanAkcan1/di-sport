@@ -1550,6 +1550,45 @@ class AppLocalizationsEn extends AppLocalizations {
   String get requestScopeFresh => 'A fresh plan';
 
   @override
+  String importWarningsTitle(int count) {
+    return '$count warnings';
+  }
+
+  @override
+  String get importWarningsFootnote =>
+      'Warnings never block the import; fix them later in the editor if you like.';
+
+  @override
+  String importWarnForbidden(String id) {
+    return 'Forbidden food in the plan: $id';
+  }
+
+  @override
+  String importWarnUnknownFood(String id) {
+    return 'Not in the food list: $id';
+  }
+
+  @override
+  String importWarnCannotPerform(String id) {
+    return 'Not doable with your equipment: $id';
+  }
+
+  @override
+  String importWarnExternalMeal(String meal) {
+    return 'Plan written for an external meal: $meal';
+  }
+
+  @override
+  String importWarnFixedMeal(String meal) {
+    return 'Fixed meal differs in the plan: $meal';
+  }
+
+  @override
+  String importWarnRestriction(String id) {
+    return 'Matches your movement restriction: $id';
+  }
+
+  @override
   String get rhythmMealsSection => 'Meals';
 
   @override

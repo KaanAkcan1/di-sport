@@ -3,6 +3,7 @@ import 'package:disport/core/design/app_semantic_colors.dart';
 import 'package:disport/core/result/result.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/features/ai_bridge/application/ai_bridge_providers.dart';
+import 'package:disport/features/ai_bridge/domain/import_warnings.dart';
 import 'package:disport/features/ai_bridge/domain/plan_validator.dart';
 import 'package:disport/features/plan/application/plan_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
@@ -34,6 +35,9 @@ class _ImportPlanSheetState extends ConsumerState<ImportPlanSheet> {
   var _graft = false;
   var _graftPossible = false;
 
+  /// Amber uyarılar (v3 §9.4) — reddettirmez, yalnız gösterir.
+  var _warnings = const <ImportWarning>[];
+
   @override
   void dispose() {
     _controller.dispose();
@@ -49,6 +53,7 @@ class _ImportPlanSheetState extends ConsumerState<ImportPlanSheet> {
     // sonra başlıyor. Baştan plan (aynı gün ya da öncesi) aşılanmaz —
     // yenisi eskisini olduğu gibi değiştirir.
     var graftPossible = false;
+    var warnings = const <ImportWarning>[];
     if (result case Ok(:final value)) {
       final active = await ref.read(activePlanProvider.future);
       final incomingStart = DateTime.tryParse(value.plan.meta.startDate);
@@ -56,12 +61,21 @@ class _ImportPlanSheetState extends ConsumerState<ImportPlanSheet> {
           active != null &&
           incomingStart != null &&
           incomingStart.isAfter(active.startDate);
+      // Uyarılar süs değil ama vazgeçilmez de değil: kaynaklardan biri
+      // okunamazsa içe alma uyarısız devam eder — plan yüklemek uyarı
+      // listesine rehin olmasın.
+      try {
+        warnings = await ref.read(importWarningsCollectorProvider)(value);
+      } on Object {
+        warnings = const [];
+      }
     }
 
     if (!mounted) return;
     setState(() {
       _graftPossible = graftPossible;
       _graft = graftPossible;
+      _warnings = warnings;
       _busy = false;
       switch (result) {
         case Ok(:final value):
@@ -212,6 +226,10 @@ class _ImportPlanSheetState extends ConsumerState<ImportPlanSheet> {
                 accepted ? _acceptedNewIds.add(id) : _acceptedNewIds.remove(id);
               }),
             ),
+            if (_warnings.isNotEmpty) ...[
+              const SizedBox(height: AppSpacing.sm),
+              _WarningsCard(warnings: _warnings),
+            ],
             if (_graftPossible) ...[
               const SizedBox(height: AppSpacing.sm),
               SwitchListTile(
@@ -408,4 +426,74 @@ class _Tag extends StatelessWidget {
     label: Text(label),
     visualDensity: VisualDensity.compact,
   );
+}
+
+/// Amber uyarı listesi (v3 §9.4) — bilgilendirir, engellemez.
+class _WarningsCard extends StatelessWidget {
+  const _WarningsCard({required this.warnings});
+
+  final List<ImportWarning> warnings;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final semantic = context.semantic;
+    final l10n = context.l10n;
+
+    String describe(ImportWarning warning) => switch (warning.kind) {
+      ImportWarningKind.forbiddenFood =>
+        l10n.importWarnForbidden(warning.subject),
+      ImportWarningKind.unknownFood =>
+        l10n.importWarnUnknownFood(warning.subject),
+      ImportWarningKind.cannotPerform =>
+        l10n.importWarnCannotPerform(warning.subject),
+      ImportWarningKind.externalMealPlanned =>
+        l10n.importWarnExternalMeal(warning.subject),
+      ImportWarningKind.fixedMealDiffers =>
+        l10n.importWarnFixedMeal(warning.subject),
+      ImportWarningKind.restrictionMatch =>
+        l10n.importWarnRestriction(warning.subject),
+    };
+
+    return Card(
+      color: semantic.warningSurface,
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.lg),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.warning_amber_outlined,
+                  size: 18,
+                  color: semantic.warning,
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                Text(
+                  l10n.importWarningsTitle(warnings.length),
+                  style: theme.textTheme.titleSmall,
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            for (final warning in warnings)
+              Padding(
+                padding: const EdgeInsets.only(bottom: AppSpacing.xs),
+                child: Text(
+                  '• ${describe(warning)}',
+                  style: theme.textTheme.bodySmall,
+                ),
+              ),
+            Text(
+              l10n.importWarningsFootnote,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
