@@ -15,9 +15,10 @@ import 'package:disport/features/nutrition/domain/calorie_budget.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
 import 'package:disport/features/plan/presentation/day_editor_sheet.dart';
 import 'package:disport/features/plan/presentation/exercise_editor_sheet.dart';
-import 'package:disport/features/plan/presentation/slot_editor_sheet.dart';
 import 'package:disport/features/plan/presentation/slot_kind_icon.dart';
 import 'package:disport/features/settings/application/setup_providers.dart';
+import 'package:disport/features/supplements/application/supplement_providers.dart';
+import 'package:disport/features/supplements/domain/supplement.dart';
 import 'package:disport/features/today/application/day_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
 import 'package:disport/features/today/presentation/day_flow_section.dart';
@@ -95,9 +96,7 @@ class DayBody extends ConsumerWidget {
       data: (day) => AppScreenBody(
         children: [
           const _Header(),
-          const SizedBox(height: AppSpacing.lg),
-          const _WeekStrip(),
-          const SizedBox(height: AppSpacing.xl2),
+          const SizedBox(height: AppSpacing.xl),
           // Kurulum bitmeden kahraman sayı çizilmiyor: kayıt yokken
           // kahraman anlamsız, panel ise ilk işleri gösteriyor.
           if (showSetup) SetupPanel(progress: setup) else _Hero(day: day),
@@ -118,9 +117,13 @@ class DayBody extends ConsumerWidget {
 
           // Gelecek güne kayıt girilmiyor: yarın ne yediğini yazmak
           // anlamsız ve alanı bırakmak kullanıcıyı yanlış güne kayıt
-          // yapmaya davet ederdi. Plan bölümü görünür kalıyor —
-          // "yarın ne var" meşru bir soru.
-          if (isFuture) _FutureNotice() else DayFlowSection(day: day),
+          // yapmaya davet ederdi. Plan (akış) görünür kalıyor —
+          // "yarın ne var" meşru bir soru — ama salt okunur.
+          if (isFuture) ...[
+            _FutureNotice(),
+            const SizedBox(height: AppSpacing.lg),
+          ],
+          DayFlowSection(day: day, readOnly: isFuture),
         ],
       ),
     );
@@ -161,22 +164,25 @@ class _Header extends ConsumerWidget {
       }
     }
 
+    // Mockup B1/B2: büyük başlık günün adı, üst satır tarih · hafta.
+    // Geçmişte üst satır amber "GEÇMİŞ GÜN · …" — durum başlığın
+    // kendisinde, ayrıca rozet aranmaz.
     final eyebrow = [
-      TurkishText.upper(TurkishDate.weekdayAndDay(shown)),
+      if (position == DayPosition.past)
+        TurkishText.upper(context.l10n.dayBadgePast)
+      else if (position == DayPosition.future)
+        TurkishText.upper(context.l10n.dayBadgeFuture),
+      TurkishText.upper(TurkishDate.dayMonth(shown)),
       if (day case final d?)
         TurkishText.upper(context.l10n.todayWeekNumber(d.weekIndex)),
     ].join(' · ');
 
-    // Geçmiş ve gelecek farklı etiketler taşıyor: ikisi de "bugün
-    // değil" ama kullanıcının yapabildikleri farklı ve renk tek başına
-    // bunu söylemiyor.
-    final (badge, badgeColor) = switch (position) {
-      DayPosition.today => (null, null),
-      DayPosition.past => (context.l10n.dayBadgePast, semantic.warning),
-      DayPosition.future => (
-        context.l10n.dayBadgeFuture,
-        theme.colorScheme.onSurfaceVariant,
-      ),
+    // Üst satırın rengi durumu da taşıyor (metinle birlikte): geçmiş
+    // amber, gelecek soluk, bugün marka.
+    final eyebrowColor = switch (position) {
+      DayPosition.today => theme.colorScheme.primary,
+      DayPosition.past => semantic.warning,
+      DayPosition.future => theme.colorScheme.onSurfaceVariant,
     };
 
     return Column(
@@ -188,7 +194,7 @@ class _Header extends ConsumerWidget {
               child: Text(
                 eyebrow,
                 style: theme.textTheme.labelSmall?.copyWith(
-                  color: theme.colorScheme.primary,
+                  color: eyebrowColor,
                   letterSpacing: 1.4,
                   fontWeight: FontWeight.w600,
                 ),
@@ -219,9 +225,7 @@ class _Header extends ConsumerWidget {
         Semantics(
           header: true,
           child: Text(
-            position == DayPosition.today
-                ? context.l10n.todayTitle
-                : TurkishDate.weekdayAndDay(shown),
+            TurkishDate.weekdays[shown.weekday - 1],
             style: theme.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.w700,
             ),
@@ -238,24 +242,14 @@ class _Header extends ConsumerWidget {
               ),
             ),
           ),
-        if (badge case final label?)
-          Padding(
-            padding: const EdgeInsets.only(top: AppSpacing.xs),
-            child: Row(
-              children: [
-                Text(
-                  label,
-                  style: theme.textTheme.labelSmall?.copyWith(
-                    color: badgeColor,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(width: AppSpacing.sm),
-                TextButton(
-                  onPressed: () => _backToToday(context, ref),
-                  child: Text(context.l10n.dayBackToToday),
-                ),
-              ],
+        // Durum etiketi üst satıra taşındı; burada yalnız dönüş
+        // eylemi kalıyor.
+        if (position != DayPosition.today)
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(
+              onPressed: () => _backToToday(context, ref),
+              child: Text(context.l10n.dayBackToToday),
             ),
           ),
       ],
@@ -303,41 +297,12 @@ class _Header extends ConsumerWidget {
   }
 }
 
-/// Son yedi günün doluluk şeridi.
-class _WeekStrip extends ConsumerWidget {
-  const _WeekStrip();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final date = ref.watch(viewedDateProvider);
-    final week = ref.watch(dayWeekFillProvider(date)).value;
-    // Boş liste meşru: akış henüz gelmedi ya da test onu boş veriyor.
-    if (week == null || week.isEmpty) return const SizedBox.shrink();
-
-    final today = week.last.day;
-
-    return AppWeekDots(
-      states: [
-        for (final entry in week)
-          if (_sameDay(entry.day, today))
-            WeekDotState.today
-          else if (entry.filled)
-            WeekDotState.done
-          else
-            WeekDotState.missed,
-      ],
-      labels: [for (final entry in week) TurkishDate.weekdayInitial(entry.day)],
-    );
-  }
-
-  static bool _sameDay(DateTime a, DateTime b) =>
-      a.year == b.year && a.month == b.month && a.day == b.day;
-}
-
-/// Günün kahraman rakamı ve metrik şeridi.
+/// Günün kahraman rakamı ve metrik şeridi — panel içinde (mockup B1).
 ///
-/// M12'de kahraman **kilo**; M9'da kalan kalori onun yerine geçer ve
-/// kilo metrik şeridine iner (spec §2a, sıralama notu).
+/// Şerit bakılan güne göre değişir: bugün Protein · Yakılan · Su ·
+/// İlaç (günün canlı soruları); geçmiş/gelecek Protein · Yakılan ·
+/// Kilo (mockup B2 — o günün özeti). Program/kural sayaçları şeritte
+/// değil, akış sayacında.
 class _Hero extends ConsumerWidget {
   const _Hero({required this.day});
 
@@ -346,9 +311,9 @@ class _Hero extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final date = ref.watch(viewedDateProvider);
+    final isToday = ref.watch(dayPositionProvider(date)) == DayPosition.today;
     final weight = ref.watch(dayWeightProvider(date)).value;
     final log = ref.watch(dayLogProvider(date)).value;
-    final rules = ref.watch(dailyRulesProvider).value ?? const [];
 
     final isoDate = date;
     final energy = ref.watch(dayEnergyProvider(isoDate)).value;
@@ -370,9 +335,10 @@ class _Hero extends ConsumerWidget {
         ) ??
         0;
 
-    final checked = log?.checkedSlotIds.length ?? 0;
-    final total = day?.slots.length ?? 0;
-    final rulesMet = log?.metAmong(rules.map((r) => r.id)) ?? 0;
+    final waterMl = log?.waterMl;
+    final waterTarget = ref.watch(waterTargetMlProvider).value;
+    final doses = isToday ? ref.watch(todayDosesProvider) : const <SupplementDose>[];
+    final dosesTaken = doses.where((d) => d.isTaken).length;
 
     // Bütçe yoksa kahraman **yenen** kaloriyi gösteriyor (spec §5.4):
     // "kalan" demek için önce bir hedef olması gerekiyor ve plan içeri
@@ -382,57 +348,73 @@ class _Hero extends ConsumerWidget {
       (_, _) => remaining?.round().toString(),
     };
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        AppHeroNumber(
-          caption: goal == null
-              ? context.l10n.todayHeroEatenNoPlan
-              : context.l10n.todayHeroRemaining,
-          value: heroValue,
-          unit: 'kcal',
-          gaugeFraction: gauge,
-        ),
-        const SizedBox(height: AppSpacing.xl),
-        AppMetricStrip([
-          AppMetric(
-            caption: context.l10n.todayMetricProtein,
-            value: energy == null ? null : protein.round().toString(),
-            unit: proteinGoal == null ? 'g' : '/$proteinGoal g',
-          ),
-          AppMetric(
-            caption: context.l10n.todayMetricBurned,
-            // `≈` her tahminde: hesabın hata payı kolayca %20 ve
-            // kesin rakam vaat etmek kullanıcıyı yanıltır.
-            value: energy == null ? null : '≈${energy.burned.round()}',
+    return AppPanel(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AppHeroNumber(
+            caption: goal == null
+                ? context.l10n.todayHeroEatenNoPlan
+                : context.l10n.todayHeroRemaining,
+            value: heroValue,
             unit: 'kcal',
+            gaugeFraction: gauge,
           ),
-          AppMetric(
-            caption: TurkishText.upper(
-              MetricKinds.labelOf(MetricKinds.weight),
+          const SizedBox(height: AppSpacing.xl),
+          AppMetricStrip([
+            AppMetric(
+              caption: context.l10n.todayMetricProtein,
+              value: energy == null ? null : protein.round().toString(),
+              unit: proteinGoal == null ? 'g' : '/$proteinGoal g',
             ),
-            value: weight == null
-                ? null
-                : TurkishNumber.format(weight, fractionDigits: 1),
-            unit: MetricKinds.unitOf(MetricKinds.weight),
-          ),
-          AppMetric(
-            caption: context.l10n.todayMetricProgram,
-            value: total == 0 ? null : '$checked',
-            unit: total == 0 ? null : '/$total',
-          ),
-          AppMetric(
-            caption: context.l10n.todayMetricRules,
-            value: rules.isEmpty ? null : '$rulesMet',
-            unit: rules.isEmpty ? null : '/${rules.length}',
-          ),
-        ]),
-      ],
+            AppMetric(
+              caption: context.l10n.todayMetricBurned,
+              // `≈` her tahminde: hesabın hata payı kolayca %20 ve
+              // kesin rakam vaat etmek kullanıcıyı yanıltır.
+              value: energy == null ? null : '≈${energy.burned.round()}',
+              unit: 'kcal',
+            ),
+            // Mockup B1/B2: bugün şeridi su ve ilacı, geçmiş gün o
+            // günün kilosunu taşır — dünün su bardağını saymak değil,
+            // dünün özetini görmek isteniyor.
+            if (isToday) ...[
+              AppMetric(
+                caption: context.l10n.todayMetricWater,
+                value: waterMl == null
+                    ? null
+                    : TurkishNumber.format(waterMl / 1000, fractionDigits: 1),
+                unit: waterTarget == null
+                    ? 'L'
+                    : '/${TurkishNumber.format(waterTarget / 1000, fractionDigits: 0)} L',
+              ),
+              AppMetric(
+                caption: context.l10n.todayMetricMeds,
+                value: doses.isEmpty ? null : '$dosesTaken',
+                unit: doses.isEmpty ? null : '/${doses.length}',
+              ),
+            ] else
+              AppMetric(
+                caption: TurkishText.upper(
+                  MetricKinds.labelOf(MetricKinds.weight),
+                ),
+                value: weight == null
+                    ? null
+                    : TurkishNumber.format(weight, fractionDigits: 1),
+                unit: MetricKinds.unitOf(MetricKinds.weight),
+              ),
+          ]),
+        ],
+      ),
     );
   }
 }
 
-/// Sıradaki iş + omurga.
+/// SIRADA kartı — mockup B1'de akışın üstündeki tek vurgu.
+///
+/// v3.1 (T19.0): omurga listesi silindi. Aynı slotları hem burada hem
+/// GÜNÜN AKIŞI'nda listelemek ekranı ikiye katlıyordu ve mockup'ta
+/// ikinci liste yok — akış tek doğruluk kaynağı, SIRADA onun öne
+/// çekilmiş satırı.
 class _Spine extends ConsumerWidget {
   const _Spine({required this.day});
 
@@ -448,37 +430,23 @@ class _Spine extends ConsumerWidget {
     // günde "şimdi" diye bir şey yok; dünün ekranında bugünün saatine
     // göre bir kart göstermek yanlış olurdu.
     final next = isToday ? SlotList.nextSlotOf(day, now) : null;
+    if (next == null) return const SizedBox.shrink();
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (next case final slot?) ...[
-          AppSpotCard(
-            eyebrow: context.l10n.todayNextEyebrow(slot.time),
-            title: slot.label,
-            subtitle: _subtitleFor(context, slot),
-            leading: slotKindIcon(slot.kind),
-            onTap: slot.kind == SlotKind.workout
-                ? () => Navigator.of(context).push(
-                    MaterialPageRoute<void>(
-                      builder: (_) => WorkoutScreen(day: day),
-                    ),
-                  )
-                : null,
-          ),
-          const SizedBox(height: AppSpacing.xl2),
-        ],
-        AppSectionLabel(
-          context.l10n.todaySpineLabel,
-          trailing: IconButton(
-            icon: const Icon(Icons.add),
-            tooltip: context.l10n.planSlotNew,
-            onPressed: () => showSlotEditorSheet(context, dayId: day.id),
-          ),
-        ),
-        SlotList(day: day, now: isToday ? now : null, hoistNext: isToday),
-
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.xl2),
+      child: AppSpotCard(
+        eyebrow: context.l10n.todayNextEyebrow(next.time),
+        title: next.label,
+        subtitle: _subtitleFor(context, next),
+        leading: slotKindIcon(next.kind),
+        onTap: next.kind == SlotKind.workout
+            ? () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => WorkoutScreen(day: day),
+                ),
+              )
+            : null,
+      ),
     );
   }
 

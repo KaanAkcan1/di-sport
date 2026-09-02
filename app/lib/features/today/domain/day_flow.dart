@@ -1,4 +1,5 @@
 import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/plan/domain/meal_kind.dart';
 import 'package:disport/features/supplements/domain/supplement.dart';
 
 /// Akış satırının türü — dokunuş hangi işlemi açacak.
@@ -21,6 +22,7 @@ class DayFlowRow {
     this.detail,
     this.slotId,
     this.doseTime,
+    this.mealKind,
   });
 
   /// `HH:mm` — sıralama anahtarı.
@@ -40,6 +42,9 @@ class DayFlowRow {
 
   /// Doz satırıysa planlanan saati (işaretleme anahtarının parçası).
   final String? doseTime;
+
+  /// Öğün satırıysa öğünün türü — dokunuş besin seçiciyi bununla açar.
+  final MealKind? mealKind;
 }
 
 /// Günün akışını kurar.
@@ -48,6 +53,13 @@ class DayFlowRow {
 /// [weightLabel] doluysa tartı yapılmış sayılır.
 /// [checkedSlotIds] işaretli plan slotları; [workoutDone] antrenman
 /// kutusu (slot işaretinden ayrı yaşıyor, v1'den beri).
+///
+/// [mealKcalByKind] öğün türü → o gün yenen kcal toplamı. Öğün
+/// satırının "yapıldı"sı mockup B1 gereği **kayıttır**: öğüne kalem
+/// girildiyse satır "Kahvaltı — 486 kcal" olur; kutucuk işareti öğün
+/// için anlamsızlaştı (yemek yemek işaretlenmez, girilir). `mealKind`i
+/// olmayan eski öğün slotları kutucuk davranışında kalır — onların
+/// kaydı hangi öğüne yazılacak bilinemez.
 List<DayFlowRow> buildDayFlow({
   required List<PlanSlot> slots,
   required List<SupplementDose> doses,
@@ -55,6 +67,8 @@ List<DayFlowRow> buildDayFlow({
   required bool workoutDone,
   String? weighInTime,
   String? weightLabel,
+  Map<MealKind, double> mealKcalByKind = const {},
+  String? workoutDetail,
 }) {
   final rows = <DayFlowRow>[
     DayFlowRow(
@@ -73,11 +87,24 @@ List<DayFlowRow> buildDayFlow({
           _ => DayFlowKind.slotOther,
         },
         label: slot.label,
-        done: slot.kind == SlotKind.workout
-            ? workoutDone
-            : checkedSlotIds.contains(slot.id),
+        done: switch ((slot.kind, slot.mealKind)) {
+          (SlotKind.workout, _) => workoutDone,
+          (SlotKind.meal, final kind?) =>
+            (mealKcalByKind[kind] ?? 0) > 0,
+          _ => checkedSlotIds.contains(slot.id),
+        },
         slotId: slot.id,
-        detail: slot.note,
+        mealKind: slot.kind == SlotKind.meal ? slot.mealKind : null,
+        detail: switch ((slot.kind, slot.mealKind)) {
+          (SlotKind.meal, final kind?)
+              when (mealKcalByKind[kind] ?? 0) > 0 =>
+            '${mealKcalByKind[kind]!.round()} kcal',
+          // Antrenman satırı hareket sayısını taşır (mockup SIRADA
+          // kartıyla aynı dil) — slotun kendi notu varsa o kazanır.
+          (SlotKind.workout, _) when (slot.note ?? '').isEmpty =>
+            workoutDetail,
+          _ => slot.note,
+        },
       ),
     for (final dose in doses)
       DayFlowRow(

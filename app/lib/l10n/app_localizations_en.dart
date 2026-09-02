@@ -2244,6 +2244,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get todayHeroEatenNoPlan => 'EATEN TODAY';
 
   @override
+  String get todayMetricWater => 'WATER';
+
+  @override
+  String get todayMetricMeds => 'MEDS';
+
+  @override
   String get todayMetricProtein => 'PROTEIN';
 
   @override
@@ -2546,6 +2552,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get moreBackup => 'Backup';
+
+  @override
+  String get dayFlowEnterMeal => '+ LOG';
 
   @override
   String get dayFlowTitle => 'Day flow';

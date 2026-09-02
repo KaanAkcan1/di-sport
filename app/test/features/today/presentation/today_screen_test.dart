@@ -165,8 +165,9 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('4 haşlanmış yumurta'), findsOneWidget);
-      expect(find.text('Fabrika menüsü'), findsOneWidget);
-      expect(find.text('06:30'), findsOneWidget);
+      expect(find.text('Fabrika menüsü'), findsWidgets);
+      // 06:30 hem tartı hem ilk öğünün saati — akış ikisini de basar.
+      expect(find.text('06:30'), findsWidgets);
     });
 
     testWidgets('haftanın notunu ve akşam önerisini gösterir', (tester) async {
@@ -187,17 +188,24 @@ void main() {
       );
     });
 
-    testWidgets('antrenman slotu kart olarak, hareket sayısıyla çıkar', (
+    testWidgets('antrenman slotu akışta hareket sayısıyla görünür', (
       tester,
     ) async {
+      // v3.1 (T19.0): omurga listesi gitti; antrenman satırı GÜNÜN
+      // AKIŞI'nda. Sıradaysa SIRADA kartında da görünebilir — o yüzden
+      // "en az bir" aranıyor.
       await tester.pumpWidget(wrap(planDay: day));
       await tester.pumpAndSettle();
 
-      expect(find.text('Salon — kardiyo'), findsOneWidget);
-      expect(find.textContaining('2 hareket'), findsOneWidget);
+      expect(find.text('Salon — kardiyo'), findsWidgets);
+      expect(find.textContaining('2 hareket'), findsWidgets);
     });
 
-    testWidgets('işaretli slot üstü çizili gösterilir', (tester) async {
+    testWidgets('işaretli slot akışta soluk ve onaylı gösterilir', (
+      tester,
+    ) async {
+      // v3.1: akış satırında yapılmışlık üstü çiziyle değil soluk
+      // renk + onay işaretiyle anlatılıyor (mockup B1/B2).
       await tester.pumpWidget(
         wrap(
           planDay: day,
@@ -206,8 +214,9 @@ void main() {
       );
       await tester.pumpAndSettle();
 
+      final theme = AppTheme.light;
       final text = tester.widget<Text>(find.text('4 haşlanmış yumurta'));
-      expect(text.style?.decoration, TextDecoration.lineThrough);
+      expect(text.style?.color, theme.colorScheme.onSurfaceVariant);
     });
   });
 

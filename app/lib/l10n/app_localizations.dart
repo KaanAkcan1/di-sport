@@ -4039,6 +4039,18 @@ abstract class AppLocalizations {
   /// **'BUGÜN YENEN'**
   String get todayHeroEatenNoPlan;
 
+  /// No description provided for @todayMetricWater.
+  ///
+  /// In tr, this message translates to:
+  /// **'SU'**
+  String get todayMetricWater;
+
+  /// No description provided for @todayMetricMeds.
+  ///
+  /// In tr, this message translates to:
+  /// **'İLAÇ'**
+  String get todayMetricMeds;
+
   /// No description provided for @todayMetricProtein.
   ///
   /// In tr, this message translates to:
@@ -4632,6 +4644,12 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'Yedekleme'**
   String get moreBackup;
+
+  /// No description provided for @dayFlowEnterMeal.
+  ///
+  /// In tr, this message translates to:
+  /// **'+ GİR'**
+  String get dayFlowEnterMeal;
 
   /// No description provided for @dayFlowTitle.
   ///

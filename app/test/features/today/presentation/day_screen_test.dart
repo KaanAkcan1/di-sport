@@ -84,7 +84,8 @@ void main() {
     await tester.pumpWidget(wrap(dateKey: '2026-08-30', planDay: day));
     await tester.pumpAndSettle();
 
-    expect(find.text('GEÇMİŞ GÜN'), findsOneWidget);
+    // v3.1: durum etiketi üst satıra taşındı, tarihle birleşik.
+    expect(find.textContaining('GEÇMİŞ GÜN'), findsOneWidget);
     expect(find.text('Bugüne dön'), findsOneWidget);
   });
 
@@ -94,8 +95,8 @@ void main() {
     await tester.pumpWidget(wrap(dateKey: '2026-09-05', planDay: day));
     await tester.pumpAndSettle();
 
-    expect(find.text('PLANLANAN GÜN'), findsOneWidget);
-    expect(find.text('GEÇMİŞ GÜN'), findsNothing);
+    expect(find.textContaining('PLANLANAN GÜN'), findsOneWidget);
+    expect(find.textContaining('GEÇMİŞ GÜN'), findsNothing);
   });
 
   testWidgets('geçmiş günde tartı girişi açık', (tester) async {
@@ -144,12 +145,14 @@ void main() {
     await tester.pumpWidget(wrap(dateKey: '2026-09-05', planDay: day));
     await tester.pumpAndSettle();
 
+    // v3.1: omurga listesi silindi — plan, akış satırları olarak
+    // görünüyor (T19.0).
     await tester.scrollUntilVisible(
-      find.text('GÜNÜN OMURGASI'),
+      find.text('GÜNÜN AKIŞI'),
       300,
       scrollable: find.byType(Scrollable).first,
     );
-    expect(find.text('GÜNÜN OMURGASI'), findsOneWidget);
+    expect(find.text('GÜNÜN AKIŞI'), findsOneWidget);
   });
 
   testWidgets('bugün olmayan günde sıradaki iş kartı çizilmez', (

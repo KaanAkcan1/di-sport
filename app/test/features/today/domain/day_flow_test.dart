@@ -1,4 +1,5 @@
 import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/plan/domain/meal_kind.dart';
 import 'package:disport/features/supplements/domain/supplement.dart';
 import 'package:disport/features/today/domain/day_flow.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -136,6 +137,71 @@ void main() {
 
       expect(nextFlowRow(rows, '10:00'), isNull);
     });
+  });
+
+  group('öğün satırı — yapıldı demek kayıt demek (T19.0)', () {
+    PlanSlot mealSlot(String id, String time, MealKind kind) => PlanSlot(
+      id: id,
+      time: time,
+      kind: SlotKind.meal,
+      label: id,
+      mealKind: kind,
+    );
+
+    test('kayıtlı öğün done + kcal detayı taşır, işaret önemsiz', () {
+      final rows = buildDayFlow(
+        slots: [mealSlot('kahvalti', '08:00', MealKind.kahvalti)],
+        doses: const [],
+        // İşaretli DEĞİL — yapılmışlık kayıttan gelmeli.
+        checkedSlotIds: const {},
+        workoutDone: false,
+        mealKcalByKind: const {MealKind.kahvalti: 486.4},
+      );
+
+      final meal = rows.singleWhere((r) => r.kind == DayFlowKind.meal);
+      expect(meal.done, isTrue);
+      expect(meal.detail, '486 kcal');
+      expect(meal.mealKind, MealKind.kahvalti);
+    });
+
+    test('kayıtsız öğün done değil — işaretli olsa bile', () {
+      final rows = buildDayFlow(
+        slots: [mealSlot('kahvalti', '08:00', MealKind.kahvalti)],
+        doses: const [],
+        checkedSlotIds: const {'kahvalti'},
+        workoutDone: false,
+      );
+
+      expect(rows.singleWhere((r) => r.kind == DayFlowKind.meal).done, isFalse);
+    });
+
+    test('mealKind olmayan eski öğün slotu kutucuk davranışında kalır', () {
+      final rows = buildDayFlow(
+        slots: [slot('m1', '08:00', SlotKind.meal)],
+        doses: const [],
+        checkedSlotIds: const {'m1'},
+        workoutDone: false,
+      );
+
+      final meal = rows.singleWhere((r) => r.kind == DayFlowKind.meal);
+      expect(meal.done, isTrue);
+      expect(meal.mealKind, isNull);
+    });
+  });
+
+  test('antrenman satırı hareket sayısı detayını taşır', () {
+    final rows = buildDayFlow(
+      slots: [slot('w', '18:30', SlotKind.workout)],
+      doses: const [],
+      checkedSlotIds: const {},
+      workoutDone: false,
+      workoutDetail: '6 hareket',
+    );
+
+    expect(
+      rows.singleWhere((r) => r.kind == DayFlowKind.workout).detail,
+      '6 hareket',
+    );
   });
 
   test('flowProgress yapılmış/toplam sayar', () {

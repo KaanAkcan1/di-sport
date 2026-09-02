@@ -2,8 +2,12 @@ import 'package:disport/core/design/app_dimens.dart';
 import 'package:disport/core/design/app_semantic_colors.dart';
 import 'package:disport/core/utils/l10n_ext.dart';
 import 'package:disport/core/widgets/widgets.dart';
+import 'package:disport/features/nutrition/application/nutrition_providers.dart';
+import 'package:disport/features/nutrition/presentation/food_picker_screen.dart';
 import 'package:disport/features/nutrition/presentation/water_row.dart';
 import 'package:disport/features/plan/domain/full_plan.dart';
+import 'package:disport/features/plan/domain/meal_kind.dart';
+import 'package:disport/features/plan/presentation/slot_editor_sheet.dart';
 import 'package:disport/features/supplements/application/supplement_providers.dart';
 import 'package:disport/features/today/application/day_providers.dart';
 import 'package:disport/features/today/application/today_providers.dart';
@@ -26,9 +30,13 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 /// Her satır dokunulabilir: öğün kaydını, doz işaretini, tartı girişini
 /// satırın kendisi açıyor.
 class DayFlowSection extends ConsumerStatefulWidget {
-  const DayFlowSection({super.key, required this.day});
+  const DayFlowSection({super.key, required this.day, this.readOnly = false});
 
   final FullPlanDay? day;
+
+  /// Gelecek gün: plan görünür ("yarın ne var" meşru) ama hiçbir satır
+  /// kayıt almaz — alan bırakmak yanlış güne kayıt yapmaya davet ederdi.
+  final bool readOnly;
 
   @override
   ConsumerState<DayFlowSection> createState() => _DayFlowSectionState();
@@ -46,6 +54,15 @@ class _DayFlowSectionState extends ConsumerState<DayFlowSection> {
     final weight = ref.watch(dayWeightProvider(date)).value;
     final now = ref.watch(clockProvider).value ?? DateTime.now();
 
+    // Öğün "yapıldı"sı kayıttır (mockup B1): o öğüne girilmiş kalemler
+    // toplanıp satıra "486 kcal" olarak yazılır.
+    final meals = ref.watch(dayMealsProvider(date)).value ?? const [];
+    final kcalByKind = <MealKind, double>{};
+    for (final entry in meals) {
+      kcalByKind[entry.mealKind] =
+          (kcalByKind[entry.mealKind] ?? 0) + entry.kcal;
+    }
+
     final rows = buildDayFlow(
       slots: widget.day?.slots ?? const [],
       // Dozlar yalnız bugün akıtılıyor: geçmiş günün doz kaydı ayrı bir
@@ -55,6 +72,10 @@ class _DayFlowSectionState extends ConsumerState<DayFlowSection> {
       checkedSlotIds: log?.checkedSlotIds ?? const {},
       workoutDone: log?.workoutDone ?? false,
       weightLabel: weight?.toStringAsFixed(1),
+      mealKcalByKind: kcalByKind,
+      workoutDetail: widget.day == null || widget.day!.exercises.isEmpty
+          ? null
+          : context.l10n.todayExerciseCount(widget.day!.exercises.length),
     );
 
     final nowKey =
@@ -63,18 +84,36 @@ class _DayFlowSectionState extends ConsumerState<DayFlowSection> {
     final next = isToday ? nextFlowRow(rows, nowKey) : null;
     final (done, total) = flowProgress(rows);
 
-    final visible = _expanded ? rows : rows.take(5).toList();
+    final visible = _expanded || widget.readOnly
+        ? rows
+        : rows.take(5).toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppSectionLabel(
           context.l10n.dayFlowTitle,
-          trailing: Text(
-            '$done/$total',
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-            ),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '$done/$total',
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+              // Slot ekleme buraya taşındı (T19.0): omurga listesi
+              // silinince "+"nın tek evi akış başlığı kaldı.
+              if (!widget.readOnly)
+                if (widget.day case final day?)
+                IconButton(
+                  icon: const Icon(LucideIcons.plus, size: 18),
+                  tooltip: context.l10n.planSlotNew,
+                  visualDensity: VisualDensity.compact,
+                  onPressed: () =>
+                      showSlotEditorSheet(context, dayId: day.id),
+                ),
+            ],
           ),
         ),
         const SizedBox(height: AppSpacing.xs),
@@ -84,11 +123,13 @@ class _DayFlowSectionState extends ConsumerState<DayFlowSection> {
             highlighted: identical(row, next),
             date: date,
             day: widget.day,
+            readOnly: widget.readOnly,
           ),
         // Düğme her zaman görünür: akış kısa olsa da ölçüm, kural ve
         // not bölümleri onun arkasında — satır sayısına bağlansaydı
-        // plansız günde bu üçüne hiç ulaşılamazdı.
-        ...[
+        // plansız günde bu üçüne hiç ulaşılamazdı. Gelecek günde kayıt
+        // alanları da düğme de yok — akış zaten tamamı.
+        if (!widget.readOnly) ...[
           const SizedBox(height: AppSpacing.sm),
           Center(
             child: TextButton.icon(
@@ -105,7 +146,7 @@ class _DayFlowSectionState extends ConsumerState<DayFlowSection> {
             ),
           ),
         ],
-        if (_expanded) ...[
+        if (_expanded && !widget.readOnly) ...[
           const SizedBox(height: AppSpacing.xl),
           // Su Ana Sayfa'dan da girilebilmeli (v3 §5.1) — Diyet'e
           // geçmeden bardak eklemek günün en sık kaydı.
@@ -128,12 +169,14 @@ class _FlowRow extends ConsumerWidget {
     required this.highlighted,
     required this.date,
     required this.day,
+    this.readOnly = false,
   });
 
   final DayFlowRow row;
   final bool highlighted;
   final String date;
   final FullPlanDay? day;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -156,7 +199,7 @@ class _FlowRow extends ConsumerWidget {
       color: semantic.areaSport,
       active: highlighted,
       child: InkWell(
-        onTap: () => _handleTap(context, ref),
+        onTap: readOnly ? null : () => _handleTap(context, ref),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
           child: Row(
@@ -201,6 +244,28 @@ class _FlowRow extends ConsumerWidget {
               ),
               if (row.done)
                 Icon(LucideIcons.check, size: 18, color: semantic.success)
+              else if (row.kind == DayFlowKind.meal &&
+                  row.mealKind != null &&
+                  !readOnly)
+                // Mockup B1: girilmemiş öğün "+ GİR" rozeti taşır —
+                // dokunuş işaret değil kayıt açar.
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.sm,
+                    vertical: 2,
+                  ),
+                  decoration: BoxDecoration(
+                    color: semantic.areaDietSurface,
+                    borderRadius: BorderRadius.circular(AppRadius.sm),
+                  ),
+                  child: Text(
+                    context.l10n.dayFlowEnterMeal,
+                    style: theme.textTheme.labelSmall?.copyWith(
+                      color: semantic.areaDiet,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                )
               else
                 Icon(
                   LucideIcons.chevronRight,
@@ -253,6 +318,31 @@ class _FlowRow extends ConsumerWidget {
           ),
         );
       case DayFlowKind.meal:
+        // Mockup: "öğün → seçici". Öğünlü satır besin seçiciyi açar;
+        // yemek işaretlenmez, girilir. `mealKind`i olmayan eski slot
+        // kutucuk davranışında kalır.
+        if (row.mealKind case final kind?) {
+          final repository = ref.read(nutritionRepositoryProvider);
+          Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => FoodPickerScreen(
+                mealKind: kind,
+                onCopyLast: () =>
+                    repository.copyMeal(mealKind: kind, toIsoDate: date),
+                onPicked: (choice) => repository.addEntry(
+                  food: choice.food,
+                  mealKind: kind,
+                  isoDate: date,
+                  quantity: choice.quantity,
+                  portion: choice.portion,
+                  customGrams: choice.customGrams,
+                ),
+              ),
+            ),
+          );
+        } else if (row.slotId case final slotId?) {
+          ref.read(todayRepositoryProvider).toggleSlot(date, slotId);
+        }
       case DayFlowKind.slotOther:
         if (row.slotId case final slotId?) {
           ref.read(todayRepositoryProvider).toggleSlot(date, slotId);

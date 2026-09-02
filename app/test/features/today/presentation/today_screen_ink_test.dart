@@ -123,18 +123,12 @@ void main() {
     );
   });
 
-  testWidgets('hafta şeridi yedi nokta basar', (tester) async {
-    await tester.pumpWidget(wrap(planDay: day));
-    await tester.pumpAndSettle();
-
-    expect(find.byType(AppWeekDots), findsOneWidget);
-  });
-
   group('sıradaki iş', () {
-    testWidgets('spot kartta gösterilir, listede tekrarlanmaz', (
+    testWidgets('spot kartta öne çekilir, akışta da durur', (
       tester,
     ) async {
-      // Aynı slotun hem kartta hem listede durması tekrar olurdu.
+      // v3.1: akış tek doğruluk kaynağı — SIRADA onun öne çekilmiş
+      // kopyası, satır akıştan silinmez (mockup B1).
       final slots = [...day.slots]..sort((a, b) => a.time.compareTo(b.time));
       final at = DateTime(2026, 8, 31, 0, 1);
       final next = slots.first;
@@ -143,7 +137,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(AppSpotCard), findsOneWidget);
-      expect(find.text(next.label), findsOneWidget);
+      expect(find.text(next.label), findsWidgets);
     });
 
     testWidgets('gün bitmişse spot kart çizilmez', (tester) async {
@@ -161,7 +155,8 @@ void main() {
     await tester.pumpWidget(wrap(planDay: day));
     await tester.pumpAndSettle();
 
-    expect(find.text('GÜNÜN OMURGASI'), findsOneWidget);
+    // v3.1: omurga gitti, bölüm etiketi artık akışın.
+    expect(find.text('GÜNÜN AKIŞI'), findsOneWidget);
   });
 
   testWidgets('plan yokken kahraman yine çizilir — tartı bağımsız', (

@@ -2239,6 +2239,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get todayHeroEatenNoPlan => 'BUGÜN YENEN';
 
   @override
+  String get todayMetricWater => 'SU';
+
+  @override
+  String get todayMetricMeds => 'İLAÇ';
+
+  @override
   String get todayMetricProtein => 'PROTEİN';
 
   @override
@@ -2541,6 +2547,9 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get moreBackup => 'Yedekleme';
+
+  @override
+  String get dayFlowEnterMeal => '+ GİR';
 
   @override
   String get dayFlowTitle => 'Günün akışı';
