@@ -113,6 +113,37 @@ DayPosition positionOf(String dateKey, String todayKey) {
 DayPosition dayPosition(Ref ref, String dateKey) =>
     positionOf(dateKey, ref.watch(todayIsoProvider));
 
+/// His bloğunun yazım işlevi (v3.1 §3).
+///
+/// Fonksiyon tipli ki widget testleri Drift'e bağlanmadan tek satırla
+/// kaydedici sahtesi koyabilsin (`importWarningsCollector` kalıbı).
+typedef WellbeingWriter =
+    Future<void> Function(
+      String isoDate, {
+      int? moodScore,
+      bool clearMood,
+      String? symptoms,
+      bool? stressedDay,
+    });
+
+@riverpod
+WellbeingWriter wellbeingWriter(Ref ref) {
+  final repository = ref.watch(todayRepositoryProvider);
+  return (
+    String isoDate, {
+    int? moodScore,
+    bool clearMood = false,
+    String? symptoms,
+    bool? stressedDay,
+  }) => repository.setWellbeing(
+    isoDate,
+    moodScore: moodScore,
+    clearMood: clearMood,
+    symptoms: symptoms,
+    stressedDay: stressedDay,
+  );
+}
+
 /// Uyku yazımlarının **tek** noktası (v3.1 §2.2 — son yazan kazanır).
 ///
 /// İki depo birden güncelleniyor: saatler `daily_logs`'a, türetilen

@@ -2549,6 +2549,33 @@ class AppLocalizationsTr extends AppLocalizations {
   String get moreBackup => 'Yedekleme';
 
   @override
+  String get moodBlockTitle => 'Bugün nasıl hissettin?';
+
+  @override
+  String get moodLevel1 => 'Çok kötü';
+
+  @override
+  String get moodLevel2 => 'Kötü';
+
+  @override
+  String get moodLevel3 => 'İdaresi';
+
+  @override
+  String get moodLevel4 => 'İyi';
+
+  @override
+  String get moodLevel5 => 'Çok iyi';
+
+  @override
+  String get moodSymptomsLabel => 'Belirti';
+
+  @override
+  String get moodSymptomsHint => 'baş ağrısı, halsizlik';
+
+  @override
+  String get moodStressedLabel => 'Yoğun/stresli gündü';
+
+  @override
   String get sleepBlockTitle => 'Uyku';
 
   @override

@@ -15,6 +15,7 @@ import 'package:disport/features/today/domain/day_flow.dart';
 import 'package:disport/features/today/presentation/daily_flags_card.dart';
 import 'package:disport/features/today/presentation/day_note_field.dart';
 import 'package:disport/features/today/presentation/measurement_inputs.dart';
+import 'package:disport/features/today/presentation/mood_block.dart';
 import 'package:disport/features/workout/presentation/planned_vs_done_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -155,6 +156,10 @@ class _DayFlowSectionState extends ConsumerState<DayFlowSection> {
           const MeasurementInputs(),
           const SizedBox(height: AppSpacing.xl),
           const DailyFlagsCard(),
+          const SizedBox(height: AppSpacing.xl),
+          // His bloğu not alanının üstünde (v3.1 §3): önce yapılandırılmış
+          // soru, sonra serbest söz.
+          const MoodBlock(),
           const SizedBox(height: AppSpacing.xl),
           const DayNoteField(),
         ],

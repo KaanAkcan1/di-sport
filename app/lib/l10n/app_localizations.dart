@@ -4645,6 +4645,60 @@ abstract class AppLocalizations {
   /// **'Yedekleme'**
   String get moreBackup;
 
+  /// No description provided for @moodBlockTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bugün nasıl hissettin?'**
+  String get moodBlockTitle;
+
+  /// No description provided for @moodLevel1.
+  ///
+  /// In tr, this message translates to:
+  /// **'Çok kötü'**
+  String get moodLevel1;
+
+  /// No description provided for @moodLevel2.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kötü'**
+  String get moodLevel2;
+
+  /// No description provided for @moodLevel3.
+  ///
+  /// In tr, this message translates to:
+  /// **'İdaresi'**
+  String get moodLevel3;
+
+  /// No description provided for @moodLevel4.
+  ///
+  /// In tr, this message translates to:
+  /// **'İyi'**
+  String get moodLevel4;
+
+  /// No description provided for @moodLevel5.
+  ///
+  /// In tr, this message translates to:
+  /// **'Çok iyi'**
+  String get moodLevel5;
+
+  /// No description provided for @moodSymptomsLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Belirti'**
+  String get moodSymptomsLabel;
+
+  /// No description provided for @moodSymptomsHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'baş ağrısı, halsizlik'**
+  String get moodSymptomsHint;
+
+  /// No description provided for @moodStressedLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yoğun/stresli gündü'**
+  String get moodStressedLabel;
+
   /// No description provided for @sleepBlockTitle.
   ///
   /// In tr, this message translates to:

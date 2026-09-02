@@ -2554,6 +2554,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get moreBackup => 'Backup';
 
   @override
+  String get moodBlockTitle => 'How did you feel today?';
+
+  @override
+  String get moodLevel1 => 'Awful';
+
+  @override
+  String get moodLevel2 => 'Bad';
+
+  @override
+  String get moodLevel3 => 'Okay';
+
+  @override
+  String get moodLevel4 => 'Good';
+
+  @override
+  String get moodLevel5 => 'Great';
+
+  @override
+  String get moodSymptomsLabel => 'Symptoms';
+
+  @override
+  String get moodSymptomsHint => 'headache, fatigue';
+
+  @override
+  String get moodStressedLabel => 'Busy/stressful day';
+
+  @override
   String get sleepBlockTitle => 'Sleep';
 
   @override
