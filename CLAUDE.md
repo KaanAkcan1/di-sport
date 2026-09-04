@@ -489,6 +489,13 @@ slotsuz. Varsayılan slot koymak silinecek satırlar üretmek olurdu.
 **v1-v3 tamamlandı (M1-M18). v3.1 tamamlandı (M19-M20).**
 Tüm testler yeşil, analiz temiz.
 
+**SIRADA — M21: Günlük Düzen v2** (güne göre kalkış/uyku + öğün
+varyasyonları + besin şablonları + gün-akışı deneyim katmanı).
+Onaylı plan: `docs/superpowers/plans/2026-09-04-m21-gunluk-duzen-v2.md`
+(spec ve mimari karar belgeleri içinde bağlantılı). Henüz kod yazılmadı.
+Uyarı: plan, sahada yatan bir kusurun düzeltmesini de içeriyor —
+`schemaVersion` 15'te kalmış, v16 göç bloğu hiç çalışmamış (Task 1).
+
 | | |
 |---|---|
 | M1-M6 (v1) | iskelet · katalog · plan/günlük · AI köprüsü · sağlık/alarm/yedek · Vue yeşili + özelleştirme |
