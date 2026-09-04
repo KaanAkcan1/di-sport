@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formality — Günlük Düzen v2 mockup</title>
+<style>
+  :root{
+    --green:#42B883; --ink:#0F1B16; --surface:#16241E; --surface2:#1D2E26;
+    --text:#EDF2EF; --muted:#8FA69B; --hair:#2A3B33; --danger:#E5484D; --amber:#E5A13D;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{
+    background:#E9ECEA; color:#1C2B26; padding:32px;
+    font-family:"Inter","Segoe UI",system-ui,sans-serif;
+  }
+  h1{font-size:26px; letter-spacing:.06em; margin-bottom:4px}
+  .sub{color:#5E6E66; margin-bottom:28px; font-size:14px}
+  .row{display:flex; gap:28px; flex-wrap:wrap; align-items:flex-start}
+  .frame{width:340px}
+  .frame h2{font-size:13px; letter-spacing:.12em; color:#5E6E66; text-transform:uppercase; margin-bottom:10px}
+  .phone{
+    background:var(--ink); color:var(--text); border-radius:28px; padding:18px 16px 14px;
+    min-height:660px; box-shadow:0 12px 40px rgba(0,0,0,.18); position:relative; overflow:hidden;
+    font-size:14px; line-height:1.45;
+  }
+  .cond{font-family:"Barlow Condensed","Arial Narrow",sans-serif; letter-spacing:.02em}
+  .label{font-size:11px; letter-spacing:.14em; color:var(--muted); text-transform:uppercase;
+         display:flex; justify-content:space-between; margin:18px 2px 8px}
+  .label:first-child{margin-top:2px}
+  .panel{background:var(--surface); border:1px solid var(--hair); border-radius:14px; padding:12px 14px; margin-bottom:8px}
+  .prow{display:flex; align-items:center; gap:10px}
+  .prow + .prow{margin-top:10px}
+  .ic{width:20px; text-align:center; color:var(--green); flex:none}
+  .grow{flex:1}
+  .t{color:var(--text)}
+  .m{color:var(--muted); font-size:12.5px}
+  .chip{display:inline-block; border:1px solid var(--hair); border-radius:999px; padding:1px 9px; font-size:11.5px; color:var(--muted)}
+  .chip.on{border-color:var(--green); color:var(--green)}
+  .exc{
+    margin:8px 0 0 30px; padding:8px 10px; border-left:2px solid var(--green);
+    background:var(--surface2); border-radius:0 10px 10px 0; font-size:12.5px; color:var(--text);
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .exc .del{color:var(--muted); font-size:14px}
+  .days{display:flex; gap:6px; margin-top:10px; flex-wrap:wrap}
+  .day{
+    flex:1; min-width:38px; background:var(--surface); border:1px solid var(--hair); border-radius:10px;
+    text-align:center; padding:6px 0 7px; font-size:11px; color:var(--muted);
+  }
+  .day b{display:block; color:var(--text); font-size:13px; margin-bottom:1px}
+  .day.diff{border-color:var(--green)}
+  .day.diff b{color:var(--green)}
+  .fab{
+    position:absolute; right:16px; bottom:16px; width:52px; height:52px; border-radius:16px;
+    background:var(--green); color:#0F1B16; font-size:26px; display:flex; align-items:center;
+    justify-content:center; font-weight:600;
+  }
+  .sheet-title{font-size:19px; font-weight:600; margin-bottom:2px}
+  .seg{display:flex; background:var(--surface); border:1px solid var(--hair); border-radius:12px; padding:3px; margin:14px 0 4px; flex-wrap:wrap}
+  .seg span{flex:1 1 45%; text-align:center; padding:7px 4px; font-size:12.5px; color:var(--muted); border-radius:9px}
+  .seg .on{background:var(--surface2); color:var(--green); border:1px solid var(--green)}
+  .dgrid{display:flex; gap:7px; margin:10px 0 2px; flex-wrap:wrap}
+  .dchip{width:40px; text-align:center; padding:8px 0; border-radius:10px; border:1px solid var(--hair); color:var(--muted); font-size:12.5px}
+  .dchip.on{border-color:var(--green); color:var(--green); background:var(--surface2)}
+  .field{background:var(--surface); border:1px solid var(--hair); border-radius:12px; padding:10px 12px; margin-top:10px;
+         display:flex; justify-content:space-between; align-items:center}
+  .field .v{color:var(--text); font-weight:600}
+  .btn{margin-top:16px; background:var(--green); color:#0F1B16; text-align:center; border-radius:12px;
+       padding:12px; font-weight:600}
+  .btn.ghost{background:none; border:1px solid var(--hair); color:var(--muted); margin-top:8px}
+  .food{display:flex; align-items:center; gap:10px; padding:9px 2px; border-bottom:1px solid var(--hair)}
+  .food:last-child{border-bottom:none}
+  .food .kcal{color:var(--muted); font-size:12px; font-variant-numeric:tabular-nums}
+  .search{background:var(--surface); border:1px dashed var(--hair); color:var(--muted); border-radius:12px;
+          padding:10px 12px; margin-top:10px; font-size:13px}
+  .note{margin-top:14px; font-size:11.5px; color:#5E6E66}
+  .badge{font-size:10.5px; border-radius:6px; padding:1px 6px; background:var(--surface2); color:var(--amber); border:1px solid #3d3323}
+</style>
+</head>
+<body>
+  <h1 class="cond">GÜNLÜK DÜZEN v2 — MOCKUP</h1>
+  <div class="sub">Kurgu: kural listesi + gün önizleme · Palet A "Gece Grafiti" · gerçek uygulamada Inter + Barlow Condensed</div>
+
+  <div class="row">
+
+    <!-- 1: ANA EKRAN -->
+    <div class="frame">
+      <h2>1 · Ana ekran — kurallar + hafta önizleme</h2>
+      <div class="phone">
+        <div class="label"><span>Ritim</span></div>
+        <div class="panel">
+          <div class="prow"><span class="ic">⏰</span>
+            <div class="grow"><span class="t">Kalkış 06:30 · Uyku 23:00</span><br><span class="m">varsayılan — her gün</span></div>
+          </div>
+          <div class="exc"><span>Cmt, Paz → kalkış <b>09:00</b></span><span class="del">✕</span></div>
+        </div>
+
+        <div class="label"><span>Öğünler</span><span>3</span></div>
+        <div class="panel">
+          <div class="prow"><span class="ic">🍳</span>
+            <div class="grow"><span class="t">Kahvaltı · 07:00</span><br>
+              <span class="m">şablon: yulaf, yumurta ×2, beyaz peynir</span></div>
+            <span class="chip on">planlı</span>
+          </div>
+          <div class="exc"><span>Paz → <b>10:00</b> · serpme kahvaltı</span><span class="del">✕</span></div>
+        </div>
+        <div class="panel">
+          <div class="prow"><span class="ic">🍽</span>
+            <div class="grow"><span class="t">Akşam · 19:30</span><br><span class="m">şablon yok</span></div>
+            <span class="chip">dışarıda</span>
+          </div>
+        </div>
+
+        <div class="label"><span>Pencereler</span></div>
+        <div class="panel">
+          <div class="prow"><span class="ic">💼</span>
+            <div class="grow"><span class="t">Mesai · 08:30–17:30</span><br><span class="m">Pzt–Cum</span></div>
+          </div>
+        </div>
+
+        <div class="label"><span>Hafta önizleme</span></div>
+        <div class="days">
+          <div class="day"><b>06:30</b>Pzt</div>
+          <div class="day"><b>06:30</b>Sal</div>
+          <div class="day"><b>06:30</b>Çar</div>
+          <div class="day"><b>06:30</b>Per</div>
+          <div class="day"><b>06:30</b>Cum</div>
+          <div class="day diff"><b>09:00</b>Cmt</div>
+          <div class="day diff"><b>09:00</b>Paz</div>
+        </div>
+        <div class="note">Kartlar çözücüden beslenir: güne dokun → o günün tam dökümü. Yeşil çerçeve = istisnalı gün.</div>
+        <div class="fab">+</div>
+      </div>
+    </div>
+
+    <!-- 2: BİRLEŞİK EKLEME -->
+    <div class="frame">
+      <h2>2 · Birleşik ekleme sayfası (tek FAB)</h2>
+      <div class="phone">
+        <div class="sheet-title cond">DÜZENE EKLE</div>
+        <div class="m">Tür seç, günleri işaretle — hepsi aynı kalıp.</div>
+
+        <div class="seg">
+          <span>Mesai</span><span>Yasaklı saat</span>
+          <span class="on">Kalkış/uyku istisnası</span><span>Öğün varyasyonu</span>
+        </div>
+
+        <div class="label"><span>Hangi günler?</span></div>
+        <div class="dgrid">
+          <span class="dchip">Pzt</span><span class="dchip">Sal</span><span class="dchip">Çar</span>
+          <span class="dchip">Per</span><span class="dchip">Cum</span>
+          <span class="dchip on">Cmt</span><span class="dchip on">Paz</span>
+        </div>
+
+        <div class="field"><span class="m">Kalkış</span><span class="v">09:00</span></div>
+        <div class="field"><span class="m">Uyku</span><span class="v">—  (varsayılan kalsın)</span></div>
+
+        <div class="btn">Kaydet — alarmlar hemen güncellenir</div>
+        <div class="btn ghost">Vazgeç</div>
+
+        <div class="note">Gün çipi ızgarası pencere ekleme sayfasındakiyle aynı bileşen. Boş gün seçimi satır-altı hata verir; kaydet alarmları anında yeniden kurar (mevcut kural).</div>
+      </div>
+    </div>
+
+    <!-- 3: ÖĞÜN VARYASYONU + ŞABLON -->
+    <div class="frame">
+      <h2>3 · Öğün varyasyonu — şablon besin listesinden</h2>
+      <div class="phone">
+        <div class="sheet-title cond">KAHVALTI — PAZAR VARYASYONU</div>
+        <div class="m">Bu günlerde kahvaltı farklı işler.</div>
+
+        <div class="label"><span>Hangi günler?</span></div>
+        <div class="dgrid">
+          <span class="dchip">Pzt</span><span class="dchip">Sal</span><span class="dchip">Çar</span>
+          <span class="dchip">Per</span><span class="dchip">Cum</span>
+          <span class="dchip">Cmt</span><span class="dchip on">Paz</span>
+        </div>
+
+        <div class="field"><span class="m">Saat</span><span class="v">10:00</span></div>
+        <div class="field"><span class="m">Davranış</span><span class="v">planlı ▾</span></div>
+
+        <div class="label"><span>Şablon içeriği</span><span>≈ 640 kcal</span></div>
+        <div class="panel">
+          <div class="food"><span class="grow">Serpme kahvaltı tabağı</span><span class="kcal">1 porsiyon · ≈450</span></div>
+          <div class="food"><span class="grow">Çay</span><span class="kcal">2 bardak · ≈4</span></div>
+          <div class="food"><span class="grow">Bal</span><span class="kcal">1 tatlı kaşığı · ≈45</span></div>
+        </div>
+        <div class="search">🔍 Besin ara ve ekle… <span class="badge">yasaklılar rozetli</span></div>
+
+        <div class="btn">Kaydet</div>
+        <div class="note">Besin arama, Diyet sekmesindeki mevcut seçicinin aynısı (porsiyon + miktar). Günlükte bu öğüne dokununca şablon hazır gelir; onaylayınca kcal anlık değerle snapshot'lanır.</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
