@@ -6,41 +6,55 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('BootSplash', () {
-    testWidgets('iş sürerken döngüde kalır, onFinished çağrılmaz',
+    testWidgets('iş sürerken süpürme döngüsünde kalır, onFinished çağrılmaz',
         (tester) async {
       final ready = Completer<void>();
       var finished = false;
       await tester.pumpWidget(
         BootSplash(ready: ready.future, onFinished: () => finished = true),
       );
-      // İki tam tur + nefes payları geçse de iş bitmedi: geçilmez.
-      await tester.pump(BootSplash.drawDuration);
+      // İki tam süpürme + sessizlikler geçse de iş bitmedi: geçilmez.
+      await tester.pump(BootSplash.sweepDuration);
       await tester.pump(BootSplash.restDuration);
-      await tester.pump(BootSplash.drawDuration);
+      await tester.pump(BootSplash.sweepDuration);
       await tester.pump(BootSplash.restDuration);
       expect(finished, isFalse);
       expect(find.byType(FormalityMark), findsOneWidget);
-      // Sarkan zamanlayıcı kalmasın diye kapat.
+      // Süpürme kipinde kuyruk kısadır: tam çizim gösterilmez.
+      final sweeping =
+          tester.widget<FormalityMark>(find.byType(FormalityMark));
+      expect(sweeping.trail, lessThan(1.0));
+      // Sarkan zamanlayıcı kalmasın diye kapat (kare payı +32ms).
       ready.complete();
-      await tester.pump(BootSplash.drawDuration);
-      await tester.pump(BootSplash.holdDuration);
-      await tester.pump(const Duration(milliseconds: 50));
+      await tester.pump(BootSplash.sweepDuration + const Duration(milliseconds: 32));
+      await tester.pump(const Duration(milliseconds: 16));
+      await tester.pump(BootSplash.drawDuration + const Duration(milliseconds: 32));
+      await tester.pump(BootSplash.holdDuration + const Duration(milliseconds: 50));
     });
 
-    testWidgets('iş bitince o anki turu tamamlayıp geçer', (tester) async {
+    testWidgets('iş bitince süpürmeyi bitirir, final çizimi oynatıp geçer',
+        (tester) async {
       final ready = Completer<void>();
       var finished = false;
       await tester.pumpWidget(
         BootSplash(ready: ready.future, onFinished: () => finished = true),
       );
-      // Tur ortasında iş biter.
-      await tester.pump(const Duration(milliseconds: 500));
+      // Süpürme ortasında iş biter.
+      await tester.pump(const Duration(milliseconds: 400));
       ready.complete();
       await tester.pump();
-      // Tur bitmeden geçilmez: işaret yarıda kesilmez.
       expect(finished, isFalse);
-      // Turun kalanı + tam işaretin gösterildiği an.
-      await tester.pump(const Duration(milliseconds: 700));
+      // Süpürme sonuna kadar oynar (yarıda kesilmez), sessizlik
+      // atlanır ve final çizim başlar.
+      await tester.pump(BootSplash.sweepDuration);
+      await tester.pump(const Duration(milliseconds: 16));
+      // Final çizim tam kuyrukla (baştan sona) çizer.
+      final finishing =
+          tester.widget<FormalityMark>(find.byType(FormalityMark));
+      expect(finishing.trail, 1.0);
+      // +32ms pay: kare zamanlaması tik başlangıcını bir kare
+      // kaydırabilir; pay olmazsa çizim "tam bitmemiş" sayılır.
+      await tester.pump(BootSplash.drawDuration + const Duration(milliseconds: 32));
       await tester.pump(BootSplash.holdDuration);
       await tester.pump(const Duration(milliseconds: 50));
       expect(finished, isTrue);

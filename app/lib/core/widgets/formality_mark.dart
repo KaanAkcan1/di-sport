@@ -15,6 +15,7 @@ class FormalityMark extends StatelessWidget {
     this.progress = 1.0,
     this.size = 120,
     this.color = brandGreen,
+    this.trail = 1.0,
   });
 
   /// Çizimin tamamlanma oranı: 0 = boş, 1 = işaret tamam.
@@ -22,6 +23,13 @@ class FormalityMark extends StatelessWidget {
   /// Yol tek parça olduğu için animasyon doğal biter: son çizilen
   /// bölüm onay işaretini tamamlayan uzun yükseliştir.
   final double progress;
+
+  /// Görünen kuyruğun uzunluğu, yol uzunluğunun oranı olarak.
+  ///
+  /// 1.0 = baştan itibaren her şey görünür (çizim animasyonu).
+  /// Küçük değerler EKG süpürmesi verir: hat boyunca akan, arkası
+  /// silinen bir vuruş. Açılış döngüsü bunu kullanır.
+  final double trail;
 
   /// İşaretin genişliği; yükseklik orandan türetilir.
   final double size;
@@ -39,16 +47,25 @@ class FormalityMark extends StatelessWidget {
     // 460'lık ızgarada içerik kutusu 306x194: yükseklik oranı korunur.
     return CustomPaint(
       size: Size(size, size * _MarkPainter.contentHeight / _MarkPainter.contentWidth),
-      painter: _MarkPainter(progress: progress.clamp(0.0, 1.0), color: color),
+      painter: _MarkPainter(
+        progress: progress.clamp(0.0, 1.0),
+        color: color,
+        trail: trail.clamp(0.0, 1.0),
+      ),
     );
   }
 }
 
 class _MarkPainter extends CustomPainter {
-  const _MarkPainter({required this.progress, required this.color});
+  const _MarkPainter({
+    required this.progress,
+    required this.color,
+    required this.trail,
+  });
 
   final double progress;
   final Color color;
+  final double trail;
 
   /// V2a geometrisi, 460'lık marka ızgarasında.
   static const points = <Offset>[
@@ -78,9 +95,13 @@ class _MarkPainter extends CustomPainter {
     }
 
     // İlerleme, yol uzunluğu üzerinden kesilir: çizgi gerçekten
-    // "çiziliyor" hissi verir, parça parça belirmez.
+    // "çiziliyor" hissi verir, parça parça belirmez. Kuyruk 1'den
+    // kısaysa vuruşun arkası silinir (EKG süpürmesi).
     final metric = path.computeMetrics().first;
-    final visible = metric.extractPath(0, metric.length * progress);
+    final head = metric.length * progress;
+    final tailStart = trail >= 1 ? 0.0 : (head - metric.length * trail);
+    if (head - tailStart <= 0) return;
+    final visible = metric.extractPath(tailStart < 0 ? 0 : tailStart, head);
 
     final paint = Paint()
       ..color = color
@@ -93,7 +114,9 @@ class _MarkPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_MarkPainter oldDelegate) =>
-      oldDelegate.progress != progress || oldDelegate.color != color;
+      oldDelegate.progress != progress ||
+      oldDelegate.color != color ||
+      oldDelegate.trail != trail;
 }
 
 /// İşareti kendi kendine çizen sürüm — açılış ve yükleme durumları için.

@@ -6,16 +6,19 @@ import 'package:flutter/material.dart';
 /// Açılış ekranı: tohumlama sürerken gösterilen marka animasyonu.
 ///
 /// Davranış sözleşmesi:
-/// - İşaret kendini çizer; iş bitmediyse kısa bir nefesle **baştan**
-///   çizmeye devam eder (yükleniyor hissi).
-/// - [ready] tamamlandığında araya sabit bekleme girmez: o anki tur
-///   sonuna kadar götürülür, işaret tam hâlde bir an durur ve
-///   [onFinished] çağrılır. En kötü durumda fazladan ~1 tur beklenir.
+/// - Bekleme sırasında işaret bir EKG monitörü gibi yaşar: kuyruğu
+///   silinen bir vuruş hat boyunca akar, uçtan çıkar, kısa bir
+///   sessizlikten sonra yeniden gelir (kalp atışı ritmi).
+/// - [ready] tamamlandığında araya sabit bekleme girmez: o anki
+///   süpürme biter bitmez **final çizim** oynar — çizgi sıfırdan
+///   sonuna çizilir, onay işareti tamamlanır, bir an durur ve
+///   [onFinished] çağrılır. Bitti gitti.
 /// - "Hareketi azalt" açıksa animasyon yok: işaret tam çizili durur,
 ///   [ready] biter bitmez geçilir.
 ///
-/// Yerel splash (launch_background.xml) ile aynı sahneyi kurar — zemin
-/// ve işaret aynı yerde durur, geçiş kesintisiz görünür. Renkler
+/// Yerel splash (launch_background.xml) yalnız zemin rengidir — sabit
+/// işaret bilerek yok: kullanıcının gördüğü ilk işaret animasyonun
+/// kendisi olmalı, yoksa "resim hazır geldi" hissi doğuyor. Renkler
 /// temadan gelmez: tema bu aşamada henüz kurulmadı ve logo renkleri
 /// marka sabitidir (bkz. FormalityMark).
 class BootSplash extends StatefulWidget {
@@ -32,28 +35,36 @@ class BootSplash extends StatefulWidget {
   /// bekleyip devralır.
   final VoidCallback onFinished;
 
-  /// Bir çizim turunun süresi.
+  /// Bir EKG süpürmesinin süresi (vuruşun hattı kat edişi).
+  static const sweepDuration = Duration(milliseconds: 850);
+
+  /// Süpürmeler arasındaki sessizlik — kalp atışının "lup-dup" arası.
+  static const restDuration = Duration(milliseconds: 400);
+
+  /// Final çizimin süresi (sıfırdan tam onay işaretine).
   static const drawDuration = Duration(milliseconds: 1100);
 
   /// Tam işaretin, geçiş öncesi ekranda kaldığı kısa an.
   static const holdDuration = Duration(milliseconds: 180);
 
-  /// Turlar arasındaki nefes payı (işaret tam, henüz silinmedi).
-  static const restDuration = Duration(milliseconds: 350);
+  /// Süpürme kuyruğunun uzunluğu (yol oranı).
+  static const sweepTrail = 0.45;
 
   @override
   State<BootSplash> createState() => _BootSplashState();
 }
 
+enum _Phase { sweeping, finishing }
+
 class _BootSplashState extends State<BootSplash>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    vsync: this,
-    duration: BootSplash.drawDuration,
-  );
+  late final AnimationController _controller =
+      AnimationController(vsync: this);
+  var _phase = _Phase.sweeping;
   var _ready = false;
   var _finished = false;
   var _reducedMotion = false;
+  var _started = false;
 
   @override
   void initState() {
@@ -61,29 +72,35 @@ class _BootSplashState extends State<BootSplash>
     widget.ready.whenComplete(() {
       if (!mounted) return;
       _ready = true;
-      // Animasyon kapalıysa tur beklenecek bir şey yok: hemen geç.
+      // Animasyon kapalıysa beklenecek tur yok: hemen geç. Değilse
+      // döngü, süren süpürmenin sonunda final çizime geçer.
       if (_reducedMotion) _finish();
-      // Değilse mevcut tur status dinleyicisinde tamamlanınca geçilir.
     });
-    _controller.addStatusListener((status) async {
-      // Hareketi azalt açıkken döngü yok: geçiş whenComplete'te.
-      if (_reducedMotion) return;
-      if (status != AnimationStatus.completed || _finished) return;
-      if (_ready) {
-        // Tur tamam ve iş bitti: tam işareti bir an göster, geç.
-        await Future<void>.delayed(BootSplash.holdDuration);
-        _finish();
-      } else {
-        // İş sürüyor: kısa nefes, baştan çiz.
-        await Future<void>.delayed(BootSplash.restDuration);
-        if (!mounted || _finished) return;
+  }
+
+  /// Animasyon akışı, durum dinleyicisi yerine düz bir döngü:
+  /// süpürme → sessizlik → (iş bittiyse) final çizim → an → geçiş.
+  Future<void> _run() async {
+    try {
+      while (mounted && !_finished) {
         if (_ready) {
+          setState(() => _phase = _Phase.finishing);
+          _controller.duration = BootSplash.drawDuration;
+          await _controller.forward(from: 0).orCancel;
+          await Future<void>.delayed(BootSplash.holdDuration);
           _finish();
-        } else {
-          _controller.forward(from: 0);
+          return;
+        }
+        _controller.duration = BootSplash.sweepDuration;
+        await _controller.forward(from: 0).orCancel;
+        // İş bittiyse sessizlik atlanır: final çizime hemen geçilir.
+        if (!_ready) {
+          await Future<void>.delayed(BootSplash.restDuration);
         }
       }
-    });
+    } on TickerCanceled {
+      // Widget söküldü; yapılacak bir şey yok.
+    }
   }
 
   void _finish() {
@@ -97,10 +114,13 @@ class _BootSplashState extends State<BootSplash>
     super.didChangeDependencies();
     _reducedMotion = MediaQuery.disableAnimationsOf(context);
     if (_reducedMotion) {
+      _controller.stop();
       _controller.value = 1;
+      _phase = _Phase.finishing;
       if (_ready) _finish();
-    } else if (!_controller.isAnimating && _controller.value == 0) {
-      _controller.forward();
+    } else if (!_started) {
+      _started = true;
+      _run();
     }
   }
 
@@ -120,10 +140,26 @@ class _BootSplashState extends State<BootSplash>
         child: Center(
           child: AnimatedBuilder(
             animation: _controller,
-            builder: (context, _) => FormalityMark(
-              progress: Curves.easeInOutCubic.transform(_controller.value),
-              size: 128,
-            ),
+            builder: (context, _) {
+              final v = _controller.value;
+              if (_phase == _Phase.finishing || _reducedMotion) {
+                return FormalityMark(
+                  progress: Curves.easeInOutCubic.transform(v),
+                  size: 128,
+                );
+              }
+              // Süpürme: vuruşun başı yolu 0→1 kat eder, kuyruk onu
+              // `sweepTrail` geriden izler ve uçtan tamamen çıkar.
+              const trail = BootSplash.sweepTrail;
+              final t = Curves.easeInOut.transform(v) * (1 + trail);
+              final head = t.clamp(0.0, 1.0);
+              final tailStart = (t - trail).clamp(0.0, 1.0);
+              return FormalityMark(
+                progress: head,
+                trail: head - tailStart,
+                size: 128,
+              );
+            },
           ),
         ),
       ),

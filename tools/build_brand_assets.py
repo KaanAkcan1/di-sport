@@ -5,7 +5,6 @@ Kaynak geometri tek yerde durur: V2a "nabız onayı" işareti, 460'lık
 
 - Android adaptif ikon katmanları (``mipmap-*/ic_launcher_foreground.png``)
 - Eski tip başlatıcı ikonları (``mipmap-*/ic_launcher.png``)
-- Yerel açılış ekranı işareti (``drawable-*/splash_mark.png``)
 - Play Store 512 ikonu ve pazarlama splash'i (``docs/brand/assets/``)
 
 Çıktı deterministtir: aynı betik aynı dosyaları üretir. İkon
@@ -91,9 +90,8 @@ def main() -> None:
               APP_RES, f"mipmap-{name}", "ic_launcher_foreground.png")
         _save(_launcher_icon(round(48 * mul)),
               APP_RES, f"mipmap-{name}", "ic_launcher.png")
-        # Açılış işareti: 160dp genişlik, layer-list içinde ortalanır.
-        _save(_mark_layer(round(160 * mul), round(160 * mul * 0.94)),
-              APP_RES, f"drawable-{name}", "splash_mark.png")
+        # Not: yerel açılışta sabit işaret bilerek yok — kullanıcının
+        # gördüğü ilk işaret Flutter'daki çizim animasyonu olmalı.
 
     # Mağaza ve pazarlama varlıkları.
     store = Image.new("RGB", (512 * SS, 512 * SS), DARK)

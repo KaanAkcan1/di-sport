@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Yerel açılış: Gece Grafiti zemini + ortada Formality işareti.
-     Flutter ilk karesini çizene dek görünür; sonrasını animasyonlu
-     BootSplash devralır (lib/app/boot_splash.dart). -->
+<!-- Yerel açılış: yalnız Gece Grafiti zemini. Sabit işaret bilerek
+     yok — kullanıcının gördüğü ilk işaret, Flutter kalkınca oynayan
+     çizim animasyonu olmalı (lib/app/boot_splash.dart). Sabit resim
+     "işaret hazır geldi" hissi veriyordu. -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/launch_background" />
-    <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@drawable/splash_mark" />
-    </item>
 </layer-list>
