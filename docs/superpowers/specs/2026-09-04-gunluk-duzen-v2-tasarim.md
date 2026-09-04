@@ -33,11 +33,21 @@ birebir aynı, göç gerekmez.
   saat/davranış/şablonun üçünü de geçersiz kılabilir (satır bütün
   olarak kazanır; alan bazında birleştirme yok — kullanıcıya
   anlatılamayan birleşme kuralı hata kaynağıdır).
+  **Tekillik anahtarı `(mealKind, weekday)` olur** — repository
+  `upsert`'i bugün yalnız `mealKind` ile arıyor, varsayılanı
+  düzenlerken varyasyonu ezmemesi için sorgu iki alana iner;
+  `MealBehaviorEntry` domain modeli `weekday` alanı kazanır.
 - **`fixedItemsJson` genelleşir → şablon içerik.** Ad değişmez (göç
   maliyeti), anlam genişler: her davranışta "bu öğünün varsayılan
   içeriği". Biçim aynı: `[{foodId, quantity, portionId?}]`.
-- Göç: `schemaVersion` 16→17, `onUpgrade`'e yeni `if (from < 17)`
-  bloğu (tablo + sütun ekleme; veri dönüştürme yok).
+- Göç: `schemaVersion` 17'ye çekilir, `onUpgrade`'e yeni
+  `if (from < 17)` bloğu (tablo + sütun; veri dönüştürme yok).
+  **Dikkat — mevcut kusur:** kodda `schemaVersion` hâlâ 15'te
+  kalmış, v16 bloğu (`if (from < 16)`) sahada hiç çalışmamış
+  durumda. Sürüm 17'ye çekildiğinde eski kurulumda v16 bloğu da ilk
+  kez çalışacak; bloklar `_addColumnIfAbsent` sayesinde idempotent
+  olduğundan bu güvenli, ama görev "sürümü düzelt + iki bloğun da
+  eski kurulumdan geçtiğini test et" adımını içermeli.
 
 ## 2. Çözücü (saf domain)
 
@@ -80,11 +90,23 @@ emülatörsüz cevaplanır.
 
 ## 4. Etkilenen sistemler
 
-- **Alarmlar:** `planWindow`'a tek `wakeTime` yerine gün→saat çözümü
-  taşınır: `MealTimeFact` ve tartı üretimi `weekday` farkındalı olur.
-  Pencere zaten 7 güni tek tek ürettiği için değişiklik üretim
-  döngüsünde saat seçiminden ibaret. Yasaklı pencere kuralları
-  değişmez.
+- **Alarmlar:** `planWindow` imzası gün farkındalı olur:
+  `wakeTime: String?` → `wakeTimeByWeekday: Map<int, String>`
+  (çözücü çıktısından), `MealTimeFact`'e `weekday` alanı eklenir.
+  **`skipMeals` bayrağı gün+öğün bazına iner:** bugün "herhangi bir
+  öğün saati tanımlıysa TÜM plan-slotu öğün alarmlarını sustur"
+  şeklinde küresel; gün bazlı saatlerde bu, yalnız pazar kahvaltısı
+  tanımlı kullanıcıda bütün haftayı susturur. Yeni kural: bir slot
+  ancak aynı **gün + öğün** için davranış saati varsa bastırılır.
+  Yasaklı pencere kuralları değişmez.
+- **`meal_behaviors` tüketicileri çözücüye taşınır:** `watchAll`
+  akışını düz `öğün→davranış` haritasına indiren iki tüketici var —
+  ai_bridge içe-alma uyarıları ve alarm toplayıcı. Varyasyon
+  satırları eklendiğinde bu haritalar hangi satırın kazanacağını
+  rastgele seçerdi. İkisi de çözücü çıktısına geçer; içe-alma amber
+  uyarılarının kuralı: **öğün herhangi bir günde `external`/`fixed`
+  ise uyarı tetiklenir** (muhafazakâr yorum — uyarı engellemez,
+  eksik uyarı ise sessiz hatadır).
 - **Diyet günlüğü (`day_meals_card`):** `mealBehaviorsProvider`
   yerine o günün çözülmüş öğün satırları kullanılır. "Şablondan
   kaydet" eylemi: şablon kalemleri `addResolvedItems` ile
@@ -103,7 +125,10 @@ emülatörsüz cevaplanır.
   (öğün → şablon/varyasyon, doz → takviye, antrenman → plan editörü;
   dokunma işaretlemeye ait — mevcut kural).
 - `plan_slots.remind` sütunu (nullable bool; null = tür varsayılanı):
-  slot başına alarm kapatma/açma. `planWindow` süzgecine girer.
+  slot başına alarm kapatma/açma. Yazma yolları: **AI içe alma daima
+  `null` yazar** (AI alarm kararı veremez), aşılamada korunan slotlar
+  değerini korur; kullanıcı toggle'ı slot düzenleyicide yaşar.
+  `SlotFact`'e `bool? remind` eklenir ve `planWindow` süzgecine girer.
 - Gün akışında geçmiş günlerde doz satırları loglardan gösterilir
   ("yalnız bugün" kısıtı kalkar; gelecek günlerde kural gösterimi,
   işaretleme alanı yok — düzenlenebilirlik kurallarıyla uyumlu).
